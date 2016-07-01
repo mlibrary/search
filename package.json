@@ -1,0 +1,20 @@
+{
+  "name": "search-beta",
+  "version": "0.0.0",
+  "description": "U-M Library Search",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify client.js -o bundle.js",
+    "watch": "watchify client.js -o bundle.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "redux": "^3.5.2"
+  }
+}
