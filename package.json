@@ -12,9 +12,12 @@
   "devDependencies": {
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "redux": "^3.5.2"
+    "redux": "^3.5.2",
+    "reqwest": "^2.0.5",
+    "underscore": "^1.8.3"
   }
 }

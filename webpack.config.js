@@ -9,6 +9,9 @@ module.exports = {
     path: __dirname + "/source/javascript",
     filename: "scripts.min.js"
   },
+  externals: {
+    "Pride": "./source/javascript/libraries/pride.js"
+  },
   module: {
     loaders: [
       {

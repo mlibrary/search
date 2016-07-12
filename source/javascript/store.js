@@ -1,7 +1,7 @@
 const { createStore } = require("redux")
 
 const reducer = function(state, action) {
-  return "foo"
+  return "fred"
 }
 
 const store = createStore(reducer, 0)
