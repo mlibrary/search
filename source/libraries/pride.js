@@ -1,6 +1,3 @@
-const _ = require("underscore")
-const reqwest = require("reqwest")
-
 // Copyright (c) 2015, Regents of the University of Michigan.
 // All rights reserved. See LICENSE.txt for details.
 
@@ -642,7 +639,6 @@ Pride.Util.Paginater = function(initial_values) {
     // Set and calculate values //
     //////////////////////////////
 
-    // We wait to set the new end value until after an exception can be thrown.
     _.extend(values, _.omit(new_values, 'end'));
 
     // If the page is being set, we have to update the start.
@@ -652,13 +648,16 @@ Pride.Util.Paginater = function(initial_values) {
 
     // If the end is being set, we calculate what start or count should now be.
     if (_.has(new_values, 'end')) {
-      // If we are also setting the count, calculate a new start.
       if (_.has(new_values, 'count')) {
-        values.start = Math.max(0, new_values.end - (values.count - 1));
+        // If we are also setting the count, calculate a new start.
+        values.start = Math.max(
+                         new_values.end,
+                         new_values.end - (values.count - 1)
+                       );
       // If we are not setting the count, calculate a new count.
       } else {
-        // Throw an error if the start now comes after the end,
-        // because that makes no sense at all.
+        // Throw an error if the start now comes after the end, because that
+        // makes no sense at all.
         if (values.start <= new_values.end) {
           values.count = (new_values.end - values.start) + 1;
         } else {
@@ -666,7 +665,7 @@ Pride.Util.Paginater = function(initial_values) {
         }
       }
 
-      // Now it is safe to set the end
+      // We wait to set the new end value until after an exception can be thrown.
       values.end = new_values.end;
     } else {
       // Calculate what the new end value should be.
@@ -1347,6 +1346,15 @@ Pride.Util.Section = function(start, end) {
              this.end   + end_amount
            );
   };
+
+  this.merge = function() {
+    arguments.push(this);
+
+    return new Pride.Util.Section(
+             _.min(arguments, function(section) { return section.start; }),
+             _.max(arguments, function(section) { return section.end;   })
+           );
+  };
 };
 
 // Copyright (c) 2015, Regents of the University of Michigan.
@@ -1428,7 +1436,7 @@ Pride.Util.isDeepMatch = function(object, pattern) {
     return false;
   }
 
-  if (both_arrays || both_objects) {
+  if (both_arrays && both_objects) {
     return _.every(pattern, function(value, key) {
              return Pride.Util.isDeepMatch(object[key], value);
            });
