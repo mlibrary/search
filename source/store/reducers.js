@@ -40,7 +40,7 @@ const datastores = (state = [], action) => {
   }
 }
 
-const searchApp = Redux.combineReducers({
+const datastoreReducers = Redux.combineReducers({
   datastores
 })
 

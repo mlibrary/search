@@ -56,7 +56,7 @@ const datastores = (state = [], action) => {
   }
 }
 
-const searchApp = Redux.combineReducers({
+const datastoreReducers = Redux.combineReducers({
   datastores
 })
 
@@ -139,8 +139,10 @@ testAddDatastore();
 testChangeActiveDatastore();
 console.log('All tests passed.')
 
-const store = Redux.createStore(searchApp)
+window.store = Redux.createStore(datastoreReducers)
 
 store.subscribe(function() {
   console.log('State changed!', store.getState())
 })
+
+console.log('store', store.getState())

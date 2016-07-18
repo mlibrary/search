@@ -7,6 +7,7 @@ var gulp   = require('gulp');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var browserSync = require('browser-sync').create();
+var concat = require('gulp-babel');
 
 // Process JavaScript files and return the stream
 gulp.task('pride', function () {
@@ -20,6 +21,10 @@ gulp.task('pride', function () {
     .pipe(gulp.dest('./'))
 });
 
+var browserified = transform(function(filename) {
+  var b = browserify(filename);
+  return b.bundle();
+});
 
 gulp.task('react', function() {
   return gulp.src([
@@ -28,6 +33,7 @@ gulp.task('react', function() {
   ])
   .pipe(concat('react.js'))
   .pipe(gulp.dest('./'))
+  .transform("babelify", {presets: ["es2015", "react"]})
 });
 
 gulp.task('store', function() {
@@ -38,6 +44,7 @@ gulp.task('store', function() {
   ])
   .pipe(concat('store.js'))
   .pipe(gulp.dest('./'))
+  .transform("babelify", {presets: ["es2015", "react"]})
 });
 
 gulp.task('javascript', ['pride', 'react', 'store'])

@@ -1,1 +1,0 @@
-var Provider = ReactRedux.Provider;
