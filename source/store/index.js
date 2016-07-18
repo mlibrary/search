@@ -1,7 +1,6 @@
-store = Redux.createStore(datastoreReducers)
+import { combineReducers } from 'redux'
+import { datastores } from './reducers.js'
 
-store.subscribe(function() {
-  console.log('State changed!', store.getState())
+export const datastoreReducers = combineReducers({
+  datastores
 })
-
-console.log('store', store.getState())

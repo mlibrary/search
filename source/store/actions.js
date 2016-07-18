@@ -1,15 +1,7 @@
-/*
- *  Action Types
- */
+export const ADD_DATASTORE = 'ADD_DATASTORE'
+export const TOGGLE_ACTIVE = 'TOGGLE_ACTIVE'
+export const CHANGE_ACTIVE_DATASTORE = 'CHANGE_ACTIVE_DATASTORE'
 
-const ADD_DATASTORE = 'ADD_DATASTORE'
-const TOGGLE_ACTIVE = 'TOGGLE_ACTIVE'
-const CHANGE_ACTIVE_DATASTORE = 'CHANGE_ACTIVE_DATASTORE'
-
-function addDatastore(payload) {
+export function addDatastore(payload) {
   return { type: ADD_DATASTORE, payload}
-}
-
-function fetchDatastores() {
-  return []
 }

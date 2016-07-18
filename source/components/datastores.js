@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
+import React from 'react'
 
-class SearchApp extends React.Component {
+export class Datastores extends React.Component {
   render() {
     return (
       <div>
@@ -16,15 +16,3 @@ class SearchApp extends React.Component {
     )
   }
 }
-
-const render = () => {
-  ReactDOM.render(
-    <SearchApp
-      datastores = {store.getState().datastores}
-    />,
-    document.getElementById('app')
-  )
-}
-
-store.subscribe(render)
-render()

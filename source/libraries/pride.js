@@ -3,7 +3,11 @@
 
 // Authored by Colin Fulton (fultonis@umich.edu)
 
-Pride      = {};
+import { _ } from 'underscore'
+
+var reqwest = require('reqwest')
+
+export var Pride = {};
 Pride.Util = {};
 Pride.Core = {};
 
@@ -1367,7 +1371,7 @@ Pride.Util.deepClone = function(original) {
   if (_.isFunction(original)) {
     return original;
   } else {
-    collection_function = false;
+    var collection_function = false;
 
     if (_.isArray(original)) {
       collection_function = 'map';
