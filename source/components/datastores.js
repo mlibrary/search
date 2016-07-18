@@ -1,4 +1,6 @@
 import React from 'react'
+import { setDatastore } from '../store/actions.js'
+import { store } from '../store/index.js'
 
 export class Datastores extends React.Component {
   render() {
@@ -7,7 +9,11 @@ export class Datastores extends React.Component {
         <h2>Datastore List</h2>
           <ul>
           {this.props.datastores.map(ds =>
-            <li key={ds.uid}>
+            <li key={ds.uid}
+              onClick={()=> {
+                store.dispatch(setDatastore(ds.uid))
+              }}
+              className={ ds.active ? 'active' : '' }>
               {ds.name}
             </li>
           )}

@@ -1,4 +1,3 @@
-import { createStore } from 'redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -6,10 +5,11 @@ import { Pride } from './source/libraries/pride.js'
 import { _ } from 'underscore'
 
 import { addDatastore } from './source/store/actions.js'
-import { datastoreReducers } from './source/store/index.js'
 import { Datastores } from './source/components/Datastores.js'
 
-let store = createStore(datastoreReducers)
+import { store } from './source/store/index.js'
+
+//import tests from './source/tests.js'
 
 Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
 Pride.Settings.connection_attempts = 2;

@@ -1,17 +1,17 @@
-import { ADD_DATASTORE, CHANGE_ACTIVE_DATASTORE } from './actions.js'
+import { ADD_DATASTORE, SET_ACTIVE } from './actions.js'
 
 export const datastore = (state = [], action) => {
   switch (action.type) {
     case ADD_DATASTORE:
       return {
-          uid: action.payload.uid,
-          name: action.payload.name,
-          short_desc: action.payload.short_desc,
-          active: false
-        }
-    case CHANGE_ACTIVE_DATASTORE:
+        uid: action.payload.uid,
+        name: action.payload.name,
+        short_desc: action.payload.short_desc,
+        active: false
+      }
+    case SET_ACTIVE:
       return Object.assign({}, state, {
-        active: true
+        active: action.isActive
       })
     default:
       return state
@@ -25,13 +25,13 @@ export const datastores = (state = [], action) => {
         ...state,
         datastore(undefined, action)
       ]
-    case CHANGE_ACTIVE_DATASTORE:
+    case SET_ACTIVE:
       return state.map(ds => {
-        if (ds.uid !== action.uid) {
-          return ds
+        if (ds.uid !== action.payload) {
+          return datastore(ds, false)
         }
 
-        return datastore(ds, action)
+        return ds
       })
     default:
       return state

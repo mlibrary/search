@@ -4,7 +4,6 @@
 // Authored by Colin Fulton (fultonis@umich.edu)
 
 import { _ } from 'underscore'
-
 var reqwest = require('reqwest')
 
 export var Pride = {};

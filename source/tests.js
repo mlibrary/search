@@ -2,6 +2,12 @@
  *  Tests
  */
 
+import { ADD_DATASTORE, CHANGE_ACTIVE_DATASTORE, TOGGLE_DATASTORE, ACTIVATE, DEACTIVE } from './store/actions.js'
+import { datastores } from './store/reducers.js'
+
+import expect from 'expect'
+import deepFreeze from 'deep-freeze'
+
 const testAddDatastore = () => {
   const stateBefore = []
   const action = {
@@ -32,12 +38,6 @@ const testAddDatastore = () => {
 const testChangeActiveDatastore = () => {
   const stateBefore = [
     {
-      uid: 'datastore-foo',
-      name: 'Datastore Foo',
-      short_desc: 'Foo and pilots found here',
-      active: false
-    },
-    {
       uid: 'another',
       name: 'Another',
       short_desc: 'This is another test',
@@ -45,12 +45,6 @@ const testChangeActiveDatastore = () => {
     }
   ]
   const stateAfter = [
-    {
-      uid: 'datastore-foo',
-      name: 'Datastore Foo',
-      short_desc: 'Foo and pilots found here',
-      active: false
-    },
     {
       uid: 'another',
       name: 'Another',
