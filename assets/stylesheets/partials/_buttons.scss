@@ -1,0 +1,55 @@
+.button {
+  display: inline-block;
+  margin: 0;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-top: 0.65rem;
+  padding-bottom: 0.55rem;
+  background: $main-3;
+  color: #fff;
+  font-size: $font-size-base;
+  border: none;
+  border-radius: 4px;
+  border-bottom: 3px solid $main-2;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button:active {
+  color: $grey-6;
+  background: $main-2;
+  border-color: $main-1;
+  border-bottom-width: 1px;
+  margin-top: 2px;
+}
+
+.button:active,
+.button:hover {
+  text-decoration: none;
+}
+
+.button-disabled:hover,
+.button-disabled:active {
+  cursor: not-allowed;
+}
+
+.button-light {
+  background: $grey-5;
+  color: $grey-2;
+  border-color: $grey-4;
+}
+
+.button-light:active {
+  background: $grey-4;
+  color: $grey-2;
+  border-color: $grey-5;
+}
+
+.button-radio {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: solid 2px $grey-4;
+  background: $grey-6;
+  border-radius: 4px;
+  cursor: pointer;
+}

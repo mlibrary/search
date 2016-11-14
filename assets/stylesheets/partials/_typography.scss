@@ -1,0 +1,170 @@
+/*
+  Site
+*/
+
+body {
+  line-height: 1.7;
+  font-size: $font-size-base;
+  font-family: $font-family-1;
+  color: $grey-1;
+}
+
+/*
+  Headings
+*/
+
+h1 {
+  font-size: 2.75rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h1, h2 {
+  font-weight: $font-weight-bold;
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h3, h4 {
+  font-weight: $font-weight-regular;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+h6 {
+  font-size: 1.25rem;
+}
+
+h5, h6 {
+  font-weight: $font-weight-light;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 1rem 0;
+}
+
+
+/*
+  Typography and Elements
+*/
+
+// Paragraphs
+
+p {
+  margin: 1rem 0;
+}
+
+// Links
+a {
+  color: $main-3;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.underline {
+  border-bottom: solid 1px $main-3;
+}
+
+// Selection
+
+*::selection {
+  background: $main-4;
+}
+
+// Lists
+
+ol, ul {
+  margin-left: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+ol {
+  list-style: decimal;
+}
+
+ul {
+  list-style: disc;
+}
+
+li {
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+// Definition lists
+
+dl {
+  margin: 0;
+  clear: left;
+}
+
+dt {
+  font-weight: bold;
+  float: left;
+  clear: left;
+  padding-right: 0.3rem;
+}
+
+dd {
+  margin: 0;
+  padding: 0;
+  min-height: 1.5rem;
+}
+
+// Table
+
+table {
+  width: 100%;
+  border: solid 1px $grey-5;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+thead {
+  background: $grey-6;
+  border-bottom: solid 2px $grey-5;
+}
+
+td, th {
+  padding: 0.75rem 1rem;
+}
+
+th {
+  text-align: left;
+  color: $grey-3;
+}
+
+.table-compact {
+  table {
+    border: none;
+  }
+
+  td, th {
+    padding: 0.25rem 0.5rem;
+    font-size: 90%;
+  }
+}
+
+// blockquote
+
+blockquote {
+  font-family: $font-family-2;
+  font-size: 1.5rem;
+  padding-left: 1.5rem;
+  border-left: solid 0.5rem $main-3;
+  margin: 2rem 0;
+  color: $main-3;
+  font-style: italic;
+}

@@ -1,0 +1,50 @@
+{
+  "datastores": {
+    "naming": [
+      {
+        "uid": "mirlyn",
+        "name": "Catalog"
+      },
+      {
+        "uid": "articlesplus",
+        "name": "Articles"
+      },
+      {
+        "uid": "databases",
+        "name": "Databases"
+      },
+      {
+        "uid": "journals",
+        "name": "Journals"
+      },
+      {
+        "uid": "website",
+        "name": "Website"
+      },
+      {
+        "uid": "website",
+        "name": "Website"
+      }
+    ],
+    "multi_source": [
+      {
+        "uid": "quick-search",
+        "name": "Quick Search",
+        "datastores": [
+          "mirlyn",
+          "articlesplus",
+          "journals",
+          "databases"
+        ]
+      }
+    ],
+    "ordering": [
+      "quick-search",
+      "mirlyn",
+      "articlesplus",
+      "journals",
+      "databases"
+    ],
+    "default": "mirlyn"
+  }
+}

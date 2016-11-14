@@ -1,0 +1,37 @@
+.filter-title {
+  font-weight: 600;
+}
+
+.filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+    padding: 0;
+
+    a {
+      display: inline-block;
+    }
+  }
+
+  margin-bottom: 2rem;
+}
+
+.num {
+  color: $grey-2;
+  font-size: 80%;
+
+  &:before {
+    content: '(';
+  }
+
+  &:after {
+    content: ')';
+  }
+}
+
+.light-heading {
+  font-size: 1.2rem;
+}

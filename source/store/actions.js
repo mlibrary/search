@@ -1,10 +1,10 @@
 export const ADD_DATASTORE = 'ADD_DATASTORE'
-export const SET_ACTIVE = 'SET_ACTIVE'
+export const CHANGE_ACTIVE_DATASTORE = 'CHANGE_ACTIVE_DATASTORE'
 
 export function addDatastore(payload) {
   return { type: ADD_DATASTORE, payload}
 }
 
-export function setDatastore(payload) {
-  return { type: SET_ACTIVE, payload }
+export function changeActiveDatastore(payload) {
+  return { type: CHANGE_ACTIVE_DATASTORE, payload }
 }

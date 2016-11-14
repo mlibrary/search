@@ -1,0 +1,57 @@
+.site-header {
+  background: $main-1;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.site-brand,
+.site-brand:hover {
+  box-shadow: none !important;
+  background: none !important;
+
+  img {
+    width: 15rem;
+  }
+}
+
+.site-heading {
+  font-size: 2rem;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.site-subheading {
+  display: inline;
+  color: $grey-2;
+}
+
+@media (max-width: 32rem) {
+  .site-heading,
+  .site-subheading {
+    display: block;
+  }
+
+  .site-heading {
+    margin-bottom: 0;
+  }
+
+  .site-subheading {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+.site-brand-mlibrary-logo,
+.site-brand-umich-block-m-logo {
+  display: inline-block;
+  height: 2.2rem;
+
+  img {
+    height: 100%;
+    width: auto;
+  }
+}
+
+.site-brand-umich-block-m-logo {
+  margin-right: 0.4rem;
+}

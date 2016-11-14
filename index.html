@@ -1,17 +1,40 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Search</title>
+    <title>Search UI</title>
 
-    <style>
-      .active {
-        background: grey;
-        color: white;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#00274C">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css' />
+    <link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
   </head>
+
   <body>
+    <header>
+      <div class="site-header">
+        <div class="container-fluid">
+          <a href="http://umich.edu" class="site-brand-umich-block-m-logo focus-outline-white">
+            <img src="assets/images/umich_block_m.png" alt="Go to the University of Michigan homepage">
+          </a><a href="http://lib.umich.edu" class="site-brand-mlibrary-logo focus-outline-white">
+            <img src="assets/images/mlibrary_logo.png" alt="Go to the University of Michigan Library homepage">
+          </a>
+          <nav class="navigation right">
+            <ul class="navigation-list">
+              <li>
+                <a href="http://github.com/mlibrary/falafel/" class="white-text">Search</a>
+              </li>
+              <li>
+                <a href="" class="white-text">Log In</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </header>
+
     <div id="app">The Worst Search</div>
 
     <!-- Scripts -->

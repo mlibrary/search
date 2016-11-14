@@ -1,0 +1,32 @@
+.alert {
+  margin: 2rem 0;
+  padding: 1rem;
+
+  border: solid 2px $grey-5;
+  background: $grey-6;
+  border-radius: 4px;
+}
+
+.alert-success {
+  background: $green-3;
+  border-color: $green-2;
+}
+
+.alert-info {
+  background: $teal-3;
+  border-color: $teal-2;
+}
+
+.alert-warning {
+  background: $orange-3;
+  border-color: $orange-2;
+}
+
+.alert-danger {
+  background: $red-3;
+  border-color: $red-2;
+}
+
+.alert *:first-child {
+  margin: 0;
+}
