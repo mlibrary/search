@@ -1,5 +1,4 @@
 import React from 'react'
-import { changeActiveDatastore } from '../store/actions.js'
 import { store } from '../store/index.js'
 
 export class Datastores extends React.Component {
@@ -23,3 +22,36 @@ export class Datastores extends React.Component {
     )
   }
 }
+
+const DatastoreListItem = ({
+  onClick,
+  isActive,
+  name
+}) => (
+  <li
+    onClick={onClick}
+    className={ isActive ? 'active' : '' }>
+    {name}
+  </li>
+)
+
+export const DatastoreList = ({
+  datastores,
+  activeDatastore,
+  onDatastoreClick
+}) => (
+  <div className="datastore-list-container">
+    <div className="container-narrow container">
+      <ul className="datastore-list">
+        {datastores.map(datastore =>
+          <DatastoreListItem
+            key={datastore.uid}
+            name={datastore.name}
+            isActive={activeDatastore == datastore.uid}
+            onClick={() => onDatastoreClick(datastore.uid)}
+          />
+        )}
+      </ul>
+    </div>
+  </div>
+)

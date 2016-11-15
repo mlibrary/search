@@ -2,6 +2,8 @@ import { ADD_DATASTORE, CHANGE_ACTIVE_DATASTORE } from './actions.js'
 import { combineReducers } from 'redux'
 import { _ } from 'underscore'
 
+import { Pride } from '../libraries/pride.js'
+
 const datastore = (state, action) => {
   switch (action.type) {
     case ADD_DATASTORE:

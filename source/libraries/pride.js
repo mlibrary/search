@@ -134,7 +134,7 @@ Pride.Core.Datastore = function(datastore_info) {
   var fillFieldTree = function(given_tree) {
     given_tree = given_tree || new Pride.FieldTree.FieldBoolean('AND');
 
-    output = _.reduce(
+    var output = _.reduce(
                datastore_info.fields,
                function(tree, field) {
                  if ((field.required || field.fixed) &&
@@ -260,7 +260,7 @@ Pride.Core.DatastoreSearch = function(setup) {
 // Authored by Colin Fulton (fultonis@umich.edu)
 
 Pride.Core.FacetSearch = function(setup) {
-  example_facet = this;
+  var example_facet = this;
   var data    = setup.data;
   var results = setup.results;
 
@@ -1187,7 +1187,7 @@ Pride.Core.SearchBase = function(setup, parent) {
 
                    this.notify = function() {
                      if (!self.muted || never_mute) {
-                       data = data_func();
+                       var data = data_func();
                        self.log('NOTIFY (' + name + ')', data);
 
                        call_observers('observers', data);
@@ -1253,6 +1253,8 @@ Pride.Core.SearchBase = function(setup, parent) {
 Pride.Util.SearchSwitcher = function(current_search, cached_searches) {
   var self         = this;
   var search_cache = new Pride.Util.MultiSearch(null, true, cached_searches);
+
+  console.log(current_search)
 
   current_search.set({ page: 1 }).setMute(false);
   search_cache.set({ page: 1 });

@@ -27,17 +27,47 @@ function initPride() {
 initPride();
 
 function loadPride() {
-  var pride_datastores = Pride.AllDatastores.array
+  var pride_datastores = Pride.AllDatastores
+  var pride_datastores_array = pride_datastores.array
+  var pride_search_objects = [];
+
   var config = require("json!./source/config.json")
 
-  var datastores = configureDatastores(pride_datastores, config)
+  var datastores = configureDatastores(pride_datastores_array, config)
 
+  // Add datastores to store
   _.each(datastores, (datastore) => {
     store.dispatch(addDatastore({
       uid: datastore.uid,
       name: datastore.name
     }))
+
+    var pride_search_object = pride_datastores.newSearch(datastore.uid)
+
+    pride_search_object.resultsObservers.add(function(records) {
+      console.log('resultsObservers ', records)
+    })
+
+    pride_search_object.setDataObservers.add(function(data) {
+      console.log('setDataObservers ', data)
+    })
+
+    pride_search_object.runDataObservers.add(function(data) {
+      console.log('runDataObservers ', data)
+    })
+
+    pride_search_object.set({count: 10})
+
+    pride_search_objects.push(pride_search_object)
   })
+
+  var pride_search_switcher = new Pride.Util.SearchSwitcher(
+      pride_search_objects[0],
+      pride_search_objects.slice(1)
+    )
+
+  pride_search_switcher.switchTo(config.datastores.default)
+
 }
 
 function configureDatastores(pride_datastores, config) {
@@ -88,7 +118,9 @@ store.subscribe(() => {
 
 const renderApp = () => {
   ReactDOM.render(
-    <App/>,
+    <App
+      state={Object.assign({}, store.getState())}
+    />,
     document.getElementById('app')
   )
 }
