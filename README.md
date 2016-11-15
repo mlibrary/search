@@ -8,7 +8,7 @@ A work in progress single page app for new search. This repository contains the 
 
 ## Getting Started
 
-###1. Clone Falafel
+###1. Clone Search
 ```sh
 $ git clone https://github.com/mlibrary/search.git
 ```
