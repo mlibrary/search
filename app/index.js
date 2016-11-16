@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { Pride } from './source/libraries/pride.js'
+import { Pride } from './libraries/pride.js'
 import { _ } from 'underscore'
-import { App } from './source/components/App.js'
-import { addDatastore } from './source/store/actions.js'
-import { changeActiveDatastore } from './source/store/actions.js'
-import { store } from './source/store/index.js'
+import { App } from './components/App.js'
+import { addDatastore } from './store/actions.js'
+import { changeActiveDatastore } from './store/actions.js'
+import { store } from './store/index.js'
 
 Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
 Pride.Settings.connection_attempts = 2;
@@ -31,7 +31,7 @@ function loadPride() {
   var pride_datastores_array = pride_datastores.array
   var pride_search_objects = [];
 
-  var config = require("json!./source/config.json")
+  var config = require("json!./config.json")
 
   var datastores = configureDatastores(pride_datastores_array, config)
 

@@ -6,7 +6,7 @@ import { store } from '../store/index.js'
 
 import { changeActiveDatastore } from '../store/actions.js'
 
-require("../../assets/stylesheets/main.scss")
+require("../assets/stylesheets/main.scss")
 
 export class App extends React.Component {
   render() {

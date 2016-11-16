@@ -1,7 +1,13 @@
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
+  template: __dirname + '/app/index.html',
+  filename: 'index.html'
+});
 
 module.exports = {
-  entry: './index',
+  entry: './app/index.js',
   devServer: {
     inline: true,
     port: 5000
@@ -11,8 +17,8 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
         loader: 'babel',
+        include: __dirname + '/app',
         query: {
           presets: ['es2015', 'react']
         }
@@ -24,7 +30,8 @@ module.exports = {
     ]
   },
   output: {
-    path: './',
-    filename: 'bundled.js'
-  }
+    filename: 'bundled.js',
+    path: __dirname + '/build'
+  },
+  plugins: [HTMLWebpackPluginConfig]
 }
