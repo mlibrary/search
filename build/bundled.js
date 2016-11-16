@@ -60,9 +60,9 @@
 	
 	var _App = __webpack_require__(176);
 	
-	var _actions = __webpack_require__(181);
+	var _actions = __webpack_require__(184);
 	
-	var _index = __webpack_require__(179);
+	var _index = __webpack_require__(182);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -89,7 +89,7 @@
 	  var pride_datastores_array = pride_datastores.array;
 	  var pride_search_objects = [];
 	
-	  var config = __webpack_require__(199);
+	  var config = __webpack_require__(202);
 	
 	  var datastores = configureDatastores(pride_datastores_array, config);
 	
@@ -24995,13 +24995,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _SearchBox = __webpack_require__(177);
+	var _Header = __webpack_require__(177);
 	
-	var _Datastores = __webpack_require__(178);
+	var _SearchBox = __webpack_require__(180);
 	
-	var _index = __webpack_require__(179);
+	var _Datastores = __webpack_require__(181);
 	
-	var _actions = __webpack_require__(181);
+	var _index = __webpack_require__(182);
+	
+	var _actions = __webpack_require__(184);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25011,7 +25013,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	__webpack_require__(195);
+	__webpack_require__(198);
 	
 	var App = exports.App = function (_React$Component) {
 	  _inherits(App, _React$Component);
@@ -25032,6 +25034,7 @@
 	      return _react2.default.createElement(
 	        'main',
 	        null,
+	        _react2.default.createElement(_Header.Header, null),
 	        _react2.default.createElement(_SearchBox.SearchBox, null),
 	        _react2.default.createElement(_Datastores.DatastoreList, {
 	          datastores: datastores,
@@ -25049,6 +25052,110 @@
 
 /***/ },
 /* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Header = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Header = exports.Header = function (_React$Component) {
+	  _inherits(Header, _React$Component);
+	
+	  function Header() {
+	    _classCallCheck(this, Header);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+	  }
+	
+	  _createClass(Header, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "header",
+	        null,
+	        _react2.default.createElement(
+	          "div",
+	          { className: "site-header" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container-fluid" },
+	            _react2.default.createElement(
+	              "a",
+	              { href: "http://umich.edu", className: "site-brand-umich-block-m-logo focus-outline-white" },
+	              _react2.default.createElement("img", { src: __webpack_require__(178), alt: "Go to the University of Michigan homepage" })
+	            ),
+	            _react2.default.createElement(
+	              "a",
+	              { href: "http://lib.umich.edu", className: "site-brand-mlibrary-logo focus-outline-white" },
+	              _react2.default.createElement("img", { src: __webpack_require__(179), alt: "Go to the University of Michigan Library homepage" })
+	            ),
+	            _react2.default.createElement(
+	              "nav",
+	              { className: "navigation right" },
+	              _react2.default.createElement(
+	                "ul",
+	                { className: "navigation-list" },
+	                _react2.default.createElement(
+	                  "li",
+	                  null,
+	                  _react2.default.createElement(
+	                    "a",
+	                    { href: "http://github.com/mlibrary/falafel/", className: "white-text" },
+	                    "Search"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "li",
+	                  null,
+	                  _react2.default.createElement(
+	                    "a",
+	                    { href: "", className: "white-text" },
+	                    "Log In"
+	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement("div", { className: "clearfix" })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Header;
+	}(_react2.default.Component);
+
+/***/ },
+/* 178 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHsAAABYCAYAAADV/4jnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA8dJREFUeNrsnd9x2kAQxg+PJ8+UQDqACqJ0ICoIdKBUAFQgOog6MB2EDkwJpAM/8+LcOSsPhH+SkGC/ve+b0fDgGY+0P+99t7sn3Ht//TJxzv1wujTtjXZbBywf17n/+Kbpnp79NfBXoixWL/4aAYNO/cdM2309KY3X0AcsBwUdkueXxnt7Uhy3zAcuAeQdQPcJu8Fy7oH3gbJ6rtASYWD3xb8RQA81+jQS7KDEBzJTDhrijxIBdlAumaPZpweE3WJANfq39ClShAAiwQ6ZnSsDre6erMAOmkjDgmVWBLDL5XygIKtzWW0cYRsux6TZk6EFDhH2h39LA4NlVgSwg2YPaqe+IPm0Fdh3L8ekuZOgBgsd9sDdacKEVmZZhB2Udt1ORfZpa7BL/+6yDModQDs0Ftj9rvxbmjgTC0GyAvujHHMtjxg1nzqJHXZQ1nI7FbbMigF2a+WYNG2GlgJjEfbNO2dp1sysBcYi7KCkaTvVSpl1Sr0aQXgHfL5Rb7Tb1IQdQKdgz7nwzzmPNbM/N1h1/FuaM6nVYFiHXbl0QjgdStjXlco5sWs+DXXqhLDPK79yumVmrcyKGfbZHbY0YbIYghAL7KCjlwWttUMJ+1D/vyxo3qf39eziUyjHvsrSncT04DHCDpn8O4YNWezL+Kd/x/jQscJ2hE0RNkXYXWoJHtc3fxWEXU0Lf22AYf/01x/CrqDeaBcyYyoZgqbC33+h8cbUerYcOliAgd5IVtOzGwAP3r0Cgj2VVYmwmwbQX1sEn657BIqwT/v3WPltrmQVYull3L/LzSTr7BaBz/3HWuGtjTX7NCTsMrDKyrFwhHeNEjwo2Mr8e13lrDZh3wY8ZNKjN0MwPg0NW4CHxsUjyxzIf2uBPPV6lH8vPegVYsBgYUtm3bs1idjCNZHZTgYOxT19GqXMMgdbdC//Vt8ONQ97bxzapVZax5axZXbZTu3Kv7eIZZZZ2AK8q3HoGNmnTcIu61/X7jgU3qfNwm7Zv9cIY8uYM7tsp95aCyPM0AlbgM/dbeNQMz59EBf5CinE7xIJy+z3cz+Ud69fXf1XcpfSez/3exP378VAZrai7G5SMm0ugeYyrht4KMWqbrJM+nQ0sAV41XYq5NiSsE/X35c2XAXq2JKwj7P7UjtV9VschN0MeOGOx6HwY0vCPq+Qwfu+vLDUDiXsw+ze33GvrLVDCfu0f4+dkbFlHcX41Vguhp03MztyETZhU4RNETZF2BRhU4RNETZF2BRhU4RNEXZsClOvrdP5/WLX9KhDB2+g8XJ/BRgAnv80rcL5FKcAAAAASUVORK5CYII="
+
+/***/ },
+/* 179 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,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"
+
+/***/ },
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25105,7 +25212,7 @@
 	}(_react2.default.Component);
 
 /***/ },
-/* 178 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25121,7 +25228,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _index = __webpack_require__(179);
+	var _index = __webpack_require__(182);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25216,7 +25323,7 @@
 	};
 
 /***/ },
-/* 179 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25226,14 +25333,14 @@
 	});
 	exports.store = undefined;
 	
-	var _reducers = __webpack_require__(180);
+	var _reducers = __webpack_require__(183);
 	
-	var _redux = __webpack_require__(182);
+	var _redux = __webpack_require__(185);
 	
 	var store = exports.store = (0, _redux.createStore)(_reducers.searchApp);
 
 /***/ },
-/* 180 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25243,9 +25350,9 @@
 	});
 	exports.searchApp = undefined;
 	
-	var _actions = __webpack_require__(181);
+	var _actions = __webpack_require__(184);
 	
-	var _redux = __webpack_require__(182);
+	var _redux = __webpack_require__(185);
 	
 	var _underscore = __webpack_require__(173);
 	
@@ -25295,7 +25402,7 @@
 	});
 
 /***/ },
-/* 181 */
+/* 184 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25317,7 +25424,7 @@
 	}
 
 /***/ },
-/* 182 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25325,27 +25432,27 @@
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 	
-	var _createStore = __webpack_require__(183);
+	var _createStore = __webpack_require__(186);
 	
 	var _createStore2 = _interopRequireDefault(_createStore);
 	
-	var _combineReducers = __webpack_require__(190);
+	var _combineReducers = __webpack_require__(193);
 	
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 	
-	var _bindActionCreators = __webpack_require__(192);
+	var _bindActionCreators = __webpack_require__(195);
 	
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 	
-	var _applyMiddleware = __webpack_require__(193);
+	var _applyMiddleware = __webpack_require__(196);
 	
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 	
-	var _compose = __webpack_require__(194);
+	var _compose = __webpack_require__(197);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
-	var _warning = __webpack_require__(191);
+	var _warning = __webpack_require__(194);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -25369,7 +25476,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 183 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25378,11 +25485,11 @@
 	exports.ActionTypes = undefined;
 	exports["default"] = createStore;
 	
-	var _isPlainObject = __webpack_require__(184);
+	var _isPlainObject = __webpack_require__(187);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _symbolObservable = __webpack_require__(188);
+	var _symbolObservable = __webpack_require__(191);
 	
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 	
@@ -25636,12 +25743,12 @@
 	}
 
 /***/ },
-/* 184 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(185),
-	    isHostObject = __webpack_require__(186),
-	    isObjectLike = __webpack_require__(187);
+	var getPrototype = __webpack_require__(188),
+	    isHostObject = __webpack_require__(189),
+	    isObjectLike = __webpack_require__(190);
 	
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -25712,7 +25819,7 @@
 
 
 /***/ },
-/* 185 */
+/* 188 */
 /***/ function(module, exports) {
 
 	/* Built-in method references for those with the same name as other `lodash` methods. */
@@ -25733,7 +25840,7 @@
 
 
 /***/ },
-/* 186 */
+/* 189 */
 /***/ function(module, exports) {
 
 	/**
@@ -25759,7 +25866,7 @@
 
 
 /***/ },
-/* 187 */
+/* 190 */
 /***/ function(module, exports) {
 
 	/**
@@ -25794,18 +25901,18 @@
 
 
 /***/ },
-/* 188 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
 	'use strict';
 	
-	module.exports = __webpack_require__(189)(global || window || this);
+	module.exports = __webpack_require__(192)(global || window || this);
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 189 */
+/* 192 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25830,7 +25937,7 @@
 
 
 /***/ },
-/* 190 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25838,13 +25945,13 @@
 	exports.__esModule = true;
 	exports["default"] = combineReducers;
 	
-	var _createStore = __webpack_require__(183);
+	var _createStore = __webpack_require__(186);
 	
-	var _isPlainObject = __webpack_require__(184);
+	var _isPlainObject = __webpack_require__(187);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _warning = __webpack_require__(191);
+	var _warning = __webpack_require__(194);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -25963,7 +26070,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 191 */
+/* 194 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25993,7 +26100,7 @@
 	}
 
 /***/ },
-/* 192 */
+/* 195 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26049,7 +26156,7 @@
 	}
 
 /***/ },
-/* 193 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26060,7 +26167,7 @@
 	
 	exports["default"] = applyMiddleware;
 	
-	var _compose = __webpack_require__(194);
+	var _compose = __webpack_require__(197);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
@@ -26112,7 +26219,7 @@
 	}
 
 /***/ },
-/* 194 */
+/* 197 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -26157,23 +26264,23 @@
 	}
 
 /***/ },
-/* 195 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(196);
+	var content = __webpack_require__(199);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(198)(content, {});
+	var update = __webpack_require__(201)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js!./main.scss", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js?sourceMap!./../../../node_modules/sass-loader/index.js!./main.scss");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./main.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./main.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -26183,21 +26290,21 @@
 	}
 
 /***/ },
-/* 196 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(197)();
+	exports = module.exports = __webpack_require__(200)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "@charset \"UTF-8\";\n/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* apply a natural box layout model to all elements, but allowing components to change */\nhtml {\n  box-sizing: border-box; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\n.container {\n  margin: 0 auto;\n  padding: 0 1rem; }\n\n.container-narrow {\n  max-width: 48rem; }\n\n.container-fluid {\n  padding: 0 1rem; }\n\n@media (min-width: 80rem) {\n  .container-large {\n    width: 96vw;\n    max-width: 110rem; } }\n\n/*\n  Site\n*/\nbody {\n  line-height: 1.7;\n  font-size: 1rem;\n  font-family: \"Open Sans\", sans-serif;\n  color: #333; }\n\n/*\n  Headings\n*/\nh1 {\n  font-size: 2.75rem; }\n\nh2 {\n  font-size: 2rem; }\n\nh1, h2 {\n  font-weight: 700;\n  line-height: 1.3; }\n\nh3 {\n  font-size: 1.75rem; }\n\nh4 {\n  font-size: 1.5rem; }\n\nh3, h4 {\n  font-weight: 400; }\n\nh5 {\n  font-size: 1.5rem; }\n\nh6 {\n  font-size: 1.25rem; }\n\nh5, h6 {\n  font-weight: 300; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 1rem 0; }\n\n/*\n  Typography and Elements\n*/\np {\n  margin: 1rem 0; }\n\na {\n  color: #126DC1;\n  cursor: pointer;\n  text-decoration: none; }\n\n.underline {\n  border-bottom: solid 1px #126DC1; }\n\n*::selection {\n  background: #CCE6FF; }\n\nol, ul {\n  margin-left: 3rem;\n  margin-top: 1rem;\n  margin-bottom: 1rem; }\n\nol {\n  list-style: decimal; }\n\nul {\n  list-style: disc; }\n\nli {\n  padding-left: 1rem;\n  margin-top: 1rem; }\n\ndl {\n  margin: 0;\n  clear: left; }\n\ndt {\n  font-weight: bold;\n  float: left;\n  clear: left;\n  padding-right: 0.3rem; }\n\ndd {\n  margin: 0;\n  padding: 0;\n  min-height: 1.5rem; }\n\ntable {\n  width: 100%;\n  border: solid 1px #E5E5E5;\n  margin-top: 1rem;\n  margin-bottom: 1rem; }\n\nthead {\n  background: #FAFAFA;\n  border-bottom: solid 2px #E5E5E5; }\n\ntd, th {\n  padding: 0.75rem 1rem; }\n\nth {\n  text-align: left;\n  color: #6E6E6E; }\n\n.table-compact table {\n  border: none; }\n\n.table-compact td, .table-compact th {\n  padding: 0.25rem 0.5rem;\n  font-size: 90%; }\n\nblockquote {\n  font-family: \"PT Serif\", serif;\n  font-size: 1.5rem;\n  padding-left: 1.5rem;\n  border-left: solid 0.5rem #126DC1;\n  margin: 2rem 0;\n  color: #126DC1;\n  font-style: italic; }\n\nlabel {\n  margin-bottom: 0.1rem;\n  color: #4E4E4E;\n  display: block; }\n\n.fieldset-label {\n  font-weight: 700; }\n\ninput[type=\"text\"] {\n  font-size: 1rem;\n  border: solid 1px rgba(0, 0, 0, 0.3);\n  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  padding: 0.6rem;\n  line-height: 1.4;\n  width: 100%; }\n\ninput[type=\"text\"]:disabled,\ninput[type=\"text\"]:read-only {\n  background: #FAFAFA;\n  border-color: #CCC;\n  color: #6E6E6E;\n  cursor: not-allowed; }\n\nfieldset {\n  margin: 1rem 0; }\n\n.help-text {\n  margin: 0; }\n\nfieldset.field-valid input[type=\"text\"] {\n  border-color: #05A657; }\n\nfieldset.field-valid .help-text {\n  color: #05A657;\n  font-size: 0.9rem; }\n\nfieldset.field-error input[type=\"text\"] {\n  border-color: #ED5D47; }\n\nfieldset.field-error .help-text {\n  color: #ED5D47;\n  font-size: 0.9rem; }\n\nfieldset.field-warning input[type=\"text\"] {\n  border-color: #E77504; }\n\nfieldset.field-warning .help-text {\n  color: #E77504;\n  font-size: 0.9rem; }\n\ntextarea {\n  display: block;\n  padding: 1rem;\n  margin: 1rem 0;\n  border: solid 1px rgba(0, 0, 0, 0.3);\n  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  max-width: 100%; }\n\n.button {\n  display: inline-block;\n  margin: 0;\n  padding-right: 1rem;\n  padding-left: 1rem;\n  padding-top: 0.65rem;\n  padding-bottom: 0.55rem;\n  background: #126DC1;\n  color: #fff;\n  font-size: 1rem;\n  border: none;\n  border-radius: 4px;\n  border-bottom: 3px solid #0C5292;\n  cursor: pointer;\n  text-decoration: none; }\n\n.button:active {\n  color: #FAFAFA;\n  background: #0C5292;\n  border-color: #00274C;\n  border-bottom-width: 1px;\n  margin-top: 2px; }\n\n.button:active,\n.button:hover {\n  text-decoration: none; }\n\n.button-disabled:hover,\n.button-disabled:active {\n  cursor: not-allowed; }\n\n.button-light {\n  background: #E5E5E5;\n  color: #4E4E4E;\n  border-color: #CCC; }\n\n.button-light:active {\n  background: #CCC;\n  color: #4E4E4E;\n  border-color: #E5E5E5; }\n\n.button-radio {\n  margin: 1rem 0;\n  padding: 1rem;\n  border: solid 2px #CCC;\n  background: #FAFAFA;\n  border-radius: 4px;\n  cursor: pointer; }\n\nnav {\n  display: inline-block; }\n\n.navigation-list {\n  margin: 0;\n  padding: 0; }\n\n.navigation li {\n  display: inline-block;\n  margin-top: 0.25rem; }\n\n.alert {\n  margin: 2rem 0;\n  padding: 1rem;\n  border: solid 2px #E5E5E5;\n  background: #FAFAFA;\n  border-radius: 4px; }\n\n.alert-success {\n  background: #E2F4EB;\n  border-color: #05A657; }\n\n.alert-info {\n  background: #FFEEDD;\n  border-color: #E77504; }\n\n.alert-warning {\n  background: #FFEEDD;\n  border-color: #E77504; }\n\n.alert-danger {\n  background: #FFEAE7;\n  border-color: #ED5D47; }\n\n.alert *:first-child {\n  margin: 0; }\n\n.site-message-warning {\n  background: #FFEEDD;\n  border-bottom: solid 2px #E77504; }\n\n.site-message-info {\n  background: #F2F9FF;\n  border-bottom: solid 2px #CCE6FF; }\n\n.site-message {\n  position: relative;\n  padding: 0.5rem 1rem;\n  padding-right: 6rem; }\n  .site-message p {\n    margin: 0;\n    text-align: center; }\n\n.site-message-dismiss {\n  /* remove button style */\n  border: none;\n  font-size: 100%;\n  background: none;\n  padding: 0;\n  /* continue */\n  position: absolute;\n  right: 1rem;\n  top: 0.6rem;\n  cursor: pointer;\n  line-height: 1.4; }\n  .site-message-dismiss span {\n    text-decoration: underline; }\n  .site-message-dismiss:after {\n    content: '\\2715';\n    padding-left: 0.5rem;\n    text-decoration: none; }\n\n.site-header {\n  background: #00274C;\n  padding-top: 1rem;\n  padding-bottom: 1rem; }\n\n.site-brand,\n.site-brand:hover {\n  box-shadow: none !important;\n  background: none !important; }\n  .site-brand img,\n  .site-brand:hover img {\n    width: 15rem; }\n\n.site-heading {\n  font-size: 2rem;\n  display: inline-block;\n  margin-right: 1rem; }\n\n.site-subheading {\n  display: inline;\n  color: #4E4E4E; }\n\n@media (max-width: 32rem) {\n  .site-heading,\n  .site-subheading {\n    display: block; }\n  .site-heading {\n    margin-bottom: 0; }\n  .site-subheading {\n    margin-top: 0;\n    margin-bottom: 1rem; } }\n\n.site-brand-mlibrary-logo,\n.site-brand-umich-block-m-logo {\n  display: inline-block;\n  height: 2.2rem; }\n  .site-brand-mlibrary-logo img,\n  .site-brand-umich-block-m-logo img {\n    height: 100%;\n    width: auto; }\n\n.site-brand-umich-block-m-logo {\n  margin-right: 0.4rem; }\n\nfooter {\n  background: #00274C;\n  padding: 2rem 0;\n  margin-top: 3rem; }\n\n.callout {\n  background: #F2F9FF;\n  padding: 2rem 0;\n  margin-bottom: 2rem; }\n\n.no-margin {\n  margin: 0; }\n\n.white-text {\n  color: white; }\n\n.right {\n  float: right; }\n\n.clearfix:after {\n  visibility: hidden;\n  display: block;\n  font-size: 0;\n  content: \" \";\n  clear: both;\n  height: 0; }\n\n.clearfix {\n  display: inline-block; }\n\n/* start commented backslash hack \\*/\n* html .clearfix {\n  height: 1%; }\n\n.clearfix {\n  display: block; }\n\n/* close commented backslash hack */\n.light-text {\n  opacity: 0.8;\n  font-size: 90%; }\n\n.center-text {\n  text-align: center; }\n\n.focus-outline-white {\n  outline-color: white; }\n\n.search-box-container-full {\n  background: #E6F3FF;\n  padding: 1rem 0; }\n\n.search-box {\n  display: flex; }\n\n.search-box-button {\n  margin-left: 1rem;\n  margin-right: 0; }\n\n.datastore-list-container {\n  background: #FAFAFA;\n  border-bottom: solid 2px #E5E5E5; }\n\n.datastore-list {\n  margin: 0;\n  margin-bottom: -2px;\n  margin-left: -1rem;\n  text-align: center; }\n  .datastore-list li {\n    display: inline-block;\n    padding-right: 0.5rem;\n    padding-left: 0.5rem;\n    padding-bottom: 0.45rem;\n    padding-top: 0.5rem;\n    margin: 0 0.5rem;\n    cursor: pointer; }\n    .datastore-list li a {\n      color: #4E4E4E; }\n      .datastore-list li a:hover {\n        text-decoration: none; }\n  .datastore-list li.active {\n    border-bottom: solid 2px #126DC1; }\n    .datastore-list li.active a {\n      color: #126DC1; }\n\n/*\n  Multiple results container // aka Bento box\n*/\n.multiple-results-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin: -2rem 0 0 -2rem; }\n\n.datastore-results {\n  display: inline-block;\n  flex-grow: 1;\n  margin: 2rem 0 0 2rem;\n  width: calc(100% - 2rem); }\n  @media (min-width: 32rem) {\n    .datastore-results {\n      width: calc(100% * (1/2) - 2rem); } }\n  @media (min-width: 64rem) {\n    .datastore-results {\n      width: calc(100% * (1/3) - 2rem); } }\n  @media (min-width: 80rem) {\n    .datastore-results {\n      width: calc(100% * (1/5) - 2rem); } }\n\n/*\n  Results List\n*/\n.results-container {\n  display: flex;\n  flex-wrap: wrap; }\n\n.results-list {\n  margin: 0;\n  list-style: none; }\n\n.record-title {\n  font-weight: 600;\n  font-size: 1.1rem;\n  text-decoration: none; }\n\n.more-results-link {\n  display: inline-block;\n  margin-top: 1rem; }\n\n/*\n  Record\n*/\n.record {\n  padding: 0;\n  border-bottom: solid 1px #E5E5E5;\n  padding-bottom: 1rem; }\n\n.record-description {\n  margin: 0.5rem 0; }\n\n.record-metadata {\n  padding-top: 0.5rem; }\n\n.type {\n  font-weight: bold; }\n\n/*\n  Record link\n*/\n.record-link {\n  display: inline-block;\n  padding: 0.75rem 1rem;\n  border-radius: 4px;\n  border: solid 2px transparent;\n  background: #FAFAFA; }\n\n.record-link:hover {\n  background: #F2F9FF;\n  border: solid 2px #E6F3FF;\n  opacity: 1; }\n\n.record-link-pre-heading,\n.record-link-heading {\n  line-height: 1.4; }\n\n.record-link-pre-heading {\n  display: block;\n  font-size: 80%; }\n\n.record-link-heading {\n  display: inline-block;\n  font-weight: 600; }\n\n.record-link-info {\n  display: block;\n  font-size: 90%;\n  color: #4E4E4E;\n  line-height: 1.5; }\n\n.record-image {\n  float: right;\n  width: 100%;\n  max-width: 5rem;\n  margin-left: 0.5rem;\n  border: solid 1px #E5E5E5; }\n\n.filter-title {\n  font-weight: 600; }\n\n.filters {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  margin-bottom: 2rem; }\n  .filters li {\n    margin: 0;\n    padding: 0; }\n    .filters li a {\n      display: inline-block; }\n\n.num {\n  color: #4E4E4E;\n  font-size: 80%; }\n  .num:before {\n    content: '('; }\n  .num:after {\n    content: ')'; }\n\n.light-heading {\n  font-size: 1.2rem; }\n", "", {"version":3,"sources":["/./app/assets/stylesheets/main.scss"],"names":[],"mappings":"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","file":"main.scss","sourcesContent":["@charset \"UTF-8\";\n/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* apply a natural box layout model to all elements, but allowing components to change */\nhtml {\n  box-sizing: border-box; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\n.container {\n  margin: 0 auto;\n  padding: 0 1rem; }\n\n.container-narrow {\n  max-width: 48rem; }\n\n.container-fluid {\n  padding: 0 1rem; }\n\n@media (min-width: 80rem) {\n  .container-large {\n    width: 96vw;\n    max-width: 110rem; } }\n\n/*\n  Site\n*/\nbody {\n  line-height: 1.7;\n  font-size: 1rem;\n  font-family: \"Open Sans\", sans-serif;\n  color: #333; }\n\n/*\n  Headings\n*/\nh1 {\n  font-size: 2.75rem; }\n\nh2 {\n  font-size: 2rem; }\n\nh1, h2 {\n  font-weight: 700;\n  line-height: 1.3; }\n\nh3 {\n  font-size: 1.75rem; }\n\nh4 {\n  font-size: 1.5rem; }\n\nh3, h4 {\n  font-weight: 400; }\n\nh5 {\n  font-size: 1.5rem; }\n\nh6 {\n  font-size: 1.25rem; }\n\nh5, h6 {\n  font-weight: 300; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 1rem 0; }\n\n/*\n  Typography and Elements\n*/\np {\n  margin: 1rem 0; }\n\na {\n  color: #126DC1;\n  cursor: pointer;\n  text-decoration: none; }\n\n.underline {\n  border-bottom: solid 1px #126DC1; }\n\n*::selection {\n  background: #CCE6FF; }\n\nol, ul {\n  margin-left: 3rem;\n  margin-top: 1rem;\n  margin-bottom: 1rem; }\n\nol {\n  list-style: decimal; }\n\nul {\n  list-style: disc; }\n\nli {\n  padding-left: 1rem;\n  margin-top: 1rem; }\n\ndl {\n  margin: 0;\n  clear: left; }\n\ndt {\n  font-weight: bold;\n  float: left;\n  clear: left;\n  padding-right: 0.3rem; }\n\ndd {\n  margin: 0;\n  padding: 0;\n  min-height: 1.5rem; }\n\ntable {\n  width: 100%;\n  border: solid 1px #E5E5E5;\n  margin-top: 1rem;\n  margin-bottom: 1rem; }\n\nthead {\n  background: #FAFAFA;\n  border-bottom: solid 2px #E5E5E5; }\n\ntd, th {\n  padding: 0.75rem 1rem; }\n\nth {\n  text-align: left;\n  color: #6E6E6E; }\n\n.table-compact table {\n  border: none; }\n\n.table-compact td, .table-compact th {\n  padding: 0.25rem 0.5rem;\n  font-size: 90%; }\n\nblockquote {\n  font-family: \"PT Serif\", serif;\n  font-size: 1.5rem;\n  padding-left: 1.5rem;\n  border-left: solid 0.5rem #126DC1;\n  margin: 2rem 0;\n  color: #126DC1;\n  font-style: italic; }\n\nlabel {\n  margin-bottom: 0.1rem;\n  color: #4E4E4E;\n  display: block; }\n\n.fieldset-label {\n  font-weight: 700; }\n\ninput[type=\"text\"] {\n  font-size: 1rem;\n  border: solid 1px rgba(0, 0, 0, 0.3);\n  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  padding: 0.6rem;\n  line-height: 1.4;\n  width: 100%; }\n\ninput[type=\"text\"]:disabled,\ninput[type=\"text\"]:read-only {\n  background: #FAFAFA;\n  border-color: #CCC;\n  color: #6E6E6E;\n  cursor: not-allowed; }\n\nfieldset {\n  margin: 1rem 0; }\n\n.help-text {\n  margin: 0; }\n\nfieldset.field-valid input[type=\"text\"] {\n  border-color: #05A657; }\n\nfieldset.field-valid .help-text {\n  color: #05A657;\n  font-size: 0.9rem; }\n\nfieldset.field-error input[type=\"text\"] {\n  border-color: #ED5D47; }\n\nfieldset.field-error .help-text {\n  color: #ED5D47;\n  font-size: 0.9rem; }\n\nfieldset.field-warning input[type=\"text\"] {\n  border-color: #E77504; }\n\nfieldset.field-warning .help-text {\n  color: #E77504;\n  font-size: 0.9rem; }\n\ntextarea {\n  display: block;\n  padding: 1rem;\n  margin: 1rem 0;\n  border: solid 1px rgba(0, 0, 0, 0.3);\n  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  max-width: 100%; }\n\n.button {\n  display: inline-block;\n  margin: 0;\n  padding-right: 1rem;\n  padding-left: 1rem;\n  padding-top: 0.65rem;\n  padding-bottom: 0.55rem;\n  background: #126DC1;\n  color: #fff;\n  font-size: 1rem;\n  border: none;\n  border-radius: 4px;\n  border-bottom: 3px solid #0C5292;\n  cursor: pointer;\n  text-decoration: none; }\n\n.button:active {\n  color: #FAFAFA;\n  background: #0C5292;\n  border-color: #00274C;\n  border-bottom-width: 1px;\n  margin-top: 2px; }\n\n.button:active,\n.button:hover {\n  text-decoration: none; }\n\n.button-disabled:hover,\n.button-disabled:active {\n  cursor: not-allowed; }\n\n.button-light {\n  background: #E5E5E5;\n  color: #4E4E4E;\n  border-color: #CCC; }\n\n.button-light:active {\n  background: #CCC;\n  color: #4E4E4E;\n  border-color: #E5E5E5; }\n\n.button-radio {\n  margin: 1rem 0;\n  padding: 1rem;\n  border: solid 2px #CCC;\n  background: #FAFAFA;\n  border-radius: 4px;\n  cursor: pointer; }\n\nnav {\n  display: inline-block; }\n\n.navigation-list {\n  margin: 0;\n  padding: 0; }\n\n.navigation li {\n  display: inline-block;\n  margin-top: 0.25rem; }\n\n.alert {\n  margin: 2rem 0;\n  padding: 1rem;\n  border: solid 2px #E5E5E5;\n  background: #FAFAFA;\n  border-radius: 4px; }\n\n.alert-success {\n  background: #E2F4EB;\n  border-color: #05A657; }\n\n.alert-info {\n  background: #FFEEDD;\n  border-color: #E77504; }\n\n.alert-warning {\n  background: #FFEEDD;\n  border-color: #E77504; }\n\n.alert-danger {\n  background: #FFEAE7;\n  border-color: #ED5D47; }\n\n.alert *:first-child {\n  margin: 0; }\n\n.site-message-warning {\n  background: #FFEEDD;\n  border-bottom: solid 2px #E77504; }\n\n.site-message-info {\n  background: #F2F9FF;\n  border-bottom: solid 2px #CCE6FF; }\n\n.site-message {\n  position: relative;\n  padding: 0.5rem 1rem;\n  padding-right: 6rem; }\n  .site-message p {\n    margin: 0;\n    text-align: center; }\n\n.site-message-dismiss {\n  /* remove button style */\n  border: none;\n  font-size: 100%;\n  background: none;\n  padding: 0;\n  /* continue */\n  position: absolute;\n  right: 1rem;\n  top: 0.6rem;\n  cursor: pointer;\n  line-height: 1.4; }\n  .site-message-dismiss span {\n    text-decoration: underline; }\n  .site-message-dismiss:after {\n    content: '✕';\n    padding-left: 0.5rem;\n    text-decoration: none; }\n\n.site-header {\n  background: #00274C;\n  padding-top: 1rem;\n  padding-bottom: 1rem; }\n\n.site-brand,\n.site-brand:hover {\n  box-shadow: none !important;\n  background: none !important; }\n  .site-brand img,\n  .site-brand:hover img {\n    width: 15rem; }\n\n.site-heading {\n  font-size: 2rem;\n  display: inline-block;\n  margin-right: 1rem; }\n\n.site-subheading {\n  display: inline;\n  color: #4E4E4E; }\n\n@media (max-width: 32rem) {\n  .site-heading,\n  .site-subheading {\n    display: block; }\n  .site-heading {\n    margin-bottom: 0; }\n  .site-subheading {\n    margin-top: 0;\n    margin-bottom: 1rem; } }\n\n.site-brand-mlibrary-logo,\n.site-brand-umich-block-m-logo {\n  display: inline-block;\n  height: 2.2rem; }\n  .site-brand-mlibrary-logo img,\n  .site-brand-umich-block-m-logo img {\n    height: 100%;\n    width: auto; }\n\n.site-brand-umich-block-m-logo {\n  margin-right: 0.4rem; }\n\nfooter {\n  background: #00274C;\n  padding: 2rem 0;\n  margin-top: 3rem; }\n\n.callout {\n  background: #F2F9FF;\n  padding: 2rem 0;\n  margin-bottom: 2rem; }\n\n.no-margin {\n  margin: 0; }\n\n.white-text {\n  color: white; }\n\n.right {\n  float: right; }\n\n.clearfix:after {\n  visibility: hidden;\n  display: block;\n  font-size: 0;\n  content: \" \";\n  clear: both;\n  height: 0; }\n\n.clearfix {\n  display: inline-block; }\n\n/* start commented backslash hack \\*/\n* html .clearfix {\n  height: 1%; }\n\n.clearfix {\n  display: block; }\n\n/* close commented backslash hack */\n.light-text {\n  opacity: 0.8;\n  font-size: 90%; }\n\n.center-text {\n  text-align: center; }\n\n.focus-outline-white {\n  outline-color: white; }\n\n.search-box-container-full {\n  background: #E6F3FF;\n  padding: 1rem 0; }\n\n.search-box {\n  display: flex; }\n\n.search-box-button {\n  margin-left: 1rem;\n  margin-right: 0; }\n\n.datastore-list-container {\n  background: #FAFAFA;\n  border-bottom: solid 2px #E5E5E5; }\n\n.datastore-list {\n  margin: 0;\n  margin-bottom: -2px;\n  margin-left: -1rem;\n  text-align: center; }\n  .datastore-list li {\n    display: inline-block;\n    padding-right: 0.5rem;\n    padding-left: 0.5rem;\n    padding-bottom: 0.45rem;\n    padding-top: 0.5rem;\n    margin: 0 0.5rem;\n    cursor: pointer; }\n    .datastore-list li a {\n      color: #4E4E4E; }\n      .datastore-list li a:hover {\n        text-decoration: none; }\n  .datastore-list li.active {\n    border-bottom: solid 2px #126DC1; }\n    .datastore-list li.active a {\n      color: #126DC1; }\n\n/*\n  Multiple results container // aka Bento box\n*/\n.multiple-results-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin: -2rem 0 0 -2rem; }\n\n.datastore-results {\n  display: inline-block;\n  flex-grow: 1;\n  margin: 2rem 0 0 2rem;\n  width: calc(100% - 2rem); }\n  @media (min-width: 32rem) {\n    .datastore-results {\n      width: calc(100% * (1/2) - 2rem); } }\n  @media (min-width: 64rem) {\n    .datastore-results {\n      width: calc(100% * (1/3) - 2rem); } }\n  @media (min-width: 80rem) {\n    .datastore-results {\n      width: calc(100% * (1/5) - 2rem); } }\n\n/*\n  Results List\n*/\n.results-container {\n  display: flex;\n  flex-wrap: wrap; }\n\n.results-list {\n  margin: 0;\n  list-style: none; }\n\n.record-title {\n  font-weight: 600;\n  font-size: 1.1rem;\n  text-decoration: none; }\n\n.more-results-link {\n  display: inline-block;\n  margin-top: 1rem; }\n\n/*\n  Record\n*/\n.record {\n  padding: 0;\n  border-bottom: solid 1px #E5E5E5;\n  padding-bottom: 1rem; }\n\n.record-description {\n  margin: 0.5rem 0; }\n\n.record-metadata {\n  padding-top: 0.5rem; }\n\n.type {\n  font-weight: bold; }\n\n/*\n  Record link\n*/\n.record-link {\n  display: inline-block;\n  padding: 0.75rem 1rem;\n  border-radius: 4px;\n  border: solid 2px transparent;\n  background: #FAFAFA; }\n\n.record-link:hover {\n  background: #F2F9FF;\n  border: solid 2px #E6F3FF;\n  opacity: 1; }\n\n.record-link-pre-heading,\n.record-link-heading {\n  line-height: 1.4; }\n\n.record-link-pre-heading {\n  display: block;\n  font-size: 80%; }\n\n.record-link-heading {\n  display: inline-block;\n  font-weight: 600; }\n\n.record-link-info {\n  display: block;\n  font-size: 90%;\n  color: #4E4E4E;\n  line-height: 1.5; }\n\n.record-image {\n  float: right;\n  width: 100%;\n  max-width: 5rem;\n  margin-left: 0.5rem;\n  border: solid 1px #E5E5E5; }\n\n.filter-title {\n  font-weight: 600; }\n\n.filters {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  margin-bottom: 2rem; }\n  .filters li {\n    margin: 0;\n    padding: 0; }\n    .filters li a {\n      display: inline-block; }\n\n.num {\n  color: #4E4E4E;\n  font-size: 80%; }\n  .num:before {\n    content: '('; }\n  .num:after {\n    content: ')'; }\n\n.light-heading {\n  font-size: 1.2rem; }\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "@charset \"UTF-8\";\n/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* apply a natural box layout model to all elements, but allowing components to change */\nhtml {\n  box-sizing: border-box; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\n.container {\n  margin: 0 auto;\n  padding: 0 1rem; }\n\n.container-narrow {\n  max-width: 48rem; }\n\n.container-fluid {\n  padding: 0 1rem; }\n\n@media (min-width: 80rem) {\n  .container-large {\n    width: 96vw;\n    max-width: 110rem; } }\n\n/*\n  Site\n*/\nbody {\n  line-height: 1.7;\n  font-size: 1rem;\n  font-family: \"Open Sans\", sans-serif;\n  color: #333; }\n\n/*\n  Headings\n*/\nh1 {\n  font-size: 2.75rem; }\n\nh2 {\n  font-size: 2rem; }\n\nh1, h2 {\n  font-weight: 700;\n  line-height: 1.3; }\n\nh3 {\n  font-size: 1.75rem; }\n\nh4 {\n  font-size: 1.5rem; }\n\nh3, h4 {\n  font-weight: 400; }\n\nh5 {\n  font-size: 1.5rem; }\n\nh6 {\n  font-size: 1.25rem; }\n\nh5, h6 {\n  font-weight: 300; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 1rem 0; }\n\n/*\n  Typography and Elements\n*/\np {\n  margin: 1rem 0; }\n\na {\n  color: #126DC1;\n  cursor: pointer;\n  text-decoration: none; }\n\n.underline {\n  border-bottom: solid 1px #126DC1; }\n\n*::selection {\n  background: #CCE6FF; }\n\nol, ul {\n  margin-left: 3rem;\n  margin-top: 1rem;\n  margin-bottom: 1rem; }\n\nol {\n  list-style: decimal; }\n\nul {\n  list-style: disc; }\n\nli {\n  padding-left: 1rem;\n  margin-top: 1rem; }\n\ndl {\n  margin: 0;\n  clear: left; }\n\ndt {\n  font-weight: bold;\n  float: left;\n  clear: left;\n  padding-right: 0.3rem; }\n\ndd {\n  margin: 0;\n  padding: 0;\n  min-height: 1.5rem; }\n\ntable {\n  width: 100%;\n  border: solid 1px #E5E5E5;\n  margin-top: 1rem;\n  margin-bottom: 1rem; }\n\nthead {\n  background: #FAFAFA;\n  border-bottom: solid 2px #E5E5E5; }\n\ntd, th {\n  padding: 0.75rem 1rem; }\n\nth {\n  text-align: left;\n  color: #6E6E6E; }\n\n.table-compact table {\n  border: none; }\n\n.table-compact td, .table-compact th {\n  padding: 0.25rem 0.5rem;\n  font-size: 90%; }\n\nblockquote {\n  font-family: \"PT Serif\", serif;\n  font-size: 1.5rem;\n  padding-left: 1.5rem;\n  border-left: solid 0.5rem #126DC1;\n  margin: 2rem 0;\n  color: #126DC1;\n  font-style: italic; }\n\nlabel {\n  margin-bottom: 0.1rem;\n  color: #4E4E4E;\n  display: block; }\n\n.fieldset-label {\n  font-weight: 700; }\n\ninput[type=\"text\"] {\n  font-size: 1rem;\n  border: solid 1px rgba(0, 0, 0, 0.3);\n  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  padding: 0.6rem;\n  line-height: 1.4;\n  width: 100%; }\n\ninput[type=\"text\"]:disabled,\ninput[type=\"text\"]:read-only {\n  background: #FAFAFA;\n  border-color: #CCC;\n  color: #6E6E6E;\n  cursor: not-allowed; }\n\nfieldset {\n  margin: 1rem 0; }\n\n.help-text {\n  margin: 0; }\n\nfieldset.field-valid input[type=\"text\"] {\n  border-color: #05A657; }\n\nfieldset.field-valid .help-text {\n  color: #05A657;\n  font-size: 0.9rem; }\n\nfieldset.field-error input[type=\"text\"] {\n  border-color: #ED5D47; }\n\nfieldset.field-error .help-text {\n  color: #ED5D47;\n  font-size: 0.9rem; }\n\nfieldset.field-warning input[type=\"text\"] {\n  border-color: #E77504; }\n\nfieldset.field-warning .help-text {\n  color: #E77504;\n  font-size: 0.9rem; }\n\ntextarea {\n  display: block;\n  padding: 1rem;\n  margin: 1rem 0;\n  border: solid 1px rgba(0, 0, 0, 0.3);\n  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  max-width: 100%; }\n\n.button {\n  display: inline-block;\n  margin: 0;\n  padding-right: 1rem;\n  padding-left: 1rem;\n  padding-top: 0.65rem;\n  padding-bottom: 0.55rem;\n  background: #126DC1;\n  color: #fff;\n  font-size: 1rem;\n  border: none;\n  border-radius: 4px;\n  border-bottom: 3px solid #0C5292;\n  cursor: pointer;\n  text-decoration: none; }\n\n.button:active {\n  color: #FAFAFA;\n  background: #0C5292;\n  border-color: #00274C;\n  border-bottom-width: 1px;\n  margin-top: 2px; }\n\n.button:active,\n.button:hover {\n  text-decoration: none; }\n\n.button-disabled:hover,\n.button-disabled:active {\n  cursor: not-allowed; }\n\n.button-light {\n  background: #E5E5E5;\n  color: #4E4E4E;\n  border-color: #CCC; }\n\n.button-light:active {\n  background: #CCC;\n  color: #4E4E4E;\n  border-color: #E5E5E5; }\n\n.button-radio {\n  margin: 1rem 0;\n  padding: 1rem;\n  border: solid 2px #CCC;\n  background: #FAFAFA;\n  border-radius: 4px;\n  cursor: pointer; }\n\nnav {\n  display: inline-block; }\n\n.navigation-list {\n  margin: 0;\n  padding: 0; }\n\n.navigation li {\n  display: inline-block;\n  margin-top: 0.25rem; }\n\n.alert {\n  margin: 2rem 0;\n  padding: 1rem;\n  border: solid 2px #E5E5E5;\n  background: #FAFAFA;\n  border-radius: 4px; }\n\n.alert-success {\n  background: #E2F4EB;\n  border-color: #05A657; }\n\n.alert-info {\n  background: #FFEEDD;\n  border-color: #E77504; }\n\n.alert-warning {\n  background: #FFEEDD;\n  border-color: #E77504; }\n\n.alert-danger {\n  background: #FFEAE7;\n  border-color: #ED5D47; }\n\n.alert *:first-child {\n  margin: 0; }\n\n.site-message-warning {\n  background: #FFEEDD;\n  border-bottom: solid 2px #E77504; }\n\n.site-message-info {\n  background: #F2F9FF;\n  border-bottom: solid 2px #CCE6FF; }\n\n.site-message {\n  position: relative;\n  padding: 0.5rem 1rem;\n  padding-right: 6rem; }\n  .site-message p {\n    margin: 0;\n    text-align: center; }\n\n.site-message-dismiss {\n  /* remove button style */\n  border: none;\n  font-size: 100%;\n  background: none;\n  padding: 0;\n  /* continue */\n  position: absolute;\n  right: 1rem;\n  top: 0.6rem;\n  cursor: pointer;\n  line-height: 1.4; }\n  .site-message-dismiss span {\n    text-decoration: underline; }\n  .site-message-dismiss:after {\n    content: '\\2715';\n    padding-left: 0.5rem;\n    text-decoration: none; }\n\n.site-header {\n  background: #00274C;\n  padding-top: 1rem;\n  padding-bottom: 1rem; }\n\n.site-brand,\n.site-brand:hover {\n  box-shadow: none !important;\n  background: none !important; }\n  .site-brand img,\n  .site-brand:hover img {\n    width: 15rem; }\n\n.site-heading {\n  font-size: 2rem;\n  display: inline-block;\n  margin-right: 1rem; }\n\n.site-subheading {\n  display: inline;\n  color: #4E4E4E; }\n\n@media (max-width: 32rem) {\n  .site-heading,\n  .site-subheading {\n    display: block; }\n  .site-heading {\n    margin-bottom: 0; }\n  .site-subheading {\n    margin-top: 0;\n    margin-bottom: 1rem; } }\n\n.site-brand-mlibrary-logo,\n.site-brand-umich-block-m-logo {\n  display: inline-block;\n  height: 2.2rem; }\n  .site-brand-mlibrary-logo img,\n  .site-brand-umich-block-m-logo img {\n    height: 100%;\n    width: auto; }\n\n.site-brand-umich-block-m-logo {\n  margin-right: 0.4rem; }\n\nfooter {\n  background: #00274C;\n  padding: 2rem 0;\n  margin-top: 3rem; }\n\n.callout {\n  background: #F2F9FF;\n  padding: 2rem 0;\n  margin-bottom: 2rem; }\n\n.no-margin {\n  margin: 0; }\n\n.white-text {\n  color: white; }\n\n.right {\n  float: right; }\n\n.clearfix:after {\n  visibility: hidden;\n  display: block;\n  font-size: 0;\n  content: \" \";\n  clear: both;\n  height: 0; }\n\n.clearfix {\n  display: inline-block; }\n\n/* start commented backslash hack \\*/\n* html .clearfix {\n  height: 1%; }\n\n.clearfix {\n  display: block; }\n\n/* close commented backslash hack */\n.light-text {\n  opacity: 0.8;\n  font-size: 90%; }\n\n.center-text {\n  text-align: center; }\n\n.focus-outline-white {\n  outline-color: white; }\n\n.search-box-container-full {\n  background: #E6F3FF;\n  padding: 1rem 0; }\n\n.search-box {\n  display: flex; }\n\n.search-box-button {\n  margin-left: 1rem;\n  margin-right: 0; }\n\n.datastore-list-container {\n  background: #FAFAFA;\n  border-bottom: solid 2px #E5E5E5; }\n\n.datastore-list {\n  margin: 0;\n  margin-bottom: -2px;\n  margin-left: -1rem;\n  text-align: center; }\n  .datastore-list li {\n    display: inline-block;\n    padding-right: 0.5rem;\n    padding-left: 0.5rem;\n    padding-bottom: 0.45rem;\n    padding-top: 0.5rem;\n    margin: 0 0.5rem;\n    cursor: pointer; }\n    .datastore-list li a {\n      color: #4E4E4E; }\n      .datastore-list li a:hover {\n        text-decoration: none; }\n  .datastore-list li.active {\n    border-bottom: solid 2px #126DC1; }\n    .datastore-list li.active a {\n      color: #126DC1; }\n\n/*\n  Multiple results container // aka Bento box\n*/\n.multiple-results-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin: -2rem 0 0 -2rem; }\n\n.datastore-results {\n  display: inline-block;\n  flex-grow: 1;\n  margin: 2rem 0 0 2rem;\n  width: calc(100% - 2rem); }\n  @media (min-width: 32rem) {\n    .datastore-results {\n      width: calc(100% * (1/2) - 2rem); } }\n  @media (min-width: 64rem) {\n    .datastore-results {\n      width: calc(100% * (1/3) - 2rem); } }\n  @media (min-width: 80rem) {\n    .datastore-results {\n      width: calc(100% * (1/5) - 2rem); } }\n\n/*\n  Results List\n*/\n.results-container {\n  display: flex;\n  flex-wrap: wrap; }\n\n.results-list {\n  margin: 0;\n  list-style: none; }\n\n.record-title {\n  font-weight: 600;\n  font-size: 1.1rem;\n  text-decoration: none; }\n\n.more-results-link {\n  display: inline-block;\n  margin-top: 1rem; }\n\n/*\n  Record\n*/\n.record {\n  padding: 0;\n  border-bottom: solid 1px #E5E5E5;\n  padding-bottom: 1rem; }\n\n.record-description {\n  margin: 0.5rem 0; }\n\n.record-metadata {\n  padding-top: 0.5rem; }\n\n.type {\n  font-weight: bold; }\n\n/*\n  Record link\n*/\n.record-link {\n  display: inline-block;\n  padding: 0.75rem 1rem;\n  border-radius: 4px;\n  border: solid 2px transparent;\n  background: #FAFAFA; }\n\n.record-link:hover {\n  background: #F2F9FF;\n  border: solid 2px #E6F3FF;\n  opacity: 1; }\n\n.record-link-pre-heading,\n.record-link-heading {\n  line-height: 1.4; }\n\n.record-link-pre-heading {\n  display: block;\n  font-size: 80%; }\n\n.record-link-heading {\n  display: inline-block;\n  font-weight: 600; }\n\n.record-link-info {\n  display: block;\n  font-size: 90%;\n  color: #4E4E4E;\n  line-height: 1.5; }\n\n.record-image {\n  float: right;\n  width: 100%;\n  max-width: 5rem;\n  margin-left: 0.5rem;\n  border: solid 1px #E5E5E5; }\n\n.filter-title {\n  font-weight: 600; }\n\n.filters {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  margin-bottom: 2rem; }\n  .filters li {\n    margin: 0;\n    padding: 0; }\n    .filters li a {\n      display: inline-block; }\n\n.num {\n  color: #4E4E4E;\n  font-size: 80%; }\n  .num:before {\n    content: '('; }\n  .num:after {\n    content: ')'; }\n\n.light-heading {\n  font-size: 1.2rem; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 197 */
+/* 200 */
 /***/ function(module, exports) {
 
 	/*
@@ -26253,7 +26360,7 @@
 
 
 /***/ },
-/* 198 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -26505,7 +26612,7 @@
 
 
 /***/ },
-/* 199 */
+/* 202 */
 /***/ function(module, exports) {
 
 	module.exports = {

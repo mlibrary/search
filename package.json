@@ -5,7 +5,7 @@
   "main": "pride.js",
   "scripts": {
     "start": "webpack-dev-server --content-base build/",
-    "build": "webpack -w"
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
