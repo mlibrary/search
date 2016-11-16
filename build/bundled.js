@@ -60,9 +60,9 @@
 	
 	var _App = __webpack_require__(176);
 	
-	var _actions = __webpack_require__(184);
+	var _actions = __webpack_require__(181);
 	
-	var _index = __webpack_require__(182);
+	var _index = __webpack_require__(183);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -87,10 +87,7 @@
 	function loadPride() {
 	  var pride_datastores = _pride.Pride.AllDatastores;
 	  var pride_datastores_array = pride_datastores.array;
-	  var pride_search_objects = [];
-	
 	  var config = __webpack_require__(202);
-	
 	  var datastores = configureDatastores(pride_datastores_array, config);
 	
 	  // Add datastores to store
@@ -99,29 +96,7 @@
 	      uid: datastore.uid,
 	      name: datastore.name
 	    }));
-	
-	    var pride_search_object = pride_datastores.newSearch(datastore.uid);
-	
-	    pride_search_object.resultsObservers.add(function (records) {
-	      console.log('resultsObservers ', records);
-	    });
-	
-	    pride_search_object.setDataObservers.add(function (data) {
-	      console.log('setDataObservers ', data);
-	    });
-	
-	    pride_search_object.runDataObservers.add(function (data) {
-	      console.log('runDataObservers ', data);
-	    });
-	
-	    pride_search_object.set({ count: 10 });
-	
-	    pride_search_objects.push(pride_search_object);
 	  });
-	
-	  var pride_search_switcher = new _pride.Pride.Util.SearchSwitcher(pride_search_objects[0], pride_search_objects.slice(1));
-	
-	  pride_search_switcher.switchTo(config.datastores.default);
 	}
 	
 	function configureDatastores(pride_datastores, config) {
@@ -147,26 +122,18 @@
 	    _index.store.dispatch((0, _actions.changeActiveDatastore)(config.datastores.default));
 	  } else {
 	    console.log('[Warning - Config]: Couldn\'t find \"' + config.datastores.default + '\" as the default datastore');
-	    //TODO setup first to be default
+	    //TODO setup first to be default if no default given
 	  }
 	
-	  return datastores_unsorted;
-	
 	  //TODO add in multisource datastores
+	
 	  //TODO sorting by configuration
 	
-	  /*
-	  var datastores_ordering = config.datastores.ordering
-	  var datastores_sorted = _.sortBy(datastores_unsorted, (ds, i) => {
-	    console.log('ds', ds)
-	    console.log('i', i)
-	  })
-	   return datastores_sorted
-	  */
+	  return datastores_unsorted;
 	}
 	
 	_index.store.subscribe(function () {
-	  console.log('Store Updated!', _index.store.getState());
+	  console.log('%c store updated ', 'background: #126DC1; color: white;', _index.store.getState());
 	});
 	
 	var renderApp = function renderApp() {
@@ -176,7 +143,6 @@
 	};
 	
 	_index.store.subscribe(renderApp);
-	renderApp();
 
 /***/ },
 /* 1 */
@@ -24999,11 +24965,11 @@
 	
 	var _SearchBox = __webpack_require__(180);
 	
-	var _Datastores = __webpack_require__(181);
+	var _Datastores = __webpack_require__(182);
 	
-	var _index = __webpack_require__(182);
+	var _index = __webpack_require__(183);
 	
-	var _actions = __webpack_require__(184);
+	var _actions = __webpack_require__(181);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25035,7 +25001,11 @@
 	        'main',
 	        null,
 	        _react2.default.createElement(_Header.Header, null),
-	        _react2.default.createElement(_SearchBox.SearchBox, null),
+	        _react2.default.createElement(_SearchBox.SearchBox, {
+	          onSubmitSearch: function onSubmitSearch(text) {
+	            return _index.store.dispatch((0, _actions.submitSearch)(text));
+	          }
+	        }),
 	        _react2.default.createElement(_Datastores.DatastoreList, {
 	          datastores: datastores,
 	          activeDatastore: active_datastore,
@@ -25158,61 +25128,78 @@
 /* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.SearchBox = undefined;
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _actions = __webpack_require__(181);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var SearchBox = exports.SearchBox = function SearchBox(_ref) {
+	  var onSubmitSearch = _ref.onSubmitSearch;
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	  var input = void 0;
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var SearchBox = exports.SearchBox = function (_React$Component) {
-	  _inherits(SearchBox, _React$Component);
-	
-	  function SearchBox() {
-	    _classCallCheck(this, SearchBox);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SearchBox).apply(this, arguments));
-	  }
-	
-	  _createClass(SearchBox, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "search-box-container-full" },
-	        _react2.default.createElement(
-	          "div",
-	          { className: "container container-narrow" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "search-box" },
-	            _react2.default.createElement("input", { type: "text" }),
-	            _react2.default.createElement("input", { className: "button search-box-button", type: "submit", value: "Search" })
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return SearchBox;
-	}(_react2.default.Component);
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'search-box-container-full' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'container container-narrow' },
+	      _react2.default.createElement(
+	        'form',
+	        { className: 'search-box' },
+	        _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
+	            input = node;
+	          } }),
+	        _react2.default.createElement('input', { className: 'button search-box-button', type: 'submit', value: 'Search', onClick: function onClick(event) {
+	            event.preventDefault();
+	            onSubmitSearch(input.value);
+	            input.value = '';
+	          } })
+	      )
+	    )
+	  );
+	};
 
 /***/ },
 /* 181 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.addDatastore = addDatastore;
+	exports.changeActiveDatastore = changeActiveDatastore;
+	exports.submitSearch = submitSearch;
+	var ADD_DATASTORE = exports.ADD_DATASTORE = 'ADD_DATASTORE';
+	var CHANGE_ACTIVE_DATASTORE = exports.CHANGE_ACTIVE_DATASTORE = 'CHANGE_ACTIVE_DATASTORE';
+	var SUBMIT_SEARCH = exports.SUBMIT_SEARCH = 'SUBMIT_SEARCH';
+	
+	function addDatastore(payload) {
+	  return { type: ADD_DATASTORE, payload: payload };
+	}
+	
+	function changeActiveDatastore(payload) {
+	  return { type: CHANGE_ACTIVE_DATASTORE, payload: payload };
+	}
+	
+	function submitSearch(payload) {
+	  return { type: SUBMIT_SEARCH, payload: payload };
+	}
+
+/***/ },
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25220,75 +25207,27 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.DatastoreList = exports.Datastores = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	exports.DatastoreList = undefined;
 	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _index = __webpack_require__(182);
+	var _index = __webpack_require__(183);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Datastores = exports.Datastores = function (_React$Component) {
-	  _inherits(Datastores, _React$Component);
-	
-	  function Datastores() {
-	    _classCallCheck(this, Datastores);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Datastores).apply(this, arguments));
-	  }
-	
-	  _createClass(Datastores, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-	
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'datastore-list-container' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'container-narrow container' },
-	          _react2.default.createElement(
-	            'ul',
-	            { className: 'datastore-list' },
-	            this.props.state.datastores.map(function (ds) {
-	              return _react2.default.createElement(
-	                'li',
-	                { key: ds.uid,
-	                  onClick: function onClick() {
-	                    _index.store.dispatch(changeActiveDatastore(ds.uid));
-	                  },
-	                  className: _this2.props.state.active_datastore == ds.uid ? 'active' : '' },
-	                ds.name
-	              );
-	            })
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Datastores;
-	}(_react2.default.Component);
-	
 	var DatastoreListItem = function DatastoreListItem(_ref) {
-	  var onClick = _ref.onClick;
-	  var isActive = _ref.isActive;
+	  var uid = _ref.uid;
 	  var name = _ref.name;
+	  var isActive = _ref.isActive;
+	  var onDatastoreClick = _ref.onDatastoreClick;
 	  return _react2.default.createElement(
 	    'li',
 	    {
-	      onClick: onClick,
+	      onClick: function onClick() {
+	        onDatastoreClick(uid);
+	      },
 	      className: isActive ? 'active' : '' },
 	    name
 	  );
@@ -25310,34 +25249,16 @@
 	        datastores.map(function (datastore) {
 	          return _react2.default.createElement(DatastoreListItem, {
 	            key: datastore.uid,
+	            uid: datastore.uid,
 	            name: datastore.name,
 	            isActive: activeDatastore == datastore.uid,
-	            onClick: function onClick() {
-	              return onDatastoreClick(datastore.uid);
-	            }
+	            onDatastoreClick: onDatastoreClick
 	          });
 	        })
 	      )
 	    )
 	  );
 	};
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.store = undefined;
-	
-	var _reducers = __webpack_require__(183);
-	
-	var _redux = __webpack_require__(185);
-	
-	var store = exports.store = (0, _redux.createStore)(_reducers.searchApp);
 
 /***/ },
 /* 183 */
@@ -25348,9 +25269,26 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.store = undefined;
+	
+	var _reducers = __webpack_require__(184);
+	
+	var _redux = __webpack_require__(185);
+	
+	var store = exports.store = (0, _redux.createStore)(_reducers.searchApp);
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.searchApp = undefined;
 	
-	var _actions = __webpack_require__(184);
+	var _actions = __webpack_require__(181);
 	
 	var _redux = __webpack_require__(185);
 	
@@ -25396,32 +25334,23 @@
 	  }
 	};
 	
+	var search = function search() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? "" : arguments[0];
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case _actions.SUBMIT_SEARCH:
+	      return action.payload;
+	    default:
+	      return state;
+	  }
+	};
+	
 	var searchApp = exports.searchApp = (0, _redux.combineReducers)({
 	  datastores: datastores,
-	  active_datastore: active_datastore
+	  active_datastore: active_datastore,
+	  search: search
 	});
-
-/***/ },
-/* 184 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.addDatastore = addDatastore;
-	exports.changeActiveDatastore = changeActiveDatastore;
-	var ADD_DATASTORE = exports.ADD_DATASTORE = 'ADD_DATASTORE';
-	var CHANGE_ACTIVE_DATASTORE = exports.CHANGE_ACTIVE_DATASTORE = 'CHANGE_ACTIVE_DATASTORE';
-	
-	function addDatastore(payload) {
-	  return { type: ADD_DATASTORE, payload: payload };
-	}
-	
-	function changeActiveDatastore(payload) {
-	  return { type: CHANGE_ACTIVE_DATASTORE, payload: payload };
-	}
 
 /***/ },
 /* 185 */
