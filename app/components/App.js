@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Header } from './Header.js'
 import { SearchBox } from './SearchBox.js'
 import { DatastoreList } from './Datastores.js'
 import { store } from '../store/index.js'
@@ -16,6 +17,7 @@ export class App extends React.Component {
     } = this.props.state
     return (
       <main>
+        <Header/>
         <SearchBox/>
         <DatastoreList
           datastores={datastores}

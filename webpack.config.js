@@ -25,7 +25,13 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: [ 'style', 'css?sourceMap', 'sass' ]
+        loaders: [ 'style', 'css', 'sass' ]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'url-loader?limit=8192'
+        ]
       }
     ]
   },
