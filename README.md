@@ -9,7 +9,7 @@ A work in progress single page app for new search. This repository contains the 
 $ git clone https://github.com/mlibrary/search.git
 ```
 
-###2. Install 
+###2. Install
 ```sh
 $ npm install
 ```
@@ -20,7 +20,7 @@ You'll need `npm` for this.
 
 ###3. Run Locally
 ```sh
-$ webpack-dev-server
+$ npm start
 ```
 
 ## Contact
