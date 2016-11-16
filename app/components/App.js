@@ -4,8 +4,7 @@ import { Header } from './Header.js'
 import { SearchBox } from './SearchBox.js'
 import { DatastoreList } from './Datastores.js'
 import { store } from '../store/index.js'
-
-import { changeActiveDatastore } from '../store/actions.js'
+import { changeActiveDatastore, submitSearch } from '../store/actions.js'
 
 require("../assets/stylesheets/main.scss")
 
@@ -18,7 +17,11 @@ export class App extends React.Component {
     return (
       <main>
         <Header/>
-        <SearchBox/>
+        <SearchBox
+          onSubmitSearch={text =>
+            store.dispatch(submitSearch(text))
+          }
+        />
         <DatastoreList
           datastores={datastores}
           activeDatastore={active_datastore}
