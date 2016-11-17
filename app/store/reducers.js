@@ -1,4 +1,4 @@
-import { ADD_DATASTORE, CHANGE_ACTIVE_DATASTORE, SUBMIT_SEARCH } from './actions.js'
+import { ADD_DATASTORE, CHANGE_ACTIVE_DATASTORE, SUBMIT_SEARCH, ADD_RECORD, CLEAR_RECORDS } from './actions.js'
 import { combineReducers } from 'redux'
 import { _ } from 'underscore'
 
@@ -46,8 +46,34 @@ const search = (state = "", action) => {
   }
 }
 
+const record = (state = {}, action) => {
+  switch (action.type) {
+    case ADD_RECORD:
+      return {
+        partial: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+const records = (state = [], action) => {
+  switch (action.type) {
+    case ADD_RECORD:
+      return [
+        ...state,
+        record(undefined, action)
+      ]
+    case CLEAR_RECORDS:
+      return []
+    default:
+      return state
+  }
+}
+
 export const searchApp = combineReducers({
   datastores,
   active_datastore,
-  search
+  search,
+  records
 })

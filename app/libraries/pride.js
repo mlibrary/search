@@ -1254,8 +1254,6 @@ Pride.Util.SearchSwitcher = function(current_search, cached_searches) {
   var self         = this;
   var search_cache = new Pride.Util.MultiSearch(null, true, cached_searches);
 
-  console.log(current_search)
-
   current_search.set({ page: 1 }).setMute(false);
   search_cache.set({ page: 1 });
 

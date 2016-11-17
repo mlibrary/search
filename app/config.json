@@ -20,10 +20,6 @@
       {
         "uid": "website",
         "name": "Website"
-      },
-      {
-        "uid": "website",
-        "name": "Website"
       }
     ],
     "multi_source": [
@@ -43,7 +39,8 @@
       "mirlyn",
       "articlesplus",
       "journals",
-      "databases"
+      "databases",
+      "website"
     ],
     "default": "mirlyn"
   }
