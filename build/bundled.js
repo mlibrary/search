@@ -22963,7 +22963,7 @@
 	
 	var _actions = __webpack_require__(178);
 	
-	_pride.Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
+	_pride.Pride.Settings.datastores_url = "//earleyj.www.lib.umich.edu/testapp/spectrum/";
 	_pride.Pride.Settings.connection_attempts = 2;
 	_pride.Pride.Settings.obnoxious = false;
 	
