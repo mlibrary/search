@@ -2,8 +2,6 @@ import { ADD_DATASTORE, CHANGE_ACTIVE_DATASTORE, SUBMIT_SEARCH, ADD_RECORD, CLEA
 import { combineReducers } from 'redux'
 import { _ } from 'underscore'
 
-import { Pride } from '../libraries/pride.js'
-
 const datastore = (state, action) => {
   switch (action.type) {
     case ADD_DATASTORE:
@@ -40,6 +38,9 @@ const active_datastore = (state = "", action) => {
 const search = (state = "", action) => {
   switch (action.type) {
     case SUBMIT_SEARCH:
+
+      console.log('submit search', action)
+
       return action.payload
     default:
       return state

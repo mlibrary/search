@@ -2,7 +2,7 @@ import { Pride } from './../libraries/pride.js'
 import { _ } from 'underscore'
 import { store } from './index.js'
 
-import { addDatastore, changeActiveDatastore, addRecord, clearRecords } from './actions.js'
+import { addDatastore, changeActiveDatastore, addRecord, clearRecords, submitSearch } from './actions.js'
 
 Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
 Pride.Settings.connection_attempts = 2;
@@ -13,7 +13,6 @@ const initPride = () => {
     success: () => {
       console.log('Pride loaded successfully.')
       loadPride()
-      prideRunSearch()
     },
     failure: () => {
       console.log('Pride failed to load.')
@@ -31,7 +30,6 @@ const loadPride = () => {
   var config = require("json!./../config.json")
   var datastores = configureDatastores(pride_datastores_array, config)
   var search_objects = [];
-  var active_datastore = store.getState().active_datastore
 
   // Add datastores to store
   _.each(datastores, (datastore) => {
@@ -49,6 +47,9 @@ const loadPride = () => {
 
     // results records observer
     search_object.resultsObservers.add(function(results) {
+      var active_datastore = store.getState().active_datastore
+
+      console.log('resultsObservers ', search_object.uid, results)
 
       if (active_datastore == search_object.uid) {
         store.dispatch(clearRecords())
@@ -119,20 +120,19 @@ const configureDatastores = (pride_datastores, config) => {
   return datastores_unsorted
 }
 
-export const prideRunSearch = () => {
+export const prideRunSearch = (search_text) => {
   var store_copy       = store.getState()
   var active_datastore = store_copy.active_datastore
-  var search_text      = store_copy.search
 
   const config = {
     page: 1,
     field_tree: Pride.FieldTree.parseField('all_fields', search_text)
   }
-
   search_switcher.set(config).run()
+  store.dispatch(submitSearch(search_text))
 }
 
-export const prideSwitchToDatastore = () => {
-  var active_datastore = store.getState().active_datastore
-  console.log('switchPrideToDatastore ', active_datastore)
+export const prideSwitchToDatastore = (uid) => {
+  store.dispatch(changeActiveDatastore(uid))
+  search_switcher.switchTo(uid)
 }
