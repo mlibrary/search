@@ -54,83 +54,15 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _pride = __webpack_require__(172);
+	var _underscore = __webpack_require__(172);
 	
-	var _underscore = __webpack_require__(173);
-	
-	var _App = __webpack_require__(176);
-	
-	var _actions = __webpack_require__(181);
+	var _App = __webpack_require__(173);
 	
 	var _index = __webpack_require__(183);
 	
+	var _pride_interface = __webpack_require__(179);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	_pride.Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
-	_pride.Pride.Settings.connection_attempts = 2;
-	_pride.Pride.Settings.obnoxious = false;
-	
-	function initPride() {
-	  _pride.Pride.init({
-	    success: function success() {
-	      console.log('Pride loaded successfully.');
-	      loadPride();
-	    },
-	    failure: function failure() {
-	      console.log('Pride failed to load.');
-	    }
-	  });
-	}
-	
-	initPride();
-	
-	function loadPride() {
-	  var pride_datastores = _pride.Pride.AllDatastores;
-	  var pride_datastores_array = pride_datastores.array;
-	  var config = __webpack_require__(202);
-	  var datastores = configureDatastores(pride_datastores_array, config);
-	
-	  // Add datastores to store
-	  _underscore._.each(datastores, function (datastore) {
-	    _index.store.dispatch((0, _actions.addDatastore)({
-	      uid: datastore.uid,
-	      name: datastore.name
-	    }));
-	  });
-	}
-	
-	function configureDatastores(pride_datastores, config) {
-	  var datastores_unsorted = _underscore._.reduce(pride_datastores, function (datastores, datastore) {
-	    var uid = datastore.get('uid');
-	    var name = datastore.get('metadata').name;
-	
-	    if (_underscore._.contains(config.datastores.ordering, uid)) {
-	      var config_datastore = _underscore._.findWhere(config.datastores.naming, { "uid": uid });
-	      var config_name = config_datastore.name;
-	
-	      datastores.push({
-	        uid: uid,
-	        name: config_name
-	      });
-	    }
-	
-	    return datastores;
-	  }, []);
-	
-	  // Select and activate default datastore
-	  if (_underscore._.findWhere(datastores_unsorted, { uid: config.datastores.default })) {
-	    _index.store.dispatch((0, _actions.changeActiveDatastore)(config.datastores.default));
-	  } else {
-	    console.log('[Warning - Config]: Couldn\'t find \"' + config.datastores.default + '\" as the default datastore');
-	    //TODO setup first to be default if no default given
-	  }
-	
-	  //TODO add in multisource datastores
-	
-	  //TODO sorting by configuration
-	
-	  return datastores_unsorted;
-	}
 	
 	_index.store.subscribe(function () {
 	  console.log('%c store updated ', 'background: #126DC1; color: white;', _index.store.getState());
@@ -142,7 +74,9 @@
 	  }), document.getElementById('app'));
 	};
 	
-	_index.store.subscribe(renderApp);
+	renderApp(); // initial render
+	
+	_index.store.subscribe(renderApp); // every store update, render
 
 /***/ },
 /* 1 */
@@ -21180,1578 +21114,6 @@
 /* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.Pride = undefined;
-	
-	var _underscore = __webpack_require__(173);
-	
-	var reqwest = __webpack_require__(174); // Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	var Pride = exports.Pride = {};
-	Pride.Util = {};
-	Pride.Core = {};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Settings = {
-	  // default_cache_size:  If a cache size isn't set for a datastore, this value
-	  //                      is used instead.
-	  //
-	  // cache_size:          Key-value pairs where each key is the UID of a
-	  //                      datastore, and the value gives the cache size for that
-	  //                      particular datastore.
-	  //
-	  // datastores_url:      URL from which Pride can get all the possible
-	  //                      datastores.
-	  //
-	  // connection_attempts: How many times Pride will attempt an HTTP request
-	  //                      before giving up (overridden by some things such as
-	  //                      Pride.init()).
-	  //
-	  // init_attempts:       How many times Pride will attempt to initialize before
-	  //                      giving up.
-	  //
-	  // ms_between_attempts: How long Pride will wait to try another HTTP request
-	  //                      after one fails.
-	  //
-	  // message_formats:     Key-value pairs where each key is the ID of a message
-	  //                      type and the value is what that message should say. A
-	  //                      dollar sign preceded by a number will be replaced when
-	  //                      the message is created.
-	  //
-	  // obnoxious:           If true, debug messages will be logged to the console
-	  //                      as Pride runs. WARNING: Pride can send out a lot of
-	  //                      debug messages.
-	
-	  default_cache_size: 100,
-	  cache_size: {},
-	
-	  datastores_url: '',
-	
-	  connection_attempts: 3,
-	  init_attempts: 3,
-	  ms_between_attempts: 1500,
-	
-	  message_formats: {
-	    failed_record_load: 'Failed to load $1',
-	    failed_search_run: 'Failed to search $1',
-	    failed_init: 'Failed to initialize Pride'
-	  },
-	
-	  obnoxious: false
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Core.Datastore = function (datastore_info) {
-	  datastore_info = Pride.Util.deepClone(datastore_info);
-	
-	  this.baseQuery = function () {
-	    return new Pride.Core.Query({
-	      uid: datastore_info.uid,
-	      sort: datastore_info.default_sort,
-	      start: 0,
-	      count: 0,
-	      settings: {},
-	      field_tree: fillFieldTree(),
-	      facets: _underscore._.reduce(datastore_info.facets, function (memo, facet) {
-	        if (facet.required && !facet.fixed) {
-	          memo[facet.uid] = facet.default_value;
-	        }
-	
-	        return memo;
-	      }, {})
-	    });
-	  };
-	
-	  this.baseSearch = function () {
-	    return new Pride.Core.DatastoreSearch({ datastore: this });
-	  };
-	
-	  this.runQuery = function (request_arguments) {
-	    request_arguments.url = datastore_info.url;
-	    Pride.Util.request(request_arguments);
-	
-	    return this;
-	  };
-	
-	  this.get = function (key) {
-	    if (key != 'url') {
-	      return datastore_info[key];
-	    }
-	  };
-	
-	  this.update = function (new_info) {
-	    _underscore._.extend(datastore_info, new_info);
-	  };
-	
-	  var fillFacets = function fillFacets(set_facets) {
-	    return _underscore._.reduce(datastore_info.facets, function (memo, facet) {
-	      memo[facet.uid] = _underscore._.find(set_facets, function (possible_facet) {
-	        return possible_facet.uid === facet.uid;
-	      }) || facet;
-	
-	      return memo;
-	    }, {});
-	  };
-	
-	  var fillFieldTree = function fillFieldTree(given_tree) {
-	    given_tree = given_tree || new Pride.FieldTree.FieldBoolean('AND');
-	
-	    var output = _underscore._.reduce(datastore_info.fields, function (tree, field) {
-	      if ((field.required || field.fixed) && !tree.contains({ type: 'field', value: field.uid })) {
-	
-	        missing_field = new Pride.FieldTree.Field(field.uid, new Pride.FieldTree.Literal(field.default_value));
-	
-	        if (_underscore._.isMatch(tree, { type: 'field_boolean', value: 'AND' })) {
-	          return tree.addChild(missing_field);
-	        } else {
-	          return new Pride.FieldTree.FieldBoolean('AND', tree, missing_field);
-	        }
-	      }
-	
-	      return tree;
-	    }, given_tree);
-	
-	    return output.matches({ type: 'field_boolean', children: [] }) ? {} : output;
-	  };
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Core.DatastoreSearch = function (setup) {
-	  var self = this;
-	  var base = new Pride.Core.SearchBase(setup, this);
-	
-	  base.createItem = function (item_data) {
-	    return new Pride.Core.Record(item_data);
-	  };
-	
-	  ////////////////////
-	  // Facet Searches //
-	  ////////////////////
-	
-	  var facet_searches = [];
-	  var current_facets = [];
-	
-	  this.getFacets = function () {
-	    return facet_searches;
-	  };
-	
-	  //////////////////
-	  // Data Getters //
-	  //////////////////
-	
-	  this.uid = base.datastore.get('uid');
-	
-	  this.getData = function () {
-	    return {
-	      uid: self.uid,
-	      metadata: Pride.Util.deepClone(base.datastore.get('metadata')),
-	      sorts: Pride.Util.deepClone(base.datastore.get('sorts')),
-	      selected_sort: base.query.get('sort'),
-	      facets: Pride.Util.deepClone(base.query.get('facets')),
-	      fields: Pride.Util.deepClone(base.datastore.get('fields')),
-	      field_tree: Pride.Util.deepClone(base.query.get('field_tree')),
-	      settings: Pride.Util.deepClone(base.query.get('settings')),
-	      page: base.query.get('page'),
-	      count: base.query.get('count'),
-	      total_available: base.query.get('total_available'),
-	      total_pages: base.query.get('total_pages'),
-	      page_limit: base.query.get('page_limit')
-	    };
-	  };
-	
-	  this.getResults = base.results;
-	
-	  ///////////////////
-	  // Observerables //
-	  ///////////////////
-	
-	  base.initialize_observables = function () {
-	    self.runDataObservers.add(function () {
-	      var facets = base.datastore.get('facets');
-	
-	      if (!Pride.Util.isDeepMatch(current_facets, facets)) {
-	        _underscore._.each(facet_searches, function (facet_search) {
-	          facet_search.clearAllObservers();
-	        });
-	
-	        facet_searches = _underscore._.map(facets, function (facet_data) {
-	          return new Pride.Core.FacetSearch({
-	            data: _underscore._.omit(facet_data, 'values'),
-	            results: facet_data.values
-	          });
-	        });
-	
-	        current_facets = facets;
-	
-	        self.facetsObservers.notify();
-	      }
-	    });
-	  };
-	
-	  this.getMute = base.getMute;
-	
-	  this.setMute = function (state) {
-	    _underscore._.each(facet_searches, function (facet) {
-	      facet.setMute(state);
-	    });
-	    base.setMute(state);
-	
-	    return self;
-	  };
-	
-	  base.createObservable('facets', this.getFacets).initialize_observables();
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Core.FacetSearch = function (setup) {
-	  var example_facet = this;
-	  var data = setup.data;
-	  var results = setup.results;
-	
-	  //////////////////
-	  // Data Getters //
-	  //////////////////
-	
-	  this.uid = data.uid;
-	  this.getData = function () {
-	    return data;
-	  };
-	  this.getResults = function () {
-	    return results;
-	  };
-	
-	  ////////////
-	  // Muting //
-	  ////////////
-	
-	  var muted = false;
-	
-	  this.getMute = function () {
-	    return muted;
-	  };
-	
-	  this.setMute = function (state) {
-	    muted = state;
-	
-	    return self;
-	  };
-	
-	  ///////////////////
-	  // Observerables //
-	  ///////////////////
-	
-	  var observables = [];
-	
-	  this.clearAllObservers = function () {
-	    _underscore._.each(observables, function (observable) {
-	      observable.clearAll();
-	    });
-	
-	    return self;
-	  };
-	
-	  var createObservable = function createObservable(name, data_func) {
-	    var object = new Pride.Util.FuncBuffer(function () {
-	      var add_observer = this.add;
-	      var call_observers = this.call;
-	
-	      observables.push(this);
-	
-	      this.add = function (func) {
-	        if (!self.muted) func(data_func());
-	
-	        add_observer(func, 'observers');
-	
-	        return this;
-	      };
-	
-	      this.notify = function () {
-	        if (!self.muted) {
-	          data = data_func();
-	          self.log('NOTIFY (' + name + ')', data);
-	
-	          call_observers('observers', data);
-	        }
-	
-	        return this;
-	      };
-	    });
-	
-	    return object;
-	  };
-	
-	  this.resultsObservers = createObservable('results', this.getResults);
-	  this.setDataObservers = createObservable('setData', this.getData);
-	  this.runDataObservers = createObservable('runData', this.getData);
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.FieldTree = {};
-	
-	// Factory for creating functions to create various field tree node types.
-	Pride.Core.nodeFactory = function (type, child_types, extention) {
-	  return function (value) {
-	    this.children = Pride.Util.slice(arguments, 1);
-	    this.type = type;
-	    this.value = value.trim();
-	    this.child_types = child_types || [];
-	    this.validIfEmpty = true;
-	
-	    // Check to make sure a child is valid for this node.
-	    // If it is, add it to the array of children.
-	    this.addChild = function (new_child) {
-	      if (_underscore._.find(this.child_types, function (a_type) {
-	        return new_child.type === a_type;
-	      })) {
-	        this.children.push(new_child);
-	      } else {
-	        throw 'Not a valid child for a ' + this.type;
-	      }
-	
-	      return this;
-	    };
-	
-	    // Check to see if this object is, or contains, an object which
-	    // which matches the query object.
-	    this.contains = function (query) {
-	      if (this.matches(query)) {
-	        return this;
-	      } else if (_underscore._.isEmpty(this.children)) {
-	        return false;
-	      } else {
-	        return _underscore._.find(this.children, function (possible) {
-	          return possible.contains(query);
-	        });
-	      }
-	    };
-	
-	    this.matches = function (query) {
-	      var this_node = this;
-	      var query_children = query.children || [];
-	
-	      return _underscore._.every(_underscore._.omit(query, 'children'), function (value, key) {
-	        return this_node[key] == value;
-	      }) && _underscore._.every(query_children, function (query_child) {
-	        return _underscore._.any(children, function (real_child) {
-	          return query_child.matches(real_child);
-	        });
-	      });
-	    };
-	
-	    this.serialize = function () {
-	      return value;
-	    };
-	
-	    this.serializedChildren = function () {
-	      return _underscore._.chain(this.children).map(function (child) {
-	        return child.serialize();
-	      }).compact().value();
-	    };
-	
-	    this.toJSON = function () {
-	      return _underscore._.pick(this, 'value', 'children', 'type');
-	    };
-	
-	    // If an extention function was given, call it with this.
-	    if (_underscore._.isFunction(extention)) {
-	      extention.call(this);
-	    }
-	  };
-	};
-	
-	// Specialized version of Pride.nodefactory() which produces boolean
-	// nodes.
-	Pride.Core.boolNodeFactory = function (type, child_types) {
-	  return Pride.Core.nodeFactory(type, child_types, function () {
-	    // Ensure that only valid boolean values are given.
-	    if (!_underscore._.contains(['AND', 'OR', 'NOT'], this.value)) {
-	      throw 'Not a valid boolean value';
-	    }
-	
-	    this.serialize = function () {
-	      return this.serializedChildren().join(' ' + this.value + ' ');
-	    };
-	
-	    this.serializedChildren = function () {
-	      var this_node = this;
-	
-	      return _underscore._.chain(this_node.children).map(function (child) {
-	        if (child.type == this_node.type || child.type == 'literal' && child.value.match(/\s/)) {
-	          return '(' + child.serialize() + ')';
-	        } else {
-	          return child.serialize();
-	        }
-	      }).compact().value();
-	    };
-	  });
-	};
-	
-	// Possible node types.
-	var top_level_nodes = ['field_boolean', 'field'];
-	var inside_field_nodes = ['value_boolean', 'literal', 'tag', 'special'];
-	
-	// Create constructor functions for all the various node types.
-	
-	Pride.FieldTree.FieldBoolean = Pride.Core.boolNodeFactory('field_boolean', top_level_nodes);
-	
-	Pride.FieldTree.ValueBoolean = Pride.Core.boolNodeFactory('value_boolean', inside_field_nodes);
-	
-	Pride.FieldTree.Field = Pride.Core.nodeFactory('field', inside_field_nodes, function () {
-	  this.serialize = function () {
-	    return this.value + ': (' + this.serializedChildren().join(' ') + ')';
-	  };
-	});
-	
-	Pride.FieldTree.Tag = Pride.Core.nodeFactory('tag', inside_field_nodes, function () {
-	  this.serialize = function () {
-	    var serialized_children = this.serializedChildren();
-	    if (serialized_children.length === 0) {
-	      return '';
-	    } else {
-	      return this.value + '(' + serialized_children.join(' ') + ')';
-	    }
-	  };
-	});
-	
-	Pride.FieldTree.Literal = Pride.Core.nodeFactory('literal');
-	Pride.FieldTree.Special = Pride.Core.nodeFactory('special');
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.FuncBuffer = function (extension) {
-	  var buffer = {};
-	  var self = this;
-	
-	  var safeGet = function safeGet(name) {
-	    if (!_underscore._.has(buffer, name)) buffer[name] = [];
-	
-	    return buffer[name];
-	  };
-	
-	  this.add = function (func, name) {
-	    safeGet(name).push(func);
-	
-	    return self;
-	  };
-	
-	  this.remove = function (func, name) {
-	    buffer[name] = _underscore._.reject(safeGet(name), function (other_func) {
-	      return func == other_func;
-	    });
-	
-	    return self;
-	  };
-	
-	  this.clear = function (name) {
-	    delete buffer[name];
-	
-	    return self;
-	  };
-	
-	  this.clearAll = function () {
-	    buffer = {};
-	
-	    return self;
-	  };
-	
-	  this.call = function (name) {
-	    self.apply(name, Pride.Util.slice(arguments, 1));
-	
-	    return self;
-	  };
-	
-	  this.apply = function (name, args) {
-	    _underscore._.each(safeGet(name), function (func) {
-	      Pride.Util.safeApply(func, args);
-	    });
-	
-	    return self;
-	  };
-	
-	  if (_underscore._.isFunction(extension)) extension.call(this);
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.MultiSearch = function (uid, muted, search_array) {
-	  var query_data = {};
-	  var self = this;
-	
-	  this.searches = search_array;
-	  this.uid = uid;
-	
-	  this.set = function (values) {
-	    _underscore._.extend(query_data, values);
-	
-	    _underscore._.each(search_array, function (search) {
-	      search.set(values);
-	    });
-	
-	    return self;
-	  };
-	
-	  var funcOnEach = function funcOnEach(func_name, before_func) {
-	    return function () {
-	      var args = Pride.Util.slice(arguments);
-	
-	      Pride.Util.safeApply(before_func, args);
-	
-	      _underscore._.each(search_array, function (search) {
-	        search[func_name].apply(search, args);
-	      });
-	
-	      return self;
-	    };
-	  };
-	
-	  this.run = funcOnEach('run');
-	  this.nextPage = funcOnEach('nextPage');
-	  this.prevPage = funcOnEach('prevPage');
-	  this.setMute = funcOnEach('setMute', function (state) {
-	    muted = state;
-	  });
-	
-	  this.getMute = function () {
-	    return muted;
-	  };
-	
-	  this.setMute(muted);
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.Paginater = function (initial_values) {
-	  this.set = function (new_values) {
-	
-	    ////////////////////////
-	    // Basic error checks //
-	    ////////////////////////
-	
-	    if (_underscore._.has(new_values, 'total_pages')) {
-	      throw 'Can not set total_pages (it is a calculated value)';
-	    }
-	
-	    if (_underscore._.has(new_values, 'index_limit')) {
-	      throw 'Can not set index_limit (it is a calculated value)';
-	    }
-	
-	    if (_underscore._.intersection(['start', 'end', 'count'], _underscore._.keys(new_values)).length > 2) {
-	      throw 'Can not set start, end and count all at the same time';
-	    }
-	
-	    if (_underscore._.has(new_values, 'page') && (_underscore._.has(new_values, 'start') || _underscore._.has(new_values, 'end'))) {
-	      throw 'Can not set page as well as the start and/or end';
-	    }
-	
-	    //////////////////////////////
-	    // Set and calculate values //
-	    //////////////////////////////
-	
-	    _underscore._.extend(values, _underscore._.omit(new_values, 'end'));
-	
-	    // If the page is being set, we have to update the start.
-	    if (_underscore._.has(new_values, 'page')) {
-	      values.start = (values.count || 0) * (values.page - 1);
-	    }
-	
-	    // If the end is being set, we calculate what start or count should now be.
-	    if (_underscore._.has(new_values, 'end')) {
-	      if (_underscore._.has(new_values, 'count')) {
-	        // If we are also setting the count, calculate a new start.
-	        values.start = Math.max(new_values.end, new_values.end - (values.count - 1));
-	        // If we are not setting the count, calculate a new count.
-	      } else {
-	        // Throw an error if the start now comes after the end, because that
-	        // makes no sense at all.
-	        if (values.start <= new_values.end) {
-	          values.count = new_values.end - values.start + 1;
-	        } else {
-	          throw 'The start value can not be greater than the end value';
-	        }
-	      }
-	
-	      // We wait to set the new end value until after an exception can be thrown.
-	      values.end = new_values.end;
-	    } else {
-	      // Calculate what the new end value should be.
-	      var end = values.start + values.count - 1;
-	      values.end = end < values.start ? undefined : end;
-	    }
-	
-	    // Calculate what the last index can be.
-	    if (!_underscore._.isNumber(values.total_available)) {
-	      values.index_limit = Infinity;
-	    } else if (values.total_available > 0) {
-	      values.index_limit = values.total_available - 1;
-	    } else {
-	      values.index_limit = undefined;
-	    }
-	
-	    //////////////////////////
-	    // Calculate pagination //
-	    //////////////////////////
-	
-	    if (values.count > 0 && values.start % values.count === 0) {
-	      values.page = Math.floor(values.start / values.count) + 1;
-	
-	      if (_underscore._.isNumber(values.total_available)) {
-	        values.total_pages = Math.ceil(values.total_available / values.count);
-	        values.page_limit = values.total_pages;
-	      } else {
-	        values.total_pages = undefined;
-	        values.page_limit = Infinity;
-	      }
-	    } else {
-	      values.page = undefined;
-	      values.total_pages = undefined;
-	      values.page_limit = undefined;
-	    }
-	
-	    //////////////////////////////////////
-	    // Check to make sure enough is set //
-	    //////////////////////////////////////
-	
-	    if (!_underscore._.has(values, 'start') || !_underscore._.has(values, 'count')) {
-	      throw 'Not enough information given to create Paginater';
-	    }
-	
-	    return this;
-	  };
-	
-	  this.get = function (name) {
-	    return values[name];
-	  };
-	
-	  // Set the initial values.
-	  var values = {};
-	  this.set(initial_values);
-	};
-	
-	Pride.Util.Paginater.getPossibleKeys = function () {
-	  return ['start', 'count', 'end', 'page', 'index_limit', 'total_pages', 'total_available', 'page_limit'];
-	};
-	
-	Pride.Util.Paginater.hasKey = function (key) {
-	  return Pride.Util.Paginater.getPossibleKeys().indexOf(key) > -1;
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Core.Query = function (query_info) {
-	  // Setup the paginater to do all pagination calculations.
-	  var paginater = new Pride.Util.Paginater({
-	    start: query_info.start,
-	    count: query_info.count
-	  });
-	
-	  // Memoize the paginater keys for future use.
-	  var paginater_keys = Pride.Util.Paginater.getPossibleKeys();
-	
-	  // Remove the pagination info from query_info.
-	  query_info = _underscore._.omit(Pride.Util.deepClone(query_info), paginater_keys);
-	
-	  // Set the default request_id if it isn't already set.
-	  query_info.request_id = query_info.request_id || 0;
-	
-	  this.get = function (key) {
-	    if (Pride.Util.Paginater.hasKey(key)) {
-	      return paginater.get(key);
-	    } else {
-	      return query_info[key];
-	    }
-	  };
-	
-	  this.set = function (new_values) {
-	    var new_pagination_values = _underscore._.pick(new_values, paginater_keys);
-	    var new_query_values = _underscore._.omit(new_values, paginater_keys);
-	
-	    // If the set of things being searched was altered...
-	    if (!_underscore._.isEmpty(new_query_values)) {
-	      paginater.set({ total_available: undefined });
-	
-	      if (!_underscore._.isNumber(new_query_values.request_id)) {
-	        query_info.request_id += 1;
-	      }
-	    }
-	
-	    paginater.set(new_pagination_values);
-	    _underscore._.extend(query_info, new_query_values);
-	
-	    return this;
-	  };
-	
-	  this.clone = function () {
-	    var full_info = Pride.Util.deepClone(query_info);
-	    full_info.start = paginater.get('start');
-	    full_info.count = paginater.get('count');
-	
-	    return new Pride.Core.Query(full_info);
-	  };
-	
-	  this.toSection = function () {
-	    return new Pride.Util.Section(this.get('start'), this.get('end'));
-	  };
-	
-	  this.toLimitSection = function () {
-	    return new Pride.Util.Section(this.get('start'), this.get('index_limit'));
-	  };
-	
-	  this.toJSON = function () {
-	    return {
-	      uid: this.get('uid'),
-	      request_id: this.get('request_id'),
-	      start: this.get('start'),
-	      count: this.get('count'),
-	      field_tree: this.get('field_tree'),
-	      facets: this.get('facets'),
-	      sort: this.get('sort'),
-	      settings: this.get('settings')
-	    };
-	  };
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Core.Record = function (data) {
-	  var request_buffer = new Pride.Util.RequestBuffer({
-	    url: data.source,
-	    failure_message: Pride.Messenger.preset('failed_record_load', data.names[0]),
-	    edit_response: function edit_response(response) {
-	      data = translateData(response.results[0]);
-	
-	      return data;
-	    }
-	  });
-	
-	  this.renderPart = function (func) {
-	    callWithData(func);
-	  };
-	
-	  this.renderPartThenCache = function (func) {
-	    callWithData(func);
-	    request_buffer.request();
-	  };
-	
-	  this.renderFull = function (func) {
-	    callWithData(func);
-	
-	    if (!data.complete) {
-	      request_buffer.request({ success: func });
-	    }
-	  };
-	
-	  var callWithData = function callWithData(func) {
-	    func(_underscore._.omit(data, 'complete', 'source'), data.complete);
-	  };
-	
-	  var translateData = function translateData(new_data) {
-	    new_data.fields = _underscore._.map(new_data.fields, function (field) {
-	      if (!field.value_has_html) {
-	        field.value = Pride.Util.escape(field.value);
-	      }
-	
-	      return _underscore._.omit(field, 'value_has_html');
-	    });
-	
-	    if (!new_data.names_have_html) {
-	      new_data.names = _underscore._.map(new_data.names, function (name) {
-	        return Pride.Util.escape(name);
-	      });
-	    }
-	
-	    return _underscore._.omit(new_data, 'names_have_html');
-	  };
-	
-	  data = translateData(data);
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.RequestBuffer = function (request_options) {
-	  request_options = request_options || {};
-	
-	  var func_buffer = new Pride.Util.FuncBuffer();
-	
-	  var request_issued = false;
-	  var request_successful = false;
-	  var request_failed = false;
-	
-	  var cached_response_data;
-	
-	  this.request = function (func_hash) {
-	    func_buffer.add(func_hash.success, 'success').add(func_hash.failure, 'failure');
-	
-	    if (request_issued) {
-	      callWithResponse();
-	    } else {
-	      sendRequest();
-	    }
-	  };
-	
-	  var callWithResponse = function callWithResponse(data) {
-	    cached_response_data = data || cached_response_data;
-	
-	    if (request_successful) {
-	      callThenClear('success');
-	    } else if (request_failed) {
-	      callThenClear('failure');
-	    }
-	  };
-	
-	  var sendRequest = function sendRequest() {
-	    request_issued = true;
-	
-	    Pride.Util.request({
-	      url: Pride.Util.safeCall(request_options.url),
-	      attempts: Pride.Util.safeCall(request_options.attempts) || Pride.Settings.connection_attempts,
-	      failure_message: Pride.Util.safeCall(request_options.failure_message),
-	
-	      failure: function failure(error) {
-	        request_failed = true;
-	
-	        Pride.Util.safeCall(request_options.before_failure, error);
-	
-	        callWithResponse(error);
-	
-	        Pride.Util.safeCall(request_options.after_failure, error);
-	      },
-	
-	      success: function success(response) {
-	        request_successful = true;
-	
-	        Pride.Util.safeCall(request_options.before_success, response);
-	
-	        if (_underscore._.isFunction(request_options.edit_response)) {
-	          response = request_options.edit_response(response);
-	        }
-	
-	        callWithResponse(response);
-	
-	        Pride.Util.safeCall(request_options.after_success, response);
-	      }
-	    });
-	  };
-	
-	  var callThenClear = function callThenClear(name) {
-	    func_buffer.call(name, cached_response_data).clearAll();
-	  };
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Core.SearchBase = function (setup, parent) {
-	  this.datastore = setup.datastore;
-	  this.query = setup.query || this.datastore.baseQuery();
-	
-	  var self = this;
-	  var requestFunc = setup.requestFunc || this.datastore.runQuery;
-	  var results = setup.starting_results || [];
-	  var defaultCacheSize = setup.cache_size || Pride.Settings.cache_size[this.datastore.uid] || Pride.Settings.default_cache_size;
-	
-	  this.log = function () {
-	    var message = Pride.Util.slice(arguments);
-	    message.unshift('Search (' + self.datastore.get('uid') + ')');
-	
-	    Pride.Core.log.apply(window, message);
-	  };
-	
-	  /////////////////////////
-	  // Performing Searches //
-	  /////////////////////////
-	
-	  this.set = function (set_hash) {
-	    self.query.set(set_hash);
-	    Pride.Util.safeCall(self.setDataChanged);
-	
-	    if (!_underscore._.isEmpty(_underscore._.omit(set_hash, Pride.Util.Paginater.getPossibleKeys()))) {
-	      results = [];
-	    }
-	
-	    return self;
-	  };
-	
-	  this.run = function (cache_size) {
-	    Pride.Util.safeCall(self.resultsChanged);
-	
-	    if (_underscore._.isUndefined(cache_size)) {
-	      cache_size = defaultCacheSize;
-	    }
-	
-	    requestResults(getMissingSection(self.query.toSection().expanded(cache_size)));
-	
-	    return self;
-	  };
-	
-	  this.results = function () {
-	    return resultsPiece(new Pride.Util.Section(self.query.get('start'), Math.min(self.query.get('end'), self.query.get('index_limit'))));
-	  };
-	
-	  var requestResults = function requestResults(requested_section) {
-	    self.log('REQUESTING', requested_section);
-	    self.log('TOTAL AVAILABLE (pre-request)', self.query.get('total_available'));
-	
-	    if (requested_section && self.query.toLimitSection().overlaps(requested_section)) {
-	
-	      self.log('Sending query...');
-	
-	      var new_query = self.query.clone().set({
-	        start: requested_section.start,
-	        count: requested_section.calcLength()
-	      });
-	
-	      requestFunc({
-	        query: new_query,
-	        failure_message: Pride.Messenger.preset('failed_search_run', self.datastore.get('metadata').name),
-	        success: function success(response_data) {
-	          // Update things if the response matches the current query.
-	          if (response_data.request.request_id == self.query.get('request_id')) {
-	            updateData(response_data);
-	            addResults(response_data.response, new_query.get('start'));
-	
-	            var response_length = response_data.response.length;
-	
-	            // If we are missing results from the initial request...
-	            if (response_length !== 0 && response_length < new_query.get('count')) {
-	              requestResults(requested_section.shifted(response_length, 0));
-	            }
-	          }
-	        }
-	      });
-	    } else {
-	      // We don't need to run a search, but should update run observers in case
-	      // set() was called since the last run().
-	      Pride.Util.safeCall(self.runDataChanged);
-	    }
-	  };
-	
-	  var addResults = function addResults(new_items_array, offset) {
-	    var query_results_added = false;
-	
-	    self.log('NEW RECORDS', new_items_array);
-	
-	    _underscore._.each(new_items_array, function (item_data, array_index) {
-	      var item_index = array_index + offset;
-	
-	      // Update the results that are not already filled.
-	      if (_underscore._.isUndefined(results[item_index])) {
-	        results[item_index] = Pride.Util.safeCall(self.createItem, item_data);
-	
-	        if (self.query.toSection().inSection(item_index)) {
-	          query_results_added = true;
-	        }
-	      }
-	    });
-	
-	    self.log('CACHE LENGTH', results.length);
-	
-	    if (query_results_added || _underscore._.isEmpty(new_items_array)) {
-	      Pride.Util.safeCall(self.resultsChanged);
-	    }
-	  };
-	
-	  var updateData = function updateData(response_data) {
-	    self.datastore.update(response_data.datastore);
-	
-	    var new_query_data = _underscore._.omit(response_data.new_request, 'start', 'count');
-	    new_query_data.total_available = response_data.total_available;
-	    self.query.set(new_query_data);
-	
-	    Pride.Util.safeCall(self.runDataChanged);
-	  };
-	
-	  var getMissingSection = function getMissingSection(section) {
-	    var list = resultsPiece(section);
-	    var start = _underscore._.indexOf(list, undefined);
-	
-	    // If the item is not found, indexOf returns -1.
-	    if (start != -1) {
-	      var end = section.start + _underscore._.lastIndexOf(list, undefined);
-	
-	      // Adjust for the offset from the start of the results.
-	      start += section.start;
-	
-	      return new Pride.Util.Section(start, end);
-	    }
-	  };
-	
-	  var resultsPiece = function resultsPiece(section) {
-	    var output = [];
-	
-	    for (var index = section.start; index <= section.end; index++) {
-	      output.push(results[index]);
-	    }
-	
-	    return output;
-	  };
-	
-	  ///////////////////
-	  // Observerables //
-	  ///////////////////
-	
-	  var muted = false;
-	  var observables = [];
-	  var mutable_observables = [];
-	
-	  this.clearAllObservers = function () {
-	    _underscore._.each(observables, function (observable) {
-	      observable.clearAll();
-	    });
-	
-	    Pride.Util.safeCall(self.initialize_observables);
-	
-	    return self;
-	  };
-	
-	  this.getMute = function () {
-	    return muted;
-	  };
-	
-	  this.setMute = function (state) {
-	    if (state != muted) {
-	      muted = state;
-	      Pride.Util.safeCall(self.muteChanged());
-	
-	      if (!muted) {
-	        _underscore._.each(mutable_observables, function (observable) {
-	          observable.notify();
-	        });
-	      }
-	    }
-	
-	    return self;
-	  };
-	
-	  this.createObservable = function (name, data_func, never_mute) {
-	    var object = new Pride.Util.FuncBuffer(function () {
-	      var add_observer = this.add;
-	      var call_observers = this.call;
-	
-	      observables.push(this);
-	      if (!never_mute) mutable_observables.push(this);
-	
-	      this.add = function (func) {
-	        if (!self.muted || never_mute) func(data_func());
-	
-	        add_observer(func, 'observers');
-	
-	        return this;
-	      };
-	
-	      this.notify = function () {
-	        if (!self.muted || never_mute) {
-	          var data = data_func();
-	          self.log('NOTIFY (' + name + ')', data);
-	
-	          call_observers('observers', data);
-	        }
-	
-	        return this;
-	      };
-	    });
-	
-	    self[name + 'Changed'] = object.notify;
-	    parent[name + 'Observers'] = object;
-	
-	    return self;
-	  };
-	
-	  this.createObservable('mute', this.getMute, true).createObservable('setData', function () {
-	    parent.getData();
-	  }).createObservable('runData', function () {
-	    parent.getData();
-	  }).createObservable('results', this.results);
-	
-	  ///////////////
-	  // UTILITIES //
-	  ///////////////
-	
-	  parent.set = function (set_hash) {
-	    self.set(set_hash);
-	
-	    return parent;
-	  };
-	
-	  parent.run = function (cache_size) {
-	    self.run(cache_size);
-	
-	    return parent;
-	  };
-	
-	  parent.nextPage = function (cache_size) {
-	    var current_page = self.query.get('page');
-	    if (_underscore._.isNumber(current_page) && current_page < self.query.get('page_limit')) {
-	      parent.set({ page: current_page + 1 });
-	      parent.run(cache_size);
-	    }
-	
-	    return parent;
-	  };
-	
-	  parent.prevPage = function (cache_size) {
-	    var current_page = self.query.get('page');
-	    if (_underscore._.isNumber(current_page) && current_page > 1) {
-	      parent.set({ page: current_page - 1 });
-	      parent.run(cache_size);
-	    }
-	
-	    return parent;
-	  };
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.SearchSwitcher = function (current_search, cached_searches) {
-	  var self = this;
-	  var search_cache = new Pride.Util.MultiSearch(null, true, cached_searches);
-	
-	  console.log(current_search);
-	
-	  current_search.set({ page: 1 }).setMute(false);
-	  search_cache.set({ page: 1 });
-	
-	  this.uid = current_search.uid;
-	
-	  this.run = function (cache_size) {
-	    current_search.run(cache_size);
-	    search_cache.run(0);
-	
-	    return self;
-	  };
-	
-	  this.set = function (settings) {
-	    current_search.set(settings);
-	    search_cache.set(_underscore._.omit(settings, 'page', 'facets'));
-	
-	    return self;
-	  };
-	
-	  this.nextPage = function () {
-	    current_search.nextPage();
-	
-	    return self;
-	  };
-	
-	  this.prevPage = function () {
-	    current_search.prevPage();
-	
-	    return self;
-	  };
-	
-	  this.switchTo = function (requested_uid) {
-	    if (requested_uid != current_search) {
-	      current_search.setMute(true).set({ page: 1 });
-	      search_cache.searches.push(current_search);
-	      current_search = undefined;
-	
-	      search_cache.searches = _underscore._.reject(search_cache.searches, function (search) {
-	        if (search.uid == requested_uid) {
-	          current_search = search;
-	          return true;
-	        }
-	      });
-	
-	      if (!current_search) {
-	        throw 'Could not find a search with a UID of: ' + requested_uid;
-	      }
-	
-	      self.uid = current_search.uid;
-	      current_search.setMute(false);
-	    }
-	
-	    return self;
-	  };
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.Section = function (start, end) {
-	  this.start = Math.max(Math.min(start, end), 0);
-	  this.end = Math.max(Math.max(start, end), 0);
-	
-	  this.inSection = function (index) {
-	    return index >= this.start && index <= this.end;
-	  };
-	
-	  this.overlaps = function (section) {
-	    return this.inSection(section.start) || this.inSection(section.end);
-	  };
-	
-	  this.calcLength = function () {
-	    return this.end - this.start + 1;
-	  };
-	
-	  this.expanded = function (amount) {
-	    return this.shifted(-1 * amount, amount);
-	  };
-	
-	  this.shifted = function (start_amount, end_amount) {
-	    if (!_underscore._.isNumber(end_amount)) end_amount = start_amount;
-	
-	    return new Pride.Util.Section(this.start + start_amount, this.end + end_amount);
-	  };
-	
-	  this.merge = function () {
-	    arguments.push(this);
-	
-	    return new Pride.Util.Section(_underscore._.min(arguments, function (section) {
-	      return section.start;
-	    }), _underscore._.max(arguments, function (section) {
-	      return section.end;
-	    }));
-	  };
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	// Perform a deep clone that leaves functions untouched.
-	Pride.Util.deepClone = function (original) {
-	  if (_underscore._.isFunction(original)) {
-	    return original;
-	  } else {
-	    var collection_function = false;
-	
-	    if (_underscore._.isArray(original)) {
-	      collection_function = 'map';
-	    } else if (_underscore._.isObject(original)) {
-	      collection_function = 'mapObject';
-	    }
-	
-	    if (collection_function) {
-	      return _underscore._[collection_function](original, function (item) {
-	        return Pride.Util.deepClone(item);
-	      });
-	    } else {
-	      return _underscore._.clone(original);
-	    }
-	  }
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.escape = function (string) {
-	  var temp_element = document.createElement('div');
-	  temp_element.appendChild(document.createTextNode(string));
-	
-	  return temp_element.innerHTML;
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.init = new Pride.Util.RequestBuffer({
-	  url: function url() {
-	    return Pride.Settings.datastores_url;
-	  },
-	  attempts: function attempts() {
-	    return Pride.Settings.init_attempts;
-	  },
-	  failure_message: function failure_message() {
-	    return Pride.Messenger.preset('failed_init');
-	  },
-	
-	  edit_response: function edit_response() {
-	    return undefined;
-	  },
-	  before_success: function before_success(response) {
-	    Pride.AllDatastores.array = _underscore._.map(response['response'], function (datastore_data) {
-	      return new Pride.Core.Datastore(datastore_data);
-	    });
-	  }
-	}).request;
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.isDeepMatch = function (object, pattern) {
-	  var both_arrays = _underscore._.isArray(object) && _underscore._.isArray(pattern);
-	  var both_objects = _underscore._.isObject(object) && _underscore._.isObject(pattern);
-	
-	  if (both_arrays && pattern.length != object.length) {
-	    return false;
-	  }
-	
-	  if (both_objects && _underscore._.keys(pattern).length != _underscore._.keys(object).length) {
-	    return false;
-	  }
-	
-	  if (both_arrays && both_objects) {
-	    return _underscore._.every(pattern, function (value, key) {
-	      return Pride.Util.isDeepMatch(object[key], value);
-	    });
-	  } else {
-	    return object === pattern;
-	  }
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	// Perform a deep clone that leaves functions untouched.
-	Pride.Core.log = function (source, info) {
-	  if (Pride.Settings.obnoxious) {
-	    var message = Pride.Util.slice(arguments, 2);
-	    message.unshift('[Pride: ' + source + '] ' + info);
-	
-	    console.log.apply(console, message);
-	  }
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.FieldTree.parseField = function (field_name, content) {
-	  if (!content) {
-	    return {};
-	  } else {
-	    return new Pride.FieldTree.Field(field_name, new Pride.FieldTree.Literal(content));
-	  }
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.request = function (request_info) {
-	  Pride.Core.log('Request', 'Sending HTTP request...');
-	  Pride.Core.log('Request', 'URL', request_info.url);
-	  Pride.Core.log('Request', 'CONTENT', JSON.stringify(request_info.query));
-	
-	  if (!request_info.url) throw 'No URL given to Pride.Util.request()';
-	
-	  var request_method = 'get';
-	  if (request_info.query) request_method = 'post';
-	
-	  if (!_underscore._.isNumber(request_info.attempts)) {
-	    request_info.attempts = Pride.Settings.connection_attempts;
-	  }
-	
-	  request_info.attempts -= 1;
-	
-	  reqwest({
-	    url: request_info.url,
-	    data: JSON.stringify(request_info.query),
-	    type: 'json',
-	    method: request_method,
-	    contentType: 'application/json',
-	    withCredentials: true,
-	
-	    error: function error(_error) {
-	      if (request_info.attempts <= 0) {
-	        Pride.Core.log('Request', 'ERROR', _error);
-	
-	        Pride.Util.safeCall(request_info.failure, _error);
-	
-	        Pride.Messenger.sendMessage({
-	          summary: request_info.failure_message,
-	          class: 'error'
-	        });
-	      } else {
-	        Pride.Core.log('Request', 'Trying request again...');
-	        window.setTimeout(function () {
-	          Pride.Util.request(request_info);
-	        }, Pride.Settings.ms_between_attempts);
-	      }
-	    },
-	
-	    success: function success(response) {
-	      Pride.Core.log('Request', 'SUCCESS', response);
-	
-	      Pride.Util.safeCall(request_info.success, response);
-	
-	      Pride.Messenger.sendMessage({
-	        summary: request_info.success_message,
-	        class: 'success'
-	      });
-	
-	      Pride.Messenger.sendMessageArray(response.messages);
-	    }
-	  });
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.safeCall = function (maybe_func) {
-	  if (_underscore._.isFunction(maybe_func)) {
-	    return maybe_func.apply(this, Pride.Util.slice(arguments, 1));
-	  } else {
-	    return maybe_func;
-	  }
-	};
-	
-	Pride.Util.safeApply = function (maybe_func, args) {
-	  if (_underscore._.isFunction(maybe_func)) {
-	    return maybe_func.apply(this, args);
-	  } else {
-	    return maybe_func;
-	  }
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Util.slice = function (array, begin, end) {
-	  return Array.prototype.slice.call(array, begin, end);
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.AllDatastores = {
-	  array: [],
-	
-	  newSearch: function newSearch(uid) {
-	    var datastore = _underscore._.find(this.array, function (datastore) {
-	      return datastore.get('uid') == uid;
-	    });
-	
-	    return datastore ? datastore.baseSearch() : undefined;
-	  },
-	
-	  each: function each(func) {
-	    _underscore._.each(this.array, func);
-	
-	    return this;
-	  }
-	};
-	
-	// Copyright (c) 2015, Regents of the University of Michigan.
-	// All rights reserved. See LICENSE.txt for details.
-	
-	// Authored by Colin Fulton (fultonis@umich.edu)
-	
-	Pride.Messenger = new Pride.Util.FuncBuffer(function () {
-	  var notifyObservers = this.call;
-	
-	  this.addObserver = this.add;
-	  this.removeObserver = this.remove;
-	  this.clearObservers = this.clear;
-	
-	  this.call = undefined;
-	  this.add = undefined;
-	  this.remove = undefined;
-	  this.clear = undefined;
-	
-	  this.sendMessage = function (message) {
-	    // if (message['summary']) {
-	    //   message['class']   = message['class']   || 'info';
-	    //   message['details'] = message['details'] || '';
-	
-	    //   notifyObservers(message);
-	
-	    //   Pride.Core.log('Messenger', 'MESSAGE SENT', message);
-	    // }
-	
-	    // return this;
-	  };
-	
-	  this.sendMessageArray = function (message_array) {
-	    // var messenger = this;
-	
-	    // _.each(
-	    //   message_array,
-	    //   function(message) { messenger.sendMessage(message); }
-	    // );
-	
-	    // return this;
-	  };
-	
-	  // Given a type of preset message and some optional arguments, generate a
-	  // message string.
-	  this.preset = function (type) {
-	    // var variables = Pride.Util.slice(arguments);
-	
-	    // return Pride.Settings
-	    //             .message_formats[type]
-	    //             .replace(
-	    //               /(^|[^\\])\$(\d+)/,
-	    //               function(match, previous_char, number) {
-	    //                 return previous_char + (variables[Number(number)] || '');
-	    //               }
-	    //             )
-	    //             .replace('\\$', '$');
-	  };
-	});
-
-/***/ },
-/* 173 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
 	//     http://underscorejs.org
 	//     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -24303,7 +22665,2000 @@
 
 
 /***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.App = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Header = __webpack_require__(174);
+	
+	var _SearchBox = __webpack_require__(177);
+	
+	var _Datastores = __webpack_require__(199);
+	
+	var _Records = __webpack_require__(200);
+	
+	var _index = __webpack_require__(183);
+	
+	var _pride_interface = __webpack_require__(179);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	__webpack_require__(201);
+	
+	var App = exports.App = function (_React$Component) {
+	  _inherits(App, _React$Component);
+	
+	  function App() {
+	    _classCallCheck(this, App);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	  }
+	
+	  _createClass(App, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props$state = this.props.state;
+	      var datastores = _props$state.datastores;
+	      var active_datastore = _props$state.active_datastore;
+	      var records = _props$state.records;
+	
+	      return _react2.default.createElement(
+	        'main',
+	        null,
+	        _react2.default.createElement(_Header.Header, null),
+	        _react2.default.createElement(_SearchBox.SearchBox, {
+	          onSubmitSearch: function onSubmitSearch(text) {
+	            return (0, _pride_interface.prideRunSearch)(text);
+	          }
+	        }),
+	        _react2.default.createElement(_Datastores.DatastoreList, {
+	          datastores: datastores,
+	          activeDatastore: active_datastore,
+	          onDatastoreClick: function onDatastoreClick(uid) {
+	            return (0, _pride_interface.prideSwitchToDatastore)(uid);
+	          }
+	        }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container container-narrow' },
+	          _react2.default.createElement(_Records.Records, {
+	            records: records
+	          })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return App;
+	}(_react2.default.Component);
+
+/***/ },
 /* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Header = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Header = exports.Header = function (_React$Component) {
+	  _inherits(Header, _React$Component);
+	
+	  function Header() {
+	    _classCallCheck(this, Header);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+	  }
+	
+	  _createClass(Header, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "header",
+	        null,
+	        _react2.default.createElement(
+	          "div",
+	          { className: "site-header" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "container-fluid" },
+	            _react2.default.createElement(
+	              "a",
+	              { href: "http://umich.edu", className: "site-brand-umich-block-m-logo focus-outline-white" },
+	              _react2.default.createElement("img", { src: __webpack_require__(175), alt: "Go to the University of Michigan homepage" })
+	            ),
+	            _react2.default.createElement(
+	              "a",
+	              { href: "http://lib.umich.edu", className: "site-brand-mlibrary-logo focus-outline-white" },
+	              _react2.default.createElement("img", { src: __webpack_require__(176), alt: "Go to the University of Michigan Library homepage" })
+	            ),
+	            _react2.default.createElement(
+	              "nav",
+	              { className: "navigation right" },
+	              _react2.default.createElement(
+	                "ul",
+	                { className: "navigation-list" },
+	                _react2.default.createElement(
+	                  "li",
+	                  null,
+	                  _react2.default.createElement(
+	                    "a",
+	                    { href: "http://github.com/mlibrary/falafel/", className: "white-text" },
+	                    "Search"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "li",
+	                  null,
+	                  _react2.default.createElement(
+	                    "a",
+	                    { href: "", className: "white-text" },
+	                    "Log In"
+	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement("div", { className: "clearfix" })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Header;
+	}(_react2.default.Component);
+
+/***/ },
+/* 175 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHsAAABYCAYAAADV/4jnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA8dJREFUeNrsnd9x2kAQxg+PJ8+UQDqACqJ0ICoIdKBUAFQgOog6MB2EDkwJpAM/8+LcOSsPhH+SkGC/ve+b0fDgGY+0P+99t7sn3Ht//TJxzv1wujTtjXZbBywf17n/+Kbpnp79NfBXoixWL/4aAYNO/cdM2309KY3X0AcsBwUdkueXxnt7Uhy3zAcuAeQdQPcJu8Fy7oH3gbJ6rtASYWD3xb8RQA81+jQS7KDEBzJTDhrijxIBdlAumaPZpweE3WJANfq39ClShAAiwQ6ZnSsDre6erMAOmkjDgmVWBLDL5XygIKtzWW0cYRsux6TZk6EFDhH2h39LA4NlVgSwg2YPaqe+IPm0Fdh3L8ekuZOgBgsd9sDdacKEVmZZhB2Udt1ORfZpa7BL/+6yDModQDs0Ftj9rvxbmjgTC0GyAvujHHMtjxg1nzqJHXZQ1nI7FbbMigF2a+WYNG2GlgJjEfbNO2dp1sysBcYi7KCkaTvVSpl1Sr0aQXgHfL5Rb7Tb1IQdQKdgz7nwzzmPNbM/N1h1/FuaM6nVYFiHXbl0QjgdStjXlco5sWs+DXXqhLDPK79yumVmrcyKGfbZHbY0YbIYghAL7KCjlwWttUMJ+1D/vyxo3qf39eziUyjHvsrSncT04DHCDpn8O4YNWezL+Kd/x/jQscJ2hE0RNkXYXWoJHtc3fxWEXU0Lf22AYf/01x/CrqDeaBcyYyoZgqbC33+h8cbUerYcOliAgd5IVtOzGwAP3r0Cgj2VVYmwmwbQX1sEn657BIqwT/v3WPltrmQVYull3L/LzSTr7BaBz/3HWuGtjTX7NCTsMrDKyrFwhHeNEjwo2Mr8e13lrDZh3wY8ZNKjN0MwPg0NW4CHxsUjyxzIf2uBPPV6lH8vPegVYsBgYUtm3bs1idjCNZHZTgYOxT19GqXMMgdbdC//Vt8ONQ97bxzapVZax5axZXbZTu3Kv7eIZZZZ2AK8q3HoGNmnTcIu61/X7jgU3qfNwm7Zv9cIY8uYM7tsp95aCyPM0AlbgM/dbeNQMz59EBf5CinE7xIJy+z3cz+Ud69fXf1XcpfSez/3exP378VAZrai7G5SMm0ugeYyrht4KMWqbrJM+nQ0sAV41XYq5NiSsE/X35c2XAXq2JKwj7P7UjtV9VschN0MeOGOx6HwY0vCPq+Qwfu+vLDUDiXsw+ze33GvrLVDCfu0f4+dkbFlHcX41Vguhp03MztyETZhU4RNETZF2BRhU4RNETZF2BRhU4RNEXZsClOvrdP5/WLX9KhDB2+g8XJ/BRgAnv80rcL5FKcAAAAASUVORK5CYII="
+
+/***/ },
+/* 176 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,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"
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.SearchBox = undefined;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _actions = __webpack_require__(178);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SearchBox = exports.SearchBox = function SearchBox(_ref) {
+	  var onSubmitSearch = _ref.onSubmitSearch;
+	
+	  var input = void 0;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'search-box-container-full' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'container container-narrow' },
+	      _react2.default.createElement(
+	        'form',
+	        { className: 'search-box' },
+	        _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
+	            input = node;
+	          } }),
+	        _react2.default.createElement('input', { className: 'button search-box-button', type: 'submit', value: 'Search', onClick: function onClick(event) {
+	            event.preventDefault();
+	            onSubmitSearch(input.value);
+	            input.value = '';
+	          } })
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.CLEAR_RECORDS = exports.ADD_RECORD = exports.SUBMIT_SEARCH = exports.CHANGE_ACTIVE_DATASTORE = exports.ADD_DATASTORE = undefined;
+	exports.addRecord = addRecord;
+	exports.addDatastore = addDatastore;
+	exports.changeActiveDatastore = changeActiveDatastore;
+	exports.submitSearch = submitSearch;
+	exports.clearRecords = clearRecords;
+	
+	var _pride_interface = __webpack_require__(179);
+	
+	var ADD_DATASTORE = exports.ADD_DATASTORE = 'ADD_DATASTORE';
+	var CHANGE_ACTIVE_DATASTORE = exports.CHANGE_ACTIVE_DATASTORE = 'CHANGE_ACTIVE_DATASTORE';
+	var SUBMIT_SEARCH = exports.SUBMIT_SEARCH = 'SUBMIT_SEARCH';
+	var ADD_RECORD = exports.ADD_RECORD = 'ADD_RECORD';
+	var CLEAR_RECORDS = exports.CLEAR_RECORDS = 'CLEAR_RECORDS';
+	
+	function addRecord(payload) {
+	  return { type: ADD_RECORD, payload: payload };
+	}
+	
+	function addDatastore(payload) {
+	  return { type: ADD_DATASTORE, payload: payload };
+	}
+	
+	function changeActiveDatastore(payload) {
+	  return { type: CHANGE_ACTIVE_DATASTORE, payload: payload };
+	}
+	
+	function submitSearch(payload) {
+	  return { type: SUBMIT_SEARCH, payload: payload };
+	}
+	
+	function clearRecords(payload) {
+	  return { type: CLEAR_RECORDS, payload: payload };
+	}
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.prideSwitchToDatastore = exports.prideRunSearch = undefined;
+	
+	var _pride = __webpack_require__(180);
+	
+	var _underscore = __webpack_require__(172);
+	
+	var _index = __webpack_require__(183);
+	
+	var _actions = __webpack_require__(178);
+	
+	_pride.Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
+	_pride.Pride.Settings.connection_attempts = 2;
+	_pride.Pride.Settings.obnoxious = false;
+	
+	var initPride = function initPride() {
+	  _pride.Pride.init({
+	    success: function success() {
+	      console.log('Pride loaded successfully.');
+	      loadPride();
+	    },
+	    failure: function failure() {
+	      console.log('Pride failed to load.');
+	    }
+	  });
+	};
+	
+	initPride();
+	
+	var search_switcher = undefined;
+	
+	var loadPride = function loadPride() {
+	  var pride_datastores = _pride.Pride.AllDatastores;
+	  var pride_datastores_array = pride_datastores.array;
+	  var config = __webpack_require__(198);
+	  var datastores = configureDatastores(pride_datastores_array, config);
+	  var search_objects = [];
+	
+	  // Add datastores to store
+	  _underscore._.each(datastores, function (datastore) {
+	    _index.store.dispatch((0, _actions.addDatastore)({
+	      uid: datastore.uid,
+	      name: datastore.name
+	    }));
+	
+	    search_objects.push(_pride.Pride.AllDatastores.newSearch(datastore.uid));
+	  });
+	
+	  // Add results observers to each search object.
+	  _underscore._.each(search_objects, function (search_object) {
+	    //search_object.setMute(true) // TODO I think this is broken in Pride
+	
+	    // results records observer
+	    search_object.resultsObservers.add(function (results) {
+	      var active_datastore = _index.store.getState().active_datastore;
+	
+	      console.log('resultsObservers ', search_object.uid, results);
+	
+	      if (active_datastore == search_object.uid) {
+	        _index.store.dispatch((0, _actions.clearRecords)());
+	
+	        _underscore._.each(results, function (record) {
+	          if (record != undefined) {
+	            record.renderPart(function (raw_data) {
+	              _index.store.dispatch((0, _actions.addRecord)(raw_data));
+	            });
+	          }
+	        });
+	      }
+	    });
+	
+	    // Set data observer
+	    search_object.setDataObservers.add(function (data) {});
+	
+	    // run data observer
+	    search_object.runDataObservers.add(function (data) {});
+	
+	    search_object.set({ count: 10 });
+	
+	    // search object facets observer
+	    search_object.facetsObservers.add(function (facets_data) {});
+	  });
+	
+	  search_switcher = new _pride.Pride.Util.SearchSwitcher(search_objects[0], search_objects.slice(1));
+	};
+	
+	var configureDatastores = function configureDatastores(pride_datastores, config) {
+	  var datastores_unsorted = _underscore._.reduce(pride_datastores, function (datastores, datastore) {
+	    var uid = datastore.get('uid');
+	    var name = datastore.get('metadata').name;
+	
+	    if (_underscore._.contains(config.datastores.ordering, uid)) {
+	      var config_datastore = _underscore._.findWhere(config.datastores.naming, { "uid": uid });
+	      var config_name = config_datastore.name;
+	
+	      datastores.push({
+	        uid: uid,
+	        name: config_name
+	      });
+	    }
+	
+	    return datastores;
+	  }, []);
+	
+	  // Select and activate default datastore
+	  if (_underscore._.findWhere(datastores_unsorted, { uid: config.datastores.default })) {
+	    _index.store.dispatch((0, _actions.changeActiveDatastore)(config.datastores.default));
+	  } else {
+	    console.log('[Warning - Config]: Couldn\'t find \"' + config.datastores.default + '\" as the default datastore');
+	    //TODO setup first to be default if no default given
+	  }
+	
+	  //TODO add in multisource datastores
+	  //TODO sorting by configuration
+	
+	  return datastores_unsorted;
+	};
+	
+	var prideRunSearch = exports.prideRunSearch = function prideRunSearch(search_text) {
+	  var store_copy = _index.store.getState();
+	  var active_datastore = store_copy.active_datastore;
+	
+	  var config = {
+	    page: 1,
+	    field_tree: _pride.Pride.FieldTree.parseField('all_fields', search_text)
+	  };
+	  search_switcher.set(config).run();
+	  _index.store.dispatch((0, _actions.submitSearch)(search_text));
+	};
+	
+	var prideSwitchToDatastore = exports.prideSwitchToDatastore = function prideSwitchToDatastore(uid) {
+	  _index.store.dispatch((0, _actions.changeActiveDatastore)(uid));
+	  search_switcher.switchTo(uid);
+	};
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Pride = undefined;
+	
+	var _underscore = __webpack_require__(172);
+	
+	var reqwest = __webpack_require__(181); // Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	var Pride = exports.Pride = {};
+	Pride.Util = {};
+	Pride.Core = {};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Settings = {
+	  // default_cache_size:  If a cache size isn't set for a datastore, this value
+	  //                      is used instead.
+	  //
+	  // cache_size:          Key-value pairs where each key is the UID of a
+	  //                      datastore, and the value gives the cache size for that
+	  //                      particular datastore.
+	  //
+	  // datastores_url:      URL from which Pride can get all the possible
+	  //                      datastores.
+	  //
+	  // connection_attempts: How many times Pride will attempt an HTTP request
+	  //                      before giving up (overridden by some things such as
+	  //                      Pride.init()).
+	  //
+	  // init_attempts:       How many times Pride will attempt to initialize before
+	  //                      giving up.
+	  //
+	  // ms_between_attempts: How long Pride will wait to try another HTTP request
+	  //                      after one fails.
+	  //
+	  // message_formats:     Key-value pairs where each key is the ID of a message
+	  //                      type and the value is what that message should say. A
+	  //                      dollar sign preceded by a number will be replaced when
+	  //                      the message is created.
+	  //
+	  // obnoxious:           If true, debug messages will be logged to the console
+	  //                      as Pride runs. WARNING: Pride can send out a lot of
+	  //                      debug messages.
+	
+	  default_cache_size: 100,
+	  cache_size: {},
+	
+	  datastores_url: '',
+	
+	  connection_attempts: 3,
+	  init_attempts: 3,
+	  ms_between_attempts: 1500,
+	
+	  message_formats: {
+	    failed_record_load: 'Failed to load $1',
+	    failed_search_run: 'Failed to search $1',
+	    failed_init: 'Failed to initialize Pride'
+	  },
+	
+	  obnoxious: false
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Core.Datastore = function (datastore_info) {
+	  datastore_info = Pride.Util.deepClone(datastore_info);
+	
+	  this.baseQuery = function () {
+	    return new Pride.Core.Query({
+	      uid: datastore_info.uid,
+	      sort: datastore_info.default_sort,
+	      start: 0,
+	      count: 0,
+	      settings: {},
+	      field_tree: fillFieldTree(),
+	      facets: _underscore._.reduce(datastore_info.facets, function (memo, facet) {
+	        if (facet.required && !facet.fixed) {
+	          memo[facet.uid] = facet.default_value;
+	        }
+	
+	        return memo;
+	      }, {})
+	    });
+	  };
+	
+	  this.baseSearch = function () {
+	    return new Pride.Core.DatastoreSearch({ datastore: this });
+	  };
+	
+	  this.runQuery = function (request_arguments) {
+	    request_arguments.url = datastore_info.url;
+	    Pride.Util.request(request_arguments);
+	
+	    return this;
+	  };
+	
+	  this.get = function (key) {
+	    if (key != 'url') {
+	      return datastore_info[key];
+	    }
+	  };
+	
+	  this.update = function (new_info) {
+	    _underscore._.extend(datastore_info, new_info);
+	  };
+	
+	  var fillFacets = function fillFacets(set_facets) {
+	    return _underscore._.reduce(datastore_info.facets, function (memo, facet) {
+	      memo[facet.uid] = _underscore._.find(set_facets, function (possible_facet) {
+	        return possible_facet.uid === facet.uid;
+	      }) || facet;
+	
+	      return memo;
+	    }, {});
+	  };
+	
+	  var fillFieldTree = function fillFieldTree(given_tree) {
+	    given_tree = given_tree || new Pride.FieldTree.FieldBoolean('AND');
+	
+	    var output = _underscore._.reduce(datastore_info.fields, function (tree, field) {
+	      if ((field.required || field.fixed) && !tree.contains({ type: 'field', value: field.uid })) {
+	
+	        missing_field = new Pride.FieldTree.Field(field.uid, new Pride.FieldTree.Literal(field.default_value));
+	
+	        if (_underscore._.isMatch(tree, { type: 'field_boolean', value: 'AND' })) {
+	          return tree.addChild(missing_field);
+	        } else {
+	          return new Pride.FieldTree.FieldBoolean('AND', tree, missing_field);
+	        }
+	      }
+	
+	      return tree;
+	    }, given_tree);
+	
+	    return output.matches({ type: 'field_boolean', children: [] }) ? {} : output;
+	  };
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Core.DatastoreSearch = function (setup) {
+	  var self = this;
+	  var base = new Pride.Core.SearchBase(setup, this);
+	
+	  base.createItem = function (item_data) {
+	    return new Pride.Core.Record(item_data);
+	  };
+	
+	  ////////////////////
+	  // Facet Searches //
+	  ////////////////////
+	
+	  var facet_searches = [];
+	  var current_facets = [];
+	
+	  this.getFacets = function () {
+	    return facet_searches;
+	  };
+	
+	  //////////////////
+	  // Data Getters //
+	  //////////////////
+	
+	  this.uid = base.datastore.get('uid');
+	
+	  this.getData = function () {
+	    return {
+	      uid: self.uid,
+	      metadata: Pride.Util.deepClone(base.datastore.get('metadata')),
+	      sorts: Pride.Util.deepClone(base.datastore.get('sorts')),
+	      selected_sort: base.query.get('sort'),
+	      facets: Pride.Util.deepClone(base.query.get('facets')),
+	      fields: Pride.Util.deepClone(base.datastore.get('fields')),
+	      field_tree: Pride.Util.deepClone(base.query.get('field_tree')),
+	      settings: Pride.Util.deepClone(base.query.get('settings')),
+	      page: base.query.get('page'),
+	      count: base.query.get('count'),
+	      total_available: base.query.get('total_available'),
+	      total_pages: base.query.get('total_pages'),
+	      page_limit: base.query.get('page_limit')
+	    };
+	  };
+	
+	  this.getResults = base.results;
+	
+	  ///////////////////
+	  // Observerables //
+	  ///////////////////
+	
+	  base.initialize_observables = function () {
+	    self.runDataObservers.add(function () {
+	      var facets = base.datastore.get('facets');
+	
+	      if (!Pride.Util.isDeepMatch(current_facets, facets)) {
+	        _underscore._.each(facet_searches, function (facet_search) {
+	          facet_search.clearAllObservers();
+	        });
+	
+	        facet_searches = _underscore._.map(facets, function (facet_data) {
+	          return new Pride.Core.FacetSearch({
+	            data: _underscore._.omit(facet_data, 'values'),
+	            results: facet_data.values
+	          });
+	        });
+	
+	        current_facets = facets;
+	
+	        self.facetsObservers.notify();
+	      }
+	    });
+	  };
+	
+	  this.getMute = base.getMute;
+	
+	  this.setMute = function (state) {
+	    _underscore._.each(facet_searches, function (facet) {
+	      facet.setMute(state);
+	    });
+	    base.setMute(state);
+	
+	    return self;
+	  };
+	
+	  base.createObservable('facets', this.getFacets).initialize_observables();
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Core.FacetSearch = function (setup) {
+	  var example_facet = this;
+	  var data = setup.data;
+	  var results = setup.results;
+	
+	  //////////////////
+	  // Data Getters //
+	  //////////////////
+	
+	  this.uid = data.uid;
+	  this.getData = function () {
+	    return data;
+	  };
+	  this.getResults = function () {
+	    return results;
+	  };
+	
+	  ////////////
+	  // Muting //
+	  ////////////
+	
+	  var muted = false;
+	
+	  this.getMute = function () {
+	    return muted;
+	  };
+	
+	  this.setMute = function (state) {
+	    muted = state;
+	
+	    return self;
+	  };
+	
+	  ///////////////////
+	  // Observerables //
+	  ///////////////////
+	
+	  var observables = [];
+	
+	  this.clearAllObservers = function () {
+	    _underscore._.each(observables, function (observable) {
+	      observable.clearAll();
+	    });
+	
+	    return self;
+	  };
+	
+	  var createObservable = function createObservable(name, data_func) {
+	    var object = new Pride.Util.FuncBuffer(function () {
+	      var add_observer = this.add;
+	      var call_observers = this.call;
+	
+	      observables.push(this);
+	
+	      this.add = function (func) {
+	        if (!self.muted) func(data_func());
+	
+	        add_observer(func, 'observers');
+	
+	        return this;
+	      };
+	
+	      this.notify = function () {
+	        if (!self.muted) {
+	          data = data_func();
+	          self.log('NOTIFY (' + name + ')', data);
+	
+	          call_observers('observers', data);
+	        }
+	
+	        return this;
+	      };
+	    });
+	
+	    return object;
+	  };
+	
+	  this.resultsObservers = createObservable('results', this.getResults);
+	  this.setDataObservers = createObservable('setData', this.getData);
+	  this.runDataObservers = createObservable('runData', this.getData);
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.FieldTree = {};
+	
+	// Factory for creating functions to create various field tree node types.
+	Pride.Core.nodeFactory = function (type, child_types, extention) {
+	  return function (value) {
+	    this.children = Pride.Util.slice(arguments, 1);
+	    this.type = type;
+	    this.value = value.trim();
+	    this.child_types = child_types || [];
+	    this.validIfEmpty = true;
+	
+	    // Check to make sure a child is valid for this node.
+	    // If it is, add it to the array of children.
+	    this.addChild = function (new_child) {
+	      if (_underscore._.find(this.child_types, function (a_type) {
+	        return new_child.type === a_type;
+	      })) {
+	        this.children.push(new_child);
+	      } else {
+	        throw 'Not a valid child for a ' + this.type;
+	      }
+	
+	      return this;
+	    };
+	
+	    // Check to see if this object is, or contains, an object which
+	    // which matches the query object.
+	    this.contains = function (query) {
+	      if (this.matches(query)) {
+	        return this;
+	      } else if (_underscore._.isEmpty(this.children)) {
+	        return false;
+	      } else {
+	        return _underscore._.find(this.children, function (possible) {
+	          return possible.contains(query);
+	        });
+	      }
+	    };
+	
+	    this.matches = function (query) {
+	      var this_node = this;
+	      var query_children = query.children || [];
+	
+	      return _underscore._.every(_underscore._.omit(query, 'children'), function (value, key) {
+	        return this_node[key] == value;
+	      }) && _underscore._.every(query_children, function (query_child) {
+	        return _underscore._.any(children, function (real_child) {
+	          return query_child.matches(real_child);
+	        });
+	      });
+	    };
+	
+	    this.serialize = function () {
+	      return value;
+	    };
+	
+	    this.serializedChildren = function () {
+	      return _underscore._.chain(this.children).map(function (child) {
+	        return child.serialize();
+	      }).compact().value();
+	    };
+	
+	    this.toJSON = function () {
+	      return _underscore._.pick(this, 'value', 'children', 'type');
+	    };
+	
+	    // If an extention function was given, call it with this.
+	    if (_underscore._.isFunction(extention)) {
+	      extention.call(this);
+	    }
+	  };
+	};
+	
+	// Specialized version of Pride.nodefactory() which produces boolean
+	// nodes.
+	Pride.Core.boolNodeFactory = function (type, child_types) {
+	  return Pride.Core.nodeFactory(type, child_types, function () {
+	    // Ensure that only valid boolean values are given.
+	    if (!_underscore._.contains(['AND', 'OR', 'NOT'], this.value)) {
+	      throw 'Not a valid boolean value';
+	    }
+	
+	    this.serialize = function () {
+	      return this.serializedChildren().join(' ' + this.value + ' ');
+	    };
+	
+	    this.serializedChildren = function () {
+	      var this_node = this;
+	
+	      return _underscore._.chain(this_node.children).map(function (child) {
+	        if (child.type == this_node.type || child.type == 'literal' && child.value.match(/\s/)) {
+	          return '(' + child.serialize() + ')';
+	        } else {
+	          return child.serialize();
+	        }
+	      }).compact().value();
+	    };
+	  });
+	};
+	
+	// Possible node types.
+	var top_level_nodes = ['field_boolean', 'field'];
+	var inside_field_nodes = ['value_boolean', 'literal', 'tag', 'special'];
+	
+	// Create constructor functions for all the various node types.
+	
+	Pride.FieldTree.FieldBoolean = Pride.Core.boolNodeFactory('field_boolean', top_level_nodes);
+	
+	Pride.FieldTree.ValueBoolean = Pride.Core.boolNodeFactory('value_boolean', inside_field_nodes);
+	
+	Pride.FieldTree.Field = Pride.Core.nodeFactory('field', inside_field_nodes, function () {
+	  this.serialize = function () {
+	    return this.value + ': (' + this.serializedChildren().join(' ') + ')';
+	  };
+	});
+	
+	Pride.FieldTree.Tag = Pride.Core.nodeFactory('tag', inside_field_nodes, function () {
+	  this.serialize = function () {
+	    var serialized_children = this.serializedChildren();
+	    if (serialized_children.length === 0) {
+	      return '';
+	    } else {
+	      return this.value + '(' + serialized_children.join(' ') + ')';
+	    }
+	  };
+	});
+	
+	Pride.FieldTree.Literal = Pride.Core.nodeFactory('literal');
+	Pride.FieldTree.Special = Pride.Core.nodeFactory('special');
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.FuncBuffer = function (extension) {
+	  var buffer = {};
+	  var self = this;
+	
+	  var safeGet = function safeGet(name) {
+	    if (!_underscore._.has(buffer, name)) buffer[name] = [];
+	
+	    return buffer[name];
+	  };
+	
+	  this.add = function (func, name) {
+	    safeGet(name).push(func);
+	
+	    return self;
+	  };
+	
+	  this.remove = function (func, name) {
+	    buffer[name] = _underscore._.reject(safeGet(name), function (other_func) {
+	      return func == other_func;
+	    });
+	
+	    return self;
+	  };
+	
+	  this.clear = function (name) {
+	    delete buffer[name];
+	
+	    return self;
+	  };
+	
+	  this.clearAll = function () {
+	    buffer = {};
+	
+	    return self;
+	  };
+	
+	  this.call = function (name) {
+	    self.apply(name, Pride.Util.slice(arguments, 1));
+	
+	    return self;
+	  };
+	
+	  this.apply = function (name, args) {
+	    _underscore._.each(safeGet(name), function (func) {
+	      Pride.Util.safeApply(func, args);
+	    });
+	
+	    return self;
+	  };
+	
+	  if (_underscore._.isFunction(extension)) extension.call(this);
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.MultiSearch = function (uid, muted, search_array) {
+	  var query_data = {};
+	  var self = this;
+	
+	  this.searches = search_array;
+	  this.uid = uid;
+	
+	  this.set = function (values) {
+	    _underscore._.extend(query_data, values);
+	
+	    _underscore._.each(search_array, function (search) {
+	      search.set(values);
+	    });
+	
+	    return self;
+	  };
+	
+	  var funcOnEach = function funcOnEach(func_name, before_func) {
+	    return function () {
+	      var args = Pride.Util.slice(arguments);
+	
+	      Pride.Util.safeApply(before_func, args);
+	
+	      _underscore._.each(search_array, function (search) {
+	        search[func_name].apply(search, args);
+	      });
+	
+	      return self;
+	    };
+	  };
+	
+	  this.run = funcOnEach('run');
+	  this.nextPage = funcOnEach('nextPage');
+	  this.prevPage = funcOnEach('prevPage');
+	  this.setMute = funcOnEach('setMute', function (state) {
+	    muted = state;
+	  });
+	
+	  this.getMute = function () {
+	    return muted;
+	  };
+	
+	  this.setMute(muted);
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.Paginater = function (initial_values) {
+	  this.set = function (new_values) {
+	
+	    ////////////////////////
+	    // Basic error checks //
+	    ////////////////////////
+	
+	    if (_underscore._.has(new_values, 'total_pages')) {
+	      throw 'Can not set total_pages (it is a calculated value)';
+	    }
+	
+	    if (_underscore._.has(new_values, 'index_limit')) {
+	      throw 'Can not set index_limit (it is a calculated value)';
+	    }
+	
+	    if (_underscore._.intersection(['start', 'end', 'count'], _underscore._.keys(new_values)).length > 2) {
+	      throw 'Can not set start, end and count all at the same time';
+	    }
+	
+	    if (_underscore._.has(new_values, 'page') && (_underscore._.has(new_values, 'start') || _underscore._.has(new_values, 'end'))) {
+	      throw 'Can not set page as well as the start and/or end';
+	    }
+	
+	    //////////////////////////////
+	    // Set and calculate values //
+	    //////////////////////////////
+	
+	    _underscore._.extend(values, _underscore._.omit(new_values, 'end'));
+	
+	    // If the page is being set, we have to update the start.
+	    if (_underscore._.has(new_values, 'page')) {
+	      values.start = (values.count || 0) * (values.page - 1);
+	    }
+	
+	    // If the end is being set, we calculate what start or count should now be.
+	    if (_underscore._.has(new_values, 'end')) {
+	      if (_underscore._.has(new_values, 'count')) {
+	        // If we are also setting the count, calculate a new start.
+	        values.start = Math.max(new_values.end, new_values.end - (values.count - 1));
+	        // If we are not setting the count, calculate a new count.
+	      } else {
+	        // Throw an error if the start now comes after the end, because that
+	        // makes no sense at all.
+	        if (values.start <= new_values.end) {
+	          values.count = new_values.end - values.start + 1;
+	        } else {
+	          throw 'The start value can not be greater than the end value';
+	        }
+	      }
+	
+	      // We wait to set the new end value until after an exception can be thrown.
+	      values.end = new_values.end;
+	    } else {
+	      // Calculate what the new end value should be.
+	      var end = values.start + values.count - 1;
+	      values.end = end < values.start ? undefined : end;
+	    }
+	
+	    // Calculate what the last index can be.
+	    if (!_underscore._.isNumber(values.total_available)) {
+	      values.index_limit = Infinity;
+	    } else if (values.total_available > 0) {
+	      values.index_limit = values.total_available - 1;
+	    } else {
+	      values.index_limit = undefined;
+	    }
+	
+	    //////////////////////////
+	    // Calculate pagination //
+	    //////////////////////////
+	
+	    if (values.count > 0 && values.start % values.count === 0) {
+	      values.page = Math.floor(values.start / values.count) + 1;
+	
+	      if (_underscore._.isNumber(values.total_available)) {
+	        values.total_pages = Math.ceil(values.total_available / values.count);
+	        values.page_limit = values.total_pages;
+	      } else {
+	        values.total_pages = undefined;
+	        values.page_limit = Infinity;
+	      }
+	    } else {
+	      values.page = undefined;
+	      values.total_pages = undefined;
+	      values.page_limit = undefined;
+	    }
+	
+	    //////////////////////////////////////
+	    // Check to make sure enough is set //
+	    //////////////////////////////////////
+	
+	    if (!_underscore._.has(values, 'start') || !_underscore._.has(values, 'count')) {
+	      throw 'Not enough information given to create Paginater';
+	    }
+	
+	    return this;
+	  };
+	
+	  this.get = function (name) {
+	    return values[name];
+	  };
+	
+	  // Set the initial values.
+	  var values = {};
+	  this.set(initial_values);
+	};
+	
+	Pride.Util.Paginater.getPossibleKeys = function () {
+	  return ['start', 'count', 'end', 'page', 'index_limit', 'total_pages', 'total_available', 'page_limit'];
+	};
+	
+	Pride.Util.Paginater.hasKey = function (key) {
+	  return Pride.Util.Paginater.getPossibleKeys().indexOf(key) > -1;
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Core.Query = function (query_info) {
+	  // Setup the paginater to do all pagination calculations.
+	  var paginater = new Pride.Util.Paginater({
+	    start: query_info.start,
+	    count: query_info.count
+	  });
+	
+	  // Memoize the paginater keys for future use.
+	  var paginater_keys = Pride.Util.Paginater.getPossibleKeys();
+	
+	  // Remove the pagination info from query_info.
+	  query_info = _underscore._.omit(Pride.Util.deepClone(query_info), paginater_keys);
+	
+	  // Set the default request_id if it isn't already set.
+	  query_info.request_id = query_info.request_id || 0;
+	
+	  this.get = function (key) {
+	    if (Pride.Util.Paginater.hasKey(key)) {
+	      return paginater.get(key);
+	    } else {
+	      return query_info[key];
+	    }
+	  };
+	
+	  this.set = function (new_values) {
+	    var new_pagination_values = _underscore._.pick(new_values, paginater_keys);
+	    var new_query_values = _underscore._.omit(new_values, paginater_keys);
+	
+	    // If the set of things being searched was altered...
+	    if (!_underscore._.isEmpty(new_query_values)) {
+	      paginater.set({ total_available: undefined });
+	
+	      if (!_underscore._.isNumber(new_query_values.request_id)) {
+	        query_info.request_id += 1;
+	      }
+	    }
+	
+	    paginater.set(new_pagination_values);
+	    _underscore._.extend(query_info, new_query_values);
+	
+	    return this;
+	  };
+	
+	  this.clone = function () {
+	    var full_info = Pride.Util.deepClone(query_info);
+	    full_info.start = paginater.get('start');
+	    full_info.count = paginater.get('count');
+	
+	    return new Pride.Core.Query(full_info);
+	  };
+	
+	  this.toSection = function () {
+	    return new Pride.Util.Section(this.get('start'), this.get('end'));
+	  };
+	
+	  this.toLimitSection = function () {
+	    return new Pride.Util.Section(this.get('start'), this.get('index_limit'));
+	  };
+	
+	  this.toJSON = function () {
+	    return {
+	      uid: this.get('uid'),
+	      request_id: this.get('request_id'),
+	      start: this.get('start'),
+	      count: this.get('count'),
+	      field_tree: this.get('field_tree'),
+	      facets: this.get('facets'),
+	      sort: this.get('sort'),
+	      settings: this.get('settings')
+	    };
+	  };
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Core.Record = function (data) {
+	  var request_buffer = new Pride.Util.RequestBuffer({
+	    url: data.source,
+	    failure_message: Pride.Messenger.preset('failed_record_load', data.names[0]),
+	    edit_response: function edit_response(response) {
+	      data = translateData(response.results[0]);
+	
+	      return data;
+	    }
+	  });
+	
+	  this.renderPart = function (func) {
+	    callWithData(func);
+	  };
+	
+	  this.renderPartThenCache = function (func) {
+	    callWithData(func);
+	    request_buffer.request();
+	  };
+	
+	  this.renderFull = function (func) {
+	    callWithData(func);
+	
+	    if (!data.complete) {
+	      request_buffer.request({ success: func });
+	    }
+	  };
+	
+	  var callWithData = function callWithData(func) {
+	    func(_underscore._.omit(data, 'complete', 'source'), data.complete);
+	  };
+	
+	  var translateData = function translateData(new_data) {
+	    new_data.fields = _underscore._.map(new_data.fields, function (field) {
+	      if (!field.value_has_html) {
+	        field.value = Pride.Util.escape(field.value);
+	      }
+	
+	      return _underscore._.omit(field, 'value_has_html');
+	    });
+	
+	    if (!new_data.names_have_html) {
+	      new_data.names = _underscore._.map(new_data.names, function (name) {
+	        return Pride.Util.escape(name);
+	      });
+	    }
+	
+	    return _underscore._.omit(new_data, 'names_have_html');
+	  };
+	
+	  data = translateData(data);
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.RequestBuffer = function (request_options) {
+	  request_options = request_options || {};
+	
+	  var func_buffer = new Pride.Util.FuncBuffer();
+	
+	  var request_issued = false;
+	  var request_successful = false;
+	  var request_failed = false;
+	
+	  var cached_response_data;
+	
+	  this.request = function (func_hash) {
+	    func_buffer.add(func_hash.success, 'success').add(func_hash.failure, 'failure');
+	
+	    if (request_issued) {
+	      callWithResponse();
+	    } else {
+	      sendRequest();
+	    }
+	  };
+	
+	  var callWithResponse = function callWithResponse(data) {
+	    cached_response_data = data || cached_response_data;
+	
+	    if (request_successful) {
+	      callThenClear('success');
+	    } else if (request_failed) {
+	      callThenClear('failure');
+	    }
+	  };
+	
+	  var sendRequest = function sendRequest() {
+	    request_issued = true;
+	
+	    Pride.Util.request({
+	      url: Pride.Util.safeCall(request_options.url),
+	      attempts: Pride.Util.safeCall(request_options.attempts) || Pride.Settings.connection_attempts,
+	      failure_message: Pride.Util.safeCall(request_options.failure_message),
+	
+	      failure: function failure(error) {
+	        request_failed = true;
+	
+	        Pride.Util.safeCall(request_options.before_failure, error);
+	
+	        callWithResponse(error);
+	
+	        Pride.Util.safeCall(request_options.after_failure, error);
+	      },
+	
+	      success: function success(response) {
+	        request_successful = true;
+	
+	        Pride.Util.safeCall(request_options.before_success, response);
+	
+	        if (_underscore._.isFunction(request_options.edit_response)) {
+	          response = request_options.edit_response(response);
+	        }
+	
+	        callWithResponse(response);
+	
+	        Pride.Util.safeCall(request_options.after_success, response);
+	      }
+	    });
+	  };
+	
+	  var callThenClear = function callThenClear(name) {
+	    func_buffer.call(name, cached_response_data).clearAll();
+	  };
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Core.SearchBase = function (setup, parent) {
+	  this.datastore = setup.datastore;
+	  this.query = setup.query || this.datastore.baseQuery();
+	
+	  var self = this;
+	  var requestFunc = setup.requestFunc || this.datastore.runQuery;
+	  var results = setup.starting_results || [];
+	  var defaultCacheSize = setup.cache_size || Pride.Settings.cache_size[this.datastore.uid] || Pride.Settings.default_cache_size;
+	
+	  this.log = function () {
+	    var message = Pride.Util.slice(arguments);
+	    message.unshift('Search (' + self.datastore.get('uid') + ')');
+	
+	    Pride.Core.log.apply(window, message);
+	  };
+	
+	  /////////////////////////
+	  // Performing Searches //
+	  /////////////////////////
+	
+	  this.set = function (set_hash) {
+	    self.query.set(set_hash);
+	    Pride.Util.safeCall(self.setDataChanged);
+	
+	    if (!_underscore._.isEmpty(_underscore._.omit(set_hash, Pride.Util.Paginater.getPossibleKeys()))) {
+	      results = [];
+	    }
+	
+	    return self;
+	  };
+	
+	  this.run = function (cache_size) {
+	    Pride.Util.safeCall(self.resultsChanged);
+	
+	    if (_underscore._.isUndefined(cache_size)) {
+	      cache_size = defaultCacheSize;
+	    }
+	
+	    requestResults(getMissingSection(self.query.toSection().expanded(cache_size)));
+	
+	    return self;
+	  };
+	
+	  this.results = function () {
+	    return resultsPiece(new Pride.Util.Section(self.query.get('start'), Math.min(self.query.get('end'), self.query.get('index_limit'))));
+	  };
+	
+	  var requestResults = function requestResults(requested_section) {
+	    self.log('REQUESTING', requested_section);
+	    self.log('TOTAL AVAILABLE (pre-request)', self.query.get('total_available'));
+	
+	    if (requested_section && self.query.toLimitSection().overlaps(requested_section)) {
+	
+	      self.log('Sending query...');
+	
+	      var new_query = self.query.clone().set({
+	        start: requested_section.start,
+	        count: requested_section.calcLength()
+	      });
+	
+	      requestFunc({
+	        query: new_query,
+	        failure_message: Pride.Messenger.preset('failed_search_run', self.datastore.get('metadata').name),
+	        success: function success(response_data) {
+	          // Update things if the response matches the current query.
+	          if (response_data.request.request_id == self.query.get('request_id')) {
+	            updateData(response_data);
+	            addResults(response_data.response, new_query.get('start'));
+	
+	            var response_length = response_data.response.length;
+	
+	            // If we are missing results from the initial request...
+	            if (response_length !== 0 && response_length < new_query.get('count')) {
+	              requestResults(requested_section.shifted(response_length, 0));
+	            }
+	          }
+	        }
+	      });
+	    } else {
+	      // We don't need to run a search, but should update run observers in case
+	      // set() was called since the last run().
+	      Pride.Util.safeCall(self.runDataChanged);
+	    }
+	  };
+	
+	  var addResults = function addResults(new_items_array, offset) {
+	    var query_results_added = false;
+	
+	    self.log('NEW RECORDS', new_items_array);
+	
+	    _underscore._.each(new_items_array, function (item_data, array_index) {
+	      var item_index = array_index + offset;
+	
+	      // Update the results that are not already filled.
+	      if (_underscore._.isUndefined(results[item_index])) {
+	        results[item_index] = Pride.Util.safeCall(self.createItem, item_data);
+	
+	        if (self.query.toSection().inSection(item_index)) {
+	          query_results_added = true;
+	        }
+	      }
+	    });
+	
+	    self.log('CACHE LENGTH', results.length);
+	
+	    if (query_results_added || _underscore._.isEmpty(new_items_array)) {
+	      Pride.Util.safeCall(self.resultsChanged);
+	    }
+	  };
+	
+	  var updateData = function updateData(response_data) {
+	    self.datastore.update(response_data.datastore);
+	
+	    var new_query_data = _underscore._.omit(response_data.new_request, 'start', 'count');
+	    new_query_data.total_available = response_data.total_available;
+	    self.query.set(new_query_data);
+	
+	    Pride.Util.safeCall(self.runDataChanged);
+	  };
+	
+	  var getMissingSection = function getMissingSection(section) {
+	    var list = resultsPiece(section);
+	    var start = _underscore._.indexOf(list, undefined);
+	
+	    // If the item is not found, indexOf returns -1.
+	    if (start != -1) {
+	      var end = section.start + _underscore._.lastIndexOf(list, undefined);
+	
+	      // Adjust for the offset from the start of the results.
+	      start += section.start;
+	
+	      return new Pride.Util.Section(start, end);
+	    }
+	  };
+	
+	  var resultsPiece = function resultsPiece(section) {
+	    var output = [];
+	
+	    for (var index = section.start; index <= section.end; index++) {
+	      output.push(results[index]);
+	    }
+	
+	    return output;
+	  };
+	
+	  ///////////////////
+	  // Observerables //
+	  ///////////////////
+	
+	  var muted = false;
+	  var observables = [];
+	  var mutable_observables = [];
+	
+	  this.clearAllObservers = function () {
+	    _underscore._.each(observables, function (observable) {
+	      observable.clearAll();
+	    });
+	
+	    Pride.Util.safeCall(self.initialize_observables);
+	
+	    return self;
+	  };
+	
+	  this.getMute = function () {
+	    return muted;
+	  };
+	
+	  this.setMute = function (state) {
+	    if (state != muted) {
+	      muted = state;
+	      Pride.Util.safeCall(self.muteChanged());
+	
+	      if (!muted) {
+	        _underscore._.each(mutable_observables, function (observable) {
+	          observable.notify();
+	        });
+	      }
+	    }
+	
+	    return self;
+	  };
+	
+	  this.createObservable = function (name, data_func, never_mute) {
+	    var object = new Pride.Util.FuncBuffer(function () {
+	      var add_observer = this.add;
+	      var call_observers = this.call;
+	
+	      observables.push(this);
+	      if (!never_mute) mutable_observables.push(this);
+	
+	      this.add = function (func) {
+	        if (!self.muted || never_mute) func(data_func());
+	
+	        add_observer(func, 'observers');
+	
+	        return this;
+	      };
+	
+	      this.notify = function () {
+	        if (!self.muted || never_mute) {
+	          var data = data_func();
+	          self.log('NOTIFY (' + name + ')', data);
+	
+	          call_observers('observers', data);
+	        }
+	
+	        return this;
+	      };
+	    });
+	
+	    self[name + 'Changed'] = object.notify;
+	    parent[name + 'Observers'] = object;
+	
+	    return self;
+	  };
+	
+	  this.createObservable('mute', this.getMute, true).createObservable('setData', function () {
+	    parent.getData();
+	  }).createObservable('runData', function () {
+	    parent.getData();
+	  }).createObservable('results', this.results);
+	
+	  ///////////////
+	  // UTILITIES //
+	  ///////////////
+	
+	  parent.set = function (set_hash) {
+	    self.set(set_hash);
+	
+	    return parent;
+	  };
+	
+	  parent.run = function (cache_size) {
+	    self.run(cache_size);
+	
+	    return parent;
+	  };
+	
+	  parent.nextPage = function (cache_size) {
+	    var current_page = self.query.get('page');
+	    if (_underscore._.isNumber(current_page) && current_page < self.query.get('page_limit')) {
+	      parent.set({ page: current_page + 1 });
+	      parent.run(cache_size);
+	    }
+	
+	    return parent;
+	  };
+	
+	  parent.prevPage = function (cache_size) {
+	    var current_page = self.query.get('page');
+	    if (_underscore._.isNumber(current_page) && current_page > 1) {
+	      parent.set({ page: current_page - 1 });
+	      parent.run(cache_size);
+	    }
+	
+	    return parent;
+	  };
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.SearchSwitcher = function (current_search, cached_searches) {
+	  var self = this;
+	  var search_cache = new Pride.Util.MultiSearch(null, true, cached_searches);
+	
+	  current_search.set({ page: 1 }).setMute(false);
+	  search_cache.set({ page: 1 });
+	
+	  this.uid = current_search.uid;
+	
+	  this.run = function (cache_size) {
+	    current_search.run(cache_size);
+	    search_cache.run(0);
+	
+	    return self;
+	  };
+	
+	  this.set = function (settings) {
+	    current_search.set(settings);
+	    search_cache.set(_underscore._.omit(settings, 'page', 'facets'));
+	
+	    return self;
+	  };
+	
+	  this.nextPage = function () {
+	    current_search.nextPage();
+	
+	    return self;
+	  };
+	
+	  this.prevPage = function () {
+	    current_search.prevPage();
+	
+	    return self;
+	  };
+	
+	  this.switchTo = function (requested_uid) {
+	    if (requested_uid != current_search) {
+	      current_search.setMute(true).set({ page: 1 });
+	      search_cache.searches.push(current_search);
+	      current_search = undefined;
+	
+	      search_cache.searches = _underscore._.reject(search_cache.searches, function (search) {
+	        if (search.uid == requested_uid) {
+	          current_search = search;
+	          return true;
+	        }
+	      });
+	
+	      if (!current_search) {
+	        throw 'Could not find a search with a UID of: ' + requested_uid;
+	      }
+	
+	      self.uid = current_search.uid;
+	      current_search.setMute(false);
+	    }
+	
+	    return self;
+	  };
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.Section = function (start, end) {
+	  this.start = Math.max(Math.min(start, end), 0);
+	  this.end = Math.max(Math.max(start, end), 0);
+	
+	  this.inSection = function (index) {
+	    return index >= this.start && index <= this.end;
+	  };
+	
+	  this.overlaps = function (section) {
+	    return this.inSection(section.start) || this.inSection(section.end);
+	  };
+	
+	  this.calcLength = function () {
+	    return this.end - this.start + 1;
+	  };
+	
+	  this.expanded = function (amount) {
+	    return this.shifted(-1 * amount, amount);
+	  };
+	
+	  this.shifted = function (start_amount, end_amount) {
+	    if (!_underscore._.isNumber(end_amount)) end_amount = start_amount;
+	
+	    return new Pride.Util.Section(this.start + start_amount, this.end + end_amount);
+	  };
+	
+	  this.merge = function () {
+	    arguments.push(this);
+	
+	    return new Pride.Util.Section(_underscore._.min(arguments, function (section) {
+	      return section.start;
+	    }), _underscore._.max(arguments, function (section) {
+	      return section.end;
+	    }));
+	  };
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	// Perform a deep clone that leaves functions untouched.
+	Pride.Util.deepClone = function (original) {
+	  if (_underscore._.isFunction(original)) {
+	    return original;
+	  } else {
+	    var collection_function = false;
+	
+	    if (_underscore._.isArray(original)) {
+	      collection_function = 'map';
+	    } else if (_underscore._.isObject(original)) {
+	      collection_function = 'mapObject';
+	    }
+	
+	    if (collection_function) {
+	      return _underscore._[collection_function](original, function (item) {
+	        return Pride.Util.deepClone(item);
+	      });
+	    } else {
+	      return _underscore._.clone(original);
+	    }
+	  }
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.escape = function (string) {
+	  var temp_element = document.createElement('div');
+	  temp_element.appendChild(document.createTextNode(string));
+	
+	  return temp_element.innerHTML;
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.init = new Pride.Util.RequestBuffer({
+	  url: function url() {
+	    return Pride.Settings.datastores_url;
+	  },
+	  attempts: function attempts() {
+	    return Pride.Settings.init_attempts;
+	  },
+	  failure_message: function failure_message() {
+	    return Pride.Messenger.preset('failed_init');
+	  },
+	
+	  edit_response: function edit_response() {
+	    return undefined;
+	  },
+	  before_success: function before_success(response) {
+	    Pride.AllDatastores.array = _underscore._.map(response['response'], function (datastore_data) {
+	      return new Pride.Core.Datastore(datastore_data);
+	    });
+	  }
+	}).request;
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.isDeepMatch = function (object, pattern) {
+	  var both_arrays = _underscore._.isArray(object) && _underscore._.isArray(pattern);
+	  var both_objects = _underscore._.isObject(object) && _underscore._.isObject(pattern);
+	
+	  if (both_arrays && pattern.length != object.length) {
+	    return false;
+	  }
+	
+	  if (both_objects && _underscore._.keys(pattern).length != _underscore._.keys(object).length) {
+	    return false;
+	  }
+	
+	  if (both_arrays && both_objects) {
+	    return _underscore._.every(pattern, function (value, key) {
+	      return Pride.Util.isDeepMatch(object[key], value);
+	    });
+	  } else {
+	    return object === pattern;
+	  }
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	// Perform a deep clone that leaves functions untouched.
+	Pride.Core.log = function (source, info) {
+	  if (Pride.Settings.obnoxious) {
+	    var message = Pride.Util.slice(arguments, 2);
+	    message.unshift('[Pride: ' + source + '] ' + info);
+	
+	    console.log.apply(console, message);
+	  }
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.FieldTree.parseField = function (field_name, content) {
+	  if (!content) {
+	    return {};
+	  } else {
+	    return new Pride.FieldTree.Field(field_name, new Pride.FieldTree.Literal(content));
+	  }
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.request = function (request_info) {
+	  Pride.Core.log('Request', 'Sending HTTP request...');
+	  Pride.Core.log('Request', 'URL', request_info.url);
+	  Pride.Core.log('Request', 'CONTENT', JSON.stringify(request_info.query));
+	
+	  if (!request_info.url) throw 'No URL given to Pride.Util.request()';
+	
+	  var request_method = 'get';
+	  if (request_info.query) request_method = 'post';
+	
+	  if (!_underscore._.isNumber(request_info.attempts)) {
+	    request_info.attempts = Pride.Settings.connection_attempts;
+	  }
+	
+	  request_info.attempts -= 1;
+	
+	  reqwest({
+	    url: request_info.url,
+	    data: JSON.stringify(request_info.query),
+	    type: 'json',
+	    method: request_method,
+	    contentType: 'application/json',
+	    withCredentials: true,
+	
+	    error: function error(_error) {
+	      if (request_info.attempts <= 0) {
+	        Pride.Core.log('Request', 'ERROR', _error);
+	
+	        Pride.Util.safeCall(request_info.failure, _error);
+	
+	        Pride.Messenger.sendMessage({
+	          summary: request_info.failure_message,
+	          class: 'error'
+	        });
+	      } else {
+	        Pride.Core.log('Request', 'Trying request again...');
+	        window.setTimeout(function () {
+	          Pride.Util.request(request_info);
+	        }, Pride.Settings.ms_between_attempts);
+	      }
+	    },
+	
+	    success: function success(response) {
+	      Pride.Core.log('Request', 'SUCCESS', response);
+	
+	      Pride.Util.safeCall(request_info.success, response);
+	
+	      Pride.Messenger.sendMessage({
+	        summary: request_info.success_message,
+	        class: 'success'
+	      });
+	
+	      Pride.Messenger.sendMessageArray(response.messages);
+	    }
+	  });
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.safeCall = function (maybe_func) {
+	  if (_underscore._.isFunction(maybe_func)) {
+	    return maybe_func.apply(this, Pride.Util.slice(arguments, 1));
+	  } else {
+	    return maybe_func;
+	  }
+	};
+	
+	Pride.Util.safeApply = function (maybe_func, args) {
+	  if (_underscore._.isFunction(maybe_func)) {
+	    return maybe_func.apply(this, args);
+	  } else {
+	    return maybe_func;
+	  }
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Util.slice = function (array, begin, end) {
+	  return Array.prototype.slice.call(array, begin, end);
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.AllDatastores = {
+	  array: [],
+	
+	  newSearch: function newSearch(uid) {
+	    var datastore = _underscore._.find(this.array, function (datastore) {
+	      return datastore.get('uid') == uid;
+	    });
+	
+	    return datastore ? datastore.baseSearch() : undefined;
+	  },
+	
+	  each: function each(func) {
+	    _underscore._.each(this.array, func);
+	
+	    return this;
+	  }
+	};
+	
+	// Copyright (c) 2015, Regents of the University of Michigan.
+	// All rights reserved. See LICENSE.txt for details.
+	
+	// Authored by Colin Fulton (fultonis@umich.edu)
+	
+	Pride.Messenger = new Pride.Util.FuncBuffer(function () {
+	  var notifyObservers = this.call;
+	
+	  this.addObserver = this.add;
+	  this.removeObserver = this.remove;
+	  this.clearObservers = this.clear;
+	
+	  this.call = undefined;
+	  this.add = undefined;
+	  this.remove = undefined;
+	  this.clear = undefined;
+	
+	  this.sendMessage = function (message) {
+	    // if (message['summary']) {
+	    //   message['class']   = message['class']   || 'info';
+	    //   message['details'] = message['details'] || '';
+	
+	    //   notifyObservers(message);
+	
+	    //   Pride.Core.log('Messenger', 'MESSAGE SENT', message);
+	    // }
+	
+	    // return this;
+	  };
+	
+	  this.sendMessageArray = function (message_array) {
+	    // var messenger = this;
+	
+	    // _.each(
+	    //   message_array,
+	    //   function(message) { messenger.sendMessage(message); }
+	    // );
+	
+	    // return this;
+	  };
+	
+	  // Given a type of preset message and some optional arguments, generate a
+	  // message string.
+	  this.preset = function (type) {
+	    // var variables = Pride.Util.slice(arguments);
+	
+	    // return Pride.Settings
+	    //             .message_formats[type]
+	    //             .replace(
+	    //               /(^|[^\\])\$(\d+)/,
+	    //               function(match, previous_char, number) {
+	    //                 return previous_char + (variables[Number(number)] || '');
+	    //               }
+	    //             )
+	    //             .replace('\\$', '$');
+	  };
+	});
+
+/***/ },
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -24327,7 +24682,7 @@
 	  } else {
 	    var XHR2
 	    try {
-	      XHR2 = __webpack_require__(175)
+	      XHR2 = __webpack_require__(182)
 	    } catch (ex) {
 	      throw new Error('Peer dependency `xhr2` required! Please npm install xhr2')
 	    }
@@ -24939,326 +25294,10 @@
 
 
 /***/ },
-/* 175 */
+/* 182 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
-
-/***/ },
-/* 176 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.App = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Header = __webpack_require__(177);
-	
-	var _SearchBox = __webpack_require__(180);
-	
-	var _Datastores = __webpack_require__(182);
-	
-	var _index = __webpack_require__(183);
-	
-	var _actions = __webpack_require__(181);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	__webpack_require__(198);
-	
-	var App = exports.App = function (_React$Component) {
-	  _inherits(App, _React$Component);
-	
-	  function App() {
-	    _classCallCheck(this, App);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
-	  }
-	
-	  _createClass(App, [{
-	    key: 'render',
-	    value: function render() {
-	      var _props$state = this.props.state;
-	      var datastores = _props$state.datastores;
-	      var active_datastore = _props$state.active_datastore;
-	
-	      return _react2.default.createElement(
-	        'main',
-	        null,
-	        _react2.default.createElement(_Header.Header, null),
-	        _react2.default.createElement(_SearchBox.SearchBox, {
-	          onSubmitSearch: function onSubmitSearch(text) {
-	            return _index.store.dispatch((0, _actions.submitSearch)(text));
-	          }
-	        }),
-	        _react2.default.createElement(_Datastores.DatastoreList, {
-	          datastores: datastores,
-	          activeDatastore: active_datastore,
-	          onDatastoreClick: function onDatastoreClick(uid) {
-	            return _index.store.dispatch((0, _actions.changeActiveDatastore)(uid));
-	          }
-	        })
-	      );
-	    }
-	  }]);
-	
-	  return App;
-	}(_react2.default.Component);
-
-/***/ },
-/* 177 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.Header = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Header = exports.Header = function (_React$Component) {
-	  _inherits(Header, _React$Component);
-	
-	  function Header() {
-	    _classCallCheck(this, Header);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
-	  }
-	
-	  _createClass(Header, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "header",
-	        null,
-	        _react2.default.createElement(
-	          "div",
-	          { className: "site-header" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "container-fluid" },
-	            _react2.default.createElement(
-	              "a",
-	              { href: "http://umich.edu", className: "site-brand-umich-block-m-logo focus-outline-white" },
-	              _react2.default.createElement("img", { src: __webpack_require__(178), alt: "Go to the University of Michigan homepage" })
-	            ),
-	            _react2.default.createElement(
-	              "a",
-	              { href: "http://lib.umich.edu", className: "site-brand-mlibrary-logo focus-outline-white" },
-	              _react2.default.createElement("img", { src: __webpack_require__(179), alt: "Go to the University of Michigan Library homepage" })
-	            ),
-	            _react2.default.createElement(
-	              "nav",
-	              { className: "navigation right" },
-	              _react2.default.createElement(
-	                "ul",
-	                { className: "navigation-list" },
-	                _react2.default.createElement(
-	                  "li",
-	                  null,
-	                  _react2.default.createElement(
-	                    "a",
-	                    { href: "http://github.com/mlibrary/falafel/", className: "white-text" },
-	                    "Search"
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  "li",
-	                  null,
-	                  _react2.default.createElement(
-	                    "a",
-	                    { href: "", className: "white-text" },
-	                    "Log In"
-	                  )
-	                )
-	              )
-	            ),
-	            _react2.default.createElement("div", { className: "clearfix" })
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Header;
-	}(_react2.default.Component);
-
-/***/ },
-/* 178 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHsAAABYCAYAAADV/4jnAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA8dJREFUeNrsnd9x2kAQxg+PJ8+UQDqACqJ0ICoIdKBUAFQgOog6MB2EDkwJpAM/8+LcOSsPhH+SkGC/ve+b0fDgGY+0P+99t7sn3Ht//TJxzv1wujTtjXZbBywf17n/+Kbpnp79NfBXoixWL/4aAYNO/cdM2309KY3X0AcsBwUdkueXxnt7Uhy3zAcuAeQdQPcJu8Fy7oH3gbJ6rtASYWD3xb8RQA81+jQS7KDEBzJTDhrijxIBdlAumaPZpweE3WJANfq39ClShAAiwQ6ZnSsDre6erMAOmkjDgmVWBLDL5XygIKtzWW0cYRsux6TZk6EFDhH2h39LA4NlVgSwg2YPaqe+IPm0Fdh3L8ekuZOgBgsd9sDdacKEVmZZhB2Udt1ORfZpa7BL/+6yDModQDs0Ftj9rvxbmjgTC0GyAvujHHMtjxg1nzqJHXZQ1nI7FbbMigF2a+WYNG2GlgJjEfbNO2dp1sysBcYi7KCkaTvVSpl1Sr0aQXgHfL5Rb7Tb1IQdQKdgz7nwzzmPNbM/N1h1/FuaM6nVYFiHXbl0QjgdStjXlco5sWs+DXXqhLDPK79yumVmrcyKGfbZHbY0YbIYghAL7KCjlwWttUMJ+1D/vyxo3qf39eziUyjHvsrSncT04DHCDpn8O4YNWezL+Kd/x/jQscJ2hE0RNkXYXWoJHtc3fxWEXU0Lf22AYf/01x/CrqDeaBcyYyoZgqbC33+h8cbUerYcOliAgd5IVtOzGwAP3r0Cgj2VVYmwmwbQX1sEn657BIqwT/v3WPltrmQVYull3L/LzSTr7BaBz/3HWuGtjTX7NCTsMrDKyrFwhHeNEjwo2Mr8e13lrDZh3wY8ZNKjN0MwPg0NW4CHxsUjyxzIf2uBPPV6lH8vPegVYsBgYUtm3bs1idjCNZHZTgYOxT19GqXMMgdbdC//Vt8ONQ97bxzapVZax5axZXbZTu3Kv7eIZZZZ2AK8q3HoGNmnTcIu61/X7jgU3qfNwm7Zv9cIY8uYM7tsp95aCyPM0AlbgM/dbeNQMz59EBf5CinE7xIJy+z3cz+Ud69fXf1XcpfSez/3exP378VAZrai7G5SMm0ugeYyrht4KMWqbrJM+nQ0sAV41XYq5NiSsE/X35c2XAXq2JKwj7P7UjtV9VschN0MeOGOx6HwY0vCPq+Qwfu+vLDUDiXsw+ze33GvrLVDCfu0f4+dkbFlHcX41Vguhp03MztyETZhU4RNETZF2BRhU4RNETZF2BRhU4RNEXZsClOvrdP5/WLX9KhDB2+g8XJ/BRgAnv80rcL5FKcAAAAASUVORK5CYII="
-
-/***/ },
-/* 179 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,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"
-
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.SearchBox = undefined;
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _actions = __webpack_require__(181);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var SearchBox = exports.SearchBox = function SearchBox(_ref) {
-	  var onSubmitSearch = _ref.onSubmitSearch;
-	
-	  var input = void 0;
-	
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'search-box-container-full' },
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'container container-narrow' },
-	      _react2.default.createElement(
-	        'form',
-	        { className: 'search-box' },
-	        _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
-	            input = node;
-	          } }),
-	        _react2.default.createElement('input', { className: 'button search-box-button', type: 'submit', value: 'Search', onClick: function onClick(event) {
-	            event.preventDefault();
-	            onSubmitSearch(input.value);
-	            input.value = '';
-	          } })
-	      )
-	    )
-	  );
-	};
-
-/***/ },
-/* 181 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.addDatastore = addDatastore;
-	exports.changeActiveDatastore = changeActiveDatastore;
-	exports.submitSearch = submitSearch;
-	var ADD_DATASTORE = exports.ADD_DATASTORE = 'ADD_DATASTORE';
-	var CHANGE_ACTIVE_DATASTORE = exports.CHANGE_ACTIVE_DATASTORE = 'CHANGE_ACTIVE_DATASTORE';
-	var SUBMIT_SEARCH = exports.SUBMIT_SEARCH = 'SUBMIT_SEARCH';
-	
-	function addDatastore(payload) {
-	  return { type: ADD_DATASTORE, payload: payload };
-	}
-	
-	function changeActiveDatastore(payload) {
-	  return { type: CHANGE_ACTIVE_DATASTORE, payload: payload };
-	}
-	
-	function submitSearch(payload) {
-	  return { type: SUBMIT_SEARCH, payload: payload };
-	}
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.DatastoreList = undefined;
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _index = __webpack_require__(183);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var DatastoreListItem = function DatastoreListItem(_ref) {
-	  var uid = _ref.uid;
-	  var name = _ref.name;
-	  var isActive = _ref.isActive;
-	  var onDatastoreClick = _ref.onDatastoreClick;
-	  return _react2.default.createElement(
-	    'li',
-	    {
-	      onClick: function onClick() {
-	        onDatastoreClick(uid);
-	      },
-	      className: isActive ? 'active' : '' },
-	    name
-	  );
-	};
-	
-	var DatastoreList = exports.DatastoreList = function DatastoreList(_ref2) {
-	  var datastores = _ref2.datastores;
-	  var activeDatastore = _ref2.activeDatastore;
-	  var onDatastoreClick = _ref2.onDatastoreClick;
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'datastore-list-container' },
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'container-narrow container' },
-	      _react2.default.createElement(
-	        'ul',
-	        { className: 'datastore-list' },
-	        datastores.map(function (datastore) {
-	          return _react2.default.createElement(DatastoreListItem, {
-	            key: datastore.uid,
-	            uid: datastore.uid,
-	            name: datastore.name,
-	            isActive: activeDatastore == datastore.uid,
-	            onDatastoreClick: onDatastoreClick
-	          });
-	        })
-	      )
-	    )
-	  );
-	};
 
 /***/ },
 /* 183 */
@@ -25288,13 +25327,11 @@
 	});
 	exports.searchApp = undefined;
 	
-	var _actions = __webpack_require__(181);
+	var _actions = __webpack_require__(178);
 	
 	var _redux = __webpack_require__(185);
 	
-	var _underscore = __webpack_require__(173);
-	
-	var _pride = __webpack_require__(172);
+	var _underscore = __webpack_require__(172);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
@@ -25340,7 +25377,38 @@
 	
 	  switch (action.type) {
 	    case _actions.SUBMIT_SEARCH:
+	
+	      console.log('submit search', action);
+	
 	      return action.payload;
+	    default:
+	      return state;
+	  }
+	};
+	
+	var record = function record() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case _actions.ADD_RECORD:
+	      return {
+	        partial: action.payload
+	      };
+	    default:
+	      return state;
+	  }
+	};
+	
+	var records = function records() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case _actions.ADD_RECORD:
+	      return [].concat(_toConsumableArray(state), [record(undefined, action)]);
+	    case _actions.CLEAR_RECORDS:
+	      return [];
 	    default:
 	      return state;
 	  }
@@ -25349,7 +25417,8 @@
 	var searchApp = exports.searchApp = (0, _redux.combineReducers)({
 	  datastores: datastores,
 	  active_datastore: active_datastore,
-	  search: search
+	  search: search,
+	  records: records
 	});
 
 /***/ },
@@ -26194,15 +26263,209 @@
 
 /***/ },
 /* 198 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"datastores": {
+			"naming": [
+				{
+					"uid": "mirlyn",
+					"name": "Catalog"
+				},
+				{
+					"uid": "articlesplus",
+					"name": "Articles"
+				},
+				{
+					"uid": "databases",
+					"name": "Databases"
+				},
+				{
+					"uid": "journals",
+					"name": "Journals"
+				},
+				{
+					"uid": "website",
+					"name": "Website"
+				}
+			],
+			"multi_source": [
+				{
+					"uid": "quick-search",
+					"name": "Quick Search",
+					"datastores": [
+						"mirlyn",
+						"articlesplus",
+						"journals",
+						"databases"
+					]
+				}
+			],
+			"ordering": [
+				"quick-search",
+				"mirlyn",
+				"articlesplus",
+				"journals",
+				"databases",
+				"website"
+			],
+			"default": "mirlyn"
+		}
+	};
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.DatastoreList = undefined;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _index = __webpack_require__(183);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var DatastoreListItem = function DatastoreListItem(_ref) {
+	  var uid = _ref.uid;
+	  var name = _ref.name;
+	  var isActive = _ref.isActive;
+	  var onDatastoreClick = _ref.onDatastoreClick;
+	  return _react2.default.createElement(
+	    'li',
+	    {
+	      onClick: function onClick() {
+	        onDatastoreClick(uid);
+	      },
+	      className: isActive ? 'active' : '' },
+	    name
+	  );
+	};
+	
+	var DatastoreList = exports.DatastoreList = function DatastoreList(_ref2) {
+	  var datastores = _ref2.datastores;
+	  var activeDatastore = _ref2.activeDatastore;
+	  var onDatastoreClick = _ref2.onDatastoreClick;
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'datastore-list-container' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'container-narrow container' },
+	      _react2.default.createElement(
+	        'ul',
+	        { className: 'datastore-list' },
+	        datastores.map(function (datastore) {
+	          return _react2.default.createElement(DatastoreListItem, {
+	            key: datastore.uid,
+	            uid: datastore.uid,
+	            name: datastore.name,
+	            isActive: activeDatastore == datastore.uid,
+	            onDatastoreClick: onDatastoreClick
+	          });
+	        })
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Records = undefined;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _underscore = __webpack_require__(172);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Field = function Field(_ref) {
+	  var field = _ref.field;
+	
+	  return _react2.default.createElement(
+	    'p',
+	    null,
+	    _react2.default.createElement(
+	      'b',
+	      null,
+	      field.name
+	    ),
+	    ': ',
+	    field.value
+	  );
+	};
+	
+	var Record = function Record(_ref2) {
+	  var name = _ref2.name;
+	  var fields = _ref2.fields;
+	
+	  return _react2.default.createElement(
+	    'li',
+	    { className: 'record' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-lg-7 col-md-12' },
+	        _react2.default.createElement(
+	          'a',
+	          { href: '', className: 'record-title underline' },
+	          name
+	        ),
+	        _underscore._.map(fields, function (field, index) {
+	          return _react2.default.createElement(Field, {
+	            key: index,
+	            field: field
+	          });
+	        })
+	      )
+	    )
+	  );
+	};
+	
+	var Records = exports.Records = function Records(_ref3) {
+	  var records = _ref3.records;
+	
+	  return _react2.default.createElement(
+	    'ul',
+	    { className: 'results-list' },
+	    _underscore._.map(records, function (record, index) {
+	      return _react2.default.createElement(Record, {
+	        key: index,
+	        name: record.partial.names[0],
+	        fields: record.partial.fields
+	      });
+	    })
+	  );
+	};
+
+/***/ },
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(199);
+	var content = __webpack_require__(202);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(201)(content, {});
+	var update = __webpack_require__(204)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -26219,21 +26482,21 @@
 	}
 
 /***/ },
-/* 199 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(200)();
+	exports = module.exports = __webpack_require__(203)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "@charset \"UTF-8\";\n/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* apply a natural box layout model to all elements, but allowing components to change */\nhtml {\n  box-sizing: border-box; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\n.container {\n  margin: 0 auto;\n  padding: 0 1rem; }\n\n.container-narrow {\n  max-width: 48rem; }\n\n.container-fluid {\n  padding: 0 1rem; }\n\n@media (min-width: 80rem) {\n  .container-large {\n    width: 96vw;\n    max-width: 110rem; } }\n\n/*\n  Site\n*/\nbody {\n  line-height: 1.7;\n  font-size: 1rem;\n  font-family: \"Open Sans\", sans-serif;\n  color: #333; }\n\n/*\n  Headings\n*/\nh1 {\n  font-size: 2.75rem; }\n\nh2 {\n  font-size: 2rem; }\n\nh1, h2 {\n  font-weight: 700;\n  line-height: 1.3; }\n\nh3 {\n  font-size: 1.75rem; }\n\nh4 {\n  font-size: 1.5rem; }\n\nh3, h4 {\n  font-weight: 400; }\n\nh5 {\n  font-size: 1.5rem; }\n\nh6 {\n  font-size: 1.25rem; }\n\nh5, h6 {\n  font-weight: 300; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 1rem 0; }\n\n/*\n  Typography and Elements\n*/\np {\n  margin: 1rem 0; }\n\na {\n  color: #126DC1;\n  cursor: pointer;\n  text-decoration: none; }\n\n.underline {\n  border-bottom: solid 1px #126DC1; }\n\n*::selection {\n  background: #CCE6FF; }\n\nol, ul {\n  margin-left: 3rem;\n  margin-top: 1rem;\n  margin-bottom: 1rem; }\n\nol {\n  list-style: decimal; }\n\nul {\n  list-style: disc; }\n\nli {\n  padding-left: 1rem;\n  margin-top: 1rem; }\n\ndl {\n  margin: 0;\n  clear: left; }\n\ndt {\n  font-weight: bold;\n  float: left;\n  clear: left;\n  padding-right: 0.3rem; }\n\ndd {\n  margin: 0;\n  padding: 0;\n  min-height: 1.5rem; }\n\ntable {\n  width: 100%;\n  border: solid 1px #E5E5E5;\n  margin-top: 1rem;\n  margin-bottom: 1rem; }\n\nthead {\n  background: #FAFAFA;\n  border-bottom: solid 2px #E5E5E5; }\n\ntd, th {\n  padding: 0.75rem 1rem; }\n\nth {\n  text-align: left;\n  color: #6E6E6E; }\n\n.table-compact table {\n  border: none; }\n\n.table-compact td, .table-compact th {\n  padding: 0.25rem 0.5rem;\n  font-size: 90%; }\n\nblockquote {\n  font-family: \"PT Serif\", serif;\n  font-size: 1.5rem;\n  padding-left: 1.5rem;\n  border-left: solid 0.5rem #126DC1;\n  margin: 2rem 0;\n  color: #126DC1;\n  font-style: italic; }\n\nlabel {\n  margin-bottom: 0.1rem;\n  color: #4E4E4E;\n  display: block; }\n\n.fieldset-label {\n  font-weight: 700; }\n\ninput[type=\"text\"] {\n  font-size: 1rem;\n  border: solid 1px rgba(0, 0, 0, 0.3);\n  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  padding: 0.6rem;\n  line-height: 1.4;\n  width: 100%; }\n\ninput[type=\"text\"]:disabled,\ninput[type=\"text\"]:read-only {\n  background: #FAFAFA;\n  border-color: #CCC;\n  color: #6E6E6E;\n  cursor: not-allowed; }\n\nfieldset {\n  margin: 1rem 0; }\n\n.help-text {\n  margin: 0; }\n\nfieldset.field-valid input[type=\"text\"] {\n  border-color: #05A657; }\n\nfieldset.field-valid .help-text {\n  color: #05A657;\n  font-size: 0.9rem; }\n\nfieldset.field-error input[type=\"text\"] {\n  border-color: #ED5D47; }\n\nfieldset.field-error .help-text {\n  color: #ED5D47;\n  font-size: 0.9rem; }\n\nfieldset.field-warning input[type=\"text\"] {\n  border-color: #E77504; }\n\nfieldset.field-warning .help-text {\n  color: #E77504;\n  font-size: 0.9rem; }\n\ntextarea {\n  display: block;\n  padding: 1rem;\n  margin: 1rem 0;\n  border: solid 1px rgba(0, 0, 0, 0.3);\n  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  max-width: 100%; }\n\n.button {\n  display: inline-block;\n  margin: 0;\n  padding-right: 1rem;\n  padding-left: 1rem;\n  padding-top: 0.65rem;\n  padding-bottom: 0.55rem;\n  background: #126DC1;\n  color: #fff;\n  font-size: 1rem;\n  border: none;\n  border-radius: 4px;\n  border-bottom: 3px solid #0C5292;\n  cursor: pointer;\n  text-decoration: none; }\n\n.button:active {\n  color: #FAFAFA;\n  background: #0C5292;\n  border-color: #00274C;\n  border-bottom-width: 1px;\n  margin-top: 2px; }\n\n.button:active,\n.button:hover {\n  text-decoration: none; }\n\n.button-disabled:hover,\n.button-disabled:active {\n  cursor: not-allowed; }\n\n.button-light {\n  background: #E5E5E5;\n  color: #4E4E4E;\n  border-color: #CCC; }\n\n.button-light:active {\n  background: #CCC;\n  color: #4E4E4E;\n  border-color: #E5E5E5; }\n\n.button-radio {\n  margin: 1rem 0;\n  padding: 1rem;\n  border: solid 2px #CCC;\n  background: #FAFAFA;\n  border-radius: 4px;\n  cursor: pointer; }\n\nnav {\n  display: inline-block; }\n\n.navigation-list {\n  margin: 0;\n  padding: 0; }\n\n.navigation li {\n  display: inline-block;\n  margin-top: 0.25rem; }\n\n.alert {\n  margin: 2rem 0;\n  padding: 1rem;\n  border: solid 2px #E5E5E5;\n  background: #FAFAFA;\n  border-radius: 4px; }\n\n.alert-success {\n  background: #E2F4EB;\n  border-color: #05A657; }\n\n.alert-info {\n  background: #FFEEDD;\n  border-color: #E77504; }\n\n.alert-warning {\n  background: #FFEEDD;\n  border-color: #E77504; }\n\n.alert-danger {\n  background: #FFEAE7;\n  border-color: #ED5D47; }\n\n.alert *:first-child {\n  margin: 0; }\n\n.site-message-warning {\n  background: #FFEEDD;\n  border-bottom: solid 2px #E77504; }\n\n.site-message-info {\n  background: #F2F9FF;\n  border-bottom: solid 2px #CCE6FF; }\n\n.site-message {\n  position: relative;\n  padding: 0.5rem 1rem;\n  padding-right: 6rem; }\n  .site-message p {\n    margin: 0;\n    text-align: center; }\n\n.site-message-dismiss {\n  /* remove button style */\n  border: none;\n  font-size: 100%;\n  background: none;\n  padding: 0;\n  /* continue */\n  position: absolute;\n  right: 1rem;\n  top: 0.6rem;\n  cursor: pointer;\n  line-height: 1.4; }\n  .site-message-dismiss span {\n    text-decoration: underline; }\n  .site-message-dismiss:after {\n    content: '\\2715';\n    padding-left: 0.5rem;\n    text-decoration: none; }\n\n.site-header {\n  background: #00274C;\n  padding-top: 1rem;\n  padding-bottom: 1rem; }\n\n.site-brand,\n.site-brand:hover {\n  box-shadow: none !important;\n  background: none !important; }\n  .site-brand img,\n  .site-brand:hover img {\n    width: 15rem; }\n\n.site-heading {\n  font-size: 2rem;\n  display: inline-block;\n  margin-right: 1rem; }\n\n.site-subheading {\n  display: inline;\n  color: #4E4E4E; }\n\n@media (max-width: 32rem) {\n  .site-heading,\n  .site-subheading {\n    display: block; }\n  .site-heading {\n    margin-bottom: 0; }\n  .site-subheading {\n    margin-top: 0;\n    margin-bottom: 1rem; } }\n\n.site-brand-mlibrary-logo,\n.site-brand-umich-block-m-logo {\n  display: inline-block;\n  height: 2.2rem; }\n  .site-brand-mlibrary-logo img,\n  .site-brand-umich-block-m-logo img {\n    height: 100%;\n    width: auto; }\n\n.site-brand-umich-block-m-logo {\n  margin-right: 0.4rem; }\n\nfooter {\n  background: #00274C;\n  padding: 2rem 0;\n  margin-top: 3rem; }\n\n.callout {\n  background: #F2F9FF;\n  padding: 2rem 0;\n  margin-bottom: 2rem; }\n\n.no-margin {\n  margin: 0; }\n\n.white-text {\n  color: white; }\n\n.right {\n  float: right; }\n\n.clearfix:after {\n  visibility: hidden;\n  display: block;\n  font-size: 0;\n  content: \" \";\n  clear: both;\n  height: 0; }\n\n.clearfix {\n  display: inline-block; }\n\n/* start commented backslash hack \\*/\n* html .clearfix {\n  height: 1%; }\n\n.clearfix {\n  display: block; }\n\n/* close commented backslash hack */\n.light-text {\n  opacity: 0.8;\n  font-size: 90%; }\n\n.center-text {\n  text-align: center; }\n\n.focus-outline-white {\n  outline-color: white; }\n\n.search-box-container-full {\n  background: #E6F3FF;\n  padding: 1rem 0; }\n\n.search-box {\n  display: flex; }\n\n.search-box-button {\n  margin-left: 1rem;\n  margin-right: 0; }\n\n.datastore-list-container {\n  background: #FAFAFA;\n  border-bottom: solid 2px #E5E5E5; }\n\n.datastore-list {\n  margin: 0;\n  margin-bottom: -2px;\n  margin-left: -1rem;\n  text-align: center; }\n  .datastore-list li {\n    display: inline-block;\n    padding-right: 0.5rem;\n    padding-left: 0.5rem;\n    padding-bottom: 0.45rem;\n    padding-top: 0.5rem;\n    margin: 0 0.5rem;\n    cursor: pointer; }\n    .datastore-list li a {\n      color: #4E4E4E; }\n      .datastore-list li a:hover {\n        text-decoration: none; }\n  .datastore-list li.active {\n    border-bottom: solid 2px #126DC1; }\n    .datastore-list li.active a {\n      color: #126DC1; }\n\n/*\n  Multiple results container // aka Bento box\n*/\n.multiple-results-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin: -2rem 0 0 -2rem; }\n\n.datastore-results {\n  display: inline-block;\n  flex-grow: 1;\n  margin: 2rem 0 0 2rem;\n  width: calc(100% - 2rem); }\n  @media (min-width: 32rem) {\n    .datastore-results {\n      width: calc(100% * (1/2) - 2rem); } }\n  @media (min-width: 64rem) {\n    .datastore-results {\n      width: calc(100% * (1/3) - 2rem); } }\n  @media (min-width: 80rem) {\n    .datastore-results {\n      width: calc(100% * (1/5) - 2rem); } }\n\n/*\n  Results List\n*/\n.results-container {\n  display: flex;\n  flex-wrap: wrap; }\n\n.results-list {\n  margin: 0;\n  list-style: none; }\n\n.record-title {\n  font-weight: 600;\n  font-size: 1.1rem;\n  text-decoration: none; }\n\n.more-results-link {\n  display: inline-block;\n  margin-top: 1rem; }\n\n/*\n  Record\n*/\n.record {\n  padding: 0;\n  border-bottom: solid 1px #E5E5E5;\n  padding-bottom: 1rem; }\n\n.record-description {\n  margin: 0.5rem 0; }\n\n.record-metadata {\n  padding-top: 0.5rem; }\n\n.type {\n  font-weight: bold; }\n\n/*\n  Record link\n*/\n.record-link {\n  display: inline-block;\n  padding: 0.75rem 1rem;\n  border-radius: 4px;\n  border: solid 2px transparent;\n  background: #FAFAFA; }\n\n.record-link:hover {\n  background: #F2F9FF;\n  border: solid 2px #E6F3FF;\n  opacity: 1; }\n\n.record-link-pre-heading,\n.record-link-heading {\n  line-height: 1.4; }\n\n.record-link-pre-heading {\n  display: block;\n  font-size: 80%; }\n\n.record-link-heading {\n  display: inline-block;\n  font-weight: 600; }\n\n.record-link-info {\n  display: block;\n  font-size: 90%;\n  color: #4E4E4E;\n  line-height: 1.5; }\n\n.record-image {\n  float: right;\n  width: 100%;\n  max-width: 5rem;\n  margin-left: 0.5rem;\n  border: solid 1px #E5E5E5; }\n\n.filter-title {\n  font-weight: 600; }\n\n.filters {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  margin-bottom: 2rem; }\n  .filters li {\n    margin: 0;\n    padding: 0; }\n    .filters li a {\n      display: inline-block; }\n\n.num {\n  color: #4E4E4E;\n  font-size: 80%; }\n  .num:before {\n    content: '('; }\n  .num:after {\n    content: ')'; }\n\n.light-heading {\n  font-size: 1.2rem; }\n", ""]);
+	exports.push([module.id, "@charset \"UTF-8\";\n/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n/* apply a natural box layout model to all elements, but allowing components to change */\nhtml {\n  box-sizing: border-box; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\n.container {\n  margin: 0 auto;\n  padding: 0 1rem; }\n\n.container-narrow {\n  max-width: 48rem; }\n\n.container-fluid {\n  padding: 0 1rem; }\n\n@media (min-width: 80rem) {\n  .container-large {\n    width: 96vw;\n    max-width: 110rem; } }\n\n/*\n  Site\n*/\nbody {\n  line-height: 1.7;\n  font-size: 1rem;\n  font-family: \"Open Sans\", sans-serif;\n  color: #333; }\n\n/*\n  Headings\n*/\nh1 {\n  font-size: 2.75rem; }\n\nh2 {\n  font-size: 2rem; }\n\nh1, h2 {\n  font-weight: 700;\n  line-height: 1.3; }\n\nh3 {\n  font-size: 1.75rem; }\n\nh4 {\n  font-size: 1.5rem; }\n\nh3, h4 {\n  font-weight: 400; }\n\nh5 {\n  font-size: 1.5rem; }\n\nh6 {\n  font-size: 1.25rem; }\n\nh5, h6 {\n  font-weight: 300; }\n\nh1, h2, h3, h4, h5, h6 {\n  margin: 1rem 0; }\n\n/*\n  Typography and Elements\n*/\np {\n  margin: 1rem 0; }\n\na {\n  color: #126DC1;\n  cursor: pointer;\n  text-decoration: none; }\n\n.underline {\n  border-bottom: solid 1px #126DC1; }\n\n*::selection {\n  background: #CCE6FF; }\n\nol, ul {\n  margin-left: 3rem;\n  margin-top: 1rem;\n  margin-bottom: 1rem; }\n\nol {\n  list-style: decimal; }\n\nul {\n  list-style: disc; }\n\nli {\n  padding-left: 1rem;\n  margin-top: 1rem; }\n\ndl {\n  margin: 0;\n  clear: left; }\n\ndt {\n  font-weight: bold;\n  float: left;\n  clear: left;\n  padding-right: 0.3rem; }\n\ndd {\n  margin: 0;\n  padding: 0;\n  min-height: 1.5rem; }\n\ntable {\n  width: 100%;\n  border: solid 1px #E5E5E5;\n  margin-top: 1rem;\n  margin-bottom: 1rem; }\n\nthead {\n  background: #FAFAFA;\n  border-bottom: solid 2px #E5E5E5; }\n\ntd, th {\n  padding: 0.75rem 1rem; }\n\nth {\n  text-align: left;\n  color: #6E6E6E; }\n\n.table-compact table {\n  border: none; }\n\n.table-compact td, .table-compact th {\n  padding: 0.25rem 0.5rem;\n  font-size: 90%; }\n\nblockquote {\n  font-family: \"PT Serif\", serif;\n  font-size: 1.5rem;\n  padding-left: 1.5rem;\n  border-left: solid 0.5rem #126DC1;\n  margin: 2rem 0;\n  color: #126DC1;\n  font-style: italic; }\n\nb {\n  font-weight: 600; }\n\nlabel {\n  margin-bottom: 0.1rem;\n  color: #4E4E4E;\n  display: block; }\n\n.fieldset-label {\n  font-weight: 700; }\n\ninput[type=\"text\"] {\n  font-size: 1rem;\n  border: solid 1px rgba(0, 0, 0, 0.3);\n  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  padding: 0.6rem;\n  line-height: 1.4;\n  width: 100%; }\n\ninput[type=\"text\"]:disabled,\ninput[type=\"text\"]:read-only {\n  background: #FAFAFA;\n  border-color: #CCC;\n  color: #6E6E6E;\n  cursor: not-allowed; }\n\nfieldset {\n  margin: 1rem 0; }\n\n.help-text {\n  margin: 0; }\n\nfieldset.field-valid input[type=\"text\"] {\n  border-color: #05A657; }\n\nfieldset.field-valid .help-text {\n  color: #05A657;\n  font-size: 0.9rem; }\n\nfieldset.field-error input[type=\"text\"] {\n  border-color: #ED5D47; }\n\nfieldset.field-error .help-text {\n  color: #ED5D47;\n  font-size: 0.9rem; }\n\nfieldset.field-warning input[type=\"text\"] {\n  border-color: #E77504; }\n\nfieldset.field-warning .help-text {\n  color: #E77504;\n  font-size: 0.9rem; }\n\ntextarea {\n  display: block;\n  padding: 1rem;\n  margin: 1rem 0;\n  border: solid 1px rgba(0, 0, 0, 0.3);\n  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  max-width: 100%; }\n\n.button {\n  display: inline-block;\n  margin: 0;\n  padding-right: 1rem;\n  padding-left: 1rem;\n  padding-top: 0.65rem;\n  padding-bottom: 0.55rem;\n  background: #126DC1;\n  color: #fff;\n  font-size: 1rem;\n  border: none;\n  border-radius: 4px;\n  border-bottom: 3px solid #0C5292;\n  cursor: pointer;\n  text-decoration: none; }\n\n.button:active {\n  color: #FAFAFA;\n  background: #0C5292;\n  border-color: #00274C;\n  border-bottom-width: 1px;\n  margin-top: 2px; }\n\n.button:active,\n.button:hover {\n  text-decoration: none; }\n\n.button-disabled:hover,\n.button-disabled:active {\n  cursor: not-allowed; }\n\n.button-light {\n  background: #E5E5E5;\n  color: #4E4E4E;\n  border-color: #CCC; }\n\n.button-light:active {\n  background: #CCC;\n  color: #4E4E4E;\n  border-color: #E5E5E5; }\n\n.button-radio {\n  margin: 1rem 0;\n  padding: 1rem;\n  border: solid 2px #CCC;\n  background: #FAFAFA;\n  border-radius: 4px;\n  cursor: pointer; }\n\nnav {\n  display: inline-block; }\n\n.navigation-list {\n  margin: 0;\n  padding: 0; }\n\n.navigation li {\n  display: inline-block;\n  margin-top: 0.25rem; }\n\n.alert {\n  margin: 2rem 0;\n  padding: 1rem;\n  border: solid 2px #E5E5E5;\n  background: #FAFAFA;\n  border-radius: 4px; }\n\n.alert-success {\n  background: #E2F4EB;\n  border-color: #05A657; }\n\n.alert-info {\n  background: #FFEEDD;\n  border-color: #E77504; }\n\n.alert-warning {\n  background: #FFEEDD;\n  border-color: #E77504; }\n\n.alert-danger {\n  background: #FFEAE7;\n  border-color: #ED5D47; }\n\n.alert *:first-child {\n  margin: 0; }\n\n.site-message-warning {\n  background: #FFEEDD;\n  border-bottom: solid 2px #E77504; }\n\n.site-message-info {\n  background: #F2F9FF;\n  border-bottom: solid 2px #CCE6FF; }\n\n.site-message {\n  position: relative;\n  padding: 0.5rem 1rem;\n  padding-right: 6rem; }\n  .site-message p {\n    margin: 0;\n    text-align: center; }\n\n.site-message-dismiss {\n  /* remove button style */\n  border: none;\n  font-size: 100%;\n  background: none;\n  padding: 0;\n  /* continue */\n  position: absolute;\n  right: 1rem;\n  top: 0.6rem;\n  cursor: pointer;\n  line-height: 1.4; }\n  .site-message-dismiss span {\n    text-decoration: underline; }\n  .site-message-dismiss:after {\n    content: '\\2715';\n    padding-left: 0.5rem;\n    text-decoration: none; }\n\n.site-header {\n  background: #00274C;\n  padding-top: 1rem;\n  padding-bottom: 1rem; }\n\n.site-brand,\n.site-brand:hover {\n  box-shadow: none !important;\n  background: none !important; }\n  .site-brand img,\n  .site-brand:hover img {\n    width: 15rem; }\n\n.site-heading {\n  font-size: 2rem;\n  display: inline-block;\n  margin-right: 1rem; }\n\n.site-subheading {\n  display: inline;\n  color: #4E4E4E; }\n\n@media (max-width: 32rem) {\n  .site-heading,\n  .site-subheading {\n    display: block; }\n  .site-heading {\n    margin-bottom: 0; }\n  .site-subheading {\n    margin-top: 0;\n    margin-bottom: 1rem; } }\n\n.site-brand-mlibrary-logo,\n.site-brand-umich-block-m-logo {\n  display: inline-block;\n  height: 2.2rem; }\n  .site-brand-mlibrary-logo img,\n  .site-brand-umich-block-m-logo img {\n    height: 100%;\n    width: auto; }\n\n.site-brand-umich-block-m-logo {\n  margin-right: 0.4rem; }\n\nfooter {\n  background: #00274C;\n  padding: 2rem 0;\n  margin-top: 3rem; }\n\n.callout {\n  background: #F2F9FF;\n  padding: 2rem 0;\n  margin-bottom: 2rem; }\n\n.no-margin {\n  margin: 0; }\n\n.white-text {\n  color: white; }\n\n.right {\n  float: right; }\n\n.clearfix:after {\n  visibility: hidden;\n  display: block;\n  font-size: 0;\n  content: \" \";\n  clear: both;\n  height: 0; }\n\n.clearfix {\n  display: inline-block; }\n\n/* start commented backslash hack \\*/\n* html .clearfix {\n  height: 1%; }\n\n.clearfix {\n  display: block; }\n\n/* close commented backslash hack */\n.light-text {\n  opacity: 0.8;\n  font-size: 90%; }\n\n.center-text {\n  text-align: center; }\n\n.focus-outline-white {\n  outline-color: white; }\n\n.search-box-container-full {\n  background: #E6F3FF;\n  padding: 1rem 0; }\n\n.search-box {\n  display: flex; }\n\n.search-box-button {\n  margin-left: 1rem;\n  margin-right: 0; }\n\n.datastore-list-container {\n  background: #FAFAFA;\n  border-bottom: solid 2px #E5E5E5; }\n\n.datastore-list {\n  margin: 0;\n  margin-bottom: -2px;\n  margin-left: -1rem;\n  text-align: center; }\n  .datastore-list li {\n    display: inline-block;\n    padding-right: 0.5rem;\n    padding-left: 0.5rem;\n    padding-bottom: 0.45rem;\n    padding-top: 0.5rem;\n    margin: 0 0.5rem;\n    cursor: pointer; }\n    .datastore-list li a {\n      color: #4E4E4E; }\n      .datastore-list li a:hover {\n        text-decoration: none; }\n  .datastore-list li.active {\n    border-bottom: solid 2px #126DC1; }\n    .datastore-list li.active a {\n      color: #126DC1; }\n\n/*\n  Multiple results container // aka Bento box\n*/\n.multiple-results-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin: -2rem 0 0 -2rem; }\n\n.datastore-results {\n  display: inline-block;\n  flex-grow: 1;\n  margin: 2rem 0 0 2rem;\n  width: calc(100% - 2rem); }\n  @media (min-width: 32rem) {\n    .datastore-results {\n      width: calc(100% * (1/2) - 2rem); } }\n  @media (min-width: 64rem) {\n    .datastore-results {\n      width: calc(100% * (1/3) - 2rem); } }\n  @media (min-width: 80rem) {\n    .datastore-results {\n      width: calc(100% * (1/5) - 2rem); } }\n\n/*\n  Results List\n*/\n.results-container {\n  display: flex;\n  flex-wrap: wrap; }\n\n.results-list {\n  margin: 0;\n  list-style: none; }\n\n.record-title {\n  font-weight: 600;\n  font-size: 1.1rem;\n  text-decoration: none; }\n\n.more-results-link {\n  display: inline-block;\n  margin-top: 1rem; }\n\n/*\n  Record\n*/\n.record {\n  padding: 0;\n  border-bottom: solid 1px #E5E5E5;\n  padding-bottom: 1rem; }\n\n.record-description {\n  margin: 0.5rem 0; }\n\n.record-metadata {\n  padding-top: 0.5rem; }\n\n.type {\n  font-weight: bold; }\n\n/*\n  Record link\n*/\n.record-link {\n  display: inline-block;\n  padding: 0.75rem 1rem;\n  border-radius: 4px;\n  border: solid 2px transparent;\n  background: #FAFAFA; }\n\n.record-link:hover {\n  background: #F2F9FF;\n  border: solid 2px #E6F3FF;\n  opacity: 1; }\n\n.record-link-pre-heading,\n.record-link-heading {\n  line-height: 1.4; }\n\n.record-link-pre-heading {\n  display: block;\n  font-size: 80%; }\n\n.record-link-heading {\n  display: inline-block;\n  font-weight: 600; }\n\n.record-link-info {\n  display: block;\n  font-size: 90%;\n  color: #4E4E4E;\n  line-height: 1.5; }\n\n.record-image {\n  float: right;\n  width: 100%;\n  max-width: 5rem;\n  margin-left: 0.5rem;\n  border: solid 1px #E5E5E5; }\n\n.filter-title {\n  font-weight: 600; }\n\n.filters {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  margin-bottom: 2rem; }\n  .filters li {\n    margin: 0;\n    padding: 0; }\n    .filters li a {\n      display: inline-block; }\n\n.num {\n  color: #4E4E4E;\n  font-size: 80%; }\n  .num:before {\n    content: '('; }\n  .num:after {\n    content: ')'; }\n\n.light-heading {\n  font-size: 1.2rem; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 200 */
+/* 203 */
 /***/ function(module, exports) {
 
 	/*
@@ -26289,7 +26552,7 @@
 
 
 /***/ },
-/* 201 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -26539,61 +26802,6 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
-
-/***/ },
-/* 202 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"datastores": {
-			"naming": [
-				{
-					"uid": "mirlyn",
-					"name": "Catalog"
-				},
-				{
-					"uid": "articlesplus",
-					"name": "Articles"
-				},
-				{
-					"uid": "databases",
-					"name": "Databases"
-				},
-				{
-					"uid": "journals",
-					"name": "Journals"
-				},
-				{
-					"uid": "website",
-					"name": "Website"
-				},
-				{
-					"uid": "website",
-					"name": "Website"
-				}
-			],
-			"multi_source": [
-				{
-					"uid": "quick-search",
-					"name": "Quick Search",
-					"datastores": [
-						"mirlyn",
-						"articlesplus",
-						"journals",
-						"databases"
-					]
-				}
-			],
-			"ordering": [
-				"quick-search",
-				"mirlyn",
-				"articlesplus",
-				"journals",
-				"databases"
-			],
-			"default": "mirlyn"
-		}
-	};
 
 /***/ }
 /******/ ]);
