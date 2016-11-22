@@ -4,7 +4,7 @@ import { store } from './index.js'
 
 import { addDatastore, changeActiveDatastore, addRecord, clearRecords, submitSearch } from './actions.js'
 
-Pride.Settings.datastores_url = "http://dev.www.lib.umich.edu/testapp/spectrum/";
+Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
 Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = true;
 
