@@ -16,7 +16,6 @@ export const SearchBox = ({
           <input className="button search-box-button" type="submit" value="Search" onClick={(event) => {
             event.preventDefault()
             onSubmitSearch(input.value)
-            input.value = '';
           }}/>
         </form>
       </div>
