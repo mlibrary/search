@@ -9,13 +9,9 @@ import { prideSwitchToDatastore, prideRunSearch } from './../pride_interface.js'
 
 require("../assets/stylesheets/main.scss")
 
-export class Main extends React.Component {
+
+class Main extends React.Component {
   render() {
-    const {
-      datastores,
-      active_datastore,
-      records
-    } = this.props.state
     return (
       <main>
         <Header/>
@@ -25,18 +21,20 @@ export class Main extends React.Component {
           }
         />
         <DatastoreList
-          datastores={datastores}
-          activeDatastore={active_datastore}
+          datastores={this.props.datastores}
+          activeDatastore={this.props.active_datastore}
           onDatastoreClick={uid =>
             prideSwitchToDatastore(uid)
           }
         />
         <div className="container container-narrow">
           <Records
-            records={records}
+            records={this.props.records}
           />
         </div>
       </main>
     )
   }
 }
+
+export default Main
