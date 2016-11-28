@@ -7,10 +7,11 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-  entry: './app/index.js',
+  entry: './app/app.js',
   devServer: {
     inline: true,
-    port: 5000
+    port: 5000,
+    historyApiFallback: true
   },
   devtool: 'source-map',
   module: {

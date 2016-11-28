@@ -4,7 +4,7 @@ export const SUBMIT_SEARCH = 'SUBMIT_SEARCH'
 export const ADD_RECORD = 'ADD_RECORD'
 export const CLEAR_RECORDS = 'CLEAR_RECORDS'
 
-import { prideSwitchToDatastore, prideRunSearch } from './pride_interface.js'
+import { prideSwitchToDatastore, prideRunSearch } from '.././pride_interface.js'
 
 export function addRecord(payload) {
   return { type: ADD_RECORD, payload }

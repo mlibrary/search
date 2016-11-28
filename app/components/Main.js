@@ -4,13 +4,12 @@ import { Header } from './Header.js'
 import { SearchBox } from './SearchBox.js'
 import { DatastoreList } from './Datastores.js'
 import { Records } from './Records.js'
-import { store } from '../store/index.js'
 
-import { prideSwitchToDatastore, prideRunSearch } from './../store/pride_interface.js'
+import { prideSwitchToDatastore, prideRunSearch } from './../pride_interface.js'
 
 require("../assets/stylesheets/main.scss")
 
-export class App extends React.Component {
+export class Main extends React.Component {
   render() {
     const {
       datastores,

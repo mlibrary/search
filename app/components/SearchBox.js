@@ -1,5 +1,5 @@
 import React from 'react'
-import { submitSearch } from '../store/actions.js'
+import { submitSearch } from '../actions/actions.js'
 
 export const SearchBox = ({
   onSubmitSearch

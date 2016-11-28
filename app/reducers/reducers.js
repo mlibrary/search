@@ -1,8 +1,9 @@
-import { ADD_DATASTORE, CHANGE_ACTIVE_DATASTORE, SUBMIT_SEARCH, ADD_RECORD, CLEAR_RECORDS } from './actions.js'
+import { ADD_DATASTORE, CHANGE_ACTIVE_DATASTORE, SUBMIT_SEARCH, ADD_RECORD, CLEAR_RECORDS } from '.././actions/actions.js'
 import { combineReducers } from 'redux'
 import { _ } from 'underscore'
+import { routerReducer } from 'react-router-redux'
 
-const datastore = (state, action) => {
+export const datastoreReducer = (state, action) => {
   switch (action.type) {
     case ADD_DATASTORE:
       return {
@@ -14,19 +15,19 @@ const datastore = (state, action) => {
   }
 }
 
-const datastores = (state = [], action) => {
+export const datastoresReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_DATASTORE:
       return [
         ...state,
-        datastore(undefined, action)
+        datastoreReducer(undefined, action)
       ]
     default:
       return state
   }
 }
 
-const active_datastore = (state = "", action) => {
+export const activeDatastoreReducer = (state = "", action) => {
   switch (action.type) {
     case CHANGE_ACTIVE_DATASTORE:
       return action.payload
@@ -35,19 +36,16 @@ const active_datastore = (state = "", action) => {
   }
 }
 
-const search = (state = "", action) => {
+export const searchReducer = (state = "", action) => {
   switch (action.type) {
     case SUBMIT_SEARCH:
-
-      console.log('submit search', action)
-
       return action.payload
     default:
       return state
   }
 }
 
-const record = (state = {}, action) => {
+export const recordReducer = (state = {}, action) => {
   switch (action.type) {
     case ADD_RECORD:
       return {
@@ -58,12 +56,12 @@ const record = (state = {}, action) => {
   }
 }
 
-const records = (state = [], action) => {
+export const recordsReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_RECORD:
       return [
         ...state,
-        record(undefined, action)
+        recordReducer(undefined, action)
       ]
     case CLEAR_RECORDS:
       return []
@@ -72,9 +70,10 @@ const records = (state = [], action) => {
   }
 }
 
-export const searchApp = combineReducers({
-  datastores,
-  active_datastore,
-  search,
-  records
+export const rootReducer = combineReducers({
+  datastores: datastoresReducer,
+  active_datastore: activeDatastoreReducer,
+  search: searchReducer,
+  records: recordsReducer,
+  routing: routerReducer
 })

@@ -1,12 +1,12 @@
-import { Pride } from './../libraries/pride.js'
+import { Pride } from './libraries/pride.js'
 import { _ } from 'underscore'
-import { store } from './index.js'
+import { store } from './store.js'
 
-import { addDatastore, changeActiveDatastore, addRecord, clearRecords, submitSearch } from './actions.js'
+import { addDatastore, changeActiveDatastore, addRecord, clearRecords, submitSearch } from './actions/actions.js'
 
-Pride.Settings.datastores_url = "https://dev.www.lib.umich.edu/testapp/spectrum/";
+Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
 Pride.Settings.connection_attempts = 2;
-Pride.Settings.obnoxious = true;
+Pride.Settings.obnoxious = false;
 
 const initPride = () => {
   Pride.init({
@@ -27,7 +27,7 @@ var search_switcher = undefined
 const loadPride = () => {
   var pride_datastores = Pride.AllDatastores
   var pride_datastores_array = pride_datastores.array
-  var config = require("json!./../config.json")
+  var config = require("json!./config.json")
   var datastores = configureDatastores(pride_datastores_array, config)
   var search_objects = [];
 
