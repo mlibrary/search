@@ -7,12 +7,9 @@ class Default extends React.Component {
       <div className="search-box-container-full">
         <div className="container container-narrow">
           <form className="search-box">
-            <input type="text" ref={node => {
-              input = node;
-            }}/>
+            <input type="text"/>
             <input className="button search-box-button" type="submit" value="Search" onClick={(event) => {
               event.preventDefault()
-              onSubmitSearch(input.value)
             }}/>
           </form>
         </div>

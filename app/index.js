@@ -13,4 +13,9 @@ const router = (
   </Provider>
 )
 
-ReactDOM.render(router, document.getElementById('app'))
+const renderApp = () => {
+  ReactDOM.render(router, document.getElementById('app'))
+}
+
+store.subscribe(renderApp)
+renderApp()
