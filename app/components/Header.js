@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 export class Header extends React.Component {
   render() {
@@ -14,7 +15,7 @@ export class Header extends React.Component {
             <nav className="navigation right">
               <ul className="navigation-list">
                 <li>
-                  <a href="http://github.com/mlibrary/falafel/" className="white-text">Search</a>
+                  <Link to="/" className="white-text">Search</Link>
                 </li>
                 <li>
                   <a href="" className="white-text">Log In</a>

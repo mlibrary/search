@@ -7,7 +7,7 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-  entry: './app/app.js',
+  entry: './app/index.js',
   devServer: {
     inline: true,
     port: 5000,
