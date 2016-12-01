@@ -3,18 +3,13 @@ import ReactDOM from 'react-dom'
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
+import { store, history } from './store.js'
 
-import { App, Datastore, NoMatch, Default } from './components/'
-import { history, store } from './store.js'
+import routes from './routes'
 
 const router = (
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Default}/>
-        <Route path="/:datastore_id" component={Datastore}/>
-      </Route>
-    </Router>
+    <Router history={history} routes={routes} />
   </Provider>
 )
 

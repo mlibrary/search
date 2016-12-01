@@ -1,7 +1,13 @@
 import React from 'react'
 
-export const Default = () => {
-  return (
-    <p>Default</p>
-  )
+class Default extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>Default</p>
+      </div>
+    )
+  }
 }
+
+export default Default

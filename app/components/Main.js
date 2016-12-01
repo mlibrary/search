@@ -1,20 +1,18 @@
 import React from 'react'
 
-import { Header, SearchBox, DatastoreNavigation } from './'
-import { prideSwitchToDatastore, prideRunSearch } from './../pride_interface.js'
+import Header from './Header'
 
 require("../assets/stylesheets/main.scss")
 
-
-export const Main = (props) => {
-  return (
-    <main>
-      <Header/>
-      <SearchBox/>
-      <DatastoreNavigation/>
-      <div className="container container-narrow">
-        {React.cloneElement(props.children, props)}
+class Main extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        {this.props.children}
       </div>
-    </main>
-  )
+    )
+  }
 }
+
+export default Main

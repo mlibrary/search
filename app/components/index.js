@@ -1,7 +1,0 @@
-export {default as Main} from './Main.js'
-export {default as App} from './App.js'
-export {default as Records} from './Records.js'
-export {default as NoMatch} from './NoMatch.js'
-export {default as Datastore} from './Datastore.js'
-export {default as Default} from './Default.js'
-export {default as DatastoreNavigation} from './DatastoreNavigation.js'
