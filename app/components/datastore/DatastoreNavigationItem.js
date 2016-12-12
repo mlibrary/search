@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { prideSwitchToDatastore } from '../../pride_interface.js'
 
 class DatastoreNavigationItem extends React.Component {
   render() {
@@ -7,7 +8,11 @@ class DatastoreNavigationItem extends React.Component {
     const isActive = this.props.isActive
 
     return (
-      <li className={ isActive ? 'active' : '' }>
+      <li
+        className={ isActive ? 'active' : '' }
+        onClick={() => {
+          prideSwitchToDatastore(uid)
+        }}>
         <Link to={`/${uid}`}>{name}</Link>
       </li>
     )

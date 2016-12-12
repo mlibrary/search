@@ -28,8 +28,6 @@
   }
 }
 
-
-
 /*
   Results List
 */
@@ -44,9 +42,9 @@
 }
 
 .record-title {
-  font-weight: 600;
-  font-size: 1.1rem;
   text-decoration: none;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .more-results-link {
@@ -57,10 +55,19 @@
 /*
   Record
 */
+
+//todo, unused
+.record-box {
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
+  border-radius: 4px;
+  padding: 1.25rem 0.938rem;
+  margin-bottom: 1.25rem;
+}
+
 .record {
-  padding: 0;
-  border-bottom: solid 1px $grey-5;
-  padding-bottom: 1rem;
+  border-bottom: solid 2px $grey-5;
+  padding: 1.25rem 0;
 }
 
 .record-description {

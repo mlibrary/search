@@ -2,6 +2,7 @@ import React from 'react'
 
 import SearchBox from '.././SearchBox'
 import DatastoreNavigation from './DatastoreNavigation'
+import Records from './../records/RecordList'
 
 class DatastorePage extends React.Component {
   render() {
@@ -10,7 +11,7 @@ class DatastorePage extends React.Component {
         <SearchBox />
         <DatastoreNavigation />
         <div className="container container-narrow">
-          <p>Datastore</p>
+        <Records />
         </div>
       </div>
     )

@@ -1,8 +1,13 @@
 import { Pride } from './libraries/pride.js'
 import { _ } from 'underscore'
 import { store } from './store.js'
+import { push } from 'react-router-redux'
 
-import { addDatastore, changeActiveDatastore, addRecord, clearRecords, submitSearch } from './actions/actions.js'
+import {
+  addDatastore, changeActiveDatastore,
+  addRecord, clearRecords, submitSearch,
+  addFacet
+} from './actions/actions.js'
 
 Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
 Pride.Settings.connection_attempts = 2;
@@ -47,17 +52,15 @@ const loadPride = () => {
 
     // results records observer
     search_object.resultsObservers.add(function(results) {
-      var active_datastore = store.getState().active_datastore
-
-      console.log('resultsObservers ', search_object.uid, results)
+      const active_datastore = store.getState().active_datastore
 
       if (active_datastore == search_object.uid) {
         store.dispatch(clearRecords())
 
         _.each(results, (record) => {
           if (record != undefined) {
-            record.renderPart( (raw_data) => {
-              store.dispatch(addRecord(raw_data))
+            record.renderFull((record_data) => {
+              store.dispatch(addRecord(record_data))
             })
           }
         })
@@ -78,7 +81,25 @@ const loadPride = () => {
 
     // search object facets observer
     search_object.facetsObservers.add(function(facets_data) {
+      _.each(facets_data, function(facet) {
+        facet.resultsObservers.add(function(results) {
+          const active_datastore = store.getState().active_datastore
 
+          if (active_datastore == search_object.uid) {
+            _.each(results, function(result) {
+              store.dispatch(addFacet(facet.uid, result))
+            })
+          }
+        })
+
+        facet.setDataObservers.add(function(data) {
+          const active_datastore = store.getState().active_datastore
+
+          if (active_datastore == search_object.uid) {
+            console.log('setDataObservers', facet.uid, data)
+          }
+        })
+      })
     })
   })
 

@@ -1,4 +1,9 @@
-import { ADD_DATASTORE, CHANGE_ACTIVE_DATASTORE, SUBMIT_SEARCH, ADD_RECORD, CLEAR_RECORDS } from '.././actions/actions.js'
+import {
+  ADD_DATASTORE, CHANGE_ACTIVE_DATASTORE,
+  SUBMIT_SEARCH, ADD_RECORD, CLEAR_RECORDS,
+  REQUEST_HOLDINGS, RECIEVE_HOLDINGS,
+  LOADED, LOADING, ADD_FACET
+} from '.././actions/actions.js'
 import { combineReducers } from 'redux'
 import { _ } from 'underscore'
 import { routerReducer } from 'react-router-redux'
@@ -49,7 +54,7 @@ export const recordReducer = (state = {}, action) => {
   switch (action.type) {
     case ADD_RECORD:
       return {
-        partial: action.payload,
+        data: action.payload
       }
     default:
       return state
@@ -70,10 +75,44 @@ export const recordsReducer = (state = [], action) => {
   }
 }
 
+export const holdingsReducer = (state = {
+  isFetching: false,
+  items: []
+}, action) => {
+  switch (action.type) {
+    case REQUEST_HOLDINGS:
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+    case RECIEVE_HOLDINGS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        items: action.holdings
+      })
+    default:
+      return state
+  }
+}
+
+export const loadingReducer = (state = true, action) => {
+  switch (action.type) {
+    case LOADED:
+      return false
+    case LOADING:
+      return true
+    default:
+      return state
+  }
+}
+
+//export const addFacet =
+
 export const rootReducer = combineReducers({
+  isLoading: loadingReducer,
   datastores: datastoresReducer,
   active_datastore: activeDatastoreReducer,
   search: searchReducer,
   records: recordsReducer,
-  routing: routerReducer
+  routing: routerReducer,
+  holdings: holdingsReducer
 })

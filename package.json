@@ -4,13 +4,14 @@
   "description": "",
   "main": "pride.js",
   "scripts": {
-    "start": "webpack-dev-server --content-base build/",
+    "start": "webpack-dev-server --content-base build/ --history-api-fallback",
     "build": "webpack",
     "test": "jest --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
