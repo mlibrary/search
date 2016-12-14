@@ -78,11 +78,13 @@ const loadPride = () => {
 
     // search object facets observer
     search_object.facetsObservers.add(function(facets_data) {
-      _.each(facets_data, function(facet) {
-        facet.resultsObservers.add(function(results) {
-          const active_datastore = store.getState().active_datastore
+      const active_datastore = store.getState().active_datastore
 
-          if (active_datastore == search_object.uid) {
+      if (active_datastore == search_object.uid) {
+        store.dispatch(clearFacets())
+
+        _.each(facets_data, function(facet) {
+          facet.resultsObservers.add(function(results) {
             _.each(results, function(result) {
               store.dispatch(addFacet({
                 uid: facet.uid,
@@ -90,17 +92,17 @@ const loadPride = () => {
                 item: result
               }))
             })
-          }
-        })
+          })
 
-        facet.setDataObservers.add(function(data) {
-          const active_datastore = store.getState().active_datastore
+          facet.setDataObservers.add(function(data) {
+            const active_datastore = store.getState().active_datastore
 
-          if (active_datastore == search_object.uid) {
-            //console.log('setFacet', facet.uid, data)
-          }
+            if (active_datastore == search_object.uid) {
+              //console.log('setFacet', facet.uid, data)
+            }
+          })
         })
-      })
+      }
     })
   })
 
@@ -144,20 +146,29 @@ const configureDatastores = (pride_datastores, config) => {
 
 export const prideRunSearch = (search_text) => {
   //const selected_facets = getSelectedFacets()
+  const search_query = store.getState().search.search_query
+  const pride_facets = getFacetsForPride()
+
+  console.log('[pride_facets]', pride_facets)
+
   const config = {
     page: 1,
-    field_tree: Pride.FieldTree.parseField('all_fields', search_text),
-    facets: undefined
+    field_tree: Pride.FieldTree.parseField('all_fields', search_query),
+    facets: pride_facets
   }
 
-  store.dispatch(clearFacets())
+  console.log('[pride search config]', config)
 
   search_switcher.set(config).run()
-  store.dispatch(submitSearch(search_text))
 }
 
 export const prideSwitchToDatastore = (uid) => {
-  store.dispatch(clearFacets())
   store.dispatch(changeActiveDatastore(uid))
   search_switcher.switchTo(uid)
+}
+
+const getFacetsForPride = () => {
+  const facets = store.getState().facets
+
+  return facets.active_facets
 }

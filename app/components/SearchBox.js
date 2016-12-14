@@ -2,6 +2,7 @@ import React from 'react'
 import { submitSearch } from '../actions/actions.js'
 
 import { prideRunSearch } from './../pride_interface.js'
+import { store } from '../store.js'
 
 class SearchBox extends React.Component {
   render() {
@@ -16,7 +17,8 @@ class SearchBox extends React.Component {
             }}/>
             <input className="button search-box-button" type="submit" value="Search" onClick={(event) => {
               event.preventDefault()
-              prideRunSearch(input.value)
+              store.dispatch(submitSearch({search_query: input.value}))
+              prideRunSearch()
             }}/>
           </form>
         </div>

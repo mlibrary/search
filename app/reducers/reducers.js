@@ -3,7 +3,7 @@ import {
   SUBMIT_SEARCH, ADD_RECORD, CLEAR_RECORDS,
   REQUEST_HOLDINGS, RECIEVE_HOLDINGS,
   LOADED, LOADING, ADD_FACET, CLEAR_FACETS,
-  TOGGLE_FACET_ITEM
+  TOGGLE_FACET_ITEM,
 } from '.././actions/actions.js'
 import { combineReducers } from 'redux'
 import { _ } from 'underscore'
@@ -42,10 +42,12 @@ const activeDatastoreReducer = (state = "", action) => {
   }
 }
 
-const searchReducer = (state = "", action) => {
+const searchReducer = (state = {search_query: ""}, action) => {
   switch (action.type) {
     case SUBMIT_SEARCH:
-      return action.payload
+      return Object.assign({}, state, {
+        search_query: action.payload.search_query
+      })
     default:
       return state
   }
@@ -112,74 +114,63 @@ const facetItemReducer = (state, action) => {
       return {
         name: action.payload.item.name,
         value: action.payload.item.value,
-        count: action.payload.item.count,
-        selected: false
+        count: action.payload.item.count
       }
-    case TOGGLE_FACET_ITEM:
-      if (state.value == action.payload.item.value) {
-        return Object.assign({}, state, {
-          selected: !state.selected
-        })
-      }
-
-      return state
     default:
       return state
   }
 }
 
-const facetReducer = (state, action) => {
+const facetReducer = (state={ items: [] }, action) => {
   switch (action.type) {
     case ADD_FACET:
       return {
         uid: action.payload.uid,
         metadata: action.payload.metadata,
-        items: []
+        items: [
+          ...state,
+          facetItemReducer(state, action)
+        ]
       }
-    case TOGGLE_FACET_ITEM:
-      if (state.uid == action.payload.facet.uid) {
-        return Object.assign({}, state, {
-          items: state.items.map(facetItem =>
-            facetItemReducer(facetItem, action)
-          )
-        })
-      }
-
-      return state
     default:
       return state
   }
 }
 
-const facetsReducer = (state=[], action) => {
+const facetsReducer = (state={facets: [], active_facets: []}, action) => {
   switch (action.type) {
     case ADD_FACET:
-      if (action.payload) {
-        var facet = _.findWhere(state, { uid: action.payload.uid })
-        var facets = state
+      const does_facet_exist_already = _.findWhere(state.facets, { uid: action.payload.uid })
 
-        // TODO this isn't pure... rewrite
-        // if this facet doesn't already exists, create a namespace for it
-        if (!facet) {
-          facets = [
-            ...state,
-            facetReducer(undefined, action)
+      if (!does_facet_exist_already) {
+        return Object.assign({}, state, {
+          facets: [
+            ...state.facets,
+            facetReducer(state, action)
           ]
-        }
-
-        var facet = _.findWhere(facets, { uid: action.payload.uid })
-        facet.items.push(facetItemReducer(undefined, action))
-
-        return facets
-      } else {
-        return state
+        })
       }
+
+      var state_copy = Object.assign({}, state);
+      const facet_index = _.findIndex(state_copy.facets, {uid: action.payload.uid})
+      state_copy.facets[facet_index].items.push(facetItemReducer(state, action)) //TODO remove mutation
+
+      return state_copy;
+
     case TOGGLE_FACET_ITEM:
-      return state.map(facet =>
-        facetReducer(facet, action)
-      )
+      const uid = action.payload.facet.uid
+      const value = action.payload.item.value
+
+      return Object.assign({}, state, {
+        active_facets: Object.assign({}, state.active_facets, {
+          [uid]: value
+        })
+      })
+
     case CLEAR_FACETS:
-      return []
+      return Object.assign({}, state, {
+        facets: []
+      })
     default:
       return state
   }
