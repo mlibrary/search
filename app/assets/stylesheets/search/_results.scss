@@ -2,49 +2,18 @@
   Multiple results container // aka Bento box
 */
 
-.multiple-results-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -2rem 0 0 -2rem;
-}
-
-.datastore-results {
-  display: inline-block;
-  flex-grow: 1;
-  margin: 2rem 0 0 2rem;
-  width: calc(100% - 2rem);
-
-
-  @media (min-width: 32rem) {
-    width: calc(100% * (1/2) - 2rem);;
-  }
-
-  @media (min-width: 64rem) {
-    width: calc(100% * (1/3) - 2rem);
-  }
-
-  @media (min-width: 80rem) {
-    width: calc(100% * (1/5) - 2rem);
-  }
-}
-
-/*
-  Results List
-*/
-.results-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .results-list {
   margin: 0;
   list-style: none;
 }
 
+.results-list-border li {
+  border-bottom: solid 2px $grey-5;
+}
+
 .record-title {
   text-decoration: none;
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: 1.1rem;
 }
 
 .more-results-link {
@@ -56,18 +25,9 @@
   Record
 */
 
-//todo, unused
-.record-box {
-  background-color: #FFFFFF;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
-  border-radius: 4px;
-  padding: 1.25rem 0.938rem;
-  margin-bottom: 1.25rem;
-}
-
 .record {
-  border-bottom: solid 2px $grey-5;
-  padding: 1.25rem 0;
+  //padding: 1.25rem 0.92rem;
+  padding: 1rem 0;
 }
 
 .record-description {

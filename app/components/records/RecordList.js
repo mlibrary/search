@@ -3,21 +3,14 @@ import { connect } from 'react-redux'
 
 import Record from './Record'
 
-import { fetchHoldings } from '../../actions/actions.js'
-
 class RecordList extends React.Component {
-  componentDidMount() {
-    const { records } = this.props
-    fetchHoldings(records)
-  }
-
   render() {
     const records = this.props.records.map((record, index) =>
       <Record key={index} record={record} />
     )
 
     return (
-      <ul className="results-list">
+      <ul className="results-list results-list-border">
         { records }
       </ul>
     )

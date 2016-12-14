@@ -6,7 +6,7 @@ import { push } from 'react-router-redux'
 import {
   addDatastore, changeActiveDatastore,
   addRecord, clearRecords, submitSearch,
-  addFacet
+  addFacet, clearFacets
 } from './actions/actions.js'
 
 Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
@@ -48,9 +48,6 @@ const loadPride = () => {
 
   // Add results observers to each search object.
   _.each(search_objects, function(search_object) {
-    //search_object.setMute(true) // TODO I think this is broken in Pride
-
-    // results records observer
     search_object.resultsObservers.add(function(results) {
       const active_datastore = store.getState().active_datastore
 
@@ -87,7 +84,11 @@ const loadPride = () => {
 
           if (active_datastore == search_object.uid) {
             _.each(results, function(result) {
-              store.dispatch(addFacet(facet.uid, result))
+              store.dispatch(addFacet({
+                uid: facet.uid,
+                metadata: facet.getData('metadata'),
+                item: result
+              }))
             })
           }
         })
@@ -96,7 +97,7 @@ const loadPride = () => {
           const active_datastore = store.getState().active_datastore
 
           if (active_datastore == search_object.uid) {
-            console.log('setDataObservers', facet.uid, data)
+            //console.log('setFacet', facet.uid, data)
           }
         })
       })
@@ -142,18 +143,21 @@ const configureDatastores = (pride_datastores, config) => {
 }
 
 export const prideRunSearch = (search_text) => {
-  var store_copy       = store.getState()
-  var active_datastore = store_copy.active_datastore
-
+  //const selected_facets = getSelectedFacets()
   const config = {
     page: 1,
-    field_tree: Pride.FieldTree.parseField('all_fields', search_text)
+    field_tree: Pride.FieldTree.parseField('all_fields', search_text),
+    facets: undefined
   }
+
+  store.dispatch(clearFacets())
+
   search_switcher.set(config).run()
   store.dispatch(submitSearch(search_text))
 }
 
 export const prideSwitchToDatastore = (uid) => {
+  store.dispatch(clearFacets())
   store.dispatch(changeActiveDatastore(uid))
   search_switcher.switchTo(uid)
 }

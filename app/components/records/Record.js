@@ -18,7 +18,7 @@ class Record extends React.Component {
     return (
       <li className="record">
         <p className="record-title u-margin-top-none">
-          <a href="">{name}</a> {publish_date}
+          <a href="" className="underline">{name}</a> {publish_date}
         </p>
         <p>
           { brief_description }

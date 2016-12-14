@@ -1,5 +1,3 @@
-import { holding_data } from './holding_data' //temp dummy data, later delete this
-
 export const ADD_DATASTORE = 'ADD_DATASTORE'
 export const CHANGE_ACTIVE_DATASTORE = 'CHANGE_ACTIVE_DATASTORE'
 export const SUBMIT_SEARCH = 'SUBMIT_SEARCH'
@@ -10,6 +8,8 @@ export const RECIEVE_HOLDINGS = 'RECIEVE_HOLDINGS'
 export const LOADING = 'LOADING'
 export const LOADED = 'LOADED'
 export const ADD_FACET = 'ADD_FACET'
+export const CLEAR_FACETS = 'CLEAR_FACETS'
+export const TOGGLE_FACET_ITEM = 'TOGGLE_FACET_ITEM'
 
 export const addRecord = (payload) => {
   return { type: ADD_RECORD, payload }
@@ -32,14 +32,7 @@ export const clearRecords = (payload) => {
 }
 
 export const fetchHoldings = (mirlyn_ids) => {
-  /*
-
-  Example with first results page for "climate change"
-
-  http://mirlyn-aleph.lib.umich.edu/cgi-bin/getHoldings.pl?id=001294948,001292450,001537069,001842016,000032049,001680047,001105037,001814491,001098489,001505056
-  */
-
-  return holding_data
+  return {}
 }
 
 export const requestHoldings = (mirlyn_ids) => {
@@ -52,7 +45,6 @@ export const requestHoldings = (mirlyn_ids) => {
 export const recieveHoldings = (json) => {
   return {
     type: RECIEVE_HOLDINGS,
-    holdings: json.data,
     receivedAt: Date.now()
   }
 }
@@ -65,6 +57,14 @@ export const loaded = (payload) => {
   return { type: LOADED, payload }
 }
 
-export const addFacet = (facet) => {
-  return { type: ADD_FACET, facet }
+export const addFacet = (payload) => {
+  return { type: ADD_FACET, payload }
+}
+
+export const clearFacets = (payload) => {
+  return { type: CLEAR_FACETS, payload }
+}
+
+export const toggleFacetItem = (payload) => {
+  return { type: TOGGLE_FACET_ITEM, payload }
 }
