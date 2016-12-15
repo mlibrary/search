@@ -11,7 +11,7 @@ import {
 
 Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
 Pride.Settings.connection_attempts = 2;
-Pride.Settings.obnoxious = false;
+Pride.Settings.obnoxious = true;
 
 const initPride = () => {
   Pride.init({
@@ -149,14 +149,13 @@ export const prideRunSearch = (search_text) => {
   const search_query = store.getState().search.search_query
   const pride_facets = getFacetsForPride()
 
-  console.log('[pride_facets]', pride_facets)
-
   const config = {
     page: 1,
     field_tree: Pride.FieldTree.parseField('all_fields', search_query),
     facets: pride_facets
   }
 
+  console.log('--- RUN SEARCH ---')
   console.log('[pride search config]', config)
 
   search_switcher.set(config).run()

@@ -3,7 +3,7 @@ import {
   SUBMIT_SEARCH, ADD_RECORD, CLEAR_RECORDS,
   REQUEST_HOLDINGS, RECIEVE_HOLDINGS,
   LOADED, LOADING, ADD_FACET, CLEAR_FACETS,
-  TOGGLE_FACET_ITEM,
+  TOGGLE_FACET_ITEM, CLEAR_ACTIVE_FACETS
 } from '.././actions/actions.js'
 import { combineReducers } from 'redux'
 import { _ } from 'underscore'
@@ -137,7 +137,7 @@ const facetReducer = (state={ items: [] }, action) => {
   }
 }
 
-const facetsReducer = (state={facets: [], active_facets: []}, action) => {
+const facetsReducer = (state={facets: [], active_facets: undefined}, action) => {
   switch (action.type) {
     case ADD_FACET:
       const does_facet_exist_already = _.findWhere(state.facets, { uid: action.payload.uid })
@@ -160,11 +160,23 @@ const facetsReducer = (state={facets: [], active_facets: []}, action) => {
     case TOGGLE_FACET_ITEM:
       const uid = action.payload.facet.uid
       const value = action.payload.item.value
+      const is_facet_item_active = _.isMatch(state.active_facets, {[uid]: value});
+
+      if (is_facet_item_active) { // for toggling off a facet item
+        return Object.assign({}, state, {
+          active_facets: _.omit(state.active_facets, uid)
+        })
+      }
 
       return Object.assign({}, state, {
         active_facets: Object.assign({}, state.active_facets, {
           [uid]: value
         })
+      })
+
+    case CLEAR_ACTIVE_FACETS:
+      return Object.assign({}, state, {
+        active_facets: undefined
       })
 
     case CLEAR_FACETS:

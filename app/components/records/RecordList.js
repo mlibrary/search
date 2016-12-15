@@ -9,11 +9,15 @@ class RecordList extends React.Component {
       <Record key={index} record={record} />
     )
 
-    return (
-      <ul className="results-list results-list-border">
-        { records }
-      </ul>
-    )
+    if (records.length > 0) {
+      return (
+        <ul className="results-list results-list-border">
+          { records }
+        </ul>
+      )
+    }
+
+    return null
   }
 }
 
