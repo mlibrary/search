@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 
 import DatastoreNavigationPresenter from './presenter';
 
-const DatastoreNavigationContainer = function DatastoreNavigation() {
-  const { datastores } = this.props;
-  return <DatastoreNavigationPresenter datastores={datastores} />;
+class DatastoreNavigationContainer extends React.Component {
+  render() {
+    const { datastores } = this.props;
+    return <DatastoreNavigationPresenter datastores={datastores} />;
+  }
 };
 
 function mapStateToProps(state) {

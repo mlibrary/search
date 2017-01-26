@@ -1,3 +1,5 @@
 import DatastoreNavigationItem from './presenter';
 
-export default { DatastoreNavigationItem };
+export {
+  DatastoreNavigationItem
+};

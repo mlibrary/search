@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router'
 
 const DatastoreNavigationItem = function DatastoreNavigationItem({ datastore }) {
-  const { name } = datastore;
+  const { name, slug } = datastore;
   return (
-    <li>{name}</li>
+    <li><Link to={`/${slug}`}>{name}</Link></li>
   );
 };
 

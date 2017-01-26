@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { DatastoreNavigationItem } from '../';
+import { DatastoreNavigationItem } from '../DatastoreNavigationItem';
 
-const DatastoreNavigationPresenter = function DatastoreNavigation() {
-  const { datastores } = this.props;
+export default function DatastoreNavigationPresenter ({ datastores }) {
   return (
     <div className="datastore-list-container">
       <div className="container-narrow container">
         <ul className="datastore-list">
-          {datastores.map(ds => (
+          {datastores.datastores.map(ds => (
             <DatastoreNavigationItem
               datastore={ds}
               key={ds.uid}
@@ -19,5 +18,3 @@ const DatastoreNavigationPresenter = function DatastoreNavigation() {
     </div>
   );
 };
-
-return DatastoreNavigationPresenter;

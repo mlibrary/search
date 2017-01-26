@@ -1,4 +1,14 @@
-import * as components from './components/';
+import DatastoreNavigation from './components/DatastoreNavigation';
 import datastoresReducer from './reducer/';
 
-export default { components, datastoresReducer };
+import {
+  addDatastore,
+  changeActiveDatastore,
+} from './actions';
+
+export {
+  DatastoreNavigation,
+  datastoresReducer,
+  addDatastore,
+  changeActiveDatastore,
+};
