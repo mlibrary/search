@@ -1,0 +1,21 @@
+.site-header {
+  background: $main-1;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.mlibrary-link,
+.umich-link {
+  display: inline-block;
+  height: 2.2rem;
+  vertical-align: top;
+
+  img {
+    height: 100%;
+    width: auto;
+  }
+}
+
+.umich-link {
+  margin-right: 0.4rem;
+}

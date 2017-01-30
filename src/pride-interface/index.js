@@ -5,8 +5,7 @@ import config from './config';
 import { store } from '../store';
 
 import {
-  addDatastore,
-  changeActiveDatastore
+  addDatastore
 } from '../modules/datastores';
 
 /*

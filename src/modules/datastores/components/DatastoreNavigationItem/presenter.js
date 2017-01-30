@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router'
-import styles from './styles.css'
 
 const DatastoreNavigationItem = function DatastoreNavigationItem({ datastore }) {
   const { name, slug } = datastore;
   return (
-    <li className="datastore-item"><Link to={`/${slug}`} className="datastore-link" activeClassName="datastore-item-active ">{name}</Link></li>
+    <li className="datastore-item"><Link to={`/${slug}`} className="datastore-item-link" activeClassName="datastore-item-active">{name}</Link></li>
   );
 };
 

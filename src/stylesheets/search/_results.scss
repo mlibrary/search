@@ -1,0 +1,30 @@
+/*
+  Multiple results container // aka Bento box
+*/
+
+.results-list {
+  margin: 0;
+  list-style: none;
+}
+
+.results-list-border li {
+  border-bottom: solid 1px $grey-5;
+}
+
+/*
+  Search Summary
+*/
+
+.results-action-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/*
+  Loading
+*/
+
+.loading {
+  text-align: center;
+}

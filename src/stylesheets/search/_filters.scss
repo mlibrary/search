@@ -1,0 +1,51 @@
+.filters-title {
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.filter-title {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.filters-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.filter {
+  margin: 0;
+  padding: 0;
+}
+
+.filter-label {
+  display: flex;
+  align-items: center;
+  flex-flow: row;
+  line-height: 1.4rem;
+  padding: 0.25rem 0.5rem;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.filter-label:hover {
+  cursor: pointer;
+  background: $main-5;
+}
+
+.filter-checkbox {
+  padding: 0;
+  margin: 0;
+  margin-right: 0.5rem;
+}
+
+.filter-name {
+}
+
+.filter-count {
+ justify-content: flex-end;
+}

@@ -13,12 +13,12 @@ const datastoreReducer = (state, action) => {
   }
 };
 
-const initilState = {
+const initialState = {
   active: undefined,
   datastores: [],
 };
 
-const datastoresReducer = (state = initilState, action) => {
+const datastoresReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.ADD_DATASTORE:
       return Object.assign({}, state, {

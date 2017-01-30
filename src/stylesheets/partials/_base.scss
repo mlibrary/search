@@ -1,0 +1,28 @@
+.container {
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.container-narrow {
+  max-width: 57.5rem;
+}
+
+.container-medium {
+  max-width: 74rem;
+}
+
+.container-fluid {
+  padding: 0 1rem;
+}
+
+.container-large {
+  @media (min-width: 80rem) {
+    width: 96vw;
+
+    max-width: 110rem;
+  }
+}
+
+body {
+  //background: #e5e5e5;
+}

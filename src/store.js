@@ -4,9 +4,11 @@ import { routerReducer } from 'react-router-redux'
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import { datastoresReducer } from './modules/datastores';
+import { searchReducer } from './modules/search';
 
 const rootReducer = combineReducers({
   datastores: datastoresReducer,
+  search: searchReducer,
   routing: routerReducer,
 });
 
