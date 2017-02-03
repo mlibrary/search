@@ -84,32 +84,32 @@ body {
   Headings
 */
 h1 {
-  font-size: 2.75rem; }
+  font-size: 1.87rem; }
 
 h2 {
-  font-size: 2rem; }
+  font-size: 1.5rem; }
 
 h1, h2 {
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.3; }
 
 h3 {
-  font-size: 1.75rem; }
+  font-size: 1.25rem; }
 
 h4 {
-  font-size: 1.5rem; }
+  font-size: 1rem; }
 
 h3, h4 {
   font-weight: 400; }
 
 h5 {
-  font-size: 1.5rem; }
+  font-size: 0.9rem; }
 
 h6 {
-  font-size: 1.25rem; }
+  font-size: 0.9rem; }
 
 h5, h6 {
-  font-weight: 300; }
+  font-weight: 700; }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 1rem 0; }
@@ -486,6 +486,14 @@ footer {
   padding: 0;
   margin: 0; }
 
+.datastore-item-loading {
+  margin: 0;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  padding-bottom: 0.45rem;
+  padding-top: 0.6rem;
+  text-align: center; }
+
 .datastore-item-link {
   display: inline-block;
   color: #4E4E4E;
@@ -496,12 +504,10 @@ footer {
   margin: 0 0.5rem;
   cursor: pointer;
   border-bottom: solid 2px transparent; }
-  .datastore-item-link:hover:not(.datastore-item-active) {
-    text-decoration: none;
-    border-bottom: solid 2px #CCC; }
 
 .datastore-item-active {
-  border-bottom: solid 2px #126DC1; }
+  border-bottom: solid 2px #126DC1;
+  color: #126DC1; }
 
 .datastore-loading {
   display: block;
@@ -585,6 +591,9 @@ footer {
 .content-container {
   width: 100%; }
 
+.grey-background {
+  background: #E5E5E5; }
+
 .card {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
   border-radius: 4px; }
@@ -653,3 +662,9 @@ footer {
 
 .underline {
   border-bottom: solid 1px #126DC1; }
+
+.margin-1 {
+  margin: 1rem; }
+
+.margin-2 {
+  margin: 2rem; }

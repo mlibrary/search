@@ -15,6 +15,15 @@
   margin: 0;
 }
 
+.datastore-item-loading {
+  margin: 0;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  padding-bottom: 0.45rem;
+  padding-top: 0.6rem;
+  text-align: center;
+}
+
 .datastore-item-link {
   display: inline-block;
   color: $grey-2;
@@ -25,15 +34,11 @@
   margin: 0 0.5rem;
   cursor: pointer;
   border-bottom: solid 2px transparent;
-
-  &:hover:not(.datastore-item-active) {
-    text-decoration: none;
-    border-bottom: solid 2px $grey-4;
-  }
 }
 
 .datastore-item-active {
   border-bottom: solid 2px $main-3;
+  color: $main-3;
 }
 
 .datastore-loading {

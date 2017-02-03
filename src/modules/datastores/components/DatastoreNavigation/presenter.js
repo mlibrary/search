@@ -2,12 +2,12 @@ import React from 'react';
 
 import { DatastoreNavigationItem } from '../DatastoreNavigationItem';
 
-export default function DatastoreNavigationPresenter ({ datastores }) {
+export default function DatastoreNavigationPresenter ({ datastores, search }) {
   if (datastores.datastores.length === 0) {
     return (
       <div className="datastore-list-container">
         <div className="container-narrow container">
-          <p>Loading</p>
+          <p className="datastore-item-loading">Loading...</p>
         </div>
       </div>
     )
@@ -21,6 +21,7 @@ export default function DatastoreNavigationPresenter ({ datastores }) {
             <DatastoreNavigationItem
               datastore={ds}
               key={ds.uid}
+              search={search}
             />
           ))}
         </ul>

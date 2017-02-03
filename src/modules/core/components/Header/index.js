@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 import umich_block_m from './umich_block_m.png';
 import mlibrary_logo from './mlibrary_logo.png';
@@ -16,7 +17,7 @@ const Header = function Header() {
         <nav className="navigation">
           <ul className="navigation-list">
             <li className="navigation-item">
-              <a href="/" className="white-text">Search</a>
+              <Link to="/" className="white-text">Search</Link>
             </li>
           </ul>
         </nav>

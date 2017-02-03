@@ -5,9 +5,10 @@ import Field from '../RecordField';
 function RecordFieldList({ fields }) {
   return (
     <dl>
-      {fields.map(field => (
+      {fields.map((field, index) => (
         <Field
           field={field}
+          key={index}
         />
       ))}
     </dl>

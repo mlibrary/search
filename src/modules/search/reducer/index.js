@@ -2,14 +2,14 @@ import * as actions from '../actions/';
 
 const initialState = {
   searching: false,
-  search_query: ""
+  query: ""
 }
 
 const searchReducer = function searchReducer(state = initialState, action) {
   switch (action.type) {
-    case actions.SUBMIT_SEARCH:
+    case actions.SET_SEARCH_QUERY:
       return Object.assign({}, state, {
-        search_query: action.payload.search_query,
+        query: action.payload,
       });
     case actions.SEARCHING:
       return Object.assign({}, state, {

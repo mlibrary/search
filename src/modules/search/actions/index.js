@@ -1,10 +1,10 @@
-export const SUBMIT_SEARCH = 'search/SUBMIT_SEARCH';
+export const SET_SEARCH_QUERY = 'search/SET_SEARCH_QUERY';
 export const CLEAR_SEARCH = 'search/CLEAR_SEARCH';
 export const SEARCHING = 'search/SEARCHING';
 
 
-export const submitSearch = function submitSearch(payload) {
-  return { type: SUBMIT_SEARCH, payload };
+export const setSearchQuery = function submitSearch(payload) {
+  return { type: SET_SEARCH_QUERY, payload };
 };
 
 export const clearSearch = function clearSearch() {

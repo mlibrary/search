@@ -14,8 +14,11 @@ const router = (
 );
 
 const renderApp = () => {
-  ReactDOM.render(router, document.getElementById('root'))
+  ReactDOM.render(router, document.getElementById('root'));
 }
 
 initializePride();
-renderApp();
+
+export {
+  renderApp,
+}

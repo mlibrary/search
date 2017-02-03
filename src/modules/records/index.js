@@ -1,4 +1,15 @@
-import { RecordList } from './components';
-import { RecordReducer } from './reducer';
+import RecordList from './components/RecordList';
+import RecordListBar from './components/RecordListBar';
+import RecordsReducer from './reducer';
+import {
+  addRecord,
+  clearRecords,
+} from './actions';
 
-export default { RecordList, RecordReducer };
+export {
+  RecordList,
+  RecordListBar,
+  RecordsReducer,
+  addRecord,
+  clearRecords,
+};

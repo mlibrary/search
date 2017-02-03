@@ -14,7 +14,7 @@ const datastoreReducer = (state, action) => {
 };
 
 const initialState = {
-  active: undefined,
+  active: null,
   datastores: [],
 };
 

@@ -1,14 +1,22 @@
 import React from 'react';
 
-import { DatastoreNavigation } from '../../../datastores';
 import { SearchBox } from '../../../search';
+import { DatastoreNavigation } from '../../../datastores';
+import {
+  RecordList,
+  RecordListBar,
+} from '../../../records';
 
-const DatastorePage = function DatastorePage() {
+
+const DatastorePage = () => {
   return (
     <div>
       <SearchBox />
       <DatastoreNavigation />
-      <p>Datastore page placeholder.</p>
+      <div className="container container-narrow">
+        <RecordListBar />
+        <RecordList />
+      </div>
     </div>
   );
 };
