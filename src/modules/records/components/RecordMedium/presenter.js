@@ -16,7 +16,7 @@ function RecordMedium({ record, activeDatastore }) {
     const full_record_link = `/${datastore_slug}/record/${record_uid}`;
     return (
       <li className="record">
-        <h3 className="record-title"><Link to={`${full_record_link}`}>{title}</Link></h3>
+        <h3 className="record-title"><Link className="underline" to={`${full_record_link}`}>{title}</Link></h3>
         <FieldList fields={fields} />
       </li>
     );

@@ -8,6 +8,14 @@ label {
   font-weight: 700;
 }
 
+input,
+button,
+textarea, {
+  font-size: $font-size-base;
+  font-family: $font-family-1;
+  color: $grey-1;
+}
+
 input[type="text"] {
   font-size: $font-size-base;
   border: solid 1px rgba(0,0,0,0.3);

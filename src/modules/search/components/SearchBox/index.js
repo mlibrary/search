@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux'
 
 import { store } from '../../../../store';
-import { setSearchQuery } from '../../actions';
-import { runSearchPride } from '../../../../pride-interface';
+import { getDatastoreSlugByUid } from '../../../../pride-interface';
+
+import { encodeURIQuery } from '../../../search';
 
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {query: ''};
+    this.state = {query: props.search.query};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,8 +22,11 @@ class SearchBox extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    store.dispatch(setSearchQuery(this.state.query));
-    runSearchPride()
+
+    const slug = getDatastoreSlugByUid(store.getState().datastores.active)
+    const query = encodeURIQuery(this.state.query)
+    const push_url = `/${slug}${query}`;
+    store.dispatch(push(push_url));
   }
 
   render() {

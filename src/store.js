@@ -1,7 +1,8 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { browserHistory } from 'react-router';
 import { routerReducer } from 'react-router-redux'
-import { syncHistoryWithStore } from 'react-router-redux';
+import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { datastoresReducer } from './modules/datastores';
 import { searchReducer } from './modules/search';
@@ -14,16 +15,17 @@ const rootReducer = combineReducers({
   routing: routerReducer,
 });
 
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const middleware = routerMiddleware(browserHistory);
+
+const store = createStore(rootReducer, composeWithDevTools(
+  applyMiddleware(middleware)
+));
+
+const history = syncHistoryWithStore(browserHistory, store);
 
 store.subscribe(() => {
   //console.log('%c store updated ', 'background: #126DC1; color: white;', store.getState())
 })
-
-const history = syncHistoryWithStore(browserHistory, store);
 
 export {
   store,

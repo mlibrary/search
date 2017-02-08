@@ -7,43 +7,12 @@
   margin: 0;
 }
 
-.record:first-child {
-  padding-top: 0;
-}
-
 .record-title {
   font-weight: 600;
   font-size: 1.1rem;
   text-decoration: none;
   margin: 0;
   margin-bottom: 0.5rem;
-}
-
-.record-full-record-link:hover {
-  background: $main-5;
-}
-
-.record-description {
-  margin: 0.5rem 0;
-}
-
-.record-metadata {
-  padding-top: 0.5rem;
-}
-
-.record-field:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.record-field-key {
-  width: 8rem;
-  padding-right: 1rem;
-}
-
-.record-field-value {
-  word-break: break-word;
 }
 
 /*

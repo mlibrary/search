@@ -8,17 +8,30 @@
 }
 
 .results-list-border li {
-  border-bottom: solid 1px $grey-5;
+  border-bottom: solid 2px $grey-5;
 }
 
 /*
-  Search Summary
+  Search Summary // Records List Bar
 */
 
-.results-action-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.records-list-bar {
+  padding-top: 1rem;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: solid 2px $grey-5;
+}
+
+.previous-page {
+
+}
+
+.records-summary {
+  padding: 0 1rem;
+}
+
+.next-page {
+
 }
 
 /*

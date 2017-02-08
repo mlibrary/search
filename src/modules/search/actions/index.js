@@ -1,7 +1,7 @@
 export const SET_SEARCH_QUERY = 'search/SET_SEARCH_QUERY';
 export const CLEAR_SEARCH = 'search/CLEAR_SEARCH';
 export const SEARCHING = 'search/SEARCHING';
-
+export const SET_SEARCH_DATA = 'search/SET_SEARCH_DATA';
 
 export const setSearchQuery = function submitSearch(payload) {
   return { type: SET_SEARCH_QUERY, payload };
@@ -14,3 +14,7 @@ export const clearSearch = function clearSearch() {
 export const searching = function searching() {
   return { type: SEARCHING };
 };
+
+export const setSearchData = function setSearchData(payload) {
+  return { type: SET_SEARCH_DATA, payload };
+}

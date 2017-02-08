@@ -15,6 +15,11 @@ import {
 } from '../modules/records';
 
 import {
+  setSearchData,
+  searching
+} from '../modules/search';
+
+import {
   renderApp,
 } from '../index';
 
@@ -93,6 +98,27 @@ const setupPride = () => {
             })
           }
         });
+
+        const data = so.getData() // search object data
+        store.dispatch(setSearchData(
+          {
+            "count": data.count,
+            "page": data.page,
+            "total_pages": data.total_pages,
+            "total_available": data.total_available
+          }
+        ))
+
+        const records_length = store.getState().records.records.length
+        const count = data.count // aka page count
+        const page = data.page
+        const total_available = data.total_available
+        const check_last_page = (page - 1) * count + records_length === total_available
+
+        if (records_length === count || check_last_page) {
+          //store.dispatch(loadedRecords())
+        }
+
       }
     })
   })
@@ -129,11 +155,12 @@ const initializePride = () => {
 }
 
 const runSearchPride = () => {
-  const search_query = store.getState().search.search_query;
+  const query = store.getState().search.query;
   const config = {
-    field_tree: Pride.FieldTree.parseField('all_fields', search_query)
+    field_tree: Pride.FieldTree.parseField('all_fields', query)
   };
 
+  store.dispatch(searching())
   search_switcher.set(config).run();
 }
 

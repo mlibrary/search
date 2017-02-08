@@ -1,6 +1,8 @@
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
 
+import { store } from './store'
+
 import { Main } from './modules/core'
 import {
   IndexPage,
@@ -13,22 +15,25 @@ import {
   switchToDatastorePride,
 } from './pride-interface';
 
+import { runSearchPride } from './pride-interface';
+import { setSearchQuery } from './modules/search';
+
 const handleDatastorePageComponent = (nextState, callback) => {
   const slug = nextState.params.datastore;
 
-  // 1. Validate datastore
   if (isSlugADatastore(slug)) {
     switchToDatastorePride(slug)
     callback(null, DatastorePage)
   }
 
-  // 2. Check for query params
-  const { q } = nextState.location.query;
+  const next_q = nextState.location.query.q;
+  const q = store.getState().search.query;
 
-  if (q) {
-    console.log('query', q)
+  if (next_q && (q !== next_q)) {
+    store.dispatch(setSearchQuery(next_q));
+    runSearchPride();
   }
-  
+
   callback(null, NoMatch)
 }
 

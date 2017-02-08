@@ -123,7 +123,8 @@ p {
 a {
   color: #126DC1;
   cursor: pointer;
-  text-decoration: none; }
+  text-decoration: none;
+  font-weight: inherit; }
 
 *::selection {
   background: #CCE6FF; }
@@ -201,6 +202,13 @@ label {
 
 .fieldset-label {
   font-weight: 700; }
+
+input,
+button,
+textarea {
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  color: #333; }
 
 input[type="text"] {
   font-size: 1rem;
@@ -524,15 +532,19 @@ footer {
   list-style: none; }
 
 .results-list-border li {
-  border-bottom: solid 1px #E5E5E5; }
+  border-bottom: solid 2px #E5E5E5; }
 
 /*
-  Search Summary
+  Search Summary // Records List Bar
 */
-.results-action-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; }
+.records-list-bar {
+  padding-top: 1rem;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: solid 2px #E5E5E5; }
+
+.records-summary {
+  padding: 0 1rem; }
 
 /*
   Loading
@@ -598,9 +610,6 @@ footer {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
   border-radius: 4px; }
 
-.pagination-summary {
-  padding: 0 0.5rem; }
-
 /*
   Record
 */
@@ -608,36 +617,12 @@ footer {
   padding: 1rem 0;
   margin: 0; }
 
-.record:first-child {
-  padding-top: 0; }
-
 .record-title {
   font-weight: 600;
   font-size: 1.1rem;
   text-decoration: none;
   margin: 0;
   margin-bottom: 0.5rem; }
-
-.record-full-record-link:hover {
-  background: #E6F3FF; }
-
-.record-description {
-  margin: 0.5rem 0; }
-
-.record-metadata {
-  padding-top: 0.5rem; }
-
-.record-field:after {
-  content: "";
-  display: table;
-  clear: both; }
-
-.record-field-key {
-  width: 8rem;
-  padding-right: 1rem; }
-
-.record-field-value {
-  word-break: break-word; }
 
 /*
   Full Record Specific
