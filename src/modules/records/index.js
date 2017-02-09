@@ -1,6 +1,6 @@
 import RecordList from './components/RecordList';
 import RecordListBar from './components/RecordListBar';
-import RecordsReducer from './reducer';
+import recordsReducer from './reducer';
 import {
   addRecord,
   clearRecords,
@@ -9,7 +9,7 @@ import {
 export {
   RecordList,
   RecordListBar,
-  RecordsReducer,
+  recordsReducer,
   addRecord,
   clearRecords,
 };

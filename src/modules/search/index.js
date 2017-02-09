@@ -4,14 +4,14 @@ import {
   setSearchQuery,
   setSearchData,
   searching,
+  setPage,
 } from './actions';
-import { encodeURIQuery } from './utilities';
 
 export {
   SearchBox,
   searchReducer,
   setSearchQuery,
-  encodeURIQuery,
   setSearchData,
+  setPage,
   searching,
 }

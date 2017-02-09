@@ -4,12 +4,17 @@ import numeral from 'numeral'
 
 import RecordListBar from './presenter';
 
+import {
+  nextPage,
+  prevPage,
+} from '../../../../pride-interface';
+
 class ReactListBarContainer extends React.Component {
-  handlePreviousPage() {
-    console.log('handlePreviousPage')
+  handlePreviousPage(){
+    prevPage()
   }
   handleNextPage() {
-    console.log('handleNextPage')
+    nextPage()
   }
   recordsSummary() {
     const { count, page, total_available } = this.props.search.data;
@@ -30,8 +35,8 @@ class ReactListBarContainer extends React.Component {
     }
 
     return <RecordListBar
-        handlePreviousPage={this.handlePreviousPage}
-        handleNextPage={this.handleNextPage}
+        handlePreviousPage={this.handlePreviousPage.bind(this)}
+        handleNextPage={this.handleNextPage.bind(this)}
         recordsSummary={this.recordsSummary()}
       />
   }

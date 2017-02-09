@@ -23,6 +23,11 @@ import {
   renderApp,
 } from '../index';
 
+import {
+  clearFilters,
+  addFilter,
+} from '../modules/filters';
+
 /*
   Pride Internal Configuration
 */
@@ -82,7 +87,7 @@ const setupPride = () => {
   });
 
   /*
-    Setup results listener
+    Setup search object observers
   */
   _.each(search_objects, function(so) {
     so.resultsObservers.add(function(results) {
@@ -99,7 +104,7 @@ const setupPride = () => {
           }
         });
 
-        const data = so.getData() // search object data
+        const data = so.getData()
         store.dispatch(setSearchData(
           {
             "count": data.count,
@@ -118,9 +123,41 @@ const setupPride = () => {
         if (records_length === count || check_last_page) {
           //store.dispatch(loadedRecords())
         }
-
       }
     })
+
+    so.facetsObservers.add(function(filter_groups) {
+      const active_datastore = store.getState().datastores.active
+
+      if (active_datastore === so.uid) {
+        store.dispatch(clearFilters())
+
+        filter_groups.map(filter_group => {
+          filter_group.resultsObservers.add(filters => {
+            filters.map(filter => {
+              store.dispatch(addFilter(Object.assign({}, filter, {
+                metadata: filter_group.getData('metadata')
+              }))) // Look at all these )s
+            })
+          })
+        })
+
+        /*
+        _.each(facets_data, function(facet) {
+          facet.resultsObservers.add(function(results) {
+            _.each(results, function(result) {
+              store.dispatch(addFilter({
+                uid: facet.uid,
+                metadata: facet.getData('metadata'),
+                item: result
+              }))
+            })
+          })
+        })
+        */
+      }
+    })
+
   })
 
   /*
@@ -156,8 +193,11 @@ const initializePride = () => {
 
 const runSearchPride = () => {
   const query = store.getState().search.query;
+  const page = store.getState().search.page;
+
   const config = {
-    field_tree: Pride.FieldTree.parseField('all_fields', query)
+    field_tree: Pride.FieldTree.parseField('all_fields', query),
+    page: page,
   };
 
   store.dispatch(searching())
@@ -205,6 +245,14 @@ const isSlugADatastore = (slug) => {
   return findUidbySlug(slug) !== false;
 }
 
+const nextPage = () => {
+  search_switcher.nextPage()
+}
+
+const prevPage = () => {
+  search_switcher.prevPage()
+}
+
 /*
   Expose functions that are useful externally
 */
@@ -215,4 +263,6 @@ export {
   switchToDatastorePride,
   isSlugADatastore,
   getDatastoreSlugByUid,
+  nextPage,
+  prevPage,
 }

@@ -1,11 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux'
 
-import { store } from '../../../../store';
-import { getDatastoreSlugByUid } from '../../../../pride-interface';
-
-import { encodeURIQuery } from '../../../search';
+import { addQuery } from '../../../../router';
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -22,11 +18,7 @@ class SearchBox extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    const slug = getDatastoreSlugByUid(store.getState().datastores.active)
-    const query = encodeURIQuery(this.state.query)
-    const push_url = `/${slug}${query}`;
-    store.dispatch(push(push_url));
+    addQuery({q: this.state.query})
   }
 
   render() {

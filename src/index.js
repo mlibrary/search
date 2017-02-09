@@ -5,7 +5,7 @@ import { Router, browserHistory } from 'react-router';
 
 import { store } from './store'
 import { initializePride } from './pride-interface';
-import routes from './routes';
+import { routes } from './router';
 
 const router = (
   <Provider store={store}>

@@ -4,7 +4,7 @@ const initialState = {
   searching: false,
   query: "",
   data: null,
-  searching: false,
+  page: 1,
 }
 
 const searchReducer = function searchReducer(state = initialState, action) {
@@ -20,6 +20,10 @@ const searchReducer = function searchReducer(state = initialState, action) {
     case actions.SET_SEARCH_DATA:
       return Object.assign({}, state, {
         data: action.payload,
+      });
+    case actions.SET_PAGE:
+      return Object.assign({}, state, {
+        page: action.payload,
       });
     case actions.CLEAR_SEARCH:
       return initialState;

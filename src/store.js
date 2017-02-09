@@ -6,13 +6,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { datastoresReducer } from './modules/datastores';
 import { searchReducer } from './modules/search';
-import { RecordsReducer } from './modules/records'
+import { recordsReducer } from './modules/records'
+import { filtersReducer } from './modules/filters'
 
 const rootReducer = combineReducers({
   datastores: datastoresReducer,
-  records: RecordsReducer,
+  records: recordsReducer,
   search: searchReducer,
   routing: routerReducer,
+  filters: filtersReducer,
 });
 
 const middleware = routerMiddleware(browserHistory);

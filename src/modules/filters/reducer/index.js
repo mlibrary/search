@@ -4,23 +4,27 @@ import {
 } from '../actions';
 
 const initialState = {
-  filters: [],
-  active: undefined,
+  filters: {},
+  active: {}
 };
 
-const filterReducer = function filterReducer(state = initialState, action) {
+const filtersReducer = function filterReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_FILTER:
+      return Object.assign({}, state, {
+        active: {},
+      });
     case TOGGLE_ACTIVE_FILTER:
+      break;
     case CLEAR_FILTERS:
       return initialState;
     case CLEAR_ACTIVE_FILTERS:
       return Object.assign({}, state, {
-        active: [],
+        active: {},
       });
     default:
       return state;
   }
 };
 
-export default filterReducer;
+export default filtersReducer;
