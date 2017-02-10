@@ -132,9 +132,9 @@ const setupPride = () => {
       if (active_datastore === so.uid) {
         store.dispatch(clearFilters())
 
-        filter_groups.map(filter_group => {
+        filter_groups.forEach(filter_group => {
           filter_group.resultsObservers.add(filters => {
-            filters.map(filter => {
+            filters.forEach(filter => {
               store.dispatch(addFilter(Object.assign({}, filter, {
                 metadata: filter_group.getData('metadata')
               }))) // Look at all these )s

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { SearchBox } from '../../../search';
 import { DatastoreNavigation } from '../../../datastores';
+import { FilterList } from '../../../filters';
 import {
   RecordList,
   RecordListBar,
@@ -15,6 +16,7 @@ const DatastorePage = () => {
       <DatastoreNavigation />
       <div className="container container-narrow">
         <RecordListBar />
+        <FilterList />
         <RecordList />
       </div>
     </div>
