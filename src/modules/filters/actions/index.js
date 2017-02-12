@@ -1,14 +1,14 @@
-export const ADD_FILTER = 'ADD_FILTER';
-export const TOGGLE_ACTIVE_FILTER = 'TOGGLE_ACTIVE_FILTER';
-export const CLEAR_FILTERS = 'CLEAR_FILTERS';
-export const CLEAR_ACTIVE_FILTERS = 'CLEAR_ACTIVE_FILTERS';
+export const ADD_FILTER = 'filters/ADD_FILTER';
+export const SET_ACTIVE_FILTERS = 'filters/SET_ACTIVE_FILTERS';
+export const CLEAR_FILTERS = 'filters/CLEAR_FILTERS';
+export const CLEAR_ACTIVE_FILTERS = 'filters/CLEAR_ACTIVE_FILTERS';
 
 export const addFilter = function addFilter(payload) {
   return { type: ADD_FILTER, payload };
 };
 
-export const toggleActiveFilter = function toggleActiveFilter(payload) {
-  return { type: TOGGLE_ACTIVE_FILTER, payload };
+export const setActiveFilters = function setActiveFilters(payload) {
+  return { type: SET_ACTIVE_FILTERS, payload };
 };
 
 export const clearFilters = function clearFilters(payload) {

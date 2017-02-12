@@ -192,13 +192,18 @@ const initializePride = () => {
 }
 
 const runSearchPride = () => {
-  const query = store.getState().search.query;
-  const page = store.getState().search.page;
+  const state = store.getState();
+  const query = state.search.query;
+  const page = state.search.page;
+  const facets = state.filters.active;
 
   const config = {
     field_tree: Pride.FieldTree.parseField('all_fields', query),
     page: page,
+    facets: facets,
   };
+
+  console.log('runSearchPride', config)
 
   store.dispatch(searching())
   search_switcher.set(config).run();

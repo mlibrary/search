@@ -1,12 +1,12 @@
 import { _ } from 'underscore';
 
 import {
-  ADD_FILTER, TOGGLE_ACTIVE_FILTER,
+  ADD_FILTER, SET_ACTIVE_FILTERS,
   CLEAR_FILTERS, CLEAR_ACTIVE_FILTERS,
 } from '../actions';
 
 const initialState = {
-  active: [],
+  active: {},
   groups: {}
 };
 
@@ -56,10 +56,14 @@ const filtersReducer = function filterReducer(state = initialState, action) {
         }
       }
     }
-    case TOGGLE_ACTIVE_FILTER:
-      break;
+    case SET_ACTIVE_FILTERS:
+      return Object.assign({}, state, {
+        active: action.payload,
+      });
     case CLEAR_FILTERS:
-      return initialState;
+      return Object.assign({}, state, {
+        groups: {},
+      });
     case CLEAR_ACTIVE_FILTERS:
       return Object.assign({}, state, {
         active: {},

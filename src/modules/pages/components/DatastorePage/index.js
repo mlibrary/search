@@ -14,10 +14,14 @@ const DatastorePage = () => {
     <div>
       <SearchBox />
       <DatastoreNavigation />
-      <div className="container container-narrow">
-        <RecordListBar />
-        <FilterList />
-        <RecordList />
+      <div className="container container-medium flex-container">
+        <div className="side-container">
+          <FilterList />
+        </div>
+        <div className="main-container">
+          <RecordListBar />
+          <RecordList />
+        </div>
       </div>
     </div>
   );

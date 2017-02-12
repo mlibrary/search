@@ -13,6 +13,18 @@
   text-decoration: none;
   margin: 0;
   margin-bottom: 0.5rem;
+
+  a:hover {
+    background: $main-5;
+  }
+}
+
+.record-field-key {
+  
+}
+
+.record-field-value {
+  word-break: break-word;
 }
 
 /*

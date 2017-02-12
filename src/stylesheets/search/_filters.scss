@@ -1,51 +1,51 @@
-.filters-title {
-  font-weight: 400;
-  font-size: 1.2rem;
-}
-
-.filter-title {
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 0;
-  margin-bottom: 0;
-}
-
-.filters-list {
+.filter-list {
   margin: 0;
   padding: 0;
   list-style: none;
-  margin-bottom: 2rem;
 }
 
-.filter {
-  margin: 0;
+.filter-list-heading {
+
+}
+
+.filter-item {
   padding: 0;
+  margin: 0;
 }
 
-.filter-label {
+.filter-button {
+  // reset default button styles
+  background: none;
+  outline: none;
+  border: none;
+  text-align: left;
+  padding: 0;
+
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0 -0.5rem;
   display: flex;
-  align-items: center;
-  flex-flow: row;
-  line-height: 1.4rem;
-  padding: 0.25rem 0.5rem;
   justify-content: space-between;
   cursor: pointer;
+
+  &:hover {
+    background: $main-5;
+  }
 }
 
-.filter-label:hover {
-  cursor: pointer;
-  background: $main-5;
-}
-
-.filter-checkbox {
-  padding: 0;
-  margin: 0;
+.filter-value {
   margin-right: 0.5rem;
-}
-
-.filter-name {
+  color: $main-3;
 }
 
 .filter-count {
- justify-content: flex-end;
+}
+
+.filter-active .filter-button {
+  background: $main-3;
+
+  .filter-value,
+  .filter-count {
+    color: white;
+  }
 }
