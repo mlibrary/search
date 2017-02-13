@@ -14,61 +14,40 @@ import {
 import {
   isSlugADatastore,
   switchToDatastorePride,
+  getDatastoreUidBySlug
 } from '../pride-interface';
 
 import { runSearchPride } from '../pride-interface';
-import {
-  setSearchQuery
-} from '../modules/search';
-import {
-  setActiveFilters,
-  clearActiveFilters,
-} from '../modules/filters';
 
-const getActiveFiltersByQuery = (query) => {
-  const groups = query.split(';');
-  const activeFilters = groups.reduce((map, array) => {
-    const split = array.split(':');
-    map[split[0]] = split[1]
-    return map
-  }, {})
-
-  return activeFilters;
-}
+import {
+  handleSearchQuery,
+  handleFilterQuery,
+} from './query';
 
 const handleDatastorePageComponent = (nextState, callback) => {
   const slug = nextState.params.datastore;
+  const activeDatastoreUid = getDatastoreUidBySlug(slug)
+
+  // Is this route an actual datastore?
   if (isSlugADatastore(slug)) {
     switchToDatastorePride(slug)
     callback(null, DatastorePage)
   }
 
-  const nextQuery = nextState.location.query.q;
-  const query = store.getState().search.query;
-  let runSearch = false;
-  if (nextQuery && (query !== nextQuery)) {
-    store.dispatch(setSearchQuery(nextQuery));
-    runSearch = true;
-  }
+  const searchQuery = handleSearchQuery({
+    nextQuery: nextState.location.query.q,
+    query: store.getState().search.query,
+  })
 
-  const queryFilter = nextState.location.query.filter;
-  if (queryFilter) {
-    const nextActiveFilters = getActiveFiltersByQuery(queryFilter);
-    const activeFilters = store.getState().filters.active;
+  const filterQuery = handleFilterQuery({
+    activeDatastoreUid: activeDatastoreUid,
+    filterQuery: nextState.location.query.filter,
+    activeFiltersFromState: store.getState().filters.active,
+  })
 
-    if (!_.isEqual(nextActiveFilters, activeFilters)) {
-      store.dispatch(clearActiveFilters());
-      store.dispatch(setActiveFilters(nextActiveFilters));
-      runSearch = true;
-    }
-  } else {
-    if (!nextState.location.query.filter && store.getState().filters.active) {
-      store.dispatch(clearActiveFilters());
-      runSearch = true;
-    }
-  }
-
-  if (runSearch) {
+  // If either made dispatches to store, then
+  // a new pride search is necessary
+  if (searchQuery || filterQuery) {
     runSearchPride();
   }
 

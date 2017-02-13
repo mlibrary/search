@@ -11,38 +11,49 @@ import FilterList from './presenter';
 
 class FilterListContainer extends React.Component {
   constructor(props) {
-   super(props);
-
-   this.state = {filters: Object.assign({}, props.filters.active)};
-   this.handleFilter = this.handleFilter.bind(this);
-   this.filterQuery = this.filterQuery.bind(this);
+    super(props);
+    const activeFilters = props.filters.active;
+    this.state = {activeFilters: Object.assign({}, activeFilters)};
+    this.handleFilter = this.handleFilter.bind(this);
+    this.addFilterToURL = this.addFilterToURL.bind(this);
  }
 
   handleFilter(e) {
+    const activeFilters = Object.assign({}, this.state.activeFilters);
+    const activeDatastore = this.props.activeDatastore;
     const { group, value } = e.target.dataset;
-    let filters = this.state.filters;
+    let valueCheck = value;
 
-    if (filters.hasOwnProperty(group)) {
-      delete filters[group];
+    if (activeFilters[activeDatastore] && activeFilters[activeDatastore][group]) {
+      delete activeFilters[activeDatastore][group]; //TODO refactor, should not mutate
+
+      this.setState({
+        activeFilters: activeFilters,
+      }, this.addFilterToURL)
     } else {
-      filters[group] = value
+      this.setState({
+        activeFilters: {
+          ...this.state.activeFilters,
+          [activeDatastore]: {
+            ...this.state.activeFilters[activeDatastore],
+            [group]: valueCheck
+          }
+        },
+      }, this.addFilterToURL)
     }
-
-    this.setState({
-      filters: filters
-    }, this.filterQuery)
   }
 
-  filterQuery() {
-    const filters = this.state.filters;
-    const groups = Object.keys(filters);
+  addFilterToURL() {
+    const activeDatastore = this.props.activeDatastore;
+    const activeFilters = this.state.activeFilters
+    const filterGroups = Object.keys(activeFilters[activeDatastore]);
 
-    if (groups.length > 0) {
-      const query = groups.reduce((memo, key) => {
+    if (filterGroups.length > 0) {
+      const query = filterGroups.reduce((memo, key) => {
         if (memo !== '') {
           memo += ';'
         }
-        return memo + `${key}:${filters[key]}`
+        return memo + `${key}:${activeFilters[activeDatastore][key]}`
       }, '')
 
       addQuery({
@@ -53,16 +64,29 @@ class FilterListContainer extends React.Component {
     }
   }
 
+  getActiveFilters(activeDatastore, activeFilters, group) {
+    if (!activeFilters[activeDatastore]) {
+      return undefined;
+    }
+
+    return activeFilters[activeDatastore][group];
+  }
+
   render() {
-    const { filters } = this.props;
+    const activeFilters = this.state.activeFilters;
+    const { filters, activeDatastore } = this.props;
 
     return (
       <div>
         <h2>Filter your results</h2>
         {_.map(filters.groups, (group) => {
-          const active = this.state.filters[group.uid]
+          const active = this.getActiveFilters(activeDatastore, activeFilters, group.uid)
           return (
-            <FilterList group={group} handleFilter={this.handleFilter} key={group.uid} active={active} />
+            <FilterList
+              group={group}
+              handleFilter={this.handleFilter}
+              key={group.uid}
+              active={active} />
           )
         })}
       </div>
@@ -73,6 +97,7 @@ class FilterListContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     filters: state.filters,
+    activeDatastore: state.datastores.active,
   };
 }
 

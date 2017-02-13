@@ -2,17 +2,14 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import {
-  getCurrentLocation
+  getSearchForURL
 } from '../../../../router';
 
-const DatastoreNavigationItem = function DatastoreNavigationItem({ datastore, search }) {
-  const { name, slug } = datastore;
-  const search_url = getCurrentLocation().search;
-
+const DatastoreNavigationItem = function DatastoreNavigationItem({ name, link }) {
   return (
     <li className="datastore-item">
       <Link
-        to={`/${slug}${search_url}`}
+        to={`/${link}`}
         className="datastore-item-link"
         activeClassName="datastore-item-active">{name}
       </Link>

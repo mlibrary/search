@@ -5,8 +5,13 @@ import DatastoreNavigationPresenter from './presenter';
 
 class DatastoreNavigationContainer extends React.Component {
   render() {
-    const { datastores, search } = this.props;
-    return <DatastoreNavigationPresenter datastores={datastores} search={search} />;
+    const { datastores, search, filters } = this.props;
+    const activeFilters = filters.active[datastores.active] || {}
+
+    return <DatastoreNavigationPresenter
+      datastores={datastores}
+      search={search}
+      activeFilters={activeFilters}/>;
   }
 };
 
@@ -14,6 +19,7 @@ function mapStateToProps(state) {
   return {
     datastores: state.datastores,
     search: state.search,
+    filters: state.filters,
   };
 }
 

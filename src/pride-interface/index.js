@@ -195,15 +195,13 @@ const runSearchPride = () => {
   const state = store.getState();
   const query = state.search.query;
   const page = state.search.page;
-  const facets = state.filters.active;
+  const facets = state.filters.active[state.datastores.active];
 
   const config = {
     field_tree: Pride.FieldTree.parseField('all_fields', query),
     page: page,
     facets: facets,
   };
-
-  console.log('runSearchPride', config)
 
   store.dispatch(searching())
   search_switcher.set(config).run();
@@ -217,7 +215,7 @@ const fetchPrideRecord = (datastore_uid, record_uid) => {
   })
 }
 
-const findUidbySlug = (slug) => {
+const getDatastoreUidBySlug = (slug) => {
   const datastores = config.datastores.naming;
   const ds = _.findWhere(datastores, {slug: slug}) || _.findWhere(datastores, {uid: slug});
 
@@ -236,7 +234,7 @@ const getDatastoreSlugByUid = (uid) => {
 }
 
 const switchToDatastorePride = (slug) => {
-  const uid = findUidbySlug(slug);
+  const uid = getDatastoreUidBySlug(slug);
 
   if (!uid) {
     return false;
@@ -247,7 +245,7 @@ const switchToDatastorePride = (slug) => {
 }
 
 const isSlugADatastore = (slug) => {
-  return findUidbySlug(slug) !== false;
+  return getDatastoreUidBySlug(slug) !== false;
 }
 
 const nextPage = () => {
@@ -268,6 +266,7 @@ export {
   switchToDatastorePride,
   isSlugADatastore,
   getDatastoreSlugByUid,
+  getDatastoreUidBySlug,
   nextPage,
   prevPage,
 }
