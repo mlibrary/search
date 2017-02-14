@@ -4,7 +4,7 @@
 
 .side-container {
   width: 16rem;
-  margin-right: 2rem;
+  margin-right: 1.5rem;
 }
 
 .main-container {
@@ -13,4 +13,14 @@
 
 .grey-background {
   background: $grey-5;
+}
+
+@media (max-width: 40rem) {
+  .flex-container {
+    display: block;
+  }
+
+  .side-container {
+    width: 100%;
+  }
 }

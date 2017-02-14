@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addQuery } from '../../../../router';
+import {
+  addQuery,
+  removeQuery
+} from '../../../../router';
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -18,7 +21,12 @@ class SearchBox extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    addQuery({q: this.state.query})
+
+    if (this.state.query === '') {
+      removeQuery('q');
+    } else {
+      addQuery({q: this.state.query})
+    }
   }
 
   render() {
@@ -27,7 +35,7 @@ class SearchBox extends React.Component {
         <div className="container search-box-container">
           <form className="search-box" onSubmit={this.handleSubmit}>
             <input type="text" value={this.state.query} onChange={this.handleChange} />
-          <input className="button search-box-button" type="submit" value="Search" />
+            <input className="button search-box-button" type="submit" value="Search" />
           </form>
         </div>
       </div>

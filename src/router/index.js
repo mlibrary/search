@@ -3,7 +3,7 @@ import {
   addQuery,
   removeQuery,
   getCurrentLocation,
-  getSearchQueries
+  createSearchParams
 } from './utils';
 
 export {
@@ -11,5 +11,5 @@ export {
   addQuery,
   removeQuery,
   getCurrentLocation,
-  getSearchQueries
+  createSearchParams
 }

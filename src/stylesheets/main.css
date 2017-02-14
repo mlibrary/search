@@ -486,8 +486,7 @@ footer {
 
 .datastore-list {
   margin: 0;
-  text-align: center;
-  margin-bottom: -2px; }
+  text-align: center; }
 
 .datastore-item {
   display: inline-block;
@@ -591,13 +590,19 @@ footer {
 
 .side-container {
   width: 16rem;
-  margin-right: 2rem; }
+  margin-right: 1.5rem; }
 
 .main-container {
   width: 100%; }
 
 .grey-background {
   background: #E5E5E5; }
+
+@media (max-width: 40rem) {
+  .flex-container {
+    display: block; }
+  .side-container {
+    width: 100%; } }
 
 .card {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);

@@ -6,7 +6,7 @@ import DatastoreNavigationPresenter from './presenter';
 class DatastoreNavigationContainer extends React.Component {
   render() {
     const { datastores, search, filters } = this.props;
-    const activeFilters = filters.active[datastores.active] || {}
+    const activeFilters = filters.active;
 
     return <DatastoreNavigationPresenter
       datastores={datastores}

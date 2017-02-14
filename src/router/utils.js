@@ -16,32 +16,37 @@ const getCurrentLocation = () => {
   return Object.assign({}, browserHistory.getCurrentLocation());
 }
 
-const getSearchQueries = ({ datastoreUid, query, activeFilters }) => {
-  console.log('getSearchQueries', datastoreUid)
-  console.log('query', query)
-  console.log('activeFilters', activeFilters)
+const createSearchParams = ({ query, filters }) => {
+  let filterString = '';
+  let queryString = '';
+  let params = [];
 
-  const filterGroups = Object.keys(activeFilters);
-
-  console.log('filterGroups', filterGroups)
+  const esc = encodeURIComponent;
+  const filterGroups = Object.keys(filters);
 
   if (filterGroups.length > 0) {
-    const query = filterGroups.reduce((memo, key) => {
-      if (memo !== '') {
-        memo += ';'
-      }
-      return memo + `${key}:${activeFilters[key]}`
-    }, '')
+    filterString = filterGroups
+      .map((key) => `${esc([key])}${esc(':')}${esc(filters[key])}`)
+      .join(esc(';'));
 
-    return query;
+    params.push(`filter=${filterString}`)
   }
 
-  return '';
+  if (query) {
+    queryString = `q=${esc(query)}`;
+    params.push(queryString)
+  }
+
+  if (params.length === 0) {
+    return '';
+  }
+
+  return `?${params.join('&')}`;
 }
 
 export {
   removeQuery,
   addQuery,
   getCurrentLocation,
-  getSearchQueries
+  createSearchParams
 }

@@ -26,7 +26,8 @@ import {
 
 const handleDatastorePageComponent = (nextState, callback) => {
   const slug = nextState.params.datastore;
-  const activeDatastoreUid = getDatastoreUidBySlug(slug)
+  const paramDatastoreUid = getDatastoreUidBySlug(slug)
+  const stateDatastoreUid = store.getState().datastores.active
 
   // Is this route an actual datastore?
   if (isSlugADatastore(slug)) {
@@ -40,14 +41,21 @@ const handleDatastorePageComponent = (nextState, callback) => {
   })
 
   const filterQuery = handleFilterQuery({
-    activeDatastoreUid: activeDatastoreUid,
+    activeDatastoreUid: paramDatastoreUid,
     filterQuery: nextState.location.query.filter,
     activeFiltersFromState: store.getState().filters.active,
   })
 
+  const switchedDatastore = paramDatastoreUid !== stateDatastoreUid;
+
+  console.log('switchedDatastore', switchedDatastore)
+  console.log('filterQuery', filterQuery)
+  console.log('(filterQuery && !switchedDatastore)', (filterQuery && !switchedDatastore))
+  console.log('searchQuery', searchQuery)
+
   // If either made dispatches to store, then
   // a new pride search is necessary
-  if (searchQuery || filterQuery) {
+  if (searchQuery || (filterQuery && !switchedDatastore)) {
     runSearchPride();
   }
 

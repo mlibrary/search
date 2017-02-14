@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DatastoreNavigationItem } from '../DatastoreNavigationItem';
-import { getSearchQueries } from '../../../../router';
+import { createSearchParams } from '../../../../router';
 
 export default function DatastoreNavigationPresenter ({ datastores, search, activeFilters }) {
   if (datastores.datastores.length === 0) {
@@ -19,12 +19,12 @@ export default function DatastoreNavigationPresenter ({ datastores, search, acti
       <div className="container-narrow container">
         <ul className="datastore-list">
           {datastores.datastores.map(ds => {
-            const searchQueries = getSearchQueries({
-              datastoreUid: ds.uid,
-              activeFilters: activeFilters,
+            const filters = activeFilters[ds.uid] || {};
+            const searchParams = createSearchParams({
+              filters: filters,
               query: search.query,
             })
-            const link = `${ds.slug}${searchQueries}`;
+            const link = `${ds.slug}${searchParams}`;
 
             return (
               <DatastoreNavigationItem
