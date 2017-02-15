@@ -23,6 +23,12 @@ You'll need `npm` for this.
 $ npm start
 ```
 
+## CSS
+Enter the stylesheets directory and run Gulp. See [Falafel repo](https://github.com/mlibrary/falafel) for more setup instructions.
+```sh
+$ gulp
+```
+
 ## Contact
 Email Jon Earley at earleyj@umich.edu if you have any questions.
 
