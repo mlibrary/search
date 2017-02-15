@@ -144,20 +144,8 @@ li {
   padding-left: 1rem;
   margin-top: 1rem; }
 
-dl {
-  margin: 0;
-  clear: left; }
-
 dt {
-  font-weight: bold;
-  float: left;
-  clear: left;
-  padding-right: 0.3rem; }
-
-dd {
-  margin: 0;
-  padding: 0;
-  min-height: 1.5rem; }
+  font-weight: 600; }
 
 table {
   width: 100%;
@@ -625,7 +613,7 @@ footer {
     background: #E6F3FF; }
 
 .record-field-value {
-  word-break: break-word; }
+  margin-left: 2rem; }
 
 /*
   Full Record Specific

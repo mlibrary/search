@@ -12,8 +12,8 @@ export const clearSearch = function clearSearch() {
   return { type: CLEAR_SEARCH };
 };
 
-export const searching = function searching() {
-  return { type: SEARCHING };
+export const searching = function searching(payload) {
+  return { type: SEARCHING, payload };
 };
 
 export const setSearchData = function setSearchData(payload) {

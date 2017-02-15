@@ -19,12 +19,20 @@
   }
 }
 
-.record-field-key {
-  
+.record-field {
+
+}
+
+.record-field-name {
+
+}
+
+.record-field-name:after {
+
 }
 
 .record-field-value {
-  word-break: break-word;
+  margin-left: 2rem;
 }
 
 /*

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { SearchBox } from '../../../search';
 import { DatastoreNavigation } from '../../../datastores';
@@ -8,23 +9,48 @@ import {
   RecordListBar,
 } from '../../../records';
 
+import { store } from '../../../../store';
 
-const DatastorePage = () => {
-  return (
-    <div>
-      <SearchBox />
-      <DatastoreNavigation />
-      <div className="container container-medium flex-container">
-        <div className="side-container">
-          <FilterList />
+class DatastorePage extends React.Component {
+  render() {
+    const { searching } = this.props;
+
+    if (searching) {
+      return (
+        <div>
+          <SearchBox />
+          <DatastoreNavigation />
+          <div className="container container-medium">
+            <div className="main-container">
+              <p>Searching...</p>
+            </div>
+          </div>
         </div>
-        <div className="main-container">
-          <RecordListBar />
-          <RecordList />
+      )
+    }
+
+    return (
+      <div>
+        <SearchBox />
+        <DatastoreNavigation />
+        <div className="container container-medium flex-container">
+          <div className="side-container">
+            <FilterList />
+          </div>
+          <div className="main-container">
+            <RecordListBar />
+            <RecordList />
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default DatastorePage;
+function mapStateToProps(state) {
+  return {
+    searching: state.search.searching,
+  };
+}
+
+export default connect(mapStateToProps)(DatastorePage);

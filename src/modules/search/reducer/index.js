@@ -15,7 +15,7 @@ const searchReducer = function searchReducer(state = initialState, action) {
       });
     case actions.SEARCHING:
       return Object.assign({}, state, {
-        searching: true,
+        searching: action.payload,
       });
     case actions.SET_SEARCH_DATA:
       return Object.assign({}, state, {

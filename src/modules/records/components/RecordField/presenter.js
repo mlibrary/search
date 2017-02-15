@@ -3,7 +3,7 @@ import React from 'react';
 function RecordField({ field }) {
   return (
     <div className="record-field">
-      <dt className="record-field-key">{field.key}</dt>
+      <dt className="record-field-name">{field.name}</dt>
       <dd className="record-field-value">{field.value}</dd>
     </div>
   );

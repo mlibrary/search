@@ -19,6 +19,8 @@ import {
 
 import { runSearchPride } from '../pride-interface';
 
+import { searching } from '../modules/search';
+
 import {
   handleSearchQuery,
   handleFilterQuery,
@@ -48,14 +50,10 @@ const handleDatastorePageComponent = (nextState, callback) => {
 
   const switchedDatastore = paramDatastoreUid !== stateDatastoreUid;
 
-  console.log('switchedDatastore', switchedDatastore)
-  console.log('filterQuery', filterQuery)
-  console.log('(filterQuery && !switchedDatastore)', (filterQuery && !switchedDatastore))
-  console.log('searchQuery', searchQuery)
-
   // If either made dispatches to store, then
   // a new pride search is necessary
   if (searchQuery || (filterQuery && !switchedDatastore)) {
+    store.dispatch(searching(true));
     runSearchPride();
   }
 

@@ -120,8 +120,14 @@ const setupPride = () => {
         const total_available = data.total_available
         const check_last_page = (page - 1) * count + records_length === total_available
 
+        console.log('----------')
+        console.log('records_length', records_length)
+        console.log('count', count)
+        console.log('check_last_page', check_last_page)
+
         if (records_length === count || check_last_page) {
-          //store.dispatch(loadedRecords())
+          console.log('searching ', false)
+          store.dispatch(searching(false))
         }
       }
     })
@@ -203,7 +209,7 @@ const runSearchPride = () => {
     facets: facets,
   };
 
-  store.dispatch(searching())
+  store.dispatch(searching(true))
   search_switcher.set(config).run();
 }
 
@@ -269,4 +275,5 @@ export {
   getDatastoreUidBySlug,
   nextPage,
   prevPage,
+  config
 }
