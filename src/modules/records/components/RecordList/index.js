@@ -8,7 +8,7 @@ class RecordListContainer extends React.Component {
     const { records, activeDatastore } = this.props;
 
     if (records.records.length === 0) {
-      return null;
+      return <p>No records to display.</p>;
     }
 
     return (

@@ -1,10 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import {
-  getSearchForURL
-} from '../../../../router';
-
 const DatastoreNavigationItem = function DatastoreNavigationItem({ name, link }) {
   return (
     <li className="datastore-item">
