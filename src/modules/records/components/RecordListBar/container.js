@@ -28,10 +28,10 @@ class ReactListBarContainer extends React.Component {
     return `${records_from}-${records_to} of ${display_total_available} ${results_text}`
   }
   render() {
-    const { records, search } = this.props;
+    const { records, searching } = this.props;
 
-    if (records.length === 0 || !search.searching) {
-      return null
+    if (records.length === 0) {
+      return null;
     }
 
     return <RecordListBar

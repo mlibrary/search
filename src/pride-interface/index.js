@@ -120,13 +120,8 @@ const setupPride = () => {
         const total_available = data.total_available
         const check_last_page = (page - 1) * count + records_length === total_available
 
-        console.log('----------')
-        console.log('records_length', records_length)
-        console.log('count', count)
-        console.log('check_last_page', check_last_page)
-
+        // Check to see if records have loaded.
         if (records_length === count || check_last_page) {
-          console.log('searching ', false)
           store.dispatch(searching(false))
         }
       }

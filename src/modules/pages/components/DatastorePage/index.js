@@ -22,7 +22,7 @@ class DatastorePage extends React.Component {
           <DatastoreNavigation />
           <div className="container container-medium">
             <div className="main-container">
-              <p>Searching...</p>
+              <p>Loading...</p>
             </div>
           </div>
         </div>
