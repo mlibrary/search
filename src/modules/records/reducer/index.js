@@ -28,13 +28,13 @@ const recordsReducer = (state = recordsInitialState, action) => {
       return Object.assign({}, state, {
         records: [],
       });
+    case actions.CLEAR_RECORD:
+      return Object.assign({}, state, {
+        record: null,
+      });
     case actions.SET_RECORD:
       return Object.assign({}, state, {
         record: action.payload,
-      });
-    case actions.CLEAR_RECORD:
-      return Object.assign({}, state, {
-        record: undefined,
       });
     default:
       return state;

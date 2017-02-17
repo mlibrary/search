@@ -2,15 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import RecordMedium from '../RecordMedium';
+import { Loading } from '../../../core';
 
 class RecordListContainer extends React.Component {
   render() {
     const { records, activeDatastore, searching } = this.props;
 
-    console.log('searching', searching)
-
     if (searching) {
-      return <p>Loading results...</p>
+      return <Loading />
     }
 
     return (

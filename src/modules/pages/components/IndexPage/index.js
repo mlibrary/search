@@ -9,10 +9,7 @@ const IndexPage = function DatastorePage() {
       <SearchBox />
       <DatastoreNavigation />
       <div className="container container-narrow">
-        <h2>Welcome to New Search</h2>
-
-        <p>We have consolidated our major discovery interfaces into this one application
-          for easier access to the library’s physical and digital resources.</p>
+        <p>Index page.</p>
       </div>
     </div>
   );

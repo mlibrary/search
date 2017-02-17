@@ -1,0 +1,13 @@
+.loading {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  border-bottom: solid 2px $grey-7;
+  background: white;
+  border-radius: 4px 4px 0 0;
+  background: $grey-6;
+}
+
+.loading-text {
+  margin: 0;
+  color: $grey-2;
+}

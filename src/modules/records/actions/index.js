@@ -1,5 +1,6 @@
 export const ADD_RECORD = 'records/ADD_RECORD';
 export const CLEAR_RECORDS = 'records/CLEAR_RECORDS';
+export const CLEAR_RECORD = 'records/CLEAR_RECORD';
 export const SET_RECORD = 'records/SET_RECORD';
 
 export function addRecord(payload) {
@@ -12,4 +13,8 @@ export function clearRecords(payload) {
 
 export function setRecord(payload) {
   return { type: SET_RECORD, payload };
+}
+
+export function clearRecord(payload) {
+  return { type: CLEAR_RECORD, payload };
 }

@@ -12,6 +12,8 @@ import {
 import {
   addRecord,
   clearRecords,
+  setRecord,
+  clearRecord,
 } from '../modules/records';
 
 import {
@@ -33,6 +35,7 @@ import {
 */
 Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/"; // DEV
 //Pride.Settings.datastores_url = "https://dev.www.lib.umich.edu/testapp/spectrum/"; // PROD
+//Pride.Settings.datastores_url = 'https://earleyj-drupal8.www.lib.umich.edu/testapp/spectrum/' // DEV 2
 Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = false; // Console log messages
 
@@ -182,7 +185,6 @@ const setupPride = () => {
 const initializePride = () => {
   Pride.init({
     success: () => {
-      console.log('Pride successfuly loaded.');
       setupPride();
       renderApp();
     },
@@ -257,6 +259,18 @@ const prevPage = () => {
   search_switcher.prevPage()
 }
 
+const requestPrideRecord = (datastoreUid, recordUid) => {
+  if (datastoreUid && recordUid) {
+    store.dispatch(clearRecord());
+
+    const callback = (record) => {
+      store.dispatch(setRecord(record));
+    }
+
+    Pride.requestRecord(datastoreUid, recordUid, callback)
+  }
+}
+
 /*
   Expose functions that are useful externally
 */
@@ -270,5 +284,6 @@ export {
   getDatastoreUidBySlug,
   nextPage,
   prevPage,
-  config
+  config,
+  requestPrideRecord,
 }

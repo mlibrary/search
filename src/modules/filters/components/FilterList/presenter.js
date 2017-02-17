@@ -3,10 +3,10 @@ import { _ } from 'underscore';
 import numeral from 'numeral'
 
 const FilterList = ({ group, handleFilter, active}) => {
-  const filters = _.sortBy(group.filters, 'count').reverse();
-
+  const filters = _.sortBy(group.filters, 'count').reverse().splice(0,7);
+  
   return (
-    <div>
+    <div className="filter-group">
       <h3 className="filter-list-heading">{group.name}</h3>
       <ul className="filter-list">
       {_.map(filters, (filter) => {
@@ -29,7 +29,7 @@ const FilterList = ({ group, handleFilter, active}) => {
               data-group={group.uid}
               onClick={handleFilter}>
               <span
-                className="filter-value underline"
+                className="filter-value"
                 data-value={filter.value}
                 data-group={group.uid}>
                 {filter.value}
