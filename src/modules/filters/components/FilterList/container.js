@@ -74,15 +74,14 @@ class FilterListContainer extends React.Component {
 
   render() {
     const activeFilters = Object.assign({}, this.state.activeFilters);;
-    const { filters, activeDatastore, search, records } = this.props;
+    const { filters, activeDatastore } = this.props;
 
     if (Object.keys(this.props.filters.groups).length === 0) {
       return <p>No filters to display.</p>
     }
 
     return (
-      <div>
-        <h2>Filter your results</h2>
+      <div className="filter-groups">
         {_.map(filters.groups, (group) => {
           const active = this.getActiveFilters(activeDatastore, activeFilters, group.uid)
           return (

@@ -5,10 +5,12 @@
 .results-list {
   margin: 0;
   list-style: none;
+  background: white;
 }
 
 .results-list-border li {
-  border-bottom: solid 2px $grey-5;
+  border-bottom: solid 2px $grey-7;
+  padding: 2rem;
 }
 
 /*
@@ -16,10 +18,12 @@
 */
 
 .records-list-bar {
-  padding-top: 1rem;
   margin-top: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: solid 2px $grey-5;
+  padding: 1rem 2rem;
+  border-bottom: solid 2px $grey-7;
+  background: white;
+  border-radius: 4px 4px 0 0;
+  background: $grey-6;
 }
 
 .previous-page {
@@ -32,12 +36,4 @@
 
 .next-page {
 
-}
-
-/*
-  Loading
-*/
-
-.loading {
-  text-align: center;
 }

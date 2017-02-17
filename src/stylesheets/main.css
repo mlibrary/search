@@ -262,7 +262,7 @@ textarea {
   font-size: 1rem;
   border: none;
   border-radius: 4px;
-  border-bottom: 3px solid #0C5292;
+  border-bottom: 2px solid #0C5292;
   cursor: pointer;
   text-decoration: none; }
 
@@ -288,6 +288,10 @@ textarea {
   background: #CCC;
   color: #4E4E4E;
   border-color: #6E6E6E; }
+
+.button-small {
+  padding: 0.4rem 0.8rem;
+  border: none; }
 
 .button-radio {
   margin: 1rem 0;
@@ -456,7 +460,8 @@ footer {
 
 .search-box-container-full {
   background: #E6F3FF;
-  padding: 1rem 0; }
+  padding: 1rem 0;
+  border-bottom: solid 2px #CCE6FF; }
 
 .search-box-container {
   max-width: 46rem; }
@@ -469,33 +474,23 @@ footer {
   margin-right: 0; }
 
 .datastore-list-container {
-  background: #fafafa;
+  background: #FAFAFA;
   border-bottom: solid 2px #E5E5E5; }
 
 .datastore-list {
   margin: 0;
-  text-align: center; }
+  text-align: center;
+  margin-bottom: -2px; }
 
 .datastore-item {
   display: inline-block;
   padding: 0;
   margin: 0; }
 
-.datastore-item-loading {
-  margin: 0;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  padding-bottom: 0.45rem;
-  padding-top: 0.6rem;
-  text-align: center; }
-
 .datastore-item-link {
   display: inline-block;
   color: #4E4E4E;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  padding-bottom: 0.45rem;
-  padding-top: 0.6rem;
+  padding: 0.7rem 0.5rem;
   margin: 0 0.5rem;
   cursor: pointer;
   border-bottom: solid 2px transparent; }
@@ -516,33 +511,49 @@ footer {
 */
 .results-list {
   margin: 0;
-  list-style: none; }
+  list-style: none;
+  background: white; }
 
 .results-list-border li {
-  border-bottom: solid 2px #E5E5E5; }
+  border-bottom: solid 2px #F2F2F2;
+  padding: 2rem; }
 
 /*
   Search Summary // Records List Bar
 */
 .records-list-bar {
-  padding-top: 1rem;
   margin-top: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: solid 2px #E5E5E5; }
+  padding: 1rem 2rem;
+  border-bottom: solid 2px #F2F2F2;
+  background: white;
+  border-radius: 4px 4px 0 0;
+  background: #FAFAFA; }
 
 .records-summary {
   padding: 0 1rem; }
 
-/*
-  Loading
-*/
-.loading {
-  text-align: center; }
+.filter-groups {
+  margin-top: 1rem; }
+
+.filter-group {
+  background: white;
+  padding: 2rem;
+  border-bottom: solid 2px #F2F2F2;
+  border-radius: 4px; }
 
 .filter-list {
   margin: 0;
   padding: 0;
   list-style: none; }
+
+.filter-heading {
+  font-size: 1.3rem; }
+
+.filter-list-heading {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem; }
 
 .filter-item {
   padding: 0;
@@ -550,13 +561,11 @@ footer {
 
 .filter-button {
   background: none;
-  outline: none;
   border: none;
   text-align: left;
   padding: 0;
   width: 100%;
-  padding: 0.5rem;
-  margin: 0 -0.5rem;
+  padding: 0.2rem 0;
   display: flex;
   justify-content: space-between;
   cursor: pointer; }
@@ -568,17 +577,22 @@ footer {
   color: #126DC1; }
 
 .filter-active .filter-button {
-  background: #126DC1; }
+  padding: 0.5rem 0.75rem;
+  background: #126DC1;
+  border-radius: 4px; }
   .filter-active .filter-button .filter-value,
   .filter-active .filter-button .filter-count {
     color: white; }
+
+body {
+  background: #F2F2F2; }
 
 .flex-container {
   display: flex; }
 
 .side-container {
-  width: 16rem;
-  margin-right: 1.5rem; }
+  width: 22rem;
+  margin-right: 1rem; }
 
 .main-container {
   width: 100%; }
@@ -605,24 +619,54 @@ footer {
 
 .record-title {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   text-decoration: none;
   margin: 0;
   margin-bottom: 0.5rem; }
-  .record-title a:hover {
+
+.record-title-link {
+  border-bottom: solid 2px rgba(18, 109, 193, 0.4); }
+  .record-title-link:hover {
     background: #E6F3FF; }
 
+.record-field {
+  display: flex;
+  flex-wrap: wrap; }
+
+.record-field-name {
+  width: 14%;
+  font-weight: 400;
+  color: #4E4E4E;
+  flex-grow: 1; }
+
 .record-field-value {
-  margin-left: 2rem; }
+  width: 86%;
+  flex-grow: 1; }
 
 /*
   Full Record Specific
 */
 .full-record-container {
-  padding: 1rem 0; }
+  margin-top: 1rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 4px; }
 
 .full-record-title {
-  font-size: 1.5rem; }
+  font-size: 1.5rem;
+  margin-top: 0; }
+
+.loading {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  border-bottom: solid 2px #F2F2F2;
+  background: white;
+  border-radius: 4px 4px 0 0;
+  background: #FAFAFA; }
+
+.loading-text {
+  margin: 0;
+  color: #4E4E4E; }
 
 .u-break-word {
   word-wrap: break-word; }

@@ -1,11 +1,12 @@
 .datastore-list-container {
-  background: #fafafa;
+  background: $grey-6;
   border-bottom: solid 2px $grey-5;
 }
 
 .datastore-list {
   margin: 0;
   text-align: center;
+  margin-bottom: -2px;
 }
 
 .datastore-item {
@@ -14,22 +15,10 @@
   margin: 0;
 }
 
-.datastore-item-loading {
-  margin: 0;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  padding-bottom: 0.45rem;
-  padding-top: 0.6rem;
-  text-align: center;
-}
-
 .datastore-item-link {
   display: inline-block;
   color: $grey-2;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  padding-bottom: 0.45rem;
-  padding-top: 0.6rem;
+  padding: 0.7rem 0.5rem;
   margin: 0 0.5rem;
   cursor: pointer;
   border-bottom: solid 2px transparent;

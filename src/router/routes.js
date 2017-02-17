@@ -14,7 +14,8 @@ import {
 import {
   isSlugADatastore,
   switchToDatastorePride,
-  getDatastoreUidBySlug
+  getDatastoreUidBySlug,
+  requestPrideRecord
 } from '../pride-interface';
 
 import { runSearchPride } from '../pride-interface';
@@ -62,12 +63,16 @@ const handleDatastorePageComponent = (nextState, callback) => {
 
 const handleRecordPageComponent = (nextState, callback) => {
   const slug = nextState.params.datastore;
-
   if (isSlugADatastore(slug)) {
     switchToDatastorePride(slug)
+    const recordUid = nextState.params.record;
+    const datastoreUid = getDatastoreUidBySlug(slug);
+    requestPrideRecord(datastoreUid, recordUid);
+
     callback(null, RecordPage)
   }
 
+  requestPrideRecord()
   callback(null, NoMatch)
 }
 

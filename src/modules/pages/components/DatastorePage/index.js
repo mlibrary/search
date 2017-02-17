@@ -9,8 +9,6 @@ import {
   RecordListBar,
 } from '../../../records';
 
-import { store } from '../../../../store';
-
 class DatastorePage extends React.Component {
   render() {
     const { searching, records } = this.props;
@@ -20,7 +18,9 @@ class DatastorePage extends React.Component {
         <div>
           <SearchBox />
           <DatastoreNavigation />
-          <p style={{'textAlign': 'center'}}>Empty state. Begin your search.</p>
+          <div className="container container-narrow">
+            <p>Empty state. Begin your search.</p>
+          </div>
         </div>
       )
     }

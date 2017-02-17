@@ -1,11 +1,29 @@
+.filter-groups {
+    margin-top: 1rem;
+}
+
+.filter-group {
+  background: white;
+  padding: 2rem;
+  border-bottom: solid 2px $grey-7;
+  border-radius: 4px;
+}
+
 .filter-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.filter-list-heading {
+.filter-heading {
+  font-size: 1.3rem;
+}
 
+.filter-list-heading {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
 
 .filter-item {
@@ -16,14 +34,12 @@
 .filter-button {
   // reset default button styles
   background: none;
-  outline: none;
   border: none;
   text-align: left;
   padding: 0;
 
   width: 100%;
-  padding: 0.5rem;
-  margin: 0 -0.5rem;
+  padding: 0.2rem 0;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
@@ -38,11 +54,10 @@
   color: $main-3;
 }
 
-.filter-count {
-}
-
 .filter-active .filter-button {
+  padding: 0.5rem 0.75rem;
   background: $main-3;
+  border-radius: 4px;
 
   .filter-value,
   .filter-count {
