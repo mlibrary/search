@@ -45,7 +45,7 @@ class FilterListContainer extends React.Component {
 
   addFilterToURL() {
     const activeDatastore = this.props.activeDatastore;
-    const activeFilters = this.state.activeFilters
+    const activeFilters = Object.assign({}, this.state.activeFilters);
     const filterGroups = Object.keys(activeFilters[activeDatastore]);
 
     if (filterGroups.length > 0) {
@@ -73,8 +73,12 @@ class FilterListContainer extends React.Component {
   }
 
   render() {
-    const activeFilters = this.state.activeFilters;
-    const { filters, activeDatastore } = this.props;
+    const activeFilters = Object.assign({}, this.state.activeFilters);;
+    const { filters, activeDatastore, search, records } = this.props;
+
+    if (Object.keys(this.props.filters.groups).length === 0) {
+      return <p>No filters to display.</p>
+    }
 
     return (
       <div>
@@ -96,6 +100,8 @@ class FilterListContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    search: state.search,
+    records: state.records,
     filters: state.filters,
     activeDatastore: state.datastores.active,
   };

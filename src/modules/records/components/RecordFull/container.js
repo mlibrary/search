@@ -39,7 +39,7 @@ class FullRecord extends React.Component {
 
     // Checking to see if the stored record matches
     // the url record params
-    if (id_field.value != record_uid) {
+    if (id_field.value !== record_uid) {
       return (
         <div className="container container-narrow">
           <div className="full-record-container">

@@ -5,10 +5,12 @@ import RecordMedium from '../RecordMedium';
 
 class RecordListContainer extends React.Component {
   render() {
-    const { records, activeDatastore } = this.props;
+    const { records, activeDatastore, searching } = this.props;
 
-    if (records.records.length === 0) {
-      return <p>No records to display.</p>;
+    console.log('searching', searching)
+
+    if (searching) {
+      return <p>Loading results...</p>
     }
 
     return (
@@ -31,7 +33,7 @@ function mapStateToProps(state) {
   return {
     records: state.records,
     loading: state.loading,
-    search: state.search,
+    searching: state.search.searching,
     activeDatastore: state.datastores.active,
   };
 }

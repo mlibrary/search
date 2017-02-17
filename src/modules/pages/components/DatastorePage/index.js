@@ -13,18 +13,14 @@ import { store } from '../../../../store';
 
 class DatastorePage extends React.Component {
   render() {
-    const { searching } = this.props;
+    const { searching, records } = this.props;
 
-    if (searching) {
+    if (!searching && records.records.length === 0) {
       return (
         <div>
           <SearchBox />
           <DatastoreNavigation />
-          <div className="container container-medium">
-            <div className="main-container">
-              <p>Loading...</p>
-            </div>
-          </div>
+          <p style={{'textAlign': 'center'}}>Empty state. Begin your search.</p>
         </div>
       )
     }
@@ -50,6 +46,7 @@ class DatastorePage extends React.Component {
 function mapStateToProps(state) {
   return {
     searching: state.search.searching,
+    records: state.records
   };
 }
 

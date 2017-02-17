@@ -10,21 +10,21 @@ import {
 
 function RecordMedium({ record, activeDatastore }) {
   const title = record.names[0];
-  const fields = filterDisplayFields({
+  const displayFields = filterDisplayFields({
     fields: record.fields,
     type: 'medium',
     datastore: activeDatastore
   });
-  const datastore_slug = getDatastoreSlugByUid(activeDatastore);
-  const id_field = getField(fields, 'id');
+  const datastoreSlug = getDatastoreSlugByUid(activeDatastore);
+  const idField = getField(record.fields, 'id');
 
-  if (id_field) {
-    const record_uid = id_field.value;
-    const full_record_link = `/${datastore_slug}/record/${record_uid}`;
+  if (idField) {
+    const recordUid = idField.value;
+    const recordFulllink = `/${datastoreSlug}/record/${recordUid}`;
     return (
       <li className="record">
-        <h3 className="record-title"><Link className="underline" to={`${full_record_link}`}>{title}</Link></h3>
-        <FieldList fields={fields} />
+        <h3 className="record-title"><Link className="underline" to={`${recordFulllink}`}>{title}</Link></h3>
+        <FieldList fields={displayFields} />
       </li>
     )
   }
@@ -32,7 +32,7 @@ function RecordMedium({ record, activeDatastore }) {
   return (
     <li className="record">
       <h3 className="record-title">{title}</h3>
-      <FieldList fields={fields} />
+      <FieldList fields={displayFields} />
     </li>
   );
 }
