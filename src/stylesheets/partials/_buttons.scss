@@ -10,7 +10,7 @@
   font-size: $font-size-base;
   border: none;
   border-radius: 4px;
-  border-bottom: 2px solid $main-2;
+  border-bottom: 3px solid $main-2;
   cursor: pointer;
   text-decoration: none;
 }
@@ -45,7 +45,6 @@
 
 .button-small {
   padding: 0.4rem 0.8rem;
-  border: none;
 }
 
 .button-radio {

@@ -33,9 +33,15 @@ import {
 /*
   Pride Internal Configuration
 */
-Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/"; // DEV
-//Pride.Settings.datastores_url = "https://dev.www.lib.umich.edu/testapp/spectrum/"; // PROD
-//Pride.Settings.datastores_url = 'https://earleyj-drupal8.www.lib.umich.edu/testapp/spectrum/' // DEV 2
+const devSpectrum = 'http://earleyj.www.lib.umich.edu/testapp/spectrum/';
+const prodSpectrum = 'https://earleyj-drupal8.www.lib.umich.edu/testapp/spectrum/';
+
+if (process.env.NODE_ENV !== 'production') {
+  Pride.Settings.datastores_url = devSpectrum;
+} else {
+  Pride.Settings.datastores_url = prodSpectrum;
+}
+
 Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = false; // Console log messages
 

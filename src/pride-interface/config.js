@@ -8,7 +8,7 @@ const config = {
       },
       {
         uid: 'articlesplus',
-        name: 'ArticlesPlus',
+        name: 'Articles+',
       },
       {
         uid: 'databases',
@@ -16,11 +16,13 @@ const config = {
       },
       {
         uid: 'journals',
-        name: 'Journals',
+        slug: 'onlinejournals',
+        name: 'Online Journals',
       },
       {
         uid: 'website',
-        name: 'Website',
+        name: 'Library Website',
+        slug: 'librarywebsite'
       },
     ],
     multi_source: [

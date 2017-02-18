@@ -2,20 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import numeral from 'numeral'
 
-import RecordListBar from './presenter';
+import ResultsSummary from './presenter';
 
-import {
-  nextPage,
-  prevPage,
-} from '../../../../pride-interface';
-
-class ReactListBarContainer extends React.Component {
-  handlePreviousPage(){
-    prevPage()
-  }
-  handleNextPage() {
-    nextPage()
-  }
+class ResultsSummaryContainer extends React.Component {
   recordsSummary() {
     const { count, page, total_available } = this.props.search.data;
     const { records } = this.props;
@@ -40,9 +29,7 @@ class ReactListBarContainer extends React.Component {
 
     const summary = this.recordsSummary();
 
-    return <RecordListBar
-        handlePreviousPage={this.handlePreviousPage.bind(this)}
-        handleNextPage={this.handleNextPage.bind(this)}
+    return <ResultsSummary
         recordsRange={summary.range}
         recordsTotal={summary.total}
         recordsResultsText={summary.resultsText}
@@ -57,4 +44,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(ReactListBarContainer);
+export default connect(mapStateToProps)(ResultsSummaryContainer);

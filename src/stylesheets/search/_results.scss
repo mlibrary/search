@@ -17,13 +17,26 @@
   Search Summary // Records List Bar
 */
 
-.records-list-bar {
+.results-summary-container {
   margin-top: 1rem;
   padding: 1rem 2rem;
   border-bottom: solid 2px $grey-7;
   background: white;
   border-radius: 4px 4px 0 0;
   background: $grey-6;
+}
+
+.pagination-container {
+  padding: 1rem 2rem;
+  border-bottom: solid 2px $grey-7;
+  background: white;
+  border-radius: 4px 4px 0 0;
+  background: $grey-6;
+  margin-bottom: 2rem;
+
+  .results-summary {
+    padding: 0 1rem;
+  }
 }
 
 .previous-page {

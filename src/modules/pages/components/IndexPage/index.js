@@ -10,6 +10,8 @@ const IndexPage = function DatastorePage() {
       <DatastoreNavigation />
       <div className="container container-narrow">
         <p>Index page.</p>
+
+        <p className="alert">This application is running in <b>{process.env.NODE_ENV}</b> mode.</p>
       </div>
     </div>
   );

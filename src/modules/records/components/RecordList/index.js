@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import RecordMedium from '../RecordMedium';
 import { Loading } from '../../../core';
 
+import {
+  ResultsSummary,
+} from '../../../records';
+
 class RecordListContainer extends React.Component {
   render() {
     const { records, activeDatastore, searching } = this.props;
@@ -14,6 +18,9 @@ class RecordListContainer extends React.Component {
 
     return (
       <div>
+        <div className="results-summary-container">
+          <ResultsSummary />
+        </div>
         <ul className="results-list results-list-border">
           {records.records.map((record, index) =>
             <RecordMedium

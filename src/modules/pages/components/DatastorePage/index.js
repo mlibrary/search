@@ -6,7 +6,7 @@ import { DatastoreNavigation } from '../../../datastores';
 import { FilterList } from '../../../filters';
 import {
   RecordList,
-  RecordListBar,
+  Pagination,
 } from '../../../records';
 
 class DatastorePage extends React.Component {
@@ -19,7 +19,7 @@ class DatastorePage extends React.Component {
           <SearchBox />
           <DatastoreNavigation />
           <div className="container container-narrow">
-            <p>Empty state. Begin your search.</p>
+            <p className="alert">No results to display.</p>
           </div>
         </div>
       )
@@ -34,8 +34,8 @@ class DatastorePage extends React.Component {
             <FilterList />
           </div>
           <div className="main-container">
-            <RecordListBar />
             <RecordList />
+            <Pagination />
           </div>
         </div>
       </div>
