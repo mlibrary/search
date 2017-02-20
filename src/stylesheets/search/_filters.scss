@@ -3,10 +3,15 @@
 }
 
 .filter-group {
-  background: white;
-  padding: 1rem 1.5rem;
-  border-bottom: solid 2px $grey-7;
-  border-radius: 4px;
+  padding: 1rem;
+}
+
+.filter-group:first-child {
+  border-radius: 4px 4px 0 0;
+}
+
+.filter-group:last-child {
+  border-radius:  0 0 4px 4px;
 }
 
 .filter-list {
@@ -15,15 +20,12 @@
   list-style: none;
 }
 
-.filter-heading {
-  font-size: 1.3rem;
-}
-
 .filter-list-heading {
   font-weight: 600;
   font-size: 1rem;
   margin-top: 0;
   margin-bottom: 0.5rem;
+  padding: 0 0.5rem;
 }
 
 .filter-item {
@@ -39,13 +41,13 @@
   padding: 0;
 
   width: 100%;
-  padding: 0.2rem 0;
+  padding: 0.2rem 0.5rem;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
 
   &:hover {
-    background: $main-5;
+    background: $grey-5;
   }
 }
 
@@ -55,12 +57,8 @@
 }
 
 .filter-active .filter-button {
-  padding: 0.5rem 0.75rem;
-  background: $main-3;
-  border-radius: 4px;
-
   .filter-value,
   .filter-count {
-    color: white;
+    font-weight: 600;
   }
 }

@@ -562,7 +562,7 @@ footer {
   padding: 1rem 2rem;
   border-bottom: solid 2px #F2F2F2;
   background: white;
-  border-radius: 4px 4px 0 0;
+  border-radius: 0 0 4px 4px;
   background: #FAFAFA;
   margin-bottom: 2rem; }
   .pagination-container .results-summary {
@@ -575,24 +575,25 @@ footer {
   margin-top: 1rem; }
 
 .filter-group {
-  background: white;
-  padding: 1rem 1.5rem;
-  border-bottom: solid 2px #F2F2F2;
-  border-radius: 4px; }
+  padding: 1rem; }
+
+.filter-group:first-child {
+  border-radius: 4px 4px 0 0; }
+
+.filter-group:last-child {
+  border-radius: 0 0 4px 4px; }
 
 .filter-list {
   margin: 0;
   padding: 0;
   list-style: none; }
 
-.filter-heading {
-  font-size: 1.3rem; }
-
 .filter-list-heading {
   font-weight: 600;
   font-size: 1rem;
   margin-top: 0;
-  margin-bottom: 0.5rem; }
+  margin-bottom: 0.5rem;
+  padding: 0 0.5rem; }
 
 .filter-item {
   padding: 0;
@@ -604,24 +605,20 @@ footer {
   text-align: left;
   padding: 0;
   width: 100%;
-  padding: 0.2rem 0;
+  padding: 0.2rem 0.5rem;
   display: flex;
   justify-content: space-between;
   cursor: pointer; }
   .filter-button:hover {
-    background: #E6F3FF; }
+    background: #E5E5E5; }
 
 .filter-value {
   margin-right: 0.5rem;
   color: #126DC1; }
 
-.filter-active .filter-button {
-  padding: 0.5rem 0.75rem;
-  background: #126DC1;
-  border-radius: 4px; }
-  .filter-active .filter-button .filter-value,
-  .filter-active .filter-button .filter-count {
-    color: white; }
+.filter-active .filter-button .filter-value,
+.filter-active .filter-button .filter-count {
+  font-weight: 600; }
 
 body {
   background: #F2F2F2; }
