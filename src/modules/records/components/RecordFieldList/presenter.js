@@ -3,8 +3,13 @@ import React from 'react';
 import Field from '../RecordField';
 
 function RecordFieldList({ fields }) {
+
+  if (fields.length === 0) {
+    return null;
+  }
+
   return (
-    <dl>
+    <dl className="record-field-list">
       {fields.map((field, index) => (
         <Field
           field={field}

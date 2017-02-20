@@ -12,7 +12,6 @@
   font-size: 1.2rem;
   text-decoration: none;
   margin: 0;
-  margin-bottom: 0.5rem;
 }
 
 .record-title-link {
@@ -21,6 +20,10 @@
   &:hover {
     background: $main-5;
   }
+}
+
+.record-field-list {
+  margin-top: 1rem;
 }
 
 .record-field {
@@ -55,4 +58,17 @@
 .full-record-title {
   font-size: 1.5rem;
   margin-top: 0;
+}
+
+/*
+  Access
+*/
+
+.callnumber {
+  margin-right: 1rem;
+  font-weight: 600;
+}
+
+.access-line {
+  margin-bottom: 0;
 }

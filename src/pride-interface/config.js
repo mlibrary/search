@@ -51,22 +51,25 @@ const config = {
     {
       datastore: 'mirlyn',
       medium: ['author', 'format', 'publish_date'],
+      access: {
+        text: 'callnumber',
+        source: 'location'
+      }
     },
     {
-      datastore: 'website',
-      medium: ['author', 'brief'],
+      datastore: 'website'
     },
     {
       datastore: 'articlesplus',
-      medium: ['type', 'publication', 'abstract'],
+      medium: ['holdings_url', 'volume', 'issue', 'link', 'doi'],
     },
     {
       datastore: 'databases',
-      medium: ['brief_description', 'academic_discipline', 'database_type'],
+      medium: ['holdings_url', 'brief_description', 'academic_discipline', 'database_type'],
     },
     {
       datastore: 'journals',
-      medium: ['access_coverage', 'issn', 'academic_discipline', 'access_type', 'holdings'],
+      medium: ['access_coverage', 'issn', 'academic_discipline', 'holdings'],
     },
   ],
 };

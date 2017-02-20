@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import FieldList from '../RecordFieldList';
+import AccessList from '../AccessList';
 import { getDatastoreSlugByUid } from '../../../../pride-interface';
 import {
   getField,
-  filterDisplayFields
+  filterDisplayFields,
+  filterAccessFields,
 } from '../../utilities';
 
 function RecordMedium({ record, activeDatastore }) {
@@ -14,6 +16,11 @@ function RecordMedium({ record, activeDatastore }) {
     fields: record.fields,
     type: 'medium',
     datastore: activeDatastore
+  });
+  const access = filterAccessFields({
+    fields: record.fields,
+    type: 'access',
+    datastore: activeDatastore,
   });
   const datastoreSlug = getDatastoreSlugByUid(activeDatastore);
   const idField = getField(record.fields, 'id');
@@ -26,6 +33,7 @@ function RecordMedium({ record, activeDatastore }) {
         <h3 className="record-title">
           <Link className="record-title-link" to={`${recordFulllink}`}>{title}</Link></h3>
         <FieldList fields={displayFields} />
+        <AccessList access={access} />
       </li>
     )
   }
@@ -34,6 +42,7 @@ function RecordMedium({ record, activeDatastore }) {
     <li className="record">
       <h3 className="record-title">{title}</h3>
       <FieldList fields={displayFields} />
+      <AccessList access={access} />
     </li>
   );
 }

@@ -9,13 +9,11 @@ import {
 } from '../../../../pride-interface';
 
 class PaginationContainer extends React.Component {
-  handlePreviousPage(){
+  handlePreviousPage() {
     prevPage();
-    scroll(0,0);
   }
   handleNextPage() {
     nextPage();
-    scroll(0,0);
   }
   render() {
     const { records } = this.props;

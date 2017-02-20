@@ -435,11 +435,15 @@ nav {
   font-size: 1.5rem;
   color: white; }
 
+.logo-search a {
+  color: white; }
+
 .logo-library {
   border-right: solid 1px rgba(255, 255, 255, 0.5);
   border-left: solid 1px rgba(255, 255, 255, 0.5);
-  color: rgba(255, 255, 255, 0.5);
   padding-right: 1rem; }
+  .logo-library a {
+    color: rgba(255, 255, 255, 0.5); }
 
 footer {
   background: #00274C;
@@ -657,13 +661,15 @@ body {
   font-weight: 600;
   font-size: 1.2rem;
   text-decoration: none;
-  margin: 0;
-  margin-bottom: 0.5rem; }
+  margin: 0; }
 
 .record-title-link {
   border-bottom: solid 2px rgba(18, 109, 193, 0.4); }
   .record-title-link:hover {
     background: #E6F3FF; }
+
+.record-field-list {
+  margin-top: 1rem; }
 
 .record-field {
   display: flex;
@@ -691,6 +697,16 @@ body {
 .full-record-title {
   font-size: 1.5rem;
   margin-top: 0; }
+
+/*
+  Access
+*/
+.callnumber {
+  margin-right: 1rem;
+  font-weight: 600; }
+
+.access-line {
+  margin-bottom: 0; }
 
 .loading {
   margin-top: 1rem;
