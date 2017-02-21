@@ -77,7 +77,7 @@ class FilterListContainer extends React.Component {
     const { filters, activeDatastore } = this.props;
 
     if (Object.keys(this.props.filters.groups).length === 0) {
-      return <p className="alert">No filters to display.</p>
+      return <p className="alert no-border">No filters to display.</p>
     }
 
     return (

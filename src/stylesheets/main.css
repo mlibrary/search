@@ -509,6 +509,10 @@ footer {
 .search-box {
   display: flex; }
 
+input.search-box-input {
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(18, 109, 193, 0.4); }
+
 .search-box-button {
   margin-left: 1rem;
   margin-right: 0; }
@@ -579,7 +583,9 @@ footer {
   margin-top: 1rem; }
 
 .filter-group {
-  padding: 1rem; }
+  padding: 1rem;
+  background: #FAFAFA;
+  border-bottom: solid 2px #F2F2F2; }
 
 .filter-group:first-child {
   border-radius: 4px 4px 0 0; }
@@ -683,7 +689,8 @@ body {
 
 .record-field-value {
   width: 86%;
-  flex-grow: 1; }
+  flex-grow: 1;
+  word-wrap: break-word; }
 
 /*
   Full Record Specific
@@ -705,8 +712,24 @@ body {
   margin-right: 1rem;
   font-weight: 600; }
 
+.access-container {
+  margin-top: 1rem; }
+
 .access-line {
-  margin-bottom: 0; }
+  margin: 0; }
+
+.access-text {
+  margin-right: 0.5rem;
+  font-weight: 600; }
+
+.access-link {
+  font-weight: 400; }
+
+.access-availability {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4E4E4E; }
 
 .loading {
   margin-top: 1rem;
@@ -743,3 +766,6 @@ body {
 
 .no-margin {
   margin: 0; }
+
+.no-border {
+  border: none; }

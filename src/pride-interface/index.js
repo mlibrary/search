@@ -33,13 +33,10 @@ import {
 /*
   Pride Internal Configuration
 */
-const devSpectrum = 'http://earleyj.www.lib.umich.edu/testapp/spectrum/';
-const prodSpectrum = 'https://earleyj-drupal8.www.lib.umich.edu/testapp/spectrum/';
-
 if (process.env.NODE_ENV !== 'production') {
-  Pride.Settings.datastores_url = devSpectrum;
+  Pride.Settings.datastores_url = config.spectrum.development;
 } else {
-  Pride.Settings.datastores_url = prodSpectrum;
+  Pride.Settings.datastores_url = config.spectrum.production;
 }
 
 Pride.Settings.connection_attempts = 2;

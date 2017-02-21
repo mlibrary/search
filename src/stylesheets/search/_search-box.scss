@@ -12,6 +12,11 @@
   display: flex;
 }
 
+input.search-box-input {
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba($main-3,0.4);
+}
+
 .search-box-button {
   margin-left: 1rem;
   margin-right: 0;

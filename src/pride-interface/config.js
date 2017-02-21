@@ -1,4 +1,8 @@
 const config = {
+  spectrum: {
+    production: 'https://earleyj-drupal8.www.lib.umich.edu/testapp/spectrum/',
+    development: 'http://earleyj.www.lib.umich.edu/testapp/spectrum/',
+  },
   datastores: {
     naming: [
       {
@@ -57,19 +61,28 @@ const config = {
       }
     },
     {
-      datastore: 'website'
-    },
-    {
       datastore: 'articlesplus',
-      medium: ['holdings_url', 'volume', 'issue', 'link', 'doi'],
+      medium: ['volume', 'issue', 'doi'],
+      access: {
+        textDefault: 'Available Online',
+        link: 'link'
+      }
     },
-    {
-      datastore: 'databases',
-      medium: ['holdings_url', 'brief_description', 'academic_discipline', 'database_type'],
-    },
+
     {
       datastore: 'journals',
       medium: ['access_coverage', 'issn', 'academic_discipline', 'holdings'],
+      access: {
+        textDefault: 'Go To Journal',
+        link: 'access_url'
+      },
+    },
+    {
+      datastore: 'website'
+    },
+    {
+      datastore: 'databases',
+      medium: ['brief_description', 'academic_discipline', 'database_type'],
     },
   ],
 };

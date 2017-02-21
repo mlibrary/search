@@ -6,7 +6,7 @@ class AccessListContainer extends React.Component {
   render() {
     const { access } = this.props;
 
-    if (access.length === 0) {
+    if (!access) {
       return null
     }
 
