@@ -43,10 +43,11 @@
   padding: 0;
 
   width: 100%;
-  padding: 0.2rem 0.5rem;
+  padding: 0.3rem 0.5rem;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
+  border-radius: 4px;
 
   &:hover {
     background: $grey-5;
@@ -59,8 +60,11 @@
 }
 
 .filter-active .filter-button {
+  background: $main-3;
+  border-radius: 4px;
+
   .filter-value,
   .filter-count {
-    font-weight: 600;
+    color: white;
   }
 }

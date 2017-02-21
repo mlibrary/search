@@ -10,6 +10,7 @@ const recordReducer = (state = {}, action) => {
 };
 
 const recordsInitialState = {
+  loading: false,
   records: [],
   record: null,
   pagination: {},
@@ -35,6 +36,10 @@ const recordsReducer = (state = recordsInitialState, action) => {
     case actions.SET_RECORD:
       return Object.assign({}, state, {
         record: action.payload,
+      });
+    case actions.LOADING_RECORDS:
+      return Object.assign({}, state, {
+        loading: action.payload,
       });
     default:
       return state;

@@ -8,6 +8,7 @@ import {
   clearRecords,
   setRecord,
   clearRecord,
+  loadingRecords
 } from './actions';
 
 export {
@@ -20,4 +21,5 @@ export {
   clearRecords,
   setRecord,
   clearRecord,
+  loadingRecords
 };

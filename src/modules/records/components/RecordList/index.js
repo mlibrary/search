@@ -11,9 +11,9 @@ import {
 
 class RecordListContainer extends React.Component {
   render() {
-    const { records, activeDatastore, searching } = this.props;
+    const { records, activeDatastore, loadingRecords } = this.props;
 
-    if (searching) {
+    if (loadingRecords) {
       return <Loading />
     }
 
@@ -40,7 +40,7 @@ class RecordListContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     records: state.records,
-    loading: state.loading,
+    loadingRecords: state.records.loading,
     searching: state.search.searching,
     activeDatastore: state.datastores.active,
   };

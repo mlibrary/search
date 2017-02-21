@@ -14,6 +14,7 @@ import {
   clearRecords,
   setRecord,
   clearRecord,
+  loadingRecords
 } from '../modules/records';
 
 import {
@@ -42,24 +43,61 @@ if (process.env.NODE_ENV !== 'production') {
 Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = false; // Console log messages
 
-let search_switcher;
+let searchSwitcher;
 
 /*
-  Return Search Objects constructed from their
-  relative datastore objects
-*/
-const getSearchObjects = () => {
-  const datastores = Pride.AllDatastores.array.filter(function (ds) {
-    const config_datastores = _.pluck(config.datastores.naming, 'uid');
-    return _.contains(config_datastores, ds.get('uid'));
-  });
+const getMultiSearchObjects = () => {
+  const multiSearchesConfig = config.datastores.multi;
+  const allDatastores = Pride.AllDatastores.array;
 
-  const search_objects = datastores.map((ds) => {
-    return ds.baseSearch();
-  });
+  const multiSearches = _.map(multiSearchesConfig, (multiSearchConfig) => {
+    const searchObjects = allDatastores.reduce(function(memo, datastore) {
+      const uid = datastore.get('uid');
+
+      if (_.contains(multiSearchConfig.datastores, uid)) {
+        memo.push(datastore.baseSearch())
+      }
+      return memo;
+    }, []);
+
+    const MultiSearch = new Pride.Util.MultiSearch(multiSearchConfig.uid, true, searchObjects);
+    MultiSearch.set({count: 3});
+
+    return MultiSearch;
+  })
+
+  return multiSearches;
+}
+*/
+
+const getSearchObjects = () => {
+  const allDatastores = Pride.AllDatastores.array;
+  const configDatastores = config.datastores.list;
+
+  const searchObjects = configDatastores.reduce(function(memo, configDs) {
+
+    // Single Result Datastore
+    if (configDs.datastores.length === 1) {
+      const configDsUid = configDs.datastores[0];
+
+      const foundDatastore = _.find(allDatastores, function(ds) {
+        const uid = ds.get('uid');
+
+        return uid === configDsUid
+      })
+
+      memo.push(foundDatastore.baseSearch())
+
+    // Multi Result Datastore
+    } else {
+
+    }
+
+    return memo;
+  }, []);
 
   const ordered = config.datastores.ordering.map(function (uid) {
-    return _.findWhere(search_objects, { uid: uid });
+    return _.findWhere(searchObjects, { uid: uid });
   })
 
   return _.filter(ordered, function (so) {
@@ -67,39 +105,56 @@ const getSearchObjects = () => {
   })
 }
 
+const getDatastoreName = (uid) => {
+  const ds = _.findWhere(config.datastores.list, { uid: uid })
 
-/*
-  Setup Pride does a few things:
-    1. Create datastore search objects
-    2. Setup result (record) observers
-*/
+  if (ds && ds.name) {
+    return ds.name
+  }
+
+  return undefined;
+}
+
+const getDatastoreSlug = (uid) => {
+  const ds = _.findWhere(config.datastores.list, { uid: uid })
+
+  if (ds && ds.slug) {
+    return ds.slug
+  }
+
+  return undefined;
+}
+
 const setupPride = () => {
-  const search_objects = getSearchObjects();
+  const searchObjects = getSearchObjects();
 
   /*
     Search objects is the search wrapper around a datastore. We use these when
     constructing a search switcher and for accessing datastore metadata.
   */
-  _.each(search_objects, function (so) {
-    // Pull the configured datastore name (uid lookup matching)
-    const configured_ds = _.findWhere(config.datastores.naming, { uid: so.uid });
-    so.set({count: 10});
+  _.each(searchObjects, function (so) {
+    const name = getDatastoreName(so.uid);
+    const slug = getDatastoreSlug(so.uid);
 
     store.dispatch(addDatastore({
       uid: so.uid,
-      name: configured_ds.name,
-      slug: configured_ds.slug || so.uid
+      name: name,
+      slug: slug || so.uid
     }))
   });
 
   /*
     Setup search object observers
   */
-  _.each(search_objects, function(so) {
+  _.each(searchObjects, function(so) {
     so.resultsObservers.add(function(results) {
-      const active_datastore = store.getState().datastores.active;
+      const activeDatastore = store.getState().datastores.active;
 
-      if (active_datastore === so.uid) {
+      console.log('activeDatastore', activeDatastore)
+      console.log('searchObject', so)
+      console.log('results', results)
+
+      if (activeDatastore === so.uid) {
         store.dispatch(clearRecords());
 
         _.each(results, (record) => {
@@ -116,7 +171,9 @@ const setupPride = () => {
             "count": data.count,
             "page": data.page,
             "total_pages": data.total_pages,
-            "total_available": data.total_available
+            "total_available": data.total_available,
+            "sorts": data.sorts,
+            "selected_sort": data.selected_sort,
           }
         ))
 
@@ -128,15 +185,15 @@ const setupPride = () => {
 
         // Check to see if records have loaded.
         if (records_length === count || check_last_page) {
-          store.dispatch(searching(false))
+          store.dispatch(loadingRecords(false))
         }
       }
     })
 
     so.facetsObservers.add(function(filter_groups) {
-      const active_datastore = store.getState().datastores.active
+      const activeDatastore = store.getState().datastores.active
 
-      if (active_datastore === so.uid) {
+      if (activeDatastore === so.uid) {
         store.dispatch(clearFilters())
 
         filter_groups.forEach(filter_group => {
@@ -148,20 +205,6 @@ const setupPride = () => {
             })
           })
         })
-
-        /*
-        _.each(facets_data, function(facet) {
-          facet.resultsObservers.add(function(results) {
-            _.each(results, function(result) {
-              store.dispatch(addFilter({
-                uid: facet.uid,
-                metadata: facet.getData('metadata'),
-                item: result
-              }))
-            })
-          })
-        })
-        */
       }
     })
 
@@ -170,12 +213,12 @@ const setupPride = () => {
   /*
     Setup Search Switcher
   */
-  const default_search_object = _.findWhere(search_objects, { uid: config.datastores.default })
-  const remaining_search_objects = _.reject(search_objects, (search_object) => {
+  const default_search_object = _.findWhere(searchObjects, { uid: config.datastores.default })
+  const remaining_search_objects = _.reject(searchObjects, (search_object) => {
     return search_object.uid === config.datastores.default
   })
 
-  search_switcher = new Pride.Util.SearchSwitcher(
+  searchSwitcher = new Pride.Util.SearchSwitcher(
     default_search_object,
     remaining_search_objects
   )
@@ -209,21 +252,17 @@ const runSearchPride = () => {
     facets: facets,
   };
 
+  console.log('config', config)
+
   store.dispatch(searching(true))
-  search_switcher.set(config).run();
+  store.dispatch(loadingRecords(true))
+  searchSwitcher.set(config).run();
 }
 
-const fetchPrideRecord = (datastore_uid, record_uid) => {
-  const record = Pride.requestRecord(datastore_uid, record_uid)
-
-  record.renderFull((record_data) => {
-    //store.dispatch(setRecord(record_data))
-  })
-}
-
-const getDatastoreUidBySlug = (slug) => {
-  const datastores = config.datastores.naming;
-  const ds = _.findWhere(datastores, {slug: slug}) || _.findWhere(datastores, {uid: slug});
+const getDatastoreUidBySlug = (slugParam) => {
+  const slugDs = _.findWhere(config.datastores.list, {slug: slugParam})
+  const uidDs = _.findWhere(config.datastores.list, {uid: slugParam});
+  const ds = slugDs || uidDs;
 
   if (!ds) {
     return false;
@@ -233,8 +272,7 @@ const getDatastoreUidBySlug = (slug) => {
 }
 
 const getDatastoreSlugByUid = (uid) => {
-  const datastores = config.datastores.naming;
-  const ds = _.findWhere(datastores, {uid: uid});
+  const ds = _.findWhere(config.datastores.list, {uid: uid});
 
   return ds.slug || ds.uid;
 }
@@ -247,19 +285,22 @@ const switchToDatastorePride = (slug) => {
   }
 
   store.dispatch(changeActiveDatastore(uid))
-  search_switcher.switchTo(uid)
+  searchSwitcher.switchTo(uid)
 }
 
 const isSlugADatastore = (slug) => {
-  return getDatastoreUidBySlug(slug) !== false;
+  const slugDs = _.findWhere(config.datastores.list, {slug: slug})
+  const uidDs = _.findWhere(config.datastores.list, {uid: slug});
+
+  return slugDs || uidDs
 }
 
 const nextPage = () => {
-  search_switcher.nextPage()
+  searchSwitcher.nextPage()
 }
 
 const prevPage = () => {
-  search_switcher.prevPage()
+  searchSwitcher.prevPage()
 }
 
 const requestPrideRecord = (datastoreUid, recordUid) => {
@@ -280,7 +321,6 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
 export {
   initializePride,
   runSearchPride,
-  fetchPrideRecord,
   switchToDatastorePride,
   isSlugADatastore,
   getDatastoreSlugByUid,

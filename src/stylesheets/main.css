@@ -618,10 +618,11 @@ input.search-box-input {
   text-align: left;
   padding: 0;
   width: 100%;
-  padding: 0.2rem 0.5rem;
+  padding: 0.3rem 0.5rem;
   display: flex;
   justify-content: space-between;
-  cursor: pointer; }
+  cursor: pointer;
+  border-radius: 4px; }
   .filter-button:hover {
     background: #E5E5E5; }
 
@@ -629,9 +630,12 @@ input.search-box-input {
   margin-right: 0.5rem;
   color: #126DC1; }
 
-.filter-active .filter-button .filter-value,
-.filter-active .filter-button .filter-count {
-  font-weight: 600; }
+.filter-active .filter-button {
+  background: #126DC1;
+  border-radius: 4px; }
+  .filter-active .filter-button .filter-value,
+  .filter-active .filter-button .filter-count {
+    color: white; }
 
 body {
   background: #F2F2F2; }
@@ -741,10 +745,6 @@ body {
   background: white;
   border-radius: 4px 4px 0 0;
   background: #FAFAFA; }
-
-.loading-text {
-  margin: 0;
-  color: #4E4E4E; }
 
 .u-break-word {
   word-wrap: break-word; }

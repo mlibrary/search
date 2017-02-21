@@ -11,15 +11,21 @@ import {
 
 class DatastorePage extends React.Component {
   render() {
-    const { searching, records } = this.props;
+    const { searching } = this.props;
 
-    if (!searching && records.records.length === 0) {
+    if (searching) {
       return (
         <div>
           <SearchBox />
           <DatastoreNavigation />
-          <div className="container container-narrow">
-            <p className="alert">No results to display.</p>
+          <div className="container container-medium flex-container">
+            <div className="side-container">
+              <FilterList />
+            </div>
+            <div className="main-container">
+              <RecordList />
+              <Pagination />
+            </div>
           </div>
         </div>
       )
@@ -29,24 +35,17 @@ class DatastorePage extends React.Component {
       <div>
         <SearchBox />
         <DatastoreNavigation />
-        <div className="container container-medium flex-container">
-          <div className="side-container">
-            <FilterList />
-          </div>
-          <div className="main-container">
-            <RecordList />
-            <Pagination />
-          </div>
+        <div className="container container-narrow">
+          <p className="alert">Begin your search. Empty state.</p>
         </div>
       </div>
-    );
+    )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    searching: state.search.searching,
-    records: state.records
+    searching: state.search.searching
   };
 }
 

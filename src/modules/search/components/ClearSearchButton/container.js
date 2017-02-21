@@ -7,13 +7,18 @@ import { clearSearch } from '../../actions';
 import { clearRecords } from '../../../records';
 import { clearFilters } from '../../../filters';
 
+import {
+  removeQuery
+} from '../../../../router';
+
 class ClearSearchButtonContainer extends React.Component {
   handleClick() {
-    console.log('clear search')
+    removeQuery('q');
+    removeQuery('filter');
+
     store.dispatch(clearRecords())
     store.dispatch(clearFilters())
     store.dispatch(clearSearch())
-    document.getElementsByClassName('search-box-input')[0].value = '';
   }
   render() {
     return <ClearSearchButton handleClick={this.handleClick} />

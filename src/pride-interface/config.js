@@ -4,45 +4,49 @@ const config = {
     development: 'http://earleyj.www.lib.umich.edu/testapp/spectrum/',
   },
   datastores: {
-    naming: [
+    list: [
       {
         uid: 'mirlyn',
         name: 'Catalog',
-        slug: 'catalog', // optional url replacement instead of uid
+        slug: 'catalog',
+        datastores: ['mirlyn'],
       },
       {
         uid: 'articlesplus',
         name: 'Articles+',
+        datastores: ['articlesplus'],
       },
       {
         uid: 'databases',
         name: 'Databases',
+        datastores: ['databases'],
       },
       {
         uid: 'journals',
-        slug: 'onlinejournals',
         name: 'Online Journals',
+        slug: 'onlinejournals',
+        datastores: ['journals'],
       },
       {
         uid: 'website',
         name: 'Library Website',
-        slug: 'librarywebsite'
+        slug: 'librarywebsite',
+        datastores: ['website'],
       },
-    ],
-    multi_source: [
       {
-        uid: 'quick-search',
-        name: 'Quick Search',
+        uid: 'everything',
+        name: 'Everything',
         datastores: [
           'mirlyn',
           'articlesplus',
           'journals',
           'databases',
+          'website',
         ],
-      },
+      }
     ],
     ordering: [
-      'quick-search',
+      'everything',
       'mirlyn',
       'articlesplus',
       'journals',
@@ -73,7 +77,7 @@ const config = {
       datastore: 'journals',
       medium: ['access_coverage', 'issn', 'academic_discipline', 'holdings'],
       access: {
-        textDefault: 'Go To Journal',
+        textDefault: 'Go To Online Journal',
         link: 'access_url'
       },
     },
