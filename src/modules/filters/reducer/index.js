@@ -65,9 +65,7 @@ const filtersReducer = function filterReducer(state = initialState, action) {
         },
       });
     case CLEAR_FILTERS:
-      return Object.assign({}, state, {
-        groups: {},
-      });
+      return initialState;
     case CLEAR_ACTIVE_FILTERS:
       const { activeDatastore } = action.payload;
       return Object.assign({}, state, {

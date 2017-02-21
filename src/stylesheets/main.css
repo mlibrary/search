@@ -566,6 +566,9 @@ input.search-box-input {
   border-radius: 4px 4px 0 0;
   background: #FAFAFA; }
 
+.results-summary {
+  padding-right: 1rem; }
+
 .pagination-container {
   padding: 1rem 2rem;
   border-bottom: solid 2px #F2F2F2;

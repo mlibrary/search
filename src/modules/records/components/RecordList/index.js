@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import RecordMedium from '../RecordMedium';
 import { Loading } from '../../../core';
+import { ClearSearchButton } from '../../../search';
 
 import {
   ResultsSummary,
@@ -20,6 +21,7 @@ class RecordListContainer extends React.Component {
       <div>
         <div className="results-summary-container">
           <ResultsSummary />
+          <ClearSearchButton />
         </div>
         <ul className="results-list results-list-border">
           {records.records.map((record, index) =>
