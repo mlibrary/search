@@ -9,7 +9,7 @@ const IndexPage = function DatastorePage() {
       <SearchBox />
       <DatastoreNavigation />
       <div className="container container-narrow">
-        <p>Index page.</p>
+        <p>Index page. Select a datastore to begin your search.</p>
 
         <p className="alert">This application is running in <b>{process.env.NODE_ENV}</b> mode.</p>
       </div>

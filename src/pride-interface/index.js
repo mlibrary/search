@@ -150,12 +150,14 @@ const setupPride = () => {
     so.resultsObservers.add(function(results) {
       const activeDatastore = store.getState().datastores.active;
 
-      console.log('activeDatastore', activeDatastore)
-      console.log('searchObject', so)
-      console.log('results', results)
-
       if (activeDatastore === so.uid) {
         store.dispatch(clearRecords());
+
+        console.log('---- results ----')
+        console.log('activeDatastore', activeDatastore)
+        console.log('searchObject', so)
+        console.log('activeDatastore === so.uid', activeDatastore === so.uid, activeDatastore, so.uid)
+        console.log('results', results)
 
         _.each(results, (record) => {
           if (record !== undefined) {
@@ -213,14 +215,14 @@ const setupPride = () => {
   /*
     Setup Search Switcher
   */
-  const default_search_object = _.findWhere(searchObjects, { uid: config.datastores.default })
-  const remaining_search_objects = _.reject(searchObjects, (search_object) => {
-    return search_object.uid === config.datastores.default
+  const defaultSearchObject = _.findWhere(searchObjects, { uid: config.datastores.default })
+  const remainingSearchObjects = _.reject(searchObjects, (so) => {
+    return so.uid === config.datastores.default
   })
 
   searchSwitcher = new Pride.Util.SearchSwitcher(
-    default_search_object,
-    remaining_search_objects
+    defaultSearchObject,
+    remainingSearchObjects
   )
 }
 
@@ -245,6 +247,10 @@ const runSearchPride = () => {
   const query = state.search.query;
   const page = state.search.page;
   const facets = state.filters.active[state.datastores.active];
+
+  console.log('------------')
+  console.log('runSearchPride')
+  console.log('query', query)
 
   const config = {
     field_tree: Pride.FieldTree.parseField('all_fields', query),
