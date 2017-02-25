@@ -27,20 +27,19 @@
 }
 
 .record-field {
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
 }
 
 .record-field-name {
-  width: 14%;
-  font-weight: 400;
-  color: $grey-2;
-  flex-grow: 1;
+  display: inline-block;
+}
+.record-field-name:after {
+  content: ':';
+  padding-right: 0.1rem;
 }
 
 .record-field-value {
-  width: 86%;
-  flex-grow: 1;
+  display: inline-block;
   word-wrap: break-word;
 }
 

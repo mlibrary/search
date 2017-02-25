@@ -12,7 +12,7 @@ const Header = function Header() {
           </a>
         </li>
         <li className="logo-library"><a href="http://lib.umich.edu">Library</a></li>
-        <li className="logo-search"><a href="/">Search</a></li>
+        <li className="logo-search"><a href="/">Search<sup>BETA</sup></a></li>
       </ul>
     </header>
   );

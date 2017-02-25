@@ -317,11 +317,16 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
 
   const multiSearchRecords = _.pick(allRecords, configDs.datastores);
   const bentoBoxes = _.reduce(configDs.datastores, (memo, ds) => {
+    let records = undefined;
+    if (multiSearchRecords[ds]) {
+      records = multiSearchRecords[ds].slice(0,3)
+    }
+
     memo.push({
       uid: ds,
       name: getDatastoreName(ds),
       slug: getDatastoreSlug(ds),
-      records: multiSearchRecords[ds]
+      records: records,
     })
 
     return memo;

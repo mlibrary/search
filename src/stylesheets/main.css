@@ -183,6 +183,10 @@ blockquote {
 b {
   font-weight: 600; }
 
+sup {
+  font-size: 0.6em;
+  vertical-align: top; }
+
 label {
   margin-bottom: 0.1rem;
   color: #4E4E4E;
@@ -685,18 +689,17 @@ body {
   margin-top: 1rem; }
 
 .record-field {
-  display: flex;
-  flex-wrap: wrap; }
+  display: block; }
 
 .record-field-name {
-  width: 14%;
-  font-weight: 400;
-  color: #4E4E4E;
-  flex-grow: 1; }
+  display: inline-block; }
+
+.record-field-name:after {
+  content: ':';
+  padding-right: 0.1rem; }
 
 .record-field-value {
-  width: 86%;
-  flex-grow: 1;
+  display: inline-block;
   word-wrap: break-word; }
 
 /*
@@ -745,6 +748,36 @@ body {
   background: white;
   border-radius: 4px 4px 0 0;
   background: #FAFAFA; }
+
+.bentobox-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0; }
+
+.bentobox {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0; }
+  .bentobox .results-list {
+    border-radius: 4px; }
+  .bentobox .results-list-border li {
+    padding: 1.75rem; }
+    .bentobox .results-list-border li .record-title {
+      font-size: 1.1rem; }
+
+.bentobox-heading {
+  margin-top: 0; }
+
+@media (min-width: 36rem) {
+  .bentobox {
+    width: calc(100% * (1/2) - 1rem);
+    margin-right: 1rem; } }
+
+@media (min-width: 58rem) {
+  .bentobox {
+    width: calc(100% * (1/3) - 1rem);
+    margin-right: 1rem; } }
 
 .u-break-word {
   word-wrap: break-word; }

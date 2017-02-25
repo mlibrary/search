@@ -3,25 +3,36 @@ import { connect } from 'react-redux';
 import { _ } from 'underscore';
 
 import { getMultiSearchRecords } from '../../../../pride-interface';
+import RecordPreview from '../RecordPreview';
 
 class BentoboxList extends React.Component {
   render() {
     const { allRecords, activeDatastore } = this.props;
     const bentoboxListRecords = getMultiSearchRecords(activeDatastore, allRecords);
 
-    console.log('bentoboxListRecords', bentoboxListRecords)
-
     return (
-      <div>
-        {bentoboxListRecords.map(list => {
+      <ul className="bentobox-list">
+        {bentoboxListRecords.map(bentobox => {
+
+          if (!bentobox.records) {
+            return null
+          }
+
           return (
-            <p key={list.uid}>{list.name}</p>
+            <li key={bentobox.uid} className="bentobox">
+              <h2 className="bentobox-heading">{bentobox.name}</h2>
+              <ul className="results-list results-list-border">
+                {bentobox.records.map((record, index) => {
+                  return (
+                    <RecordPreview key={index} activeDatastore={bentobox.uid} record={record} />
+                  )
+                })}
+              </ul>
+            </li>
           )
         })}
-      </div>
+      </ul>
     )
-
-    return <p>BentoBoxes {this.props.activeDatastore}</p>
   }
 }
 
