@@ -75,24 +75,20 @@ const handleSearchData = (data) => {
 
 const setupObservers = (searchObj) => {
   searchObj.resultsObservers.add(function(results) {
-    const activeDs = store.getState().datastores.active;
-    if (activeDs === searchObj.uid) {
+    store.dispatch(clearRecords(searchObj.uid));
 
-      console.log('clear records,', activeDs, searchObj.uid)
+    _.each(results, (record) => {
+      if (record !== undefined) {
+        record.renderFull((recordData) => {
+          store.dispatch(addRecord({
+            datastore: searchObj.uid,
+            data: recordData,
+          }));
+        })
+      }
+    });
 
-      store.dispatch(clearRecords(searchObj.uid));
-
-      _.each(results, (record) => {
-        if (record !== undefined) {
-          record.renderFull((recordData) => {
-            store.dispatch(addRecord({
-              datastore: searchObj.uid,
-              data: recordData,
-            }));
-          })
-        }
-      });
-
+    if (store.getState().datastores.active === searchObj.uid) {
       handleSearchData(searchObj.getData())
     }
   })
@@ -148,7 +144,7 @@ const setupSearches = () => {
     }, [])
   );
 
-  const searchObjects = _.reduce(datastores, (memo, uid) => {
+  const allSearchObjects = _.reduce(datastores, (memo, uid) => {
     const foundDatastore = _.find(allDatastores, function(ds) {
       return ds.get('uid') === uid
     })
@@ -164,11 +160,34 @@ const setupSearches = () => {
     return memo
   }, [])
 
-  //const multiSearchObj = new Pride.Util.MultiSearch(configDs.uid, true, multiSearchObjects);
-  //memo.push(multiSearchObj)
+  const multiSearchDatastores = _.reduce(config.datastores.list, (memo, dsConfig) => {
+      if (dsConfig.datastores) {
+        memo.push(dsConfig)
+      }
+    return memo;
+  }, [])
 
-  const defaultSearchObject = _.findWhere(searchObjects, { uid: config.datastores.default })
-  const remainingSearchObjects = _.reject(searchObjects, (searchObj) => {
+  const multiSearchObjects = _.reduce(multiSearchDatastores, (memo, multiDatastoreConfig) => {
+    const multiSearchInternalObjects = [];
+
+    _.each(multiDatastoreConfig.datastores, (ds) => {
+      const foundSearchObj = _.findWhere(allSearchObjects, { uid: ds })
+
+      if (foundSearchObj) {
+        multiSearchInternalObjects.push(foundSearchObj);
+      }
+    })
+
+    if (multiSearchInternalObjects.length > 0) {
+      memo.push(new Pride.Util.MultiSearch(multiDatastoreConfig.uid, true, multiSearchInternalObjects))
+    }
+
+    return memo;
+  }, [])
+
+  const publicSearchObjects = multiSearchObjects.concat(allSearchObjects);
+  const defaultSearchObject = _.findWhere(publicSearchObjects, { uid: config.datastores.default })
+  const remainingSearchObjects = _.reject(publicSearchObjects, (searchObj) => {
     return searchObj.uid === config.datastores.default
   })
 
@@ -183,14 +202,15 @@ const setupSearches = () => {
   })
   */
 
-  _.each(searchObjects, function (searchObj) {
+  _.each(publicSearchObjects, function (searchObj) {
     const name = getDatastoreName(searchObj.uid);
     const slug = getDatastoreSlug(searchObj.uid);
 
     store.dispatch(addDatastore({
       uid: searchObj.uid,
       name: name,
-      slug: slug || searchObj.uid
+      slug: slug || searchObj.uid,
+      isMultisearch: searchObj.searches !== undefined ? true : false,
     }))
   });
 }
@@ -287,6 +307,29 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
   }
 }
 
+const getMultiSearchRecords = (activeDatastore, allRecords) => {
+  const configDs = _.findWhere(config.datastores.list, { uid: activeDatastore })
+
+  if (!configDs) {
+    console.log('Config error: getMultiSearchRecords')
+    return undefined;
+  }
+
+  const multiSearchRecords = _.pick(allRecords, configDs.datastores);
+  const bentoBoxes = _.reduce(configDs.datastores, (memo, ds) => {
+    memo.push({
+      uid: ds,
+      name: getDatastoreName(ds),
+      slug: getDatastoreSlug(ds),
+      records: multiSearchRecords[ds]
+    })
+
+    return memo;
+  }, [])
+
+  return bentoBoxes
+}
+
 /*
   Expose functions that are useful externally
 */
@@ -301,4 +344,5 @@ export {
   prevPage,
   config,
   requestPrideRecord,
+  getMultiSearchRecords
 }

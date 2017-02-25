@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { _ } from 'underscore';
 
 import { SearchBox } from '../../../search';
 import { DatastoreNavigation } from '../../../datastores';
 import { FilterList } from '../../../filters';
+import { BentoboxList } from '../../../records';
 import {
   RecordList,
   Pagination,
@@ -11,7 +13,22 @@ import {
 
 class DatastorePage extends React.Component {
   render() {
-    const { searching } = this.props;
+    const { searching, datastores } = this.props;
+    const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+
+    if (activeDatastore.isMultisearch) {
+      return (
+        <div>
+          <SearchBox />
+          <DatastoreNavigation />
+          <div className="container container-medium flex-container">
+            <div className="main-container">
+              <BentoboxList />
+            </div>
+          </div>
+        </div>
+      )
+    }
 
     if (searching) {
       return (
@@ -45,7 +62,8 @@ class DatastorePage extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    searching: state.search.searching
+    searching: state.search.searching,
+    datastores: state.datastores,
   };
 }
 

@@ -2,6 +2,7 @@ import RecordList from './components/RecordList';
 import Pagination from './components/Pagination';
 import RecordFull from './components/RecordFull';
 import ResultsSummary from './components/ResultsSummary';
+import BentoboxList from './components/BentoboxList';
 import recordsReducer from './reducer';
 import {
   addRecord,
@@ -21,5 +22,6 @@ export {
   clearRecords,
   setRecord,
   clearRecord,
-  loadingRecords
+  loadingRecords,
+  BentoboxList,
 };

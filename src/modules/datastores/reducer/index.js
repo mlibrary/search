@@ -7,6 +7,7 @@ const datastoreReducer = (state, action) => {
         uid: action.payload.uid,
         name: action.payload.name,
         slug: action.payload.slug,
+        isMultisearch: action.payload.isMultisearch,
       };
     default:
       return state;
