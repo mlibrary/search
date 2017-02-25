@@ -18,7 +18,7 @@ class PaginationContainer extends React.Component {
   render() {
     const { records } = this.props;
 
-    if (records.length === 0) {
+    if (!records) {
       return null;
     }
 
@@ -31,7 +31,7 @@ class PaginationContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    records: state.records.records,
+    records: state.records.records[state.datastores.active],
   };
 }
 

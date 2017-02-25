@@ -23,7 +23,7 @@ class ResultsSummaryContainer extends React.Component {
   render() {
     const { records } = this.props;
 
-    if (records.length === 0) {
+    if (!records) {
       return null;
     }
 
@@ -40,7 +40,7 @@ class ResultsSummaryContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     search: state.search,
-    records: state.records.records,
+    records: state.records.records[state.datastores.active],
   };
 }
 

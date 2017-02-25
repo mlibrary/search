@@ -11,10 +11,14 @@ import {
 
 class RecordListContainer extends React.Component {
   render() {
-    const { records, activeDatastore, loadingRecords } = this.props;
+    const { activeRecords, activeDatastore, loadingRecords } = this.props;
 
     if (loadingRecords) {
       return <Loading />
+    }
+
+    if (!activeRecords) {
+      return null;
     }
 
     return (
@@ -24,7 +28,7 @@ class RecordListContainer extends React.Component {
           <ClearSearchButton />
         </div>
         <ul className="results-list results-list-border">
-          {records.records.map((record, index) =>
+          {activeRecords.map((record, index) =>
             <RecordMedium
               record={record}
               activeDatastore={activeDatastore}
@@ -39,7 +43,7 @@ class RecordListContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    records: state.records,
+    activeRecords: state.records.records[state.datastores.active],
     loadingRecords: state.records.loading,
     searching: state.search.searching,
     activeDatastore: state.datastores.active,

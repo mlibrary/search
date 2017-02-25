@@ -21,13 +21,17 @@ const getFieldValue = (field) => {
 const filterDisplayFields = ({ fields, type, datastore }) => {
   const fieldsConfig = _.findWhere(config.fields, { datastore: datastore })
 
+  if (!fieldsConfig) {
+    return fields
+  }
+
   return _.filter(fields, (field) => _.contains(fieldsConfig[type], field.uid));
 }
 
 const filterAccessFields = ({ fields, type, datastore }) => {
   const accessConfig = _.findWhere(config.fields, { datastore: datastore })
 
-  if (!accessConfig.access) {
+  if (!accessConfig || !accessConfig.access) {
     return undefined;
   };
 

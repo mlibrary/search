@@ -9,29 +9,24 @@ const config = {
         uid: 'mirlyn',
         name: 'Catalog',
         slug: 'catalog',
-        datastores: ['mirlyn'],
       },
       {
         uid: 'articlesplus',
         name: 'Articles+',
-        datastores: ['articlesplus'],
       },
       {
         uid: 'databases',
         name: 'Databases',
-        datastores: ['databases'],
       },
       {
         uid: 'journals',
         name: 'Online Journals',
         slug: 'onlinejournals',
-        datastores: ['journals'],
       },
       {
         uid: 'website',
         name: 'Library Website',
         slug: 'librarywebsite',
-        datastores: ['website'],
       },
       {
         uid: 'everything',

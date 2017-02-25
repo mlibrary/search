@@ -45,63 +45,73 @@ Pride.Settings.obnoxious = false; // Console log messages
 
 let searchSwitcher;
 
-/*
-const getMultiSearchObjects = () => {
-  const multiSearchesConfig = config.datastores.multi;
-  const allDatastores = Pride.AllDatastores.array;
-
-  const multiSearches = _.map(multiSearchesConfig, (multiSearchConfig) => {
-    const searchObjects = allDatastores.reduce(function(memo, datastore) {
-      const uid = datastore.get('uid');
-
-      if (_.contains(multiSearchConfig.datastores, uid)) {
-        memo.push(datastore.baseSearch())
-      }
-      return memo;
-    }, []);
-
-    const MultiSearch = new Pride.Util.MultiSearch(multiSearchConfig.uid, true, searchObjects);
-    MultiSearch.set({count: 3});
-
-    return MultiSearch;
-  })
-
-  return multiSearches;
-}
-*/
-
-const getSearchObjects = () => {
-  const allDatastores = Pride.AllDatastores.array;
-  const configDatastores = config.datastores.list;
-
-  const searchObjects = configDatastores.reduce(function(memo, configDs) {
-
-    // Single Result Datastore
-    if (configDs.datastores.length === 1) {
-      const configDsUid = configDs.datastores[0];
-
-      const foundDatastore = _.find(allDatastores, function(ds) {
-        const uid = ds.get('uid');
-
-        return uid === configDsUid
-      })
-
-      memo.push(foundDatastore.baseSearch())
-
-    // Multi Result Datastore
-    } else {
-
+const handleSearchData = (data) => {
+  store.dispatch(setSearchData(
+    {
+      "count": data.count,
+      "page": data.page,
+      "total_pages": data.total_pages,
+      "total_available": data.total_available,
+      "sorts": data.sorts,
+      "selected_sort": data.selected_sort,
     }
+  ))
 
-    return memo;
-  }, []);
+  const activeDatastore = store.getState().datastores.active;
+  const activeRecords = store.getState().records.records[activeDatastore];
 
-  const ordered = config.datastores.ordering.map(function (uid) {
-    return _.findWhere(searchObjects, { uid: uid });
+  if (activeRecords) {
+    const count = data.count // aka page count
+    const page = data.page
+    const total_available = data.total_available
+    const check_last_page = (page - 1) * count + activeRecords.length === total_available
+
+    // Check to see if records have loaded.
+    if (activeRecords.length === count || check_last_page) {
+      store.dispatch(loadingRecords(false))
+    }
+  }
+}
+
+const setupObservers = (searchObj) => {
+  searchObj.resultsObservers.add(function(results) {
+    const activeDs = store.getState().datastores.active;
+    if (activeDs === searchObj.uid) {
+
+      console.log('clear records,', activeDs, searchObj.uid)
+
+      store.dispatch(clearRecords(searchObj.uid));
+
+      _.each(results, (record) => {
+        if (record !== undefined) {
+          record.renderFull((recordData) => {
+            store.dispatch(addRecord({
+              datastore: searchObj.uid,
+              data: recordData,
+            }));
+          })
+        }
+      });
+
+      handleSearchData(searchObj.getData())
+    }
   })
 
-  return _.filter(ordered, function (so) {
-    return so !== undefined
+  searchObj.facetsObservers.add(function(filterGroups) {
+    const activeDatastore = store.getState().datastores.active
+
+    if (activeDatastore === searchObj.uid) {
+      store.dispatch(clearFilters())
+      filterGroups.forEach(filterGroup => {
+        filterGroup.resultsObservers.add(filters => {
+          filters.forEach(filter => {
+            store.dispatch(addFilter(Object.assign({}, filter, {
+              metadata: filterGroup.getData('metadata')
+            }))) // Look at all these )s
+          })
+        })
+      })
+    }
   })
 }
 
@@ -125,105 +135,68 @@ const getDatastoreSlug = (uid) => {
   return undefined;
 }
 
-const setupPride = () => {
-  const searchObjects = getSearchObjects();
-
-  /*
-    Search objects is the search wrapper around a datastore. We use these when
-    constructing a search switcher and for accessing datastore metadata.
-  */
-  _.each(searchObjects, function (so) {
-    const name = getDatastoreName(so.uid);
-    const slug = getDatastoreSlug(so.uid);
-
-    store.dispatch(addDatastore({
-      uid: so.uid,
-      name: name,
-      slug: slug || so.uid
-    }))
-  });
-
-  /*
-    Setup search object observers
-  */
-  _.each(searchObjects, function(so) {
-    so.resultsObservers.add(function(results) {
-      const activeDatastore = store.getState().datastores.active;
-
-      if (activeDatastore === so.uid) {
-        store.dispatch(clearRecords());
-
-        console.log('---- results ----')
-        console.log('activeDatastore', activeDatastore)
-        console.log('searchObject', so)
-        console.log('activeDatastore === so.uid', activeDatastore === so.uid, activeDatastore, so.uid)
-        console.log('results', results)
-
-        _.each(results, (record) => {
-          if (record !== undefined) {
-            record.renderFull((record_data) => {
-              store.dispatch(addRecord(record_data));
-            })
-          }
-        });
-
-        const data = so.getData()
-        store.dispatch(setSearchData(
-          {
-            "count": data.count,
-            "page": data.page,
-            "total_pages": data.total_pages,
-            "total_available": data.total_available,
-            "sorts": data.sorts,
-            "selected_sort": data.selected_sort,
-          }
-        ))
-
-        const records_length = store.getState().records.records.length
-        const count = data.count // aka page count
-        const page = data.page
-        const total_available = data.total_available
-        const check_last_page = (page - 1) * count + records_length === total_available
-
-        // Check to see if records have loaded.
-        if (records_length === count || check_last_page) {
-          store.dispatch(loadingRecords(false))
-        }
+const setupSearches = () => {
+  const allDatastores = Pride.AllDatastores.array;
+  const datastores = _.uniq(
+    _.reduce(config.datastores.list, (memo, dsConfig) => {
+      if (!dsConfig.datastores) {
+        memo = memo.concat([`${dsConfig.uid}`])
+      } else {
+        memo = memo.concat(dsConfig.datastores)
       }
+      return memo
+    }, [])
+  );
+
+  const searchObjects = _.reduce(datastores, (memo, uid) => {
+    const foundDatastore = _.find(allDatastores, function(ds) {
+      return ds.get('uid') === uid
     })
 
-    so.facetsObservers.add(function(filter_groups) {
-      const activeDatastore = store.getState().datastores.active
+    if (foundDatastore !== undefined) {
+      const searchObj = foundDatastore.baseSearch();
+      searchObj.set({count: 10}); // default page count for single result datastores
+      setupObservers(searchObj)
 
-      if (activeDatastore === so.uid) {
-        store.dispatch(clearFilters())
+      memo.push(searchObj)
+    }
 
-        filter_groups.forEach(filter_group => {
-          filter_group.resultsObservers.add(filters => {
-            filters.forEach(filter => {
-              store.dispatch(addFilter(Object.assign({}, filter, {
-                metadata: filter_group.getData('metadata')
-              }))) // Look at all these )s
-            })
-          })
-        })
-      }
-    })
+    return memo
+  }, [])
 
-  })
+  //const multiSearchObj = new Pride.Util.MultiSearch(configDs.uid, true, multiSearchObjects);
+  //memo.push(multiSearchObj)
 
-  /*
-    Setup Search Switcher
-  */
   const defaultSearchObject = _.findWhere(searchObjects, { uid: config.datastores.default })
-  const remainingSearchObjects = _.reject(searchObjects, (so) => {
-    return so.uid === config.datastores.default
+  const remainingSearchObjects = _.reject(searchObjects, (searchObj) => {
+    return searchObj.uid === config.datastores.default
   })
 
   searchSwitcher = new Pride.Util.SearchSwitcher(
     defaultSearchObject,
     remainingSearchObjects
   )
+
+  /*
+  const orderedSearchObjects = config.datastores.ordering.map(function (uid) {
+    return _.findWhere(searchObjects, { uid: uid });
+  })
+  */
+
+  _.each(searchObjects, function (searchObj) {
+    const name = getDatastoreName(searchObj.uid);
+    const slug = getDatastoreSlug(searchObj.uid);
+
+    store.dispatch(addDatastore({
+      uid: searchObj.uid,
+      name: name,
+      slug: slug || searchObj.uid
+    }))
+  });
+}
+
+const setupPride = () => {
+  setupSearches();
 }
 
 /*
@@ -247,18 +220,11 @@ const runSearchPride = () => {
   const query = state.search.query;
   const page = state.search.page;
   const facets = state.filters.active[state.datastores.active];
-
-  console.log('------------')
-  console.log('runSearchPride')
-  console.log('query', query)
-
   const config = {
     field_tree: Pride.FieldTree.parseField('all_fields', query),
     page: page,
     facets: facets,
   };
-
-  console.log('config', config)
 
   store.dispatch(searching(true))
   store.dispatch(loadingRecords(true))
