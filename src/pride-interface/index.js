@@ -91,15 +91,19 @@ const setupObservers = (searchObj) => {
     _.each(results, (record) => {
       if (record !== undefined) {
         record.renderFull((recordData) => {
-          const id = _.uniqueId('record_');
+          const id = _.uniqueId();
 
           store.dispatch(addRecord({
-            id: _.uniqueId(),
+            id: id,
             datastore: searchObj.uid,
             data: {
               id: id,
               ...recordData,
-            },
+              holdings: {
+                digital: [],
+                physical: []
+              }
+            }
           }));
 
           record.getHoldings(handleHoldings(searchObj.uid, id))
@@ -336,10 +340,7 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
 
   const multiSearchRecords = _.pick(allRecords, configDs.datastores);
   const bentoBoxes = _.reduce(configDs.datastores, (memo, ds) => {
-    let records = undefined;
-    if (multiSearchRecords[ds]) {
-      records = multiSearchRecords[ds].slice(0,3)
-    }
+    let records = _.values(multiSearchRecords[ds]).splice(0, 3);
 
     memo.push({
       uid: ds,

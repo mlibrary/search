@@ -19,31 +19,33 @@ const recordsInitialState = {
 const recordsReducer = (state = recordsInitialState, action) => {
   switch (action.type) {
     case actions.ADD_RECORD:
-      if (state.records[action.payload.datastore] === undefined) {
-        return {
-          ...state,
-          records: {
-            ...state.records,
-            [action.payload.datastore]: [
-              recordReducer(undefined, action)
-            ]
-          }
-        }
-      } else {
-        return {
-          ...state,
-          records: {
-            ...state.records,
-            [action.payload.datastore]: [
-              ...state.records[action.payload.datastore],
-              recordReducer(undefined, action)
-            ]
+
+      return {
+        ...state,
+        records: {
+          ...state.records,
+          [action.payload.datastore]: {
+            ...state.records[action.payload.datastore],
+            [action.payload.id]: recordReducer(undefined, action)
           }
         }
       }
     case actions.ADD_HOLDINGS:
       console.log('ADD_HOLDINGS')
       console.log('action', action)
+
+      /*
+      return {
+        ...state,
+        records: [
+          ...state.records,
+          [action.payload.datastore_uid]: [
+
+          ]
+        ]
+      }
+      */
+
       return state
     case actions.CLEAR_RECORDS:
       return {
