@@ -9,7 +9,8 @@ import {
   clearRecords,
   setRecord,
   clearRecord,
-  loadingRecords
+  loadingRecords,
+  addHoldings,
 } from './actions';
 
 export {
@@ -24,4 +25,5 @@ export {
   clearRecord,
   loadingRecords,
   BentoboxList,
+  addHoldings,
 };

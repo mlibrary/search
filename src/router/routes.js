@@ -15,7 +15,8 @@ import {
   isSlugADatastore,
   switchToDatastorePride,
   getDatastoreUidBySlug,
-  requestPrideRecord
+  requestPrideRecord,
+  config
 } from '../pride-interface';
 
 import { runSearchPride } from '../pride-interface';
@@ -76,9 +77,13 @@ const handleRecordPageComponent = (nextState, callback) => {
   callback(null, NoMatch)
 }
 
+const handleIndexRoute = (nextState, replace) => {
+  replace(`/${config.datastores.default}`);
+}
+
 const routes = (
   <Route path="/" component={Main}>
-    <IndexRoute component={IndexPage}/>
+    <IndexRoute component={IndexPage} onEnter={handleIndexRoute}/>
     <Route path="/:datastore" getComponent={handleDatastorePageComponent}/>
     <Route path="/:datastore/record/:record" getComponent={handleRecordPageComponent}/>
     <Route path="*" component={NoMatch}/>

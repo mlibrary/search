@@ -41,7 +41,10 @@ const filterAccessFields = ({ fields, type, datastore }) => {
     text = accessConfig.access.textDefault;
   } else {
     text = _.findWhere(fields, { uid: accessConfig.access.text })
-    text = text.value;
+
+    if (text) {
+      text = text.value;
+    }
   }
 
   let source = _.findWhere(fields, { uid: accessConfig.access.source });

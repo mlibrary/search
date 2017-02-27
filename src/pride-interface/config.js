@@ -48,7 +48,7 @@ const config = {
       'databases',
       'website',
     ],
-    default: 'mirlyn',
+    default: 'everything',
   },
   fields: [
     {

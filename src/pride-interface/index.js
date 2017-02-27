@@ -14,7 +14,8 @@ import {
   clearRecords,
   setRecord,
   clearRecord,
-  loadingRecords
+  loadingRecords,
+  addHoldings,
 } from '../modules/records';
 
 import {
@@ -73,6 +74,16 @@ const handleSearchData = (data) => {
   }
 }
 
+const handleHoldings = (datastore_uid, record_id) => {
+  return (holdings_data) => {
+    store.dispatch(addHoldings({
+      datastore_uid: datastore_uid,
+      record_id: record_id,
+      holdings_data: holdings_data,
+    }))
+  }
+}
+
 const setupObservers = (searchObj) => {
   searchObj.resultsObservers.add(function(results) {
     store.dispatch(clearRecords(searchObj.uid));
@@ -80,10 +91,18 @@ const setupObservers = (searchObj) => {
     _.each(results, (record) => {
       if (record !== undefined) {
         record.renderFull((recordData) => {
+          const id = _.uniqueId('record_');
+
           store.dispatch(addRecord({
+            id: _.uniqueId(),
             datastore: searchObj.uid,
-            data: recordData,
+            data: {
+              id: id,
+              ...recordData,
+            },
           }));
+
+          record.getHoldings(handleHoldings(searchObj.uid, id))
         })
       }
     });

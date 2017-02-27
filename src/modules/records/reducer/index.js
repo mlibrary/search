@@ -41,6 +41,10 @@ const recordsReducer = (state = recordsInitialState, action) => {
           }
         }
       }
+    case actions.ADD_HOLDINGS:
+      console.log('ADD_HOLDINGS')
+      console.log('action', action)
+      return state
     case actions.CLEAR_RECORDS:
       return {
         ...state,

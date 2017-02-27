@@ -15,27 +15,26 @@ export default function DatastoreNavigationPresenter ({ datastores, search, acti
   }
 
   return (
-    <div className="datastore-list-container">
-      <div className="container-narrow container">
-        <ul className="datastore-list">
-          {datastores.datastores.map(ds => {
-            const filters = activeFilters[ds.uid] || {};
-            const searchParams = createSearchParams({
-              filters: filters,
-              query: search.query,
-            })
-            const link = `${ds.slug}${searchParams}`;
+    <div className="datastore-list-container datastore-scroll-container">
+      <div className="datastore-scroll-gradient"></div>
+      <ul className="datastore-list datastore-scroll-x">
+        {datastores.datastores.map(ds => {
+          const filters = activeFilters[ds.uid] || {};
+          const searchParams = createSearchParams({
+            filters: filters,
+            query: search.query,
+          })
+          const link = `${ds.slug}${searchParams}`;
 
-            return (
-              <DatastoreNavigationItem
-                name={ds.name}
-                key={ds.uid}
-                link={link}
-              />
-            )
-          })}
-        </ul>
-      </div>
+          return (
+            <DatastoreNavigationItem
+              name={ds.name}
+              key={ds.uid}
+              link={link}
+            />
+          )
+        })}
+      </ul>
     </div>
   );
 };

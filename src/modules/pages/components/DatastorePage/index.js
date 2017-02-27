@@ -21,7 +21,7 @@ class DatastorePage extends React.Component {
         <div>
           <SearchBox />
           <DatastoreNavigation />
-          <div className="container container-medium flex-container">
+          <div className="container container-large flex-container">
             <div className="main-container">
               <BentoboxList />
             </div>
