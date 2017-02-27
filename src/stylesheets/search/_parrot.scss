@@ -1,0 +1,15 @@
+.party-parrot-container {
+  cursor: pointer;
+}
+
+.party-parrot {
+  opacity: 0;
+  vertical-align: top;
+  margin-left: .3rem;
+  width: 1.5rem;
+  transition: opacity .1s ease-in-out;
+}
+
+.party-parrot.party {
+  opacity: 1;
+}

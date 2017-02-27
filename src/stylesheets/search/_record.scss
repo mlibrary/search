@@ -31,7 +31,7 @@
 }
 
 .record-field-name {
-  display: inline-block;
+  display: inline;
 }
 .record-field-name:after {
   content: ':';
@@ -39,7 +39,7 @@
 }
 
 .record-field-value {
-  display: inline-block;
+  display: inline;
   word-wrap: break-word;
 }
 

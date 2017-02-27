@@ -53,6 +53,9 @@ html {
 *, *:before, *:after {
   box-sizing: inherit; }
 
+.site-min-width {
+  min-width: 20rem; }
+
 .container {
   margin: 0 auto;
   padding: 0 1rem; }
@@ -395,19 +398,6 @@ nav {
   padding-top: 1rem;
   padding-bottom: 1rem; }
 
-.mlibrary-link,
-.umich-link {
-  display: inline-block;
-  height: 2.2rem;
-  vertical-align: top; }
-  .mlibrary-link img,
-  .umich-link img {
-    height: 100%;
-    width: auto; }
-
-.umich-link {
-  margin-right: 0.4rem; }
-
 .logo-item-list {
   margin: 0;
   padding: 0;
@@ -448,6 +438,19 @@ nav {
   padding-right: 1rem; }
   .logo-library a {
     color: rgba(255, 255, 255, 0.5); }
+
+@media (max-width: 28em) {
+  .logo-item-list li,
+  .logo-link {
+    height: 1.8rem; }
+  .logo-library,
+  .logo-search {
+    font-size: 1.3rem;
+    color: white;
+    padding-left: 0.8rem; }
+  .logo-library,
+  .logo-block-m {
+    padding-right: 0.8rem; } }
 
 footer {
   background: #00274C;
@@ -525,9 +528,27 @@ input.search-box-input {
   background: #FAFAFA;
   border-bottom: solid 2px #E5E5E5; }
 
+.datastore-scroll-container {
+  position: relative; }
+
 .datastore-list {
   margin: 0;
   text-align: center; }
+
+.datastore-scroll-x {
+  white-space: nowrap;
+  overflow: hidden;
+  overflow-x: auto; }
+
+.datastore-scroll-gradient {
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(248, 248, 248, 0)), color-stop(100%, #f8f8f8));
+  position: absolute;
+  pointer-events: none;
+  right: 0;
+  top: 0;
+  width: 1.5rem;
+  height: 100%;
+  z-index: 2; }
 
 .datastore-item {
   display: inline-block;
@@ -692,14 +713,14 @@ body {
   display: block; }
 
 .record-field-name {
-  display: inline-block; }
+  display: inline; }
 
 .record-field-name:after {
   content: ':';
   padding-right: 0.1rem; }
 
 .record-field-value {
-  display: inline-block;
+  display: inline;
   word-wrap: break-word; }
 
 /*
@@ -774,10 +795,28 @@ body {
     width: calc(100% * (1/2) - 1rem);
     margin-right: 1rem; } }
 
-@media (min-width: 58rem) {
+@media (min-width: 52rem) {
   .bentobox {
     width: calc(100% * (1/3) - 1rem);
     margin-right: 1rem; } }
+
+@media (min-width: 72rem) {
+  .bentobox {
+    width: calc(100% * (1/5) - 1rem);
+    margin-right: 1rem; } }
+
+.party-parrot-container {
+  cursor: pointer; }
+
+.party-parrot {
+  opacity: 0;
+  vertical-align: top;
+  margin-left: .3rem;
+  width: 1.5rem;
+  transition: opacity .1s ease-in-out; }
+
+.party-parrot.party {
+  opacity: 1; }
 
 .u-break-word {
   word-wrap: break-word; }

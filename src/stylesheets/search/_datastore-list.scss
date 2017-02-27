@@ -3,9 +3,30 @@
   border-bottom: solid 2px $grey-5;
 }
 
+.datastore-scroll-container {
+  position: relative;
+}
+
 .datastore-list {
   margin: 0;
   text-align: center;
+}
+
+.datastore-scroll-x {
+  white-space: nowrap;
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.datastore-scroll-gradient {
+  background: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(248,248,248,0)),color-stop(100%,rgba(248,248,248,1)));
+  position: absolute;
+  pointer-events: none;
+  right: 0;
+  top: 0;
+  width: 1.5rem;
+  height: 100%;
+  z-index: 2;
 }
 
 .datastore-item {

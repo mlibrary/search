@@ -4,22 +4,6 @@
   padding-bottom: 1rem;
 }
 
-.mlibrary-link,
-.umich-link {
-  display: inline-block;
-  height: 2.2rem;
-  vertical-align: top;
-
-  img {
-    height: 100%;
-    width: auto;
-  }
-}
-
-.umich-link {
-  margin-right: 0.4rem;
-}
-
 .logo-item-list {
   margin: 0;
   padding: 0;
@@ -72,5 +56,24 @@
 
   a {
     color: rgba(white, 0.5);
+  }
+}
+
+@media (max-width: 28em) {
+  .logo-item-list li,
+  .logo-link {
+    height: 1.8rem;
+  }
+
+  .logo-library,
+  .logo-search {
+    font-size: 1.3rem;
+    color: white;
+    padding-left: 0.8rem;
+  }
+
+  .logo-library,
+  .logo-block-m {
+    padding-right: 0.8rem;
   }
 }
