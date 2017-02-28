@@ -576,7 +576,7 @@ input.search-box-input {
   list-style: none;
   background: white; }
 
-.results-list-border li {
+.results-list-border > li {
   border-bottom: solid 2px #F2F2F2;
   padding: 2rem; }
 
@@ -736,32 +736,6 @@ body {
   font-size: 1.5rem;
   margin-top: 0; }
 
-/*
-  Access
-*/
-.callnumber {
-  margin-right: 1rem;
-  font-weight: 600; }
-
-.access-container {
-  margin-top: 1rem; }
-
-.access-line {
-  margin: 0; }
-
-.access-text {
-  margin-right: 0.5rem;
-  font-weight: 600; }
-
-.access-link {
-  font-weight: 400; }
-
-.access-availability {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #4E4E4E; }
-
 .loading {
   margin-top: 1rem;
   padding: 1rem 2rem;
@@ -820,6 +794,15 @@ body {
 
 .party-parrot-container:hover .party-parrot {
   opacity: 0.3; }
+
+.holdings-list {
+  margin: 0;
+  margin-top: 1rem;
+  list-style: none; }
+
+.holdings-list-item {
+  padding: 0;
+  margin: 0; }
 
 .u-break-word {
   word-wrap: break-word; }
