@@ -1,4 +1,5 @@
 import * as actions from '../actions';
+import { _ } from 'underscore';
 
 const recordReducer = (state = {}, action) => {
   switch (action.type) {
@@ -8,6 +9,35 @@ const recordReducer = (state = {}, action) => {
       return state;
   }
 };
+
+const holdingsReducer = (state = undefined, action) => {
+  switch (action.type) {
+    case actions.ADD_HOLDINGS:
+      return _.reduce(['electronic', 'physical'], (memo, holding_type) => {
+        if (action.payload.holdings_data[holding_type]) {
+          memo = {
+            ...memo,
+            [holding_type]: _.reduce(action.payload.holdings_data[holding_type], (holdings, holding) => {
+              holdings = [
+                ...holdings,
+                {
+                  location: holding.location || undefined,
+                  status: holding.status || undefined,
+                  callnumber: holding.callnumber || undefined,
+                  info_Link: holding.info_link || undefined,
+                }
+              ]
+              return holdings
+            }, [])
+          }
+        }
+        return memo;
+      }, {});
+    default:
+      return state;
+  }
+};
+
 
 const recordsInitialState = {
   loading: false,
@@ -31,22 +61,23 @@ const recordsReducer = (state = recordsInitialState, action) => {
         }
       }
     case actions.ADD_HOLDINGS:
-      console.log('ADD_HOLDINGS')
-      console.log('action', action)
+      if (!state.records[action.payload.datastore_uid][action.payload.record_id]) {
+        return state;
+      }
 
-      /*
       return {
         ...state,
-        records: [
+        records: {
           ...state.records,
-          [action.payload.datastore_uid]: [
-
-          ]
-        ]
+          [action.payload.datastore_uid]: {
+            ...state.records[action.payload.datastore_uid],
+            [action.payload.record_id]: {
+              ...state.records[action.payload.datastore_uid][action.payload.record_id],
+              holdings: holdingsReducer(undefined, action)
+            }
+          }
+        }
       }
-      */
-
-      return state
     case actions.CLEAR_RECORDS:
       return {
         ...state,

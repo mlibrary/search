@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import numeral from 'numeral'
+import { _ } from 'underscore';
 
 import ResultsSummary from './presenter';
 
@@ -12,7 +13,7 @@ class ResultsSummaryContainer extends React.Component {
     const display_total_available = numeral(total_available).format(0,0)
     const results_text = total_available === 1 ? `Result` : `Results`
     const records_from = (page - 1) * count + 1
-    const records_to = (page - 1) * count + records.length
+    const records_to = (page - 1) * count + _.values(records).length;
 
     return {
       range: `${records_from}-${records_to}`,

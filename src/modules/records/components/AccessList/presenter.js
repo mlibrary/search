@@ -1,20 +1,55 @@
 import React from 'react';
 import { _ } from 'underscore';
 
-const AccessList = ({ access }) => {
+const AccessList = ({ access, holdings }) => {
+  return (
+    <div className="access-container">
+      <MetadataAccess access={access} />
+      <Holdings holdings={holdings} />
+    </div>
+  )
+}
+
+const MetadataAccess = ({access}) => {
+  if (!access) {
+    return null
+  }
+
   const source = access.source ? <span className="access-source">{access.source}</span> : ''
-  let text = <span className="access-text">{access.text}</span>
+  let text = <span>{access.text}</span>
 
   if (access.link) {
     text = (
-      <a className="access-text access-link underline" href={access.link}>{access.text}</a>
+      <a href={access.link}>{access.text}</a>
     )
   }
 
   return (
-    <div className="access-container">
-      <p className="access-line">{text} {source}</p>
-    </div>
+    <p>{text} {source}</p>
+  )
+}
+
+const Holdings = ({holdings}) => {
+  if (!holdings) {
+    return null
+  }
+
+  return (
+    <PhysicalHoldings holdings={holdings.physical} />
+  )
+}
+
+const PhysicalHoldings = ({holdings}) => {
+  if (!holdings) {
+    return null
+  }
+
+  return (
+    <ul className="holdings-list">
+      {holdings.map((holding, index) =>
+        <li className="holdings-list-item" key={index}>{holding.status} {holding.callnumber} {holding.location}</li>
+      )}
+    </ul>
   )
 }
 

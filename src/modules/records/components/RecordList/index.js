@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { _ } from 'underscore';
 
 import RecordMedium from '../RecordMedium';
 import { Loading } from '../../../core';
@@ -43,7 +44,7 @@ class RecordListContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    activeRecords: state.records.records[state.datastores.active],
+    activeRecords: _.values(state.records.records[state.datastores.active]),
     loadingRecords: state.records.loading,
     searching: state.search.searching,
     activeDatastore: state.datastores.active,

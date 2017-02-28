@@ -31,14 +31,14 @@ const filterDisplayFields = ({ fields, type, datastore }) => {
 const filterAccessFields = ({ fields, type, datastore }) => {
   const accessConfig = _.findWhere(config.fields, { datastore: datastore })
 
-  if (!accessConfig || !accessConfig.access) {
+  if (!accessConfig || !accessConfig.access || accessConfig.access.from_holdings) {
     return undefined;
   };
 
   let text = ''
 
-  if (accessConfig.access.textDefault) {
-    text = accessConfig.access.textDefault;
+  if (accessConfig.access.text_default) {
+    text = accessConfig.access.text_default;
   } else {
     text = _.findWhere(fields, { uid: accessConfig.access.text })
 

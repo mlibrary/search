@@ -4,13 +4,9 @@ import AccessList from './presenter';
 
 class AccessListContainer extends React.Component {
   render() {
-    const { access } = this.props;
+    const { access, holdings } = this.props;
 
-    if (!access) {
-      return null
-    }
-
-    return <AccessList access={access} />
+    return <AccessList access={access} holdings={holdings}/>
   }
 }
 

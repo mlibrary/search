@@ -62,13 +62,14 @@ const handleSearchData = (data) => {
   const activeRecords = store.getState().records.records[activeDatastore];
 
   if (activeRecords) {
+    const activeRecordsLength = _.values(activeRecords).length
     const count = data.count // aka page count
     const page = data.page
     const total_available = data.total_available
-    const check_last_page = (page - 1) * count + activeRecords.length === total_available
+    const check_last_page = (page - 1) * count + activeRecordsLength === total_available
 
     // Check to see if records have loaded.
-    if (activeRecords.length === count || check_last_page) {
+    if (activeRecordsLength === count || check_last_page) {
       store.dispatch(loadingRecords(false))
     }
   }
@@ -76,6 +77,8 @@ const handleSearchData = (data) => {
 
 const handleHoldings = (datastore_uid, record_id) => {
   return (holdings_data) => {
+    console.log('holdings_data', holdings_data)
+
     store.dispatch(addHoldings({
       datastore_uid: datastore_uid,
       record_id: record_id,
@@ -219,7 +222,7 @@ const setupSearches = () => {
     remainingSearchObjects
   )
 
-  /*
+  /* TODO
   const orderedSearchObjects = config.datastores.ordering.map(function (uid) {
     return _.findWhere(searchObjects, { uid: uid });
   })

@@ -55,15 +55,17 @@ const config = {
       datastore: 'mirlyn',
       medium: ['author', 'format', 'publish_date'],
       access: {
+        from_holdings: true,
         text: 'callnumber',
-        source: 'location'
+        source: 'location',
+        status: 'status',
       }
     },
     {
       datastore: 'articlesplus',
       medium: ['volume', 'issue', 'doi'],
       access: {
-        textDefault: 'Available Online',
+        text_default: 'Available Online',
         link: 'link'
       }
     },
@@ -72,7 +74,7 @@ const config = {
       datastore: 'journals',
       medium: ['access_coverage', 'issn', 'academic_discipline', 'holdings'],
       access: {
-        textDefault: 'Go To Online Journal',
+        text_default: 'Go To Online Journal',
         link: 'access_url'
       },
     },

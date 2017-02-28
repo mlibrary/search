@@ -33,7 +33,7 @@ function RecordMedium({ record, activeDatastore }) {
         <h3 className="record-title">
           <Link className="record-title-link" to={`${recordFulllink}`}>{title}</Link></h3>
         <FieldList fields={displayFields} />
-        <AccessList access={access} />
+        <AccessList access={access} holdings={record.holdings} />
       </li>
     )
   }
