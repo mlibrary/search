@@ -3,8 +3,14 @@
 */
 
 .record {
-  padding: 1rem 0;
   margin: 0;
+  padding: 0;
+}
+
+.record-container {
+  padding: 2rem;
+  padding-bottom: 0;
+  margin-bottom: 2rem;
 }
 
 .record-title {
@@ -24,29 +30,28 @@
 
 .record-field-list {
   margin-top: 1rem;
+  display: table;
 }
 
 .record-field {
-  display: block;
+  display: table-row;
 }
 
 .record-field-name {
-  display: inline;
-}
-.record-field-name:after {
-  content: ':';
-  padding-right: 0.1rem;
+  display: table-cell;
+  padding-right: 1rem;
+  font-weight: 400;
+  color: $grey-3;
 }
 
 .record-field-value {
-  display: inline;
-  word-wrap: break-word;
+  display: table-cell;
+  word-break: break-word;
 }
 
 /*
   Full Record Specific
 */
-
 
 .full-record-container {
   margin-top: 1rem;

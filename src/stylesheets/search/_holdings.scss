@@ -1,10 +1,28 @@
+.access-container {
+  background: $grey-6;
+  padding: 1rem 1.5rem;
+  margin-top: -0.5rem;
+}
+
+.access-container:empty {
+  display: none;
+}
+
 .holdings-list {
   margin: 0;
-  margin-top: 1rem;
   list-style: none;
 }
 
 .holdings-list-item {
-  padding: 0;
   margin: 0;
+  padding: 0;
+}
+
+.holdings-list-item:not(:last-child) {
+  border-bottom: 1px solid $grey-5;
+  padding-bottom: 0.5rem;
+}
+
+.holdings-list-item:not(:first-child) {
+  padding-top: 0.5rem;
 }

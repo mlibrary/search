@@ -61,7 +61,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
         }
       }
     case actions.ADD_HOLDINGS:
-      if (!state.records[action.payload.datastore_uid][action.payload.record_id]) {
+      if (!state.records[action.payload.datastore_uid] || !state.records[action.payload.datastore_uid][action.payload.record_id]) {
         return state;
       }
 

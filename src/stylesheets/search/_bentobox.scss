@@ -15,12 +15,14 @@
     border-radius: 4px;
   }
 
-  .results-list-border li {
-    padding: 1.75rem;
+  .record-container {
+    padding: 1.5rem;
+    padding-bottom: 0;
+    margin-bottom: 1.5rem;
+  }
 
-    .record-title {
-      font-size: 1.1rem;
-    }
+  .record-title {
+    font-size: 1.1rem;
   }
 }
 

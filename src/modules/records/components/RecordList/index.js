@@ -46,7 +46,6 @@ function mapStateToProps(state) {
   return {
     activeRecords: _.values(state.records.records[state.datastores.active]),
     loadingRecords: state.records.loading,
-    searching: state.search.searching,
     activeDatastore: state.datastores.active,
   };
 }

@@ -20,12 +20,12 @@ const MetadataAccess = ({access}) => {
 
   if (access.link) {
     text = (
-      <a href={access.link}>{access.text}</a>
+      <a href={access.link} className="underline">{access.text}</a>
     )
   }
 
   return (
-    <p>{text} {source}</p>
+    <p className="no-margin">{text} {source}</p>
   )
 }
 
@@ -40,7 +40,7 @@ const Holdings = ({holdings}) => {
 }
 
 const PhysicalHoldings = ({holdings}) => {
-  if (!holdings) {
+  if (!holdings || holdings.length === 0) {
     return null
   }
 

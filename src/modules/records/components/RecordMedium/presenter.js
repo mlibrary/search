@@ -30,9 +30,12 @@ function RecordMedium({ record, activeDatastore }) {
     const recordFulllink = `/${datastoreSlug}/record/${recordUid}`;
     return (
       <li className="record">
-        <h3 className="record-title">
-          <Link className="record-title-link" to={`${recordFulllink}`}>{title}</Link></h3>
-        <FieldList fields={displayFields} />
+        <div className="record-container">
+          <h3 className="record-title">
+            <Link className="record-title-link" to={`${recordFulllink}`}>{title}</Link></h3>
+          <FieldList fields={displayFields} />
+        </div>
+
         <AccessList access={access} holdings={record.holdings} />
       </li>
     )
@@ -40,8 +43,11 @@ function RecordMedium({ record, activeDatastore }) {
 
   return (
     <li className="record">
-      <h3 className="record-title">{title}</h3>
-      <FieldList fields={displayFields} />
+      <div className="record-container">
+        <h3 className="record-title">{title}</h3>
+        <FieldList fields={displayFields} />
+      </div>
+
       <AccessList access={access} />
     </li>
   );

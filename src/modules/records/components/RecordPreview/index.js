@@ -14,7 +14,7 @@ function RecordMedium({ record, activeDatastore }) {
   const title = record.names[0];
   const displayFields = filterDisplayFields({
     fields: record.fields,
-    type: 'medium',
+    type: 'preview',
     datastore: activeDatastore
   });
   const access = filterAccessFields({
@@ -30,19 +30,23 @@ function RecordMedium({ record, activeDatastore }) {
     const recordFulllink = `/${datastoreSlug}/record/${recordUid}`;
     return (
       <li className="record">
-        <h3 className="record-title">
-          <Link className="record-title-link" to={`${recordFulllink}`}>{title}</Link></h3>
-        <FieldList fields={displayFields} />
-        <AccessList access={access} />
+        <div className="record-container">
+          <h3 className="record-title">
+            <Link className="record-title-link" to={`${recordFulllink}`}>{title}</Link></h3>
+          <FieldList fields={displayFields} />
+        </div>
+        <AccessList access={access} holdings={record.holdings}  />
       </li>
     )
   }
 
   return (
     <li className="record">
-      <h3 className="record-title">{title}</h3>
-      <FieldList fields={displayFields} />
-      <AccessList access={access} />
+      <div className="record-container">
+        <h3 className="record-title">{title}</h3>
+        <FieldList fields={displayFields} />
+      </div>
+      <AccessList access={access} holdings={record.holdings} />
     </li>
   );
 }

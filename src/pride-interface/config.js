@@ -53,7 +53,8 @@ const config = {
   fields: [
     {
       datastore: 'mirlyn',
-      medium: ['author', 'format', 'publish_date'],
+      preview: ['author', 'format', 'publish_date'],
+      medium: ['author', 'format', 'publish_date', 'place_of_publication', 'edition'],
       access: {
         from_holdings: true,
         text: 'callnumber',
@@ -63,7 +64,8 @@ const config = {
     },
     {
       datastore: 'articlesplus',
-      medium: ['volume', 'issue', 'doi'],
+      preview: ['date_of_publication'],
+      medium: ['abstract', 'volume', 'issue'],
       access: {
         text_default: 'Available Online',
         link: 'link'

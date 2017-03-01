@@ -16,7 +16,7 @@ class DatastorePage extends React.Component {
     const { searching, datastores } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
-    if (activeDatastore.isMultisearch) {
+    if (activeDatastore.isMultisearch && searching) {
       return (
         <div>
           <SearchBox />
