@@ -5,6 +5,13 @@
 .record {
   margin: 0;
   padding: 0;
+  background: white;
+
+  /*
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  */
 }
 
 .record-container {
@@ -55,7 +62,6 @@
 
 .full-record-container {
   margin-top: 1rem;
-  padding: 2rem;
   background: white;
   border-radius: 4px;
 }

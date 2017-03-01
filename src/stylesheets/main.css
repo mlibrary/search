@@ -573,8 +573,7 @@ input.search-box-input {
 */
 .results-list {
   margin: 0;
-  list-style: none;
-  background: white; }
+  list-style: none; }
 
 .results-list-border > li {
   border-bottom: solid 2px #E5E5E5; }
@@ -692,7 +691,13 @@ body {
 */
 .record {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  background: white;
+  /*
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  */ }
 
 .record-container {
   padding: 2rem;
@@ -732,7 +737,6 @@ body {
 */
 .full-record-container {
   margin-top: 1rem;
-  padding: 2rem;
   background: white;
   border-radius: 4px; }
 
@@ -764,6 +768,8 @@ body {
     padding: 1.5rem;
     padding-bottom: 0;
     margin-bottom: 1.5rem; }
+  .bentobox .access-container {
+    padding: 1rem 1.5rem; }
   .bentobox .record-title {
     font-size: 1.1rem; }
 
@@ -803,7 +809,7 @@ body {
 
 .access-container {
   background: #FAFAFA;
-  padding: 1rem 1.5rem;
+  padding: 1rem 2rem;
   margin-top: -0.5rem; }
 
 .access-container:empty {
@@ -819,10 +825,23 @@ body {
 
 .holdings-list-item:not(:last-child) {
   border-bottom: 1px solid #E5E5E5;
-  padding-bottom: 0.5rem; }
+  padding-bottom: 0.75rem; }
 
 .holdings-list-item:not(:first-child) {
-  padding-top: 0.5rem; }
+  padding-top: 0.75rem; }
+
+.holding-status,
+.holding-callnumber,
+.holding-location,
+.holding-electronic-link,
+.holding-electronic-text {
+  margin-right: 0.5rem; }
+
+.holding-electronic-link {
+  display: block; }
+
+.holding-location {
+  font-weight: 600; }
 
 .u-break-word {
   word-wrap: break-word; }

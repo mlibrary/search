@@ -18,15 +18,34 @@ const holdingsReducer = (state = undefined, action) => {
           memo = {
             ...memo,
             [holding_type]: _.reduce(action.payload.holdings_data[holding_type], (holdings, holding) => {
-              holdings = [
-                ...holdings,
-                {
-                  location: holding.location || undefined,
-                  status: holding.status || undefined,
-                  callnumber: holding.callnumber || undefined,
-                  info_Link: holding.info_link || undefined,
+
+              if (holding_type === 'physical') {
+                holdings = [
+                  ...holdings,
+                  {
+                    location: holding.location || undefined,
+                    status: holding.status || undefined,
+                    callnumber: holding.callnumber || undefined,
+                    info_Link: holding.info_link || undefined,
+                  }
+                ]
+              } else if (holding_type === 'electronic') {
+                const text = _.findWhere(holding.value, { uid: '856z' })
+                const href = _.findWhere(holding.value, { uid: '856u' })
+
+                console.log('electronic holding', holding, text, href)
+
+                if (text && href) {
+                  holdings = [
+                    ...holdings,
+                    {
+                      text: text.value[0],
+                      href: href.value[0],
+                    }
+                  ]
                 }
-              ]
+              }
+
               return holdings
             }, [])
           }

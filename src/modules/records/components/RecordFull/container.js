@@ -3,6 +3,10 @@ import { connect } from 'react-redux'
 
 import { Loading } from '../../../core';
 import FieldList from '../RecordFieldList';
+import AccessList from '../AccessList';
+import {
+  filterAccessFields,
+} from '../../utilities';
 
 /*
 import {
@@ -13,7 +17,7 @@ import {
 
 class FullRecord extends React.Component {
   render() {
-    const { record } = this.props;
+    const { record, activeDatastore } = this.props;
 
     if (!record) {
       return (
@@ -23,11 +27,21 @@ class FullRecord extends React.Component {
       )
     }
 
+    const access = filterAccessFields({
+      fields: record.fields,
+      type: 'access',
+      datastore: activeDatastore,
+    });
+
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
-          <h1 className="full-record-title">{record.names[0]}</h1>
-          <FieldList fields={record.fields} />
+          <div className="record-container">
+            <h1 className="full-record-title">{record.names[0]}</h1>
+            <FieldList fields={record.fields} />
+          </div>
+
+          <AccessList access={access} holdings={record.holdings} />
         </div>
       </div>
     )
@@ -37,6 +51,7 @@ class FullRecord extends React.Component {
 function mapStateToProps(state) {
   return {
     record: state.records.record,
+    activeDatastore: state.datastores.active,
   }
 }
 

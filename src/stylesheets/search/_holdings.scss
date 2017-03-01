@@ -1,6 +1,6 @@
 .access-container {
   background: $grey-6;
-  padding: 1rem 1.5rem;
+  padding: 1rem 2rem;
   margin-top: -0.5rem;
 }
 
@@ -20,9 +20,26 @@
 
 .holdings-list-item:not(:last-child) {
   border-bottom: 1px solid $grey-5;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
 }
 
 .holdings-list-item:not(:first-child) {
-  padding-top: 0.5rem;
+  padding-top: 0.75rem;
+}
+
+
+.holding-status,
+.holding-callnumber,
+.holding-location,
+.holding-electronic-link,
+.holding-electronic-text {
+  margin-right: 0.5rem;
+}
+
+.holding-electronic-link {
+  display: block;
+}
+
+.holding-location {
+  font-weight: 600;
 }

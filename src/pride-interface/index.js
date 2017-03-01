@@ -77,6 +77,9 @@ const handleSearchData = (data) => {
 
 const handleHoldings = (datastore_uid, record_id) => {
   return (holdings_data) => {
+
+    //console.log('holdings_data', datastore_uid, record_id, holdings_data)
+
     store.dispatch(addHoldings({
       datastore_uid: datastore_uid,
       record_id: record_id,
@@ -325,6 +328,13 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
 
     const callback = (record) => {
       store.dispatch(setRecord(record));
+
+      /*
+      console.log(record)
+      record.getHoldings((holdings_data) => {
+        console.log('holdings_data', datastoreUid, recordUid, holdings_data)
+      })
+      */
     }
 
     Pride.requestRecord(datastoreUid, recordUid, callback)

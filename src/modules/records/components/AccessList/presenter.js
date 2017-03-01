@@ -30,27 +30,36 @@ const MetadataAccess = ({access}) => {
 }
 
 const Holdings = ({holdings}) => {
-  if (!holdings) {
+  if (!holdings.electronic && !holdings.physical || holdings.physical.length === 0) {
     return null
   }
 
-  return (
-    <PhysicalHoldings holdings={holdings.physical} />
-  )
-}
-
-const PhysicalHoldings = ({holdings}) => {
-  if (!holdings || holdings.length === 0) {
-    return null
-  }
+  //<HoldingSpan text={holding.text} class_name="holding-electronic-text" />
 
   return (
     <ul className="holdings-list">
-      {holdings.map((holding, index) =>
-        <li className="holdings-list-item" key={index}>{holding.status} {holding.callnumber} {holding.location}</li>
+      {_.map(holdings.electronic, (holding, index) =>
+        <li className="holdings-list-item" key={index}>
+          <a href={holding.href} className="holding-electronic-link underline">Available Online</a>
+        </li>
+      )}
+      {holdings.physical.map((holding, index) =>
+        <li className="holdings-list-item" key={index}>
+          <HoldingSpan text={holding.status} class_name="holding-status" />
+          <HoldingSpan text={holding.location} class_name="holding-location" />
+          <HoldingSpan text={holding.callnumber} class_name="holding-callnumber" />
+        </li>
       )}
     </ul>
   )
+}
+
+const HoldingSpan = ({text, class_name}) => {
+  if (!text) {
+    return null
+  }
+
+  return <span className={class_name}>{text}</span>
 }
 
 export default AccessList;
