@@ -11,6 +11,7 @@ import {
   clearRecord,
   loadingRecords,
   addHoldings,
+  loadingHoldings,
 } from './actions';
 
 export {
@@ -26,4 +27,5 @@ export {
   loadingRecords,
   BentoboxList,
   addHoldings,
+  loadingHoldings,
 };

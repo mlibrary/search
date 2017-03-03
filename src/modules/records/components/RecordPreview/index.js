@@ -10,7 +10,7 @@ import {
   filterAccessFields,
 } from '../../utilities';
 
-function RecordMedium({ record, activeDatastore }) {
+function RecordMedium({ record, activeDatastore, loading }) {
   const title = record.names[0];
   const displayFields = filterDisplayFields({
     fields: record.fields,
@@ -35,7 +35,7 @@ function RecordMedium({ record, activeDatastore }) {
             <Link className="record-title-link" to={`${recordFulllink}`}>{title}</Link></h3>
           <FieldList fields={displayFields} />
         </div>
-        <AccessList access={access} holdings={record.holdings}  />
+        <AccessList access={access} holdings={record.holdings} loading={record.loading_holdings} />
       </li>
     )
   }

@@ -60,6 +60,7 @@ const config = {
         text: 'callnumber',
         source: 'location',
         status: 'status',
+        link: 'get_this_url'
       }
     },
     {

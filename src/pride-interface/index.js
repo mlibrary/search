@@ -16,6 +16,7 @@ import {
   clearRecord,
   loadingRecords,
   addHoldings,
+  loadingHoldings,
 } from '../modules/records';
 
 import {
@@ -76,14 +77,24 @@ const handleSearchData = (data) => {
 }
 
 const handleHoldings = (datastore_uid, record_id) => {
+  store.dispatch(loadingHoldings({
+    loading: true,
+    datastore_uid: datastore_uid,
+    record_id: record_id,
+  }))
+
   return (holdings_data) => {
-
     //console.log('holdings_data', datastore_uid, record_id, holdings_data)
-
     store.dispatch(addHoldings({
       datastore_uid: datastore_uid,
       record_id: record_id,
       holdings_data: holdings_data,
+    }))
+
+    store.dispatch(loadingHoldings({
+      loading: false,
+      datastore_uid: datastore_uid,
+      record_id: record_id,
     }))
   }
 }
@@ -109,7 +120,6 @@ const setupObservers = (searchObj) => {
               }
             }
           }));
-
           record.getHoldings(handleHoldings(searchObj.uid, id))
         })
       }

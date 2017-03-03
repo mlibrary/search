@@ -36,7 +36,7 @@ function RecordMedium({ record, activeDatastore }) {
           <FieldList fields={displayFields} />
         </div>
 
-        <AccessList access={access} holdings={record.holdings} />
+        <AccessList access={access} holdings={record.holdings} loading={record.loading_holdings} />
       </li>
     )
   }

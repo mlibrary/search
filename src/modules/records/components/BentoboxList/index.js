@@ -24,7 +24,7 @@ class BentoboxList extends React.Component {
               <ul className="results-list results-list-border">
                 {bentobox.records.map((record, index) => {
                   return (
-                    <RecordPreview key={index} activeDatastore={bentobox.uid} record={record} />
+                    <RecordPreview key={index} activeDatastore={bentobox.uid} record={record} loading={record.loading_holdings}/>
                   )
                 })}
               </ul>

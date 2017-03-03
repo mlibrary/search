@@ -1,7 +1,9 @@
 .access-container {
+  display: flex;
   background: $grey-6;
   padding: 1rem 2rem;
   margin-top: -0.5rem;
+  align-items: center;
 }
 
 .access-container:empty {
@@ -42,4 +44,15 @@
 
 .holding-location {
   font-weight: 600;
+}
+
+.loading-sync-icon {
+  fill: rgba($grey-1, 0.5);
+  animation: spin 3s linear infinite;
+  margin: 0 0.5rem;
+}
+
+@-webkit-keyframes spin {
+  0% {-webkit-transform: rotateZ(0deg);}
+  100% {-webkit-transform: rotateZ(-360deg);}
 }
