@@ -30,8 +30,20 @@
   }
 }
 
+.bentobox-heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 1rem 1.5rem;
+  background: $grey-6;
+  border-bottom: solid 2px $grey-5;
+}
+
 .bentobox-heading {
-  margin-top: 0;
+  margin: 0;
+  color: $grey-1;
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 @media (min-width: 36em) {

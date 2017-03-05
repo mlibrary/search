@@ -7,8 +7,8 @@ import ResultsSummary from './presenter';
 
 class ResultsSummaryContainer extends React.Component {
   recordsSummary() {
-    const { count, page, total_available } = this.props.search.data;
-    const { records } = this.props;
+    const { records, activeDatastore } = this.props;
+    const { count, page, total_available } = this.props.search.data[activeDatastore];
 
     const display_total_available = numeral(total_available).format(0,0)
     const results_text = total_available === 1 ? `Result` : `Results`
@@ -42,6 +42,7 @@ function mapStateToProps(state) {
   return {
     search: state.search,
     records: state.records.records[state.datastores.active],
+    activeDatastore: state.datastores.active,
   };
 }
 

@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
+import { Link } from 'react-router';
+import numeral from 'numeral';
 
 import { getMultiSearchRecords } from '../../../../pride-interface';
 import RecordPreview from '../RecordPreview';
 import RecordPlaceholder from '../RecordPlaceholder';
+import { createSearchParams } from '../../../../router';
 
 class BentoboxList extends React.Component {
   render() {
-    const { allRecords, activeDatastore } = this.props;
+    const { allRecords, activeDatastore, search } = this.props;
     const bentoboxListRecords = getMultiSearchRecords(activeDatastore, allRecords);
-
+    
     return (
       <ul className="bentobox-list">
         {bentoboxListRecords.map(bentobox => {
@@ -21,7 +24,7 @@ class BentoboxList extends React.Component {
           if (bentobox.records.length === 0) {
             return (
               <li key={bentobox.uid} className="bentobox">
-                <h2 className="bentobox-heading">{bentobox.name}</h2>
+                <BentoboxHeading bentobox={bentobox} search={search} />
                 <ul className="results-list results-list-border">
                   <RecordPlaceholder />
                   <RecordPlaceholder />
@@ -33,7 +36,7 @@ class BentoboxList extends React.Component {
 
           return (
             <li key={bentobox.uid} className="bentobox">
-              <h2 className="bentobox-heading">{bentobox.name}</h2>
+              <BentoboxHeading bentobox={bentobox} search={search} />
               <ul className="results-list results-list-border">
                 {bentobox.records.map((record, index) => {
                   return (
@@ -49,10 +52,37 @@ class BentoboxList extends React.Component {
   }
 }
 
+const BentoboxHeading = ({ bentobox, search }) => {
+  const total_results = search.data[bentobox.uid].total_available;
+  const searchParams = createSearchParams({
+    query: search.query
+  })
+  const link = `${bentobox.slug}${searchParams}`;
+
+  return (
+    <Link className="bentobox-heading-container" to={`/${link}`}>
+      <h2 className="bentobox-heading">{ bentobox.name }</h2>
+      <BentoboxResultsNum total_results={total_results}/>
+    </Link>
+  )
+}
+
+const BentoboxResultsNum = ({ total_results }) => {
+  if (!total_results) {
+    return null;
+  }
+
+  const results_num = numeral(total_results).format(0,0)
+  const results_text = results_num === 1 ? `Result` : `Results`
+
+  return <span className="underline">{results_num} {results_text}</span>
+}
+
 function mapStateToProps(state) {
   return {
     allRecords: state.records.records,
-    activeDatastore: state.datastores.active
+    activeDatastore: state.datastores.active,
+    search: state.search,
   };
 }
 

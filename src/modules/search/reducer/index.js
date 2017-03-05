@@ -19,7 +19,10 @@ const searchReducer = function searchReducer(state = initialState, action) {
       });
     case actions.SET_SEARCH_DATA:
       return Object.assign({}, state, {
-        data: action.payload,
+        data: {
+          ...state.data,
+          [action.payload.datastore_uid]: action.payload.data
+        },
       });
     case actions.SET_PAGE:
       return Object.assign({}, state, {

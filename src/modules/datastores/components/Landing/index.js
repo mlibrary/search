@@ -24,13 +24,6 @@ const Landing = ({ content, activeDatastore }) => {
           <p>Your results will include scholarly journal articles, newspaper articles, book chapters, conference proceedings, and more.</p>
         </div>
       )
-    case 'articlesplus':
-      return (
-        <div className="landing-container">
-          <p><b>Articles+</b> is a gateway to discovering a wide variety of library resources.</p>
-          <p>Your results will include scholarly journal articles, newspaper articles, book chapters, conference proceedings, and more.</p>
-        </div>
-      )
     case 'databases':
       return (
         <div className="landing-container">

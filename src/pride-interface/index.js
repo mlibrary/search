@@ -47,17 +47,19 @@ Pride.Settings.obnoxious = false; // Console log messages
 
 let searchSwitcher;
 
-const handleSearchData = (data) => {
-  store.dispatch(setSearchData(
-    {
+const handleSearchData = (data, datastore_uid) => {
+  const payload = {
+    data: {
       "count": data.count,
       "page": data.page,
       "total_pages": data.total_pages,
       "total_available": data.total_available,
       "sorts": data.sorts,
       "selected_sort": data.selected_sort,
-    }
-  ))
+    },
+    datastore_uid: datastore_uid
+  }
+  store.dispatch(setSearchData(payload))
 
   const activeDatastore = store.getState().datastores.active;
   const activeRecords = store.getState().records.records[activeDatastore];
@@ -125,9 +127,7 @@ const setupObservers = (searchObj) => {
       }
     });
 
-    if (store.getState().datastores.active === searchObj.uid) {
-      handleSearchData(searchObj.getData())
-    }
+    handleSearchData(searchObj.getData(), searchObj.uid)
   })
 
   searchObj.facetsObservers.add(function(filterGroups) {
@@ -163,6 +163,10 @@ const getDatastoreSlug = (uid) => {
 
   if (ds && ds.slug) {
     return ds.slug
+  }
+
+  if (ds) {
+    return ds.uid
   }
 
   return undefined;

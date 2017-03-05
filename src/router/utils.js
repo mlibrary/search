@@ -22,14 +22,17 @@ const createSearchParams = ({ query, filters }) => {
   let params = [];
 
   const esc = encodeURIComponent;
-  const filterGroups = Object.keys(filters);
 
-  if (filterGroups.length > 0) {
-    filterString = filterGroups
-      .map((key) => `${esc([key])}${esc(':')}${esc(filters[key])}`)
-      .join(esc(';'));
+  if (filters) {
+    const filterGroups = Object.keys(filters);
 
-    params.push(`filter=${filterString}`)
+    if (filterGroups.length > 0) {
+      filterString = filterGroups
+        .map((key) => `${esc([key])}${esc(':')}${esc(filters[key])}`)
+        .join(esc(';'));
+
+      params.push(`filter=${filterString}`)
+    }
   }
 
   if (query) {
