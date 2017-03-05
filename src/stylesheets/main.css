@@ -900,6 +900,25 @@ body {
   max-width: 14rem;
   background: linear-gradient(to left, #F2F9FF 20%, #E6F3FF 50%, #F2F9FF 80%); }
 
+.landing-container {
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  max-width: 36rem; }
+  .landing-container p {
+    font-size: 1.2rem; }
+  .landing-container p:first-child {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: solid 2px #CCC;
+    margin-top: 0; }
+  .landing-container p:last-child {
+    margin-bottom: 0;
+    color: #6E6E6E; }
+  .landing-container p a {
+    text-decoration: underline; }
+
 .u-break-word {
   word-wrap: break-word; }
 

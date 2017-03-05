@@ -1,0 +1,27 @@
+.landing-container {
+  margin: 0 auto;
+  padding: 1.5rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  max-width: 36rem;
+
+  p {
+    font-size: 1.2rem;
+  }
+
+  p:first-child {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: solid 2px $grey-4;
+    margin-top: 0;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+    color: $grey-3;
+  }
+
+  p a {
+    text-decoration: underline;
+  }
+}
