@@ -1,11 +1,11 @@
 import React from 'react';
 import { _ } from 'underscore';
 
-const AccessList = ({ access, holdings }) => {
+const AccessList = ({ access, holdings, loading }) => {
   return (
     <div className="access-container">
       <MetadataAccess access={access} />
-      <Holdings holdings={holdings} />
+      <Holdings holdings={holdings} loading={loading}/>
     </div>
   )
 }
@@ -29,8 +29,21 @@ const MetadataAccess = ({access}) => {
   )
 }
 
-const Holdings = ({holdings}) => {
-  if (!holdings.electronic && !holdings.physical || holdings.physical.length === 0) {
+const Holdings = ({holdings, loading}) => {
+  if (loading) {
+    return (
+      <div className="access-placeholder-container">
+        <div className="placeholder placeholder-inline"></div>
+        <div className="placeholder placeholder-access placeholder-inline"></div>
+      </div>
+    )
+  }
+
+  if (!holdings) {
+    return null
+  }
+
+  if (!holdings.electronic && (!holdings.physical || holdings.physical.length === 0)) {
     return null
   }
 
@@ -48,10 +61,19 @@ const Holdings = ({holdings}) => {
           <HoldingSpan text={holding.status} class_name="holding-status" />
           <HoldingSpan text={holding.location} class_name="holding-location" />
           <HoldingSpan text={holding.callnumber} class_name="holding-callnumber" />
+          <HoldingLink link={holding.link} />
         </li>
       )}
     </ul>
   )
+}
+
+const HoldingLink = ({ link }) => {
+  if (!link) {
+    return null
+  }
+
+  return <a href={link} className="underline">Request This Item</a>
 }
 
 const HoldingSpan = ({text, class_name}) => {

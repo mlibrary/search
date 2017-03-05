@@ -26,7 +26,8 @@ const holdingsReducer = (state = undefined, action) => {
                     location: holding.location || undefined,
                     status: holding.status || undefined,
                     callnumber: holding.callnumber || undefined,
-                    info_Link: holding.info_link || undefined,
+                    info_link: holding.info_link || undefined,
+                    link: holding.item_info[0]['get_this_url'] || undefined
                   }
                 ]
               } else if (holding_type === 'electronic') {
@@ -62,7 +63,7 @@ const recordsInitialState = {
   loading: false,
   records: [],
   record: null,
-  pagination: {},
+  pagination: {}
 };
 
 const recordsReducer = (state = recordsInitialState, action) => {
@@ -117,6 +118,24 @@ const recordsReducer = (state = recordsInitialState, action) => {
       return Object.assign({}, state, {
         loading: action.payload,
       });
+    case actions.LOADING_HOLDINGS:
+      if (!state.records[action.payload.datastore_uid] || !state.records[action.payload.datastore_uid][action.payload.record_id]) {
+        return state;
+      }
+
+      return {
+        ...state,
+        records: {
+          ...state.records,
+          [action.payload.datastore_uid]: {
+            ...state.records[action.payload.datastore_uid],
+            [action.payload.record_id]: {
+              ...state.records[action.payload.datastore_uid][action.payload.record_id],
+              loading_holdings: action.payload.loading
+            }
+          }
+        }
+      }
     default:
       return state;
   }

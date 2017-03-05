@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { _ } from 'underscore';
 
 import RecordMedium from '../RecordMedium';
-import { Loading } from '../../../core';
+import RecordPlaceholder from '../RecordPlaceholder';
 import { ClearSearchButton } from '../../../search';
 
 import {
@@ -15,7 +15,26 @@ class RecordListContainer extends React.Component {
     const { activeRecords, activeDatastore, loadingRecords } = this.props;
 
     if (loadingRecords) {
-      return <Loading />
+      return (
+        <div>
+          <div className="results-summary-container">
+            <ResultsSummary />
+            <ClearSearchButton />
+          </div>
+          <ul className="results-list results-list-border">
+            <RecordPlaceholder />
+            <RecordPlaceholder />
+            <RecordPlaceholder />
+            <RecordPlaceholder />
+            <RecordPlaceholder />
+            <RecordPlaceholder />
+            <RecordPlaceholder />
+            <RecordPlaceholder />
+            <RecordPlaceholder />
+            <RecordPlaceholder />
+          </ul>
+        </div>
+      )
     }
 
     if (!activeRecords) {

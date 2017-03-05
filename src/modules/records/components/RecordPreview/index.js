@@ -8,9 +8,10 @@ import {
   getField,
   filterDisplayFields,
   filterAccessFields,
+  displayLoadingFeedback
 } from '../../utilities';
 
-function RecordMedium({ record, activeDatastore }) {
+function RecordMedium({ record, activeDatastore, loading }) {
   const title = record.names[0];
   const displayFields = filterDisplayFields({
     fields: record.fields,
@@ -24,6 +25,7 @@ function RecordMedium({ record, activeDatastore }) {
   });
   const datastoreSlug = getDatastoreSlugByUid(activeDatastore);
   const idField = getField(record.fields, 'id');
+  const isLoading = displayLoadingFeedback(activeDatastore) && record.loading_holdings;
 
   if (idField) {
     const recordUid = idField.value;
@@ -35,7 +37,7 @@ function RecordMedium({ record, activeDatastore }) {
             <Link className="record-title-link" to={`${recordFulllink}`}>{title}</Link></h3>
           <FieldList fields={displayFields} />
         </div>
-        <AccessList access={access} holdings={record.holdings}  />
+        <AccessList access={access} holdings={record.holdings} loading={isLoading} />
       </li>
     )
   }

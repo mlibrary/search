@@ -694,7 +694,6 @@ body {
   padding: 0;
   background: white;
   /*
-  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
   margin-bottom: 1rem;
   border-radius: 4px;
   */ }
@@ -744,13 +743,12 @@ body {
   font-size: 1.5rem;
   margin-top: 0; }
 
-.loading {
-  margin-top: 1rem;
+.loading-container {
+  display: flex;
+  align-items: center;
+  margin-top: 0rem;
   padding: 1rem 2rem;
-  border-bottom: solid 2px #F2F2F2;
-  background: white;
-  border-radius: 4px 4px 0 0;
-  background: #FAFAFA; }
+  border-radius: 4px 4px 0 0; }
 
 .bentobox-list {
   display: flex;
@@ -808,9 +806,11 @@ body {
   opacity: 0.3; }
 
 .access-container {
+  display: flex;
   background: #FAFAFA;
   padding: 1rem 2rem;
-  margin-top: -0.5rem; }
+  margin-top: -0.5rem;
+  align-items: center; }
 
 .access-container:empty {
   display: none; }
@@ -842,6 +842,63 @@ body {
 
 .holding-location {
   font-weight: 600; }
+
+.loading-sync-icon {
+  fill: rgba(51, 51, 51, 0.5);
+  animation: spin 3s linear infinite;
+  margin: 0 0.5rem; }
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotateZ(0deg); }
+  100% {
+    -webkit-transform: rotateZ(-360deg); } }
+
+@-webkit-keyframes placeHolderShimmer {
+  0% {
+    background-position: -100vw 0; }
+  100% {
+    background-position: 100vw 0; } }
+
+.placeholder-container {
+  margin-bottom: 6rem; }
+
+.placeholder {
+  background: linear-gradient(to left, rgba(229, 229, 229, 0.6) 20%, #E5E5E5 50%, rgba(229, 229, 229, 0.6) 80%);
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: placeHolderShimmer;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-duration: 25s;
+  height: 0.6rem;
+  margin-bottom: 1rem; }
+
+.access-placeholder-container {
+  width: 100%; }
+  .access-placeholder-container .placeholder {
+    margin-bottom: 0; }
+
+.placeholder-title {
+  height: 1rem;
+  max-width: 32rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(to left, #F2F9FF 20%, #E6F3FF 50%, #F2F9FF 80%); }
+
+.placeholder-line {
+  max-width: 22rem; }
+
+.placeholder-line-alt {
+  max-width: 18rem; }
+
+.placeholder-inline {
+  display: inline-block;
+  width: 100%;
+  max-width: 8rem;
+  margin-right: 1rem; }
+
+.placeholder-access {
+  max-width: 14rem;
+  background: linear-gradient(to left, #F2F9FF 20%, #E6F3FF 50%, #F2F9FF 80%); }
 
 .u-break-word {
   word-wrap: break-word; }

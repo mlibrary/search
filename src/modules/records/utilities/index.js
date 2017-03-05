@@ -66,9 +66,20 @@ const filterAccessFields = ({ fields, type, datastore }) => {
   return accessObj
 }
 
+const displayLoadingFeedback = (datastore_uid) => {
+  const access_config = _.findWhere(config.fields, { datastore: datastore_uid })
+
+  if (!access_config.access || !access_config.access.loading_feedback) {
+    return false;
+  }
+
+  return access_config.access.loading_feedback;
+}
+
 export {
   getField,
   getFieldValue,
   filterDisplayFields,
   filterAccessFields,
+  displayLoadingFeedback,
 }

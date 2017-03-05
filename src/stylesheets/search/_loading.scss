@@ -1,8 +1,7 @@
-.loading {
-  margin-top: 1rem;
+.loading-container {
+  display: flex;
+  align-items: center;
+  margin-top: 0rem;
   padding: 1rem 2rem;
-  border-bottom: solid 2px $grey-7;
-  background: white;
   border-radius: 4px 4px 0 0;
-  background: $grey-6;
 }

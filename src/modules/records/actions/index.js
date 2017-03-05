@@ -4,6 +4,7 @@ export const CLEAR_RECORD = 'records/CLEAR_RECORD';
 export const SET_RECORD = 'records/SET_RECORD';
 export const LOADING_RECORDS = 'records/LOADING_RECORDS';
 export const ADD_HOLDINGS = 'records/ADD_HOLDINGS';
+export const LOADING_HOLDINGS = 'records/LOADING_HOLDINGS';
 
 export function addRecord(payload) {
   return { type: ADD_RECORD, payload };
@@ -27,4 +28,8 @@ export function loadingRecords(payload) {
 
 export function addHoldings(payload) {
   return { type: ADD_HOLDINGS, payload };
+}
+
+export function loadingHoldings(payload) {
+  return { type: LOADING_HOLDINGS, payload };
 }

@@ -4,6 +4,7 @@ import { _ } from 'underscore';
 
 import { getMultiSearchRecords } from '../../../../pride-interface';
 import RecordPreview from '../RecordPreview';
+import RecordPlaceholder from '../RecordPlaceholder';
 
 class BentoboxList extends React.Component {
   render() {
@@ -13,9 +14,21 @@ class BentoboxList extends React.Component {
     return (
       <ul className="bentobox-list">
         {bentoboxListRecords.map(bentobox => {
-
           if (!bentobox.records) {
             return null
+          }
+
+          if (bentobox.records.length === 0) {
+            return (
+              <li key={bentobox.uid} className="bentobox">
+                <h2 className="bentobox-heading">{bentobox.name}</h2>
+                <ul className="results-list results-list-border">
+                  <RecordPlaceholder />
+                  <RecordPlaceholder />
+                  <RecordPlaceholder />
+                </ul>
+              </li>
+            )
           }
 
           return (
@@ -24,7 +37,7 @@ class BentoboxList extends React.Component {
               <ul className="results-list results-list-border">
                 {bentobox.records.map((record, index) => {
                   return (
-                    <RecordPreview key={index} activeDatastore={bentobox.uid} record={record} />
+                    <RecordPreview key={index} activeDatastore={bentobox.uid} record={record} loading={record.loading_holdings}/>
                   )
                 })}
               </ul>

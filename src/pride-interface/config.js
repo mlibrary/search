@@ -57,10 +57,12 @@ const config = {
       medium: ['author', 'format', 'publish_date', 'place_of_publication', 'edition', 'publisher'],
       access: {
         from_holdings: true,
+        loading_feedback: true,
         text: 'callnumber',
         source: 'location',
         status: 'status',
-      }
+        link: 'get_this_url'
+      },
     },
     {
       datastore: 'articlesplus',
