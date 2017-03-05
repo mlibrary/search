@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { _ } from 'underscore';
 
 import { SearchBox } from '../../../search';
-import { DatastoreNavigation } from '../../../datastores';
+import {
+  DatastoreNavigation,
+  Landing,
+} from '../../../datastores';
 import { FilterList } from '../../../filters';
 import { BentoboxList } from '../../../records';
 import {
@@ -53,7 +56,7 @@ class DatastorePage extends React.Component {
         <SearchBox />
         <DatastoreNavigation />
         <div className="container container-narrow">
-          <p className="alert">Begin your search. Empty state.</p>
+          <Landing content={'hello'} activeDatastore={activeDatastore}/>
         </div>
       </div>
     )
