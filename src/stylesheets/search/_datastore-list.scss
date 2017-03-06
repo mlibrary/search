@@ -8,8 +8,9 @@
 }
 
 .datastore-list {
+  display: flex;
   margin: 0;
-  text-align: center;
+  justify-content: center;
 }
 
 .datastore-scroll-x {
@@ -48,4 +49,13 @@
 .datastore-item-active {
   border-bottom: solid 2px $main-3;
   color: $main-3;
+}
+
+.datastore-item-content-wrap {
+  display: flex;
+  align-items: center;
+
+  .icon {
+    margin-right: 0.5rem;
+  }
 }

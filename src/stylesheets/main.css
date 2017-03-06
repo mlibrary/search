@@ -521,7 +521,11 @@ input.search-box-input {
 
 .search-box-button {
   margin-left: 1rem;
-  margin-right: 0; }
+  margin-right: 0;
+  display: flex;
+  align-items: center; }
+  .search-box-button .icon {
+    margin-right: 0.5rem; }
 
 .datastore-list-container {
   background: #FAFAFA;
@@ -531,8 +535,9 @@ input.search-box-input {
   position: relative; }
 
 .datastore-list {
+  display: flex;
   margin: 0;
-  text-align: center; }
+  justify-content: center; }
 
 .datastore-scroll-x {
   white-space: nowrap;
@@ -567,6 +572,12 @@ input.search-box-input {
   border-bottom: solid 2px #126DC1;
   color: #126DC1; }
 
+.datastore-item-content-wrap {
+  display: flex;
+  align-items: center; }
+  .datastore-item-content-wrap .icon {
+    margin-right: 0.5rem; }
+
 /*
   Multiple results container // aka Bento box
 */
@@ -583,19 +594,19 @@ input.search-box-input {
 .results-summary-container {
   margin-top: 1rem;
   padding: 1rem 2rem;
-  border-bottom: solid 2px #F2F2F2;
+  border-bottom: solid 2px #E5E5E5;
   background: white;
   border-radius: 4px 4px 0 0;
-  background: #FAFAFA; }
+  background: #FAFAFA;
+  margin-bottom: 0.5rem; }
 
 .results-summary {
   padding-right: 1rem; }
 
 .pagination-container {
   padding: 1rem 2rem;
-  border-bottom: solid 2px #F2F2F2;
+  border-bottom: solid 2px #E5E5E5;
   background: white;
-  border-radius: 0 0 4px 4px;
   background: #FAFAFA;
   margin-bottom: 2rem; }
   .pagination-container .results-summary {
@@ -692,10 +703,7 @@ body {
   margin: 0;
   padding: 0;
   background: white;
-  /*
-  margin-bottom: 1rem;
-  border-radius: 4px;
-  */ }
+  margin-bottom: 0.5rem; }
 
 .record-container {
   padding: 2rem;
@@ -776,7 +784,8 @@ body {
   align-items: flex-end;
   padding: 1rem 1.5rem;
   background: #FAFAFA;
-  border-bottom: solid 2px #E5E5E5; }
+  border-bottom: solid 2px #E5E5E5;
+  margin-bottom: 0.5rem; }
   .bentobox-heading-container span {
     line-height: 1.5; }
 
@@ -942,7 +951,7 @@ body {
   border-radius: 4px;
   justify-content: space-between; }
   .datastore-info-container p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin: 0;
     line-height: 1.7;
     color: #4E4E4E; }
@@ -957,9 +966,14 @@ body {
   background: none;
   cursor: pointer;
   text-decoration: underline;
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.7;
-  color: #4E4E4E; }
+  color: #4E4E4E;
+  font-weight: 600; }
+
+.icon {
+  width: 1rem;
+  height: 1rem; }
 
 .u-break-word {
   word-wrap: break-word; }

@@ -6,6 +6,8 @@ import {
   removeQuery
 } from '../../../../router';
 
+import { Icon } from '../../../core';
+
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
@@ -40,7 +42,7 @@ class SearchBox extends React.Component {
               value={this.state.query}
               onChange={this.handleChange}
             />
-            <input className="button search-box-button" type="submit" value="Search" />
+          <button className="button search-box-button" type="submit"><Icon name="search"/>Search</button>
           </form>
         </div>
       </div>

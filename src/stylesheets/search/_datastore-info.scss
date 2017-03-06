@@ -7,7 +7,7 @@
   justify-content: space-between;
 
   p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin: 0;
     line-height: 1.7;
     color: $grey-2;
@@ -25,7 +25,8 @@
   background: none;
   cursor: pointer;
   text-decoration: underline;
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.7;
   color: $grey-2;
+  font-weight: 600;
 }

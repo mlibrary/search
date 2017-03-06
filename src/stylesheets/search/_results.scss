@@ -18,10 +18,11 @@
 .results-summary-container {
   margin-top: 1rem;
   padding: 1rem 2rem;
-  border-bottom: solid 2px $grey-7;
+  border-bottom: solid 2px $grey-5;
   background: white;
   border-radius: 4px 4px 0 0;
   background: $grey-6;
+  margin-bottom: 0.5rem;
 }
 
 .results-summary {
@@ -30,9 +31,8 @@
 
 .pagination-container {
   padding: 1rem 2rem;
-  border-bottom: solid 2px $grey-7;
+  border-bottom: solid 2px $grey-5;
   background: white;
-  border-radius:  0 0 4px 4px;
   background: $grey-6;
   margin-bottom: 2rem;
 

@@ -31,6 +31,7 @@ export default function DatastoreNavigationPresenter ({ datastores, search, acti
               name={ds.name}
               key={ds.uid}
               link={link}
+              isMultisearch={ds.isMultisearch}
             />
           )
         })}

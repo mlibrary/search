@@ -53,8 +53,19 @@ const config = {
   fields: [
     {
       datastore: 'mirlyn',
-      preview: ['author', 'format', 'publish_date'],
-      medium: ['author', 'format', 'publish_date', 'place_of_publication', 'edition', 'publisher'],
+      preview: [
+        'author',
+        'format',
+        'publish_date'
+      ],
+      medium: [
+        'author',
+        'format',
+        'publish_date',
+        'place_of_publication',
+        'edition',
+        'publisher'
+      ],
       access: {
         from_holdings: true,
         loading_feedback: true,
@@ -66,7 +77,11 @@ const config = {
     },
     {
       datastore: 'articlesplus',
-      preview: ['publication_date', 'publication_title', 'author'],
+      preview: [
+        'publication_date',
+        'publication_title',
+        'author'
+      ],
       medium: [
         'publication_date',
         'abstract',
@@ -87,21 +102,44 @@ const config = {
         link: 'link'
       }
     },
-
+    {
+      datastore: 'databases',
+      preview: [
+        'brief_description',
+        'access_icon',
+      ],
+      medium: [
+        'brief_description',
+        'database_type',
+        'access_icon',
+      ],
+    },
     {
       datastore: 'journals',
-      medium: ['access_coverage', 'issn', 'academic_discipline', 'holdings'],
+      preview: [
+        'holdings',
+      ],
+      medium: [
+        'access_coverage',
+        'issn',
+        'access',
+        'coverage',
+        'academic_disciplines',
+        'holdings',
+      ],
       access: {
         text_default: 'Go To Online Journal',
         link: 'access_url'
       },
     },
     {
-      datastore: 'website'
-    },
-    {
-      datastore: 'databases',
-      medium: ['brief_description', 'academic_discipline', 'database_type'],
+      datastore: 'website',
+      preview: [
+        'brief_description',
+      ],
+      medium: [
+        'brief_description',
+      ]
     },
   ],
 };
