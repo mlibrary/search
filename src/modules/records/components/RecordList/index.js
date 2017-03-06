@@ -18,8 +18,8 @@ class RecordListContainer extends React.Component {
       return (
         <div>
           <div className="results-summary-container">
-            <ResultsSummary />
             <ClearSearchButton />
+            <ResultsSummary />
           </div>
           <ul className="results-list results-list-border">
             <RecordPlaceholder />
@@ -44,8 +44,8 @@ class RecordListContainer extends React.Component {
     return (
       <div>
         <div className="results-summary-container">
-          <ResultsSummary />
           <ClearSearchButton />
+          <ResultsSummary />
         </div>
         <ul className="results-list results-list-border">
           {activeRecords.map((record, index) =>

@@ -592,11 +592,12 @@ input.search-box-input {
   Search Summary // Records List Bar
 */
 .results-summary-container {
+  display: flex;
+  justify-content: space-between;
   margin-top: 1rem;
   padding: 1rem 2rem;
   border-bottom: solid 2px #E5E5E5;
   background: white;
-  border-radius: 4px 4px 0 0;
   background: #FAFAFA;
   margin-bottom: 0.5rem; }
 
@@ -621,13 +622,8 @@ input.search-box-input {
 .filter-group {
   padding: 1rem;
   background: #FAFAFA;
-  border-bottom: solid 2px #F2F2F2; }
-
-.filter-group:first-child {
-  border-radius: 4px 4px 0 0; }
-
-.filter-group:last-child {
-  border-radius: 0 0 4px 4px; }
+  border-bottom: solid 2px #E5E5E5;
+  margin-bottom: 0.5rem; }
 
 .filter-list {
   margin: 0;
@@ -961,7 +957,7 @@ body {
 
 .datastore-info-hide {
   outline: none;
-  padding: 0;
+  padding: 0 0.25rem;
   border: none;
   background: none;
   cursor: pointer;
@@ -970,6 +966,8 @@ body {
   line-height: 1.7;
   color: #4E4E4E;
   font-weight: 600; }
+  .datastore-info-hide:hover {
+    background: #E5E5E5; }
 
 .icon {
   width: 1rem;

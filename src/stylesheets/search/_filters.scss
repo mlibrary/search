@@ -5,15 +5,8 @@
 .filter-group {
   padding: 1rem;
   background: $grey-6;
-  border-bottom: solid 2px $grey-7;
-}
-
-.filter-group:first-child {
-  border-radius: 4px 4px 0 0;
-}
-
-.filter-group:last-child {
-  border-radius:  0 0 4px 4px;
+  border-bottom: solid 2px $grey-5;
+  margin-bottom: 0.5rem;
 }
 
 .filter-list {

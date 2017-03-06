@@ -16,11 +16,12 @@
 */
 
 .results-summary-container {
+  display: flex;
+  justify-content: space-between;
   margin-top: 1rem;
   padding: 1rem 2rem;
   border-bottom: solid 2px $grey-5;
   background: white;
-  border-radius: 4px 4px 0 0;
   background: $grey-6;
   margin-bottom: 0.5rem;
 }
