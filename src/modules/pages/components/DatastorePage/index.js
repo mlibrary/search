@@ -6,12 +6,13 @@ import { SearchBox } from '../../../search';
 import {
   DatastoreNavigation,
   Landing,
+  DatastoreInfo,
 } from '../../../datastores';
 import { FilterList } from '../../../filters';
-import { BentoboxList } from '../../../records';
 import {
   RecordList,
   Pagination,
+  BentoboxList,
 } from '../../../records';
 
 class DatastorePage extends React.Component {
@@ -24,6 +25,7 @@ class DatastorePage extends React.Component {
         <div>
           <SearchBox />
           <DatastoreNavigation />
+          <DatastoreInfo activeDatastore={activeDatastore} />
           <div className="container container-large flex-container">
             <div className="main-container">
               <BentoboxList />
@@ -38,6 +40,7 @@ class DatastorePage extends React.Component {
         <div>
           <SearchBox />
           <DatastoreNavigation />
+          <DatastoreInfo activeDatastore={activeDatastore} />
           <div className="container container-medium flex-container">
             <div className="side-container">
               <FilterList />
@@ -56,7 +59,7 @@ class DatastorePage extends React.Component {
         <SearchBox />
         <DatastoreNavigation />
         <div className="container container-narrow">
-          <Landing content={'hello'} activeDatastore={activeDatastore}/>
+          <Landing activeDatastore={activeDatastore}/>
         </div>
       </div>
     )

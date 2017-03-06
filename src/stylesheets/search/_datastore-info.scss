@@ -1,0 +1,31 @@
+.datastore-info-container {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  justify-content: space-between;
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.7;
+    color: $grey-2;
+  }
+}
+
+.datastore-info {
+  padding-right: 1rem;
+}
+
+.datastore-info-hide {
+  outline: none;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: $grey-2;
+}

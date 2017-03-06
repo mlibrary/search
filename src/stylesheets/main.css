@@ -71,8 +71,7 @@ html {
 
 @media (min-width: 80rem) {
   .container-large {
-    width: 96vw;
-    max-width: 110rem; } }
+    max-width: 140rem; } }
 
 /*
   Site
@@ -778,12 +777,16 @@ body {
   padding: 1rem 1.5rem;
   background: #FAFAFA;
   border-bottom: solid 2px #E5E5E5; }
+  .bentobox-heading-container span {
+    line-height: 1.5; }
 
 .bentobox-heading {
   margin: 0;
   color: #333;
-  font-size: 1.2rem;
-  font-weight: 400; }
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-right: 0.5rem;
+  line-height: 1.5; }
 
 @media (min-width: 36em) {
   .bentobox {
@@ -795,7 +798,7 @@ body {
     width: calc(100% * (1/3) - 1rem);
     margin-right: 1rem; } }
 
-@media (min-width: 92em) {
+@media (min-width: 90em) {
   .bentobox {
     width: calc(100% * (1/5) - 1rem);
     margin-right: 1rem; } }
@@ -930,6 +933,33 @@ body {
     color: #6E6E6E; }
   .landing-container p a {
     text-decoration: underline; }
+
+.datastore-info-container {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  justify-content: space-between; }
+  .datastore-info-container p {
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.7;
+    color: #4E4E4E; }
+
+.datastore-info {
+  padding-right: 1rem; }
+
+.datastore-info-hide {
+  outline: none;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #4E4E4E; }
 
 .u-break-word {
   word-wrap: break-word; }

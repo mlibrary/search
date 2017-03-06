@@ -37,13 +37,19 @@
   padding: 1rem 1.5rem;
   background: $grey-6;
   border-bottom: solid 2px $grey-5;
+
+  span {
+    line-height: 1.5;
+  }
 }
 
 .bentobox-heading {
   margin: 0;
   color: $grey-1;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 400;
+  margin-right: 0.5rem;
+  line-height: 1.5;
 }
 
 @media (min-width: 36em) {
@@ -60,7 +66,7 @@
   }
 }
 
-@media (min-width: 92em) {
+@media (min-width: 90em) {
   .bentobox {
     width: calc(100% * (1/5) - 1rem);
     margin-right: 1rem;

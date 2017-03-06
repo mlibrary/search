@@ -1,5 +1,6 @@
 import DatastoreNavigation from './components/DatastoreNavigation';
 import Landing from './components/Landing';
+import DatastoreInfo from './components/DatastoreInfo';
 import datastoresReducer from './reducer/';
 
 import {
@@ -13,4 +14,5 @@ export {
   addDatastore,
   changeActiveDatastore,
   Landing,
+  DatastoreInfo,
 };
