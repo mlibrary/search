@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import { Icon } from '../../../core';
+
 const Landing = ({ content, activeDatastore }) => {
   switch (activeDatastore.uid) {
     case 'everything':
       return (
         <div className="landing-container">
+          <Icon name="wand" />
           <p><b>Everything</b> provides a sampling of results from across the library, while guiding you to additional materials and deeper details.</p>
           <p className="datastore-summary">You will see results from the <Link to={`/catalog`}>Catalog</Link>, <Link to={`/articlesplus`}>Articles+</Link>, <Link to={`/databases`}>Databases</Link>, <Link to={`/onlinejournals`}>Online Journals</Link>, and <Link to={`/librarywebsite`}>Library Website</Link> pages.</p>
         </div>
