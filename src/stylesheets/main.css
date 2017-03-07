@@ -529,15 +529,15 @@ input.search-box-input {
 
 .datastore-list-container {
   background: #FAFAFA;
-  border-bottom: solid 2px #E5E5E5; }
+  border-bottom: solid 2px #E5E5E5;
+  text-align: center; }
 
 .datastore-scroll-container {
   position: relative; }
 
 .datastore-list {
-  display: flex;
-  margin: 0;
-  justify-content: center; }
+  display: inline-flex;
+  margin: 0 0.5rem; }
 
 .datastore-scroll-x {
   white-space: nowrap;
@@ -550,7 +550,7 @@ input.search-box-input {
   pointer-events: none;
   right: 0;
   top: 0;
-  width: 1.5rem;
+  width: 2rem;
   height: 100%;
   z-index: 2; }
 
@@ -925,7 +925,7 @@ body {
 
 .landing-container {
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 4px;
   margin-top: 1rem;
   max-width: 36rem; }
