@@ -4,7 +4,6 @@ import { _ } from 'underscore';
 
 import RecordMedium from '../RecordMedium';
 import RecordPlaceholder from '../RecordPlaceholder';
-import { ClearSearchButton } from '../../../search';
 
 import {
   ResultsSummary,
@@ -18,7 +17,6 @@ class RecordListContainer extends React.Component {
       return (
         <div>
           <div className="results-summary-container">
-            <ClearSearchButton />
             <ResultsSummary />
           </div>
           <ul className="results-list results-list-border">
@@ -44,7 +42,6 @@ class RecordListContainer extends React.Component {
     return (
       <div>
         <div className="results-summary-container">
-          <ClearSearchButton />
           <ResultsSummary />
         </div>
         <ul className="results-list results-list-border">
