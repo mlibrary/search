@@ -51,6 +51,12 @@
   color: $main-3;
 }
 
+.datastore-item-link:not(.datastore-item-active) {
+  svg g {
+    fill: $grey-4;
+  }
+}
+
 .datastore-item-content-wrap {
   display: flex;
   align-items: center;

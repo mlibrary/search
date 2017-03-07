@@ -572,6 +572,9 @@ input.search-box-input {
   border-bottom: solid 2px #126DC1;
   color: #126DC1; }
 
+.datastore-item-link:not(.datastore-item-active) svg g {
+  fill: #CCC; }
+
 .datastore-item-content-wrap {
   display: flex;
   align-items: center; }
@@ -972,6 +975,8 @@ body {
 .icon {
   width: 1rem;
   height: 1rem; }
+  .icon g {
+    fill: currentColor; }
 
 .u-break-word {
   word-wrap: break-word; }
