@@ -13,12 +13,40 @@ class BentoboxList extends React.Component {
   render() {
     const { allRecords, activeDatastore, search } = this.props;
     const bentoboxListRecords = getMultiSearchRecords(activeDatastore, allRecords);
-    
+
     return (
       <ul className="bentobox-list">
         {bentoboxListRecords.map(bentobox => {
           if (!bentobox.records) {
             return null
+          }
+
+          if (search.data[bentobox.uid] && search.data[bentobox.uid].total_available === 0) {
+            return (
+              <li key={bentobox.uid} className="bentobox">
+                <BentoboxHeading bentobox={bentobox} search={search} />
+                <ul className="results-list results-list-border">
+                  <li className="record">
+                    <div className="record-container">
+                      <p className="no-margin">No results match your search.</p>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            )
+          }
+
+          if (bentobox.records.length === 0) {
+            return (
+              <li key={bentobox.uid} className="bentobox">
+                <BentoboxHeading bentobox={bentobox} search={search} />
+                <ul className="results-list results-list-border">
+                  <RecordPlaceholder />
+                  <RecordPlaceholder />
+                  <RecordPlaceholder />
+                </ul>
+              </li>
+            )
           }
 
           if (bentobox.records.length === 0) {
@@ -68,6 +96,9 @@ const BentoboxHeading = ({ bentobox, search }) => {
 }
 
 const BentoboxResultsNum = ({ total_results }) => {
+
+  console.log('total_results', total_results)
+
   if (!total_results) {
     return null;
   }

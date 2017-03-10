@@ -12,7 +12,25 @@ import {
 
 class RecordListContainer extends React.Component {
   render() {
-    const { activeRecords, activeDatastore, loadingRecords } = this.props;
+    const { activeRecords, activeDatastore, loadingRecords, search } = this.props;
+
+    if (search.data[activeDatastore] && search.data[activeDatastore].total_available === 0) {
+      return (
+        <div>
+          <div className="results-summary-container">
+            <ClearSearchButton />
+            <ResultsSummary />
+          </div>
+          <ul className="results-list results-list-border">
+            <li className="record">
+              <div className="record-container">
+                <p className="no-margin">No results match your search.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      )
+    }
 
     if (loadingRecords) {
       return (
@@ -66,6 +84,7 @@ function mapStateToProps(state) {
     activeRecords: _.values(state.records.records[state.datastores.active]),
     loadingRecords: state.records.loading,
     activeDatastore: state.datastores.active,
+    search: state.search,
   };
 }
 
