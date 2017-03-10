@@ -2,6 +2,8 @@
 
 A work in progress single page app for new search. This repository contains the front-end code that generates the UI and connects to the middle and backend.
 
+[View the early development beta](earleyj-drupal8.www.lib.umich.edu).
+
 ## Getting Started
 
 ###1. Clone Search
