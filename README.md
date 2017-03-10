@@ -46,4 +46,4 @@ Email Jon Earley at earleyj@umich.edu if you have any questions.
 
 
 ## Create React App
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). This will explain why you see a lack of configuration.
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). This will explain why you are seeing a lack of configuration.
