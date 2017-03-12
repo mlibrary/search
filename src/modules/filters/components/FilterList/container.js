@@ -77,7 +77,16 @@ class FilterListContainer extends React.Component {
     const { filters, activeDatastore } = this.props;
 
     if (Object.keys(this.props.filters.groups).length === 0) {
-      return null;
+      return (
+        <p style={{
+          padding: '1rem',
+          background: '#FAFAFA',
+          borderBottom: 'solid 2px #E5E5E5',
+          marginBottom: '0.5rem',
+        }}>
+          No filters for this search.
+        </p>
+      )
     }
 
     return (
