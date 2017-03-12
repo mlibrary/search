@@ -931,13 +931,12 @@ body {
   max-width: 36rem; }
   .landing-container p {
     font-size: 1.2rem; }
-  .landing-container p:first-child {
+  .landing-container .landing-heading-text {
     margin-bottom: 1rem;
     padding-bottom: 1rem;
     border-bottom: solid 2px #CCC;
     margin-top: 0; }
-  .landing-container p:last-child {
-    margin-bottom: 0;
+  .landing-container p:not(.landing-heading-text) {
     color: #6E6E6E; }
   .landing-container p a {
     text-decoration: underline; }

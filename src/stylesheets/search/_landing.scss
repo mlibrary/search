@@ -9,15 +9,14 @@
     font-size: 1.2rem;
   }
 
-  p:first-child {
+  .landing-heading-text {
     margin-bottom: 1rem;
     padding-bottom: 1rem;
     border-bottom: solid 2px $grey-4;
     margin-top: 0;
   }
 
-  p:last-child {
-    margin-bottom: 0;
+  p:not(.landing-heading-text) {
     color: $grey-3;
   }
 
