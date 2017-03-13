@@ -21,7 +21,7 @@ class BentoboxList extends React.Component {
             return null
           }
 
-          if (search.data[bentobox.uid] && search.data[bentobox.uid].total_available === 0) {
+          if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
             return (
               <li key={bentobox.uid} className="bentobox">
                 <BentoboxHeading bentobox={bentobox} search={search} />
@@ -68,7 +68,7 @@ class BentoboxList extends React.Component {
               <ul className="results-list results-list-border">
                 {bentobox.records.map((record, index) => {
                   return (
-                    <RecordPreview key={index} activeDatastore={bentobox.uid} record={record} loading={record.loading_holdings}/>
+                    <RecordPreview key={index} activeDatastore={bentobox.uid} record={record} loading={record.loadingHoldings}/>
                   )
                 })}
               </ul>
@@ -81,7 +81,7 @@ class BentoboxList extends React.Component {
 }
 
 const BentoboxHeading = ({ bentobox, search }) => {
-  const totalResults = search.data[bentobox.uid].total_available;
+  const totalResults = search.data[bentobox.uid].totalAvailable;
   const searchParams = createSearchParams({
     query: search.query
   })

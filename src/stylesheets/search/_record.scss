@@ -34,6 +34,7 @@
 .record-field-list {
   margin-top: 1rem;
   display: table;
+  width: 100%;
 }
 
 .record-field {
@@ -43,7 +44,7 @@
 .record-field-name {
   display: table-cell;
   padding-right: 1rem;
-  font-weight: 600;
+  font-weight: 400;
   color: $grey-2;
 }
 

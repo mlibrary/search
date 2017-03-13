@@ -4,6 +4,16 @@
   padding-bottom: 1rem;
 }
 
+.site-header-container {
+  padding: 0 1rem;
+
+  @media (min-width: 32em) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
 .logo-item-list {
   margin: 0;
   padding: 0;
@@ -37,6 +47,7 @@
 
 .logo-block-m {
   padding-right: 1rem;
+  padding-left: 0;
 }
 
 .logo-library,
@@ -75,5 +86,24 @@
   .logo-library,
   .logo-block-m {
     padding-right: 0.8rem;
+  }
+}
+
+.site-header-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (max-width: 32em) {
+    margin-top: 1rem;
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+
+    a {
+      color: white;
+    }
   }
 }

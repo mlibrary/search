@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>music-circle copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Blank-Landing-Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Catalog-Landing-Page" transform="translate(-734.000000, -224.000000)" fill="#126DC1">
+            <g id="music-circle-copy" transform="translate(734.000000, 224.000000)">
+                <path d="M28,14 L28,10 L20,10 L20,21.02 C19.16,20.38 18.14,20 17,20 C14.24,20 12,22.24 12,25 C12,27.76 14.24,30 17,30 C19.76,30 22,27.76 22,25 L22,14 L28,14 L28,14 Z M20,0 C31.0456,0 40,8.9543 40,20 C40,31.0458 31.0456,40 20,40 C8.9543,40 0,31.0458 0,20 C0,8.9543 8.9543,0 20,0 L20,0 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -397,6 +397,14 @@ nav {
   padding-top: 1rem;
   padding-bottom: 1rem; }
 
+.site-header-container {
+  padding: 0 1rem; }
+  @media (min-width: 32em) {
+    .site-header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; } }
+
 .logo-item-list {
   margin: 0;
   padding: 0;
@@ -421,7 +429,8 @@ nav {
     width: auto; }
 
 .logo-block-m {
-  padding-right: 1rem; }
+  padding-right: 1rem;
+  padding-left: 0; }
 
 .logo-library,
 .logo-search {
@@ -450,6 +459,19 @@ nav {
   .logo-library,
   .logo-block-m {
     padding-right: 0.8rem; } }
+
+.site-header-list {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+  @media (max-width: 32em) {
+    .site-header-list {
+      margin-top: 1rem; } }
+  .site-header-list li {
+    margin: 0;
+    padding: 0; }
+    .site-header-list li a {
+      color: white; }
 
 footer {
   background: #00274C;
@@ -722,7 +744,8 @@ body {
 
 .record-field-list {
   margin-top: 1rem;
-  display: table; }
+  display: table;
+  width: 100%; }
 
 .record-field {
   display: table-row; }
@@ -730,7 +753,7 @@ body {
 .record-field-name {
   display: table-cell;
   padding-right: 1rem;
-  font-weight: 600;
+  font-weight: 400;
   color: #4E4E4E; }
 
 .record-field-value {
@@ -895,7 +918,7 @@ body {
     background-position: 100vw 0; } }
 
 .placeholder-container {
-  margin-bottom: 6rem; }
+  margin-bottom: 2rem; }
 
 .placeholder {
   background: linear-gradient(to left, rgba(229, 229, 229, 0.6) 20%, #E5E5E5 50%, rgba(229, 229, 229, 0.6) 80%);
@@ -936,14 +959,13 @@ body {
 
 .landing-container {
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1rem 0;
+  margin-top: 0.5rem;
   border-radius: 4px;
-  margin-top: 1rem;
   max-width: 36rem; }
   .landing-container p {
     font-size: 1.2rem; }
   .landing-container .landing-heading-text {
-    margin-bottom: 1rem;
     padding-bottom: 1rem;
     border-bottom: solid 2px #CCC;
     margin-top: 0; }
@@ -951,6 +973,13 @@ body {
     color: #6E6E6E; }
   .landing-container p a {
     text-decoration: underline; }
+
+.landing-icons {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center; }
+  .landing-icons svg {
+    margin: 0 1rem; }
 
 .datastore-info-container {
   display: flex;
@@ -1014,3 +1043,7 @@ body {
 
 .no-border {
   border: none; }
+
+.offpage {
+  position: absolute;
+  left: -999em; }

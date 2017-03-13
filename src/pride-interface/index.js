@@ -20,8 +20,13 @@ import {
 } from '../modules/records';
 
 import {
+  removeQuery
+} from '../router';
+
+import {
   setSearchData,
-  searching
+  searching,
+  clearSearch,
 } from '../modules/search';
 
 import {
@@ -381,6 +386,15 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
   return bentoBoxes
 }
 
+const clearEverything = () => {
+  removeQuery('q');
+  removeQuery('filter');
+
+  store.dispatch(clearRecords())
+  store.dispatch(clearFilters())
+  store.dispatch(clearSearch())
+}
+
 /*
   Expose functions that are useful externally
 */
@@ -395,5 +409,6 @@ export {
   prevPage,
   config,
   requestPrideRecord,
-  getMultiSearchRecords
+  getMultiSearchRecords,
+  clearEverything,
 }

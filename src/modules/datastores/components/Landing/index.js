@@ -8,7 +8,7 @@ const Landing = ({ content, activeDatastore }) => {
     case 'everything':
       return (
         <div className="landing-container">
-          <Icon name="wand" />
+          <LandingIcons icons={['want']} />
           <p className="landing-heading-text"><b>Everything</b> provides a sampling of results from across the library, while guiding you to additional materials and deeper details.</p>
           <p>You will see results from the <Link to={`/catalog`}>Catalog</Link>, <Link to={`/articlesplus`}>Articles+</Link>, <Link to={`/databases`}>Databases</Link>, <Link to={`/onlinejournals`}>Online Journals</Link>, and <Link to={`/librarywebsite`}>Library Website</Link> pages.</p>
         </div>
@@ -56,5 +56,17 @@ const Landing = ({ content, activeDatastore }) => {
       )
   }
 };
+
+const LandingIcons = ({ icons }) => {
+  if (!icons) {
+    return null
+  }
+
+  return (
+    <div className="landing-icons">
+      {icons.map((icon, index) => <Icon key={index} name={icon} />)}
+    </div>
+  )
+}
 
 export default Landing;

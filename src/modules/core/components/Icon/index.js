@@ -38,6 +38,55 @@ const Icon = ({ name, size, color }) => {
             </g>
         </svg>
       )
+    case 'book':
+      return (
+        <svg width="44px" height="34px" viewBox="0 0 44 34" version="1.1">
+            <defs></defs>
+            <g id="Blank-Landing-Pages" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g id="Catalog-Landing-Page" transform="translate(-594.000000, -227.000000)" fill="#126DC1">
+                    <g id="book-open-variant-copy" transform="translate(594.000000, 227.000000)">
+                        <path d="M40,1 C37.78,0.3 35.34,0 33,0 C29.1,0 24.9,0.8 22,3 C19.1,0.8 14.9,0 11,0 C7.1,0 2.9,0.8 0,3 L0,32.3 C0,32.8 0.5,33.3 1,33.3 C1.2,33.3 1.3,33.2 1.5,33.2 C4.2,31.9 8.1,31 11,31 C14.9,31 19.1,31.8 22,34 C24.7,32.3 29.6,31 33,31 C36.3,31 39.7,31.6 42.5,33.1 C42.7,33.2 42.8,33.2 43,33.2 C43.5,33.2 44,32.7 44,32.2 L44,3 C42.8,2.1 41.5,1.5 40,1 L40,1 Z M40,28 C37.8,27.3 35.4,27 33,27 C29.6,27 24.7,28.3 22,30 L22,7 C24.7,5.3 29.6,4 33,4 C35.4,4 37.8,4.3 40,5 L40,28 L40,28 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'file':
+      return (
+        <svg width="32px" height="40px" viewBox="0 0 32 40" version="1.1">
+            <g id="Blank-Landing-Pages" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g id="Catalog-Landing-Page" transform="translate(-670.000000, -224.000000)" fill="#126DC1">
+                    <g id="file-document-copy" transform="translate(670.000000, 224.000000)">
+                        <path d="M18.00002,14 L29.00002,14 L18.00002,3 L18.00002,14 L18.00002,14 Z M4,0 L20.00002,0 L32.00002,12 L32.00002,36.00006 C32.00002,38.20806 30.20802,40.00006 28.00002,40.00006 L3.97998,40.00006 C1.77198,40.00006 0,38.20806 0,36.00006 L0.02002,4 C0.02002,1.792 1.78996,0 4,0 L4,0 Z M22.00122,32.00386 L22.00122,28.00386 L3.98124,28.00386 L3.98124,32.00386 L22.00122,32.00386 L22.00122,32.00386 Z M28.00122,24.00386 L28.00122,20.00386 L3.98124,20.00386 L3.98124,24.00386 L28.00122,24.00386 L28.00122,24.00386 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'music':
+      return (
+        <svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1">
+            <g id="Blank-Landing-Pages" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g id="Catalog-Landing-Page" transform="translate(-734.000000, -224.000000)" fill="#126DC1">
+                    <g id="music-circle-copy" transform="translate(734.000000, 224.000000)">
+                        <path d="M28,14 L28,10 L20,10 L20,21.02 C19.16,20.38 18.14,20 17,20 C14.24,20 12,22.24 12,25 C12,27.76 14.24,30 17,30 C19.76,30 22,27.76 22,25 L22,14 L28,14 L28,14 Z M20,0 C31.0456,0 40,8.9543 40,20 C40,31.0458 31.0456,40 20,40 C8.9543,40 0,31.0458 0,20 C0,8.9543 8.9543,0 20,0 L20,0 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'image':
+      return (
+        <svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1">
+            <g id="Blank-Landing-Pages" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g id="Catalog-Landing-Page" transform="translate(-806.000000, -224.000000)" fill="#126DC1">
+                    <g id="picture-copy" transform="translate(806.000000, 224.000000)">
+                        <path d="M4,0 L36,0 C38.2092,0 40,1.79084 40,3.99998 L40,35.99998 C40,38.20918 38.2092,39.99998 36,39.99998 L4,39.99998 C1.79086,39.99998 0,38.20918 0,35.99998 L0,3.99998 C0,1.79084 1.79086,0 4,0 L4,0 Z M10,3.99998 C7.23858,3.99998 5,6.23856 5,8.99998 C5,11.7614 7.23858,13.99998 10,13.99998 C12.76142,13.99998 15,11.7614 15,8.99998 C15,6.23856 12.76142,3.99998 10,3.99998 L10,3.99998 Z M4,31.99998 L4,35.99998 L36,35.99998 L36,23.99998 L30,17.99998 L18,29.99998 L12,23.99998 L4,31.99998 L4,31.99998 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
     default:
       return null
   }
