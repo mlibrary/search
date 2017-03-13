@@ -730,8 +730,8 @@ body {
 .record-field-name {
   display: table-cell;
   padding-right: 1rem;
-  font-weight: 400;
-  color: #6E6E6E; }
+  font-weight: 600;
+  color: #4E4E4E; }
 
 .record-field-value {
   display: table-cell;
@@ -836,6 +836,9 @@ body {
 
 .access-container:empty {
   display: none; }
+
+.access-link {
+  margin-right: 0.5rem; }
 
 .holdings-list {
   width: 100%;

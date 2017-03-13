@@ -20,7 +20,7 @@ const MetadataAccess = ({access}) => {
 
   if (access.link) {
     text = (
-      <a href={access.link} className="underline">{access.text}</a>
+      <a href={access.link} className="underline access-link">{access.text}</a>
     )
   }
 
@@ -58,10 +58,10 @@ const Holdings = ({holdings, loading}) => {
       )}
       {holdings.physical.map((holding, index) =>
         <li className="holdings-list-item" key={index}>
+          <HoldingLink link={holding.link} />
           <HoldingSpan text={holding.status} class_name="holding-status" />
           <HoldingSpan text={holding.location} class_name="holding-location" />
           <HoldingSpan text={holding.callnumber} class_name="holding-callnumber" />
-          <HoldingLink link={holding.link} />
         </li>
       )}
     </ul>
