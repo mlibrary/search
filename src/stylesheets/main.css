@@ -743,7 +743,15 @@ body {
 .full-record-container {
   margin-top: 1rem;
   background: white;
-  border-radius: 4px; }
+  border-bottom: solid 2px #E5E5E5; }
+  .full-record-container .record-field-list .record-field dt {
+    width: 10rem; }
+  .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
+    padding: 0.5rem 1rem; }
+  .full-record-container .record-field-list .record-field:nth-child(even) {
+    background: #FAFAFA; }
+  .full-record-container .record-field-list .record-field:nth-child(odd) {
+    background: #F2F2F2; }
 
 .full-record-title {
   font-size: 1.5rem;

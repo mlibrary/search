@@ -22,7 +22,17 @@ class FullRecord extends React.Component {
     if (!record) {
       return (
         <div className="container container-narrow">
-          <Loading />
+          <div className="full-record-container">
+            <div className="record-container placeholder-container">
+              <div className="placeholder placeholder-title"></div>
+              <div className="placeholder placeholder-line"></div>
+              <div className="placeholder placeholder-line placeholder-line-alt"></div>
+              <div className="placeholder placeholder-line"></div>
+              <div className="placeholder placeholder-line placeholder-line-alt"></div>
+              <div className="placeholder placeholder-line"></div>
+              <div className="placeholder placeholder-line"></div>
+            </div>
+          </div>
         </div>
       )
     }
