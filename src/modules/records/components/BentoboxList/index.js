@@ -81,7 +81,7 @@ class BentoboxList extends React.Component {
 }
 
 const BentoboxHeading = ({ bentobox, search }) => {
-  const total_results = search.data[bentobox.uid].total_available;
+  const totalResults = search.data[bentobox.uid].total_available;
   const searchParams = createSearchParams({
     query: search.query
   })
@@ -90,23 +90,21 @@ const BentoboxHeading = ({ bentobox, search }) => {
   return (
     <Link className="bentobox-heading-container" to={`/${link}`}>
       <h2 className="bentobox-heading">{ bentobox.name }</h2>
-      <BentoboxResultsNum total_results={total_results}/>
+      <BentoboxResultsNum totalResults={totalResults}/>
     </Link>
   )
 }
 
-const BentoboxResultsNum = ({ total_results }) => {
+const BentoboxResultsNum = ({ totalResults }) => {
 
-  console.log('total_results', total_results)
-
-  if (!total_results) {
+  if (!totalResults) {
     return null;
   }
 
-  const results_num = numeral(total_results).format(0,0)
-  const results_text = results_num === 1 ? `Result` : `Results`
+  const resultsNum = numeral(totalResults).format(0,0)
+  const resultsText = resultsNum === 1 ? `Result` : `Results`
 
-  return <span className="underline">{results_num} {results_text}</span>
+  return <span className="underline">{resultsNum} {resultsText}</span>
 }
 
 function mapStateToProps(state) {

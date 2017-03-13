@@ -34,7 +34,7 @@ const holdingsReducer = (state = undefined, action) => {
                 const text = _.findWhere(holding.value, { uid: '856z' })
                 const href = _.findWhere(holding.value, { uid: '856u' })
 
-                console.log('electronic holding', holding, text, href)
+                //console.log('electronic holding', holding, text, href)
 
                 if (text && href) {
                   holdings = [

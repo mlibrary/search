@@ -33,8 +33,8 @@ const Holdings = ({holdings, loading}) => {
   if (loading) {
     return (
       <div className="access-placeholder-container">
-        <div className="placeholder placeholder-inline"></div>
         <div className="placeholder placeholder-access placeholder-inline"></div>
+        <div className="placeholder placeholder-inline"></div>
       </div>
     )
   }

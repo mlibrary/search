@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Loading } from '../../../core';
 import FieldList from '../RecordFieldList';
 import AccessList from '../AccessList';
 import {
