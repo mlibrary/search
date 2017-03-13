@@ -845,7 +845,7 @@ body {
 .access-container:empty {
   display: none; }
 
-.access-link {
+.holding-link {
   margin-right: 0.5rem; }
 
 .holdings-list {

@@ -73,7 +73,7 @@ const HoldingLink = ({ link }) => {
     return null
   }
 
-  return <a href={link} className="underline">Request This Item</a>
+  return <a href={link} className="underline holding-link">Request This Item</a>
 }
 
 const HoldingSpan = ({text, class_name}) => {

@@ -4,6 +4,7 @@ import { _ } from 'underscore';
 
 import RecordMedium from '../RecordMedium';
 import RecordPlaceholder from '../RecordPlaceholder';
+import { ClearSearchButton } from '../../../search';
 
 import {
   ResultsSummary,
@@ -17,8 +18,10 @@ class RecordListContainer extends React.Component {
       return (
         <div>
           <div className="results-summary-container">
+            <div>
+              <ResultsSummary />
+            </div>
             <ClearSearchButton />
-            <ResultsSummary />
           </div>
           <ul className="results-list results-list-border">
             <li className="record">
@@ -35,7 +38,10 @@ class RecordListContainer extends React.Component {
       return (
         <div>
           <div className="results-summary-container">
-            <ResultsSummary />
+            <div>
+              <ResultsSummary />
+            </div>
+            <ClearSearchButton />
           </div>
           <ul className="results-list results-list-border">
             <RecordPlaceholder />
@@ -61,6 +67,7 @@ class RecordListContainer extends React.Component {
       <div>
         <div className="results-summary-container">
           <ResultsSummary />
+          <ClearSearchButton />
         </div>
         <ul className="results-list results-list-border">
           {activeRecords.map((record, index) =>
