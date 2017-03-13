@@ -1,5 +1,4 @@
 import React from 'react';
-import { IndexLink } from 'react-router';
 
 import umichBlockM from './umich_block_m.png';
 import parrot from './parrot.gif';
@@ -29,7 +28,7 @@ class Header extends React.Component {
               <li className="logo-library"><a href="http://lib.umich.edu">Library</a></li>
               <li className="logo-search">
                 <span>
-                  <IndexLink to="/">Search</IndexLink>
+                  <a href="/">Search</a>
                   <sup
                     className="party-parrot-container"
                     onClick={this.handleParty}>BETA

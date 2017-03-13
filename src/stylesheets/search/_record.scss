@@ -33,24 +33,45 @@
 
 .record-field-list {
   margin-top: 1rem;
-  display: table;
-  width: 100%;
 }
 
 .record-field {
-  display: table-row;
+  margin-bottom: 0.5rem;
 }
 
 .record-field-name {
-  display: table-cell;
   padding-right: 1rem;
-  font-weight: 400;
+  font-weight: 600;
   color: $grey-2;
 }
 
 .record-field-value {
   display: table-cell;
-  word-break: break-word;
+}
+
+.record-field-list-as-table {
+
+  .record-field-list {
+    display: table;
+  }
+
+  .record-field {
+    display: table-row;
+  }
+
+  .record-field-name {
+    display: table-cell;
+
+    @media (min-width: 36em) {
+      white-space: nowrap;
+    }
+
+  }
+
+  .record-field-value {
+    display: table-cell;
+    word-break: break-word;
+  }
 }
 
 /*

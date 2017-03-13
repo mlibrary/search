@@ -47,7 +47,9 @@ class FullRecord extends React.Component {
         <div className="full-record-container">
           <div className="record-container">
             <h1 className="full-record-title">{record.names[0]}</h1>
-            <FieldList fields={displayFields} />
+            <div className="record-field-list-as-table ">
+              <FieldList fields={displayFields} />
+            </div>
           </div>
 
           <AccessList access={access} holdings={record.holdings} />

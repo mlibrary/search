@@ -2,6 +2,17 @@ import React from 'react';
 import { _ } from 'underscore';
 
 const AccessList = ({ access, holdings, loading }) => {
+  if (loading) {
+    return (
+      <div className="access-container">
+        <div className="access-placeholder-container">
+          <div className="placeholder placeholder-access placeholder-inline"></div>
+          <div className="placeholder placeholder-inline"></div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="access-container">
       <MetadataAccess access={access} />
@@ -30,16 +41,6 @@ const MetadataAccess = ({access}) => {
 }
 
 const Holdings = ({holdings, loading}) => {
-
-  if (loading) {
-    return (
-      <div className="access-placeholder-container">
-        <div className="placeholder placeholder-access placeholder-inline"></div>
-        <div className="placeholder placeholder-inline"></div>
-      </div>
-    )
-  }
-
   if (!holdings) {
     return null
   }

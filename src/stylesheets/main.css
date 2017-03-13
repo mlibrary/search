@@ -588,7 +588,7 @@ input.search-box-input {
   padding-top: 0.6rem;
   margin: 0;
   cursor: pointer;
-  border-bottom: solid 2px transparent; }
+  border-bottom: solid 2.5px transparent; }
 
 .datastore-item-active {
   border-bottom: solid 2px #126DC1;
@@ -743,20 +743,32 @@ body {
     background: #E6F3FF; }
 
 .record-field-list {
-  margin-top: 1rem;
-  display: table;
-  width: 100%; }
+  margin-top: 1rem; }
 
 .record-field {
-  display: table-row; }
+  margin-bottom: 0.5rem; }
 
 .record-field-name {
-  display: table-cell;
   padding-right: 1rem;
-  font-weight: 400;
+  font-weight: 600;
   color: #4E4E4E; }
 
 .record-field-value {
+  display: table-cell; }
+
+.record-field-list-as-table .record-field-list {
+  display: table; }
+
+.record-field-list-as-table .record-field {
+  display: table-row; }
+
+.record-field-list-as-table .record-field-name {
+  display: table-cell; }
+  @media (min-width: 36em) {
+    .record-field-list-as-table .record-field-name {
+      white-space: nowrap; } }
+
+.record-field-list-as-table .record-field-value {
   display: table-cell;
   word-break: break-word; }
 

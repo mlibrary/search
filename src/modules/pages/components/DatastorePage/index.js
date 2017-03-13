@@ -58,9 +58,7 @@ class DatastorePage extends React.Component {
       <div>
         <SearchBox />
         <DatastoreNavigation />
-        <div className="container container-narrow">
-          <Landing activeDatastore={activeDatastore}/>
-        </div>
+        <DatastoreInfo activeDatastore={activeDatastore} />
       </div>
     )
   }
