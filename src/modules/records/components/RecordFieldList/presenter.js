@@ -3,9 +3,10 @@ import React from 'react';
 import Field from '../RecordField';
 
 function RecordFieldList({ fields }) {
-
   if (fields.length === 0) {
-    return null;
+    return (
+      <p>No filters found for your search</p>
+    )
   }
 
   return (
