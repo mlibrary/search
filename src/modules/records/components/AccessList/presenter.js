@@ -30,6 +30,7 @@ const MetadataAccess = ({access}) => {
 }
 
 const Holdings = ({holdings, loading}) => {
+
   if (loading) {
     return (
       <div className="access-placeholder-container">
@@ -46,8 +47,6 @@ const Holdings = ({holdings, loading}) => {
   if (!holdings.electronic && (!holdings.physical || holdings.physical.length === 0)) {
     return null
   }
-
-  //<HoldingSpan text={holding.text} class_name="holding-electronic-text" />
 
   return (
     <ul className="holdings-list">

@@ -5,14 +5,8 @@ import FieldList from '../RecordFieldList';
 import AccessList from '../AccessList';
 import {
   filterAccessFields,
-} from '../../utilities';
-
-/*
-import {
-  getField,
   filterDisplayFields
 } from '../../utilities';
-*/
 
 class FullRecord extends React.Component {
   render() {
@@ -42,12 +36,18 @@ class FullRecord extends React.Component {
       datastore: activeDatastore,
     });
 
+    const displayFields = filterDisplayFields({
+      fields: record.fields,
+      type: 'full',
+      datastore: activeDatastore
+    });
+
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
           <div className="record-container">
             <h1 className="full-record-title">{record.names[0]}</h1>
-            <FieldList fields={record.fields} />
+            <FieldList fields={displayFields} />
           </div>
 
           <AccessList access={access} holdings={record.holdings} />

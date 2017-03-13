@@ -25,7 +25,7 @@ function RecordMedium({ record, activeDatastore, loading }) {
   });
   const datastoreSlug = getDatastoreSlugByUid(activeDatastore);
   const idField = getField(record.fields, 'id');
-  const isLoading = displayLoadingFeedback(activeDatastore) && record.loading_holdings;
+  const isLoading = displayLoadingFeedback(activeDatastore) && record.loadingHoldings;
 
   if (idField) {
     const recordUid = idField.value;

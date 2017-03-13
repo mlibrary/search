@@ -66,13 +66,35 @@ const config = {
         'edition',
         'publisher'
       ],
+      full: [
+        'author',
+        'format',
+        'publish_date',
+        'place_of_publication',
+        'edition',
+        'publisher'
+      ],
       access: {
-        from_holdings: true,
-        loading_feedback: true,
-        text: 'callnumber',
-        source: 'location',
-        status: 'status',
-        link: 'get_this_url'
+        fromHoldings: true,
+        displayLoadingFeedback: true,
+        type: [
+          {
+            uid: 'hathitrust',
+
+          },
+          {
+            uid: 'physical',
+            link: 'get_this_url',
+            text: 'callnumber',
+            source: 'location',
+            status: 'status',
+          },
+          {
+            uid: 'electronic',
+            link: 'href',
+            defaultAccessText: 'Available Online'
+          }
+        ]
       },
     },
     {
@@ -97,8 +119,23 @@ const config = {
         'isi_cited',
         'scopus_cited'
       ],
+      full: [
+        'publication_date',
+        'abstract',
+        'volume',
+        'issue',
+        'publication_title',
+        'author',
+        'start_page',
+        'end_page',
+        'format',
+        'genre',
+        'snippet',
+        'isi_cited',
+        'scopus_cited'
+      ],
       access: {
-        text_default: 'Available Online',
+        defaultAccessText: 'Available Online',
         link: 'link'
       }
     },
@@ -113,6 +150,15 @@ const config = {
         'database_type',
         'access_icon',
       ],
+      full: [
+        'brief_description',
+        'database_type',
+        'access_icon',
+      ],
+      access: {
+        link: 'permalink',
+        defaultAccessText: 'Go To Database',
+      }
     },
     {
       datastore: 'journals',
@@ -127,8 +173,16 @@ const config = {
         'academic_disciplines',
         'holdings',
       ],
+      full: [
+        'access_coverage',
+        'issn',
+        'access',
+        'coverage',
+        'academic_disciplines',
+        'holdings',
+      ],
       access: {
-        text_default: 'Go To Online Journal',
+        defaultAccessText: 'Go To Online Journal',
         link: 'access_url'
       },
     },
@@ -139,7 +193,11 @@ const config = {
       ],
       medium: [
         'brief_description',
-      ]
+      ],
+      access: {
+        defaultAccessText: 'Go To Webpage',
+        link: undefined
+      }
     },
   ],
 };
