@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router'
 
 import {
   addQuery,
@@ -63,7 +64,8 @@ class SearchBox extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    search: state.search
+    search: state.search,
+    activeDatastoreUid: state.datastores.active
   };
 }
 

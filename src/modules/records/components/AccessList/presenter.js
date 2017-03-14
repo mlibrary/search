@@ -29,15 +29,29 @@ const MetadataAccess = ({access, recordType}) => {
   const source = access.source ? <span className="access-source">{access.source}</span> : ''
   let text = <span>{access.text}</span>
 
-  if (access.link) {
+  if (typeof access.link === 'string') {
     text = (
       <a href={access.link} className={`access-link ${ recordType === 'full' ? 'button' : 'underline'}`}>{access.text}</a>
     )
+
+    return (
+      <p className="no-margin">{text} {source}</p>
+    )
+  } else if (Array.isArray(access.link)) {
+    return (
+      <ul className="holdings-list">
+        {_.map(access.link, (link, index) =>
+          <li className="holdings-list-item" key={index}>
+            <p className="no-margin">
+              <a href={link} className={`access-link ${ recordType === 'full' ? 'button' : 'underline'}`}>{access.text}</a> {source}
+            </p>
+          </li>
+        )}
+      </ul>
+    )
   }
 
-  return (
-    <p className="no-margin">{text} {source}</p>
-  )
+  return null
 }
 
 const Holdings = ({holdings, loading, recordType}) => {

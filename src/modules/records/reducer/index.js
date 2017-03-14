@@ -20,7 +20,6 @@ const holdingsReducer = (state = undefined, action) => {
             [holdingType]: _.reduce(action.payload.holdingsData[holdingType], (holdings, holding) => {
 
               if (holdingType === 'physical') {
-
                 let link = undefined;
 
                 if (holding.item_info && holding.item_info[0] && holding.item_info[0]['get_this_url'] ) {
