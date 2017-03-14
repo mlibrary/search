@@ -8,33 +8,37 @@ import {
   getField,
   filterDisplayFields,
   filterAccessFields,
-  displayLoadingFeedback
+  displayLoadingFeedback,
+  isFullRecordType
 } from '../../utilities';
 
-function RecordMedium({ record, activeDatastore, loading }) {
+function RecordMedium({ record, datastoreUid, loading }) {
   const title = record.names[0];
   const displayFields = filterDisplayFields({
     fields: record.fields,
     type: 'preview',
-    datastore: activeDatastore
+    datastore: datastoreUid
   });
   const access = filterAccessFields({
     fields: record.fields,
     type: 'access',
-    datastore: activeDatastore,
+    datastore: datastoreUid,
   });
-  const datastoreSlug = getDatastoreSlugByUid(activeDatastore);
+  const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const idField = getField(record.fields, 'id');
-  const isLoading = displayLoadingFeedback(activeDatastore) && record.loading_holdings;
+  const isLoading = displayLoadingFeedback(datastoreUid) && record.loadingHoldings;
 
   if (idField) {
     const recordUid = idField.value;
     const recordFulllink = `/${datastoreSlug}/record/${recordUid}`;
+    const hasFullRecord = isFullRecordType({ datastoreUid });
+
     return (
       <li className="record">
         <div className="record-container">
           <h3 className="record-title">
-            <Link className="record-title-link" to={`${recordFulllink}`}>{title}</Link></h3>
+            { hasFullRecord ? (<Link className="record-title-link" to={`${recordFulllink}`}>{title}</Link>) : (<span>{title}</span>)}
+          </h3>
           <FieldList fields={displayFields} />
         </div>
         <AccessList access={access} holdings={record.holdings} loading={isLoading} />

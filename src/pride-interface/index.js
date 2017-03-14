@@ -20,8 +20,13 @@ import {
 } from '../modules/records';
 
 import {
+  removeQuery
+} from '../router';
+
+import {
   setSearchData,
-  searching
+  searching,
+  clearSearch,
 } from '../modules/search';
 
 import {
@@ -47,17 +52,17 @@ Pride.Settings.obnoxious = false; // Console log messages
 
 let searchSwitcher;
 
-const handleSearchData = (data, datastore_uid) => {
+const handleSearchData = (data, datastoreUid) => {
   const payload = {
     data: {
       "count": data.count,
       "page": data.page,
-      "total_pages": data.total_pages,
-      "total_available": data.total_available,
+      "totalPages": data.total_pages,
+      "totalAvailable": data.total_available,
       "sorts": data.sorts,
-      "selected_sort": data.selected_sort,
+      "selectedSort": data.selected_sort,
     },
-    datastore_uid: datastore_uid
+    datastoreUid: datastoreUid
   }
   store.dispatch(setSearchData(payload))
 
@@ -66,37 +71,38 @@ const handleSearchData = (data, datastore_uid) => {
 
   if (activeRecords) {
     const activeRecordsLength = _.values(activeRecords).length
-    const count = data.count // aka page count
+    const count = data.count // page count
     const page = data.page
-    const total_available = data.total_available
-    const check_last_page = (page - 1) * count + activeRecordsLength === total_available
+    const totalAvailable = data.total_available
+    const lastPage = (page - 1) * count + activeRecordsLength === totalAvailable
 
     // Check to see if records have loaded.
-    if (activeRecordsLength === count || check_last_page) {
+    if (activeRecordsLength === count || lastPage) {
       store.dispatch(loadingRecords(false))
     }
   }
 }
 
-const handleHoldings = (datastore_uid, record_id) => {
+const handleHoldings = (datastoreUid, recordId) => {
   store.dispatch(loadingHoldings({
     loading: true,
-    datastore_uid: datastore_uid,
-    record_id: record_id,
+    datastoreUid: datastoreUid,
+    recordId: recordId,
   }))
 
-  return (holdings_data) => {
-    //console.log('holdings_data', holdings_data)
+  return (holdingsData) => {
+    //console.log('holdingsData', holdingsData)
+
     store.dispatch(addHoldings({
-      datastore_uid: datastore_uid,
-      record_id: record_id,
-      holdings_data: holdings_data,
+      datastoreUid: datastoreUid,
+      recordId: recordId,
+      holdingsData: holdingsData,
     }))
 
     store.dispatch(loadingHoldings({
       loading: false,
-      datastore_uid: datastore_uid,
-      record_id: record_id,
+      datastoreUid: datastoreUid,
+      recordId: recordId,
     }))
   }
 }
@@ -345,8 +351,8 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
 
       /*
       console.log(record)
-      record.getHoldings((holdings_data) => {
-        console.log('holdings_data', datastoreUid, recordUid, holdings_data)
+      record.getHoldings((holdingsData) => {
+        console.log('holdingsData', datastoreUid, recordUid, holdingsData)
       })
       */
     }
@@ -380,6 +386,15 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
   return bentoBoxes
 }
 
+const clearEverything = () => {
+  removeQuery('q');
+  removeQuery('filter');
+
+  store.dispatch(clearRecords())
+  store.dispatch(clearFilters())
+  store.dispatch(clearSearch())
+}
+
 /*
   Expose functions that are useful externally
 */
@@ -394,5 +409,6 @@ export {
   prevPage,
   config,
   requestPrideRecord,
-  getMultiSearchRecords
+  getMultiSearchRecords,
+  clearEverything,
 }

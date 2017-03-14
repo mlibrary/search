@@ -4,9 +4,7 @@ import Field from '../RecordField';
 
 function RecordFieldList({ fields }) {
   if (fields.length === 0) {
-    return (
-      <p>No filters found for your search</p>
-    )
+    return null
   }
 
   return (

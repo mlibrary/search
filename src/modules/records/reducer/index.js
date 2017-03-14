@@ -13,28 +13,26 @@ const recordReducer = (state = {}, action) => {
 const holdingsReducer = (state = undefined, action) => {
   switch (action.type) {
     case actions.ADD_HOLDINGS:
-      return _.reduce(['electronic', 'physical'], (memo, holding_type) => {
-        if (action.payload.holdings_data[holding_type]) {
+      return _.reduce(['electronic', 'physical'], (memo, holdingType) => {
+        if (action.payload.holdingsData[holdingType]) {
           memo = {
             ...memo,
-            [holding_type]: _.reduce(action.payload.holdings_data[holding_type], (holdings, holding) => {
+            [holdingType]: _.reduce(action.payload.holdingsData[holdingType], (holdings, holding) => {
 
-              if (holding_type === 'physical') {
+              if (holdingType === 'physical') {
                 holdings = [
                   ...holdings,
                   {
                     location: holding.location || undefined,
                     status: holding.status || undefined,
                     callnumber: holding.callnumber || undefined,
-                    info_link: holding.info_link || undefined,
+                    infoLink: holding.info_link || undefined,
                     link: holding.item_info[0]['get_this_url'] || undefined
                   }
                 ]
-              } else if (holding_type === 'electronic') {
+              } else if (holdingType === 'electronic') {
                 const text = _.findWhere(holding.value, { uid: '856z' })
                 const href = _.findWhere(holding.value, { uid: '856u' })
-
-                console.log('electronic holding', holding, text, href)
 
                 if (text && href) {
                   holdings = [
@@ -81,7 +79,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
         }
       }
     case actions.ADD_HOLDINGS:
-      if (!state.records[action.payload.datastore_uid] || !state.records[action.payload.datastore_uid][action.payload.record_id]) {
+      if (!state.records[action.payload.datastoreUid] || !state.records[action.payload.datastoreUid][action.payload.recordId]) {
         return state;
       }
 
@@ -89,10 +87,10 @@ const recordsReducer = (state = recordsInitialState, action) => {
         ...state,
         records: {
           ...state.records,
-          [action.payload.datastore_uid]: {
-            ...state.records[action.payload.datastore_uid],
-            [action.payload.record_id]: {
-              ...state.records[action.payload.datastore_uid][action.payload.record_id],
+          [action.payload.datastoreUid]: {
+            ...state.records[action.payload.datastoreUid],
+            [action.payload.recordId]: {
+              ...state.records[action.payload.datastoreUid][action.payload.recordId],
               holdings: holdingsReducer(undefined, action)
             }
           }
@@ -119,7 +117,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
         loading: action.payload,
       });
     case actions.LOADING_HOLDINGS:
-      if (!state.records[action.payload.datastore_uid] || !state.records[action.payload.datastore_uid][action.payload.record_id]) {
+      if (!state.records[action.payload.datastoreUid] || !state.records[action.payload.datastoreUid][action.payload.recordId]) {
         return state;
       }
 
@@ -127,11 +125,11 @@ const recordsReducer = (state = recordsInitialState, action) => {
         ...state,
         records: {
           ...state.records,
-          [action.payload.datastore_uid]: {
-            ...state.records[action.payload.datastore_uid],
-            [action.payload.record_id]: {
-              ...state.records[action.payload.datastore_uid][action.payload.record_id],
-              loading_holdings: action.payload.loading
+          [action.payload.datastoreUid]: {
+            ...state.records[action.payload.datastoreUid],
+            [action.payload.recordId]: {
+              ...state.records[action.payload.datastoreUid][action.payload.recordId],
+              loadingHoldings: action.payload.loading
             }
           }
         }

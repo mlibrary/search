@@ -31,16 +31,27 @@ class SearchBox extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.focus()
+  }
+
+  focus() {
+    this.textInput.focus()
+  }
+
   render() {
     return (
       <div className="search-box-container-full">
         <div className="container search-box-container">
           <form className="search-box" onSubmit={this.handleSubmit}>
+            <label htmlFor="search-query" className="offpage">Search query</label>
             <input
+              id="search-query"
               className="no-margin search-box-input"
               type="text"
               value={this.state.query}
               onChange={this.handleChange}
+              ref={(input) => { this.textInput = input; }}
             />
           <button className="button search-box-button" type="submit"><Icon name="search"/>Search</button>
           </form>

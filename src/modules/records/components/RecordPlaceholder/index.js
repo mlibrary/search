@@ -11,8 +11,8 @@ const RecordPlaceholder = () => {
       </div>
 
       <div className="access-container access-placeholder-container">
-        <div className="placeholder placeholder-inline"></div>
         <div className="placeholder placeholder-access placeholder-inline"></div>
+        <div className="placeholder placeholder-inline"></div>
       </div>
     </li>
   )

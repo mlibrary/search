@@ -1,19 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Loading } from '../../../core';
 import FieldList from '../RecordFieldList';
 import AccessList from '../AccessList';
 import {
   filterAccessFields,
-} from '../../utilities';
-
-/*
-import {
-  getField,
   filterDisplayFields
 } from '../../utilities';
-*/
 
 class FullRecord extends React.Component {
   render() {
@@ -22,7 +15,17 @@ class FullRecord extends React.Component {
     if (!record) {
       return (
         <div className="container container-narrow">
-          <Loading />
+          <div className="full-record-container">
+            <div className="record-container placeholder-container">
+              <div className="placeholder placeholder-title"></div>
+              <div className="placeholder placeholder-line"></div>
+              <div className="placeholder placeholder-line placeholder-line-alt"></div>
+              <div className="placeholder placeholder-line"></div>
+              <div className="placeholder placeholder-line placeholder-line-alt"></div>
+              <div className="placeholder placeholder-line"></div>
+              <div className="placeholder placeholder-line"></div>
+            </div>
+          </div>
         </div>
       )
     }
@@ -33,15 +36,23 @@ class FullRecord extends React.Component {
       datastore: activeDatastore,
     });
 
+    const displayFields = filterDisplayFields({
+      fields: record.fields,
+      type: 'full',
+      datastore: activeDatastore
+    });
+
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
           <div className="record-container">
             <h1 className="full-record-title">{record.names[0]}</h1>
-            <FieldList fields={record.fields} />
+            <div className="record-field-list-as-table ">
+              <FieldList fields={displayFields} />
+            </div>
           </div>
 
-          <AccessList access={access} holdings={record.holdings} />
+          <AccessList access={access} holdings={record.holdings} recordType="full" />
         </div>
       </div>
     )

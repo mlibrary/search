@@ -1,8 +1,11 @@
 import React from 'react';
 
 function RecordField({ field }) {
+  let value = field.value
 
-  const value = typeof(field.value) === 'string' ? field.value : 'PLACEHOLDER'
+  if (Array.isArray(field.value)) {
+    value = field.value.join(', ')
+  }
 
   return (
     <div className="record-field">

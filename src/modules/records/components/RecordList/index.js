@@ -12,14 +12,16 @@ import {
 
 class RecordListContainer extends React.Component {
   render() {
-    const { activeRecords, activeDatastore, loadingRecords, search } = this.props;
+    const { activeRecords, datastoreUid, loadingRecords, search } = this.props;
 
-    if (search.data[activeDatastore] && search.data[activeDatastore].total_available === 0) {
+    if (search.data[datastoreUid] && search.data[datastoreUid].total_available === 0) {
       return (
         <div>
           <div className="results-summary-container">
+            <div>
+              <ResultsSummary />
+            </div>
             <ClearSearchButton />
-            <ResultsSummary />
           </div>
           <ul className="results-list results-list-border">
             <li className="record">
@@ -36,8 +38,10 @@ class RecordListContainer extends React.Component {
       return (
         <div>
           <div className="results-summary-container">
+            <div>
+              <ResultsSummary />
+            </div>
             <ClearSearchButton />
-            <ResultsSummary />
           </div>
           <ul className="results-list results-list-border">
             <RecordPlaceholder />
@@ -62,14 +66,14 @@ class RecordListContainer extends React.Component {
     return (
       <div>
         <div className="results-summary-container">
-          <ClearSearchButton />
           <ResultsSummary />
+          <ClearSearchButton />
         </div>
         <ul className="results-list results-list-border">
           {activeRecords.map((record, index) =>
             <RecordMedium
               record={record}
-              activeDatastore={activeDatastore}
+              datastoreUid={datastoreUid}
               key={index}
             />,
           )}
@@ -83,7 +87,7 @@ function mapStateToProps(state) {
   return {
     activeRecords: _.values(state.records.records[state.datastores.active]),
     loadingRecords: state.records.loading,
-    activeDatastore: state.datastores.active,
+    datastoreUid: state.datastores.active,
     search: state.search,
   };
 }

@@ -6,6 +6,7 @@ import {
   setSearchData,
   searching,
   setPage,
+  clearSearch,
 } from './actions';
 
 export {
@@ -16,4 +17,5 @@ export {
   setPage,
   searching,
   ClearSearchButton,
+  clearSearch,
 }

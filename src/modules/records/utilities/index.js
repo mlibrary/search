@@ -37,8 +37,8 @@ const filterAccessFields = ({ fields, type, datastore }) => {
 
   let text = ''
 
-  if (accessConfig.access.text_default) {
-    text = accessConfig.access.text_default;
+  if (accessConfig.access.defaultAccessText) {
+    text = accessConfig.access.defaultAccessText;
   } else {
     text = _.findWhere(fields, { uid: accessConfig.access.text })
 
@@ -66,14 +66,20 @@ const filterAccessFields = ({ fields, type, datastore }) => {
   return accessObj
 }
 
-const displayLoadingFeedback = (datastore_uid) => {
-  const access_config = _.findWhere(config.fields, { datastore: datastore_uid })
+const displayLoadingFeedback = (datastoreUid) => {
+  const accessConfig = _.findWhere(config.fields, { datastore: datastoreUid })
 
-  if (!access_config.access || !access_config.access.loading_feedback) {
+  if (!accessConfig.access || !accessConfig.access.displayLoadingFeedback) {
     return false;
   }
 
-  return access_config.access.loading_feedback;
+  return accessConfig.access.displayLoadingFeedback;
+}
+
+const isFullRecordType = ({ datastoreUid }) => {
+  const accessConfig = _.findWhere(config.fields, { datastore: datastoreUid })
+
+  return accessConfig.hasOwnProperty('full')
 }
 
 export {
@@ -82,4 +88,5 @@ export {
   filterDisplayFields,
   filterAccessFields,
   displayLoadingFeedback,
+  isFullRecordType
 }

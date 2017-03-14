@@ -1,16 +1,27 @@
 import React from 'react';
 import { _ } from 'underscore';
 
-const AccessList = ({ access, holdings, loading }) => {
+const AccessList = ({ access, holdings, loading, recordType }) => {
+  if (loading) {
+    return (
+      <div className={recordType === 'full' ? 'access-container-full' : 'access-container'}>
+        <div className="access-placeholder-container">
+          <div className="placeholder placeholder-access placeholder-inline"></div>
+          <div className="placeholder placeholder-inline"></div>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="access-container">
-      <MetadataAccess access={access} />
-      <Holdings holdings={holdings} loading={loading}/>
+    <div className={recordType === 'full' ? 'access-container-full' : 'access-container'}>
+      <MetadataAccess access={access} recordType={recordType} />
+      <Holdings holdings={holdings} loading={loading} recordType={recordType} />
     </div>
   )
 }
 
-const MetadataAccess = ({access}) => {
+const MetadataAccess = ({access, recordType}) => {
   if (!access) {
     return null
   }
@@ -20,7 +31,7 @@ const MetadataAccess = ({access}) => {
 
   if (access.link) {
     text = (
-      <a href={access.link} className="underline access-link">{access.text}</a>
+      <a href={access.link} className={`access-link ${ recordType === 'full' ? 'button' : 'underline'}`}>{access.text}</a>
     )
   }
 
@@ -29,16 +40,7 @@ const MetadataAccess = ({access}) => {
   )
 }
 
-const Holdings = ({holdings, loading}) => {
-  if (loading) {
-    return (
-      <div className="access-placeholder-container">
-        <div className="placeholder placeholder-inline"></div>
-        <div className="placeholder placeholder-access placeholder-inline"></div>
-      </div>
-    )
-  }
-
+const Holdings = ({holdings, loading, recordType}) => {
   if (!holdings) {
     return null
   }
@@ -46,8 +48,6 @@ const Holdings = ({holdings, loading}) => {
   if (!holdings.electronic && (!holdings.physical || holdings.physical.length === 0)) {
     return null
   }
-
-  //<HoldingSpan text={holding.text} class_name="holding-electronic-text" />
 
   return (
     <ul className="holdings-list">
@@ -73,7 +73,7 @@ const HoldingLink = ({ link }) => {
     return null
   }
 
-  return <a href={link} className="underline">Request This Item</a>
+  return <a href={link} className="underline holding-link">Request This Item</a>
 }
 
 const HoldingSpan = ({text, class_name}) => {

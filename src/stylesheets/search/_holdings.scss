@@ -6,11 +6,16 @@
   align-items: center;
 }
 
+.access-container-full {
+  padding: 2rem;
+  padding-top: 0;
+}
+
 .access-container:empty {
   display: none;
 }
 
-.access-link {
+.holding-link {
   margin-right: 0.5rem;
 }
 

@@ -8,17 +8,17 @@ import ResultsSummary from './presenter';
 class ResultsSummaryContainer extends React.Component {
   recordsSummary() {
     const { records, activeDatastore } = this.props;
-    const { count, page, total_available } = this.props.search.data[activeDatastore];
+    const { count, page, totalAvailable } = this.props.search.data[activeDatastore];
 
-    const display_total_available = numeral(total_available).format(0,0)
-    const results_text = total_available === 1 ? `Result` : `Results`
-    const records_from = (page - 1) * count + 1
-    const records_to = (page - 1) * count + _.values(records).length;
+    const displayTotalAvailable = numeral(totalAvailable).format(0,0)
+    const resultsText = totalAvailable === 1 ? `Result` : `Results`
+    const recordsFrom = (page - 1) * count + 1
+    const recordsTo = (page - 1) * count + _.values(records).length;
 
     return {
-      range: `${records_from}-${records_to}`,
-      total: `${display_total_available}`,
-      resultsText: `${results_text}`
+      range: `${recordsFrom}-${recordsTo}`,
+      total: `${displayTotalAvailable}`,
+      resultsText: `${resultsText}`
     }
   }
   render() {
