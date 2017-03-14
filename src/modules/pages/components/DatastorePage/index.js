@@ -5,7 +5,6 @@ import { _ } from 'underscore';
 import { SearchBox } from '../../../search';
 import {
   DatastoreNavigation,
-  Landing,
   DatastoreInfo,
 } from '../../../datastores';
 import { FilterList } from '../../../filters';
