@@ -92,7 +92,7 @@ const config = {
           {
             uid: 'electronic',
             link: 'href',
-            defaultAccessText: 'Available Online'
+            defaultAccessText: 'Go To Item'
           }
         ]
       },
@@ -135,7 +135,7 @@ const config = {
         'scopus_cited'
       ],
       access: {
-        defaultAccessText: 'Available Online',
+        defaultAccessText: 'Go To Article',
         link: 'link'
       }
     },

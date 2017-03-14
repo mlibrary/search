@@ -52,7 +52,7 @@ class FullRecord extends React.Component {
             </div>
           </div>
 
-          <AccessList access={access} holdings={record.holdings} />
+          <AccessList access={access} holdings={record.holdings} recordType="full" />
         </div>
       </div>
     )

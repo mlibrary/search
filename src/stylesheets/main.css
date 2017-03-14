@@ -877,6 +877,10 @@ body {
   margin-top: -0.5rem;
   align-items: center; }
 
+.access-container-full {
+  padding: 2rem;
+  padding-top: 0; }
+
 .access-container:empty {
   display: none; }
 
