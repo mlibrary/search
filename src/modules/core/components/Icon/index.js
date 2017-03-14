@@ -5,7 +5,7 @@ const Icon = ({ name, size, color }) => {
     case 'multi-result':
       return (
         <svg width="1rem" height="1rem" viewBox="0 0 16 16" version="1.1" className="icon">
-          <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g id="Silo-Navigation-Catalog" transform="translate(-372.000000, -16.000000)">
               <g id="Silo-Navigation" transform="translate(372.000000, 12.000000)">
                 <path d="M9,4 L9,9 L16,9 L16,4 L9,4 Z M9,20 L16,20 L16,11 L9,11 L9,20 Z M0,20 L7,20 L7,15 L0,15 L0,20 Z M0,13 L7,13 L7,4 L0,4 L0,13 L0,13 Z" id="Shape"></path>
@@ -17,7 +17,7 @@ const Icon = ({ name, size, color }) => {
     case 'search':
       return (
         <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" className="icon">
-          <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g id="Search-Field" transform="translate(-950.000000, -28.000000)">
               <g id="Search-Button" transform="translate(934.000000, 16.000000)">
                 <g id="Icon-Search" transform="translate(16.000000, 12.000000)">
@@ -31,8 +31,8 @@ const Icon = ({ name, size, color }) => {
     case 'wand':
       return (
         <svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1">
-            <g id="Blank-Landing-Pages" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                <g id="Magic-Search-Landing-Page" transform="translate(-700.000000, -224.000000)" fillRule="nonzero" fill="#126DC1">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-700.000000, -224.000000)" fillRule="nonzero" fill="#126DC1">
                     <path d="M712.38424,230.856327 L707.622902,233.522676 L710.289251,228.761338 L707.622902,224 L712.38424,226.666349 L717.145578,224 L714.479229,228.761338 L717.145578,233.522676 L712.38424,230.856327 L712.38424,230.856327 Z M735.238662,249.520771 L740,246.854422 L737.333651,251.61576 L740,256.377098 L735.238662,253.710749 L730.477324,256.377098 L733.143673,251.61576 L730.477324,246.854422 L735.238662,249.520771 L735.238662,249.520771 Z M740,224 L737.333651,228.761338 L740,233.522676 L735.238662,230.856327 L730.477324,233.522676 L733.143673,228.761338 L730.477324,224 L735.238662,226.666349 L740,224 L740,224 Z M723.506725,244.530889 L728.153791,239.883823 L724.116177,235.846209 L719.469111,240.493275 L723.506725,244.530889 L723.506725,244.530889 Z M725.468397,234.074991 L729.925009,238.531603 C730.667778,239.236281 730.667778,240.474229 729.925009,241.216998 L707.699083,263.442923 C706.956315,264.185692 705.718367,264.185692 705.013689,263.442923 L700.557077,258.986311 C699.814308,258.281633 699.814308,257.043685 700.557077,256.300917 L722.783002,234.074991 C723.525771,233.332222 724.763719,233.332222 725.468397,234.074991 Z" id="Shape" transform="translate(720.000000, 244.000000) rotate(-90.000000) translate(-720.000000, -244.000000) "></path>
                 </g>
             </g>
@@ -42,8 +42,8 @@ const Icon = ({ name, size, color }) => {
       return (
         <svg width="44px" height="34px" viewBox="0 0 44 34" version="1.1">
             <defs></defs>
-            <g id="Blank-Landing-Pages" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                <g id="Catalog-Landing-Page" transform="translate(-594.000000, -227.000000)" fill="#126DC1">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-594.000000, -227.000000)" fill="#126DC1">
                     <g id="book-open-variant-copy" transform="translate(594.000000, 227.000000)">
                         <path d="M40,1 C37.78,0.3 35.34,0 33,0 C29.1,0 24.9,0.8 22,3 C19.1,0.8 14.9,0 11,0 C7.1,0 2.9,0.8 0,3 L0,32.3 C0,32.8 0.5,33.3 1,33.3 C1.2,33.3 1.3,33.2 1.5,33.2 C4.2,31.9 8.1,31 11,31 C14.9,31 19.1,31.8 22,34 C24.7,32.3 29.6,31 33,31 C36.3,31 39.7,31.6 42.5,33.1 C42.7,33.2 42.8,33.2 43,33.2 C43.5,33.2 44,32.7 44,32.2 L44,3 C42.8,2.1 41.5,1.5 40,1 L40,1 Z M40,28 C37.8,27.3 35.4,27 33,27 C29.6,27 24.7,28.3 22,30 L22,7 C24.7,5.3 29.6,4 33,4 C35.4,4 37.8,4.3 40,5 L40,28 L40,28 Z" id="Shape"></path>
                     </g>
@@ -54,8 +54,8 @@ const Icon = ({ name, size, color }) => {
     case 'file':
       return (
         <svg width="32px" height="40px" viewBox="0 0 32 40" version="1.1">
-            <g id="Blank-Landing-Pages" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                <g id="Catalog-Landing-Page" transform="translate(-670.000000, -224.000000)" fill="#126DC1">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-670.000000, -224.000000)" fill="#126DC1">
                     <g id="file-document-copy" transform="translate(670.000000, 224.000000)">
                         <path d="M18.00002,14 L29.00002,14 L18.00002,3 L18.00002,14 L18.00002,14 Z M4,0 L20.00002,0 L32.00002,12 L32.00002,36.00006 C32.00002,38.20806 30.20802,40.00006 28.00002,40.00006 L3.97998,40.00006 C1.77198,40.00006 0,38.20806 0,36.00006 L0.02002,4 C0.02002,1.792 1.78996,0 4,0 L4,0 Z M22.00122,32.00386 L22.00122,28.00386 L3.98124,28.00386 L3.98124,32.00386 L22.00122,32.00386 L22.00122,32.00386 Z M28.00122,24.00386 L28.00122,20.00386 L3.98124,20.00386 L3.98124,24.00386 L28.00122,24.00386 L28.00122,24.00386 Z" id="Shape"></path>
                     </g>
@@ -66,8 +66,8 @@ const Icon = ({ name, size, color }) => {
     case 'music':
       return (
         <svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1">
-            <g id="Blank-Landing-Pages" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                <g id="Catalog-Landing-Page" transform="translate(-734.000000, -224.000000)" fill="#126DC1">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-734.000000, -224.000000)" fill="#126DC1">
                     <g id="music-circle-copy" transform="translate(734.000000, 224.000000)">
                         <path d="M28,14 L28,10 L20,10 L20,21.02 C19.16,20.38 18.14,20 17,20 C14.24,20 12,22.24 12,25 C12,27.76 14.24,30 17,30 C19.76,30 22,27.76 22,25 L22,14 L28,14 L28,14 Z M20,0 C31.0456,0 40,8.9543 40,20 C40,31.0458 31.0456,40 20,40 C8.9543,40 0,31.0458 0,20 C0,8.9543 8.9543,0 20,0 L20,0 Z" id="Shape"></path>
                     </g>
@@ -78,8 +78,8 @@ const Icon = ({ name, size, color }) => {
     case 'image':
       return (
         <svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1">
-            <g id="Blank-Landing-Pages" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                <g id="Catalog-Landing-Page" transform="translate(-806.000000, -224.000000)" fill="#126DC1">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-806.000000, -224.000000)" fill="#126DC1">
                     <g id="picture-copy" transform="translate(806.000000, 224.000000)">
                         <path d="M4,0 L36,0 C38.2092,0 40,1.79084 40,3.99998 L40,35.99998 C40,38.20918 38.2092,39.99998 36,39.99998 L4,39.99998 C1.79086,39.99998 0,38.20918 0,35.99998 L0,3.99998 C0,1.79084 1.79086,0 4,0 L4,0 Z M10,3.99998 C7.23858,3.99998 5,6.23856 5,8.99998 C5,11.7614 7.23858,13.99998 10,13.99998 C12.76142,13.99998 15,11.7614 15,8.99998 C15,6.23856 12.76142,3.99998 10,3.99998 L10,3.99998 Z M4,31.99998 L4,35.99998 L36,35.99998 L36,23.99998 L30,17.99998 L18,29.99998 L12,23.99998 L4,31.99998 L4,31.99998 Z" id="Shape"></path>
                     </g>

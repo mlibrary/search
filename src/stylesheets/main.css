@@ -781,7 +781,7 @@ body {
   Full Record Specific
 */
 .full-record-container {
-  margin-top: 2rem;
+  margin-top: 1rem;
   background: white;
   border-bottom: solid 2px #E5E5E5; }
   .full-record-container .record-field-list .record-field dt {
