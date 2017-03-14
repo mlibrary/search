@@ -91,7 +91,7 @@ const handleHoldings = (datastoreUid, recordId) => {
   }))
 
   return (holdingsData) => {
-    //console.log('holdingsData', holdingsData)
+    //console.log('holdingsData', datastoreUid, holdingsData)
 
     store.dispatch(addHoldings({
       datastoreUid: datastoreUid,

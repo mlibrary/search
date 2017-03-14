@@ -84,7 +84,7 @@ class FilterListContainer extends React.Component {
           borderBottom: 'solid 2px #E5E5E5',
           marginBottom: '0.5rem',
         }}>
-          No filters for this search.
+          <b>No filters</b> available.
         </p>
       )
     }

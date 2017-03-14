@@ -14,22 +14,15 @@ class RecordListContainer extends React.Component {
   render() {
     const { activeRecords, datastoreUid, loadingRecords, search } = this.props;
 
-    if (search.data[datastoreUid] && search.data[datastoreUid].total_available === 0) {
+    if (search.data[datastoreUid] && search.data[datastoreUid].totalAvailable === 0) {
       return (
         <div>
           <div className="results-summary-container">
             <div>
-              <ResultsSummary />
+              <p className="no-margin"><b>No results</b> found for your search.</p>
             </div>
             <ClearSearchButton />
           </div>
-          <ul className="results-list results-list-border">
-            <li className="record">
-              <div className="record-container">
-                <p className="no-margin">No results match your search.</p>
-              </div>
-            </li>
-          </ul>
         </div>
       )
     }

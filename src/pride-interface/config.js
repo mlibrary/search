@@ -102,7 +102,7 @@ const config = {
       preview: [
         'publication_date',
         'publication_title',
-        'author'
+        'author',
       ],
       medium: [
         'publication_date',
@@ -132,7 +132,15 @@ const config = {
         'genre',
         'snippet',
         'isi_cited',
-        'scopus_cited'
+        'scopus_cited',
+        'publisher',
+        'issn',
+        'eissn',
+        'isbn',
+        'eisbn',
+        'doi',
+        'subject',
+        'language',
       ],
       access: {
         defaultAccessText: 'Go To Article',
@@ -149,11 +157,26 @@ const config = {
         'brief_description',
         'database_type',
         'access_icon',
+        'new',
+        'trial',
+        'outage'
       ],
       full: [
+        'full_description',
         'brief_description',
         'database_type',
         'access_icon',
+        'new',
+        'trial',
+        'outage',
+        'alt_title',
+        'type',
+        'coverage',
+        'mobile_available',
+        'subject',
+        'mobile_url',
+        'help',
+        'platform'
       ],
       access: {
         link: 'permalink',
@@ -180,6 +203,7 @@ const config = {
         'coverage',
         'academic_disciplines',
         'holdings',
+        'alt_title',
       ],
       access: {
         defaultAccessText: 'Go To Online Journal',

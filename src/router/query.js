@@ -8,9 +8,12 @@ import {
 } from '../modules/filters';
 
 const handleSearchQuery = ({ nextQuery, query }) => {
-  if (nextQuery && (nextQuery !== query)) {
-    store.dispatch(setSearchQuery(nextQuery));
-    return true;
+  if ((nextQuery !== query)) {
+    store.dispatch(setSearchQuery(nextQuery || ''));
+
+    if (nextQuery) {
+      return true;
+    }
   }
 
   return false;
@@ -49,7 +52,7 @@ const handleFilterQuery = ({ activeDatastoreUid, activeFiltersFromState, filterQ
 
   // No filters in URL, but filters are active in state,
   // then clear state filters.
-  if (activeFiltersFromState) {
+  if (activeFiltersFromState[activeDatastoreUid]) {
     store.dispatch(clearActiveFilters({
       activeDatastore: activeDatastoreUid
     }));

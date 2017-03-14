@@ -50,6 +50,13 @@ const handleDatastorePageComponent = (nextState, callback) => {
     activeFiltersFromState: store.getState().filters.active,
   })
 
+  console.log('paramDatastoreUid !== stateDatastoreUid', paramDatastoreUid !== stateDatastoreUid)
+  console.log('paramDatastoreUid', paramDatastoreUid)
+  console.log('stateDatastoreUid', stateDatastoreUid)
+
+  console.log('searchQuery', searchQuery)
+  console.log('filterQuery', filterQuery)
+
   const switchedDatastore = paramDatastoreUid !== stateDatastoreUid;
 
   // If either made dispatches to store, then

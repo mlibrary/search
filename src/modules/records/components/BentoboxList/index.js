@@ -28,7 +28,7 @@ class BentoboxList extends React.Component {
                 <ul className="results-list results-list-border">
                   <li className="record">
                     <div className="record-container">
-                      <p className="no-margin">No results match your search.</p>
+                      <p className="no-margin"><b>No results</b> found for your search.</p>
                     </div>
                   </li>
                 </ul>

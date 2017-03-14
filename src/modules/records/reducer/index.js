@@ -20,6 +20,13 @@ const holdingsReducer = (state = undefined, action) => {
             [holdingType]: _.reduce(action.payload.holdingsData[holdingType], (holdings, holding) => {
 
               if (holdingType === 'physical') {
+
+                let link = undefined;
+
+                if (holding.item_info && holding.item_info[0] && holding.item_info[0]['get_this_url'] ) {
+                  link = holding.item_info[0]['get_this_url']
+                }
+
                 holdings = [
                   ...holdings,
                   {
@@ -27,7 +34,7 @@ const holdingsReducer = (state = undefined, action) => {
                     status: holding.status || undefined,
                     callnumber: holding.callnumber || undefined,
                     infoLink: holding.info_link || undefined,
-                    link: holding.item_info[0]['get_this_url'] || undefined
+                    link: link
                   }
                 ]
               } else if (holdingType === 'electronic') {
