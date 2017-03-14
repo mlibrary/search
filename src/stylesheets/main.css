@@ -749,12 +749,15 @@ body {
   margin-bottom: 0.5rem; }
 
 .record-field-name {
-  padding-right: 1rem;
+  padding-right: 0.25rem;
   font-weight: 600;
-  color: #4E4E4E; }
+  color: #4E4E4E;
+  display: inline-block; }
+  .record-field-name:after {
+    content: ':'; }
 
 .record-field-value {
-  display: table-cell; }
+  display: inline; }
 
 .record-field-list-as-table .record-field-list {
   display: table; }
@@ -767,6 +770,8 @@ body {
   @media (min-width: 36em) {
     .record-field-list-as-table .record-field-name {
       white-space: nowrap; } }
+  .record-field-list-as-table .record-field-name:after {
+    content: none; }
 
 .record-field-list-as-table .record-field-value {
   display: table-cell;

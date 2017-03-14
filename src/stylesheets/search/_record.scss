@@ -40,13 +40,18 @@
 }
 
 .record-field-name {
-  padding-right: 1rem;
+  padding-right: 0.25rem;
   font-weight: 600;
   color: $grey-2;
+  display: inline-block;
+
+  &:after {
+    content: ':'
+  }
 }
 
 .record-field-value {
-  display: table-cell;
+  display: inline;
 }
 
 .record-field-list-as-table {
@@ -64,6 +69,10 @@
 
     @media (min-width: 36em) {
       white-space: nowrap;
+    }
+
+    &:after {
+      content: none;
     }
 
   }
