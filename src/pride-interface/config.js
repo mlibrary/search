@@ -144,7 +144,7 @@ const config = {
       ],
       access: {
         defaultAccessText: 'Go To Article',
-        link: 'link'
+        link: 'access_url'
       }
     },
     {
