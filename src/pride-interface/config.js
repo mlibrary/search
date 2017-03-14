@@ -194,9 +194,12 @@ const config = {
       medium: [
         'brief_description',
       ],
+      full: [
+        'brief_description',
+      ],
       access: {
         defaultAccessText: 'Go To Webpage',
-        link: undefined
+        link: 'access_url'
       }
     },
   ],

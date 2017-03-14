@@ -11,8 +11,8 @@ import { createSearchParams } from '../../../../router';
 
 class BentoboxList extends React.Component {
   render() {
-    const { allRecords, activeDatastore, search } = this.props;
-    const bentoboxListRecords = getMultiSearchRecords(activeDatastore, allRecords);
+    const { allRecords, datastoreUid, search } = this.props;
+    const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords);
 
     return (
       <ul className="bentobox-list">
@@ -68,7 +68,7 @@ class BentoboxList extends React.Component {
               <ul className="results-list results-list-border">
                 {bentobox.records.map((record, index) => {
                   return (
-                    <RecordPreview key={index} activeDatastore={bentobox.uid} record={record} loading={record.loadingHoldings}/>
+                    <RecordPreview key={index} datastoreUid={bentobox.uid} record={record} loading={record.loadingHoldings}/>
                   )
                 })}
               </ul>
@@ -110,7 +110,7 @@ const BentoboxResultsNum = ({ totalResults }) => {
 function mapStateToProps(state) {
   return {
     allRecords: state.records.records,
-    activeDatastore: state.datastores.active,
+    datastoreUid: state.datastores.active,
     search: state.search,
   };
 }
