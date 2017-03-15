@@ -10,9 +10,9 @@ class AccessList extends React.Component {
   }
 }
 
-const AccessItem = ({ link, linkText, status }) => (
+const AccessItem = ({ link, linkText, status, type }) => (
   <li className="access-item">
-    <a href={link} className="button">{linkText}</a> {status}
+    <a href={link} className={type === 'full' ? 'button' : 'underline'}>{linkText}</a> {status}
   </li>
 )
 

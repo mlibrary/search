@@ -53,7 +53,7 @@ class FullRecord extends React.Component {
             {access && (
               <AccessList>
                 {access.map((item, key) => (
-                  <AccessItem key={key} {...item} />
+                  <AccessItem key={key} type='full' {...item} />
                 ))}
               </AccessList>
             )}

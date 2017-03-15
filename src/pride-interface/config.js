@@ -74,28 +74,26 @@ const config = {
         'edition',
         'publisher'
       ],
-      access: {
-        fromHoldings: true,
-        displayLoadingFeedback: true,
-        type: [
-          {
-            uid: 'hathitrust',
-
-          },
-          {
-            uid: 'physical',
-            link: 'get_this_url',
-            text: 'callnumber',
-            source: 'location',
-            status: 'status',
-          },
-          {
-            uid: 'electronic',
-            link: 'href',
-            defaultAccessText: 'Go To Item'
-          }
-        ]
-      },
+      holdings: [
+        {
+          uid: 'hathitrust',
+          link: 'handle_url',
+          status: 'status',
+          defaultAccessText: 'Available Online'
+        },
+        {
+          uid: 'circulating',
+          link: 'get_this_url',
+          status: 'status',
+          location: 'location',
+          defaultAccessText: 'Request This Item'
+        },
+        {
+          uid: 'online',
+          link: 'href',
+          defaultAccessText: 'Available Online'
+        }
+      ]
     },
     {
       datastore: 'articlesplus',

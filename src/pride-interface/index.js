@@ -91,8 +91,6 @@ const handleHoldings = (datastoreUid, recordId) => {
   }))
 
   return (holdingsData) => {
-    //console.log('holdingsData', datastoreUid, holdingsData)
-
     store.dispatch(addHoldings({
       datastoreUid: datastoreUid,
       recordId: recordId,
@@ -122,13 +120,10 @@ const setupObservers = (searchObj) => {
             data: {
               id: id,
               ...recordData,
-              holdings: {
-                digital: [],
-                physical: []
-              }
+              holdings: null
             }
           }));
-          //record.getHoldings(handleHoldings(searchObj.uid, id))
+          record.getHoldings(handleHoldings(searchObj.uid, id))
         })
       }
     });

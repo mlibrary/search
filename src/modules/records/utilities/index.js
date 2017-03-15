@@ -44,6 +44,12 @@ const filterAccessFields = ({ fields, type, datastore }) => {
   }, [])
 }
 
+const getHoldings = ({ datastore, holdings }) => {
+  const accessConfig = _.findWhere(config.fields, { datastore: datastore })
+
+  console.log('holdings', holdings)
+}
+
 const displayLoadingFeedback = (datastoreUid) => {
   const accessConfig = _.findWhere(config.fields, { datastore: datastoreUid })
 
@@ -66,5 +72,6 @@ export {
   filterDisplayFields,
   filterAccessFields,
   displayLoadingFeedback,
-  isFullRecordType
+  isFullRecordType,
+  getHoldings,
 }
