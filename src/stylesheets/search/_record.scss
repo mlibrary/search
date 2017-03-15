@@ -6,8 +6,9 @@
   margin: 0;
   padding: 0;
   background: white;
-
   margin-bottom: 0.5rem;
+
+  @include box-shadow();
 }
 
 .record-container {
@@ -91,6 +92,7 @@
   margin-top: 1rem;
   background: white;
   border-bottom: solid 2px $grey-5;
+  @include box-shadow();
 
   .record-field-list {
     .record-field {

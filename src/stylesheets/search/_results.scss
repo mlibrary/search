@@ -37,6 +37,8 @@
   background: $grey-6;
   margin-bottom: 2rem;
 
+  @include box-shadow();
+
   .results-summary {
     padding: 0 1rem;
   }

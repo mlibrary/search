@@ -78,12 +78,7 @@ class FilterListContainer extends React.Component {
 
     if (Object.keys(this.props.filters.groups).length === 0) {
       return (
-        <p style={{
-          padding: '1rem',
-          background: '#FAFAFA',
-          borderBottom: 'solid 2px #E5E5E5',
-          marginBottom: '0.5rem',
-        }}>
+        <p className="card card-light">
           <b>No filters</b> available.
         </p>
       )

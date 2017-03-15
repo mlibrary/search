@@ -522,9 +522,13 @@ footer {
   outline-color: white; }
 
 .card {
-  background: #fff;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
-  border-radius: 4px; }
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04);
+  border-bottom: solid 2px #E5E5E5;
+  padding: 1rem;
+  background: white; }
+
+.card-light {
+  background: #FAFAFA; }
 
 .search-box-container-full {
   background: #E6F3FF;
@@ -634,7 +638,8 @@ input.search-box-input {
   border-bottom: solid 2px #E5E5E5;
   background: white;
   background: #FAFAFA;
-  margin-bottom: 2rem; }
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
   .pagination-container .results-summary {
     padding: 0 1rem; }
 
@@ -713,10 +718,6 @@ body {
   .side-container {
     width: 100%; } }
 
-.card {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
-  border-radius: 4px; }
-
 /*
   Record
 */
@@ -724,7 +725,8 @@ body {
   margin: 0;
   padding: 0;
   background: white;
-  margin-bottom: 0.5rem; }
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
 
 .record-container {
   padding: 2rem;
@@ -783,7 +785,8 @@ body {
 .full-record-container {
   margin-top: 1rem;
   background: white;
-  border-bottom: solid 2px #E5E5E5; }
+  border-bottom: solid 2px #E5E5E5;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
   .full-record-container .record-field-list .record-field dt {
     width: 10rem; }
   .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
@@ -832,7 +835,8 @@ body {
   padding: 1rem 1.5rem;
   background: #FAFAFA;
   border-bottom: solid 2px #E5E5E5;
-  margin-bottom: 0.5rem; }
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
   .bentobox-heading-container span {
     line-height: 1.5; }
 
@@ -880,7 +884,8 @@ body {
   background: #FAFAFA;
   padding: 1rem 2rem;
   margin-top: -0.5rem;
-  align-items: center; }
+  align-items: center;
+  border-top: solid 1px #F2F2F2; }
 
 .access-container-full {
   padding: 2rem;
