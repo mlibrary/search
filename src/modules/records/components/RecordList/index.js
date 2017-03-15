@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
 
-import RecordMedium from '../RecordMedium';
+import Record from '../Record';
 import RecordPlaceholder from '../RecordPlaceholder';
 import { ClearSearchButton } from '../../../search';
 
@@ -64,10 +64,11 @@ class RecordListContainer extends React.Component {
         </div>
         <ul className="results-list results-list-border">
           {activeRecords.map((record, index) =>
-            <RecordMedium
+            <Record
               record={record}
               datastoreUid={datastoreUid}
               key={index}
+              type='medium'
             />,
           )}
         </ul>

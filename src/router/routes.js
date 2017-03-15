@@ -15,7 +15,6 @@ import {
   isSlugADatastore,
   switchToDatastorePride,
   getDatastoreUidBySlug,
-  requestPrideRecord,
   config
 } from '../pride-interface';
 
@@ -66,14 +65,9 @@ const handleRecordPageComponent = (nextState, callback) => {
   const slug = nextState.params.datastore;
   if (isSlugADatastore(slug)) {
     switchToDatastorePride(slug)
-    const recordUid = nextState.params.record;
-    const datastoreUid = getDatastoreUidBySlug(slug);
-    requestPrideRecord(datastoreUid, recordUid);
-
     callback(null, RecordPage)
   }
 
-  requestPrideRecord()
   callback(null, NoMatch)
 }
 

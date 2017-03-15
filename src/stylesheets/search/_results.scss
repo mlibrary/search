@@ -24,6 +24,8 @@
   background: white;
   background: $grey-6;
   margin-bottom: 0.5rem;
+
+  @include box-shadow();
 }
 
 .results-summary {

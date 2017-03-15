@@ -31,39 +31,17 @@ const filterDisplayFields = ({ fields, type, datastore }) => {
 const filterAccessFields = ({ fields, type, datastore }) => {
   const accessConfig = _.findWhere(config.fields, { datastore: datastore })
 
-  if (!accessConfig || !accessConfig.access || accessConfig.access.from_holdings) {
+  if (!accessConfig || !accessConfig.access || accessConfig.access.fromHoldings) {
     return undefined;
   };
+  const accessField = _.findWhere(fields, { uid: accessConfig.access.link })
 
-  let text = ''
-
-  if (accessConfig.access.defaultAccessText) {
-    text = accessConfig.access.defaultAccessText;
-  } else {
-    text = _.findWhere(fields, { uid: accessConfig.access.text })
-
-    if (text) {
-      text = text.value;
-    }
-  }
-
-  let source = _.findWhere(fields, { uid: accessConfig.access.source });
-  if (source && source.value) {
-    source = source.value
-  }
-
-  let link = _.findWhere(fields, { uid: accessConfig.access.link });
-  if (link && link.value) {
-    link = link.value
-  }
-
-  const accessObj = {
-    text: text,
-    link: link,
-    source: source,
-  }
-
-  return accessObj
+  return _.reduce([].concat(accessField.value), (memo, url) => {
+    return memo.concat({
+      link: url,
+      linkText: accessConfig.access.defaultAccessText,
+    })
+  }, [])
 }
 
 const displayLoadingFeedback = (datastoreUid) => {

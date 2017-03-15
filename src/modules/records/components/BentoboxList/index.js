@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import numeral from 'numeral';
 
 import { getMultiSearchRecords } from '../../../../pride-interface';
-import RecordPreview from '../RecordPreview';
+import Record from '../Record';
 import RecordPlaceholder from '../RecordPlaceholder';
 import { createSearchParams } from '../../../../router';
 
@@ -68,7 +68,13 @@ class BentoboxList extends React.Component {
               <ul className="results-list results-list-border">
                 {bentobox.records.map((record, index) => {
                   return (
-                    <RecordPreview key={index} datastoreUid={bentobox.uid} record={record} loading={record.loadingHoldings}/>
+                    <Record
+                      key={index}
+                      datastoreUid={bentobox.uid}
+                      record={record}
+                      loading={record.loadingHoldings}
+                      type='preview'
+                    />
                   )
                 })}
               </ul>

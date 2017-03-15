@@ -128,7 +128,7 @@ const setupObservers = (searchObj) => {
               }
             }
           }));
-          record.getHoldings(handleHoldings(searchObj.uid, id))
+          //record.getHoldings(handleHoldings(searchObj.uid, id))
         })
       }
     });
@@ -346,18 +346,29 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
   if (datastoreUid && recordUid) {
     store.dispatch(clearRecord());
 
-    const callback = (record) => {
-      store.dispatch(setRecord(record));
-
-      /*
-      console.log(record)
-      record.getHoldings((holdingsData) => {
-        console.log('holdingsData', datastoreUid, recordUid, holdingsData)
+    const state = store.getState();
+    if (state && state.records.records[datastoreUid]) {
+      const records = state.records.records[datastoreUid]
+      const record = _.filter(records, (record) => {
+        const idField = _.findWhere(record.fields, { uid: 'id' })
+        return idField.value === recordUid
       })
-      */
-    }
 
-    Pride.requestRecord(datastoreUid, recordUid, callback)
+      store.dispatch(setRecord(record[0]));
+    } else {
+      const callback = (record) => {
+        store.dispatch(setRecord(record));
+
+        /*
+        console.log(record)
+        record.getHoldings((holdingsData) => {
+          console.log('holdingsData', datastoreUid, recordUid, holdingsData)
+        })
+        */
+      }
+
+      Pride.requestRecord(datastoreUid, recordUid, callback)
+    }
   }
 }
 
