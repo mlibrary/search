@@ -786,6 +786,7 @@ body {
 */
 .full-record-container {
   margin-top: 1rem;
+  margin-bottom: 3rem;
   background: white;
   border-bottom: solid 2px #E5E5E5;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
@@ -881,18 +882,19 @@ body {
 .party-parrot-container:hover .party-parrot {
   opacity: 0.3; }
 
-.holding-status,
-.holding-callnumber,
-.holding-location,
-.holding-electronic-link,
-.holding-electronic-text {
-  margin-right: 0.5rem; }
+.holding-detail {
+  margin-right: 1rem; }
+  .holding-detail:empty {
+    display: none; }
 
-.holding-electronic-link {
-  display: block; }
-
-.holding-location {
+.holding-detail-location {
   font-weight: 600; }
+
+.holding-detail-label {
+  font-weight: 600;
+  margin-right: 0; }
+  .holding-detail-label:after {
+    content: ':'; }
 
 @-webkit-keyframes placeHolderShimmer {
   0% {
@@ -1008,6 +1010,8 @@ body {
   margin-top: -0.5rem;
   align-items: center;
   border-top: solid 1px #F2F2F2; }
+  .access-container:empty {
+    display: none; }
 
 .access-list {
   margin: 0;
@@ -1032,9 +1036,6 @@ body {
 
 .access-container .access-list:not(:last-child) {
   margin-bottom: 1rem; }
-
-.holding-detail-location {
-  font-weight: 600; }
 
 .u-break-word {
   word-wrap: break-word; }

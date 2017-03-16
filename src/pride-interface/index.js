@@ -253,12 +253,6 @@ const setupSearches = () => {
     remainingSearchObjects
   )
 
-  /* TODO
-  const orderedSearchObjects = config.datastores.ordering.map(function (uid) {
-    return _.findWhere(searchObjects, { uid: uid });
-  })
-  */
-
   _.each(publicSearchObjects, function (searchObj) {
     const name = getDatastoreName(searchObj.uid);
     const slug = getDatastoreSlug(searchObj.uid);
@@ -369,12 +363,19 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
       const callback = (record) => {
         store.dispatch(setRecord(record));
 
-        /*
-        console.log(record)
-        record.getHoldings((holdingsData) => {
-          console.log('holdingsData', datastoreUid, recordUid, holdingsData)
-        })
-        */
+        if (hasHoldings(datastoreUid)) {
+          // TODO full record holdings
+
+          /*
+          console.log('record', record)
+
+          record.getHoldings((datastoreUid, recordUid) => {
+            return (holdingsData) => {
+              console.log('holdingsData')
+            }
+          })
+          */
+        }
       }
 
       Pride.requestRecord(datastoreUid, recordUid, callback)

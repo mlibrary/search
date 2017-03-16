@@ -73,10 +73,12 @@ class Record extends React.Component {
                     <AccessList key={holdingsGroup.uid}>
                       {holdingsGroup.holdings.map((holding, index) => (
                         <li className="access-item" key={index}>
+                          <span className="holding-detail
+                             holding-detail-label">{holding.label}</span>
                           <a href={holding.link} className="underline access-link">{holding.linkText}</a>
+                          <span className="holding-detail">{holding.status}</span>
                           <span className="holding-detail holding-detail-location">{holding.location}</span>
                           <span className="holding-detail">{holding.callnumber}</span>
-                          <span className="holding-detail">{holding.status}</span>
                         </li>
                       ))}
                     </AccessList>

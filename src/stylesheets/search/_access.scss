@@ -4,6 +4,10 @@
   margin-top: -0.5rem;
   align-items: center;
   border-top: solid 1px $grey-7;
+
+  &:empty {
+    display: none;
+  }
 }
 
 .access-list {
@@ -38,8 +42,4 @@
   .access-list:not(:last-child) {
     margin-bottom: 1rem;
   }
-}
-
-.holding-detail-location {
-  font-weight: 600;
 }

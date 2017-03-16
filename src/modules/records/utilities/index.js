@@ -75,20 +75,20 @@ const getHoldings = ({ holdings, datastoreUid }) => {
 
   const holdingsConfig = datastoreConfig.holdings;
 
-  //console.log('holdingConfig', holdingsConfig)
-  //console.log('holdings', holdings)
-
   return holdingsConfig.reduce((previous, holdingConfig) => {
     if (!holdings[holdingConfig.uid]) {
       return previous
     }
-    //console.log('holdings[holdingConfig.uid]', holdings[holdingConfig.uid])
+
+    console.log('holdingConfig', holdingConfig)
+    console.log('holdings[holdingConfig.uid]', holdings[holdingConfig.uid])
 
     return previous.concat({
       uid: holdingConfig.uid,
       name: holdingConfig.heading,
       holdings: _.map(holdings[holdingConfig.uid], (holding) => {
         return {
+          label: holdingConfig.label,
           link: holding[holdingConfig.link],
           linkText: holdingConfig.defaultAccessText,
           status: holding[holdingConfig.status],

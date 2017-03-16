@@ -80,7 +80,8 @@ const config = {
           link: 'handle_url',
           status: 'status',
           defaultAccessText: 'Full Text Online',
-          heading: 'HathiTrust Access'
+          heading: 'HathiTrust Access',
+          label: 'HathiTrust'
         },
         {
           uid: 'circulating',
@@ -89,13 +90,14 @@ const config = {
           location: 'location',
           callnumber: 'callnumber',
           defaultAccessText: 'Request This Item',
-          heading: 'Phyiscal Access',
+          heading: 'Physical Access',
         },
         {
           uid: 'online',
           link: 'href',
           defaultAccessText: 'Available Online',
-          heading: 'Online Access'
+          heading: 'Online Access',
+          label: 'Online'
         }
       ]
     },

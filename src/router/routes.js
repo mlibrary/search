@@ -3,7 +3,6 @@ import { IndexRoute, Route } from 'react-router';
 import { _ } from 'underscore';
 
 import { store } from '../store'
-
 import { Main } from '../modules/core'
 import {
   IndexPage,
@@ -15,11 +14,10 @@ import {
   isSlugADatastore,
   switchToDatastorePride,
   getDatastoreUidBySlug,
-  config
+  config,
 } from '../pride-interface';
-
 import { runSearchPride } from '../pride-interface';
-
+import { changeActiveDatastore } from '../modules/datastores';
 import { searching } from '../modules/search';
 
 import {
@@ -64,7 +62,9 @@ const handleDatastorePageComponent = (nextState, callback) => {
 const handleRecordPageComponent = (nextState, callback) => {
   const slug = nextState.params.datastore;
   if (isSlugADatastore(slug)) {
-    switchToDatastorePride(slug)
+    //switchToDatastorePride(slug)
+    const datastoreUid = getDatastoreUidBySlug(slug)
+    store.dispatch(changeActiveDatastore(datastoreUid))
     callback(null, RecordPage)
   }
 

@@ -1,16 +1,20 @@
+.holding-detail {
+  margin-right: 1rem;
 
-.holding-status,
-.holding-callnumber,
-.holding-location,
-.holding-electronic-link,
-.holding-electronic-text {
-  margin-right: 0.5rem;
+  &:empty {
+    display: none;
+  }
 }
 
-.holding-electronic-link {
-  display: block;
-}
-
-.holding-location {
+.holding-detail-location {
   font-weight: 600;
+}
+
+.holding-detail-label {
+  font-weight: 600;
+  margin-right: 0;
+
+  &:after {
+    content: ':';
+  }
 }
