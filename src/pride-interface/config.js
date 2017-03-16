@@ -79,19 +79,22 @@ const config = {
           uid: 'hathitrust',
           link: 'handle_url',
           status: 'status',
-          defaultAccessText: 'Available Online'
+          defaultAccessText: 'Available Online',
+          heading: 'HathiTrust Access'
         },
         {
           uid: 'circulating',
           link: 'get_this_url',
           status: 'status',
           location: 'location',
-          defaultAccessText: 'Request This Item'
+          defaultAccessText: 'Request This Item',
+          heading: 'Phyiscal Access'
         },
         {
           uid: 'online',
           link: 'href',
-          defaultAccessText: 'Available Online'
+          defaultAccessText: 'Available Online',
+          heading: 'Online Access'
         }
       ]
     },

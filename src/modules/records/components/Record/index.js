@@ -12,7 +12,6 @@ import {
   getField,
   filterDisplayFields,
   filterAccessFields,
-  getHoldings,
 } from '../../utilities';
 
 class Record extends React.Component {
@@ -27,39 +26,43 @@ class Record extends React.Component {
     const access = filterAccessFields({
       fields: record.fields,
       type: 'access',
+      holdings: record.holdings,
       datastore: datastoreUid,
     });
-    const holdings = getHoldings({
-      holdings: record.holdings,
-      datastore: datastoreUid
-    })
     const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
-    const recordUid = getField(record.fields, 'id').value;
-    return (
-      <li className="record">
-        <div className="record-container">
-          <h3 className="record-title">
-            <Link
-              className="record-title-link"
-              to={`/${datastoreSlug}/record/${recordUid}`}
-            >
-              {title}
-            </Link>
-          </h3>
-          <FieldList fields={displayFields} />
-        </div>
+    const recordUidField = getField(record.fields, 'id');
 
-        <div className="access-container">
-        {access && (
-          <AccessList>
-            {access.map((item, key) => (
-              <AccessItem key={key} {...item} />
-            ))}
-          </AccessList>
-        )}
-        </div>
-      </li>
-    )
+    if (recordUidField) {
+      const recordUid = recordUidField.value
+
+      return (
+        <li className="record">
+          <div className="record-container">
+            <h3 className="record-title">
+              <Link
+                className="record-title-link"
+                to={`/${datastoreSlug}/record/${recordUid}`}
+              >
+                {title}
+              </Link>
+            </h3>
+            <FieldList fields={displayFields} />
+          </div>
+
+          <div className="access-container">
+          {access && (
+            <AccessList>
+              {access.map((item, index) => (
+                <AccessItem key={index} {...item} />
+              ))}
+            </AccessList>
+          )}
+          </div>
+        </li>
+      )
+    }
+
+    return null
   }
 }
 

@@ -12,9 +12,8 @@ const recordReducer = (state = {}, action) => {
 
 const recordsInitialState = {
   loading: false,
-  records: [],
-  record: null,
-  pagination: {}
+  records: null,
+  record: null
 };
 
 const recordsReducer = (state = recordsInitialState, action) => {
@@ -33,19 +32,23 @@ const recordsReducer = (state = recordsInitialState, action) => {
     case actions.ADD_HOLDINGS:
       const { datastoreUid, recordId, holdingsData } = action.payload;
 
-      return {
-        ...state,
-        records: {
-          ...state.records,
-          [datastoreUid]: {
-            ...state.records[datastoreUid],
-            [recordId]: {
-              ...state.records[datastoreUid][recordId],
-              holdings: _.indexBy(holdingsData, 'type')
+      if (holdingsData.length > 0 && state.records[datastoreUid] && state.records[datastoreUid][recordId]) {
+        return {
+          ...state,
+          records: {
+            ...state.records,
+            [datastoreUid]: {
+              ...state.records[datastoreUid],
+              [recordId]: {
+                ...state.records[datastoreUid][recordId],
+                holdings: _.indexBy(holdingsData, 'type')
+              }
             }
           }
         }
       }
+
+      return state;
     case actions.CLEAR_RECORDS:
       return {
         ...state,

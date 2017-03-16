@@ -28,7 +28,7 @@ const filterDisplayFields = ({ fields, type, datastore }) => {
   return _.filter(fields, (field) => _.contains(fieldsConfig[type], field.uid));
 }
 
-const filterAccessFields = ({ fields, type, datastore }) => {
+const filterAccessFields = ({ fields, type, datastore, holdings }) => {
   const accessConfig = _.findWhere(config.fields, { datastore: datastore })
 
   if (!accessConfig || !accessConfig.access || accessConfig.access.fromHoldings) {
@@ -42,12 +42,6 @@ const filterAccessFields = ({ fields, type, datastore }) => {
       linkText: accessConfig.access.defaultAccessText,
     })
   }, [])
-}
-
-const getHoldings = ({ datastore, holdings }) => {
-  const accessConfig = _.findWhere(config.fields, { datastore: datastore })
-
-  console.log('holdings', holdings)
 }
 
 const displayLoadingFeedback = (datastoreUid) => {
@@ -72,6 +66,5 @@ export {
   filterDisplayFields,
   filterAccessFields,
   displayLoadingFeedback,
-  isFullRecordType,
-  getHoldings,
+  isFullRecordType
 }
