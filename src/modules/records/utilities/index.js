@@ -63,11 +63,68 @@ const isFullRecordType = ({ datastoreUid }) => {
   return accessConfig.hasOwnProperty('full')
 }
 
+const getHoldings = ({ holdings, datastoreUid }) => {
+  if (!holdings) {
+    return []
+  }
+
+  const datastoreConfig = _.findWhere(config.fields, { datastore: datastoreUid })
+  if (!datastoreConfig) {
+    return []
+  }
+
+  const holdingsConfig = datastoreConfig.holdings;
+
+  //console.log('holdingConfig', holdingsConfig)
+  //console.log('holdings', holdings)
+
+  return holdingsConfig.reduce((previous, holdingConfig) => {
+    if (!holdings[holdingConfig.uid]) {
+      return previous
+    }
+    //console.log('holdings[holdingConfig.uid]', holdings[holdingConfig.uid])
+
+    return previous.concat({
+      uid: holdingConfig.uid,
+      name: holdingConfig.heading,
+      holdings: _.map(holdings[holdingConfig.uid], (holding) => {
+        return {
+          link: holding[holdingConfig.link],
+          linkText: holdingConfig.defaultAccessText,
+          status: holding[holdingConfig.status],
+          location: holding[holdingConfig.location],
+          source: holding[holdingConfig.source],
+          callnumber: holding[holdingConfig.callnumber]
+        }
+      })
+    })
+  }, [])
+
+  /*
+  Returns an object with this example shape.
+
+  [
+    {
+      uid: 'hathitrust',
+      name: 'HathiTrust',
+      holdings: [
+        {
+          link: '',
+          linkText: '',
+          status: '',
+        }
+      ]
+    }
+  ]
+  */
+}
+
 export {
   getField,
   getFieldValue,
   filterDisplayFields,
   filterAccessFields,
   displayLoadingFeedback,
-  isFullRecordType
+  isFullRecordType,
+  getHoldings
 }

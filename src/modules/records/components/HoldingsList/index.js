@@ -1,6 +1,6 @@
 import React from 'react'
 
-class AccessList extends React.Component {
+class HoldingsList extends React.Component {
   render() {
     return (
       <ul className="access-list">
@@ -10,7 +10,7 @@ class AccessList extends React.Component {
   }
 }
 
-const AccessItem = ({ link, linkText, status, type }) => (
+const HoldingItem = ({ link, linkText, status, type }) => (
   <li className="access-item">
     <a href={link} className={type === 'full' ? 'button' : 'underline'}>{linkText}</a> {status}
   </li>
@@ -24,7 +24,6 @@ const SkeletonHoldingItem = () => (
 )
 
 export {
-  AccessList,
-  AccessItem,
-  SkeletonHoldingItem
+  HoldingsList,
+  HoldingItem
 }

@@ -1,44 +1,3 @@
-.access-container {
-  display: flex;
-  background: $grey-6;
-  padding: 1rem 2rem;
-  margin-top: -0.5rem;
-  align-items: center;
-  border-top: solid 1px $grey-7;
-}
-
-.access-container-full {
-  padding: 1rem 0;
-}
-
-.access-container:empty {
-  display: none;
-}
-
-.holding-link {
-  margin-right: 0.5rem;
-}
-
-.holdings-list {
-  width: 100%;
-  margin: 0;
-  list-style: none;
-}
-
-.holdings-list-item {
-  margin: 0;
-  padding: 0;
-}
-
-.holdings-list-item:not(:last-child) {
-  border-bottom: 1px solid $grey-5;
-  padding-bottom: 0.75rem;
-}
-
-.holdings-list-item:not(:first-child) {
-  padding-top: 0.75rem;
-}
-
 
 .holding-status,
 .holding-callnumber,
@@ -54,15 +13,4 @@
 
 .holding-location {
   font-weight: 600;
-}
-
-.loading-sync-icon {
-  fill: rgba($grey-1, 0.5);
-  animation: spin 3s linear infinite;
-  margin: 0 0.5rem;
-}
-
-@-webkit-keyframes spin {
-  0% {-webkit-transform: rotateZ(0deg);}
-  100% {-webkit-transform: rotateZ(-360deg);}
 }

@@ -41,7 +41,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
               ...state.records[datastoreUid],
               [recordId]: {
                 ...state.records[datastoreUid][recordId],
-                holdings: _.indexBy(holdingsData, 'type')
+                holdings: _.groupBy(holdingsData, 'type')
               }
             }
           }

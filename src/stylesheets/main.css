@@ -881,39 +881,6 @@ body {
 .party-parrot-container:hover .party-parrot {
   opacity: 0.3; }
 
-.access-container {
-  display: flex;
-  background: #FAFAFA;
-  padding: 1rem 2rem;
-  margin-top: -0.5rem;
-  align-items: center;
-  border-top: solid 1px #F2F2F2; }
-
-.access-container-full {
-  padding: 1rem 0; }
-
-.access-container:empty {
-  display: none; }
-
-.holding-link {
-  margin-right: 0.5rem; }
-
-.holdings-list {
-  width: 100%;
-  margin: 0;
-  list-style: none; }
-
-.holdings-list-item {
-  margin: 0;
-  padding: 0; }
-
-.holdings-list-item:not(:last-child) {
-  border-bottom: 1px solid #E5E5E5;
-  padding-bottom: 0.75rem; }
-
-.holdings-list-item:not(:first-child) {
-  padding-top: 0.75rem; }
-
 .holding-status,
 .holding-callnumber,
 .holding-location,
@@ -926,17 +893,6 @@ body {
 
 .holding-location {
   font-weight: 600; }
-
-.loading-sync-icon {
-  fill: rgba(51, 51, 51, 0.5);
-  animation: spin 3s linear infinite;
-  margin: 0 0.5rem; }
-
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotateZ(0deg); }
-  100% {
-    -webkit-transform: rotateZ(-360deg); } }
 
 @-webkit-keyframes placeHolderShimmer {
   0% {
@@ -954,7 +910,9 @@ body {
   -webkit-animation-name: placeHolderShimmer;
   -webkit-animation-timing-function: linear;
   -webkit-animation-duration: 25s;
+  vertical-align: middle;
   height: 0.6rem;
+  margin-top: 0;
   margin-bottom: 1rem; }
 
 .access-placeholder-container {
@@ -977,11 +935,11 @@ body {
 .placeholder-inline {
   display: inline-block;
   width: 100%;
-  max-width: 8rem;
+  max-width: 20rem;
   margin-right: 1rem; }
 
 .placeholder-access {
-  max-width: 14rem;
+  max-width: 12rem;
   background: linear-gradient(to left, #F2F9FF 20%, #E6F3FF 50%, #F2F9FF 80%); }
 
 .landing-container {
@@ -1044,10 +1002,18 @@ body {
   .icon g {
     fill: currentColor; }
 
+.access-container {
+  background: #FAFAFA;
+  padding: 1rem 2rem;
+  margin-top: -0.5rem;
+  align-items: center;
+  border-top: solid 1px #F2F2F2; }
+
 .access-list {
   margin: 0;
   padding: 0;
-  list-style: none; }
+  list-style: none;
+  display: block; }
 
 .access-item {
   padding: 0;
@@ -1055,6 +1021,20 @@ body {
 
 .access-item:not(:last-child) {
   margin-bottom: 1rem; }
+
+.holding-detail {
+  margin-right: 1rem; }
+  .holding-detail:empty {
+    display: none; }
+
+.access-link {
+  margin-right: 1rem; }
+
+.access-container .access-list:not(:last-child) {
+  margin-bottom: 1rem; }
+
+.holding-detail-location {
+  font-weight: 600; }
 
 .u-break-word {
   word-wrap: break-word; }

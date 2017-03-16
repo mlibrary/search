@@ -24,7 +24,10 @@ $shim: $grey-5;
   -webkit-animation-timing-function: linear;
   -webkit-animation-duration: 25s;
 
+  vertical-align: middle;
+
   height: 0.6rem;
+  margin-top: 0;
   margin-bottom: 1rem;
 }
 
@@ -55,11 +58,11 @@ $shim: $grey-5;
 .placeholder-inline {
   display: inline-block;
   width: 100%;
-  max-width: 8rem;
+  max-width: 20rem;
   margin-right: 1rem;
 }
 
 .placeholder-access {
-  max-width: 14rem;
+  max-width: 12rem;
   background: linear-gradient(to left, $main-6 20%, $main-5 50%, $main-6 80%);
 }
