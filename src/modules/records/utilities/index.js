@@ -80,9 +80,6 @@ const getHoldings = ({ holdings, datastoreUid }) => {
       return previous
     }
 
-    console.log('holdingConfig', holdingConfig)
-    console.log('holdings[holdingConfig.uid]', holdings[holdingConfig.uid])
-
     return previous.concat({
       uid: holdingConfig.uid,
       name: holdingConfig.heading,
