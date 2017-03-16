@@ -105,9 +105,21 @@ const handleHoldings = (datastoreUid, recordId) => {
   }
 }
 
+const hasHoldings = (datastore) => {
+  const fieldsConfig = _.findWhere(config.fields, { datastore: datastore })
+
+  if (fieldsConfig.holdings) {
+    return true
+  }
+
+  return false
+}
+
 const setupObservers = (searchObj) => {
   searchObj.resultsObservers.add(function(results) {
     store.dispatch(clearRecords(searchObj.uid));
+
+    const doesHaveHoldings = hasHoldings(searchObj.uid)
 
     _.each(results, (record) => {
       if (record !== undefined) {
@@ -123,7 +135,10 @@ const setupObservers = (searchObj) => {
               holdings: null
             }
           }));
-          record.getHoldings(handleHoldings(searchObj.uid, id))
+
+          if (doesHaveHoldings) {
+            record.getHoldings(handleHoldings(searchObj.uid, id))
+          }
         })
       }
     });

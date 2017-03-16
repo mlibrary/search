@@ -36,6 +36,7 @@ const filterAccessFields = ({ fields, type, datastore, holdings }) => {
   };
   const accessField = _.findWhere(fields, { uid: accessConfig.access.link })
 
+
   return _.reduce([].concat(accessField.value), (memo, url) => {
     return memo.concat({
       link: url,
