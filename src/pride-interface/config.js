@@ -81,7 +81,8 @@ const config = {
           status: 'status',
           defaultAccessText: 'Full Text Online',
           heading: 'HathiTrust Access',
-          label: 'HathiTrust'
+          label: 'HathiTrust',
+          source: 'source'
         },
         {
           uid: 'circulating',

@@ -91,6 +91,9 @@ const handleHoldings = (datastoreUid, recordId) => {
   }))
 
   return (holdingsData) => {
+
+    console.log('holdingsData', datastoreUid, recordId, holdingsData)
+
     store.dispatch(addHoldings({
       datastoreUid: datastoreUid,
       recordId: recordId,

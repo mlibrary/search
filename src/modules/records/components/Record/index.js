@@ -78,7 +78,8 @@ class Record extends React.Component {
                           <a href={holding.link} className="underline access-link">{holding.linkText}</a>
                           <span className="holding-detail">{holding.status}</span>
                           <span className="holding-detail holding-detail-location">{holding.location}</span>
-                          <span className="holding-detail">{holding.callnumber}</span>
+                          <span className="holding-detail">{holding.callnumber}</span>  
+                          <span className="holding-detail">{holding.source}</span>
                         </li>
                       ))}
                     </AccessList>
