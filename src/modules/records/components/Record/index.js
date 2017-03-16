@@ -25,8 +25,6 @@ class Record extends React.Component {
     });
     const access = filterAccessFields({
       fields: record.fields,
-      type: 'access',
-      holdings: record.holdings,
       datastore: datastoreUid,
     });
     const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
