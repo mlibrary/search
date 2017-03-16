@@ -41,7 +41,7 @@ These files will be created in the `build` directory.
 
 ## Local Development
 
-Local development will only work if you have access to the UMich network. This is a requirment for communicating with the backend service (Spectrum). If you have the credentials, the UMich VPN is helpful when off campus. [Instructions for getting started with the UMich VPN](http://its.umich.edu/enterprise/wifi-networks/vpn/getting-started).
+Local development will only work if you have access to the UMich network. This is a requirment for communicating with the backend service (Spectrum).
 
 ## Contact
 Email Jon Earley at earleyj@umich.edu if you have any questions.
