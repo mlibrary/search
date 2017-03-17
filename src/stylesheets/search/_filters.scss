@@ -1,12 +1,12 @@
 .filter-groups {
     margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
 .filter-group {
-  padding: 1rem;
+  padding: 1.5rem;
   background: $grey-6;
   border-bottom: solid 2px $grey-5;
-  margin-bottom: 0.5rem;
 
   @include box-shadow();
 }
@@ -22,7 +22,6 @@
   font-size: 1rem;
   margin-top: 0;
   margin-bottom: 0.5rem;
-  padding: 0 0.5rem;
 }
 
 .filter-item {
@@ -38,28 +37,33 @@
   padding: 0;
 
   width: 100%;
-  padding: 0.3rem 0.5rem;
+  padding: 0.3rem 0;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  border-radius: 4px;
 
-  &:hover {
-    background: $grey-5;
+  &:hover .filter-value {
+    text-decoration: underline;
   }
 }
 
 .filter-value {
   margin-right: 0.5rem;
+  word-break: break-word;
   color: $main-3;
 }
 
 .filter-active .filter-button {
-  background: $main-3;
+  background: $green-2;
+  padding: 0.5rem 0.75rem;
   border-radius: 4px;
 
   .filter-value,
   .filter-count {
     color: white;
+  }
+
+  .filter-count {
+    display: none;
   }
 }

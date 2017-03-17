@@ -7,7 +7,6 @@ class RecordPage extends React.Component {
   render() {
     return (
       <div>
-        <SearchBox />
         <RecordFull params={this.props.params} />
       </div>
     )

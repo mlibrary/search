@@ -1,11 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 import FieldList from '../RecordFieldList';
 import {
   filterAccessFields,
   filterDisplayFields,
-  getHoldings
+  getHoldings,
+  getField,
+  getFieldValue,
 } from '../../utilities';
 
 import {
@@ -50,9 +53,14 @@ class FullRecord extends React.Component {
       datastore: activeDatastoreUid
     });
 
+    const format = getFieldValue(getField(record.fields, 'format'))
+
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
+          <div className="full-record-header">
+            <p>{format}</p>
+          </div>
           <div className="record-container">
             <h1 className="full-record-title">{record.names[0]}</h1>
 
@@ -71,7 +79,7 @@ class FullRecord extends React.Component {
             {holdings && (
               <div className="holdings-container">
                 {holdings.map((holdingsGroup, index) => (
-                  <div>
+                  <div key={index}>
                     <h3>{holdingsGroup.name}</h3>
                     <ul className="access-list" key={holdingsGroup.uid}>
                       {holdingsGroup.holdings.map((holding, index) => (

@@ -628,7 +628,6 @@ input.search-box-input {
   border-bottom: solid 2px #E5E5E5;
   background: white;
   background: #FAFAFA;
-  margin-bottom: 0.5rem;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
 
 .results-summary {
@@ -648,13 +647,13 @@ input.search-box-input {
   padding: 0 1rem; }
 
 .filter-groups {
-  margin-top: 1rem; }
+  margin-top: 1rem;
+  margin-bottom: 2rem; }
 
 .filter-group {
-  padding: 1rem;
+  padding: 1.5rem;
   background: #FAFAFA;
   border-bottom: solid 2px #E5E5E5;
-  margin-bottom: 0.5rem;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
 
 .filter-list {
@@ -666,8 +665,7 @@ input.search-box-input {
   font-weight: 600;
   font-size: 1rem;
   margin-top: 0;
-  margin-bottom: 0.5rem;
-  padding: 0 0.5rem; }
+  margin-bottom: 0.5rem; }
 
 .filter-item {
   padding: 0;
@@ -679,24 +677,27 @@ input.search-box-input {
   text-align: left;
   padding: 0;
   width: 100%;
-  padding: 0.3rem 0.5rem;
+  padding: 0.3rem 0;
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
-  border-radius: 4px; }
-  .filter-button:hover {
-    background: #E5E5E5; }
+  cursor: pointer; }
+  .filter-button:hover .filter-value {
+    text-decoration: underline; }
 
 .filter-value {
   margin-right: 0.5rem;
+  word-break: break-word;
   color: #126DC1; }
 
 .filter-active .filter-button {
-  background: #126DC1;
+  background: #05A657;
+  padding: 0.5rem 0.75rem;
   border-radius: 4px; }
   .filter-active .filter-button .filter-value,
   .filter-active .filter-button .filter-count {
     color: white; }
+  .filter-active .filter-button .filter-count {
+    display: none; }
 
 body {
   background: #F2F2F2; }
@@ -727,7 +728,6 @@ body {
   margin: 0;
   padding: 0;
   background: white;
-  margin-bottom: 0.5rem;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
 
 .record-container {
@@ -799,6 +799,13 @@ body {
   .full-record-container .record-field-list .record-field:nth-child(odd) {
     background: #F2F2F2; }
 
+.full-record-header {
+  background: #E6F3FF;
+  padding: 1rem 2rem; }
+  .full-record-header p {
+    margin: 0;
+    color: #126DC1; }
+
 .full-record-title {
   font-size: 1.5rem;
   margin-top: 0; }
@@ -835,17 +842,16 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 1rem 1.5rem;
-  background: #FAFAFA;
-  border-bottom: solid 2px #E5E5E5;
-  margin-bottom: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #126DC1;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
   .bentobox-heading-container span {
-    line-height: 1.5; }
+    line-height: 1.5;
+    color: white; }
 
 .bentobox-heading {
   margin: 0;
-  color: #333;
+  color: white;
   font-size: 1.1rem;
   font-weight: 400;
   margin-right: 0.5rem;
@@ -865,6 +871,9 @@ body {
   .bentobox {
     width: calc(100% * (1/5) - 1rem);
     margin-right: 1rem; } }
+
+.bentobox .record {
+  margin-bottom: 0; }
 
 .party-parrot-container {
   cursor: pointer; }

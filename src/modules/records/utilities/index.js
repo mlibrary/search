@@ -40,6 +40,7 @@ const filterAccessFields = ({ fields, type, datastore, holdings }) => {
       return memo.concat({
         link: url,
         linkText: accessConfig.access.defaultAccessText,
+        status: status || undefined,
       })
     }, [])
   }

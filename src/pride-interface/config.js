@@ -72,7 +72,9 @@ const config = {
         'publish_date',
         'place_of_publication',
         'edition',
-        'publisher'
+        'publisher',
+        'summary',
+        'extended_summary'
       ],
       holdings: [
         {
@@ -80,7 +82,7 @@ const config = {
           link: 'handle_url',
           status: 'status',
           defaultAccessText: 'Full Text Online',
-          heading: 'HathiTrust Access',
+          heading: 'HathiTrust Digital Library',
           label: 'HathiTrust',
           source: 'source'
         },
@@ -91,14 +93,32 @@ const config = {
           location: 'location',
           callnumber: 'callnumber',
           defaultAccessText: 'Request This Item',
-          heading: 'Physical Access',
+          heading: 'Physical Holdings',
         },
         {
           uid: 'online',
           link: 'href',
           defaultAccessText: 'Available Online',
-          heading: 'Online Access',
+          heading: 'Electronic Resources',
           label: 'Online'
+        },
+        {
+          uid: 'media',
+          link: 'get_this_url',
+          location: 'location',
+          status: 'status',
+          defaultAccessText: 'Request This Media Item',
+          callnumber: 'callnumber',
+          heading: 'Media Holdings',
+        },
+        {
+          uid: 'special',
+          link: 'get_this_url',
+          location: 'location',
+          status: 'status',
+          callnumber: 'callnumber',
+          heading: 'Special Holdings',
+          defaultAccessText: 'Request This Special Item',
         }
       ]
     },
@@ -212,7 +232,8 @@ const config = {
       ],
       access: {
         defaultAccessText: 'Go To Online Journal',
-        link: 'access_url'
+        link: 'access_url',
+        status: 'coverage',
       },
     },
     {

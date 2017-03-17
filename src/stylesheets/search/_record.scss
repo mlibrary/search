@@ -6,7 +6,6 @@
   margin: 0;
   padding: 0;
   background: white;
-  margin-bottom: 0.5rem;
 
   @include box-shadow();
 }
@@ -110,6 +109,16 @@
     .record-field:nth-child(odd) {
       background: $grey-7;
     }
+  }
+}
+
+.full-record-header {
+  background: $main-5;
+  padding: 1rem 2rem;
+
+  p {
+    margin: 0;
+    color: $main-3;
   }
 }
 
