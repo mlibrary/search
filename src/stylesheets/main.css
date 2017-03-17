@@ -399,7 +399,7 @@ nav {
 
 .site-header-container {
   padding: 0 1rem; }
-  @media (min-width: 32em) {
+  @media (min-width: 48em) {
     .site-header-container {
       display: flex;
       justify-content: space-between;
@@ -464,12 +464,19 @@ nav {
   margin: 0;
   padding: 0;
   list-style: none; }
-  @media (max-width: 32em) {
+  @media (max-width: 48em) {
     .site-header-list {
-      margin-top: 1rem; } }
+      margin-top: 1rem;
+      display: block; } }
   .site-header-list li {
+    display: inline-block;
     margin: 0;
-    padding: 0; }
+    padding: 0;
+    margin-left: 1rem; }
+    @media (max-width: 48em) {
+      .site-header-list li {
+        display: block;
+        margin-left: 0; } }
     .site-header-list li a {
       color: white; }
 
