@@ -5,7 +5,6 @@ import FieldList from '../RecordFieldList';
 import {
   AccessList,
   AccessItem,
-  SkeletonHoldingItem
 } from '../AccessList';
 
 import { getDatastoreSlugByUid } from '../../../../pride-interface';
@@ -78,7 +77,7 @@ class Record extends React.Component {
                           <a href={holding.link} className="underline access-link">{holding.linkText}</a>
                           <span className="holding-detail">{holding.status}</span>
                           <span className="holding-detail holding-detail-location">{holding.location}</span>
-                          <span className="holding-detail">{holding.callnumber}</span>  
+                          <span className="holding-detail">{holding.callnumber}</span>
                           <span className="holding-detail">{holding.source}</span>
                         </li>
                       ))}
@@ -95,9 +94,5 @@ class Record extends React.Component {
     return null
   }
 }
-
-const HoldingDetail = ({text}) => (
-  <span className="holding-detail">{text}</span>
-)
 
 export default Record;
