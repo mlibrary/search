@@ -11,9 +11,11 @@ import {
 class PaginationContainer extends React.Component {
   handlePreviousPage() {
     prevPage();
+    window.scrollTo(0,0);
   }
   handleNextPage() {
     nextPage();
+    window.scrollTo(0,0);
   }
   render() {
     const { records } = this.props;
