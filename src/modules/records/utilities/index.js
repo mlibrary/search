@@ -19,13 +19,24 @@ const getFieldValue = (field) => {
 };
 
 const filterDisplayFields = ({ fields, type, datastore }) => {
+  // Find config for this datastore view type.
   const fieldsConfig = _.findWhere(config.fields, { datastore: datastore })
 
+  // No display field(s) config for this datastore view type.
   if (!fieldsConfig) {
-    return fields
+    return []
   }
 
-  return _.filter(fields, (field) => _.contains(fieldsConfig[type], field.uid));
+  // Look up and order fields as configured.
+  return _.reduce(fieldsConfig[type], (previous, fieldUid) => {
+    const field = _.findWhere(fields, { uid: fieldUid })
+
+    if (field) {
+      return previous.concat(field)
+    }
+
+    return previous
+  }, [])
 }
 
 const filterAccessFields = ({ fields, type, datastore, holdings }) => {

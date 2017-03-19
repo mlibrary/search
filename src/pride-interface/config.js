@@ -54,8 +54,8 @@ const config = {
     {
       datastore: 'mirlyn',
       preview: [
-        'author',
         'format',
+        'author',
         'publish_date'
       ],
       medium: [
