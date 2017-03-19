@@ -399,7 +399,7 @@ nav {
 
 .site-header-container {
   padding: 0 1rem; }
-  @media (min-width: 48em) {
+  @media (min-width: 42em) {
     .site-header-container {
       display: flex;
       justify-content: space-between;
@@ -464,7 +464,7 @@ nav {
   margin: 0;
   padding: 0;
   list-style: none; }
-  @media (max-width: 48em) {
+  @media (max-width: 42em) {
     .site-header-list {
       margin-top: 1rem;
       display: block; } }
@@ -473,7 +473,7 @@ nav {
     margin: 0;
     padding: 0;
     margin-left: 1rem; }
-    @media (max-width: 48em) {
+    @media (max-width: 42em) {
       .site-header-list li {
         display: block;
         margin-left: 0; } }
@@ -755,9 +755,23 @@ body {
 
 .record-field-list {
   margin-top: 1rem; }
-
-.record-field {
-  margin-bottom: 0.5rem; }
+  @media (min-width: 52em) {
+    .record-field-list {
+      display: table;
+      width: 100%; }
+      .record-field-list .record-field {
+        display: table-row; }
+      .record-field-list .record-field-name {
+        display: table-cell;
+        width: 11rem;
+        padding-right: 1rem;
+        color: #6E6E6E;
+        font-weight: 400; }
+        .record-field-list .record-field-name:after {
+          content: none; }
+      .record-field-list .record-field-value {
+        display: table-cell;
+        word-break: break-word; } }
 
 .record-field-name {
   padding-right: 0.25rem;
@@ -777,7 +791,8 @@ body {
   display: table-row; }
 
 .record-field-list-as-table .record-field-name {
-  display: table-cell; }
+  display: table-cell;
+  margin-right: 1rem; }
   @media (min-width: 36em) {
     .record-field-list-as-table .record-field-name {
       white-space: nowrap; } }
@@ -817,6 +832,18 @@ body {
   font-size: 1.5rem;
   margin-top: 0; }
 
+/*
+  Record special fields
+*/
+.record-field-value .icon {
+  display: inline-block;
+  margin-right: 0.2rem; }
+  .record-field-value .icon g {
+    fill: #4E4E4E; }
+
+.record-field-uid-format .record-field-name {
+  padding-bottom: 0.5rem; }
+
 .loading-container {
   display: flex;
   align-items: center;
@@ -828,7 +855,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  margin: 0; }
+  margin: 0;
+  margin-right: -1rem; }
 
 .bentobox {
   width: 100%;
@@ -864,23 +892,25 @@ body {
   margin-right: 0.5rem;
   line-height: 1.5; }
 
-@media (min-width: 36em) {
+@media (min-width: 48em) {
   .bentobox {
     width: calc(100% * (1/2) - 1rem);
     margin-right: 1rem; } }
 
-@media (min-width: 62em) {
+@media (min-width: 82em) {
   .bentobox {
     width: calc(100% * (1/3) - 1rem);
     margin-right: 1rem; } }
 
-@media (min-width: 90em) {
+@media (min-width: 120em) {
   .bentobox {
     width: calc(100% * (1/5) - 1rem);
     margin-right: 1rem; } }
 
 .bentobox .record {
   margin-bottom: 0; }
+  .bentobox .record .record-field-name {
+    width: 6rem; }
 
 .party-parrot-container {
   cursor: pointer; }

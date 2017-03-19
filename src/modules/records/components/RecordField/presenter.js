@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Icon } from '../../../core';
+
 function RecordField({ field }) {
   let value = field.value
 
@@ -7,10 +9,12 @@ function RecordField({ field }) {
     value = field.value.join(', ')
   }
 
+  const uniqueFieldClassName = 'record-field record-field-uid-' + field.uid
+
   return (
-    <div className="record-field">
+    <div className={uniqueFieldClassName}>
       <dt className="record-field-name">{field.name}</dt>
-      <dd className="record-field-value">{value}</dd>
+      <dd className="record-field-value"><Icon name={value.toLowerCase()} />{value}</dd>
     </div>
   );
 }

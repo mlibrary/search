@@ -59,16 +59,16 @@ const config = {
         'publish_date'
       ],
       medium: [
-        'author',
         'format',
+        'author',
         'publish_date',
         'place_of_publication',
         'edition',
         'publisher'
       ],
       full: [
-        'author',
         'format',
+        'author',
         'publish_date',
         'place_of_publication',
         'edition',
@@ -130,6 +130,7 @@ const config = {
         'author',
       ],
       medium: [
+        'format',
         'publication_date',
         'abstract',
         'volume',
@@ -138,7 +139,6 @@ const config = {
         'author',
         'start_page',
         'end_page',
-        'format',
         'genre',
         'snippet',
         'isi_cited',
@@ -170,7 +170,7 @@ const config = {
       access: {
         defaultAccessText: 'Go To Article',
         link: 'access_url'
-      }
+      },
     },
     {
       datastore: 'databases',
@@ -252,7 +252,7 @@ const config = {
         link: 'access_url'
       }
     },
-  ],
+  ]
 };
 
 export default config;

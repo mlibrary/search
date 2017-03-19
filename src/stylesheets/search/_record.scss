@@ -33,10 +33,33 @@
 
 .record-field-list {
   margin-top: 1rem;
-}
 
-.record-field {
-  margin-bottom: 0.5rem;
+  @media (min-width: 52em) {
+    display: table;
+    width: 100%;
+
+    .record-field {
+      display: table-row;
+    }
+
+    .record-field-name {
+      display: table-cell;
+      width: 11rem;
+
+      padding-right: 1rem;
+      color: $grey-3;
+      font-weight: 400;
+
+      &:after {
+        content: none;
+      }
+    }
+
+    .record-field-value {
+      display: table-cell;
+      word-break: break-word;
+    }
+  }
 }
 
 .record-field-name {
@@ -66,6 +89,7 @@
 
   .record-field-name {
     display: table-cell;
+    margin-right: 1rem;
 
     @media (min-width: 36em) {
       white-space: nowrap;
@@ -74,7 +98,6 @@
     &:after {
       content: none;
     }
-
   }
 
   .record-field-value {
@@ -125,4 +148,22 @@
 .full-record-title {
   font-size: 1.5rem;
   margin-top: 0;
+}
+
+/*
+  Record special fields
+*/
+
+// Field icons (e.g. format)
+.record-field-value .icon {
+  display: inline-block;
+  margin-right: 0.2rem;
+
+  g {
+    fill: $grey-2;
+  }
+}
+
+.record-field-uid-format .record-field-name {
+  padding-bottom: 0.5rem;
 }
