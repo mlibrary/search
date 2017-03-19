@@ -5,20 +5,26 @@ import { _ } from 'underscore';
 
 import ResultsSummary from './presenter';
 
+import {
+  getDatastoreName,
+} from '../../../../pride-interface';
+
 class ResultsSummaryContainer extends React.Component {
   recordsSummary() {
-    const { records, activeDatastore } = this.props;
-    const { count, page, totalAvailable } = this.props.search.data[activeDatastore];
+    const { records, activeDatastoreUid } = this.props;
+    const { count, page, totalAvailable } = this.props.search.data[activeDatastoreUid];
 
     const displayTotalAvailable = numeral(totalAvailable).format(0,0)
-    const resultsText = totalAvailable === 1 ? `Result` : `Results`
+    const resultsText = totalAvailable === 1 ? `result` : `results`
     const recordsFrom = (page - 1) * count + 1
     const recordsTo = (page - 1) * count + _.values(records).length;
+    const datastoreName = getDatastoreName(activeDatastoreUid);
 
     return {
       range: `${recordsFrom}-${recordsTo}`,
       total: `${displayTotalAvailable}`,
-      resultsText: `${resultsText}`
+      resultsText: `${resultsText}`,
+      from: `from ${datastoreName}`,
     }
   }
   render() {
@@ -34,6 +40,7 @@ class ResultsSummaryContainer extends React.Component {
         recordsRange={summary.range}
         recordsTotal={summary.total}
         recordsResultsText={summary.resultsText}
+        resultsFrom={summary.from}
       />
   }
 }
@@ -42,7 +49,7 @@ function mapStateToProps(state) {
   return {
     search: state.search,
     records: state.records.records[state.datastores.active],
-    activeDatastore: state.datastores.active,
+    activeDatastoreUid: state.datastores.active,
   };
 }
 

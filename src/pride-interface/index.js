@@ -429,6 +429,7 @@ export {
   isSlugADatastore,
   getDatastoreSlugByUid,
   getDatastoreUidBySlug,
+  getDatastoreName,
   nextPage,
   prevPage,
   config,

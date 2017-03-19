@@ -3,10 +3,11 @@ import React from 'react';
 const ResultsSummary = ({
   recordsRange,
   recordsTotal,
-  recordsResultsText
+  recordsResultsText,
+  resultsFrom,
 }) => {
   return (
-      <span className="results-summary">{recordsRange} of <b>{recordsTotal} {recordsResultsText}</b></span>
+      <span className="results-summary">{recordsRange} of <b>{recordsTotal} {recordsResultsText}</b> {resultsFrom}</span>
   )
 }
 
