@@ -18,7 +18,8 @@ class FilterListContainer extends React.Component {
     this.addFilterToURL = this.addFilterToURL.bind(this);
  }
 
-  handleFilter(e) {
+  handleFilter(filter) {
+    /*
     const activeFilters = Object.assign({}, this.state.activeFilters);
     const activeDatastore = this.props.activeDatastore;
     const { group, value } = e.target.dataset;
@@ -41,6 +42,9 @@ class FilterListContainer extends React.Component {
         },
       }, this.addFilterToURL)
     }
+    */
+
+    console.log('handleFilter', filter)
   }
 
   addFilterToURL() {

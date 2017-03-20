@@ -1,4 +1,4 @@
-import FilterList from './components/FilterList';
+import Filters from './components/Filters';
 import filtersReducer from './reducer';
 
 import {
@@ -9,7 +9,7 @@ import {
 } from './actions';
 
 export {
-  FilterList,
+  Filters,
   filtersReducer,
   clearFilters,
   clearActiveFilters,

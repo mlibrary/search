@@ -7,7 +7,7 @@ import {
   DatastoreNavigation,
   DatastoreInfo,
 } from '../../../datastores';
-import { FilterList } from '../../../filters';
+import { Filters } from '../../../filters';
 import {
   RecordList,
   Pagination,
@@ -42,7 +42,7 @@ class DatastorePage extends React.Component {
           <DatastoreInfo activeDatastore={activeDatastore} />
           <div className="container container-medium flex-container">
             <div className="side-container">
-              <FilterList />
+              <Filters />
             </div>
             <div className="main-container">
               <RecordList />

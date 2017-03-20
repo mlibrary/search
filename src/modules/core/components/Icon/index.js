@@ -189,6 +189,34 @@ const Icon = ({ name }) => {
             </g>
         </svg>
       )
+    case 'chevron-down':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 12 8" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-353.000000, -585.000000)">
+                    <g transform="translate(60.000000, 477.000000)">
+                        <g transform="translate(292.000000, 108.000000)">
+                            <polygon points="2.41348 0.58407 6.9995 5.1701 11.5855 0.58407 12.9995 1.99807 6.9995 7.9981 0.99948 1.99807"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'minus':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 14 2" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-823.000000, -212.000000)">
+                    <g transform="translate(822.000000, 60.000000)">
+                        <g transform="translate(0.000000, 151.000000)">
+                            <polygon points="14.9994 2.998 0.99943 2.998 0.99995 1.0001 14.9994 0.998"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
     default:
       return null
   }

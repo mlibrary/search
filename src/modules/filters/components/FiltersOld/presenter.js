@@ -4,7 +4,7 @@ import numeral from 'numeral'
 
 const FilterList = ({ group, handleFilter, active}) => {
   const filters = _.sortBy(group.filters, 'count').reverse().splice(0,7);
-  
+
   return (
     <div className="filter-group">
       <h3 className="filter-list-heading">{group.name}</h3>
@@ -27,7 +27,10 @@ const FilterList = ({ group, handleFilter, active}) => {
               className="filter-button"
               data-value={filter.value}
               data-group={group.uid}
-              onClick={handleFilter}>
+              onClick={handleFilter({
+                value: filter.value,
+                group: group.uid,
+              })}>
               <span
                 className="filter-value"
                 data-value={filter.value}
