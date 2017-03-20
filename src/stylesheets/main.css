@@ -942,6 +942,23 @@ body {
   .holding-detail-label:after {
     content: ':'; }
 
+.holding-detail-on-shelf svg,
+.holding-detail-missing svg,
+.holding-detail-checked-out svg {
+  width: 0.8rem;
+  height: 0.8rem; }
+
+.holding-detail-on-shelf {
+  color: #05A657; }
+
+.holding-detail-missing {
+  color: #ED5D47; }
+
+.holding-detail-checked-out {
+  color: #E77504; }
+  .holding-detail-checked-out svg {
+    margin-right: 0.25rem; }
+
 @-webkit-keyframes placeHolderShimmer {
   0% {
     background-position: -100vw 0; }

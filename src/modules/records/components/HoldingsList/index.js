@@ -10,11 +10,15 @@ class HoldingsList extends React.Component {
   }
 }
 
-const HoldingItem = ({ link, linkText, status, type }) => (
-  <li className="access-item">
-    <a href={link} className={type === 'full' ? 'button' : 'underline'}>{linkText}</a> {status}
-  </li>
-)
+const HoldingItem = ({ link, linkText, status, type }) => {
+  console.log('holding item')
+
+  return (
+    <li className="access-item">
+      <a href={link} className={type === 'full' ? 'button' : 'underline'}>{linkText}</a> {status}
+    </li>
+  )
+}
 
 const SkeletonHoldingItem = () => (
   <li className="access-item">

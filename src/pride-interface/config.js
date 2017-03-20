@@ -125,6 +125,7 @@ const config = {
     {
       datastore: 'articlesplus',
       preview: [
+        'format',
         'publication_date',
         'publication_title',
         'author',
@@ -235,7 +236,6 @@ const config = {
         'format',
         'access_coverage',
         'issn',
-        'access',
         'coverage',
         'academic_disciplines',
         'holdings',

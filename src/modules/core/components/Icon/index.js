@@ -2,6 +2,20 @@ import React from 'react';
 
 const Icon = ({ name }) => {
   switch (name) {
+    case 'alert':
+      return (
+        <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-857.000000, -61.000000)" fill="#000000">
+                    <g transform="translate(822.000000, 60.000000)">
+                        <g transform="translate(34.000000, 0.000000)">
+                            <path d="M11.9994,11.998 L9.9994,11.998 L9.9994,5.99805 L11.9994,5.99805 L11.9994,11.998 Z M11.9994,15.998 L9.9994,15.998 L9.9994,13.998 L11.9994,13.998 L11.9994,15.998 Z M10.9994,0.99805 C5.47639,0.99805 0.99939,5.47504 0.99939,10.998 C0.99939,16.5211 5.47639,20.998 10.9994,20.998 C16.5224,20.998 20.9994,16.5211 20.9994,10.998 C20.9994,5.47504 16.5224,0.99805 10.9994,0.99805 L10.9994,0.99805 Z"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
     case 'article':
     case 'journal article':
       return (
@@ -17,10 +31,24 @@ const Icon = ({ name }) => {
             </g>
         </svg>
       )
+    case 'check':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-168.000000, -957.000000)">
+                    <g transform="translate(60.000000, 918.000000)">
+                        <g transform="translate(107.000000, 38.000000)">
+                            <path d="M8.99939,15.9981 L3.99939,10.9981 L5.41339,9.5841 L8.99939,13.1701 L16.5854,5.58407 L17.9994,6.99807 L8.99939,15.9981 Z M10.9994,0.99807 C5.47639,0.99807 0.99939,5.47507 0.99939,10.9981 C0.99939,16.5211 5.47639,20.9981 10.9994,20.9981 C16.5214,20.9981 20.9994,16.5211 20.9994,10.9981 C20.9994,5.47507 16.5214,0.99807 10.9994,0.99807 L10.9994,0.99807 Z"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
     case 'database':
       return (
         <svg width="1rem" height="1rem" viewBox="0 0 16 18" version="1.1" className="icon">
-            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-557.000000, -635.000000)">
                     <g transform="translate(519.000000, 562.000000)">
                         <g transform="translate(38.000000, 73.000000)">
@@ -55,6 +83,20 @@ const Icon = ({ name }) => {
               </g>
             </g>
           </g>
+        </svg>
+      )
+    case 'timetable':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-658.000000, -480.000000)">
+                    <g transform="translate(519.000000, 289.000000)">
+                        <g transform="translate(139.000000, 191.000000)">
+                            <path d="M12,10 L13.5,10 L13.5,12.823 L15.9382,14.2307 L15.1882,15.5297 L12,13.689 L12,10 L12,10 Z M2,9.99999997e-06 L16,2e-05 C17.1046,2e-05 18,0.89545 18,2.00002 L18,8.101 C19.2372,9.3636 20,11.0927 20,13 C20,16.866 16.866,20 13,20 C11.0927,20 9.3636,19.2372 8.101,18 L2,18 C0.89543,18 0,17.1046 0,16 L0,2.00001 C0,0.89544 0.89543,9.99999997e-06 2,9.99999997e-06 L2,9.99999997e-06 Z M2,13 L2,16 L6.67363,16 C6.24169,15.0907 6,14.0736 6,13 L2,13 L2,13 Z M2,6.00001 L8,6 L8,3 L2,3.00001 L2,6.00001 L2,6.00001 Z M16,6.00001 L16,3.00001 L10,3 L10,6 L16,6.00001 L16,6.00001 Z M2,11 L6.28987,11 C6.63282,9.8477 7.2645,8.8197 8.101,8 L2,8 L2,11 L2,11 Z M13,8.1539 C10.3235,8.1539 8.1538,10.3236 8.1538,13 C8.1538,15.6765 10.3235,17.8462 13,17.8462 C15.6764,17.8462 17.8461,15.6765 17.8461,13 C17.8461,10.3236 15.6764,8.1539 13,8.1539 L13,8.1539 Z"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
         </svg>
       )
     case 'wand':

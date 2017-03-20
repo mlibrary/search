@@ -18,3 +18,30 @@
     content: ':';
   }
 }
+
+// Special styling
+
+.holding-detail-on-shelf,
+.holding-detail-missing,
+.holding-detail-checked-out {
+  svg {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+}
+
+.holding-detail-on-shelf {
+  color: $green-2;
+}
+
+.holding-detail-missing {
+  color: $red-2;
+}
+
+.holding-detail-checked-out {
+  color: $orange-2;
+
+  svg {
+    margin-right: 0.25rem;
+  }
+}
