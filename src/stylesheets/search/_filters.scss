@@ -52,6 +52,15 @@
   &:hover .filter-group-heading {
     text-decoration: underline;
   }
+
+  .icon {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .icon g {
+    fill: $grey-2;
+  }
 }
 
 .filter-list {
@@ -89,17 +98,9 @@
   color: $main-3;
 }
 
-.filter-active .filter-button {
-  background: $green-2;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-
+.filter-item-active {
   .filter-value,
   .filter-count {
-    color: white;
-  }
-
-  .filter-count {
-    display: none;
+    font-weight: 600;
   }
 }

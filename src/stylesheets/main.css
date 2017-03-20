@@ -697,6 +697,11 @@ input.search-box-input {
   background: none; }
   .filter-group-toggle-show-button:hover .filter-group-heading {
     text-decoration: underline; }
+  .filter-group-toggle-show-button .icon {
+    width: 0.9rem;
+    height: 0.9rem; }
+  .filter-group-toggle-show-button .icon g {
+    fill: #4E4E4E; }
 
 .filter-list {
   margin: 0;
@@ -725,15 +730,9 @@ input.search-box-input {
   word-break: break-word;
   color: #126DC1; }
 
-.filter-active .filter-button {
-  background: #05A657;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px; }
-  .filter-active .filter-button .filter-value,
-  .filter-active .filter-button .filter-count {
-    color: white; }
-  .filter-active .filter-button .filter-count {
-    display: none; }
+.filter-item-active .filter-value,
+.filter-item-active .filter-count {
+  font-weight: 600; }
 
 body {
   background: #F2F2F2; }
@@ -742,7 +741,7 @@ body {
   display: flex; }
 
 .side-container {
-  width: 22rem;
+  width: 24rem;
   margin-right: 1rem; }
 
 .main-container {
