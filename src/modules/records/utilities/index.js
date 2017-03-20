@@ -28,15 +28,23 @@ const filterDisplayFields = ({ fields, type, datastore }) => {
   }
 
   // Look up and order fields as configured.
-  return _.reduce(fieldsConfig[type], (previous, fieldUid) => {
+  const displayFields = _.reduce(fieldsConfig[type], (previous, fieldUid) => {
     const field = _.findWhere(fields, { uid: fieldUid })
 
-    if (field) {
+    if (field) { // does field exist from Spectrum (back end, solr)
       return previous.concat(field)
+    } else if (fieldsConfig.defaultFields) { // check if field exists as default
+      const defaultField = _.findWhere(fieldsConfig.defaultFields, { uid: fieldUid })
+
+      if (defaultField) {
+        return previous.concat(defaultField)
+      }
     }
 
     return previous
   }, [])
+
+  return displayFields
 }
 
 const filterAccessFields = ({ fields, type, datastore, holdings }) => {

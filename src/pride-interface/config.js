@@ -174,11 +174,20 @@ const config = {
     },
     {
       datastore: 'databases',
+      defaultFields: [
+        {
+          uid: 'format',
+          name: 'Format',
+          value: 'Database',
+        }
+      ],
       preview: [
+        'format',
         'brief_description',
         'access_icon',
       ],
       medium: [
+        'format',
         'brief_description',
         'database_type',
         'access_icon',
@@ -187,6 +196,7 @@ const config = {
         'outage'
       ],
       full: [
+        'format',
         'full_description',
         'brief_description',
         'database_type',
@@ -210,10 +220,19 @@ const config = {
     },
     {
       datastore: 'journals',
+      defaultFields: [
+        {
+          uid: 'format',
+          name: 'Format',
+          value: 'Online Journal'
+        }
+      ],
       preview: [
+        'format',
         'holdings',
       ],
       medium: [
+        'format',
         'access_coverage',
         'issn',
         'access',
@@ -222,6 +241,7 @@ const config = {
         'holdings',
       ],
       full: [
+        'format',
         'access_coverage',
         'issn',
         'access',
@@ -238,13 +258,23 @@ const config = {
     },
     {
       datastore: 'website',
+      defaultFields: [
+        {
+          uid: 'format',
+          name: 'Format',
+          value: 'Library Website'
+        }
+      ],
       preview: [
+        'format',
         'brief_description',
       ],
       medium: [
+        'format',
         'brief_description',
       ],
       full: [
+        'format',
         'brief_description',
       ],
       access: {
