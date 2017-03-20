@@ -20,8 +20,6 @@ const handleSearchQuery = ({ nextQuery, query }) => {
 }
 
 const getActiveFiltersByQuery = (query) => {
-  //TODO clear out undefined(s)
-
   const groups = query.split(';');
   const activeFilters = groups.reduce((map, array) => {
     const split = array.split(':');

@@ -762,13 +762,17 @@ input.search-box-input {
   align-items: center;
   cursor: pointer;
   border: none;
-  background: #05A657;
+  background: #E6F3FF;
+  border: solid 1px rgba(18, 109, 193, 0.4);
   border-radius: 4px; }
+  .active-filter-button .icon {
+    width: 0.8rem;
+    height: 0.8rem; }
   .active-filter-button .icon g {
-    fill: #046335; }
+    fill: #126DC1; }
 
 .active-filter-button-text {
-  color: white;
+  color: #126DC1;
   text-align: left;
   max-width: 90%; }
 

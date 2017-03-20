@@ -9,31 +9,52 @@ import {
   removeQuery,
 } from '../../../../router';
 
+const addFiltersToURL = ({ activeFilters, activeDatastoreUid }) => {
+  const filterGroups = Object.keys(activeFilters[activeDatastoreUid]);
+
+  if (filterGroups.length > 0) {
+    const query = filterGroups.reduce((memo, key) => {
+      if (memo !== '') {
+        memo += ';'
+      }
+      return memo + `${key}:${activeFilters[activeDatastoreUid][key]}`
+    }, '')
+
+    addQuery({
+      filter: query
+    })
+  } else {
+    removeQuery('filter')
+  }
+}
+
 class Filters extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
       showGroups: [],
-      activeFilters: {},
+      activeFilters: Object.assign({}, this.props.filters.active),
     }
 
     // This binding is necessary to make `this` work in the callback
     this.handleRemoveFilterClick = this.handleRemoveFilterClick.bind(this)
+    this.handleClearFilters = this.handleClearFilters.bind(this)
   }
 
   componentWillMount() {
-    console.log('component will mount', this.props)
-
+    console.log('will mount, state ', this.state, this.props)
+    /*
     this.setState({
       showGroups: [],
       activeFilters: Object.assign({}, this.props.filters.active)
-    })
+    }, () => console.log('after', this.state, this.props))
+    */
   }
 
   handleFilterGroupClick(filterGroup) {
     const groups = this.state.showGroups
-    const activeFilters = this.props.filters.active;
+    const activeFilters = Object.assign({}, this.props.filters.active);
 
     if (groups.includes(filterGroup)) {
       this.setState({
@@ -80,13 +101,19 @@ class Filters extends React.Component {
     }, () => this.handleAddFilterToUrl())
   }
 
+  handleClearFilters() {
+    this.setState({
+      ...this.state,
+      activeFilters: {}
+    }, () => removeQuery('filter'))
+  }
+
   render() {
     const { filters, activeDatastoreUid } = this.props;
 
     if (Object.keys(filters.groups).length === 0) {
       return (
         <div className="filters-container">
-          <h2 className="filters-heading">Filter your search</h2>
           <p className="no-filters-available"><b>No filters</b> available.</p>
         </div>
       )
@@ -101,6 +128,7 @@ class Filters extends React.Component {
           activeFilters={this.state.activeFilters[activeDatastoreUid]}
           filters={filters}
           handleRemoveFilterClick={this.handleRemoveFilterClick}
+          handleClearFilters={this.handleClearFilters}
         />
         <h2 className="filters-heading">Filter your search</h2>
         <ul className="filter-group-list">
@@ -152,30 +180,12 @@ class Filters extends React.Component {
   }
 }
 
-const addFiltersToURL = ({ activeFilters, activeDatastoreUid }) => {
-  const filterGroups = Object.keys(activeFilters[activeDatastoreUid]);
-
-  if (filterGroups.length > 0) {
-    const query = filterGroups.reduce((memo, key) => {
-      if (memo !== '') {
-        memo += ';'
-      }
-      return memo + `${key}:${activeFilters[activeDatastoreUid][key]}`
-    }, '')
-
-    addQuery({
-      filter: query
-    })
-  } else {
-    removeQuery('filter')
-  }
-}
-
 const ActiveFilters = ({
   activeDatastoreUid,
   handleRemoveFilterClick,
   activeFilters,
-  filters
+  filters,
+  handleClearFilters
 }) => {
   if (!activeFilters || !filters) {
     return null
@@ -213,7 +223,9 @@ const ActiveFilters = ({
         })}
       </ul>
       <div className="clear-active-filters-container">
-        <button className="clear-active-filters-button button-link">Clear all filters</button>
+        <button className="clear-active-filters-button button-link" onClick={
+          () => handleClearFilters()
+        }>Clear filters</button>
       </div>
     </div>
   )

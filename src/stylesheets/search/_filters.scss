@@ -139,16 +139,22 @@
   align-items: center;
   cursor: pointer;
   border: none;
-  background: $green-2;
+  background: $main-5;
+  border: solid 1px rgba($main-3,0.4);
   border-radius: 4px;
 
+  .icon {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+
   .icon g {
-    fill: darken($green-1, 5%);
+    fill: $main-3;
   }
 }
 
 .active-filter-button-text {
-  color: white;
+  color: $main-3;
   text-align: left;
   max-width: 90%;
 }
