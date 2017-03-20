@@ -231,6 +231,18 @@ const Icon = ({ name }) => {
             </g>
         </svg>
       )
+    case 'video':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-231.000000, -692.000000)">
+                    <g transform="translate(231.000000, 692.000000)">
+                        <path d="M8,14.50005 L8,5.5 L14.00001,10.00005 L8,14.50005 Z M10.00001,0 C4.47699,0 0,4.47699 0,10.00005 C0,15.52305 4.47699,20.00005 10.00001,20.00005 C15.52301,20.00005 20.00001,15.52305 20.00001,10.00005 C20.00001,4.47699 15.52301,0 10.00001,0 L10.00001,0 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
     default:
       return null
   }
