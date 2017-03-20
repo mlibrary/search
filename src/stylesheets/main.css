@@ -64,7 +64,7 @@ html {
   max-width: 57.5rem; }
 
 .container-medium {
-  max-width: 74rem; }
+  max-width: 76rem; }
 
 .container-fluid {
   padding: 0 1rem; }
@@ -657,11 +657,13 @@ input.search-box-input {
   margin-top: 1rem;
   margin-bottom: 2rem; }
 
-.filters-heading {
+.filters-heading,
+.active-filters-heading {
   font-weight: 600; }
 
 .filters-heading,
-.filter-group-heading {
+.filter-group-heading,
+.active-filters-heading {
   font-size: 1rem;
   margin: 0; }
 
@@ -672,19 +674,27 @@ input.search-box-input {
 
 .filter-group,
 .filters-heading,
-.no-filters-available {
+.no-filters-available,
+.active-filters-container {
   line-height: 1.7;
   margin: 0;
   padding: 0;
-  background: #FAFAFA;
-  border-bottom: solid 2px #E5E5E5;
+  background: #FAFAFA; }
+
+.filter-group,
+.filters-heading,
+.no-filters-available {
+  border-bottom: solid 2px #E5E5E5; }
+
+.active-filters-container {
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
 
 .filters-heading,
 .no-filters-available,
 .filter-group-toggle-show-button,
-.filter-list {
-  padding: 1rem 1.5rem; }
+.filter-list,
+.active-filters-heading {
+  padding: 1rem; }
 
 .filter-group-toggle-show-button {
   display: flex;
@@ -703,12 +713,14 @@ input.search-box-input {
   .filter-group-toggle-show-button .icon g {
     fill: #4E4E4E; }
 
-.filter-list {
+.filter-list,
+.active-filters-list {
   margin: 0;
   padding-top: 0;
   list-style: none; }
 
-.filter-item {
+.filter-item,
+.active-filter-item {
   padding: 0;
   margin: 0; }
 
@@ -734,6 +746,40 @@ input.search-box-input {
 .filter-item-active .filter-count {
   font-weight: 600; }
 
+.active-filter-item {
+  margin: 0 1rem;
+  padding-bottom: 0.5rem; }
+
+.active-filter-button .icon g {
+  fill: #E2F4EB; }
+
+.active-filter-button {
+  display: flex;
+  margin: 0;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  background: #05A657;
+  border-radius: 4px; }
+  .active-filter-button .icon g {
+    fill: #046335; }
+
+.active-filter-button-text {
+  color: white;
+  text-align: left;
+  max-width: 90%; }
+
+.clear-active-filters-container {
+  margin: 0 1rem; }
+
+.clear-active-filters-button {
+  margin-bottom: 1rem;
+  color: #6E6E6E;
+  text-decoration: underline; }
+
 body {
   background: #F2F2F2; }
 
@@ -741,7 +787,7 @@ body {
   display: flex; }
 
 .side-container {
-  width: 24rem;
+  width: 28rem;
   margin-right: 1rem; }
 
 .main-container {

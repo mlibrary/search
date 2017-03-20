@@ -10,9 +10,25 @@ import {
 } from '../../../../router';
 
 class Filters extends React.Component {
-  state = {
-    showGroups: [],
-    activeFilters: Object.assign({}, this.props.filters.active)
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showGroups: [],
+      activeFilters: {},
+    }
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleRemoveFilterClick = this.handleRemoveFilterClick.bind(this)
+  }
+
+  componentWillMount() {
+    console.log('component will mount', this.props)
+
+    this.setState({
+      showGroups: [],
+      activeFilters: Object.assign({}, this.props.filters.active)
+    })
   }
 
   handleFilterGroupClick(filterGroup) {
@@ -30,19 +46,38 @@ class Filters extends React.Component {
     }
   }
 
-  handleFilterClick({ activeDatastoreUid, groupUid, filterName }) {
+  handleAddFilterToUrl() {
+    addFiltersToURL({
+      activeDatastoreUid: this.props.activeDatastoreUid,
+      activeFilters: this.state.activeFilters,
+      state: this.state,
+    })
+  }
+
+  handleRemoveFilterClick({ activeDatastoreUid, activeFilterGroupUid }) {
+    this.setState({ // remove filter from active filters
+      ...this.state,
+      activeFilters: {
+        ...this.state.activeFilters,
+        [activeDatastoreUid]: {
+          ..._.omit(this.state.activeFilters[activeDatastoreUid], activeFilterGroupUid)
+        }
+      }
+    }, () => this.handleAddFilterToUrl())
+
+  }
+
+  handleAddFilterClick({ activeDatastoreUid, group, filter }) {
     this.setState({
       ...this.state,
       activeFilters: {
         ...this.state.activeFilters,
         [activeDatastoreUid]: {
           ...this.state.activeFilters[activeDatastoreUid],
-          [groupUid]: filterName
+          [group.uid]: filter.value,
         }
       }
-    })
-
-
+    }, () => this.handleAddFilterToUrl())
   }
 
   render() {
@@ -50,10 +85,10 @@ class Filters extends React.Component {
 
     if (Object.keys(filters.groups).length === 0) {
       return (
-      <div className="filters-container">
-        <h2 className="filters-heading">Filter your search</h2>
-        <p className="no-filters-available"><b>No filters</b> available.</p>
-      </div>
+        <div className="filters-container">
+          <h2 className="filters-heading">Filter your search</h2>
+          <p className="no-filters-available"><b>No filters</b> available.</p>
+        </div>
       )
     }
 
@@ -61,7 +96,12 @@ class Filters extends React.Component {
 
     return (
       <div className="filters-container">
-        <ActiveFilters activeFilters={filters.active} />
+        <ActiveFilters
+          activeDatastoreUid={activeDatastoreUid}
+          activeFilters={this.state.activeFilters[activeDatastoreUid]}
+          filters={filters}
+          handleRemoveFilterClick={this.handleRemoveFilterClick}
+        />
         <h2 className="filters-heading">Filter your search</h2>
         <ul className="filter-group-list">
           {_.map(filters.groups, filterGroup => {
@@ -89,10 +129,10 @@ class Filters extends React.Component {
                       return (
                         <li className='filter-item' key={`${filterGroupUid}-${filter.name}`}>
                           <button className="filter-button" onClick={
-                            () => this.handleFilterClick({
+                            () => this.handleAddFilterClick({
                               activeDatastoreUid,
-                              groupUid: filterGroup.uid,
-                              filterName: filter.name,
+                              group: filterGroup,
+                              filter: filter,
                             })
                           }>
                             <span className="filter-value">{filter.value}</span>
@@ -112,15 +152,69 @@ class Filters extends React.Component {
   }
 }
 
-const ActiveFilters = ({ activeFilters }) => {
-  if (!activeFilters) {
+const addFiltersToURL = ({ activeFilters, activeDatastoreUid }) => {
+  const filterGroups = Object.keys(activeFilters[activeDatastoreUid]);
+
+  if (filterGroups.length > 0) {
+    const query = filterGroups.reduce((memo, key) => {
+      if (memo !== '') {
+        memo += ';'
+      }
+      return memo + `${key}:${activeFilters[activeDatastoreUid][key]}`
+    }, '')
+
+    addQuery({
+      filter: query
+    })
+  } else {
+    removeQuery('filter')
+  }
+}
+
+const ActiveFilters = ({
+  activeDatastoreUid,
+  handleRemoveFilterClick,
+  activeFilters,
+  filters
+}) => {
+  if (!activeFilters || !filters) {
+    return null
+  }
+
+  const activeFilterGroups = Object.keys(activeFilters)
+  if (activeFilterGroups.length === 0) {
     return null
   }
 
   return (
-    <div>
-      <h2>Current Filters</h2>
-      <p>Placeholder</p>
+    <div className="active-filters-container">
+      <h2 className="active-filters-heading">Current Filters</h2>
+      <ul className="active-filters-list">
+        {_.map(activeFilterGroups, activeFilterGroupUid => {
+          const key = `${activeFilterGroupUid}-${activeFilters[activeFilterGroupUid]}`
+
+          if (!filters.groups[activeFilterGroupUid]) {
+            return null
+          }
+
+          return (
+            <li className="active-filter-item" key={key}>
+              <button className="active-filter-button" onClick={
+                () => handleRemoveFilterClick({
+                  activeDatastoreUid: activeDatastoreUid,
+                  activeFilterGroupUid: activeFilterGroupUid,
+                })
+              }>
+                <span className="active-filter-button-text">{filters.groups[activeFilterGroupUid].name}: {activeFilters[activeFilterGroupUid]}</span>
+                <Icon name="close" />
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+      <div className="clear-active-filters-container">
+        <button className="clear-active-filters-button button-link">Clear all filters</button>
+      </div>
     </div>
   )
 }
