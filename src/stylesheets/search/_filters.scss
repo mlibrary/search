@@ -139,8 +139,8 @@
   align-items: center;
   cursor: pointer;
   border: none;
-  background: $main-5;
-  border: solid 1px rgba($main-3,0.4);
+  background: $green-3;
+  border: solid 1px rgba($green-1,0.4);
   border-radius: 4px;
 
   .icon {
@@ -149,14 +149,15 @@
   }
 
   .icon g {
-    fill: $main-3;
+    fill: $green-1;
   }
 }
 
 .active-filter-button-text {
-  color: $main-3;
+  color: $green-1;
   text-align: left;
   max-width: 90%;
+  font-size: 0.9rem;
 }
 
 .clear-active-filters-container {
