@@ -16,8 +16,35 @@ const Icon = ({ name }) => {
             </g>
         </svg>
       )
+    case 'newspaper':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 20 18" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-131.000000, -627.000000)">
+                    <g transform="translate(131.000000, 627.000000)">
+                        <path d="M18,8 L2,8 L2,4.99999 L18,4.99999 L18,8 Z M18,10 L11,10 L11,9 L18,9 L18,10 Z M18,12 L11,12 L11,11 L18,11 L18,12 Z M18,14 L11,14 L11,13 L18,13 L18,14 Z M18,16 L11,16 L11,15 L18,15 L18,16 Z M10,16 L2,16 L2,9 L10,9 L10,16 Z M18.333,1.66704 L16.667,-9.99999997e-06 L15,1.66704 L13.333,-9.99999997e-06 L11.667,1.66704 L10,-9.99999997e-06 L8.333,1.66704 L6.66701,-9.99999997e-06 L5,1.66704 L3.33299,-9.99999997e-06 L1.66701,1.66704 L0,-9.99999997e-06 L0,16 C0,17.104 0.89501,18 2,18 L18,18 C19.104,18 19.99,17.104 19.99,16 L20,-9.99999997e-06 L18.333,1.66704 L18.333,1.66704 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
     case 'article':
     case 'journal article':
+    case 'newspaper article':
+    case 'patent':
+    case 'report':
+    case 'magazine article':
+    case 'government document':
+    case 'conference proceeding':
+    case 'book chapter':
+    case 'dissertation':
+    case 'reference':
+    case 'trade publication article':
+    case 'transcript':
+    case 'publication':
+    case 'journal / ejournal':
+    case 'case':
+    case 'paper':
       return (
         <svg width="1rem" height="1rem" viewBox="0 0 18 18" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -45,7 +72,60 @@ const Icon = ({ name }) => {
             </g>
         </svg>
       )
+    case 'audio':
+    case 'audio cd':
+    case 'audio (music)':
+    case 'audio lp':
+    case 'audio (spoken word)':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 18 18" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-233.000000, -592.000000)">
+                    <g transform="translate(232.000000, 592.000000)">
+                        <path d="M11.9994,0.22858 L11.9994,2.29156 C14.8904,3.15253 16.9994,5.82855 16.9994,8.9976 C16.9994,12.1675 14.8904,14.8436 11.9994,15.7045 L11.9994,17.7675 C16.0064,16.8566 18.9994,13.2805 18.9994,8.9976 C18.9994,4.71558 16.0064,1.13855 11.9994,0.22858 L11.9994,0.22858 Z M14.4994,8.9976 C14.4994,7.2325 13.4794,5.70752 11.9994,4.97052 L11.9994,13.0256 C13.4794,12.2875 14.4994,10.7635 14.4994,8.9976 L14.4994,8.9976 Z M0.9994,5.99756 L0.9994,11.9976 L4.9994,11.9976 L9.9994,16.9976 L9.9994,0.99756 L4.9994,5.99756 L0.9994,5.99756 L0.9994,5.99756 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'gamepad':
+    case 'video games':
+      return (
+        <svg width="1.2rem" height="1rem" viewBox="0 0 22 12" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-229.000000, -773.000000)">
+                    <g transform="translate(229.000000, 773.000000)">
+                        <path d="M6,0 L16,0 C19.3137,0 22,2.68629 22,6 C22,9.3137 19.3137,12 16,12 C14.223,12 12.6264,11.2275 11.5278,10 L10.4722,10 C9.3736,11.2275 7.777,12 6,12 C2.68629,12 0,9.3137 0,6 C0,2.68629 2.68629,0 6,0 L6,0 Z M5,3 L5,5 L3,5 L3,7 L5,7 L5,9 L7,9 L7,7 L9,7 L9,5 L7,5 L7,3 L5,3 L5,3 Z M14.5,6 C13.6716,6 13,6.6716 13,7.5 C13,8.3284 13.6716,9 14.5,9 C15.3284,9 16,8.3284 16,7.5 C16,6.6716 15.3284,6 14.5,6 L14.5,6 Z M17.5,3 C16.6716,3 16,3.67158 16,4.5 C16,5.3284 16.6716,6 17.5,6 C18.3284,6 19,5.3284 19,4.5 C19,3.67158 18.3284,3 17.5,3 L17.5,3 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'archive':
+    case 'mixed material':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 18 18" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-234.000000, -1219.000000)">
+                    <g transform="translate(234.000000, 1219.000000)">
+                        <path d="M0,0 L18,0 L18,4 L0,4 L0,0 L0,0 Z M1,5.00001 L17,5.00001 L17,18 L1,18 L1,5.00001 L1,5.00001 Z M6.5,8 C6.22386,8 6,8.2239 6,8.5 L6,10 L12,10 L12,8.5 C12,8.2239 11.7761,8 11.5,8 L6.5,8 L6.5,8 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'visual material':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 22 15" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-230.000000, -1031.000000)">
+                    <path d="M240.99999,1035.5 C239.34299,1035.5 238,1036.84297 238,1038.49997 C238,1040.15697 239.34299,1041.49997 240.99999,1041.49997 C242.65699,1041.49997 243.99999,1040.15697 243.99999,1038.49997 C243.99999,1036.84297 242.65699,1035.5 240.99999,1035.5 L240.99999,1035.5 Z M240.99999,1043.49997 C238.239,1043.49997 236,1041.26097 236,1038.49997 C236,1035.73901 238.239,1033.5 240.99999,1033.5 C243.76099,1033.5 245.99999,1035.73901 245.99999,1038.49997 C245.99999,1041.26097 243.76099,1043.49997 240.99999,1043.49997 L240.99999,1043.49997 Z M240.99999,1031 C235.998,1031 231.728,1034.11102 230,1038.49997 C231.728,1042.88897 235.998,1045.99997 240.99999,1045.99997 C246.00299,1045.99997 250.27199,1042.88897 251.99999,1038.49997 C250.27199,1034.11102 246.00299,1031 240.99999,1031 L240.99999,1031 Z"></path>
+                </g>
+            </g>
+        </svg>
+      )
     case 'database':
+    case 'data file':
       return (
         <svg width="1rem" height="1rem" viewBox="0 0 16 18" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -109,6 +189,7 @@ const Icon = ({ name }) => {
             </g>
         </svg>
       )
+    case 'ebook':
     case 'book':
       return (
         <svg width="1rem" height="1rem" viewBox="0 0 16 20" version="1.1" className="icon">
@@ -135,21 +216,75 @@ const Icon = ({ name }) => {
             </g>
         </svg>
       )
-    case 'music':
+    case 'film':
+    case 'microform':
+    case 'motion picture (16mm)':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 40 40" version="1.1" className="icon">
+        <svg width="1rem" height="1rem" viewBox="0 0 16 19" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                <g transform="translate(-734.000000, -224.000000)">
-                    <g id="music-circle-copy" transform="translate(734.000000, 224.000000)">
-                        <path d="M28,14 L28,10 L20,10 L20,21.02 C19.16,20.38 18.14,20 17,20 C14.24,20 12,22.24 12,25 C12,27.76 14.24,30 17,30 C19.76,30 22,27.76 22,25 L22,14 L28,14 L28,14 Z M20,0 C31.0456,0 40,8.9543 40,20 C40,31.0458 31.0456,40 20,40 C8.9543,40 0,31.0458 0,20 C0,8.9543 8.9543,0 20,0 L20,0 Z" id="Shape"></path>
+                <g transform="translate(-236.000000, -1142.000000)">
+                    <g transform="translate(235.000000, 1142.000000)">
+                        <path d="M14.9994,6.99805 L12.9994,6.99805 L12.9994,4.99805 L14.9994,4.99805 L14.9994,6.99805 Z M14.9994,10.998 L12.9994,10.998 L12.9994,8.998 L14.9994,8.998 L14.9994,10.998 Z M14.9994,14.998 L12.9994,14.998 L12.9994,12.998 L14.9994,12.998 L14.9994,14.998 Z M4.99939,6.99805 L2.99939,6.99805 L2.99939,4.99805 L4.99939,4.99805 L4.99939,6.99805 Z M4.99939,10.998 L2.99939,10.998 L2.99939,8.998 L4.99939,8.998 L4.99939,10.998 Z M4.99939,14.998 L2.99939,14.998 L2.99939,12.998 L4.99939,12.998 L4.99939,14.998 Z M14.9994,0.99805 L14.9994,2.99805 L12.9994,2.99805 L12.9994,0.99805 L4.99939,0.99805 L4.99939,2.99805 L2.99939,2.99805 L2.99939,0.99805 L0.99939,0.99805 L0.99939,18.998 L2.99939,18.998 L2.99939,16.998 L4.99939,16.998 L4.99939,18.998 L12.9994,18.998 L12.9994,16.998 L14.9994,16.998 L14.9994,18.998 L16.9994,18.998 L16.9994,0.99805 L14.9994,0.99805 L14.9994,0.99805 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'music':
+    case 'musical score':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 16 20" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-236.000000, -1104.000000)">
+                    <g transform="translate(236.000000, 1104.000000)">
+                        <path d="M8,0 C8.4348,0 8.8373,0.13877 9.1654,0.37444 C11.7769,2.24963 14.3885,4.12481 15.1109,6.31241 C15.8333,8.5 15,11 13.5,13.5 C16,7 9,5.5 9,5.5 L9,16 C9,18.2091 6.9853,20 4.5,20 C2.01472,20 0,18.2091 0,16 C0,13.7909 2.01472,12 4.5,12 C5.02595,12 5.53083,12.0802 6,12.2276 L6,2 C6,0.89543 6.8954,0 8,0 L8,0 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'manuscript':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-232.000000, -1067.000000)">
+                    <g transform="translate(232.000000, 1067.000000)">
+                        <path d="M12,18 C13.1046,18 14,17.1046 14,16 L14,3 L7,2.99999 C6.44771,3 6,3.44771 6,3.99999 L6,14 L3,14 L3,3.00001 C3,1.34316 4.34319,9.99999997e-06 6.00004,9.99999997e-06 L17,9.99999997e-06 C18.6568,9.99999997e-06 20,1.34316 20,3.00001 L20,4 L16,4 L16,16 L16,17 C16,18.6569 14.6568,20 13,20 L3,20 C1.34315,20 0,18.6569 0,17 L0,16 L10,16 C10,17.1046 10.8954,18 12,18 L12,18 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'cdrom':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-230.000000, -652.000000)">
+                    <g id="checkbox-blank-circle-copy" transform="translate(230.000000, 652.000000)">
+                        <path d="M10.00001,0 C4.477,0 0,4.477 0,10.00003 C0,15.52303 4.477,20.00003 10.00001,20.00003 C15.52201,20.00003 20.00001,15.52303 20.00001,10.00003 C20.00001,4.477 15.52201,0 10.00001,0 L10.00001,0 Z"></path>
+                        <path d="M10.000006,8 C8.89539737,8 7.999992,8.89540537 7.999992,10.000018 C7.999992,11.1046246 8.89539737,12.00003 10.000006,12.00003 C11.1044126,12.00003 12.000018,11.1046246 12.000018,10.000018 C12.000018,8.89540537 11.1044126,8 10.000006,8 L10.000006,8 Z" fill="#FFFFFF"></path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      )
+    case 'map':
+    case 'maps-atlas':
+      return (
+        <svg width="1rem" height="1rem" viewBox="0 0 18 18" version="1.1" className="icon">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                <g transform="translate(-234.000000, -1183.000000)">
+                    <g transform="translate(233.000000, 1182.000000)">
+                        <path d="M12.9994,16.9981 L6.99939,14.8911 L6.99939,2.99807 L12.9994,5.10506 L12.9994,16.9981 Z M18.4994,0.99807 C18.4444,0.99807 18.3924,1.00406 18.3434,1.02306 L12.9994,3.09807 L6.99939,0.99807 L1.3624,2.89606 C1.1524,2.96607 0.99939,3.14707 0.99939,3.37607 L0.99939,18.4981 C0.99939,18.7741 1.22339,18.9981 1.49939,18.9981 C1.55438,18.9981 1.60638,18.9921 1.6564,18.9731 L6.99939,16.8981 L12.9994,18.9981 L18.6374,17.1001 C18.8474,17.0271 18.9994,16.8491 18.9994,16.6191 L18.9994,1.49807 C18.9994,1.22108 18.7764,0.99807 18.4994,0.99807 L18.4994,0.99807 Z"></path>
                     </g>
                 </g>
             </g>
         </svg>
       )
     case 'image':
+    case 'photographs & pictorial works':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 40 40" version="1.1">
+        <svg width="1rem" height="1rem" viewBox="0 0 40 40" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-806.000000, -224.000000)">
                     <g transform="translate(806.000000, 224.000000)">
@@ -159,6 +294,7 @@ const Icon = ({ name }) => {
             </g>
         </svg>
       )
+    case 'serial':
     case 'online journal':
     case 'journal':
       return (
@@ -174,6 +310,8 @@ const Icon = ({ name }) => {
             </g>
         </svg>
       )
+    case 'electronic resource':
+    case 'web resource':
     case 'website':
     case 'library website':
       return (
@@ -232,6 +370,10 @@ const Icon = ({ name }) => {
         </svg>
       )
     case 'video':
+    case 'video (dvd)':
+    case 'blu-ray':
+    case 'vhs':
+    case 'video recording':
       return (
         <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">

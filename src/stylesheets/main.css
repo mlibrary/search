@@ -925,6 +925,9 @@ body {
 .record-field-uid-format .record-field-value {
   font-weight: 600; }
 
+.record-field-uid-format .icon {
+  height: 0.9rem; }
+
 .record-field-value-item {
   display: inline-block;
   margin-right: 0.75rem; }
