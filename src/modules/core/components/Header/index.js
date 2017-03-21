@@ -34,6 +34,7 @@ class Header extends React.Component {
                     onClick={this.handleParty}>BETA
                     <img
                       src={parrot}
+                      alt=""
                       role="presentation"
                       className={`party-parrot ${this.state.isParty ? 'party' : ''}`}/>
                   </sup>

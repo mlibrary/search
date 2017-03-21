@@ -380,7 +380,7 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
         }
       }
 
-      Pride.requestRecord(datastoreUid, recordUid, callback)
+      Pride.requestRecord(datastoreUid, recordUid, callback).getHoldings((x) => console.log(x))
     }
   }
 }
