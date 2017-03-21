@@ -43,7 +43,7 @@ class Filters extends React.Component {
   }
 
   componentWillMount() {
-    console.log('will mount, state ', this.state, this.props)
+    //console.log('will mount, state ', this.state, this.props)
     /*
     this.setState({
       showGroups: [],
@@ -56,7 +56,7 @@ class Filters extends React.Component {
     const groups = this.state.showGroups
     const activeFilters = Object.assign({}, this.props.filters.active);
 
-    if (groups.includes(filterGroup)) {
+    if (_.contains(groups, filterGroup)) {
       this.setState({
         showGroups: groups.filter((fg => fg !== filterGroup))
       })
@@ -135,7 +135,7 @@ class Filters extends React.Component {
           {_.map(filters.groups, filterGroup => {
             const filtersSorted = _.sortBy(filterGroup.filters, 'count').reverse().splice(0,10);
             const filterGroupUid = `${activeDatastoreUid}-${filterGroup.uid}`
-            const showGroupFilters = this.state.showGroups.includes(filterGroupUid)
+            const showGroupFilters = _.contains(this.state.showGroups, (filterGroupUid))
             const activeFilters = this.state.activeFilters[activeDatastoreUid]
             const showGroup = (!activeFilters || (activeFilters && !activeFilters[filterGroup.uid]))
 
