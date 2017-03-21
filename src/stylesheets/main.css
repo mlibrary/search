@@ -922,6 +922,13 @@ body {
 .record-field-uid-format .record-field-name {
   padding-bottom: 0.5rem; }
 
+.record-field-uid-format .record-field-value {
+  font-weight: 600; }
+
+.record-field-value-item {
+  display: inline-block;
+  margin-right: 0.75rem; }
+
 .loading-container {
   display: flex;
   align-items: center;
