@@ -246,7 +246,7 @@ const Icon = ({ name }) => {
     case 'manuscript':
       return (
         <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
-            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-232.000000, -1067.000000)">
                     <g transform="translate(232.000000, 1067.000000)">
                         <path d="M12,18 C13.1046,18 14,17.1046 14,16 L14,3 L7,2.99999 C6.44771,3 6,3.44771 6,3.99999 L6,14 L3,14 L3,3.00001 C3,1.34316 4.34319,9.99999997e-06 6.00004,9.99999997e-06 L17,9.99999997e-06 C18.6568,9.99999997e-06 20,1.34316 20,3.00001 L20,4 L16,4 L16,16 L16,17 C16,18.6569 14.6568,20 13,20 L3,20 C1.34315,20 0,18.6569 0,17 L0,16 L10,16 C10,17.1046 10.8954,18 12,18 L12,18 Z"></path>
@@ -258,7 +258,7 @@ const Icon = ({ name }) => {
     case 'cdrom':
       return (
         <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
-            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-230.000000, -652.000000)">
                     <g id="checkbox-blank-circle-copy" transform="translate(230.000000, 652.000000)">
                         <path d="M10.00001,0 C4.477,0 0,4.477 0,10.00003 C0,15.52303 4.477,20.00003 10.00001,20.00003 C15.52201,20.00003 20.00001,15.52303 20.00001,10.00003 C20.00001,4.477 15.52201,0 10.00001,0 L10.00001,0 Z"></path>
