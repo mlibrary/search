@@ -770,6 +770,8 @@ input.search-box-input {
     height: 0.8rem; }
   .active-filter-button .icon g {
     fill: #057C42; }
+  .active-filter-button:hover .active-filter-button-text {
+    text-decoration: underline; }
 
 .active-filter-button-text {
   color: #057C42;

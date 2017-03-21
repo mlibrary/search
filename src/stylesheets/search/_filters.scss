@@ -151,6 +151,12 @@
   .icon g {
     fill: $green-1;
   }
+
+  &:hover {
+    .active-filter-button-text {
+      text-decoration: underline;
+    }
+  }
 }
 
 .active-filter-button-text {
