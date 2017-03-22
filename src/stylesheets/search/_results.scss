@@ -16,8 +16,10 @@
 */
 
 .results-summary-container {
-  display: flex;
-  justify-content: space-between;
+  @media (min-width: 60rem) {
+    display: flex;
+    justify-content: space-between;
+  }
   margin-top: 1rem;
   padding: 1rem 2rem;
   border-bottom: solid 2px $grey-5;
@@ -27,21 +29,27 @@
   @include box-shadow();
 }
 
-.results-summary {
-  padding-right: 1rem;
-}
-
 .pagination-container {
-  padding: 1rem 2rem;
+  padding: 1rem;
   border-bottom: solid 2px $grey-5;
   background: white;
   background: $grey-6;
   margin-bottom: 2rem;
 
+  @media (min-width: 32rem) {
+    padding: 1rem 2rem;
+  }
+
   @include box-shadow();
 
   .results-summary {
     padding: 0 1rem;
+
+    @media (max-width: 60rem) {
+      padding: 0;
+      display: block;
+      margin: 1rem 0;
+    }
   }
 }
 

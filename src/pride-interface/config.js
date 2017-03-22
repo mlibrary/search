@@ -94,6 +94,8 @@ const config = {
           callnumber: 'callnumber',
           defaultAccessText: 'Request This Item',
           heading: 'Physical Holdings',
+          map: 'info_link',
+          coverage: 'enum',
         },
         {
           uid: 'online',
@@ -110,6 +112,8 @@ const config = {
           defaultAccessText: 'Request This Media Item',
           callnumber: 'callnumber',
           heading: 'Media Holdings',
+          map: 'info_link',
+          coverage: 'enum',
         },
         {
           uid: 'special',
@@ -119,6 +123,8 @@ const config = {
           callnumber: 'callnumber',
           heading: 'Special Holdings',
           defaultAccessText: 'Request This Special Item',
+          map: 'info_link',
+          coverage: 'enum',
         }
       ]
     },

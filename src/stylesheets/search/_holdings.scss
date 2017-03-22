@@ -1,4 +1,4 @@
-.holding-detail {
+.access-list .holding-detail {
   margin-right: 1rem;
 
   &:empty {
@@ -44,4 +44,45 @@
   svg {
     margin-right: 0.25rem;
   }
+}
+
+/*
+  Full record holdings
+*/
+
+.full-holding-group-heading {
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: solid 2px $grey-5;
+}
+
+.full-holding-item {
+  @media (min-width: 40em) {
+    display: flex;
+  }
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: solid 1px $grey-5;
+  }
+}
+
+.full-holding-item-detail {
+  @media (min-width: 40em) {
+    &:not(:last-child) {
+      margin-right: 2rem
+    }
+  }
+
+  @media (max-width: 40em) {
+    margin-bottom: 0.5rem;
+  }
+
+  dt, dd {
+    line-height: 1.5;
+  }
+}
+
+.full-holdings-group-container {
+  margin-top: 2rem;
 }

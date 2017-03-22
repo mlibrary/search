@@ -114,7 +114,9 @@ const getHoldings = ({ holdings, datastoreUid }) => {
           status: holding[holdingConfig.status],
           location: holding[holdingConfig.location],
           source: holding[holdingConfig.source],
-          callnumber: holding[holdingConfig.callnumber]
+          callnumber: holding[holdingConfig.callnumber],
+          map: holding[holdingConfig.map],
+          coverage: holding[holdingConfig.coverage],
         }
       })
     })

@@ -72,40 +72,9 @@ class FullRecord extends React.Component {
               </AccessList>
             )}
 
-            <div className="record-field-list-as-table ">
-              <FieldList fields={displayFields} />
-            </div>
+            <FieldList fields={displayFields} />
 
-            {holdings && (
-              <div className="full-record-access-container">
-                {holdings.map((holdingsGroup, index) => (
-                <div key={index} className="access-group-container">
-                  <h3 className="access-group-heading">{holdingsGroup.name}</h3>
-                  <table className="access-table">
-                    <thead>
-                      <tr>
-                        <th className="access-table-col-status">Status</th>
-                        <th className="access-table-col-location">Location</th>
-                        <th className="access-table-col-actions">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {holdingsGroup.holdings.map((holding, index) => (
-                      <tr key={index} className="access-item">
-                        <td><HoldingStatus status={holding.status} /></td>
-                        <td>
-                          {holding.location}
-                          <div>{holding.callnumber}</div>
-                        </td>
-                        <td><a href={holding.link} className="underline">{holding.linkText}</a></td>
-                      </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                ))}
-              </div>
-            )}
+            {holdings && (<Holdings holdings={holdings} />)}
           </div>
         </div>
       </div>
@@ -128,6 +97,86 @@ const SkeletonFullRecord = () => (
     </div>
   </div>
 )
+
+const Holdings = ({ holdings }) => {
+  return (
+    <div className="full-holdings-container">
+      {holdings.map((holdingsGroup, index) => (
+      <div key={index} className="full-holdings-group-container">
+        <h3 className="full-holding-group-heading">{holdingsGroup.name}</h3>
+        <HoldingsGroup group={holdingsGroup} />
+      </div>
+      ))}
+    </div>
+  )
+}
+
+const HoldingsGroup = ({ group }) => {
+  return (
+    <div>
+      {group.holdings.map((holding, index) => (
+        <dl key={index} className='full-holding-item'>
+          {holding.status && (
+            <div className="full-holding-item-detail">
+              <dt>
+                Status
+              </dt>
+              <dd>
+                <HoldingStatus status={holding.status} />
+              </dd>
+            </div>
+          )}
+          {holding.location && (
+            <div className="full-holding-item-detail">
+              <dt>
+                Location
+              </dt>
+              <dd>
+                {holding.location} {holding.map && (
+                  <a className="underline" href={holding.map}>Map</a>
+                )}
+                {holding.info_link}
+                <div>{holding.callnumber}</div>
+              </dd>
+            </div>
+          )}
+          {holding.source && (
+            <div className="full-holding-item-detail">
+              <dt>
+                Source
+              </dt>
+              <dd>
+                {holding.source}
+              </dd>
+            </div>
+          )}
+          {holding.coverage && holding.coverage.length > 0 && (
+            <div className="full-holding-item-detail">
+              <dt>
+                Coverage
+              </dt>
+              <dd>
+                {holding.coverage.map(value => (
+                  <span>{value}</span>
+                ))}
+              </dd>
+            </div>
+          )}
+          {holding.link && (
+            <div className="full-holding-item-detail">
+              <dt>
+                Actions
+              </dt>
+              <dd>
+                <a href={holding.link} className="underline">{holding.linkText}</a>
+              </dd>
+            </div>
+          )}
+        </dl>
+      ))}
+    </div>
+  )
+}
 
 function mapStateToProps(state) {
   return {
