@@ -835,8 +835,7 @@ body {
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
 
 .record-container {
-  padding: 1.5rem 1rem;
-  padding-bottom: 0; }
+  padding: 1.5rem 1rem; }
   @media (min-width: 32rem) {
     .record-container {
       padding: 2rem; } }
