@@ -12,6 +12,7 @@ import {
   loadingRecords,
   addHoldings,
   loadingHoldings,
+  setRecordHoldings
 } from './actions';
 
 export {
@@ -28,4 +29,5 @@ export {
   BentoboxList,
   addHoldings,
   loadingHoldings,
+  setRecordHoldings,
 };

@@ -17,6 +17,7 @@ import {
   loadingRecords,
   addHoldings,
   loadingHoldings,
+  setRecordHoldings,
 } from '../modules/records';
 
 import {
@@ -380,7 +381,10 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
         }
       }
 
-      Pride.requestRecord(datastoreUid, recordUid, callback).getHoldings((x) => console.log(x))
+      Pride.requestRecord(datastoreUid, recordUid, callback).getHoldings((holdings) => {
+        console.log('full record holdings', holdings)
+        store.dispatch(setRecordHoldings(holdings))
+      })
     }
   }
 }
