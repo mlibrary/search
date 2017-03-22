@@ -9,12 +9,11 @@ import {
   getField,
   getFieldValue,
 } from '../../utilities';
-
+import HoldingStatus from '../HoldingStatus'
 import {
   AccessList,
   AccessItem
 } from '../AccessList'
-
 import {
   getDatastoreUidBySlug,
   requestPrideRecord
@@ -52,14 +51,16 @@ class FullRecord extends React.Component {
       datastore: activeDatastoreUid
     });
 
-    const format = getFieldValue(getField(record.fields, 'format'))
+    const format = () => (
+      <div className="full-record-header">
+        <p>{getFieldValue(getField(record.fields, 'format'))}</p>
+      </div>
+    )
 
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
-          <div className="full-record-header">
-            <p>{format}</p>
-          </div>
+
           <div className="record-container">
             <h1 className="full-record-title">{record.names[0]}</h1>
 
@@ -76,21 +77,32 @@ class FullRecord extends React.Component {
             </div>
 
             {holdings && (
-              <div className="holdings-container">
+              <div className="full-record-access-container">
                 {holdings.map((holdingsGroup, index) => (
-                  <div key={index}>
-                    <h3>{holdingsGroup.name}</h3>
-                    <ul className="access-list" key={holdingsGroup.uid}>
+                <div key={index} className="access-group-container">
+                  <h3 className="access-group-heading">{holdingsGroup.name}</h3>
+                  <table className="access-table">
+                    <thead>
+                      <tr>
+                        <th className="access-table-col-status">Status</th>
+                        <th className="access-table-col-location">Location</th>
+                        <th className="access-table-col-actions">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
                       {holdingsGroup.holdings.map((holding, index) => (
-                        <li className="access-item" key={index}>
-                          <a href={holding.link} className="button access-link">{holding.linkText}</a>
-                          <span className="holding-detail holding-detail-location">{holding.location}</span>
-                          <span className="holding-detail">{holding.callnumber}</span>
-                          <span className="holding-detail">{holding.status}</span>
-                        </li>
+                      <tr key={index} className="access-item">
+                        <td><HoldingStatus status={holding.status} /></td>
+                        <td>
+                          {holding.location}
+                          <div>{holding.callnumber}</div>
+                        </td>
+                        <td><a href={holding.link} className="underline">{holding.linkText}</a></td>
+                      </tr>
                       ))}
-                    </ul>
-                  </div>
+                    </tbody>
+                  </table>
+                </div>
                 ))}
               </div>
             )}

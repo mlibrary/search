@@ -99,7 +99,7 @@ const config = {
           uid: 'online',
           link: 'href',
           defaultAccessText: 'Available Online',
-          heading: 'Electronic Resources',
+          heading: 'Online Holdings',
           label: 'Online'
         },
         {

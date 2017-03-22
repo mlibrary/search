@@ -129,6 +129,10 @@ th {
   color: $grey-3;
 }
 
+tr {
+  border-bottom: solid 1px $grey-5;
+}
+
 .table-compact {
   table {
     border: none;

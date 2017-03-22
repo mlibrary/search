@@ -94,6 +94,9 @@ const getHoldings = ({ holdings, datastoreUid }) => {
   }
 
   const holdingsConfig = datastoreConfig.holdings;
+  if (!holdingsConfig) {
+    return []
+  }
 
   return holdingsConfig.reduce((previous, holdingConfig) => {
     if (!holdings[holdingConfig.uid]) {
