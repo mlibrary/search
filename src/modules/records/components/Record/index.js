@@ -111,6 +111,8 @@ const HoldingStatus = ({ status }) => {
             <Icon name="alert" /> {status}
           </span>
         )
+      default:
+        // do nothing
     }
 
     const checkedOutindex = status.indexOf('Checked out:')

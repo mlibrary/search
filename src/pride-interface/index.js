@@ -350,41 +350,58 @@ const prevPage = () => {
 }
 
 const requestPrideRecord = (datastoreUid, recordUid) => {
+
+  /*
+    Check if record is in state, just use that if it is.
+    - But also check if it has holdings or is expecting holdings.
+
+    If not in state, then ask Pride for record and ask for holdings.
+  */
+
+  const getRecordFromPride = () => {
+    const callback = (record) => {
+      store.dispatch(setRecord(record));
+    }
+
+    // We only want to send holdings requests for
+    // record types that have holdings (e.g. the catalog)
+    if (hasHoldings(datastoreUid)) {
+      console.log('hasHoldings', datastoreUid)
+      Pride.requestRecord(datastoreUid, recordUid, callback).getHoldings((holdings) => {
+        store.dispatch(setRecordHoldings(holdings))
+      })
+    } else {
+      console.log('does not have holdings', datastoreUid)
+      Pride.requestRecord(datastoreUid, recordUid, callback)
+    }
+  }
+
+  // Required params
   if (datastoreUid && recordUid) {
     store.dispatch(clearRecord());
+    const records = store.getState().records.records[datastoreUid];
 
-    const state = store.getState();
-    if (state && state.records.records[datastoreUid]) {
-      const records = state.records.records[datastoreUid]
+    // Does state have records for this datastore?
+    // This likely means the user is coming from a results page and we
+    // already have this record data.
+    if (records) {
+      // Look up this specific record
       const record = _.filter(records, (record) => {
         const idField = _.findWhere(record.fields, { uid: 'id' })
         return idField.value === recordUid
       })
 
-      store.dispatch(setRecord(record[0]));
-    } else {
-      const callback = (record) => {
-        store.dispatch(setRecord(record));
+      const recordNeedsToRequestHoldings = (record && !record[0].holdings && hasHoldings(datastoreUid))
 
-        if (hasHoldings(datastoreUid)) {
-          // TODO full record holdings
-
-          /*
-          console.log('record', record)
-
-          record.getHoldings((datastoreUid, recordUid) => {
-            return (holdingsData) => {
-              console.log('holdingsData')
-            }
-          })
-          */
-        }
+      if (recordNeedsToRequestHoldings) {
+        getRecordFromPride()
+      } else {
+        store.dispatch(setRecord(record[0]));
       }
-
-      Pride.requestRecord(datastoreUid, recordUid, callback).getHoldings((holdings) => {
-        console.log('full record holdings', holdings)
-        store.dispatch(setRecordHoldings(holdings))
-      })
+    } else {
+      // No records in state for this datastore,
+      // so we need to ask Pride for this record
+      getRecordFromPride()
     }
   }
 }

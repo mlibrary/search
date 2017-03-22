@@ -54,7 +54,6 @@ class Filters extends React.Component {
 
   handleFilterGroupClick(filterGroup) {
     const groups = this.state.showGroups
-    const activeFilters = Object.assign({}, this.props.filters.active);
 
     if (_.contains(groups, filterGroup)) {
       this.setState({
