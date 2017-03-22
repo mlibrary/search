@@ -4,11 +4,7 @@
 
 .container {
   margin: 0 auto;
-  padding: 0;
-
-  @media (min-width: 32rem) {
-    padding: 0 1rem;
-  }
+  padding: 0 1rem;
 }
 
 .container-narrow {
