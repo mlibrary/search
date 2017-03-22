@@ -11,7 +11,7 @@
 }
 
 .record-container {
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   padding-bottom: 0;
 
   @media (min-width: 32rem) {
@@ -119,6 +119,10 @@
   border-bottom: solid 2px $grey-5;
   @include box-shadow();
 
+  .record-field-list {
+    margin-bottom: 2rem;
+  }
+
   @media (min-width: 40em) {
     .record-field-list {
       .record-field {
@@ -147,9 +151,14 @@
 }
 
 .full-record-title {
-  font-size: 2rem;
+  font-size: 1.4rem;
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+
+  @media (min-width: 36em) {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 
 /*

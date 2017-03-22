@@ -51,18 +51,18 @@ class FullRecord extends React.Component {
       datastore: activeDatastoreUid
     });
 
-    const format = () => (
+    const format = (
       <div className="full-record-header">
-        <p>{getFieldValue(getField(record.fields, 'format'))}</p>
+        <p>Format: {getFieldValue(getField(record.fields, 'format'))}</p>
       </div>
     )
 
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
-
           <div className="record-container">
             <h1 className="full-record-title">{record.names[0]}</h1>
+            <FieldList fields={displayFields} />
 
             {access && (
               <AccessList>
@@ -71,9 +71,6 @@ class FullRecord extends React.Component {
                 ))}
               </AccessList>
             )}
-
-            <FieldList fields={displayFields} />
-
             {holdings && (<Holdings holdings={holdings} />)}
           </div>
         </div>
@@ -112,70 +109,144 @@ const Holdings = ({ holdings }) => {
 }
 
 const HoldingsGroup = ({ group }) => {
-  return (
-    <div>
-      {group.holdings.map((holding, index) => (
-        <dl key={index} className='full-holding-item'>
-          {holding.status && (
-            <div className="full-holding-item-detail">
-              <dt>
-                Status
-              </dt>
-              <dd>
-                <HoldingStatus status={holding.status} />
-              </dd>
-            </div>
-          )}
-          {holding.location && (
-            <div className="full-holding-item-detail">
-              <dt>
-                Location
-              </dt>
-              <dd>
-                {holding.location} {holding.map && (
-                  <a className="underline" href={holding.map}>Map</a>
-                )}
-                {holding.info_link}
-                <div>{holding.callnumber}</div>
-              </dd>
-            </div>
-          )}
-          {holding.source && (
-            <div className="full-holding-item-detail">
-              <dt>
-                Source
-              </dt>
-              <dd>
-                {holding.source}
-              </dd>
-            </div>
-          )}
-          {holding.coverage && holding.coverage.length > 0 && (
-            <div className="full-holding-item-detail">
-              <dt>
-                Coverage
-              </dt>
-              <dd>
-                {holding.coverage.map(value => (
-                  <span>{value}</span>
-                ))}
-              </dd>
-            </div>
-          )}
-          {holding.link && (
-            <div className="full-holding-item-detail">
-              <dt>
-                Actions
-              </dt>
-              <dd>
-                <a href={holding.link} className="underline">{holding.linkText}</a>
-              </dd>
-            </div>
-          )}
-        </dl>
-      ))}
-    </div>
-  )
+  let holdingGroup = null;
+
+  switch (group.uid) {
+    case 'hathitrust':
+    case 'online':
+      holdingGroup = (
+        <div>
+          {group.holdings.map((holding, index) => (
+            <dl key={index} className='full-holding-item'>
+              {holding.link && (
+                <div className="full-holding-item-detail">
+                  <dt>
+
+                  </dt>
+                  <dd>
+                    <a href={holding.link} className="button">{holding.linkText}</a>
+                  </dd>
+                </div>
+              )}
+              {holding.status && (
+                <div className="full-holding-item-detail">
+                  <dt>
+                    Status
+                  </dt>
+                  <dd>
+                    <HoldingStatus status={holding.status} />
+                  </dd>
+                </div>
+              )}
+              {holding.location && (
+                <div className="full-holding-item-detail">
+                  <dt>
+                    Location
+                  </dt>
+                  <dd>
+                    {holding.location} {holding.map && (
+                      <a className="underline" href={holding.map}>Map</a>
+                    )}
+                    {holding.info_link}
+                    <div>{holding.callnumber}</div>
+                  </dd>
+                </div>
+              )}
+              {holding.source && (
+                <div className="full-holding-item-detail">
+                  <dt>
+                    Source
+                  </dt>
+                  <dd>
+                    {holding.source}
+                  </dd>
+                </div>
+              )}
+              {holding.coverage && holding.coverage.length > 0 && (
+                <div className="full-holding-item-detail">
+                  <dt>
+                    Coverage
+                  </dt>
+                  <dd>
+                    {holding.coverage.map(value => (
+                      <span>{value}</span>
+                    ))}
+                  </dd>
+                </div>
+              )}
+            </dl>
+          ))}
+        </div>
+      )
+      break;
+    default:
+      holdingGroup = (
+        <div>
+          {group.holdings.map((holding, index) => (
+            <dl key={index} className='full-holding-item'>
+              {holding.status && (
+                <div className="full-holding-item-detail">
+                  <dt>
+                    Status
+                  </dt>
+                  <dd>
+                    <HoldingStatus status={holding.status} />
+                  </dd>
+                </div>
+              )}
+              {holding.location && (
+                <div className="full-holding-item-detail">
+                  <dt>
+                    Location
+                  </dt>
+                  <dd>
+                    {holding.map ? (
+                      <a className="underline" href={holding.map}>{holding.location}</a>
+                    ) : ( <span>{holding.location}</span> )}
+                    <div>{holding.callnumber}</div>
+                  </dd>
+                </div>
+              )}
+              {holding.source && (
+                <div className="full-holding-item-detail">
+                  <dt>
+                    Source
+                  </dt>
+                  <dd>
+                    {holding.source}
+                  </dd>
+                </div>
+              )}
+              {holding.coverage && holding.coverage.length > 0 && (
+                <div className="full-holding-item-detail">
+                  <dt>
+                    Coverage
+                  </dt>
+                  <dd>
+                    {holding.coverage.map(value => (
+                      <span>{value}</span>
+                    ))}
+                  </dd>
+                </div>
+              )}
+              {holding.link && (
+                <div className="full-holding-item-detail">
+                  <dt>
+                    Actions
+                  </dt>
+                  <dd>
+                    <a href={holding.link} className="underline">{holding.linkText}</a>
+                  </dd>
+                </div>
+              )}
+            </dl>
+          ))}
+        </div>
+      )
+      break;
+  }
+
+  return holdingGroup
 }
 
 function mapStateToProps(state) {
