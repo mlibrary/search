@@ -25,11 +25,8 @@ const HoldingStatus = ({ status }) => {
 
     if (checkedOutindex !== -1) {
       return (
-        <span>
-          <span className="holding-detail holding-detail-checked-out">
-            <Icon name="timetable" />{status.substr(0, 11)}
-          </span>
-          {status.substr(12)}
+        <span className="holding-detail holding-detail-checked-out">
+          <Icon name="timetable" />{status}
         </span>
       )
     }

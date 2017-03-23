@@ -56,12 +56,12 @@ const config = {
       preview: [
         'format',
         'author',
-        'publish_date'
+        'publication_date'
       ],
       medium: [
         'format',
         'author',
-        'publish_date',
+        'publication_date',
         'place_of_publication',
         'edition',
         'publisher'
@@ -69,7 +69,7 @@ const config = {
       full: [
         'format',
         'author',
-        'publish_date',
+        'publication_date',
         'place_of_publication',
         'edition',
         'publisher',
@@ -152,6 +152,7 @@ const config = {
         'scopus_cited'
       ],
       full: [
+        'format',
         'publication_date',
         'abstract',
         'volume',
@@ -160,7 +161,6 @@ const config = {
         'author',
         'start_page',
         'end_page',
-        'format',
         'genre',
         'snippet',
         'isi_cited',

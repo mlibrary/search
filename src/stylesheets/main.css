@@ -1060,7 +1060,13 @@ body {
   .full-holding-item {
     display: flex; } }
 
-.full-holding-item:not(:last-child) {
+.full-holding-list {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.full-holding-list-item {
+  padding: 0;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: solid 1px #E5E5E5; }
@@ -1218,6 +1224,12 @@ body {
 .access-container .access-list:not(:last-child) {
   margin-bottom: 1rem; }
 
+.show-all-able-list li:not(:first-child) {
+  display: none; }
+
+.show-all-able-list.show-all li {
+  display: block; }
+
 .u-break-word {
   word-wrap: break-word; }
 
@@ -1248,3 +1260,6 @@ body {
 .offpage {
   position: absolute;
   left: -999em; }
+
+.hide {
+  display: none; }

@@ -1,0 +1,9 @@
+.show-all-able-list {
+  li:not(:first-child) {
+    display: none;
+  }
+
+  &.show-all li {
+    display: block;
+  }
+}

@@ -60,11 +60,19 @@
   @media (min-width: $breakpoint-2) {
     display: flex;
   }
-  &:not(:last-child) {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: solid 1px $grey-5;
-  }
+}
+
+.full-holding-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.full-holding-list-item {
+  padding: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: solid 1px $grey-5;
 }
 
 .full-holding-item-detail {
