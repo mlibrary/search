@@ -135,7 +135,7 @@ class HoldingsGroup extends React.Component {
     const { group } = this.props;
     let holdingGroup = null;
     const showAll = _.contains(this.state.showAllGroups, group.uid)
-    const displayShowMore = (!showAll && (group.holdings.length > 2))
+    const displayShowMore = (!showAll && (group.holdings.length > 1))
 
     switch (group.uid) {
       case 'hathitrust':
