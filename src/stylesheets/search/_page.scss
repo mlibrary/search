@@ -3,12 +3,20 @@ body {
 }
 
 .flex-container {
-  display: flex;
+  display: block;
+
+  @media (min-width: $breakpoint-2) {
+    display: flex;
+  }
 }
 
 .side-container {
-  width: 28rem;
+  width: 100%;
   margin-right: 1rem;
+
+  @media (min-width: $breakpoint-2) {
+    width: 28rem;
+  }
 }
 
 .main-container {
@@ -17,14 +25,4 @@ body {
 
 .grey-background {
   background: $grey-5;
-}
-
-@media (max-width: 52rem) {
-  .flex-container {
-    display: block;
-  }
-
-  .side-container {
-    width: 100%;
-  }
 }

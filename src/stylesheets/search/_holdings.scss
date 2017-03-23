@@ -57,7 +57,7 @@
 }
 
 .full-holding-item {
-  @media (min-width: 40em) {
+  @media (min-width: $breakpoint-2) {
     display: flex;
   }
   &:not(:last-child) {
@@ -68,13 +68,13 @@
 }
 
 .full-holding-item-detail {
-  @media (min-width: 40em) {
+  @media (min-width: $breakpoint-2) {
     &:not(:last-child) {
       margin-right: 2rem
     }
   }
 
-  @media (max-width: 40em) {
+  @media (max-width: $breakpoint-2) {
     margin-bottom: 0.5rem;
   }
 

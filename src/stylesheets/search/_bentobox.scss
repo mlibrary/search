@@ -5,7 +5,7 @@
   list-style: none;
   margin: 0;
 
-  @media (min-width: 48em) {
+  @media (min-width: $breakpoint-2) {
     margin-right: -1rem;
   }
 }
@@ -58,7 +58,7 @@
   line-height: 1.5;
 }
 
-@media (min-width: 48em) {
+@media (min-width: $breakpoint-2) {
   .bentobox {
     width: calc(100% * (1/2) - 1rem);
     margin-right: 1rem;

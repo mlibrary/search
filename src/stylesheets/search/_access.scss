@@ -5,7 +5,7 @@
   align-items: center;
   border-top: solid 1px $grey-7;
 
-  @media (min-width: 32rem) {
+  @media (min-width: $breakpoint-1) {
     padding: 1rem 2rem;
   }
 

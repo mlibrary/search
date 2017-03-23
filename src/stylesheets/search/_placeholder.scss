@@ -41,7 +41,7 @@ $shim: $grey-5;
 
 .placeholder-title {
   height: 1rem;
-  max-width: 32rem;
+  max-width: $breakpoint-1;;
   margin-bottom: 2rem;
 
   background: linear-gradient(to left, $main-6 20%, $main-5 50%, $main-6 80%);

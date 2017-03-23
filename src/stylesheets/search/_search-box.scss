@@ -7,7 +7,7 @@
 .search-box-container {
   max-width: 46rem;
 
-  @media (max-width: 32rem) {
+  @media (max-width: $breakpoint-1) {
     padding: 0 1rem;
   }
 }
@@ -18,7 +18,7 @@
 
 input.search-box-input {
   padding: 0.6rem 1rem;
-  border: 1px solid rgba($main-3,0.4);
+  border: 1px solid rgba($main-3, 0.4);
 }
 
 .search-box-button {
