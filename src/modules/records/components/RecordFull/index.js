@@ -110,10 +110,6 @@ const Holdings = ({ holdings }) => {
 }
 
 class HoldingsGroup extends React.Component {
-  componentWillMount() {
-    console.log('mount', this.state)
-  }
-
   state = {
     showAllGroups: []
   }
@@ -304,6 +300,16 @@ const OnlineHolding = ({ holding }) => (
           {holding.coverage.map((value, index) => (
             <span key={index}>{value}</span>
           ))}
+        </dd>
+      </div>
+    )}
+    {holding.description && (
+      <div className="full-holding-item-detail">
+        <dt>
+          Description
+        </dt>
+        <dd>
+          {holding.description}
         </dd>
       </div>
     )}

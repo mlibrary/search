@@ -84,7 +84,8 @@ const config = {
           defaultAccessText: 'Full Text Online',
           heading: 'HathiTrust Digital Library',
           label: 'HathiTrust',
-          source: 'source'
+          source: 'source',
+          description: 'description',
         },
         {
           uid: 'circulating',
