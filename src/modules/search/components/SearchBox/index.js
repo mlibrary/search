@@ -1,45 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { store } from '../../../../store';
 
 import {
-  addQuery,
-  removeQuery
-} from '../../../../router';
+  setSearchQuery
+} from '../../actions'
+
+import {
+  runSearchPride
+} from '../../../../pride-interface'
 
 import { Icon } from '../../../core';
 
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {query: props.search.query};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({query: event.target.value});
+  handleChange(query) {
+    store.dispatch(setSearchQuery(query))
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
-    if (this.state.query === '') {
-      removeQuery('q');
-    } else {
-      addQuery({q: this.state.query})
-    }
-  }
-
-  componentDidMount() {
-    this.focus()
-  }
-
-  focus() {
-    this.textInput.focus()
+    runSearchPride()
   }
 
   render() {
+    const { query } = this.props;
+
     return (
       <div className="search-box-container-full">
         <div className="container search-box-container">
@@ -49,9 +41,8 @@ class SearchBox extends React.Component {
               id="search-query"
               className="no-margin search-box-input"
               type="text"
-              value={this.state.query}
-              onChange={this.handleChange}
-              ref={(input) => { this.textInput = input; }}
+              value={query}
+              onChange={event => this.handleChange(event.target.value)}
             />
           <button className="button search-box-button" type="submit"><Icon name="search"/>Search</button>
           </form>
@@ -63,7 +54,7 @@ class SearchBox extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    search: state.search,
+    query: state.search.query,
     activeDatastoreUid: state.datastores.active
   };
 }

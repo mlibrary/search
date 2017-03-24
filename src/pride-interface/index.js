@@ -21,7 +21,8 @@ import {
 } from '../modules/records';
 
 import {
-  removeQuery
+  removeQuery,
+  addQuery,
 } from '../router';
 
 import {
@@ -299,6 +300,11 @@ const runSearchPride = () => {
     page: page,
     facets: facets,
   };
+
+  // Query nonsense
+  addQuery({
+    q: query,
+  })
 
   store.dispatch(searching(true))
   store.dispatch(loadingRecords(true))
