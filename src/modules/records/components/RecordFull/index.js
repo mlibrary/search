@@ -152,7 +152,7 @@ class HoldingsGroup extends React.Component {
               >Show { group.holdings.length - 1 } more</button>
             )}
             {showAll && (
-              <button className="button button-light" onClick={() => this.handleShowMoreClick(group.uid)}>Show less</button>
+              <button className="button button-light" onClick={() => this.handleShowMoreClick(group.uid)}>Show fewer</button>
             )}
           </div>
         )
@@ -174,7 +174,7 @@ class HoldingsGroup extends React.Component {
               >Show { group.holdings.length - 1 } more</button>
             )}
             {showAll && (
-              <button className="button button-light" onClick={() => this.handleShowMoreClick(group.uid)}>Show less</button>
+              <button className="button button-light" onClick={() => this.handleShowMoreClick(group.uid)}>Show fewer</button>
             )}
           </div>
         )
