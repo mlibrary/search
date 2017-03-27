@@ -34,7 +34,7 @@ class SearchBox extends React.Component {
 
     return (
       <div className="search-box-container-full">
-        <div className="container search-box-container">
+        <div className="container search-box-container" role="search">
           <form className="search-box" onSubmit={this.handleSubmit}>
             <label htmlFor="search-query" className="offpage">Search query</label>
             <input
@@ -42,6 +42,7 @@ class SearchBox extends React.Component {
               className="no-margin search-box-input"
               type="text"
               value={query}
+              autocomplete="off"
               onChange={event => this.handleChange(event.target.value)}
             />
           <button className="button search-box-button" type="submit"><Icon name="search"/>Search</button>
