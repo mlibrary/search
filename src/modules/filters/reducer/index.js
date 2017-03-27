@@ -1,8 +1,11 @@
 import { _ } from 'underscore';
 
 import {
-  ADD_FILTER, SET_ACTIVE_FILTERS,
-  CLEAR_FILTERS, CLEAR_ACTIVE_FILTERS,
+  ADD_FILTER,
+  CLEAR_FILTERS,
+  ADD_ACTIVE_FILTER,
+  REMOVE_ACTIVE_FILTER,
+  CLEAR_ACTIVE_FILTERS,
 } from '../actions';
 
 const initialState = {
@@ -56,23 +59,36 @@ const filtersReducer = function filterReducer(state = initialState, action) {
         }
       }
     }
-    case SET_ACTIVE_FILTERS:
-      const { datastore, active } = action.payload;
+    case CLEAR_FILTERS:
+      return Object.assign({}, state, {
+        groups: {}
+      })
+    case ADD_ACTIVE_FILTER:
       return Object.assign({}, state, {
         active: {
           ...state.active,
-          [datastore]: active
+          [action.payload.activeDatastoreUid]: {
+            ...state.active[action.payload.activeDatastoreUid],
+            [action.payload.group.uid]: action.payload.filter.value
+          }
         },
       });
-    case CLEAR_FILTERS:
-      return initialState;
-    case CLEAR_ACTIVE_FILTERS:
-      const { activeDatastore } = action.payload;
+    case REMOVE_ACTIVE_FILTER:
+      console.log('REMOVE_ACTIVE_FILTER', action.payload)
       return Object.assign({}, state, {
         active: {
           ...state.active,
-          [activeDatastore]: undefined,
+          [action.payload.activeDatastoreUid]: {
+            ..._.omit(state.active[action.payload.activeDatastoreUid], action.payload.group)
+          }
         },
+      });
+      break;
+    case CLEAR_ACTIVE_FILTERS:
+      console.log('clear active filters')
+      const { activeDatastoreUid } = action.payload;
+      return Object.assign({}, state, {
+        active: _.omit(state.active, activeDatastoreUid)
       });
     default:
       return state;

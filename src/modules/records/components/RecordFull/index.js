@@ -52,15 +52,10 @@ class FullRecord extends React.Component {
       datastore: activeDatastoreUid
     });
 
-    const format = (
-      <div className="full-record-header">
-        <p>Format: {getFieldValue(getField(record.fields, 'format'))}</p>
-      </div>
-    )
-
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
+          <Format record={record} />
           <div className="record-container">
             <h1 className="full-record-title">{record.names[0]}</h1>
             <FieldList fields={displayFields} />
@@ -83,6 +78,8 @@ class FullRecord extends React.Component {
 const SkeletonFullRecord = () => (
   <div className="container container-narrow">
     <div className="full-record-container">
+      <div className="full-record-header">
+      </div>
       <div className="record-container placeholder-container">
         <div className="placeholder placeholder-title"></div>
         <div className="placeholder placeholder-line"></div>
@@ -95,6 +92,24 @@ const SkeletonFullRecord = () => (
     </div>
   </div>
 )
+
+const Format = ({ record }) => {
+  const formatFieldValue = getFieldValue(getField(record.fields, 'format'))
+
+  if (Array.isArray(formatFieldValue)) {
+    return (
+      <div className="full-record-header">
+        <p>{formatFieldValue.join(', ')}</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="full-record-header">
+      <p>{formatFieldValue}</p>
+    </div>
+  )
+}
 
 const Holdings = ({ holdings }) => {
   return (

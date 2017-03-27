@@ -66,13 +66,19 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  margin-bottom: 1rem;
 }
 
 .full-holding-list-item {
   padding: 0;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: solid 1px $grey-5;
+}
+
+.full-holding-list.show-all .full-holding-list-item {
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: solid 1px $grey-5;
+  }
 }
 
 .full-holding-item-detail {

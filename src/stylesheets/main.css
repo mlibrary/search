@@ -900,7 +900,8 @@ body {
 
 .full-record-header {
   background: #E6F3FF;
-  padding: 1rem 2rem; }
+  padding: 1rem 2rem;
+  min-height: 3.68rem; }
   .full-record-header p {
     margin: 0;
     color: #126DC1; }
@@ -1063,10 +1064,13 @@ body {
 .full-holding-list {
   margin: 0;
   padding: 0;
-  list-style: none; }
+  list-style: none;
+  margin-bottom: 1rem; }
 
 .full-holding-list-item {
-  padding: 0;
+  padding: 0; }
+
+.full-holding-list.show-all .full-holding-list-item:not(:last-child) {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: solid 1px #E5E5E5; }

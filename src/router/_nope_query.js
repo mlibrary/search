@@ -4,7 +4,6 @@ import { store } from '../store';
 import { setSearchQuery } from '../modules/search';
 import {
   setActiveFilters,
-  clearActiveFilters,
 } from '../modules/filters';
 
 const handleSearchQuery = ({ nextQuery, query }) => {

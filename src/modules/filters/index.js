@@ -4,15 +4,17 @@ import filtersReducer from './reducer';
 import {
   addFilter,
   clearFilters,
-  setActiveFilters,
+  addActiveFilter,
+  removeActiveFilter,
   clearActiveFilters,
 } from './actions';
 
 export {
   Filters,
   filtersReducer,
-  clearFilters,
-  clearActiveFilters,
   addFilter,
-  setActiveFilters
+  clearFilters,
+  addActiveFilter,
+  removeActiveFilter,
+  clearActiveFilters,
 }

@@ -42,7 +42,7 @@ class SearchBox extends React.Component {
               className="no-margin search-box-input"
               type="text"
               value={query}
-              autocomplete="off"
+              autoComplete="off"
               onChange={event => this.handleChange(event.target.value)}
             />
           <button className="button search-box-button" type="submit"><Icon name="search"/>Search</button>

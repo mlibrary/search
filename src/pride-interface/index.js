@@ -1,5 +1,6 @@
 import { Pride } from 'pride';
 import { _ } from 'underscore';
+import { browserHistory } from 'react-router';
 
 import config from './config';
 import { store } from '../store';
@@ -29,6 +30,7 @@ import {
   setSearchData,
   searching,
   clearSearch,
+  setSearchQuery
 } from '../modules/search';
 
 import {
@@ -270,46 +272,12 @@ const setupSearches = () => {
   });
 }
 
-const setupPride = () => {
-  setupSearches();
-}
-
-/*
-  Initialize Pride kicks off Pride's internal init and checks if
-  communication with the back-end (Spectrum) is established.
-*/
-const initializePride = () => {
-  Pride.init({
-    success: () => {
-      setupPride();
-      renderApp();
-    },
-    failure: () => {
-      console.log("Pride failed to load.");
-    },
-  });
-}
-
-const runSearchPride = () => {
-  const state = store.getState();
-  const query = state.search.query;
-  const page = state.search.page;
-  const facets = state.filters.active[state.datastores.active];
-  const config = {
-    field_tree: Pride.FieldTree.parseField('all_fields', query),
-    page: page,
-    facets: facets,
-  };
-
-  // Query nonsense
-  addQuery({
-    q: query,
-  })
-
-  store.dispatch(searching(true))
-  store.dispatch(loadingRecords(true))
-  searchSwitcher.set(config).run();
-}
+const getUrlParameter = (name) => {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    const results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
 
 const getDatastoreUidBySlug = (slugParam) => {
   const slugDs = _.findWhere(config.datastores.list, {slug: slugParam})
@@ -327,6 +295,72 @@ const getDatastoreSlugByUid = (uid) => {
   const ds = _.findWhere(config.datastores.list, {uid: uid});
 
   return ds.slug || ds.uid;
+}
+
+const runSearchPride = () => {
+  const state = store.getState();
+  const query = state.search.query;
+  const page = state.search.page;
+  const facets = state.filters.active[state.datastores.active];
+  const config = {
+    field_tree: Pride.FieldTree.parseField('all_fields', query),
+    page: page,
+    facets: facets,
+  };
+  const activeDatastoreUid = state.datastores.active
+
+  // redirect to the active datastore on submit
+  browserHistory.push(`/${getDatastoreSlugByUid(activeDatastoreUid)}`)
+
+  // Add search query to URL
+  addQuery({
+    q: query,
+  })
+
+  store.dispatch(searching(true))
+  store.dispatch(loadingRecords(true))
+  searchSwitcher.set(config).run();
+}
+
+const setupInitialState = () => {
+  const query = getUrlParameter('q')
+  const filters = getUrlParameter('q')
+
+  let runSearch = false
+
+  // If query in URL
+  if (query) {
+    store.dispatch(setSearchQuery(query))
+    runSearch = true
+  }
+
+  // If filters in URL
+  if (filters)
+
+  if (runSearch) {
+    runSearchPride()
+  }
+}
+
+const setupPride = () => {
+  setupSearches();
+}
+
+/*
+  Initialize Pride kicks off Pride's internal init and checks if
+  communication with the back-end (Spectrum) is established.
+*/
+const initializePride = () => {
+  Pride.init({
+    success: () => {
+      setupPride();
+      renderApp();
+      setupInitialState()
+    },
+    failure: () => {
+      console.log("Pride failed to load.");
+    },
+  });
 }
 
 const switchToDatastorePride = (slug) => {

@@ -26,7 +26,7 @@ const store = createStore(rootReducer, composeWithDevTools(
 const history = syncHistoryWithStore(browserHistory, store);
 
 store.subscribe(() => {
-  //console.log('%c store updated ', 'background: #126DC1; color: white;', store.getState())
+  //
 })
 
 export {

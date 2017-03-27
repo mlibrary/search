@@ -1,55 +1,27 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { _ } from 'underscore';
+import React from 'react'
+import { connect } from 'react-redux'
+import { _ } from 'underscore'
 import numeral from 'numeral'
 
-import { Icon } from '../../../core';
+import { Icon } from '../../../core'
+import { store } from '../../../../store'
 import {
-  addQuery,
-  removeQuery,
-} from '../../../../router';
-
-const addFiltersToURL = ({ activeFilters, activeDatastoreUid }) => {
-  const filterGroups = Object.keys(activeFilters[activeDatastoreUid]);
-
-  if (filterGroups.length > 0) {
-    const query = filterGroups.reduce((memo, key) => {
-      if (memo !== '') {
-        memo += ';'
-      }
-      return memo + `${key}:${activeFilters[activeDatastoreUid][key]}`
-    }, '')
-
-    addQuery({
-      filter: query
-    })
-  } else {
-    removeQuery('filter')
-  }
-}
+  clearActiveFilters,
+  addActiveFilter,
+  removeActiveFilter,
+} from '../../actions'
 
 class Filters extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      showGroups: [],
-      activeFilters: Object.assign({}, this.props.filters.active),
+      showGroups: []
     }
 
     // This binding is necessary to make `this` work in the callback
     this.handleRemoveFilterClick = this.handleRemoveFilterClick.bind(this)
     this.handleClearFilters = this.handleClearFilters.bind(this)
-  }
-
-  componentWillMount() {
-    //console.log('will mount, state ', this.state, this.props)
-    /*
-    this.setState({
-      showGroups: [],
-      activeFilters: Object.assign({}, this.props.filters.active)
-    }, () => console.log('after', this.state, this.props))
-    */
   }
 
   handleFilterGroupClick(filterGroup) {
@@ -66,45 +38,16 @@ class Filters extends React.Component {
     }
   }
 
-  handleAddFilterToUrl() {
-    addFiltersToURL({
-      activeDatastoreUid: this.props.activeDatastoreUid,
-      activeFilters: this.state.activeFilters,
-      state: this.state,
-    })
-  }
-
-  handleRemoveFilterClick({ activeDatastoreUid, activeFilterGroupUid }) {
-    this.setState({ // remove filter from active filters
-      ...this.state,
-      activeFilters: {
-        ...this.state.activeFilters,
-        [activeDatastoreUid]: {
-          ..._.omit(this.state.activeFilters[activeDatastoreUid], activeFilterGroupUid)
-        }
-      }
-    }, () => this.handleAddFilterToUrl())
-
-  }
-
   handleAddFilterClick({ activeDatastoreUid, group, filter }) {
-    this.setState({
-      ...this.state,
-      activeFilters: {
-        ...this.state.activeFilters,
-        [activeDatastoreUid]: {
-          ...this.state.activeFilters[activeDatastoreUid],
-          [group.uid]: filter.value,
-        }
-      }
-    }, () => this.handleAddFilterToUrl())
+    store.dispatch(addActiveFilter({ activeDatastoreUid, group, filter }))
   }
 
-  handleClearFilters() {
-    this.setState({
-      ...this.state,
-      activeFilters: {}
-    }, () => removeQuery('filter'))
+  handleRemoveFilterClick({ activeDatastoreUid, group }) {
+    store.dispatch(removeActiveFilter({ activeDatastoreUid, group }))
+  }
+
+  handleClearFilters({ activeDatastoreUid }) {
+    store.dispatch(clearActiveFilters({ activeDatastoreUid }))
   }
 
   render() {
@@ -124,7 +67,7 @@ class Filters extends React.Component {
       <div className="filters-container">
         <ActiveFilters
           activeDatastoreUid={activeDatastoreUid}
-          activeFilters={this.state.activeFilters[activeDatastoreUid]}
+          activeFilters={filters.active[activeDatastoreUid]}
           filters={filters}
           handleRemoveFilterClick={this.handleRemoveFilterClick}
           handleClearFilters={this.handleClearFilters}
@@ -135,7 +78,7 @@ class Filters extends React.Component {
             const filtersSorted = _.sortBy(filterGroup.filters, 'count').reverse().splice(0,10);
             const filterGroupUid = `${activeDatastoreUid}-${filterGroup.uid}`
             const showGroupFilters = _.contains(this.state.showGroups, (filterGroupUid))
-            const activeFilters = this.state.activeFilters[activeDatastoreUid]
+            const activeFilters = filters.active[activeDatastoreUid]
             const showGroup = (!activeFilters || (activeFilters && !activeFilters[filterGroup.uid]))
 
             if (!showGroup) {
@@ -195,6 +138,8 @@ const ActiveFilters = ({
     return null
   }
 
+  console.log('activeFilterGroups', activeFilterGroups)
+
   return (
     <div className="active-filters-container">
       <h2 className="active-filters-heading">Current Filters</h2>
@@ -211,7 +156,7 @@ const ActiveFilters = ({
               <button className="active-filter-button" onClick={
                 () => handleRemoveFilterClick({
                   activeDatastoreUid: activeDatastoreUid,
-                  activeFilterGroupUid: activeFilterGroupUid,
+                  group: activeFilterGroupUid,
                 })
               }>
                 <span className="active-filter-button-text">{filters.groups[activeFilterGroupUid].name}: {activeFilters[activeFilterGroupUid]}</span>
@@ -223,7 +168,7 @@ const ActiveFilters = ({
       </ul>
       <div className="clear-active-filters-container">
         <button className="clear-active-filters-button button-link" onClick={
-          () => handleClearFilters()
+          () => handleClearFilters({ activeDatastoreUid })
         }>Clear filters</button>
       </div>
     </div>
