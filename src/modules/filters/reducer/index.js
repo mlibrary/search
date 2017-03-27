@@ -6,6 +6,7 @@ import {
   ADD_ACTIVE_FILTER,
   REMOVE_ACTIVE_FILTER,
   CLEAR_ACTIVE_FILTERS,
+  CLEAR_ALL_FILTERS
 } from '../actions';
 
 const initialState = {
@@ -69,12 +70,11 @@ const filtersReducer = function filterReducer(state = initialState, action) {
           ...state.active,
           [action.payload.activeDatastoreUid]: {
             ...state.active[action.payload.activeDatastoreUid],
-            [action.payload.group.uid]: action.payload.filter.value
+            [action.payload.group]: action.payload.filter
           }
         },
       });
     case REMOVE_ACTIVE_FILTER:
-      console.log('REMOVE_ACTIVE_FILTER', action.payload)
       return Object.assign({}, state, {
         active: {
           ...state.active,
@@ -83,13 +83,13 @@ const filtersReducer = function filterReducer(state = initialState, action) {
           }
         },
       });
-      break;
     case CLEAR_ACTIVE_FILTERS:
-      console.log('clear active filters')
       const { activeDatastoreUid } = action.payload;
       return Object.assign({}, state, {
         active: _.omit(state.active, activeDatastoreUid)
       });
+    case CLEAR_ALL_FILTERS:
+      return initialState;
     default:
       return state;
   }

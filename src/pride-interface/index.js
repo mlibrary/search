@@ -38,8 +38,10 @@ import {
 } from '../index';
 
 import {
-  clearFilters,
   addFilter,
+  clearFilters,
+  addActiveFilter,
+  clearAllFilters,
 } from '../modules/filters';
 
 /*
@@ -297,6 +299,35 @@ const getDatastoreSlugByUid = (uid) => {
   return ds.slug || ds.uid;
 }
 
+const handleStoreToUrlSync = ({ query, filters, activeDatastoreUid }) => {
+  // Sync search box query terms to URL
+  if (query) {
+    addQuery({
+      'query': query,
+    })
+  }
+
+  // Sync active filters to URL
+  if (filters) {
+    const filterGroups = Object.keys(filters);
+
+    if (filterGroups.length > 0) {
+      const filtersQuery = filterGroups.reduce((memo, key) => {
+        if (memo !== '') {
+          memo += ';'
+        }
+        return memo + `${key}:${filters[key]}`
+      }, '')
+
+      addQuery({
+        'filter': filtersQuery
+      })
+    } else {
+      removeQuery('filter')
+    }
+  }
+}
+
 const runSearchPride = () => {
   const state = store.getState();
   const query = state.search.query;
@@ -312,9 +343,10 @@ const runSearchPride = () => {
   // redirect to the active datastore on submit
   browserHistory.push(`/${getDatastoreSlugByUid(activeDatastoreUid)}`)
 
-  // Add search query to URL
-  addQuery({
-    q: query,
+  handleStoreToUrlSync({
+    query,
+    filters: facets,
+    activeDatastoreUid: state.datastores.active
   })
 
   store.dispatch(searching(true))
@@ -323,8 +355,8 @@ const runSearchPride = () => {
 }
 
 const setupInitialState = () => {
-  const query = getUrlParameter('q')
-  const filters = getUrlParameter('q')
+  const query = getUrlParameter('query')
+  const filters = getUrlParameter('filter')
 
   let runSearch = false
 
@@ -335,7 +367,34 @@ const setupInitialState = () => {
   }
 
   // If filters in URL
-  if (filters)
+  if (filters) {
+    const filterGroups = filters.split(';');
+    const activeFilters = filterGroups.reduce((map, array) => {
+      const split = array.split(':');
+      map[split[0]] = split[1]
+      return map
+    }, {})
+
+    _.each(filterGroups, (group) => {
+      const split = group.split(':');
+
+      if (split[0] && split[1]) {
+        const activeDatastoreUid = store.getState().datastores.active
+        const group = split[0]
+        const filter = split[1]
+
+        //http://localhost:3000/articlesplus?f=language:English&q=climate+change
+
+        store.dispatch(addActiveFilter({
+          activeDatastoreUid,
+          group,
+          filter,
+        }))
+      }
+    })
+
+    console.log('activeFilters', activeFilters)
+  }
 
   if (runSearch) {
     runSearchPride()
@@ -470,11 +529,11 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
 }
 
 const clearEverything = () => {
-  removeQuery('q');
+  removeQuery('query');
   removeQuery('filter');
 
   store.dispatch(clearRecords())
-  store.dispatch(clearFilters())
+  store.dispatch(clearAllFilters())
   store.dispatch(clearSearch())
 }
 

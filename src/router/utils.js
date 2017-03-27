@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 const addQuery = (query) => {
   const location = Object.assign({}, browserHistory.getCurrentLocation());
   Object.assign(location.query, query);
+
   browserHistory.push(location);
 };
 
@@ -16,27 +17,29 @@ const getCurrentLocation = () => {
   return Object.assign({}, browserHistory.getCurrentLocation());
 }
 
+const encodeQuery = (text) => {
+  return encodeURIComponent(text).replace(/%20/g, "+").replace(/%3A/g, ":")
+}
+
 const createSearchParams = ({ query, filters }) => {
   let filterString = '';
   let queryString = '';
   let params = [];
-
-  const esc = encodeURIComponent;
 
   if (filters) {
     const filterGroups = Object.keys(filters);
 
     if (filterGroups.length > 0) {
       filterString = filterGroups
-        .map((key) => `${esc([key])}${esc(':')}${esc(filters[key])}`)
-        .join(esc(';'));
+        .map((key) => `${encodeQuery(key)}:${encodeQuery(filters[key])}`)
+        .join(';');
 
       params.push(`filter=${filterString}`)
     }
   }
 
   if (query) {
-    queryString = `q=${esc(query)}`;
+    queryString = `query=${encodeQuery(query)}`;
     params.push(queryString)
   }
 

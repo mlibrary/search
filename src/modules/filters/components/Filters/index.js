@@ -10,6 +10,7 @@ import {
   addActiveFilter,
   removeActiveFilter,
 } from '../../actions'
+import { runSearchPride } from '../../../../pride-interface';
 
 class Filters extends React.Component {
   constructor(props) {
@@ -39,15 +40,22 @@ class Filters extends React.Component {
   }
 
   handleAddFilterClick({ activeDatastoreUid, group, filter }) {
-    store.dispatch(addActiveFilter({ activeDatastoreUid, group, filter }))
+    store.dispatch(addActiveFilter({
+      activeDatastoreUid,
+      group: group.uid,
+      filter: filter.value
+    }))
+    runSearchPride()
   }
 
   handleRemoveFilterClick({ activeDatastoreUid, group }) {
     store.dispatch(removeActiveFilter({ activeDatastoreUid, group }))
+    runSearchPride()
   }
 
   handleClearFilters({ activeDatastoreUid }) {
     store.dispatch(clearActiveFilters({ activeDatastoreUid }))
+    runSearchPride()
   }
 
   render() {
@@ -137,8 +145,6 @@ const ActiveFilters = ({
   if (activeFilterGroups.length === 0) {
     return null
   }
-
-  console.log('activeFilterGroups', activeFilterGroups)
 
   return (
     <div className="active-filters-container">

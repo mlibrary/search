@@ -5,6 +5,7 @@ export const ADD_ACTIVE_FILTER = 'filters/ADD_ACTIVE_FILTER';
 export const REMOVE_ACTIVE_FILTER = 'filters/REMOVE_ACTIVE_FILTER';
 export const CLEAR_ACTIVE_FILTERS = 'filters/CLEAR_ACTIVE_FILTERS';
 
+export const CLEAR_ALL_FILTERS = 'filters/CLEAR_ALL_FILTERS'
 
 export const addFilter = function addFilter(payload) {
   return { type: ADD_FILTER, payload };
@@ -24,4 +25,8 @@ export const removeActiveFilter = function removeActiveFilter(payload) {
 
 export const clearActiveFilters = function clearActiveFilters(payload) {
   return { type: CLEAR_ACTIVE_FILTERS, payload };
+};
+
+export const clearAllFilters = function clearAllFilters(payload) {
+  return { type: CLEAR_ALL_FILTERS, payload };
 };

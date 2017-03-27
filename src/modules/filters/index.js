@@ -7,6 +7,7 @@ import {
   addActiveFilter,
   removeActiveFilter,
   clearActiveFilters,
+  clearAllFilters,
 } from './actions';
 
 export {
@@ -17,4 +18,5 @@ export {
   addActiveFilter,
   removeActiveFilter,
   clearActiveFilters,
+  clearAllFilters
 }

@@ -55,7 +55,7 @@ class FullRecord extends React.Component {
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
-          <Format record={record} />
+          <Format displayFields={displayFields} />
           <div className="record-container">
             <h1 className="full-record-title">{record.names[0]}</h1>
             <FieldList fields={displayFields} />
@@ -93,8 +93,8 @@ const SkeletonFullRecord = () => (
   </div>
 )
 
-const Format = ({ record }) => {
-  const formatFieldValue = getFieldValue(getField(record.fields, 'format'))
+const Format = ({ displayFields }) => {
+  const formatFieldValue = getFieldValue(getField(displayFields, 'format'))
 
   if (Array.isArray(formatFieldValue)) {
     return (
