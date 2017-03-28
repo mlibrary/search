@@ -305,6 +305,10 @@ const config = {
         open: true,
       },
       {
+        uid: 'available_online',
+        open: true,
+      },
+      {
         uid: 'date_of_publication'
       },
       {
@@ -324,8 +328,8 @@ const config = {
         type: 'checkbox',
         defaults: [
           {
-            uid: 'search_only',
-            value: false
+            group: 'search_only',
+            value: 'false'
           }
         ]
       }

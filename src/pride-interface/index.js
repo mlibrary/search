@@ -363,6 +363,44 @@ const runSearchPride = () => {
 }
 
 const setupInitialState = () => {
+  /*
+    Look for filter configured defaults
+  */
+
+  // Get defaults from filters config
+  const datastoreUids = Object.keys(config.filters)
+  const filterDefaults = _.reduce(datastoreUids, (previous, datastoreUid) => {
+    _.each(config.filters[datastoreUid], filterConfig => {
+      if (filterConfig.defaults) {
+        _.each(filterConfig.defaults, defaultFilter => {
+          previous.push({
+            datastoreUid,
+            group: defaultFilter.group,
+            value: defaultFilter.value,
+          })
+        })
+      }
+    })
+
+    return previous
+  }, [])
+
+  console.log('filterDefaults', filterDefaults)
+
+  // Add default filters to state
+  _.each(filterDefaults, filter => {
+    store.dispatch(addActiveFilter({
+      activeDatastoreUid: filter.datastoreUid,
+      group: filter.group,
+      filter: filter.value
+    }))
+  })
+
+
+  /*
+    Look for state in URL
+    - Search query and filters
+  */
   const query = getUrlParameter('query')
   const filters = getUrlParameter('filter')
 
@@ -400,8 +438,6 @@ const setupInitialState = () => {
         }))
       }
     })
-
-    console.log('activeFilters', activeFilters)
   }
 
   if (runSearch) {
