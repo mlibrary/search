@@ -20,11 +20,14 @@ class Filters extends React.Component {
     super(props)
 
     const { activeDatastoreUid } = this.props;
+    const filterConfigDatastoreUids = Object.keys(config.filters)
 
-    const defaultShowGroups = _.reduce(config.filters[activeDatastoreUid], (previous, group) => {
-      if (group.open) {
-        previous = previous.concat(`${activeDatastoreUid}-${group.uid}`)
-      }
+    const defaultShowGroups = _.reduce(filterConfigDatastoreUids, (previous, datastoreUid) => {
+      _.each(config.filters[datastoreUid], group => {
+        if (group.open) {
+          previous = previous.concat(`${datastoreUid}-${group.uid}`)
+        }
+      })
 
       return previous
     }, [])
@@ -107,7 +110,7 @@ class Filters extends React.Component {
         <h2 className="filters-heading">Filter your search</h2>
         <ul className="filter-group-list">
           {_.map(displayFilterGroups, filterGroup => {
-            const filtersSorted = _.sortBy(filterGroup.filters, 'count').reverse().splice(0,10);
+            const filtersSorted = _.sortBy(filterGroup.filters, 'count').reverse().splice(0,9);
             const filterGroupUid = `${activeDatastoreUid}-${filterGroup.uid}`
             const showGroupFilters = _.contains(this.state.showGroups, (filterGroupUid))
             const activeFilters = filters.active[activeDatastoreUid]

@@ -322,13 +322,54 @@ const config = {
       {
         uid: 'search_only',
         type: 'checkbox',
-        default: [
+        defaults: [
           {
             uid: 'search_only',
             value: false
           }
         ]
       }
+    ],
+    'articlesplus': [
+      {
+        uid: 'subject',
+        open: true,
+      },
+      {
+        uid: 'format',
+        open: true,
+      },
+      {
+        uid: 'language',
+        open: true,
+      },
+      {
+        uid: 'fulltext'
+      },
+    ],
+    'databases': [
+      {
+        uid: 'database_type',
+        open: true,
+      },
+      {
+        uid: 'academic_discipline',
+        open: true,
+      },
+      {
+        uid: 'new',
+        open: true,
+      },
+    ],
+    'website': [
+      {
+        uid: 'author',
+        open: true,
+      },
+      {
+        uid: 'academic_discipline',
+        open: true,
+      },
     ]
   }
 };
