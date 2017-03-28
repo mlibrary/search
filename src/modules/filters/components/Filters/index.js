@@ -10,14 +10,27 @@ import {
   addActiveFilter,
   removeActiveFilter,
 } from '../../actions'
-import { runSearchPride } from '../../../../pride-interface';
+import {
+  runSearchPride,
+  config
+} from '../../../../pride-interface';
 
 class Filters extends React.Component {
   constructor(props) {
     super(props)
 
+    const { activeDatastoreUid } = this.props;
+
+    const defaultShowGroups = _.reduce(config.filters[activeDatastoreUid], (previous, group) => {
+      if (group.open) {
+        previous = previous.concat(`${activeDatastoreUid}-${group.uid}`)
+      }
+
+      return previous
+    }, [])
+
     this.state = {
-      showGroups: []
+      showGroups: defaultShowGroups
     }
 
     // This binding is necessary to make `this` work in the callback
@@ -69,10 +82,21 @@ class Filters extends React.Component {
       )
     }
 
+    const filterGroupsOrdered = _.map(config.filters[activeDatastoreUid], filterGroup => filterGroup.uid)
+    const displayFilterGroups = _.reduce(filterGroupsOrdered, (previous, filterGroupUid) => {
+      if (filters.groups[filterGroupUid]) {
+        previous = previous.concat(filters.groups[filterGroupUid])
+      }
+
+      return previous
+    }, [])
+
+    // Useful code snippet for displaying component state
     //<pre>{JSON.stringify(this.state, null, 2)}</pre>
 
     return (
       <div className="filters-container">
+
         <ActiveFilters
           activeDatastoreUid={activeDatastoreUid}
           activeFilters={filters.active[activeDatastoreUid]}
@@ -82,7 +106,7 @@ class Filters extends React.Component {
         />
         <h2 className="filters-heading">Filter your search</h2>
         <ul className="filter-group-list">
-          {_.map(filters.groups, filterGroup => {
+          {_.map(displayFilterGroups, filterGroup => {
             const filtersSorted = _.sortBy(filterGroup.filters, 'count').reverse().splice(0,10);
             const filterGroupUid = `${activeDatastoreUid}-${filterGroup.uid}`
             const showGroupFilters = _.contains(this.state.showGroups, (filterGroupUid))

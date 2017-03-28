@@ -289,7 +289,48 @@ const config = {
         link: 'access_url'
       }
     },
-  ]
+  ],
+  filters: {
+    'mirlyn': [
+      {
+        uid: 'subject',
+        open: true,
+      },
+      {
+        uid: 'academic_discipline',
+        open: true,
+      },
+      {
+        uid: 'format',
+        open: true,
+      },
+      {
+        uid: 'date_of_publication'
+      },
+      {
+        uid: 'place_of_publication'
+      },
+      {
+        uid: 'region'
+      },
+      {
+        uid: 'location'
+      },
+      {
+        uid: 'author'
+      },
+      {
+        uid: 'search_only',
+        type: 'checkbox',
+        default: [
+          {
+            uid: 'search_only',
+            value: false
+          }
+        ]
+      }
+    ]
+  }
 };
 
 export default config;

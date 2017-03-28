@@ -77,7 +77,7 @@ html {
   Site
 */
 body {
-  line-height: 1.7;
+  line-height: 1.5;
   font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   color: #333; }
@@ -415,7 +415,7 @@ nav {
 
 .site-header-container {
   padding: 0 1rem; }
-  @media (min-width: 48rem) {
+  @media (min-width: 47rem) {
     .site-header-container {
       display: flex;
       justify-content: space-between;
@@ -463,7 +463,7 @@ nav {
   .logo-library a {
     color: rgba(255, 255, 255, 0.5); }
 
-@media (max-width: 48rem) {
+@media (max-width: 47rem) {
   .logo-item-list li,
   .logo-link {
     height: 1.8rem; }
@@ -480,7 +480,7 @@ nav {
   margin: 0;
   padding: 0;
   list-style: none; }
-  @media (max-width: 48rem) {
+  @media (max-width: 47rem) {
     .site-header-list {
       margin-top: 1rem;
       display: block; } }
@@ -489,7 +489,7 @@ nav {
     margin: 0;
     padding: 0;
     margin-left: 1rem; }
-    @media (max-width: 48rem) {
+    @media (max-width: 47rem) {
       .site-header-list li {
         display: block;
         margin-left: 0; } }
@@ -653,7 +653,7 @@ input.search-box-input {
   background: white;
   background: #FAFAFA;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
-  @media (min-width: 48rem) {
+  @media (min-width: 47rem) {
     .results-summary-container {
       display: flex;
       justify-content: space-between; } }
@@ -670,7 +670,7 @@ input.search-box-input {
       padding: 1rem 2rem; } }
   .pagination-container .results-summary {
     padding: 0 1rem; }
-    @media (max-width: 48rem) {
+    @media (max-width: 47rem) {
       .pagination-container .results-summary {
         padding: 0;
         display: block;
@@ -818,14 +818,14 @@ body {
 
 .flex-container {
   display: block; }
-  @media (min-width: 48rem) {
+  @media (min-width: 47rem) {
     .flex-container {
       display: flex; } }
 
 .side-container {
   width: 100%;
   margin-right: 1rem; }
-  @media (min-width: 48rem) {
+  @media (min-width: 47rem) {
     .side-container {
       width: 28rem; } }
 
@@ -852,7 +852,7 @@ body {
 
 .record-title {
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   text-decoration: none;
   margin: 0; }
 
@@ -865,7 +865,7 @@ body {
   margin-top: 1rem; }
   .record-field-list .record-field:not(:last-child) {
     margin-bottom: 0.5rem; }
-  @media (min-width: 48rem) {
+  @media (min-width: 47rem) {
     .record-field-list {
       display: table;
       width: 100%; }
@@ -903,7 +903,7 @@ body {
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04); }
   .full-record-container .record-field-list {
     margin-bottom: 2rem; }
-  @media (min-width: 48rem) {
+  @media (min-width: 47rem) {
     .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
       padding: 0.5rem 1rem; }
     .full-record-container .record-field-list .record-field:nth-child(even) {
@@ -940,7 +940,7 @@ body {
 .record-field-uid-format .record-field-value-item {
   margin-right: 1rem; }
 
-@media (min-width: 48rem) {
+@media (min-width: 47rem) {
   .record-field-uid-format .record-field-name {
     padding-bottom: 0.5rem;
     margin-right: 0.5rem; } }
@@ -957,7 +957,7 @@ body {
   flex-wrap: wrap;
   list-style: none;
   margin: 0; }
-  @media (min-width: 48rem) {
+  @media (min-width: 47rem) {
     .bentobox-list {
       margin-right: -1rem; } }
 
@@ -995,7 +995,7 @@ body {
   margin-right: 0.5rem;
   line-height: 1.5; }
 
-@media (min-width: 48rem) {
+@media (min-width: 47rem) {
   .bentobox {
     width: calc(100% * (1/2) - 1rem);
     margin-right: 1rem; } }
@@ -1070,7 +1070,7 @@ body {
   padding-bottom: 0.5rem;
   border-bottom: solid 2px #E5E5E5; }
 
-@media (min-width: 48rem) {
+@media (min-width: 47rem) {
   .full-holding-item {
     display: flex; } }
 
@@ -1088,11 +1088,11 @@ body {
   padding-bottom: 1rem;
   border-bottom: solid 1px #E5E5E5; }
 
-@media (min-width: 48rem) {
+@media (min-width: 47rem) {
   .full-holding-item-detail:not(:last-child) {
     margin-right: 2rem; } }
 
-@media (max-width: 48rem) {
+@media (max-width: 47rem) {
   .full-holding-item-detail {
     margin-bottom: 0.5rem; } }
 

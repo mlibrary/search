@@ -160,16 +160,24 @@ const setupObservers = (searchObj) => {
     if (activeDatastore === searchObj.uid) {
       store.dispatch(clearFilters())
       filterGroups.forEach(filterGroup => {
-        filterGroup.resultsObservers.add(filters => {
-          filters.forEach(filter => {
-            store.dispatch(addFilter(Object.assign({}, filter, {
-              metadata: filterGroup.getData('metadata')
-            }))) // Look at all these )s
+
+        // Does the filter configuration request that this
+        // filter group be used and displayed.
+        if (_.findWhere(config.filters[searchObj.uid], { uid: filterGroup.uid })) {
+
+          filterGroup.resultsObservers.add(filters => {
+            filters.forEach(filter => {
+              const metadata = filterGroup.getData('metadata')
+
+              store.dispatch(addFilter(Object.assign({}, filter, {
+                metadata: metadata
+              }))) // Look at all these )s
+            })
           })
-        })
-      })
-    }
-  })
+        } // end of config filter group check
+      }) // end of for each filterGroup
+    } // end of only listen to filter groups from active datastore
+  }) // end of facet observer
 }
 
 const getDatastoreName = (uid) => {
