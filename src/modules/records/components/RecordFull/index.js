@@ -162,12 +162,12 @@ class HoldingsGroup extends React.Component {
             </ul>
             {displayShowMore && (
               <button
-                className={`button button-light ${showAll ? 'hide' : ''}`}
+                className={`button-link-light ${showAll ? 'hide' : ''}`}
                 onClick={() => this.handleShowMoreClick(group.uid)}
               >Show { group.holdings.length - 1 } more</button>
             )}
             {showAll && (
-              <button className="button button-light" onClick={() => this.handleShowMoreClick(group.uid)}>Show fewer</button>
+              <button className="button-link-light" onClick={() => this.handleShowMoreClick(group.uid)}>Show fewer</button>
             )}
           </div>
         )
@@ -184,12 +184,12 @@ class HoldingsGroup extends React.Component {
             </ul>
             {displayShowMore && (
               <button
-                className={`button button-light ${showAll ? 'hide' : ''}`}
+                className={`button-link-light ${showAll ? 'hide' : ''}`}
                 onClick={() => this.handleShowMoreClick(group.uid)}
               >Show { group.holdings.length - 1 } more</button>
             )}
             {showAll && (
-              <button className="button button-light" onClick={() => this.handleShowMoreClick(group.uid)}>Show fewer</button>
+              <button className="button-link-light" onClick={() => this.handleShowMoreClick(group.uid)}>Show fewer</button>
             )}
           </div>
         )

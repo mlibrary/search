@@ -13,6 +13,7 @@
   border-bottom: 3px solid $main-2;
   cursor: pointer;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .button:active {
@@ -66,4 +67,20 @@
   padding: 0;
   cursor: pointer;
   border-radius: 0;
+}
+
+.button-link-light {
+  background: none;
+  border: none;
+  padding: 0;
+  color: $grey-2;
+  font-size: 0.9rem;
+
+  border: solid 2px $grey-4;
+  border-radius: 4px;
+  padding: 0.5rem 0.8rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 }

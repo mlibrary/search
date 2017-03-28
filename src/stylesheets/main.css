@@ -273,7 +273,8 @@ textarea {
   border-radius: 4px;
   border-bottom: 3px solid #0C5292;
   cursor: pointer;
-  text-decoration: none; }
+  text-decoration: none;
+  font-weight: 600; }
 
 .button:active {
   color: #FAFAFA;
@@ -319,6 +320,18 @@ textarea {
   padding: 0;
   cursor: pointer;
   border-radius: 0; }
+
+.button-link-light {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #4E4E4E;
+  font-size: 0.9rem;
+  border: solid 2px #CCC;
+  border-radius: 4px;
+  padding: 0.5rem 0.8rem; }
+  .button-link-light:hover {
+    cursor: pointer; }
 
 nav {
   display: inline-block; }
