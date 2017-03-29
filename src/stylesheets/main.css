@@ -1280,7 +1280,7 @@ body {
 
 .show-all-button {
   white-space: nowrap;
-  margin-left: 2rem; }
+  margin-left: 1rem; }
 
 .show-all-able-list li:not(:first-child) {
   display: none; }
