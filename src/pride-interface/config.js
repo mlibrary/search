@@ -350,6 +350,15 @@ const config = {
       {
         uid: 'fulltext'
       },
+      {
+        uid: 'holdings_only',
+        defaults: [
+          {
+            group: 'holdings_only',
+            value: 'true'
+          }
+        ]
+      }
     ],
     'databases': [
       {
