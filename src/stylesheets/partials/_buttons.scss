@@ -13,7 +13,6 @@
   border-bottom: 3px solid $main-2;
   cursor: pointer;
   text-decoration: none;
-  font-weight: 600;
 }
 
 .button:active {
@@ -25,6 +24,20 @@
 .button:active,
 .button:hover {
   text-decoration: none;
+}
+
+.button-secondary {
+  display: inline-block;
+  margin: 0;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba($main-3,0.4);
+  background: $main-5;
+  border-radius: 4px;
+  color: $main-3;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .button-disabled:hover,
@@ -73,14 +86,21 @@
   background: none;
   border: none;
   padding: 0;
-  color: $grey-2;
-  font-size: 0.9rem;
+  color: $grey-3;
 
-  border: solid 2px $grey-4;
-  border-radius: 4px;
-  padding: 0.5rem 0.8rem;
+  border-bottom: solid 1px $grey-4;
 
   &:hover {
+    color: $grey-2;
     cursor: pointer;
   }
+}
+
+.button-small {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+}
+
+.button-link-small {
+  font-size: 0.8rem;
 }

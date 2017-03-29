@@ -65,7 +65,6 @@ const filtersReducer = function filterReducer(state = initialState, action) {
         groups: {}
       })
     case ADD_ACTIVE_FILTER:
-      console.log('action.payload', action.payload)
       return Object.assign({}, state, {
         active: {
           ...state.active,

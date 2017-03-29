@@ -9,9 +9,9 @@ const Pagination = ({
   return (
     <div className="pagination-container">
       <span>
-        <button className="button button-light button-small" onClick={handlePreviousPage}>Previous Page</button>
+        <button className="button-secondary" onClick={handlePreviousPage}>Previous Page</button>
           <ResultsSummary />
-        <button className="button button-light button-small" onClick={handleNextPage}>Next Page</button>
+        <button className="button-secondary" onClick={handleNextPage}>Next Page</button>
       </span>
     </div>
   )

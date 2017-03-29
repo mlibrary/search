@@ -25,7 +25,7 @@
 .filters-heading,
 .no-filters-available,
 .active-filters-container {
-  line-height: 1.7;
+  line-height: 1.5;
   margin: 0;
   padding: 0;
   background: $grey-6;
@@ -38,6 +38,7 @@
 }
 
 .active-filters-container {
+  border-radius: 4px 4px 0 0;
   @include box-shadow();
 }
 
@@ -47,6 +48,10 @@
 .filter-list,
 .active-filters-heading{
   padding: 1rem;
+}
+
+.no-filters-available {
+  border-radius: 4px 4px 0 0;
 }
 
 .filter-group-toggle-show-button {

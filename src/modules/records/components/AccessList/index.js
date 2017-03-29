@@ -2,8 +2,9 @@ import React from 'react'
 
 class AccessList extends React.Component {
   render() {
+
     return (
-      <ul className="access-list">
+      <ul className={`access-list ${this.props.addClassName}`}>
         {this.props.children}
       </ul>
     )

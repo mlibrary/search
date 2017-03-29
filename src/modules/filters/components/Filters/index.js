@@ -18,10 +18,7 @@ import {
 class Filters extends React.Component {
   constructor(props) {
     super(props)
-
-    const { activeDatastoreUid } = this.props;
     const filterConfigDatastoreUids = Object.keys(config.filters)
-
     const defaultShowGroups = _.reduce(filterConfigDatastoreUids, (previous, datastoreUid) => {
       _.each(config.filters[datastoreUid], group => {
         if (group.open) {

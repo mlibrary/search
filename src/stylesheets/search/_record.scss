@@ -87,6 +87,7 @@
   margin-bottom: 3rem;
   background: white;
   border-bottom: solid 2px $grey-5;
+  border-radius: 4px;
   @include box-shadow();
 
   .record-field-list {

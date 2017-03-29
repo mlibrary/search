@@ -385,8 +385,6 @@ const setupInitialState = () => {
     return previous
   }, [])
 
-  console.log('filterDefaults', filterDefaults)
-
   // Add default filters to state
   _.each(filterDefaults, filter => {
     store.dispatch(addActiveFilter({
@@ -415,12 +413,7 @@ const setupInitialState = () => {
   // If filters in URL
   if (filters) {
     const filterGroups = filters.split(';');
-    const activeFilters = filterGroups.reduce((map, array) => {
-      const split = array.split(':');
-      map[split[0]] = split[1]
-      return map
-    }, {})
-
+    
     _.each(filterGroups, (group) => {
       const split = group.split(':');
 
