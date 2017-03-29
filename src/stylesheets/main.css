@@ -1261,19 +1261,21 @@ body {
 .access-link {
   margin-right: 1rem; }
 
-.access-type-container {
+.access-list-container {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 1rem; }
 
-.access-container .access-type-container:not(:last-child) {
+.access-container .access-list-container:not(:last-child) {
   margin-bottom: 1rem;
   border-bottom: solid 1px #E5E5E5; }
 
-.holdings-container .access-type-container:last-child {
+.access-list-container:last-child {
   margin-bottom: 0; }
-  .holdings-container .access-type-container:last-child .access-item:last-child {
+  .access-list-container:last-child .access-list:not(.show-all) .access-item {
+    margin-bottom: 0; }
+  .access-list-container:last-child .access-item:last-child {
     margin-bottom: 0; }
 
 .show-all-button {

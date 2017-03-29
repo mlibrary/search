@@ -60,7 +60,7 @@ class Record extends React.Component {
           ) : (
             <div className="access-container">
               {access && (
-                <AccessList>
+                <AccessList length={access.length}>
                   {access.map((item, index) => (
                     <AccessItem key={index} {...item} />
                   ))}
@@ -87,55 +87,25 @@ class Record extends React.Component {
 }
 
 class HoldingsList extends React.Component {
-  state = {
-    show: false
-  }
-
-  handleShowToggleClick() {
-    this.setState({
-      show: !this.state.show
-    })
-  }
-
   render() {
     const { holdingsGroup } = this.props;
 
     return (
-      <div className="access-type-container">
-        <AccessList addClassName={`show-all-able-list ${this.state.show ? 'show-all' : ''}`}>
-          {holdingsGroup.holdings.map((holding, index) => (
-            <li className="access-item" key={index}>
-              <span className="holding-detail
-                 holding-detail-label">{holding.label}</span>
-              <a href={holding.link} className="underline access-link">{holding.linkText}</a>
-              <HoldingStatus status={holding.status} />
-              <span className="holding-detail holding-detail-location">{holding.location}</span>
-              <span className="holding-detail">{holding.callnumber}</span>
-              <span className="holding-detail">{holding.source}</span>
-            </li>
-          ))}
-        </AccessList>
-
-        {holdingsGroup.holdings.length > 1 && (
-          <ShowHideButton
-            show={this.state.show}
-            length={holdingsGroup.holdings.length}
-            handleOnClick={this.handleShowToggleClick.bind(this)}
-          />
-        )}
-      </div>
+      <AccessList length={holdingsGroup.holdings.length}>
+        {holdingsGroup.holdings.map((holding, index) => (
+          <li className="access-item" key={index}>
+            <span className="holding-detail
+               holding-detail-label">{holding.label}</span>
+            <a href={holding.link} className="underline access-link">{holding.linkText}</a>
+            <HoldingStatus status={holding.status} />
+            <span className="holding-detail holding-detail-location">{holding.location}</span>
+            <span className="holding-detail">{holding.callnumber}</span>
+            <span className="holding-detail">{holding.source}</span>
+          </li>
+        ))}
+      </AccessList>
     )
   }
-}
-
-const ShowHideButton = ({ handleOnClick, show, length}) => {
-  return (
-    <button
-      onClick={() => handleOnClick()}
-      className="button-secondary button-small show-all-button">
-      {show ? 'Fewer' : `${length - 1} More`}
-    </button>
-  )
 }
 
 export default Record;
