@@ -61,10 +61,10 @@ html {
   padding: 0 1rem; }
 
 .container-narrow {
-  max-width: 57.5rem; }
+  max-width: 51rem; }
 
 .container-medium {
-  max-width: 76rem; }
+  max-width: 80rem; }
 
 .container-fluid {
   padding: 0 1rem; }
@@ -853,7 +853,7 @@ body {
   margin-right: 1rem; }
   @media (min-width: 47rem) {
     .side-container {
-      width: 28rem; } }
+      width: 24rem; } }
 
 .main-container {
   width: 100%; }
@@ -1121,7 +1121,7 @@ body {
 
 @media (min-width: 47rem) {
   .full-holding-item-detail:not(:last-child) {
-    margin-right: 2rem; } }
+    margin-right: 1rem; } }
 
 @media (max-width: 47rem) {
   .full-holding-item-detail {
@@ -1259,22 +1259,27 @@ body {
   list-style: none;
   display: block; }
 
-@media (min-width: 32rem) {
-  .access-link {
-    white-space: nowrap; } }
+.access-link {
+  /*
+  @media (min-width: $breakpoint-1) {
+    white-space: nowrap;
+  }
+  */ }
 
 .access-item {
   display: block;
+  /*
+  @media (min-width: $breakpoint-2) {
+    display: flex;
+    align-items: flex-start;
+  }
+  */
   padding: 0;
   margin: 0;
   margin-bottom: 1rem; }
-  @media (min-width: 47rem) {
-    .access-item {
-      display: flex;
-      align-items: flex-start; } }
 
 .access-detail {
-  margin-right: 1rem; }
+  margin-right: 1.5rem; }
   .access-detail:empty {
     display: none; }
 
