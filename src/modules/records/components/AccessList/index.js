@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'underscore'
 
 class AccessList extends React.Component {
   state = {
@@ -32,11 +33,25 @@ class AccessList extends React.Component {
   }
 }
 
-const AccessItem = ({ link, linkText, status, type }) => (
-  <li className="access-item">
-    <a href={link} className={type === 'full' ? 'button' : 'underline'}>{linkText}</a> {status}
-  </li>
-)
+const AccessItem = ({ type, item }) => {
+  const isFull = (type === 'full')
+
+  return (
+    <li className={`access-item ${isFull ? 'access-item-full' : ''}`}>
+      {_.map(item, (field, index) => {
+        if (field.isLink) {
+          return (
+            <a href={field.value} key={index} className={`access-detail access-link ${isFull ? 'button' : 'underline'}`}>{field.label}</a>
+          )
+        }
+
+        return (
+          <span key={index} className="access-detail">{field.value}</span>
+        )
+      })}
+    </li>
+  )
+}
 
 const SkeletonHoldingItem = () => (
   <li className="access-item">

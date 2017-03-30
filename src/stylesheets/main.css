@@ -1003,6 +1003,8 @@ body {
     padding: 1rem 1.5rem; }
   .bentobox .record-title {
     font-size: 1.1rem; }
+  .bentobox .access-item {
+    display: block; }
 
 .bentobox-heading-container {
   display: flex;
@@ -1241,7 +1243,7 @@ body {
 
 .access-container {
   background: #FAFAFA;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   margin-top: -0.5rem;
   align-items: center;
   border-top: solid 1px #F2F2F2; }
@@ -1257,21 +1259,29 @@ body {
   list-style: none;
   display: block; }
 
+@media (min-width: 32rem) {
+  .access-link {
+    white-space: nowrap; } }
+
 .access-item {
+  display: block;
   padding: 0;
-  margin: 0; }
-
-.access-item {
+  margin: 0;
   margin-bottom: 1rem; }
+  @media (min-width: 47rem) {
+    .access-item {
+      display: flex;
+      align-items: flex-start; } }
 
-.access-link {
+.access-detail {
   margin-right: 1rem; }
+  .access-detail:empty {
+    display: none; }
 
 .access-list-container {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 1rem; }
+  justify-content: space-between; }
 
 .access-container .access-list-container:not(:last-child) {
   margin-bottom: 1rem;
@@ -1288,11 +1298,8 @@ body {
   white-space: nowrap;
   margin-left: 1rem; }
 
-.show-all-able-list li:not(:first-child) {
+.show-all-able-list:not(.show-all) li:not(:first-child) {
   display: none; }
-
-.show-all-able-list.show-all li {
-  display: block; }
 
 .u-break-word {
   word-wrap: break-word; }

@@ -59,10 +59,10 @@ class Record extends React.Component {
             </div>
           ) : (
             <div className="access-container">
-              {access && (
+              {access.length > 0 && (
                 <AccessList length={access.length}>
                   {access.map((item, index) => (
-                    <AccessItem key={index} {...item} />
+                    <AccessItem key={index} item={item} />
                   ))}
                 </AccessList>
               )}
@@ -94,13 +94,13 @@ class HoldingsList extends React.Component {
       <AccessList length={holdingsGroup.holdings.length}>
         {holdingsGroup.holdings.map((holding, index) => (
           <li className="access-item" key={index}>
-            <span className="holding-detail
+            <span className="access-detail
                holding-detail-label">{holding.label}</span>
-            <a href={holding.link} className="underline access-link">{holding.linkText}</a>
+             <a href={holding.link} className="underline access-detail">{holding.linkText}</a>
             <HoldingStatus status={holding.status} />
-            <span className="holding-detail holding-detail-location">{holding.location}</span>
-            <span className="holding-detail">{holding.callnumber}</span>
-            <span className="holding-detail">{holding.source}</span>
+            <span className="access-detail holding-detail-location">{holding.location}</span>
+            <span className="access-detail">{holding.callnumber}</span>
+            <span className="access-detail">{holding.source}</span>
           </li>
         ))}
       </AccessList>

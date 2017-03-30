@@ -1,9 +1,5 @@
-.show-all-able-list {
+.show-all-able-list:not(.show-all) {
   li:not(:first-child) {
     display: none;
-  }
-
-  &.show-all li {
-    display: block;
   }
 }

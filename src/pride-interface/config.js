@@ -241,26 +241,31 @@ const config = {
       ],
       medium: [
         'format',
-        'access_coverage',
         'issn',
-        'coverage',
         'academic_disciplines',
         'holdings',
       ],
       full: [
         'format',
-        'access_coverage',
         'issn',
         'access',
-        'coverage',
         'academic_disciplines',
         'holdings',
         'alt_title',
       ],
       access: {
-        defaultAccessText: 'Go To Online Journal',
-        link: 'access_url',
-        status: 'coverage',
+        uid: 'links',
+        fields: [
+          {
+            uid: '856u',
+            label: 'Go To Online Journal',
+            isLink: true,
+          },
+          {
+            uid: '856z',
+            label: 'Coverage',
+          }
+        ]
       },
     },
     {

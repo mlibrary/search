@@ -48,23 +48,86 @@ const filterDisplayFields = ({ fields, type, datastore }) => {
 }
 
 const filterAccessFields = ({ fields, type, datastore, holdings }) => {
+
+  // Lookup to see if access fields have a configuration that access
+  // is from the metadata (Solr), not a secondary request from holdings.
   const accessConfig = _.findWhere(config.fields, { datastore: datastore })
   if (!accessConfig || !accessConfig.access || accessConfig.access.fromHoldings) {
-    return undefined;
+    return [];
   };
 
-  const accessField = _.findWhere(fields, { uid: accessConfig.access.link })
-  if (accessField) {
-    return _.reduce([].concat(accessField.value), (memo, url) => {
-      return memo.concat({
-        link: url,
-        linkText: accessConfig.access.defaultAccessText,
-        status: status || undefined,
-      })
+  // TODO: this is temporay to handle current structure
+  // and root link property means a simple single access
+  if (accessConfig.access.link) {
+    const linkField = _.findWhere(fields, { uid: accessConfig.access.link })
+
+    return [
+      [
+        {
+          isLink: true,
+          value: linkField.value,
+          label: accessConfig.access.defaultAccessText
+        }
+      ]
+    ]
+  }
+
+  // Lookup the field on the record that has the access metadata
+  const accessField = _.findWhere(fields, { uid: accessConfig.access.uid })
+
+  // If it exists, proceed, otherwise return empty array (no access options).
+  if (accessField && accessField.value) {
+
+    // Iterate over each access metadata object found in the field's value
+    return _.reduce(accessField.value, (previous, accessItems) => {
+
+      // Each access item will be an array of objects with the following shape.
+      /*
+        // For example:
+        [
+          {
+            name: 'Go To Database',
+            value: 'http...',
+            isLink: true,
+          },
+          {
+            name: 'Coverage',
+            value: '2010- ...',
+          }
+        ]
+      */
+
+      // Matchup the fields raw values to the configuration
+      const forDisplayAccessItem = _.reduce(accessConfig.access.fields, (memo, configField) => {
+        const accessItem = _.findWhere(accessItems, { uid: configField.uid });
+
+        if (accessItem) {
+          const label = configField.label || accessItem.name
+          const value = accessItem.value
+          const isLink = configField.isLink || false
+
+          // Probably unnecessary, but just to make sure check to see if
+          // these required fields exists on the metadata
+          if (label && value) {
+            memo = memo.concat({
+              label: label,
+              value: value,
+              isLink: isLink,
+            })
+          }
+        }
+
+        // Return display access item
+        return memo
+      }, [])
+
+      previous.push(forDisplayAccessItem)
+
+      return previous
     }, [])
   }
 
-  return undefined
+  return []
 }
 
 const displayLoadingFeedback = (datastoreUid) => {

@@ -60,10 +60,10 @@ class FullRecord extends React.Component {
             <h1 className="full-record-title">{record.names[0]}</h1>
             <FieldList fields={displayFields} />
 
-            {access && (
-              <AccessList>
+            {access.length > 0 && (
+              <AccessList length={access.length}>
                 {access.map((item, key) => (
-                  <AccessItem key={key} type='full' {...item} />
+                  <AccessItem key={key} type='full' item={item} />
                 ))}
               </AccessList>
             )}
