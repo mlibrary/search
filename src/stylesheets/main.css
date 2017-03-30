@@ -966,7 +966,8 @@ body {
     fill: #6E6E6E; }
 
 .record-field-uid-format .record-field-value-item {
-  margin-right: 1rem; }
+  margin-right: 1rem;
+  font-weight: 600; }
 
 @media (min-width: 47rem) {
   .record-field-uid-format .record-field-name {
@@ -1213,7 +1214,7 @@ body {
   border-radius: 4px;
   justify-content: space-between; }
   .datastore-info-container p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     margin: 0;
     line-height: 1.7;
     color: #4E4E4E; }

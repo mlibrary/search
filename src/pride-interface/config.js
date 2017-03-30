@@ -192,16 +192,16 @@ const config = {
       preview: [
         'format',
         'brief_description',
-        'access_icon',
+        'coverage',
       ],
       medium: [
         'format',
         'brief_description',
         'database_type',
-        'access_icon',
         'new',
         'trial',
-        'outage'
+        'outage',
+        'coverage'
       ],
       full: [
         'format',
