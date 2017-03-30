@@ -273,7 +273,8 @@ textarea {
   border-radius: 4px;
   border-bottom: 3px solid #0C5292;
   cursor: pointer;
-  text-decoration: none; }
+  text-decoration: none;
+  line-height: inherit; }
 
 .button:active {
   color: #FAFAFA;
@@ -291,7 +292,8 @@ textarea {
   border: 1px solid rgba(18, 109, 193, 0.4);
   background: #E6F3FF;
   border-radius: 4px;
-  color: #126DC1; }
+  color: #126DC1;
+  line-height: inherit; }
   .button-secondary:hover {
     cursor: pointer; }
 
@@ -329,13 +331,16 @@ textarea {
   font-size: 1rem;
   padding: 0;
   cursor: pointer;
-  border-radius: 0; }
+  border-radius: 0;
+  line-height: inherit;
+  line-height: inherit; }
 
 .button-link-light {
   background: none;
   border: none;
   padding: 0;
   color: #6E6E6E;
+  line-height: inherit;
   border-bottom: solid 1px #CCC; }
   .button-link-light:hover {
     color: #4E4E4E;
@@ -936,7 +941,8 @@ body {
 .full-record-header {
   background: #E6F3FF;
   padding: 1rem 2rem;
-  min-height: 3.68rem; }
+  min-height: 3.68rem;
+  border-radius: 4px 4px 0 0; }
   .full-record-header p {
     margin: 0;
     color: #126DC1; }
@@ -1091,7 +1097,7 @@ body {
 .full-holding-group-heading {
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: solid 2px #6E6E6E; }
+  border-bottom: solid 2px #CCC; }
 
 @media (min-width: 47rem) {
   .full-holding-item {

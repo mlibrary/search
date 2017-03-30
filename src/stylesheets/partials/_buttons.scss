@@ -13,6 +13,7 @@
   border-bottom: 3px solid $main-2;
   cursor: pointer;
   text-decoration: none;
+  line-height: inherit;
 }
 
 .button:active {
@@ -34,6 +35,7 @@
   background: $main-5;
   border-radius: 4px;
   color: $main-3;
+  line-height: inherit;
 
   &:hover {
     cursor: pointer;
@@ -80,6 +82,8 @@
   padding: 0;
   cursor: pointer;
   border-radius: 0;
+  line-height: inherit;
+  line-height: inherit;
 }
 
 .button-link-light {
@@ -87,6 +91,7 @@
   border: none;
   padding: 0;
   color: $grey-3;
+  line-height: inherit;
 
   border-bottom: solid 1px $grey-4;
 
