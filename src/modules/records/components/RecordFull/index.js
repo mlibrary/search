@@ -265,10 +265,16 @@ const OnlineHolding = ({ holding }) => (
     {holding.link && (
       <div className="full-holding-item-detail">
         <dt>
-
+          {holding.linkStyle === 'link' && (
+            'Actions'
+          )}
         </dt>
         <dd>
-          <a href={holding.link} className="button">{holding.linkText}</a>
+          {holding.linkStyle === 'link' ? (
+            <a href={holding.link} className="underline">{holding.linkText}</a>
+          ) : (
+            <a href={holding.link} className="button">{holding.linkText}</a>
+          )}
         </dd>
       </div>
     )}

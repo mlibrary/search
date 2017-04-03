@@ -310,8 +310,11 @@ const config = {
         open: true,
       },
       {
-        uid: 'available_online',
+        uid: 'language',
         open: true,
+      },
+      {
+        uid: 'available_online',
       },
       {
         uid: 'date_of_publication'
@@ -389,7 +392,25 @@ const config = {
         open: true,
       },
     ]
-  }
+  },
+  holdingRewrites: [
+    {
+      match: {
+        uid: 'status',
+        value: 'Search only (no full text)'
+      },
+      replace: [
+        {
+          uid: 'linkText',
+          value: 'Search for keyword frequency'
+        },
+        {
+          uid: 'linkStyle',
+          value: 'link'
+        }
+      ]
+    }
+  ]
 };
 
 export default config;

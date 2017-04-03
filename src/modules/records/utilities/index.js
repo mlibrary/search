@@ -170,7 +170,7 @@ const getHoldings = ({ holdings, datastoreUid }) => {
       uid: holdingConfig.uid,
       name: holdingConfig.heading,
       holdings: _.map(holdings[holdingConfig.uid], (holding) => {
-        return {
+        let holdingObj = {
           label: holdingConfig.label,
           link: holding[holdingConfig.link],
           linkText: holdingConfig.defaultAccessText,
@@ -182,6 +182,19 @@ const getHoldings = ({ holdings, datastoreUid }) => {
           coverage: holding[holdingConfig.coverage],
           description: holding[holdingConfig.description],
         }
+
+        //rewrite config check
+        _.each(config.holdingRewrites, rule => {
+          const isMatch = _.isMatch(holdingObj, { [rule.match.uid]: rule.match.value })
+
+          if (isMatch) {
+            _.each(rule.replace, replace => {
+              holdingObj[replace.uid] = replace.value
+            })
+          }
+        })
+
+        return holdingObj
       })
     })
   }, [])
