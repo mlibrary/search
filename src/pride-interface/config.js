@@ -74,7 +74,7 @@ const config = {
         'edition',
         'publisher',
         'summary',
-        'extended_summary'
+        'extended_summary',
       ],
       holdings: [
         {
@@ -402,7 +402,7 @@ const config = {
       replace: [
         {
           uid: 'linkText',
-          value: 'Search for keyword frequency'
+          value: 'Keyword Frequency Only'
         },
         {
           uid: 'linkStyle',

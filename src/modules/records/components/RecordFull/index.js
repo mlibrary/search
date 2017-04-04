@@ -57,7 +57,11 @@ class FullRecord extends React.Component {
         <div className="full-record-container">
           <Format displayFields={displayFields} />
           <div className="record-container">
-            <h1 className="full-record-title">{record.names[0]}</h1>
+            <h1 className="full-record-title">
+              {record.names.map((title, index) => (
+                <div key={index}>{title}</div>
+              ))}
+            </h1>
             <FieldList fields={displayFields} />
 
             {access.length > 0 && (

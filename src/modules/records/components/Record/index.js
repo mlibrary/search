@@ -18,7 +18,7 @@ import {
 class Record extends React.Component {
   render() {
     const { record, datastoreUid, type } = this.props
-    const title = record.names ? record.names[0] : 'no title';
+    const titles = record.names ? record.names : 'no title';
     const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
     const recordUidField = getField(record.fields, 'id');
     const displayFields = filterDisplayFields({
@@ -42,12 +42,16 @@ class Record extends React.Component {
         <li className="record">
           <div className="record-container">
             <h3 className="record-title">
-              <Link
-                className="record-title-link"
-                to={`/${datastoreSlug}/record/${recordUid}`}
-              >
-                {title}
-              </Link>
+            {titles.map((title, index) => (
+              <div key={index}>
+                <Link
+                  className="record-title-link"
+                  to={`/${datastoreSlug}/record/${recordUid}`}
+                >
+                  {title}
+                </Link>
+              </div>
+            ))}
             </h3>
             <FieldList fields={displayFields} />
           </div>
