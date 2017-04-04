@@ -147,9 +147,18 @@
     fill: $grey-3;
   }
 }
+
+.results-list .record-field-value-item:not(:last-child):after {
+  content: ", "
+}
+
 .record-field-uid-format .record-field-value-item {
-  margin-right: 1rem;
   font-weight: 600;
+  margin-right: 1rem;
+
+  &:after {
+    content: '' !important;
+  }
 }
 
 @media (min-width: $breakpoint-2) {
@@ -157,4 +166,8 @@
     padding-bottom: 0.5rem;
     margin-right: 0.5rem;
   }
+}
+
+.full-record-container .record-field-value-item {
+  display: block;
 }

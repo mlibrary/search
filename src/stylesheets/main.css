@@ -965,14 +965,22 @@ body {
   .record-field-value .icon g {
     fill: #6E6E6E; }
 
+.results-list .record-field-value-item:not(:last-child):after {
+  content: ", "; }
+
 .record-field-uid-format .record-field-value-item {
-  margin-right: 1rem;
-  font-weight: 600; }
+  font-weight: 600;
+  margin-right: 1rem; }
+  .record-field-uid-format .record-field-value-item:after {
+    content: '' !important; }
 
 @media (min-width: 47rem) {
   .record-field-uid-format .record-field-name {
     padding-bottom: 0.5rem;
     margin-right: 0.5rem; } }
+
+.full-record-container .record-field-value-item {
+  display: block; }
 
 .loading-container {
   display: flex;

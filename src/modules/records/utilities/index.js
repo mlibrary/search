@@ -61,6 +61,10 @@ const filterAccessFields = ({ fields, type, datastore, holdings }) => {
   if (accessConfig.access.link) {
     const linkField = _.findWhere(fields, { uid: accessConfig.access.link })
 
+    if (!linkField) {
+      return []
+    }
+
     return [
       [
         {
