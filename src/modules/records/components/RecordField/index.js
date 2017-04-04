@@ -23,10 +23,19 @@ function RecordField({ field }) {
     )
   }
 
+  if (Array.isArray(field.value)) {
+    return (
+      <div className={uniqueFieldClassName}>
+        <dt className="record-field-name">{field.name}</dt>
+        <dd className="record-field-value">{field.value.join(', ')}</dd>
+      </div>
+    )
+  }
+
   return (
     <div className={uniqueFieldClassName}>
       <dt className="record-field-name">{field.name}</dt>
-      <dd className="record-field-value">{field.value.join(', ')}</dd>
+      <dd className="record-field-value">{field.value}</dd>
     </div>
   )
 }

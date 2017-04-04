@@ -402,7 +402,7 @@ const config = {
       replace: [
         {
           uid: 'linkText',
-          value: 'Keyword Frequency Only'
+          value: 'Search Keyword Frequency'
         },
         {
           uid: 'linkStyle',
