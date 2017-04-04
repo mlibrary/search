@@ -32,7 +32,7 @@ class RecordListContainer extends React.Component {
         <div>
           <div className="results-summary-container">
             <div>
-              <ResultsSummary />
+              <p className="no-margin"><b>Loading results...</b></p>
             </div>
             <ClearSearchButton />
           </div>
