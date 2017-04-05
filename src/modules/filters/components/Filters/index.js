@@ -15,6 +15,11 @@ import {
   config
 } from '../../../../pride-interface';
 
+import {
+  getFiltersByType,
+  isFilterActive
+} from '../../utilities'
+
 class Filters extends React.Component {
   constructor(props) {
     super(props)
@@ -74,6 +79,12 @@ class Filters extends React.Component {
   render() {
     const { filters, activeDatastoreUid } = this.props;
 
+    const checkboxFilters = getFiltersByType({
+      activeDatastoreUid,
+      filters: filters,
+      type: ['checkbox']
+    })
+
     if (Object.keys(filters.groups).length === 0) {
       return (
         <div className="filters-container">
@@ -92,10 +103,12 @@ class Filters extends React.Component {
     }, [])
 
     // Useful code snippet for displaying component state
-    //<pre>{JSON.stringify(this.state, null, 2)}</pre>
+    //<pre>{JSON.stringify(checkboxFilters, null, 2)}</pre>
 
     return (
       <div className="filters-container">
+
+        <pre>{JSON.stringify(checkboxFilters, null, 2)}</pre>
 
         <ActiveFilters
           activeDatastoreUid={activeDatastoreUid}
@@ -104,7 +117,31 @@ class Filters extends React.Component {
           handleRemoveFilterClick={this.handleRemoveFilterClick}
           handleClearFilters={this.handleClearFilters}
         />
+
         <h2 className="filters-heading">Filter your search</h2>
+
+        {checkboxFilters.map((filter, index) => {
+          const isChecked = isFilterActive({
+            activeDatastoreUid,
+            filters: filters,
+            filter
+          });
+
+          console.log('isChecked', isChecked)
+
+          return (
+            <label key={index}>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => {
+                  console.log('onChange', e)
+                }} />
+              {filter.name}
+            </label>
+          )
+        })}
+
         <ul className="filter-group-list">
           {_.map(displayFilterGroups, filterGroup => {
             const filtersSorted = _.sortBy(filterGroup.filters, 'count').reverse().splice(0,9);
