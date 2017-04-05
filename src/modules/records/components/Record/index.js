@@ -18,7 +18,7 @@ import {
 class Record extends React.Component {
   render() {
     const { record, datastoreUid, type } = this.props
-    const titles = record.names ? record.names : 'no title';
+    const titles = record.names ? [].concat(record.names) : [].concat('no title');
     const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
     const recordUidField = getField(record.fields, 'id');
     const displayFields = filterDisplayFields({

@@ -34,8 +34,8 @@ const config = {
         datastores: [
           'mirlyn',
           'articlesplus',
-          'journals',
           'databases',
+          'journals',
           'website',
         ],
       }

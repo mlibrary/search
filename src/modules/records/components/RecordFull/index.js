@@ -58,7 +58,7 @@ class FullRecord extends React.Component {
           <Format displayFields={displayFields} />
           <div className="record-container">
             <h1 className="full-record-title">
-              {record.names.map((title, index) => (
+              {[].concat(record.names).map((title, index) => (
                 <div key={index}>{title}</div>
               ))}
             </h1>
