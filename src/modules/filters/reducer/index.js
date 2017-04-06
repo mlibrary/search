@@ -6,7 +6,7 @@ import {
   ADD_ACTIVE_FILTER,
   REMOVE_ACTIVE_FILTER,
   CLEAR_ACTIVE_FILTERS,
-  CLEAR_ALL_FILTERS
+  CLEAR_ALL_FILTERS,
 } from '../actions';
 
 const initialState = {

@@ -839,6 +839,9 @@ input.search-box-input {
   color: #6E6E6E;
   text-decoration: underline; }
 
+.filter-checkbox-label {
+  padding: 1rem; }
+
 body {
   background: #F2F2F2; }
 

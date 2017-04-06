@@ -16,236 +16,189 @@ import {
 } from '../../../../pride-interface';
 
 import {
-  getFiltersByType,
-  isFilterActive
+  getDisplayFilters,
+  filterItems,
+  getFilterItems,
+  isFilterGroupOpen,
+  getOpenFilterDefaults,
+  filtersWithOpenProperty
 } from '../../utilities'
 
 class Filters extends React.Component {
   constructor(props) {
     super(props)
-    const filterConfigDatastoreUids = Object.keys(config.filters)
-    const defaultShowGroups = _.reduce(filterConfigDatastoreUids, (previous, datastoreUid) => {
-      _.each(config.filters[datastoreUid], group => {
-        if (group.open) {
-          previous = previous.concat(`${datastoreUid}-${group.uid}`)
-        }
-      })
-
-      return previous
-    }, [])
 
     this.state = {
-      showGroups: defaultShowGroups
+       open: getOpenFilterDefaults()
     }
 
-    // This binding is necessary to make `this` work in the callback
-    this.handleRemoveFilterClick = this.handleRemoveFilterClick.bind(this)
-    this.handleClearFilters = this.handleClearFilters.bind(this)
+    this.handleFilterClick = this.handleFilterClick.bind(this)
   }
-
-  handleFilterGroupClick(filterGroup) {
-    const groups = this.state.showGroups
-
-    if (_.contains(groups, filterGroup)) {
-      this.setState({
-        showGroups: groups.filter((fg => fg !== filterGroup))
-      })
-    } else {
-      this.setState({
-        showGroups: groups.concat(filterGroup)
-      })
-    }
-  }
-
-  handleAddFilterClick({ activeDatastoreUid, group, filter }) {
-    store.dispatch(addActiveFilter({
-      activeDatastoreUid,
-      group: group.uid,
-      filter: filter.value
-    }))
-    runSearchPride()
-  }
-
-  handleRemoveFilterClick({ activeDatastoreUid, group }) {
-    store.dispatch(removeActiveFilter({ activeDatastoreUid, group }))
-    runSearchPride()
-  }
-
-  handleClearFilters({ activeDatastoreUid }) {
-    store.dispatch(clearActiveFilters({ activeDatastoreUid }))
-    runSearchPride()
-  }
-
-  render() {
-    const { filters, activeDatastoreUid } = this.props;
-
-    const checkboxFilters = getFiltersByType({
-      activeDatastoreUid,
-      filters: filters,
-      type: ['checkbox']
-    })
-
-    if (Object.keys(filters.groups).length === 0) {
-      return (
-        <div className="filters-container">
-          <p className="no-filters-available"><b>No filters</b> available.</p>
-        </div>
-      )
-    }
-
-    const filterGroupsOrdered = _.map(config.filters[activeDatastoreUid], filterGroup => filterGroup.uid)
-    const displayFilterGroups = _.reduce(filterGroupsOrdered, (previous, filterGroupUid) => {
-      if (filters.groups[filterGroupUid]) {
-        previous = previous.concat(filters.groups[filterGroupUid])
+  openFilter({ datastoreUid, filterUid }) {
+    const open = this.state.open;
+    this.setState({
+      open: {
+        ...open,
+        [datastoreUid]: open[datastoreUid].concat(filterUid)
       }
+    })
+  }
+  closeFilter({ datastoreUid, filterUid }) {
+    const open = this.state.open;
+    this.setState({
+      open: {
+        ...open,
+        [datastoreUid]: _.filter(open[datastoreUid], filter => filter !== filterUid)
+      }
+    })
+  }
+  handleFilterClick({ datastoreUid, filterUid }) {
+    const { open } = this.state
+    const isOpen = _.contains(open[datastoreUid], filterUid)
 
-      return previous
-    }, [])
+    if (isOpen) {
+      this.closeFilter({ datastoreUid, filterUid })
+    } else {
+      this.openFilter({ datastoreUid, filterUid })
+    }
+  }
+  handleFilterItemClick() {
+    console.log('handleFilterItemClick')
+  }
+  handleShowClick() {
+    console.log('handleShowClick')
+  }
+  render() {
+    const { datastoreUid, filters } = this.props
+    const open = this.state.open[datastoreUid]
 
-    // Useful code snippet for displaying component state
-    //<pre>{JSON.stringify(checkboxFilters, null, 2)}</pre>
+    if (filters.length === 0) {
+      return <NoFilters />
+    }
 
     return (
-      <div className="filters-container">
-
-        <pre>{JSON.stringify(checkboxFilters, null, 2)}</pre>
-
-        <ActiveFilters
-          activeDatastoreUid={activeDatastoreUid}
-          activeFilters={filters.active[activeDatastoreUid]}
-          filters={filters}
-          handleRemoveFilterClick={this.handleRemoveFilterClick}
-          handleClearFilters={this.handleClearFilters}
-        />
-
-        <h2 className="filters-heading">Filter your search</h2>
-
-        {checkboxFilters.map((filter, index) => {
-          const isChecked = isFilterActive({
-            activeDatastoreUid,
-            filters: filters,
-            filter
-          });
-
-          console.log('isChecked', isChecked)
-
-          return (
-            <label key={index}>
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={(e) => {
-                  console.log('onChange', e)
-                }} />
-              {filter.name}
-            </label>
-          )
-        })}
-
-        <ul className="filter-group-list">
-          {_.map(displayFilterGroups, filterGroup => {
-            const filtersSorted = _.sortBy(filterGroup.filters, 'count').reverse().splice(0,9);
-            const filterGroupUid = `${activeDatastoreUid}-${filterGroup.uid}`
-            const showGroupFilters = _.contains(this.state.showGroups, (filterGroupUid))
-            const activeFilters = filters.active[activeDatastoreUid]
-            const showGroup = (!activeFilters || (activeFilters && !activeFilters[filterGroup.uid]))
-
-            if (!showGroup) {
-              return null
-            }
-
-            return (
-              <li className="filter-group" key={filterGroupUid}>
-                <button className="filter-group-toggle-show-button" onClick={() =>
-                  this.handleFilterGroupClick(filterGroupUid)
-                }>
-                  <h3 className="filter-group-heading">{filterGroup.name}</h3>
-                  {showGroupFilters ? <Icon name="minus" /> : <Icon name="chevron-down" /> }
-                </button>
-                {showGroupFilters && (
-                  <ul className="filter-list">
-                    {_.map(filtersSorted, filter => {
-                      return (
-                        <li className='filter-item' key={`${filterGroupUid}-${filter.name}`}>
-                          <button className="filter-button" onClick={
-                            () => this.handleAddFilterClick({
-                              activeDatastoreUid,
-                              group: filterGroup,
-                              filter: filter,
-                            })
-                          }>
-                            <span className="filter-value">{filter.value}</span>
-                            <span className="filter-count">{numeral(filter.count).format(0,0)}</span>
-                          </button>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                )}
-              </li>
-            )
-          })}
-        </ul>
-      </div>
+      <FilterList
+        open={open}
+        datastoreUid={datastoreUid}
+        filters={filtersWithOpenProperty({ open, filters })}
+        handleFilterClick={this.handleFilterClick}
+        handleFilterItemClick={this.handleFilterItemClick}
+        handleShowClick={this.handleShowClick}
+      />
     )
   }
 }
 
-const ActiveFilters = ({
-  activeDatastoreUid,
-  handleRemoveFilterClick,
-  activeFilters,
+const FilterList = ({
+  open,
+  datastoreUid,
   filters,
-  handleClearFilters
+  handleFilterClick,
+  handleFilterItemClick,
+  handleShowClick,
+}) => (
+  <div className="filters-container">
+    <pre>{JSON.stringify(open, null, 2)}</pre>
+    <h2 className="filters-heading">Filter your search</h2>
+    <ul className="filter-group-list">
+      {filters.map(filter => (
+        <Filter
+          key={filter.uid}
+          datastoreUid={datastoreUid}
+          filter={filter}
+          handleFilterClick={handleFilterClick}
+          handleFilterItemClick={handleFilterItemClick}
+          handleShowClick={handleShowClick}
+        />
+      ))}
+    </ul>
+  </div>
+)
+
+const Filter = ({
+  datastoreUid,
+  filter,
+  handleFilterClick,
+  handleFilterItemClick,
 }) => {
-  if (!activeFilters || !filters) {
-    return null
-  }
+  switch (filter.type) {
+    case 'checkbox':
+      return (
+        <li className="filter-group filter-group-checkbox">
+          <label
+            className="filter-checkbox-label"
+            onClick={() => handleFilterItemClick()}
+          >
+            <input type="checkbox" />
+            {filter.name}
+          </label>
+        </li>
+      )
+    case 'multiselect':
+      const filterItems = getFilterItems({
+        items: filter.filters
+      })
 
-  const activeFilterGroups = Object.keys(activeFilters)
-  if (activeFilterGroups.length === 0) {
-    return null
+      return (
+        <li className="filter-group">
+          <button
+            className="filter-group-toggle-show-button"
+            onClick={() => handleFilterClick({
+              datastoreUid: datastoreUid,
+              filterUid: filter.uid
+            })}
+          >
+            <h3 className="filter-group-heading">
+              {filter.name}
+            </h3>
+            {filter.open ? <Icon name="minus" /> : <Icon name="chevron-down" /> }
+          </button>
+          {filter.open && (
+            <ul className="filter-list">
+              {filterItems.map((filter, index) => (
+                <FilterItem
+                  key={index}
+                  filter={filter}
+                  handleFilterItemClick={handleFilterItemClick}
+                />
+              ))}
+            </ul>
+          )}
+        </li>
+      )
   }
+}
 
+const FilterItem = ({
+  filter,
+  handleFilterItemClick
+}) => {
   return (
-    <div className="active-filters-container">
-      <h2 className="active-filters-heading">Current Filters</h2>
-      <ul className="active-filters-list">
-        {_.map(activeFilterGroups, activeFilterGroupUid => {
-          const key = `${activeFilterGroupUid}-${activeFilters[activeFilterGroupUid]}`
-
-          if (!filters.groups[activeFilterGroupUid]) {
-            return null
-          }
-
-          return (
-            <li className="active-filter-item" key={key}>
-              <button className="active-filter-button" onClick={
-                () => handleRemoveFilterClick({
-                  activeDatastoreUid: activeDatastoreUid,
-                  group: activeFilterGroupUid,
-                })
-              }>
-                <span className="active-filter-button-text">{filters.groups[activeFilterGroupUid].name}: {activeFilters[activeFilterGroupUid]}</span>
-                <Icon name="close" />
-              </button>
-            </li>
-          )
-        })}
-      </ul>
-      <div className="clear-active-filters-container">
-        <button className="clear-active-filters-button button-link" onClick={
-          () => handleClearFilters({ activeDatastoreUid })
-        }>Clear filters</button>
-      </div>
-    </div>
+    <li className="filter-item">
+      <button
+        className="filter-button"
+        onClick={() => handleFilterItemClick()}
+      >
+        <span className="filter-value">{filter.name}</span>
+        <span className="filter-count">{filter.count}</span>
+      </button>
+    </li>
   )
 }
 
+const NoFilters = ({}) => (
+  <div className="filters-container">
+    <p className="no-filters-available"><b>No filters</b> available.</p>
+  </div>
+)
+
 function mapStateToProps(state) {
   return {
-    filters: state.filters,
-    activeDatastoreUid: state.datastores.active,
+    datastoreUid: state.datastores.active,
+    filters: getDisplayFilters({
+      filters: state.filters.groups,
+      datastoreUid: state.datastores.active
+    })
   }
 }
 

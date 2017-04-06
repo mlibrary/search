@@ -298,6 +298,16 @@ const config = {
   filters: {
     'mirlyn': [
       {
+        uid: 'search_only',
+        type: 'checkbox',
+        defaults: [
+          {
+            group: 'search_only',
+            value: 'false'
+          }
+        ]
+      },
+      {
         uid: 'subject',
         open: true,
       },
@@ -331,16 +341,6 @@ const config = {
       {
         uid: 'author'
       },
-      {
-        uid: 'search_only',
-        type: 'checkbox',
-        defaults: [
-          {
-            group: 'search_only',
-            value: 'false'
-          }
-        ]
-      }
     ],
     'articlesplus': [
       {

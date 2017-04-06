@@ -7,6 +7,8 @@ export const CLEAR_ACTIVE_FILTERS = 'filters/CLEAR_ACTIVE_FILTERS';
 
 export const CLEAR_ALL_FILTERS = 'filters/CLEAR_ALL_FILTERS'
 
+export const OPEN_FILTER = 'filters/OPEN_FILTER';
+
 export const addFilter = function addFilter(payload) {
   return { type: ADD_FILTER, payload };
 };
