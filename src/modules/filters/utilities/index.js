@@ -45,7 +45,7 @@ const getDisplayFilters = ({ filters, datastoreUid }) => {
     if (filter) {
       return previous.concat(
         Object.assign({
-          type: configFilter.type || 'multiselect',
+          type: configFilter.type || 'multiselect'
         }, filter)
       )
     }
@@ -104,6 +104,31 @@ const getActiveFilters = ({ activeFilters, filters }) => {
   }, [])
 }
 
+const isFilterItemChecked = ({
+  datastoreUid,
+  filterUid
+}) => {
+  const state = store.getState()
+  const isActive = ((
+    state.filters.active[datastoreUid] &&
+    state.filters.active[datastoreUid][filterUid]
+  ) ? true : false)
+
+  if (isActive) {
+    const activeFilters = state.filters.active[datastoreUid][filterUid].filters
+
+    switch (activeFilters[0]) {
+      case 'true':
+      case 'yes':
+        return true
+      default:
+        return false
+    }
+  }
+
+  return false
+}
+
 export {
   getFiltersByType,
   isFilterItemActive,
@@ -111,5 +136,6 @@ export {
   getFilterItems,
   getOpenFilterDefaults,
   filtersWithOpenProperty,
-  getActiveFilters
+  getActiveFilters,
+  isFilterItemChecked
 }

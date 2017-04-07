@@ -23,7 +23,8 @@ import {
   getOpenFilterDefaults,
   filtersWithOpenProperty,
   isFilterItemActive,
-  getActiveFilters
+  getActiveFilters,
+  isFilterItemChecked
 } from '../../utilities'
 
 class Filters extends React.Component {
@@ -153,18 +154,23 @@ const Filter = ({
 }) => {
   switch (filter.type) {
     case 'checkbox':
+      const isChecked = isFilterItemChecked({
+        datastoreUid,
+        filterUid: filter.uid
+      })
+
       return (
         <li className="filter-group filter-group-checkbox">
-          <label
-            className="filter-checkbox-label"
-            onClick={() => handleFilterItemClick({
-              datastoreUid,
-              filterUid: filter.uid,
-              filterName: filter.name,
-              filterItemValue: filter.filters
-            })}
-          >
-            <input type="checkbox" />
+          <label className="filter-checkbox-label">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={() => handleFilterItemClick({
+                datastoreUid,
+                filterUid: filter.uid,
+                isChecked: isChecked,
+              })}
+            />
             {filter.name}
           </label>
         </li>
