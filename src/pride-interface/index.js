@@ -44,6 +44,10 @@ import {
   clearAllFilters,
 } from '../modules/filters';
 
+import {
+  getFacetsForPride
+} from './utilities'
+
 /*
   Pride Internal Configuration
 */
@@ -307,32 +311,26 @@ const getDatastoreSlugByUid = (uid) => {
   return ds.slug || ds.uid;
 }
 
-const handleStoreToUrlSync = ({ query, filters, activeDatastoreUid }) => {
-  // Sync search box query terms to URL
+const handleStoreToUrlSync = ({ query, filters }) => {
+
   if (query) {
+    // Example:
+    // query=parrots
     addQuery({
-      'query': query,
+      'query': query
     })
   }
 
-  // Sync active filters to URL
   if (filters) {
-    const filterGroups = Object.keys(filters);
+    // example:
+    // search_only=false;subject:Birds|Parrots
+    const filtersQueryArray = _.map(filters, (filter) => {
+      return `${filter.uid}:${filter.filters.join('|')}`
+    }, [])
 
-    if (filterGroups.length > 0) {
-      const filtersQuery = filterGroups.reduce((memo, key) => {
-        if (memo !== '') {
-          memo += ';'
-        }
-        return memo + `${key}:${filters[key]}`
-      }, '')
-
-      addQuery({
-        'filter': filtersQuery
-      })
-    } else {
-      removeQuery('filter')
-    }
+    addQuery({
+      'filter': filtersQueryArray.join(';')
+    })
   }
 }
 
@@ -340,7 +338,10 @@ const runSearchPride = () => {
   const state = store.getState();
   const query = state.search.query;
   const page = state.search.page;
-  const facets = state.filters.active[state.datastores.active];
+  const facets = getFacetsForPride({
+    filters: state.filters.active[state.datastores.active],
+  })
+
   const config = {
     field_tree: Pride.FieldTree.parseField('all_fields', query),
     page: page,
@@ -353,8 +354,7 @@ const runSearchPride = () => {
 
   handleStoreToUrlSync({
     query,
-    filters: facets,
-    activeDatastoreUid: state.datastores.active
+    filters: state.filters.active[activeDatastoreUid]
   })
 
   store.dispatch(searching(true))
@@ -369,15 +369,22 @@ const setupInitialState = () => {
 
   // Get defaults from filters config
   const datastoreUids = Object.keys(config.filters)
+  const stateFilters = store.getState().filters.groups
+
   const filterDefaults = _.reduce(datastoreUids, (previous, datastoreUid) => {
     _.each(config.filters[datastoreUid], filterConfig => {
       if (filterConfig.defaults) {
         _.each(filterConfig.defaults, defaultFilter => {
-          previous.push({
-            datastoreUid,
-            group: defaultFilter.group,
-            value: defaultFilter.value,
-          })
+
+          // make sure this is a real filter
+          if (stateFilters[defaultFilter.group]) {
+            previous.push({
+              datastoreUid: datastoreUid,
+              filterUid: defaultFilter.group,
+              filterName: stateFilters[defaultFilter.group].name,
+              filterItemValue: defaultFilter.value
+            })
+          }
         })
       }
     })
@@ -388,9 +395,10 @@ const setupInitialState = () => {
   // Add default filters to state
   _.each(filterDefaults, filter => {
     store.dispatch(addActiveFilter({
-      activeDatastoreUid: filter.datastoreUid,
-      group: filter.group,
-      filter: filter.value
+      datastoreUid: filter.datastoreUid,
+      filterUid: filter.filterUid,
+      filterName: filter.filterName,
+      filterItemValue: filter.filterItemValue
     }))
   })
 
@@ -413,22 +421,25 @@ const setupInitialState = () => {
   // If filters in URL
   if (filters) {
     const filterGroups = filters.split(';');
-    
+
     _.each(filterGroups, (group) => {
       const split = group.split(':');
 
       if (split[0] && split[1]) {
         const activeDatastoreUid = store.getState().datastores.active
         const group = split[0]
-        const filter = split[1]
+        const filterValues = split[1].split('|')
 
-        //http://localhost:3000/articlesplus?f=language:English&q=climate+change
-
-        store.dispatch(addActiveFilter({
-          activeDatastoreUid,
-          group,
-          filter,
-        }))
+        if (stateFilters[group]) {
+          _.each(filterValues, (value) => {
+            store.dispatch(addActiveFilter({
+              datastoreUid: activeDatastoreUid,
+              filterUid: group,
+              filterName: stateFilters[group].name,
+              filterItemValue: value
+            }))
+          })
+        }
       }
     })
   }

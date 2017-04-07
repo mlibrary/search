@@ -344,6 +344,16 @@ const config = {
     ],
     'articlesplus': [
       {
+        uid: 'holdings_only',
+        type: 'checkbox',
+        defaults: [
+          {
+            group: 'holdings_only',
+            value: 'true'
+          }
+        ]
+      },
+      {
         uid: 'subject',
         open: true,
       },
@@ -357,15 +367,6 @@ const config = {
       },
       {
         uid: 'fulltext'
-      },
-      {
-        uid: 'holdings_only',
-        defaults: [
-          {
-            group: 'holdings_only',
-            value: 'true'
-          }
-        ]
       }
     ],
     'databases': [

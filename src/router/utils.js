@@ -31,7 +31,7 @@ const createSearchParams = ({ query, filters }) => {
 
     if (filterGroups.length > 0) {
       filterString = filterGroups
-        .map((key) => `${encodeQuery(key)}:${encodeQuery(filters[key])}`)
+        .map((key) => `${encodeQuery(key)}:${encodeQuery(filters[key].filters.join('|'))}`)
         .join(';');
 
       params.push(`filter=${filterString}`)

@@ -65,64 +65,112 @@ const filtersReducer = function filterReducer(state = initialState, action) {
         groups: {}
       })
     case ADD_ACTIVE_FILTER:
-      return Object.assign({}, state, {
-        active: {
-          ...state.active,
-          [action.payload.activeDatastoreUid]: {
-            ...state.active[action.payload.activeDatastoreUid],
-            [action.payload.group]: action.payload.filter
-          }
+      /*
+      // payload fields:
+      datastoreUid,
+      filterUid
+      filterName
+      filterItemValue
+
+      // Example of data structure
+      active: {
+        'mirlyn': {
+          'format': {
+            uid: 'format',
+            name: 'Format'
+            filters: ['book', 'ebook']
+          },
+          // ...
         },
-      });
+        // ...
+      }
+      */
+      let {
+        datastoreUid,
+        filterUid,
+        filterName,
+        filterItemValue
+      } = action.payload
+
+      const filterExists = ((
+        state.active[datastoreUid] &&
+        state.active[datastoreUid][filterUid]
+      ) ? true : false)
+
+      if (filterExists) {
+        // append new filter item value to filters array
+        return {
+          ...state,
+          active: {
+            ...state.active,
+            [datastoreUid]: {
+              ...state.active[datastoreUid],
+              [filterUid]: {
+                ...state.active[datastoreUid][filterUid],
+                filters: _.uniq(state.active[datastoreUid][filterUid].filters.concat(filterItemValue))
+              }
+            }
+          }
+        }
+      } else {
+        // Create and add the new filter
+        return {
+          ...state,
+          active: {
+            ...state.active,
+            [datastoreUid]: {
+              ...state.active[datastoreUid],
+              [filterUid]: {
+                uid: filterUid,
+                name: filterName,
+                filters: [].concat(filterItemValue)
+              }
+            }
+          }
+        }
+      }
     case REMOVE_ACTIVE_FILTER:
-      return Object.assign({}, state, {
+      const removeEntireFilter = ((
+        state.active[action.payload.datastoreUid] &&
+        state.active[action.payload.datastoreUid][action.payload.filterUid] &&
+        state.active[action.payload.datastoreUid][action.payload.filterUid].filters.length === 1
+      ) ? true : false)
+
+      if (removeEntireFilter) {
+
+        // remove the entire filter group
+        return {
+          ...state,
+          active: {
+            ...state.active,
+            [action.payload.datastoreUid]: _.omit(state.active[action.payload.datastoreUid], action.payload.filterUid)
+          }
+        }
+      }
+
+      // remove just the one filter item from the filter group
+      return {
+        ...state,
         active: {
           ...state.active,
-          [action.payload.activeDatastoreUid]: {
-            ..._.omit(state.active[action.payload.activeDatastoreUid], action.payload.group)
+          [action.payload.datastoreUid]: {
+            ...state.active[action.payload.datastoreUid],
+            [action.payload.filterUid]: {
+              ...state.active[action.payload.datastoreUid][action.payload.filterUid],
+              filters: _.without(state.active[action.payload.datastoreUid][action.payload.filterUid].filters, action.payload.filterItemValue)
+            }
           }
-        },
-      });
+        }
+      }
+
+      return state
     case CLEAR_ACTIVE_FILTERS:
-      const { activeDatastoreUid } = action.payload;
-      return Object.assign({}, state, {
-        active: _.omit(state.active, activeDatastoreUid)
-      });
+      return state
     case CLEAR_ALL_FILTERS:
       return initialState;
     default:
       return state;
   }
 };
-
-
-/*
-
-[
-  {
-    uid: 'format'
-    name: 'Format',
-    short_desc: 'Media format.',
-    filters: [
-      {
-        name: 'Book',
-        value: 'Book',
-        count: 973088,
-      }
-    ],
-  },
-  {
-    uid: 'filter-uid-2',
-    filters: [
-      {
-        name: 'Book',
-        value: 'Book',
-        count: 973088,
-      }
-    ],
-  }
-]
-
-*/
 
 export default filtersReducer;

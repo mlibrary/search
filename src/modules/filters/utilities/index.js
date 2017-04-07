@@ -2,7 +2,6 @@ import { _ } from 'underscore';
 
 import { config } from '../../../pride-interface'
 import { store } from '../../../store'
-import { openFilter } from '../actions'
 
 const getFiltersByType = ({ activeDatastoreUid, filters, type }) => {
 
@@ -28,11 +27,15 @@ const getFiltersByType = ({ activeDatastoreUid, filters, type }) => {
   return []
 }
 
-const isFilterActive = ({ activeDatastoreUid, filters, filter }) => {
-  return (
-    filters.active[activeDatastoreUid] &&
-    filters.active[activeDatastoreUid][filter.uid]
-  )
+const isFilterItemActive = ({ datastoreUid, filterUid, filterItemValue }) => {
+  const state = store.getState()
+  const isActive = ((
+    state.filters.active[datastoreUid] &&
+    state.filters.active[datastoreUid][filterUid] &&
+    _.contains(state.filters.active[datastoreUid][filterUid].filters, filterItemValue)
+  ) ? true : false)
+
+  return isActive;
 }
 
 const getDisplayFilters = ({ filters, datastoreUid }) => {
@@ -83,11 +86,30 @@ const filtersWithOpenProperty = ({ open, filters }) => {
   })
 }
 
+const getActiveFilters = ({ activeFilters, filters }) => {
+  return _.reduce(activeFilters, (previous, activeFilter) => {
+    const filter = _.findWhere(filters, { uid: activeFilter.uid })
+
+    if (filter && (filter.type !== 'checkbox')) {
+      _.each(activeFilter.filters, (value) => {
+        previous = previous.concat({
+          uid: activeFilter.uid,
+          name: activeFilter.name,
+          value: value
+        })
+      })
+    }
+
+    return previous
+  }, [])
+}
+
 export {
   getFiltersByType,
-  isFilterActive,
+  isFilterItemActive,
   getDisplayFilters,
   getFilterItems,
   getOpenFilterDefaults,
-  filtersWithOpenProperty
+  filtersWithOpenProperty,
+  getActiveFilters
 }

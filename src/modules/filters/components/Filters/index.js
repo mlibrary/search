@@ -21,7 +21,9 @@ import {
   getFilterItems,
   isFilterGroupOpen,
   getOpenFilterDefaults,
-  filtersWithOpenProperty
+  filtersWithOpenProperty,
+  isFilterItemActive,
+  getActiveFilters
 } from '../../utilities'
 
 class Filters extends React.Component {
@@ -62,14 +64,36 @@ class Filters extends React.Component {
       this.openFilter({ datastoreUid, filterUid })
     }
   }
-  handleFilterItemClick() {
-    console.log('handleFilterItemClick')
+  handleFilterItemClick({
+      datastoreUid,
+      filterUid,
+      filterName,
+      filterItemValue
+    }) {
+    const isActive = isFilterItemActive({ datastoreUid, filterUid, filterItemValue })
+
+    if (isActive) {
+      store.dispatch(removeActiveFilter({
+        datastoreUid: datastoreUid,
+        filterUid: filterUid,
+        filterItemValue: filterItemValue,
+      }))
+    } else {
+      store.dispatch(addActiveFilter({
+        datastoreUid: datastoreUid,
+        filterUid: filterUid,
+        filterName: filterName,
+        filterItemValue: filterItemValue
+      }))
+    }
+
+    runSearchPride()
   }
   handleShowClick() {
     console.log('handleShowClick')
   }
   render() {
-    const { datastoreUid, filters } = this.props
+    const { datastoreUid, filters, activeFilters } = this.props
     const open = this.state.open[datastoreUid]
 
     if (filters.length === 0) {
@@ -80,6 +104,7 @@ class Filters extends React.Component {
       <FilterList
         open={open}
         datastoreUid={datastoreUid}
+        activeFilters={getActiveFilters({ activeFilters, filters })}
         filters={filtersWithOpenProperty({ open, filters })}
         handleFilterClick={this.handleFilterClick}
         handleFilterItemClick={this.handleFilterItemClick}
@@ -92,13 +117,18 @@ class Filters extends React.Component {
 const FilterList = ({
   open,
   datastoreUid,
+  activeFilters,
   filters,
   handleFilterClick,
   handleFilterItemClick,
   handleShowClick,
 }) => (
   <div className="filters-container">
-    <pre>{JSON.stringify(open, null, 2)}</pre>
+    <ActiveFilters
+      datastoreUid={datastoreUid}
+      activeFilters={activeFilters}
+      handleFilterItemClick={handleFilterItemClick}
+    />
     <h2 className="filters-heading">Filter your search</h2>
     <ul className="filter-group-list">
       {filters.map(filter => (
@@ -127,7 +157,12 @@ const Filter = ({
         <li className="filter-group filter-group-checkbox">
           <label
             className="filter-checkbox-label"
-            onClick={() => handleFilterItemClick()}
+            onClick={() => handleFilterItemClick({
+              datastoreUid,
+              filterUid: filter.uid,
+              filterName: filter.name,
+              filterItemValue: filter.filters
+            })}
           >
             <input type="checkbox" />
             {filter.name}
@@ -155,11 +190,16 @@ const Filter = ({
           </button>
           {filter.open && (
             <ul className="filter-list">
-              {filterItems.map((filter, index) => (
+              {filterItems.map((filterItem, index) => (
                 <FilterItem
                   key={index}
-                  filter={filter}
-                  handleFilterItemClick={handleFilterItemClick}
+                  filter={filterItem}
+                  handleFilterItemClick={() => handleFilterItemClick({
+                    datastoreUid,
+                    filterUid: filter.uid,
+                    filterName: filter.name,
+                    filterItemValue: filterItem.value
+                  })}
                 />
               ))}
             </ul>
@@ -177,10 +217,10 @@ const FilterItem = ({
     <li className="filter-item">
       <button
         className="filter-button"
-        onClick={() => handleFilterItemClick()}
+        onClick={handleFilterItemClick}
       >
         <span className="filter-value">{filter.name}</span>
-        <span className="filter-count">{filter.count}</span>
+        <span className="filter-count">{numeral(filter.count).format(0,0)}</span>
       </button>
     </li>
   )
@@ -192,13 +232,50 @@ const NoFilters = ({}) => (
   </div>
 )
 
+const ActiveFilters = ({
+  datastoreUid,
+  activeFilters,
+  handleFilterItemClick
+}) => {
+  if (activeFilters.length > 0) {
+    return (
+      <div className="active-filters-container">
+        <h2 className="active-filters-heading">Current Filters</h2>
+        <ul className="active-filters-list">
+          {activeFilters.map((activeFilter, index) => (
+            <li key={index} className="active-filter-item">
+              <button
+                className="active-filter-button"
+                onClick={
+                  () => handleFilterItemClick({
+                    datastoreUid: datastoreUid,
+                    filterUid: activeFilter.uid,
+                    filterItemValue: activeFilter.value,
+                  })
+                }>
+                <span className="active-filter-button-text">
+                  {activeFilter.name}: {activeFilter.value}
+                </span>
+                <Icon name="close" />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  return null
+}
+
 function mapStateToProps(state) {
   return {
     datastoreUid: state.datastores.active,
     filters: getDisplayFilters({
       filters: state.filters.groups,
       datastoreUid: state.datastores.active
-    })
+    }),
+    activeFilters: state.filters.active[state.datastores.active]
   }
 }
 
