@@ -158,6 +158,8 @@ const Filter = ({
         datastoreUid,
         filterUid: filter.uid
       })
+      const keys = Object.keys(filter.filters)
+      const value = filter.filters[keys[0]].value
 
       return (
         <li className="filter-group filter-group-checkbox">
@@ -168,7 +170,7 @@ const Filter = ({
               onChange={() => handleFilterItemClick({
                 datastoreUid,
                 filterUid: filter.uid,
-                isChecked: isChecked,
+                filterItemValue: value
               })}
             />
             {filter.name}

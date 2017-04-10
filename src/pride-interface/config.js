@@ -300,6 +300,8 @@ const config = {
       {
         uid: 'search_only',
         type: 'checkbox',
+        name: 'Remove Search Only Hathitrust Materials',
+        checkedCondition: 'false',
         defaults: [
           {
             group: 'search_only',
@@ -346,6 +348,8 @@ const config = {
       {
         uid: 'holdings_only',
         type: 'checkbox',
+        name: 'U-M Library Materials Only',
+        checkedCondition: 'true',
         defaults: [
           {
             group: 'holdings_only',

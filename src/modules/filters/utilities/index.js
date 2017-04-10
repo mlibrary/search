@@ -29,6 +29,19 @@ const getFiltersByType = ({ activeDatastoreUid, filters, type }) => {
 
 const isFilterItemActive = ({ datastoreUid, filterUid, filterItemValue }) => {
   const state = store.getState()
+  const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
+
+  if (!filterConfig) {
+    console.log('not a valid filter config', filterUid)
+    return false
+  }
+
+  if (filterConfig.type === 'checkbox') {
+    const isChecked = isFilterItemChecked({ datastoreUid, filterUid })
+
+    return isChecked
+  }
+
   const isActive = ((
     state.filters.active[datastoreUid] &&
     state.filters.active[datastoreUid][filterUid] &&
@@ -44,9 +57,11 @@ const getDisplayFilters = ({ filters, datastoreUid }) => {
 
     if (filter) {
       return previous.concat(
-        Object.assign({
-          type: configFilter.type || 'multiselect'
-        }, filter)
+        {
+          ...filter,
+          type: configFilter.type || 'multiselect',
+          name: configFilter.name || filter.name
+        }
       )
     }
 
@@ -113,16 +128,26 @@ const isFilterItemChecked = ({
     state.filters.active[datastoreUid] &&
     state.filters.active[datastoreUid][filterUid]
   ) ? true : false)
+  const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
+
+  // error messages
+  if (!filterConfig) {
+    console.log('Filter configuration does not exist for', filterUid)
+    if (!filterConfig.checkedCondition) {
+      console.log('Filter configuration does not contain a required `checkedConditation` for', filterUid)
+    }
+
+    return false
+  }
 
   if (isActive) {
-    const activeFilters = state.filters.active[datastoreUid][filterUid].filters
+    const activeFilterValue = state.filters.active[datastoreUid][filterUid].filters
 
-    switch (activeFilters[0]) {
-      case 'true':
-      case 'yes':
-        return true
-      default:
-        return false
+    if (
+      activeFilterValue.length === 1 &&
+      filterConfig.checkedCondition === activeFilterValue[0]) {
+
+      return true
     }
   }
 
