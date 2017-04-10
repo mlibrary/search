@@ -90,13 +90,13 @@
   background: none;
   border: none;
   padding: 0;
-  color: $grey-3;
+  color: $grey-2;
   line-height: inherit;
 
-  border-bottom: solid 1px $grey-4;
+  border-bottom: solid 1px $grey-3;
 
   &:hover {
-    color: $grey-2;
+    color: $grey-1;
     cursor: pointer;
   }
 }

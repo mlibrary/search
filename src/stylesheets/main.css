@@ -339,11 +339,11 @@ textarea {
   background: none;
   border: none;
   padding: 0;
-  color: #6E6E6E;
+  color: #4E4E4E;
   line-height: inherit;
-  border-bottom: solid 1px #CCC; }
+  border-bottom: solid 1px #6E6E6E; }
   .button-link-light:hover {
-    color: #4E4E4E;
+    color: #333;
     cursor: pointer; }
 
 .button-small {
@@ -705,13 +705,8 @@ input.search-box-input {
   margin-top: 1rem;
   margin-bottom: 2rem; }
 
-.filters-heading,
 .active-filters-heading {
-  font-weight: 600; }
-
-.filters-heading,
-.filter-group-heading,
-.active-filters-heading {
+  font-weight: 700;
   font-size: 1rem;
   margin: 0; }
 
@@ -721,7 +716,6 @@ input.search-box-input {
   list-style: none; }
 
 .filter-group,
-.filters-heading,
 .no-filters-available,
 .active-filters-container {
   line-height: 1.5;
@@ -729,21 +723,37 @@ input.search-box-input {
   padding: 0;
   background: #FAFAFA; }
 
-.filter-group,
-.filters-heading,
-.no-filters-available {
-  border-bottom: solid 2px #E5E5E5; }
+.filter-group-heading {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  color: #4E4E4E; }
+
+.filter-group {
+  border-bottom: solid 2px #F2F2F2; }
+
+.filters-heading {
+  padding: 1rem;
+  margin: 0;
+  border-bottom: solid 2px #F2F2F2;
+  color: #4E4E4E;
+  background: #FAFAFA;
+  font-weight: 700;
+  font-size: 1rem; }
+
+.filter-group-list .filter-group-multiselect:first-of-type {
+  border-top: solid 2px #F2F2F2; }
 
 .active-filters-container {
   border-radius: 4px 4px 0 0;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.06); }
 
-.filters-heading,
 .no-filters-available,
 .filter-group-toggle-show-button,
-.filter-list,
 .active-filters-heading {
-  padding: 1rem; }
+  padding: 1rem;
+  color: #4E4E4E; }
 
 .no-filters-available {
   border-radius: 4px 4px 0 0; }
@@ -828,11 +838,11 @@ input.search-box-input {
 .active-filter-button-text {
   color: #057C42;
   text-align: left;
-  max-width: 90%;
-  font-size: 0.9rem; }
+  max-width: 90%; }
 
 .clear-active-filters-container {
-  margin: 0 1rem; }
+  margin: 0 1rem;
+  padding-bottom: 0.5rem; }
 
 .clear-active-filters-button {
   margin-bottom: 1rem;
@@ -840,7 +850,25 @@ input.search-box-input {
   text-decoration: underline; }
 
 .filter-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  align-items: top;
   padding: 1rem; }
+
+.filter-checkbox {
+  display: inline-block;
+  width: 1.5rem;
+  margin: 0;
+  margin-top: 0.25rem;
+  margin-right: 0.25rem; }
+
+.filter-list {
+  margin-bottom: 1rem; }
+
+.filter-list-container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 1rem; }
 
 body {
   background: #F2F2F2; }

@@ -162,10 +162,11 @@ const filtersReducer = function filterReducer(state = initialState, action) {
           }
         }
       }
-
-      return state
     case CLEAR_ACTIVE_FILTERS:
-      return state
+      return {
+        ...state,
+        active: _.without(state.active, action.payload)
+      }
     case CLEAR_ALL_FILTERS:
       return initialState;
     default:

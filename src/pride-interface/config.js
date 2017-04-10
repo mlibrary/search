@@ -300,7 +300,7 @@ const config = {
       {
         uid: 'search_only',
         type: 'checkbox',
-        name: 'Remove Search Only Hathitrust Materials',
+        name: 'Remove Search Only HathiTrust Materials',
         checkedCondition: 'false',
         defaults: [
           {

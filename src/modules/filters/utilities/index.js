@@ -3,6 +3,41 @@ import { _ } from 'underscore';
 import { config } from '../../../pride-interface'
 import { store } from '../../../store'
 
+const isFilterItemChecked = ({
+  datastoreUid,
+  filterUid
+}) => {
+  const state = store.getState()
+  const isActive = ((
+    state.filters.active[datastoreUid] &&
+    state.filters.active[datastoreUid][filterUid]
+  ) ? true : false)
+  const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
+
+  // error messages
+  if (!filterConfig) {
+    console.log('Filter configuration does not exist for', filterUid)
+    if (!filterConfig.checkedCondition) {
+      console.log('Filter configuration does not contain a required `checkedConditation` for', filterUid)
+    }
+
+    return false
+  }
+
+  if (isActive) {
+    const activeFilterValue = state.filters.active[datastoreUid][filterUid].filters
+
+    if (
+      activeFilterValue.length === 1 &&
+      filterConfig.checkedCondition === activeFilterValue[0]) {
+
+      return true
+    }
+  }
+
+  return false
+}
+
 const getFiltersByType = ({ activeDatastoreUid, filters, type }) => {
 
   // Pull the checkbox configurations
@@ -117,41 +152,6 @@ const getActiveFilters = ({ activeFilters, filters }) => {
 
     return previous
   }, [])
-}
-
-const isFilterItemChecked = ({
-  datastoreUid,
-  filterUid
-}) => {
-  const state = store.getState()
-  const isActive = ((
-    state.filters.active[datastoreUid] &&
-    state.filters.active[datastoreUid][filterUid]
-  ) ? true : false)
-  const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
-
-  // error messages
-  if (!filterConfig) {
-    console.log('Filter configuration does not exist for', filterUid)
-    if (!filterConfig.checkedCondition) {
-      console.log('Filter configuration does not contain a required `checkedConditation` for', filterUid)
-    }
-
-    return false
-  }
-
-  if (isActive) {
-    const activeFilterValue = state.filters.active[datastoreUid][filterUid].filters
-
-    if (
-      activeFilterValue.length === 1 &&
-      filterConfig.checkedCondition === activeFilterValue[0]) {
-
-      return true
-    }
-  }
-
-  return false
 }
 
 export {
