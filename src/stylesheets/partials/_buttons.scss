@@ -90,10 +90,9 @@
   background: none;
   border: none;
   padding: 0;
-  color: $grey-2;
+  color: $grey-3;
   line-height: inherit;
-
-  border-bottom: solid 1px $grey-3;
+  text-decoration: underline;
 
   &:hover {
     color: $grey-1;

@@ -1,12 +1,18 @@
 .filters-container {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
-.active-filters-heading {
-  font-weight: 700;
-  font-size: 1rem;
+.active-filters-heading,
+.filters-heading {
+  padding: 1rem;
   margin: 0;
+  color: $grey-2;
+  background: $grey-6;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 2px;
 }
 
 .filter-group-list {
@@ -15,60 +21,37 @@
   list-style: none;
 }
 
-.filter-group,
-.no-filters-available,
-.active-filters-container {
-  line-height: 1.5;
+.filter-group {
+  background: $grey-6;
   margin: 0;
   padding: 0;
-  background: $grey-6;
+  margin-bottom: 2px;
 }
 
 .filter-group-heading {
-  font-weight: 700;
-  font-size: 1rem;
-  line-height: 1.5;
   margin: 0;
-  color: $grey-2;
-}
-
-.filter-group {
-  border-bottom: solid 2px $grey-7;
-}
-
-.filters-heading {
-  padding: 1rem;
-  margin: 0;
-  border-bottom: solid 2px $grey-7;
   color: $grey-2;
   background: $grey-6;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 1rem;
-}
-
-.filter-group-list .filter-group-multiselect:first-of-type {
-  border-top: solid 2px $grey-7;
+  line-height: 1.5;
 }
 
 .active-filters-container {
   border-radius: 4px 4px 0 0;
-  @include box-shadow();
-}
-
-.no-filters-available,
-.filter-group-toggle-show-button,
-.active-filters-heading{
-  padding: 1rem;
-  color: $grey-2;
+  background: $grey-6;
 }
 
 .no-filters-available {
-  border-radius: 4px 4px 0 0;
+  border-radius: 4px;
+  background: $grey-6;
+  padding: 1rem;
 }
 
 .filter-group-toggle-show-button {
   display: flex;
   margin: 0;
+  padding: 1rem;
   width: 100%;
 
   justify-content: space-between;
@@ -214,5 +197,5 @@
 .filter-list-container {
   padding-left: 1rem;
   padding-right: 1rem;
-  margin-bottom: 1rem;
+  padding-bottom: 1rem;
 }

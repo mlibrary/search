@@ -180,6 +180,8 @@ const Filter = ({
       )
     case 'multiselect':
       const filterItems = getFilterItems({
+        datastoreUid: datastoreUid,
+        filterUid: filter.uid,
         items: filter.filters
       })
 

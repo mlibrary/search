@@ -104,8 +104,20 @@ const getDisplayFilters = ({ filters, datastoreUid }) => {
   }, [])
 }
 
-const getFilterItems = ({ items }) => {
-  const itemsArray = _.map(items, item => item)
+const getFilterItems = ({ datastoreUid, filterUid, items }) => {
+  const itemsArray = _.reduce(items, (previous, item) => {
+    const isActive = isFilterItemActive({
+      datastoreUid,
+      filterUid,
+      filterItemValue: item.value
+    })
+
+    if (!isActive) {
+      previous = previous.concat(item)
+    }
+
+    return previous
+  }, [])
 
   return _.sortBy(itemsArray, 'count').reverse()
 }
