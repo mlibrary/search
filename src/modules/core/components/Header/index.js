@@ -48,9 +48,6 @@ class Header extends React.Component {
               <a href="https://docs.google.com/document/d/1q1PkusiC83c1yfqJdFWRSEGRQGBqHB3ZhBpBUq0H_FI/edit">What's in the Beta?</a>
             </li>
             <li>
-              <a href="https://umich.qualtrics.com/SE/?SID=SV_4Ofx0wtEQhzDtKl">Feedback</a>
-            </li>
-            <li>
               <a href="https://www.lib.umich.edu/my-account/">My Account</a>
             </li>
           </ul>

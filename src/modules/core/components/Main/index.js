@@ -9,9 +9,14 @@ class Main extends React.Component {
       <div>
         <Header />
         {this.props.children}
+        <FeedbackWidget />
       </div>
     )
   }
 }
+
+const FeedbackWidget = () => (
+  <a className="feedback-widget button" href="https://umich.qualtrics.com/SE/?SID=SV_4Ofx0wtEQhzDtKl">Give Feedback</a>
+)
 
 export default Main

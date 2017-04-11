@@ -1,6 +1,7 @@
 import { _ } from 'underscore';
 
 import { config } from '../../../pride-interface';
+import { store } from '../../../store'
 
 const getField = function getField(fields, key) {
   return _.findWhere(fields, { uid: key });
@@ -15,7 +16,11 @@ const getFieldValue = (field) => {
     }
   }
 
-  return value;
+  if (value) {
+    return [].concat(value);
+  }
+
+  return [];
 };
 
 const filterDisplayFields = ({ fields, type, datastore }) => {
@@ -165,15 +170,17 @@ const getHoldings = ({ holdings, datastoreUid }) => {
     return []
   }
 
+  const state = store.getState()
+
   return holdingsConfig.reduce((previous, holdingConfig) => {
     if (!holdings[holdingConfig.uid]) {
       return previous
     }
 
-    return previous.concat({
+    const holdingsType = {
       uid: holdingConfig.uid,
       name: holdingConfig.heading,
-      holdings: _.map(holdings[holdingConfig.uid], (holding) => {
+      holdings: _.reduce(holdings[holdingConfig.uid], (acc, holding) => {
         let holdingObj = {
           label: holdingConfig.label,
           link: holding[holdingConfig.link],
@@ -198,9 +205,26 @@ const getHoldings = ({ holdings, datastoreUid }) => {
           }
         })
 
-        return holdingObj
-      })
-    })
+        // Hack
+        // A very special hack to remove Search Only HathiTrust holdings
+        // from Mirlyn records when search only filter is active.
+        if (
+          state.filters.active['mirlyn'] &&
+          state.filters.active['mirlyn']['search_only'] &&
+          holding[holdingConfig.status] === 'Search only (no full text)') {
+            return acc
+        }
+        // OK carry on
+
+        return acc.concat(holdingObj)
+      }, [])
+    }
+
+    if (holdingsType.holdings.length > 0) {
+      return previous.concat(holdingsType)
+    } else {
+      return previous
+    }
   }, [])
 
   /*

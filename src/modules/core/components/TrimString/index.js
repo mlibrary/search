@@ -15,6 +15,8 @@ class TrimString extends React.Component {
     const string = this.props.string
     const trimLength = this.props.trim
 
+    // TODO have two parts of the string trimmed to show more and less and not move the button.
+
     return (
       <span>
         {string}
@@ -42,4 +44,4 @@ const ShowHideButton = ({ handleOnClick, show}) => {
   )
 }
 
-export default ShowAllList
+export default TrimString

@@ -67,7 +67,6 @@ const config = {
         'publisher'
       ],
       full: [
-        'format',
         'author',
         'publication_date',
         'place_of_publication',
@@ -77,6 +76,13 @@ const config = {
         'extended_summary',
       ],
       holdings: [
+        {
+          uid: 'online',
+          link: 'href',
+          defaultAccessText: 'Available Online',
+          heading: 'Online Holdings',
+          label: 'Online'
+        },
         {
           uid: 'hathitrust',
           link: 'handle_url',
@@ -97,13 +103,6 @@ const config = {
           heading: 'Physical Holdings',
           map: 'info_link',
           coverage: 'enum',
-        },
-        {
-          uid: 'online',
-          link: 'href',
-          defaultAccessText: 'Available Online',
-          heading: 'Online Holdings',
-          label: 'Online'
         },
         {
           uid: 'media',
@@ -153,7 +152,6 @@ const config = {
         'scopus_cited'
       ],
       full: [
-        'format',
         'publication_date',
         'abstract',
         'volume',
@@ -186,7 +184,7 @@ const config = {
         {
           uid: 'format',
           name: 'Format',
-          value: 'Database',
+          value: ['Database'],
         }
       ],
       preview: [
@@ -204,7 +202,6 @@ const config = {
         'coverage'
       ],
       full: [
-        'format',
         'full_description',
         'brief_description',
         'database_type',
@@ -232,7 +229,7 @@ const config = {
         {
           uid: 'format',
           name: 'Format',
-          value: 'Online Journal'
+          value: ['Online Journal']
         }
       ],
       preview: [
@@ -246,7 +243,6 @@ const config = {
         'holdings',
       ],
       full: [
-        'format',
         'issn',
         'access',
         'academic_disciplines',
@@ -274,7 +270,7 @@ const config = {
         {
           uid: 'format',
           name: 'Format',
-          value: 'Library Website'
+          value: ['Library Website']
         }
       ],
       preview: [

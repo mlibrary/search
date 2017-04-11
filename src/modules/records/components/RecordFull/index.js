@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { _ } from 'underscore'
 
+import { Icon } from '../../../core'
 import FieldList from '../RecordFieldList';
 import {
   filterAccessFields,
@@ -55,7 +56,7 @@ class FullRecord extends React.Component {
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
-          <Format displayFields={displayFields} />
+          <Format fields={record.fields} />
           <div className="record-container">
             <h1 className="full-record-title">
               {[].concat(record.names).map((title, index) => (
@@ -97,20 +98,14 @@ const SkeletonFullRecord = () => (
   </div>
 )
 
-const Format = ({ displayFields }) => {
-  const formatFieldValue = getFieldValue(getField(displayFields, 'format'))
-
-  if (Array.isArray(formatFieldValue)) {
-    return (
-      <div className="full-record-header">
-        <p>{formatFieldValue.join(', ')}</p>
-      </div>
-    )
-  }
+const Format = ({ fields }) => {
+  const formatFieldValue = getFieldValue(getField(fields, 'format'))
 
   return (
     <div className="full-record-header">
-      <p>{formatFieldValue}</p>
+      {formatFieldValue.map((value, index) => (
+        <span className="full-record-format" key={index}><Icon name={value.toLowerCase()} />{value}</span>
+      ))}
     </div>
   )
 }

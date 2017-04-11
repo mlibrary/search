@@ -163,17 +163,20 @@ const Filter = ({
 
       return (
         <li className="filter-group filter-group-checkbox">
-          <label className="filter-checkbox-label">
-            <input
-              type="checkbox"
-              className="filter-checkbox"
-              checked={isChecked}
-              onChange={() => handleFilterItemClick({
-                datastoreUid,
-                filterUid: filter.uid,
-                filterItemValue: value
-              })}
-            />
+          <label
+            className="filter-checkbox-label"
+            onClick={() => handleFilterItemClick({
+              datastoreUid,
+              filterUid: filter.uid,
+              filterItemValue: value
+            })}>
+            <div className="filter-checkbox">
+              {isChecked ? (
+                <span className="filter-checkbox-checked"><Icon name='checkbox-checked' /></span>
+              ) : (
+                <Icon name='checkbox-unchecked' />
+              )}
+            </div>
             <span className="filter-name">{filter.name}</span>
           </label>
         </li>
