@@ -375,16 +375,12 @@ const setupInitialState = () => {
     _.each(config.filters[datastoreUid], filterConfig => {
       if (filterConfig.defaults) {
         _.each(filterConfig.defaults, defaultFilter => {
-
-          // make sure this is a real filter
-          if (stateFilters[defaultFilter.group]) {
-            previous.push({
-              datastoreUid: datastoreUid,
-              filterUid: defaultFilter.group,
-              filterName: stateFilters[defaultFilter.group].name,
-              filterItemValue: defaultFilter.value
-            })
-          }
+          previous.push({
+            datastoreUid: datastoreUid,
+            filterUid: defaultFilter.group,
+            filterName: defaultFilter.name,
+            filterItemValue: defaultFilter.value
+          })
         })
       }
     })

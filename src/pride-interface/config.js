@@ -382,10 +382,6 @@ const config = {
         uid: 'academic_discipline',
         open: true,
       },
-      {
-        uid: 'new',
-        open: true,
-      },
     ],
     'website': [
       {
