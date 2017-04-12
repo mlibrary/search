@@ -3,6 +3,10 @@ import { _ } from 'underscore';
 import { config } from '../../../pride-interface';
 import { store } from '../../../store'
 
+import {
+  isFilterItemChecked
+} from '../../filters/utilities'
+
 const getField = function getField(fields, key) {
   return _.findWhere(fields, { uid: key });
 };
@@ -205,14 +209,21 @@ const getHoldings = ({ holdings, datastoreUid }) => {
           }
         })
 
+
+
         // Hack
         // A very special hack to remove Search Only HathiTrust holdings
         // from Mirlyn records when search only filter is active.
+
+        // Is this set in active filters?
         if (
-          state.filters.active['mirlyn'] &&
-          state.filters.active['mirlyn']['search_only'] &&
-          holding[holdingConfig.status] === 'Search only (no full text)') {
-            return acc
+          (holding[holdingConfig.status] === 'Search only (no full text)') &&
+          isFilterItemChecked({
+            datastoreUid: 'mirlyn',
+            filterUid: 'search_only'
+          })
+        ) {
+          return acc
         }
         // OK carry on
 
