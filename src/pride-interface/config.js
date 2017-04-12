@@ -125,6 +125,15 @@ const config = {
           defaultAccessText: 'Request This Special Item',
           map: 'info_link',
           coverage: 'enum',
+        },
+        {
+          uid: 'other',
+          link: 'get_this_url',
+          location: 'location',
+          status: 'status',
+          heading: 'Holdings (Other)',
+          defaultAccessText: 'Request This Item',
+          map: 'info_link'
         }
       ]
     },
@@ -297,13 +306,8 @@ const config = {
         uid: 'search_only',
         type: 'checkbox',
         name: 'Remove Search Only HathiTrust Materials',
-        checkedCondition: 'false',
-        defaults: [
-          {
-            group: 'search_only',
-            value: 'false'
-          }
-        ]
+        checkedCondition: 'true',
+        defaultValueOnSpectrum: 'true'
       },
       {
         uid: 'subject',
@@ -346,12 +350,7 @@ const config = {
         type: 'checkbox',
         name: 'U-M Library Materials Only',
         checkedCondition: 'true',
-        defaults: [
-          {
-            group: 'holdings_only',
-            value: 'true'
-          }
-        ]
+        defaultValueOnSpectrum: 'true',
       },
       {
         uid: 'subject',

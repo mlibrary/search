@@ -168,7 +168,7 @@ const Filter = ({
             onClick={() => handleFilterItemClick({
               datastoreUid,
               filterUid: filter.uid,
-              filterItemValue: value
+              filterItemValue: 'false'
             })}>
             <div className="filter-checkbox">
               {isChecked ? (

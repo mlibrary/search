@@ -7,6 +7,15 @@ const isFilterItemChecked = ({
   datastoreUid,
   filterUid
 }) => {
+  /*
+    A filter item is checked (checkboxes only) if:
+      a) the filter is active and matches the config checkedCondition
+      b) Has a default configuration and that is set
+        - default configurations are set in Spectrum
+        - If you want to do the inverse, then set the filter as active
+  */
+
+  // Option A
   const state = store.getState()
   const isActive = ((
     state.filters.active[datastoreUid] &&
@@ -33,6 +42,11 @@ const isFilterItemChecked = ({
 
       return true
     }
+  }
+
+  // Option B
+  if (!isActive && (filterConfig.checkedCondition === filterConfig.defaultValueOnSpectrum)) {
+    return true;
   }
 
   return false
@@ -69,12 +83,6 @@ const isFilterItemActive = ({ datastoreUid, filterUid, filterItemValue }) => {
   if (!filterConfig) {
     console.log('not a valid filter config', filterUid)
     return false
-  }
-
-  if (filterConfig.type === 'checkbox') {
-    const isChecked = isFilterItemChecked({ datastoreUid, filterUid })
-
-    return isChecked
   }
 
   const isActive = ((
