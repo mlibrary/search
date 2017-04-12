@@ -1,8 +1,6 @@
 import { _ } from 'underscore';
 
 import { config } from '../../../pride-interface';
-import { store } from '../../../store'
-
 import {
   isFilterItemChecked
 } from '../../filters/utilities'
@@ -174,8 +172,6 @@ const getHoldings = ({ holdings, datastoreUid }) => {
     return []
   }
 
-  const state = store.getState()
-
   return holdingsConfig.reduce((previous, holdingConfig) => {
     if (!holdings[holdingConfig.uid]) {
       return previous
@@ -209,13 +205,9 @@ const getHoldings = ({ holdings, datastoreUid }) => {
           }
         })
 
-
-
         // Hack
         // A very special hack to remove Search Only HathiTrust holdings
         // from Mirlyn records when search only filter is active.
-
-        // Is this set in active filters?
         if (
           (holding[holdingConfig.status] === 'Search only (no full text)') &&
           isFilterItemChecked({
@@ -225,7 +217,7 @@ const getHoldings = ({ holdings, datastoreUid }) => {
         ) {
           return acc
         }
-        // OK carry on
+        // OK, carry on.
 
         return acc.concat(holdingObj)
       }, [])
