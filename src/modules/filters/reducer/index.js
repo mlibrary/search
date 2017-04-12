@@ -165,7 +165,7 @@ const filtersReducer = function filterReducer(state = initialState, action) {
     case CLEAR_ACTIVE_FILTERS:
       return {
         ...state,
-        active: _.without(state.active, action.payload)
+        active: _.omit(state.active, action.payload.datastoreUid)
       }
     case CLEAR_ALL_FILTERS:
       return initialState;
