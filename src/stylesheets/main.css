@@ -713,8 +713,7 @@ input.search-box-input {
   background: #FAFAFA;
   font-weight: 600;
   font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 2px; }
+  line-height: 1.5; }
 
 .filter-group-list {
   margin: 0;
@@ -724,8 +723,7 @@ input.search-box-input {
 .filter-group {
   background: #FAFAFA;
   margin: 0;
-  padding: 0;
-  margin-bottom: 2px; }
+  padding: 0; }
 
 .filter-group-heading {
   margin: 0;
@@ -823,6 +821,7 @@ input.search-box-input {
     text-decoration: underline; }
 
 .active-filter-button-text {
+  font-size: 0.9rem;
   color: #057C42;
   text-align: left;
   max-width: 90%; }
@@ -838,8 +837,11 @@ input.search-box-input {
 
 .filter-checkbox-label {
   display: flex;
-  padding: 1rem;
-  cursor: pointer; }
+  cursor: pointer;
+  margin-bottom: 0;
+  padding: 0 1rem 1rem; }
+  .filter-checkbox-label:hover {
+    text-decoration: underline; }
   .filter-checkbox-label .filter-name {
     margin-top: -2px; }
 
@@ -850,7 +852,7 @@ input.search-box-input {
   flex-shrink: 0; }
 
 .filter-checkbox-checked {
-  color: #0C5292; }
+  color: #126DC1; }
 
 .filter-list {
   margin-bottom: 1rem; }
@@ -859,6 +861,9 @@ input.search-box-input {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-bottom: 1rem; }
+
+.filter-group-multiselect {
+  margin-top: 2px; }
 
 body {
   background: #F2F2F2; }

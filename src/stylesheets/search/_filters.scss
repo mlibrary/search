@@ -12,7 +12,6 @@
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.5;
-  margin-bottom: 2px;
 }
 
 .filter-group-list {
@@ -25,7 +24,6 @@
   background: $grey-6;
   margin: 0;
   padding: 0;
-  margin-bottom: 2px;
 }
 
 .filter-group-heading {
@@ -160,6 +158,7 @@
 }
 
 .active-filter-button-text {
+  font-size: 0.9rem;
   color: $green-1;
   text-align: left;
   max-width: 90%;
@@ -178,8 +177,13 @@
 
 .filter-checkbox-label {
   display: flex;
-  padding: 1rem;
   cursor: pointer;
+  margin-bottom: 0;
+  padding: 0 1rem 1rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
 
   .filter-name {
     margin-top: -2px;
@@ -194,7 +198,7 @@
 }
 
 .filter-checkbox-checked {
-  color: $main-2;
+  color: $main-3;
 }
 
 .filter-list {
@@ -205,4 +209,8 @@
   padding-left: 1rem;
   padding-right: 1rem;
   padding-bottom: 1rem;
+}
+
+.filter-group-multiselect {
+  margin-top: 2px;
 }

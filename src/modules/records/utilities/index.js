@@ -208,6 +208,7 @@ const getHoldings = ({ holdings, datastoreUid }) => {
         // Hack
         // A very special hack to remove Search Only HathiTrust holdings
         // from Mirlyn records when search only filter is active.
+        /*
         if (
           (holding[holdingConfig.status] === 'Search only (no full text)') &&
           isFilterItemChecked({
@@ -217,6 +218,7 @@ const getHoldings = ({ holdings, datastoreUid }) => {
         ) {
           return acc
         }
+        */
         // OK, carry on.
 
         return acc.concat(holdingObj)

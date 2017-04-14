@@ -12,7 +12,7 @@ const config = {
       },
       {
         uid: 'articlesplus',
-        name: 'Articles+',
+        name: 'Articles',
       },
       {
         uid: 'databases',
@@ -307,7 +307,8 @@ const config = {
         type: 'checkbox',
         name: 'Remove Search Only HathiTrust Materials',
         checkedCondition: 'true',
-        defaultValueOnSpectrum: 'true'
+        defaultValueOnSpectrum: 'true',
+        onClickValue: 'false',
       },
       {
         uid: 'subject',
@@ -346,11 +347,26 @@ const config = {
     ],
     'articlesplus': [
       {
+        uid: 'is_scholarly',
+        type: 'checkbox',
+        name: 'Articles from Scholarly Journals Only',
+        checkedCondition: 'true',
+        onClickValue: 'true',
+      },
+      {
+        uid: 'available_online',
+        type: 'checkbox',
+        name: 'Available Online',
+        checkedCondition: 'true',
+        onClickValue: 'true',
+      },
+      {
         uid: 'holdings_only',
         type: 'checkbox',
         name: 'U-M Library Materials Only',
         checkedCondition: 'true',
         defaultValueOnSpectrum: 'true',
+        onClickValue: 'false',
       },
       {
         uid: 'subject',

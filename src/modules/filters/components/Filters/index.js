@@ -23,7 +23,8 @@ import {
   filtersWithOpenProperty,
   isFilterItemActive,
   getActiveFilters,
-  isFilterItemChecked
+  isFilterItemChecked,
+  getCheckboxOnClickValue,
 } from '../../utilities'
 
 class Filters extends React.Component {
@@ -96,26 +97,25 @@ class Filters extends React.Component {
   render() {
     const { datastoreUid, filters, activeFilters } = this.props
     const open = this.state.open[datastoreUid]
+    const displayActiveFilters = getActiveFilters({ activeFilters, filters })
+    const displayFilters = filtersWithOpenProperty({ open, filters })
+
     return (
       <div className="filters-container">
         <ActiveFilters
           datastoreUid={datastoreUid}
-          activeFilters={getActiveFilters({ activeFilters, filters })}
+          activeFilters={displayActiveFilters}
           handleFilterItemClick={this.handleFilterItemClick}
           handleClearActiveFilters={this.handleClearActiveFilters}
         />
-        {filters.length === 0 ? (
-          <NoFilters />
-        ) : (
-          <FilterList
-            open={open}
-            datastoreUid={datastoreUid}
-            filters={filtersWithOpenProperty({ open, filters })}
-            handleFilterClick={this.handleFilterClick}
-            handleFilterItemClick={this.handleFilterItemClick}
-            handleShowClick={this.handleShowClick}
-          />
-        )}
+        <FilterList
+          open={open}
+          datastoreUid={datastoreUid}
+          filters={displayFilters}
+          handleFilterClick={this.handleFilterClick}
+          handleFilterItemClick={this.handleFilterItemClick}
+          handleShowClick={this.handleShowClick}
+        />
       </div>
     )
   }
@@ -132,9 +132,9 @@ const FilterList = ({
   <div>
     <h2 className="filters-heading">Filter your search</h2>
     <ul className="filter-group-list">
-      {filters.map(filter => (
+      {filters.map((filter, index) => (
         <Filter
-          key={filter.uid}
+          key={index}
           datastoreUid={datastoreUid}
           filter={filter}
           handleFilterClick={handleFilterClick}
@@ -158,6 +158,10 @@ const Filter = ({
         datastoreUid,
         filterUid: filter.uid
       })
+      const value = getCheckboxOnClickValue({
+        datastoreUid,
+        filterUid: filter.uid,
+      })
 
       return (
         <li className="filter-group filter-group-checkbox">
@@ -166,7 +170,7 @@ const Filter = ({
             onClick={() => handleFilterItemClick({
               datastoreUid,
               filterUid: filter.uid,
-              filterItemValue: 'false'
+              filterItemValue: value
             })}>
             <div className="filter-checkbox">
               {isChecked ? (
