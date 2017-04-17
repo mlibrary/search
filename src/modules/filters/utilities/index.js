@@ -177,10 +177,6 @@ const getActiveFilters = ({ activeFilters, filters }) => {
 const getCheckboxOnClickValue = ({ datastoreUid, filterUid }) => {
   const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
 
-  if (!filterConfig.onClickValue) {
-    throw 'filterConfig missing onClickValue'
-  }
-
   return filterConfig.onClickValue
 }
 export {

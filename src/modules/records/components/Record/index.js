@@ -3,16 +3,19 @@ import { Link } from 'react-router';
 
 import FieldList from '../RecordFieldList';
 import {
-  AccessList,
   AccessItem,
 } from '../AccessList';
+import {
+  ShowAllList
+} from '../../../core'
 import HoldingStatus from '../HoldingStatus';
 import { getDatastoreSlugByUid } from '../../../../pride-interface';
 import {
   getField,
   filterDisplayFields,
   filterAccessFields,
-  getHoldings
+  getHoldings,
+  getShowAllText
 } from '../../utilities';
 
 class Record extends React.Component {
@@ -64,21 +67,20 @@ class Record extends React.Component {
           ) : (
             <div className="access-container">
               {access.length > 0 && (
-                <AccessList length={access.length}>
-                  {access.map((item, index) => (
-                    <AccessItem key={index} item={item} />
-                  ))}
-                </AccessList>
+                <div className="access-list-container">
+                  <ShowAllList
+                    length={access.length}
+                    show={1}
+                    name={name ? name : ''}
+                    listClass={'access-list'}>
+                      {access.map((item, index) => (
+                        <AccessItem key={index} item={item} />
+                      ))}
+                  </ShowAllList>
+                </div>
               )}
               {holdings.length > 0 && (
-                <div className="holdings-container">
-                  {holdings.map((holdingsGroup, index) => (
-                    <HoldingsList
-                      holdingsGroup={holdingsGroup}
-                      key={holdingsGroup.uid}
-                    />
-                  ))}
-                </div>
+                <Holdings holdings={holdings} datastoreUid={datastoreUid} />
               )}
             </div>
           )}
@@ -90,26 +92,40 @@ class Record extends React.Component {
   }
 }
 
-class HoldingsList extends React.Component {
-  render() {
-    const { holdingsGroup } = this.props;
+const Holdings = ({ holdings, datastoreUid }) => {
+  return (
+    <div className="holdings-container">
+      {holdings.map((holdingsGroup, index) => {
+        const length = holdingsGroup.holdings.length
+        const showAllText = getShowAllText({
+          holdingUid: holdingsGroup.uid,
+          datastoreUid
+        }) || ''
 
-    return (
-      <AccessList length={holdingsGroup.holdings.length}>
-        {holdingsGroup.holdings.map((holding, index) => (
-          <li className="access-item" key={index}>
-            <span className="access-detail
-               holding-detail-label">{holding.label}</span>
-             <a href={holding.link} className="underline access-detail">{holding.linkText}</a>
-            <HoldingStatus status={holding.status} />
-            <span className="access-detail holding-detail-location">{holding.location}</span>
-            <span className="access-detail">{holding.callnumber}</span>
-            <span className="access-detail">{holding.source}</span>
-          </li>
-        ))}
-      </AccessList>
-    )
-  }
+        return (
+          <div key={index} className="access-list-container">
+            <ShowAllList
+              length={length}
+              show={1}
+              name={showAllText ? showAllText : ''}
+              listClass={'access-list'}>
+                {holdingsGroup.holdings.map((holding, index) => (
+                  <li className="access-item" key={index}>
+                    <span className="access-detail
+                       holding-detail-label">{holding.label}</span>
+                     <a href={holding.link} className="underline access-detail">{holding.linkText}</a>
+                    <HoldingStatus status={holding.status} />
+                    <span className="access-detail holding-detail-location">{holding.location}</span>
+                    <span className="access-detail">{holding.callnumber}</span>
+                    <span className="access-detail">{holding.source}</span>
+                  </li>
+                ))}
+            </ShowAllList>
+          </div>
+        )
+      })}
+    </div>
+  )
 }
 
 export default Record;

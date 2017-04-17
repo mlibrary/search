@@ -17,7 +17,9 @@ class ShowAllList extends React.Component {
     const listClass = this.props.listClass || ''
     const hasShowHideButton = length > show
     const name = this.props.name || undefined
-    const innerShowHideButtonText = `${this.state.show ? 'Show fewer' : 'Show all'} ${name ? name : ''}`
+    const showFewerText = `Show Fewer ${name ? name : ''}`
+    const showAllText = `Show All ${length} ${name ? name : ''}`
+    const buttonText = `${this.state.show ? showFewerText : showAllText }`
 
     return (
       <div>
@@ -32,7 +34,7 @@ class ShowAllList extends React.Component {
         </ul>
         {hasShowHideButton && (
           <ShowHideButton handleOnClick={this.handleShowToggleClick.bind(this)}>
-            {innerShowHideButtonText}
+            {buttonText}
           </ShowHideButton>
         )}
       </div>
@@ -43,7 +45,7 @@ class ShowAllList extends React.Component {
 class ShowHideButton extends React.Component {
   render() {
     return (
-      <button onClick={() => this.props.handleOnClick()} className="button-link-light">
+      <button onClick={() => this.props.handleOnClick()} className="button-link-light show-all-button font-small">
         {this.props.children}
       </button>
     )

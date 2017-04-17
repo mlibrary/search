@@ -80,8 +80,9 @@ const config = {
           uid: 'online',
           link: 'href',
           defaultAccessText: 'Available Online',
-          heading: 'Online Holdings',
-          label: 'Online'
+          heading: 'Online Resources',
+          label: 'Online',
+          showAllName: 'Online Resources'
         },
         {
           uid: 'hathitrust',
@@ -92,6 +93,7 @@ const config = {
           label: 'HathiTrust',
           source: 'source',
           description: 'description',
+          showAllName: 'HathiTrust Sources'
         },
         {
           uid: 'circulating',
@@ -103,6 +105,7 @@ const config = {
           heading: 'Physical Holdings',
           map: 'info_link',
           coverage: 'enum',
+          showAllName: 'Physical Holdings',
         },
         {
           uid: 'media',

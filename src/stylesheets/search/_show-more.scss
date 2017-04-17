@@ -1,5 +1,3 @@
-.show-all-able-list:not(.show-all) {
-  li:not(:first-child) {
-    display: none;
-  }
+.show-all-button {
+  margin-top: 1rem;
 }

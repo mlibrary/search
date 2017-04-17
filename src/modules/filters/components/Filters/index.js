@@ -209,7 +209,7 @@ const Filter = ({
               <ShowAllList
                 length={filterItems.length}
                 show={5}
-                name={`${filter.name.toLowerCase()} filters`}
+                name={`${filter.name} Filters`}
                 listClass={'filter-list'}>
                 {filterItems.map((filterItem, index) => (
                   <FilterItem
@@ -249,12 +249,6 @@ const FilterItem = ({
     </li>
   )
 }
-
-const NoFilters = () => (
-  <div className="filters-container">
-    <p className="no-filters-available"><b>No filters</b> available.</p>
-  </div>
-)
 
 const ActiveFilters = ({
   datastoreUid,

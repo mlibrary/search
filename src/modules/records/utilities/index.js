@@ -1,9 +1,6 @@
 import { _ } from 'underscore';
 
 import { config } from '../../../pride-interface';
-import {
-  isFilterItemChecked
-} from '../../filters/utilities'
 
 const getField = function getField(fields, key) {
   return _.findWhere(fields, { uid: key });
@@ -251,6 +248,17 @@ const getHoldings = ({ holdings, datastoreUid }) => {
   */
 }
 
+const getShowAllText = ({ holdingUid, datastoreUid }) => {
+  const accessConfig = _.findWhere(config.fields, { datastore: datastoreUid })
+
+  if (accessConfig.holdings) {
+    const holdingsConfig = _.findWhere(accessConfig.holdings, { uid: holdingUid })
+    return holdingsConfig.showAllName || holdingsConfig.heading
+  }
+
+  return undefined
+}
+
 export {
   getField,
   getFieldValue,
@@ -258,5 +266,6 @@ export {
   filterAccessFields,
   displayLoadingFeedback,
   isFullRecordType,
-  getHoldings
+  getHoldings,
+  getShowAllText
 }

@@ -2,7 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { _ } from 'underscore'
 
-import { Icon } from '../../../core'
+import {
+  ShowAllList,
+  Icon
+} from '../../../core'
 import FieldList from '../RecordFieldList';
 import {
   filterAccessFields,
@@ -10,6 +13,7 @@ import {
   getHoldings,
   getField,
   getFieldValue,
+  getShowAllText
 } from '../../utilities';
 import HoldingStatus from '../HoldingStatus'
 import {
@@ -30,7 +34,7 @@ class FullRecord extends React.Component {
   }
 
   render() {
-    const { record, activeDatastoreUid } = this.props;
+    const { record, datastoreUid } = this.props;
 
     if (!record) {
       return <SkeletonFullRecord />
@@ -39,18 +43,18 @@ class FullRecord extends React.Component {
     const access = filterAccessFields({
       fields: record.fields,
       type: 'access',
-      datastore: activeDatastoreUid,
+      datastore: datastoreUid,
     });
 
     const holdings = getHoldings({
       holdings: record.holdings,
-      datastoreUid: activeDatastoreUid
+      datastoreUid: datastoreUid
     })
 
     const displayFields = filterDisplayFields({
       fields: record.fields,
       type: 'full',
-      datastore: activeDatastoreUid
+      datastore: datastoreUid
     });
 
     return (
@@ -72,7 +76,7 @@ class FullRecord extends React.Component {
                 ))}
               </AccessList>
             )}
-            {holdings && (<Holdings holdings={holdings} />)}
+            {holdings && (<Holdings holdings={holdings} datastoreUid={datastoreUid} />)}
           </div>
         </div>
       </div>
@@ -110,92 +114,56 @@ const Format = ({ fields }) => {
   )
 }
 
-const Holdings = ({ holdings }) => {
+const Holdings = ({ holdings, datastoreUid }) => {
   return (
     <div className="full-holdings-container">
       {holdings.map((holdingsGroup, index) => (
       <div key={index} className="full-holdings-group-container">
         <h3 className="full-holding-group-heading">{holdingsGroup.name}</h3>
-        <HoldingsGroup group={holdingsGroup} />
+        <HoldingsGroup group={holdingsGroup} datastoreUid={datastoreUid} />
       </div>
       ))}
     </div>
   )
 }
 
-class HoldingsGroup extends React.Component {
-  state = {
-    showAllGroups: []
-  }
+const HoldingsGroup = ({ group, datastoreUid }) => {
+  const length = group.holdings.length
+  const showAllText = getShowAllText({
+    holdingUid: group.uid,
+    datastoreUid
+  }) || ''
 
-  handleShowMoreClick(groupUid) {
-    if (_.contains(this.state.showAllGroups, groupUid)) {
-      const newState = _.without(this.state.showAllGroups, groupUid)
-      this.setState({
-        showAllGroups: newState
-      })
-    } else {
-      this.setState({
-        showAllGroups: this.state.showAllGroups.concat(groupUid)
-      })
-    }
-  }
-
-  render() {
-    const { group } = this.props;
-    let holdingGroup = null;
-    const showAll = _.contains(this.state.showAllGroups, group.uid)
-    const displayShowMore = (!showAll && (group.holdings.length > 1))
-
-    switch (group.uid) {
-      case 'hathitrust':
-      case 'online':
-        holdingGroup = (
-          <div>
-            <ul className={`full-holding-list show-all-able-list ${showAll ? 'show-all' : ''}`}>
-              {group.holdings.map((holding, index) => (
-                <li key={index} className='full-holding-list-item'>
-                  <OnlineHolding holding={holding} />
-                </li>
-              ))}
-            </ul>
-            {displayShowMore && (
-              <button
-                className={`button-link-light ${showAll ? 'hide' : ''}`}
-                onClick={() => this.handleShowMoreClick(group.uid)}
-              >Show { group.holdings.length - 1 } more</button>
-            )}
-            {showAll && (
-              <button className="button-link-light" onClick={() => this.handleShowMoreClick(group.uid)}>Show fewer</button>
-            )}
-          </div>
-        )
-        break;
-      default:
-        holdingGroup = (
-          <div>
-            <ul className={`full-holding-list show-all-able-list ${showAll ? 'show-all' : ''}`}>
-              {group.holdings.map((holding, index) => (
-                <li key={index} className='full-holding-list-item'>
-                  <PhysicalHolding holding={holding} />
-                </li>
-              ))}
-            </ul>
-            {displayShowMore && (
-              <button
-                className={`button-link-light ${showAll ? 'hide' : ''}`}
-                onClick={() => this.handleShowMoreClick(group.uid)}
-              >Show { group.holdings.length - 1 } more</button>
-            )}
-            {showAll && (
-              <button className="button-link-light" onClick={() => this.handleShowMoreClick(group.uid)}>Show fewer</button>
-            )}
-          </div>
-        )
-        break;
-    }
-
-    return holdingGroup
+  switch (group.uid) {
+    case 'hathitrust':
+    case 'online':
+      return (
+        <ShowAllList
+          length={length}
+          show={1}
+          name={showAllText ? showAllText : ''}
+          listClass={'full-holding-list'}>
+            {group.holdings.map((holding, index) => (
+              <li key={index} className='full-holding-list-item'>
+                <OnlineHolding holding={holding} />
+              </li>
+            ))}
+        </ShowAllList>
+      )
+    default:
+      return (
+        <ShowAllList
+          length={length}
+          show={1}
+          name={showAllText ? showAllText : ''}
+          listClass={'full-holding-list'}>
+            {group.holdings.map((holding, index) => (
+              <li key={index} className='full-holding-list-item'>
+                <PhysicalHolding holding={holding} />
+              </li>
+            ))}
+        </ShowAllList>
+      )
   }
 }
 
@@ -203,7 +171,7 @@ const PhysicalHolding = ({ holding }) => (
   <dl className='full-holding-item'>
     {holding.status && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           Status
         </dt>
         <dd>
@@ -213,7 +181,7 @@ const PhysicalHolding = ({ holding }) => (
     )}
     {holding.location && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           Location
         </dt>
         <dd>
@@ -226,7 +194,7 @@ const PhysicalHolding = ({ holding }) => (
     )}
     {holding.source && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           Source
         </dt>
         <dd>
@@ -236,7 +204,7 @@ const PhysicalHolding = ({ holding }) => (
     )}
     {holding.coverage && holding.coverage.length > 0 && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           Coverage
         </dt>
         <dd>
@@ -248,7 +216,7 @@ const PhysicalHolding = ({ holding }) => (
     )}
     {holding.link && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           Actions
         </dt>
         <dd>
@@ -263,7 +231,7 @@ const OnlineHolding = ({ holding }) => (
   <dl className="full-holding-item">
     {holding.link && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           {holding.linkStyle === 'link' && (
             'Actions'
           )}
@@ -279,7 +247,7 @@ const OnlineHolding = ({ holding }) => (
     )}
     {holding.status && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           Status
         </dt>
         <dd>
@@ -289,7 +257,7 @@ const OnlineHolding = ({ holding }) => (
     )}
     {holding.location && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           Location
         </dt>
         <dd>
@@ -303,7 +271,7 @@ const OnlineHolding = ({ holding }) => (
     )}
     {holding.source && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           Source
         </dt>
         <dd>
@@ -313,7 +281,7 @@ const OnlineHolding = ({ holding }) => (
     )}
     {holding.coverage && holding.coverage.length > 0 && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           Coverage
         </dt>
         <dd>
@@ -325,7 +293,7 @@ const OnlineHolding = ({ holding }) => (
     )}
     {holding.description && (
       <div className="full-holding-item-detail">
-        <dt>
+        <dt className="full-holding-item-detail-label font-small">
           Description
         </dt>
         <dd>
@@ -339,7 +307,7 @@ const OnlineHolding = ({ holding }) => (
 function mapStateToProps(state) {
   return {
     record: state.records.record,
-    activeDatastoreUid: state.datastores.active,
+    datastoreUid: state.datastores.active,
   }
 }
 

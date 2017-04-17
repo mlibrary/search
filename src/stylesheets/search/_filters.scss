@@ -201,14 +201,14 @@
   color: $main-3;
 }
 
-.filter-list {
-  margin-bottom: 1rem;
-}
-
 .filter-list-container {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-bottom: 1rem;
+
+  .button-link-light {
+    margin-top: 0.5rem;
+  }
 }
 
 .filter-group-multiselect {
