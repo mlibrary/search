@@ -339,13 +339,14 @@ textarea {
   background: none;
   border: none;
   padding: 0;
-  color: #4E4E4E;
+  color: #6E6E6E;
   line-height: inherit;
-  text-decoration: underline;
-  text-align: left; }
+  text-align: left;
+  border-bottom: solid 1px #CCC; }
   .button-link-light:hover {
-    color: #333;
-    cursor: pointer; }
+    color: #4E4E4E;
+    cursor: pointer;
+    border-color: #6E6E6E; }
 
 .button-small {
   font-size: 0.8rem;
