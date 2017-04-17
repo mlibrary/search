@@ -341,7 +341,8 @@ textarea {
   padding: 0;
   color: #6E6E6E;
   line-height: inherit;
-  text-decoration: underline; }
+  text-decoration: underline;
+  text-align: left; }
   .button-link-light:hover {
     color: #333;
     cursor: pointer; }

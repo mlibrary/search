@@ -206,7 +206,11 @@ const Filter = ({
           </button>
           {filter.open && (
             <div className="filter-list-container">
-              <ShowAllList length={filterItems.length} show={5} listClass={'filter-list'}>
+              <ShowAllList
+                length={filterItems.length}
+                show={5}
+                name={`${filter.name.toLowerCase()} filters`}
+                listClass={'filter-list'}>
                 {filterItems.map((filterItem, index) => (
                   <FilterItem
                     key={index}
