@@ -70,11 +70,14 @@ class FullRecord extends React.Component {
             <FieldList fields={displayFields} />
 
             {access.length > 0 && (
-              <AccessList length={access.length}>
+              <ShowAllList
+                length={access.length}
+                show={1}
+                listClass={'full-holding-list'}>
                 {access.map((item, key) => (
                   <AccessItem key={key} type='full' item={item} />
                 ))}
-              </AccessList>
+              </ShowAllList>
             )}
             {holdings && (<Holdings holdings={holdings} datastoreUid={datastoreUid} />)}
           </div>

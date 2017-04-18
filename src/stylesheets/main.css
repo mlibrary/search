@@ -1162,6 +1162,10 @@ body {
   padding-bottom: 1rem;
   border-bottom: solid 1px #E5E5E5; }
 
+.full-holding-item-detail-label {
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 600; }
+
 @media (min-width: 47rem) {
   .full-holding-item-detail:not(:last-child) {
     margin-right: 1rem; } }
