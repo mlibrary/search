@@ -17,7 +17,6 @@ import {
 } from '../../utilities';
 import HoldingStatus from '../HoldingStatus'
 import {
-  AccessList,
   AccessItem
 } from '../AccessList'
 import {
@@ -182,6 +181,18 @@ const PhysicalHolding = ({ holding }) => (
         </dd>
       </div>
     )}
+    {holding.coverage && holding.coverage.length > 0 && (
+      <div className="full-holding-item-detail">
+        <dt className="full-holding-item-detail-label font-small">
+          Coverage
+        </dt>
+        <dd>
+          {holding.coverage.map((value, index) => (
+            <span key={index}>{value}</span>
+          ))}
+        </dd>
+      </div>
+    )}
     {holding.location && (
       <div className="full-holding-item-detail">
         <dt className="full-holding-item-detail-label font-small">
@@ -202,18 +213,6 @@ const PhysicalHolding = ({ holding }) => (
         </dt>
         <dd>
           {holding.source}
-        </dd>
-      </div>
-    )}
-    {holding.coverage && holding.coverage.length > 0 && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Coverage
-        </dt>
-        <dd>
-          {holding.coverage.map((value, index) => (
-            <span key={index}>{value}</span>
-          ))}
         </dd>
       </div>
     )}
@@ -245,6 +244,16 @@ const OnlineHolding = ({ holding }) => (
           ) : (
             <a href={holding.link} className="button">{holding.linkText}</a>
           )}
+        </dd>
+      </div>
+    )}
+    {holding.description && (
+      <div className="full-holding-item-detail">
+        <dt className="full-holding-item-detail-label font-small">
+          Description
+        </dt>
+        <dd>
+          {holding.description}
         </dd>
       </div>
     )}
@@ -291,16 +300,6 @@ const OnlineHolding = ({ holding }) => (
           {holding.coverage.map((value, index) => (
             <span key={index}>{value}</span>
           ))}
-        </dd>
-      </div>
-    )}
-    {holding.description && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Description
-        </dt>
-        <dd>
-          {holding.description}
         </dd>
       </div>
     )}

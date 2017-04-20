@@ -79,21 +79,20 @@ const config = {
         {
           uid: 'online',
           link: 'href',
-          defaultAccessText: 'Available Online',
-          heading: 'Online Resources',
+          defaultAccessText: 'Available online',
+          heading: 'Online resources',
           label: 'Online',
-          showAllName: 'Online Resources'
+          showAllName: 'online resources'
         },
         {
           uid: 'hathitrust',
           link: 'handle_url',
-          status: 'status',
-          defaultAccessText: 'Full Text Online',
+          defaultAccessText: 'Full text online',
           heading: 'HathiTrust Digital Library',
           label: 'HathiTrust',
           source: 'source',
           description: 'description',
-          showAllName: 'HathiTrust Sources'
+          showAllName: 'HathiTrust sources'
         },
         {
           uid: 'circulating',
@@ -101,18 +100,18 @@ const config = {
           status: 'status',
           location: 'location',
           callnumber: 'callnumber',
-          defaultAccessText: 'Request This Item',
+          defaultAccessText: 'Request this item',
           heading: 'Physical Holdings',
           map: 'info_link',
           coverage: 'enum',
-          showAllName: 'Physical Holdings',
+          showAllName: 'physical holdings',
         },
         {
           uid: 'media',
           link: 'get_this_url',
           location: 'location',
           status: 'status',
-          defaultAccessText: 'Request This Media Item',
+          defaultAccessText: 'Request this media item',
           callnumber: 'callnumber',
           heading: 'Media Holdings',
           map: 'info_link',
@@ -125,7 +124,7 @@ const config = {
           status: 'status',
           callnumber: 'callnumber',
           heading: 'Special Holdings',
-          defaultAccessText: 'Request This Special Item',
+          defaultAccessText: 'Request this special item',
           map: 'info_link',
           coverage: 'enum',
         },
@@ -135,8 +134,9 @@ const config = {
           location: 'location',
           status: 'status',
           heading: 'Holdings (Other)',
-          defaultAccessText: 'Request This Item',
-          map: 'info_link'
+          defaultAccessText: 'Request this item',
+          map: 'info_link',
+          showAllName: 'holdings'
         }
       ]
     },
@@ -186,7 +186,7 @@ const config = {
         'language',
       ],
       access: {
-        defaultAccessText: 'Go To Article',
+        defaultAccessText: 'Go to item',
         link: 'access_url'
       },
     },
@@ -232,7 +232,7 @@ const config = {
       ],
       access: {
         link: 'permalink',
-        defaultAccessText: 'Go To Database',
+        defaultAccessText: 'Go to database',
       }
     },
     {
@@ -266,7 +266,7 @@ const config = {
         fields: [
           {
             uid: '856u',
-            label: 'Go To Online Journal',
+            label: 'Go to online journal',
             isLink: true,
           },
           {
@@ -298,7 +298,7 @@ const config = {
         'brief_description',
       ],
       access: {
-        defaultAccessText: 'Go To Webpage',
+        defaultAccessText: 'Go to webpage',
         link: 'access_url'
       }
     },
@@ -308,7 +308,7 @@ const config = {
       {
         uid: 'search_only',
         type: 'checkbox',
-        name: 'Remove Search Only HathiTrust Materials',
+        name: 'Remove search only HathiTrust materials',
         checkedCondition: 'true',
         defaultValueOnSpectrum: 'true',
         onClickValue: 'false',
@@ -352,7 +352,7 @@ const config = {
       {
         uid: 'is_scholarly',
         type: 'checkbox',
-        name: 'Articles from Scholarly Journals Only',
+        name: 'Articles from scholarly journals only',
         checkedCondition: 'true',
         onClickValue: 'true',
       },
@@ -366,7 +366,7 @@ const config = {
       {
         uid: 'holdings_only',
         type: 'checkbox',
-        name: 'U-M Library Materials Only',
+        name: 'U-M library materials only',
         checkedCondition: 'true',
         defaultValueOnSpectrum: 'true',
         onClickValue: 'false',
@@ -417,7 +417,7 @@ const config = {
       replace: [
         {
           uid: 'linkText',
-          value: 'Search Keyword Frequency'
+          value: 'Search keyword frequency'
         },
         {
           uid: 'linkStyle',

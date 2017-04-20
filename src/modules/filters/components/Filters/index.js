@@ -209,7 +209,7 @@ const Filter = ({
               <ShowAllList
                 length={filterItems.length}
                 show={5}
-                name={`${filter.name} Filters`}
+                name={`${filter.name.toLowerCase()} filters`}
                 listClass={'filter-list'}>
                 {filterItems.map((filterItem, index) => (
                   <FilterItem

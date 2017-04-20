@@ -17,8 +17,8 @@ class ShowAllList extends React.Component {
     const listClass = this.props.listClass || ''
     const hasShowHideButton = length > show
     const name = this.props.name || undefined
-    const showFewerText = `Show Fewer ${name ? name : ''}`
-    const showAllText = `Show All ${length} ${name ? name : ''}`
+    const showFewerText = `Show fewer ${name ? name : ''}`
+    const showAllText = `Show all ${length} ${name ? name : ''}`
     const buttonText = `${this.state.show ? showFewerText : showAllText }`
 
     return (
