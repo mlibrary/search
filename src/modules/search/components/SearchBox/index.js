@@ -7,7 +7,8 @@ import {
 } from '../../actions'
 
 import {
-  runSearchPride
+  runSearchPride,
+  syncSearchURL
 } from '../../../../pride-interface'
 
 import { Icon } from '../../../core';
@@ -18,6 +19,14 @@ class SearchBox extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const { isSearching } = this.props
+
+    if (!isSearching) {
+      syncSearchURL()
+    }
   }
 
   handleChange(query) {
@@ -55,6 +64,7 @@ class SearchBox extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    isSearching: state.search.searching,
     query: state.search.query,
     activeDatastoreUid: state.datastores.active
   };

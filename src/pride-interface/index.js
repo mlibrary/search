@@ -362,7 +362,7 @@ const runSearchPride = () => {
   searchSwitcher.set(config).run();
 }
 
-const setupInitialState = () => {
+const syncSearchURL = () => {
   /*
     Look for state in URL
     - Search query and filters
@@ -423,7 +423,6 @@ const initializePride = () => {
     success: () => {
       setupPride();
       renderApp();
-      setupInitialState()
     },
     failure: () => {
       console.log("Pride failed to load.");
@@ -563,4 +562,5 @@ export {
   requestPrideRecord,
   getMultiSearchRecords,
   clearEverything,
+  syncSearchURL
 }
