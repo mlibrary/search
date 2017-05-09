@@ -1,0 +1,43 @@
+.switch {
+  display: flex;
+  @media (min-width: $breakpoint-1) {
+    justify-content: center;
+  }
+  margin-top: 1rem;
+}
+
+.switch-option {
+  background: white;
+  padding: 0.25rem 1rem;
+  cursor: pointer;
+  border: solid 1px $grey-4;
+  margin: 0;
+
+  &:not(:first-child):not(:last-child) {
+    border-left: none;
+  }
+
+  &:last-child:not(:first-child) {
+    border-left: none;
+  }
+
+  &:first-child {
+    border-radius: 4px 0 0 4px;
+  }
+
+  &:last-child {
+    border-radius: 0 4px 4px 0;
+  }
+
+  &.active {
+    font-weight: 600;
+  }
+}
+
+.switch-option-label-text {
+
+}
+
+.switch-option-input {
+  display: none;
+}

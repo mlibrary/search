@@ -8,7 +8,7 @@
 }
 
 .results-list-border > li {
-  border-bottom: solid 2px $grey-5;
+  border-bottom: solid 1px $grey-4;
 }
 
 /*
@@ -21,28 +21,25 @@
     justify-content: space-between;
   }
   margin-top: 1rem;
+  margin-bottom: 1rem;
   padding: 1rem 2rem;
-  border-bottom: solid 2px $grey-5;
   background: white;
   background: $grey-6;
-  border-radius: 4px 4px 0 0;
-
-  @include box-shadow();
+  border-radius: 4px;
 }
 
 .pagination-container {
   padding: 1.5rem;
-  border-bottom: solid 2px $grey-5;
   background: white;
   background: $grey-6;
   margin-bottom: 3rem;
+  margin-top: 1rem;
 
   @media (min-width: $breakpoint-1) {
     padding: 1rem 2rem;
   }
 
-  border-radius: 0 0 4px 4px;
-  @include box-shadow();
+  border-radius: 4px;
 
   .results-summary {
     padding: 0 1rem;

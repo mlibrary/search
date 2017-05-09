@@ -8,7 +8,8 @@ import {
   IndexPage,
   NoMatch,
   DatastorePage,
-  RecordPage
+  RecordPage,
+  AdvancedPage,
 } from '../modules/pages';
 import {
   isSlugADatastore,
@@ -25,6 +26,18 @@ const handleDatastorePageComponent = (nextState, callback) => {
   if (isSlugADatastore(slug)) {
     switchToDatastorePride(slug)
     callback(null, DatastorePage)
+  }
+
+  callback(null, NoMatch)
+}
+
+const handleAdvancedPageComponent = (nextState, callback) => {
+  const slug = nextState.params.datastore;
+
+  // Is this route an actual datastore?
+  if (isSlugADatastore(slug)) {
+    switchToDatastorePride(slug)
+    callback(null, AdvancedPage)
   }
 
   callback(null, NoMatch)
@@ -49,6 +62,7 @@ const routes = (
   <Route path="/" component={Main}>
     <IndexRoute component={IndexPage} onEnter={handleIndexRoute}/>
     <Route path="/:datastore" getComponent={handleDatastorePageComponent}/>
+    <Route path="/:datastore/advanced" getComponent={handleAdvancedPageComponent}/>
     <Route path="/:datastore/record/:record" getComponent={handleRecordPageComponent}/>
     <Route path="*" component={NoMatch}/>
   </Route>
