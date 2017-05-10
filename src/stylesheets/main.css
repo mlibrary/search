@@ -1352,12 +1352,15 @@ body {
 
 .advanced-heading-container {
   background: #E6F3FF;
-  padding-top: 1.5rem; }
+  padding-top: 1.5rem;
+  border-bottom: solid 2px #CCE6FF;
+  padding-bottom: 1.5rem; }
 
 @media (min-width: 47rem) {
   .advanced-heading-container-flex {
     display: flex;
-    justify-content: space-between; } }
+    justify-content: space-between;
+    align-items: center; } }
 
 .advanced-link {
   text-decoration: underline; }
@@ -1365,9 +1368,25 @@ body {
 .advanced-input {
   border: solid 1px rgba(0, 0, 0, 0.3); }
 
+.advanced-input-remove-button {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-left: 1rem;
+  border: solid 1px #CCC;
+  color: #4E4E4E;
+  background: #F2F2F2;
+  cursor: pointer; }
+  .advanced-input-remove-button .icon {
+    margin-right: 0.5rem; }
+    .advanced-input-remove-button .icon g {
+      color: #4E4E4E; }
+
 .advanced-boolean-container {
   background: #E6F3FF;
-  padding-bottom: 2rem;
+  padding-bottom: 1.5rem;
   padding-top: 1rem;
   border-bottom: solid 2px #CCE6FF; }
 
@@ -1389,7 +1408,7 @@ body {
 .advanced-search-button-container {
   margin-top: 1rem;
   display: flex;
-  justify-content: flex-end; }
+  justify-content: center; }
 
 .advanced-search-button {
   display: flex;
@@ -1401,16 +1420,19 @@ body {
   margin-top: 1rem;
   text-align: center; }
 
-.switch {
-  display: flex;
-  margin-top: 1rem; }
+.switch-legend {
+  text-align: center; }
+
+.switch-options {
+  display: flex; }
   @media (min-width: 32rem) {
-    .switch {
+    .switch-options {
       justify-content: center; } }
 
 .switch-option {
   background: white;
   padding: 0.25rem 1rem;
+  font-size: 0.85rem;
   cursor: pointer;
   border: solid 1px #CCC;
   margin: 0; }
@@ -1422,8 +1444,18 @@ body {
     border-radius: 4px 0 0 4px; }
   .switch-option:last-child {
     border-radius: 0 4px 4px 0; }
+  .switch-option:last-child:first-child {
+    border-radius: 4px; }
   .switch-option.active {
     font-weight: 600; }
+
+.switch-option + .switch-option-selected {
+  margin-left: -1px; }
+
+.switch-option-selected {
+  border: solid 1px #0C5292 !important;
+  color: white;
+  background: #126DC1; }
 
 .switch-option-input {
   display: none; }

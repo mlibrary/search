@@ -1,14 +1,22 @@
 .switch {
+
+}
+
+.switch-legend {
+  text-align: center;
+}
+
+.switch-options {
   display: flex;
   @media (min-width: $breakpoint-1) {
     justify-content: center;
   }
-  margin-top: 1rem;
 }
 
 .switch-option {
   background: white;
   padding: 0.25rem 1rem;
+  font-size: 0.85rem;
   cursor: pointer;
   border: solid 1px $grey-4;
   margin: 0;
@@ -29,9 +37,23 @@
     border-radius: 0 4px 4px 0;
   }
 
+  &:last-child:first-child {
+    border-radius: 4px;
+  }
+
   &.active {
     font-weight: 600;
   }
+}
+
+.switch-option + .switch-option-selected {
+  margin-left: -1px;
+}
+
+.switch-option-selected {
+  border: solid 1px $main-2 !important;
+  color: white;
+  background: $main-3;
 }
 
 .switch-option-label-text {

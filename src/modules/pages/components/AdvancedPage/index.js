@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { _ } from 'underscore';
 
 import {
+  DatastoreNavigation
+} from '../../../datastores'
+
+import {
   Icon
 } from '../../../core'
 
@@ -60,26 +64,29 @@ class AdvancedPage extends React.Component {
         </div>
         <div className="advanced-boolean-container">
           <div className="container container-narrow">
-            <BooleanInput />
+            <FieldInput index={0}/>
             <Switch options={['AND', 'OR', 'NOT']} />
-            <BooleanInput />
+            <FieldInput index={1} />
             <div className="advanced-add-field-container">
               <button className="button-link-light">Add another field</button>
             </div>
           </div>
-          <div className="container container-narrow advanced-search-button-container">
-            <button className="button advanced-search-button"><Icon name="search"/>Search</button>
-          </div>
+        </div>
+        <div className="container container-narrow advanced-search-button-container">
+          <button className="button advanced-search-button"><Icon name="search"/>Advanced Search</button>
         </div>
       </div>
     )
   }
 }
 
-const BooleanInput = () => (
+const FieldInput = ({ index }) => (
   <div className="advanced-input-container">
     <Dropdown options={['Title', 'Author']} />
-    <input type="text" className="advanced-input" />
+    <input type="text" className="advanced-input" placeholder={`Search Term ${index + 1}`} />
+    {index > 0 ? (
+      <button className="advanced-input-remove-button"><Icon name="close"/>Remove field</button>
+    ) : null}
   </div>
 )
 
@@ -91,16 +98,56 @@ const Dropdown = ({ options }) => (
   </select>
 )
 
-const Switch = ({ options }) => (
-  <radiogroup className="switch">
-    {options.map((option, index) =>
-      <label key={index} className="switch-option">
-        <span className="switch-option-label-text">{option}</span>
-        <input type="radio" value={option} className="switch-option-input" />
-      </label>
-    )}
-  </radiogroup>
-)
+const SwitchOption = ({ option, index, isActive, handleOptionChange }) => {
+  return (
+    <label key={index} className={`switch-option ${isActive ? 'switch-option-selected' : ''}`}>
+      <span className="switch-option-label-text">{option}</span>
+      <input
+        type="radio"
+        className="switch-option-input"
+        checked={`${isActive ? 'selected' : ''}`}
+        value={option}
+        onChange={handleOptionChange}
+      />
+    </label>
+  )
+}
+
+class Switch extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      selectedOption: 0
+    }
+
+    this.handleOptionChange.bind(this)
+  }
+
+  handleOptionChange(index) {
+    this.setState({
+      selectedOption: index
+    })
+  }
+
+  render() {
+    const { options } = this.props;
+
+    return (
+      <fieldset className="switch">
+        <div className="switch-options">
+          {options.map((option, index) => SwitchOption({
+              option,
+              index,
+              isActive: this.state.selectedOption === index,
+              handleOptionChange: () => this.handleOptionChange(index),
+            })
+          )}
+        </div>
+      </fieldset>
+    )
+  }
+}
 
 function mapStateToProps(state) {
   return {
