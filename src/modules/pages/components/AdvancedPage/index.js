@@ -82,7 +82,7 @@ class AdvancedPage extends React.Component {
 
 const FieldInput = ({ index }) => (
   <div className="advanced-input-container">
-    <Dropdown options={['Title', 'Author']} />
+    <Dropdown options={['All Fields', 'Title', 'Author']} />
     <input type="text" className="advanced-input" placeholder={`Search Term ${index + 1}`} />
     {index > 0 ? (
       <button className="advanced-input-remove-button"><Icon name="close"/>Remove field</button>
