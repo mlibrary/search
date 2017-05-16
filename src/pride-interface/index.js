@@ -70,6 +70,7 @@ const handleSearchData = (data, datastoreUid) => {
       "totalPages": data.total_pages,
       "totalAvailable": data.total_available,
       "sorts": data.sorts,
+      "fields": data.fields,
       "selectedSort": data.selected_sort,
     },
     datastoreUid: datastoreUid

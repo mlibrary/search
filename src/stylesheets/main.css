@@ -1380,12 +1380,13 @@ body {
 
 .advanced-boolean-container {
   background: #FAFAFA;
-  padding-bottom: 1.5rem;
-  padding-top: 1rem; }
+  padding: 1rem 0;
+  padding-bottom: 2rem; }
 
 .advanced-heading {
   font-size: 1.5rem;
-  margin: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
   font-weight: 600; }
   @media (min-width: 47rem) {
     .advanced-heading {

@@ -54,7 +54,7 @@ class SearchBox extends React.Component {
               autoComplete="off"
               onChange={event => this.handleChange(event.target.value)}
             />
-          <button className="button search-box-button" type="submit"><Icon name="search"/>Search</button>
+            <button className="button search-box-button" type="submit"><Icon name="search"/>Search</button>
           </form>
         </div>
       </div>

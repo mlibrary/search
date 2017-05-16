@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
 
-import {
-  DatastoreNavigation
-} from '../../../datastores'
+import { Link } from 'react-router';
 
 import {
   Icon
@@ -28,6 +26,12 @@ class AdvancedPage extends React.Component {
         }
       ]
     }
+
+    this.handleFieldValueChange = this.handleFieldValueChange.bind(this)
+  }
+
+  handleBackToSimpleSearch() {
+
   }
 
   handleAddAnotherField() {
@@ -51,15 +55,42 @@ class AdvancedPage extends React.Component {
     })
   }
 
+  handleAdvancedSearch() {
+    const query = this.state.booleanFields.reduce((memo, field) => {
+      if (field.value !== '') {
+        return memo = `${memo} ${field.value}`
+      }
+
+      return memo
+    }, '').trim()
+
+    console.log('query: ', query)
+  }
+
+  handleFieldValueChange({ index, value }) {
+    this.setState({
+      booleanFields: this.state.booleanFields.map((item, i) => {
+        if (i !== index) {
+          return item
+        }
+
+        return {
+          ...item,
+          value: value
+        }
+      })
+    })
+  }
+
   render() {
-    const { datastores } = this.props;
+    const { datastores, fields } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
       <div>
         <div className="advanced-heading-container">
           <div className="container container-medium">
-            <a href="" className="advanced-link button-secondary">Back to Simple Search</a>
+            <Link to={`/${activeDatastore.slug}`} className="advanced-link button-secondary">Back to Simple Search</Link>
           </div>
         </div>
         <div className="advanced-boolean-container">
@@ -71,14 +102,17 @@ class AdvancedPage extends React.Component {
                 key={index}
                 index={index}
                 handleRemoveField={() => this.handleRemoveField({ removeIndex: index})}
-                field={field} />
+                field={field}
+                fields={fields}
+                handleFieldValueChange={this.handleFieldValueChange}
+              />
             ))}
             <div className="advanced-add-field-container">
               <button className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
             </div>
           </div>
           <div className="container container-narrow advanced-search-button-container">
-            <button className="button advanced-search-button"><Icon name="search"/>Advanced Search</button>
+            <button className="button advanced-search-button" onClick={() => this.handleAdvancedSearch()}><Icon name="search"/>Advanced Search</button>
           </div>
         </div>
       </div>
@@ -86,12 +120,18 @@ class AdvancedPage extends React.Component {
   }
 }
 
-const FieldInput = ({ index, field, handleRemoveField }) => (
+const FieldInput = ({ index, field, fields, handleRemoveField, handleFieldValueChange }) => (
   <div>
     {index === 0 ? null : <Switch options={['AND', 'OR', 'NOT']} />}
     <div className="advanced-input-container">
-      <Dropdown options={['All Fields', 'Title', 'Author']} />
-      <input type="text" className="advanced-input" placeholder={`Search Term ${index + 1}`} />
+      <Dropdown options={fields} />
+      <input
+        type="text"
+        className="advanced-input"
+        placeholder={`Search Term ${index + 1}`}
+        value={field.value}
+        onChange={(event) => handleFieldValueChange({ index, value: event.target.value })}
+      />
       {index > 0 ? (
         <button
           className="advanced-input-remove-button"
@@ -103,10 +143,10 @@ const FieldInput = ({ index, field, handleRemoveField }) => (
   </div>
 )
 
-const Dropdown = ({ options }) => (
-  <select className="dropdown">
+const Dropdown = ({ options, selectedOption }) => (
+  <select className="dropdown" value={selectedOption}>
     {options.map((option, index) =>
-      <option value={option} key={index}>{option}</option>
+      <option value={option.uid} key={index}>{option.name}</option>
     )}
   </select>
 )
@@ -163,8 +203,18 @@ class Switch extends React.Component {
 }
 
 function mapStateToProps(state) {
+  const fields = state.search.data[state.datastores.active].fields.reduce((memo, field) => {
+    memo.push({
+      uid: field.uid,
+      name: field.metadata.name
+    })
+
+    return memo
+  }, [])
+
   return {
     datastores: state.datastores,
+    fields: fields
   };
 }
 
