@@ -15,38 +15,40 @@ class AdvancedPage extends React.Component {
     super(props)
 
     this.state = {
-      booleans: ['AND', 'OR', 'NOT'],
-      query: {
-        type: 'field_boolean',
-        value: 'AND',
-        children: [
-          {
-            type: 'field',
-            value: 'title',
-            children: [
-              {
-                type: 'literal',
-                value: 'climate change'
-              }
-            ]
-          },
-          {
-            type: 'field',
-            value: 'author',
-            children: [
-              {
-                type: 'literal',
-                value: 'international energy agency'
-              }
-            ]
-          }
-        ]
-      }
+      booleanTypes: ['AND', 'OR', 'NOT'],
+      booleanFields: [
+        {
+          value: '',
+          field: 0,
+        },
+        {
+          value: '',
+          field: 0,
+          boolean: 0
+        }
+      ]
     }
   }
 
-  addBooleanInput() {
-    console.log('addBooleanInput')
+  handleAddAnotherField() {
+    this.setState({
+      booleanFields: [
+        ...this.state.booleanFields,
+        {
+          value: '',
+          field: 0,
+          boolean: 0
+        }
+      ]
+    })
+  }
+
+  handleRemoveField({ removeIndex }) {
+    const fields = this.state.booleanFields.filter((field, index) => removeIndex !== index)
+
+    this.setState({
+      booleanFields: fields
+    })
   }
 
   render() {
@@ -56,37 +58,48 @@ class AdvancedPage extends React.Component {
     return (
       <div>
         <div className="advanced-heading-container">
-          <div className="container container-medium advanced-heading-container-flex">
-            <a href="" className="advanced-link">Back to Simple Search</a>
-            <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
-            <a href="" className="advanced-link">Advanced Search Tips</a>
+          <div className="container container-medium">
+            <a href="" className="advanced-link button-secondary">Back to Simple Search</a>
           </div>
         </div>
         <div className="advanced-boolean-container">
           <div className="container container-narrow">
-            <FieldInput index={0}/>
-            <Switch options={['AND', 'OR', 'NOT']} />
-            <FieldInput index={1} />
+            <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
+
+            {this.state.booleanFields.map((field, index) => (
+              <FieldInput
+                key={index}
+                index={index}
+                handleRemoveField={() => this.handleRemoveField({ removeIndex: index})}
+                field={field} />
+            ))}
             <div className="advanced-add-field-container">
-              <button className="button-link-light">Add another field</button>
+              <button className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
             </div>
           </div>
-        </div>
-        <div className="container container-narrow advanced-search-button-container">
-          <button className="button advanced-search-button"><Icon name="search"/>Advanced Search</button>
+          <div className="container container-narrow advanced-search-button-container">
+            <button className="button advanced-search-button"><Icon name="search"/>Advanced Search</button>
+          </div>
         </div>
       </div>
     )
   }
 }
 
-const FieldInput = ({ index }) => (
-  <div className="advanced-input-container">
-    <Dropdown options={['All Fields', 'Title', 'Author']} />
-    <input type="text" className="advanced-input" placeholder={`Search Term ${index + 1}`} />
-    {index > 0 ? (
-      <button className="advanced-input-remove-button"><Icon name="close"/>Remove field</button>
-    ) : null}
+const FieldInput = ({ index, field, handleRemoveField }) => (
+  <div>
+    {index === 0 ? null : <Switch options={['AND', 'OR', 'NOT']} />}
+    <div className="advanced-input-container">
+      <Dropdown options={['All Fields', 'Title', 'Author']} />
+      <input type="text" className="advanced-input" placeholder={`Search Term ${index + 1}`} />
+      {index > 0 ? (
+        <button
+          className="advanced-input-remove-button"
+          onClick={handleRemoveField}>
+            <Icon name="close"/>Remove field
+        </button>
+      ) : null}
+    </div>
   </div>
 )
 

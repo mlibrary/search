@@ -3,18 +3,11 @@
   padding-top: 1.5rem;
   border-bottom: solid 2px $main-4;
   padding-bottom: 1.5rem;
-}
-
-.advanced-heading-container-flex {
-  @media (min-width: $breakpoint-2) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  text-align: center;
 }
 
 .advanced-link {
-  text-decoration: underline;
+  
 }
 
 .advanced-input {
@@ -35,18 +28,19 @@
 
   .icon {
     margin-right: 0.5rem;
+    height: 1rem;
+    width: 0.8rem;
 
     g {
-      color: $grey-2;
+      color: $grey-3;
     }
   }
 }
 
 .advanced-boolean-container {
-  background: $main-5;
+  background: $grey-6;
   padding-bottom: 1.5rem;
   padding-top: 1rem;
-  border-bottom: solid 2px $main-4;
 }
 
 .advanced-heading {
@@ -69,7 +63,7 @@
 }
 
 .advanced-search-button-container {
-  margin-top: 1rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
 }

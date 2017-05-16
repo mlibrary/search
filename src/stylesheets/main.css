@@ -212,7 +212,7 @@ input[type="text"] {
   border: solid 1px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  padding: 0.6rem;
+  padding: 0.5rem 0.75rem;
   line-height: 1.4;
   width: 100%; }
 
@@ -285,9 +285,9 @@ textarea {
 .button-secondary {
   display: inline-block;
   margin: 0;
-  padding: 0.3rem 0.8rem;
+  padding: 0.5rem 1rem;
   border: 1px solid rgba(18, 109, 193, 0.4);
-  background: #E6F3FF;
+  background: #F2F9FF;
   border-radius: 4px;
   color: #126DC1;
   line-height: inherit; }
@@ -1354,16 +1354,8 @@ body {
   background: #E6F3FF;
   padding-top: 1.5rem;
   border-bottom: solid 2px #CCE6FF;
-  padding-bottom: 1.5rem; }
-
-@media (min-width: 47rem) {
-  .advanced-heading-container-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; } }
-
-.advanced-link {
-  text-decoration: underline; }
+  padding-bottom: 1.5rem;
+  text-align: center; }
 
 .advanced-input {
   border: solid 1px rgba(0, 0, 0, 0.3); }
@@ -1380,15 +1372,16 @@ body {
   background: #F2F2F2;
   cursor: pointer; }
   .advanced-input-remove-button .icon {
-    margin-right: 0.5rem; }
+    margin-right: 0.5rem;
+    height: 1rem;
+    width: 0.8rem; }
     .advanced-input-remove-button .icon g {
-      color: #4E4E4E; }
+      color: #6E6E6E; }
 
 .advanced-boolean-container {
-  background: #E6F3FF;
+  background: #FAFAFA;
   padding-bottom: 1.5rem;
-  padding-top: 1rem;
-  border-bottom: solid 2px #CCE6FF; }
+  padding-top: 1rem; }
 
 .advanced-heading {
   font-size: 1.5rem;
@@ -1406,7 +1399,7 @@ body {
   display: flex; }
 
 .advanced-search-button-container {
-  margin-top: 1rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: center; }
 
@@ -1453,9 +1446,9 @@ body {
   margin-left: -1px; }
 
 .switch-option-selected {
-  border: solid 1px #0C5292 !important;
-  color: white;
-  background: #126DC1; }
+  border: solid 1px #05A657 !important;
+  color: #057C42;
+  background: #E2F4EB; }
 
 .switch-option-input {
   display: none; }
