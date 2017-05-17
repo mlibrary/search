@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "react-addons-perf": "^15.4.2",
+    "react-addons-test-utils": "^15.5.1",
     "react-scripts": "0.8.5"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
 
@@ -7,6 +7,22 @@ import { Link } from 'react-router';
 import {
   Icon
 } from '../../../core'
+
+/*
+class AdvancedSearch extends React.Component {
+  static propTypes = {
+    fields: PropTypes.array.isRequired
+  }
+
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+*/
 
 class AdvancedPage extends React.Component {
   constructor(props) {
@@ -28,10 +44,8 @@ class AdvancedPage extends React.Component {
     }
 
     this.handleFieldValueChange = this.handleFieldValueChange.bind(this)
-  }
-
-  handleBackToSimpleSearch() {
-
+    this.handleSwitchChange = this.handleSwitchChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleAddAnotherField() {
@@ -55,7 +69,9 @@ class AdvancedPage extends React.Component {
     })
   }
 
-  handleAdvancedSearch() {
+  handleSubmit(event) {
+    event.preventDefault()
+
     const query = this.state.booleanFields.reduce((memo, field) => {
       if (field.value !== '') {
         return memo = `${memo} ${field.value}`
@@ -82,6 +98,10 @@ class AdvancedPage extends React.Component {
     })
   }
 
+  handleBooleanSwitchChange({ fieldIndex, booleanIndex }) {
+    console.log('handleBooleanSwitchChange')
+  }
+
   render() {
     const { datastores, fields } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
@@ -93,36 +113,46 @@ class AdvancedPage extends React.Component {
             <Link to={`/${activeDatastore.slug}`} className="advanced-link button-secondary">Back to Simple Search</Link>
           </div>
         </div>
-        <div className="advanced-boolean-container">
-          <div className="container container-narrow">
-            <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
+        <form onSubmit={this.handleSubmit}>
+          <div className="advanced-boolean-container">
+            <div className="container container-narrow">
+              <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
 
-            {this.state.booleanFields.map((field, index) => (
-              <FieldInput
-                key={index}
-                index={index}
-                handleRemoveField={() => this.handleRemoveField({ removeIndex: index})}
-                field={field}
-                fields={fields}
-                handleFieldValueChange={this.handleFieldValueChange}
-              />
-            ))}
-            <div className="advanced-add-field-container">
-              <button className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
+              {this.state.booleanFields.map((field, index) => (
+                <FieldInput
+                  key={index}
+                  index={index}
+                  field={field}
+                  fields={fields}
+                  handleFieldValueChange={this.handleFieldValueChange}
+                  handleRemoveField={() => this.handleRemoveField({ removeIndex: index})}
+                  handleSwitchChange={this.handleSwitchChange}
+                />
+              ))}
+              <div className="advanced-add-field-container">
+                <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
+              </div>
+            </div>
+            <div className="container container-narrow advanced-search-button-container">
+              <button type="submit" className="button advanced-search-button"><Icon name="search"/>Advanced Search</button>
             </div>
           </div>
-          <div className="container container-narrow advanced-search-button-container">
-            <button className="button advanced-search-button" onClick={() => this.handleAdvancedSearch()}><Icon name="search"/>Advanced Search</button>
-          </div>
-        </div>
+        </form>
       </div>
     )
   }
 }
 
-const FieldInput = ({ index, field, fields, handleRemoveField, handleFieldValueChange }) => (
+const FieldInput = ({
+  index,
+  field,
+  fields,
+  handleRemoveField,
+  handleFieldValueChange,
+  handleSwitchChange
+}) => (
   <div>
-    {index === 0 ? null : <Switch options={['AND', 'OR', 'NOT']} />}
+    {index === 0 ? null : <Switch options={['AND', 'OR', 'NOT']} onChangeEvent={handleSwitchChange}/>}
     <div className="advanced-input-container">
       <Dropdown options={fields} />
       <input
@@ -135,6 +165,7 @@ const FieldInput = ({ index, field, fields, handleRemoveField, handleFieldValueC
       {index > 0 ? (
         <button
           className="advanced-input-remove-button"
+          type="button"
           onClick={handleRemoveField}>
             <Icon name="close"/>Remove field
         </button>
