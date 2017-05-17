@@ -1,28 +1,20 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
 
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
+
+import { store } from '../../../../store';
 import {
   Icon
 } from '../../../core'
-
-/*
-class AdvancedSearch extends React.Component {
-  static propTypes = {
-    fields: PropTypes.array.isRequired
-  }
-
-  render() {
-    return (
-      <div>
-
-      </div>
-    )
-  }
-}
-*/
+import {
+  setSearchQuery
+} from '../../../search/actions'
+import {
+  syncSearchURL
+} from '../../../../pride-interface'
 
 class AdvancedPage extends React.Component {
   constructor(props) {
@@ -33,18 +25,19 @@ class AdvancedPage extends React.Component {
       booleanFields: [
         {
           value: '',
-          field: 0,
+          field: this.props.fields[0].uid,
         },
         {
           value: '',
-          field: 0,
+          field: this.props.fields[0].uid,
           boolean: 0
         }
       ]
     }
 
-    this.handleFieldValueChange = this.handleFieldValueChange.bind(this)
-    this.handleSwitchChange = this.handleSwitchChange.bind(this)
+    this.handleFieldInputValueChange = this.handleFieldInputValueChange.bind(this)
+    this.handleOnBooleanSwitchChange = this.handleOnBooleanSwitchChange.bind(this)
+    this.handleOnFieldChange = this.handleOnFieldChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -54,7 +47,7 @@ class AdvancedPage extends React.Component {
         ...this.state.booleanFields,
         {
           value: '',
-          field: 0,
+          field: this.props.fields[0].uid,
           boolean: 0
         }
       ]
@@ -72,18 +65,28 @@ class AdvancedPage extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
 
+    // Build the query
+    // example output: 'title:(parrots) AND author:(charles)'
     const query = this.state.booleanFields.reduce((memo, field) => {
-      if (field.value !== '') {
-        return memo = `${memo} ${field.value}`
+      if (field.value.length > 0) {
+        if (typeof field.boolean !== 'undefined') {
+          memo.push(this.state.booleanTypes[field.boolean])
+        }
+
+        memo.push(`${field.field}:(${field.value})`)
       }
 
       return memo
-    }, '').trim()
+    }, []).join(' ')
 
-    console.log('query: ', query)
+    if (query.length > 0) {
+      store.dispatch(setSearchQuery(query))
+      const activeDatastore = _.findWhere(this.props.datastores.datastores, {uid: this.props.datastores.active})
+      browserHistory.push(`/${activeDatastore.slug}?query=${encodeURI(query)}`)
+    }
   }
 
-  handleFieldValueChange({ index, value }) {
+  handleFieldInputValueChange({ index, value }) {
     this.setState({
       booleanFields: this.state.booleanFields.map((item, i) => {
         if (i !== index) {
@@ -98,8 +101,34 @@ class AdvancedPage extends React.Component {
     })
   }
 
-  handleBooleanSwitchChange({ fieldIndex, booleanIndex }) {
-    console.log('handleBooleanSwitchChange')
+  handleOnBooleanSwitchChange({ fieldIndex, switchOptionIndex }) {
+    this.setState({
+      booleanFields: this.state.booleanFields.map((item, index) => {
+        if (index !== fieldIndex) {
+          return item
+        }
+
+        return {
+          ...item,
+          boolean: switchOptionIndex
+        }
+      })
+    })
+  }
+
+  handleOnFieldChange({ fieldIndex, optionValue }) {
+    this.setState({
+      booleanFields: this.state.booleanFields.map((item, index) => {
+        if (index !== fieldIndex) {
+          return item
+        }
+
+        return {
+          ...item,
+          field: optionValue
+        }
+      })
+    })
   }
 
   render() {
@@ -124,9 +153,10 @@ class AdvancedPage extends React.Component {
                   index={index}
                   field={field}
                   fields={fields}
-                  handleFieldValueChange={this.handleFieldValueChange}
+                  handleFieldInputValueChange={this.handleFieldInputValueChange}
                   handleRemoveField={() => this.handleRemoveField({ removeIndex: index})}
-                  handleSwitchChange={this.handleSwitchChange}
+                  handleOnBooleanSwitchChange={this.handleOnBooleanSwitchChange}
+                  handleOnFieldChange={this.handleOnFieldChange}
                 />
               ))}
               <div className="advanced-add-field-container">
@@ -148,19 +178,31 @@ const FieldInput = ({
   field,
   fields,
   handleRemoveField,
-  handleFieldValueChange,
-  handleSwitchChange
+  handleFieldInputValueChange,
+  handleOnBooleanSwitchChange,
+  handleOnFieldChange
 }) => (
   <div>
-    {index === 0 ? null : <Switch options={['AND', 'OR', 'NOT']} onChangeEvent={handleSwitchChange}/>}
+    {index === 0 ? null : (
+      <Switch
+        options={['AND', 'OR', 'NOT']}
+        fieldIndex={index}
+        selectedIndex={field.boolean}
+        onSwitchChange={handleOnBooleanSwitchChange}
+      />
+    )}
     <div className="advanced-input-container">
-      <Dropdown options={fields} />
+      <Dropdown
+        options={fields}
+        fieldIndex={index}
+        handleOnFieldChange={handleOnFieldChange}
+      />
       <input
         type="text"
         className="advanced-input"
         placeholder={`Search Term ${index + 1}`}
         value={field.value}
-        onChange={(event) => handleFieldValueChange({ index, value: event.target.value })}
+        onChange={(event) => handleFieldInputValueChange({ index, value: event.target.value })}
       />
       {index > 0 ? (
         <button
@@ -174,63 +216,68 @@ const FieldInput = ({
   </div>
 )
 
-const Dropdown = ({ options, selectedOption }) => (
-  <select className="dropdown" value={selectedOption}>
+const Dropdown = ({
+  fieldIndex,
+  options,
+  selectedOption,
+  handleOnFieldChange
+}) => (
+  <select
+    className="dropdown"
+    value={selectedOption}
+    onChange={(event) => handleOnFieldChange({
+      fieldIndex,
+      optionValue: event.target.value,
+    })}
+  >
     {options.map((option, index) =>
       <option value={option.uid} key={index}>{option.name}</option>
     )}
   </select>
 )
 
-const SwitchOption = ({ option, index, isActive, handleOptionChange }) => {
+const SwitchOption = ({
+  option,
+  optionIndex,
+  isActive,
+  onSwitchChange
+}) => {
   return (
-    <label key={index} className={`switch-option ${isActive ? 'switch-option-selected' : ''}`}>
+    <label key={optionIndex} className={`switch-option ${isActive ? 'switch-option-selected' : ''}`}>
       <span className="switch-option-label-text">{option}</span>
       <input
         type="radio"
         className="switch-option-input"
         checked={`${isActive ? 'selected' : ''}`}
         value={option}
-        onChange={handleOptionChange}
+        onChange={onSwitchChange}
       />
     </label>
   )
 }
 
-class Switch extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      selectedOption: 0
-    }
-
-    this.handleOptionChange.bind(this)
-  }
-
-  handleOptionChange(index) {
-    this.setState({
-      selectedOption: index
-    })
-  }
-
-  render() {
-    const { options } = this.props;
-
-    return (
-      <fieldset className="switch">
-        <div className="switch-options">
-          {options.map((option, index) => SwitchOption({
-              option,
-              index,
-              isActive: this.state.selectedOption === index,
-              handleOptionChange: () => this.handleOptionChange(index),
-            })
-          )}
-        </div>
-      </fieldset>
-    )
-  }
+const Switch = ({
+  options,
+  fieldIndex,
+  selectedIndex,
+  onSwitchChange
+}) => {
+  return (
+    <fieldset className="switch">
+      <div className="switch-options">
+        {options.map((option, optionIndex) => SwitchOption({
+            option,
+            optionIndex,
+            isActive: selectedIndex === optionIndex,
+            onSwitchChange: () => onSwitchChange({
+              fieldIndex,
+              switchOptionIndex: optionIndex
+            }),
+          })
+        )}
+      </div>
+    </fieldset>
+  )
 }
 
 function mapStateToProps(state) {
