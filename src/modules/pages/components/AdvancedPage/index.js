@@ -1,20 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
+import {
+  Link
+} from 'react-router-dom';
 
-import { Link, browserHistory } from 'react-router';
-
-
-import { store } from '../../../../store';
 import {
   Icon
 } from '../../../core'
 import {
   setSearchQuery
 } from '../../../search/actions'
-import {
-  syncSearchURL
-} from '../../../../pride-interface'
 
 class AdvancedPage extends React.Component {
   constructor(props) {
@@ -80,9 +76,13 @@ class AdvancedPage extends React.Component {
     }, []).join(' ')
 
     if (query.length > 0) {
-      store.dispatch(setSearchQuery(query))
+      //store.dispatch(setSearchQuery(query))
+      console.log('TODO: AdvancedPage setSearchQuery')
+
       const activeDatastore = _.findWhere(this.props.datastores.datastores, {uid: this.props.datastores.active})
-      browserHistory.push(`/${activeDatastore.slug}?query=${encodeURI(query)}`)
+
+      //browserHistory.push(`/${activeDatastore.slug}?query=${encodeURI(query)}`)
+      console.log('TODO advanced handleSubmit')
     }
   }
 

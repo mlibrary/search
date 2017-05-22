@@ -1,9 +1,7 @@
 import { Pride } from 'pride';
 import { _ } from 'underscore';
-import { browserHistory } from 'react-router';
 
 import config from './config';
-import { store } from '../store';
 
 import {
   addDatastore,
@@ -20,11 +18,6 @@ import {
   loadingHoldings,
   setRecordHoldings,
 } from '../modules/records';
-
-import {
-  removeQuery,
-  addQuery,
-} from '../router';
 
 import {
   setSearchData,
@@ -75,8 +68,11 @@ const handleSearchData = (data, datastoreUid) => {
     },
     datastoreUid: datastoreUid
   }
-  store.dispatch(setSearchData(payload))
 
+  //store.dispatch(setSearchData(payload))
+  console.log('TODO: pride interface store store.dispatch(setSearchData(payload))')
+
+  /*
   const activeDatastore = store.getState().datastores.active;
   const activeRecords = store.getState().records.records[activeDatastore];
 
@@ -89,21 +85,27 @@ const handleSearchData = (data, datastoreUid) => {
 
     // Check to see if records have loaded.
     if (activeRecordsLength === count || lastPage) {
-      store.dispatch(loadingRecords(false))
+      //store.dispatch(loadingRecords(false))
+      console.log('TODO: pride interface loadingRecords')
     }
   }
+  */
 }
 
 const handleHoldings = (datastoreUid, recordId) => {
+
+  /*
   store.dispatch(loadingHoldings({
     loading: true,
     datastoreUid: datastoreUid,
     recordId: recordId,
   }))
+  */
 
   return (holdingsData) => {
     //console.log('holdingsData', datastoreUid, recordId, holdingsData)
 
+    /*
     store.dispatch(addHoldings({
       datastoreUid: datastoreUid,
       recordId: recordId,
@@ -115,6 +117,7 @@ const handleHoldings = (datastoreUid, recordId) => {
       datastoreUid: datastoreUid,
       recordId: recordId,
     }))
+    */
   }
 }
 
@@ -130,7 +133,7 @@ const hasHoldings = (datastore) => {
 
 const setupObservers = (searchObj) => {
   searchObj.resultsObservers.add(function(results) {
-    store.dispatch(clearRecords(searchObj.uid));
+    //store.dispatch(clearRecords(searchObj.uid));
 
     const doesHaveHoldings = hasHoldings(searchObj.uid)
 
@@ -139,6 +142,7 @@ const setupObservers = (searchObj) => {
         record.renderFull((recordData) => {
           const id = _.uniqueId();
 
+          /*
           store.dispatch(addRecord({
             id: id,
             datastore: searchObj.uid,
@@ -148,6 +152,7 @@ const setupObservers = (searchObj) => {
               holdings: null
             }
           }));
+          */
 
           if (doesHaveHoldings) {
             record.getHoldings(handleHoldings(searchObj.uid, id))
@@ -160,10 +165,11 @@ const setupObservers = (searchObj) => {
   })
 
   searchObj.facetsObservers.add(function(filterGroups) {
-    const activeDatastore = store.getState().datastores.active
+    //const activeDatastore = store.getState().datastores.active
 
+    /*
     if (activeDatastore === searchObj.uid) {
-      store.dispatch(clearFilters())
+      //store.dispatch(clearFilters())
       filterGroups.forEach(filterGroup => {
 
         // Does the filter configuration request that this
@@ -174,14 +180,17 @@ const setupObservers = (searchObj) => {
             filters.forEach(filter => {
               const metadata = filterGroup.getData('metadata')
 
+
               store.dispatch(addFilter(Object.assign({}, filter, {
                 metadata: metadata
               }))) // Look at all these )s
+
             })
           })
         } // end of config filter group check
       }) // end of for each filterGroup
     } // end of only listen to filter groups from active datastore
+    */
   }) // end of facet observer
 }
 
@@ -278,12 +287,14 @@ const setupSearches = () => {
     const name = getDatastoreName(searchObj.uid);
     const slug = getDatastoreSlug(searchObj.uid);
 
+    /*
     store.dispatch(addDatastore({
       uid: searchObj.uid,
       name: name,
       slug: slug || searchObj.uid,
       isMultisearch: searchObj.searches !== undefined ? true : false,
     }))
+    */
   });
 }
 
@@ -312,30 +323,8 @@ const getDatastoreSlugByUid = (uid) => {
   return ds.slug || ds.uid;
 }
 
-const handleStoreToUrlSync = ({ query, filters }) => {
-
-  if (query) {
-    // Example:
-    // query=parrots
-    addQuery({
-      'query': query
-    })
-  }
-
-  if (filters) {
-    // example:
-    // search_only=false;subject:Birds|Parrots
-    const filtersQueryArray = _.map(filters, (filter) => {
-      return `${filter.uid}:${filter.filters.join('|')}`
-    }, [])
-
-    addQuery({
-      'filter': filtersQueryArray.join(';')
-    })
-  }
-}
-
 const runSearchPride = () => {
+  /*
   const state = store.getState();
   const query = state.search.query;
   const page = state.search.page;
@@ -361,6 +350,9 @@ const runSearchPride = () => {
   store.dispatch(searching(true))
   store.dispatch(loadingRecords(true))
   searchSwitcher.set(config).run();
+  */
+
+  console.log('TODO: Run pride search')
 }
 
 const syncSearchURL = () => {
@@ -370,13 +362,13 @@ const syncSearchURL = () => {
   */
   const query = getUrlParameter('query')
   const filters = getUrlParameter('filter')
-  const stateFilters = store.getState().filters.groups
+  //const stateFilters = store.getState().filters.groups
 
   let runSearch = false
 
   // If query in URL
   if (query) {
-    store.dispatch(setSearchQuery(query))
+    //store.dispatch(setSearchQuery(query))
     runSearch = true
   }
 
@@ -388,20 +380,24 @@ const syncSearchURL = () => {
       const split = group.split(':');
 
       if (split[0] && split[1]) {
-        const activeDatastoreUid = store.getState().datastores.active
+        //const activeDatastoreUid = store.getState().datastores.active
         const group = split[0]
         const filterValues = split[1].split('|')
 
+        /*
         if (stateFilters[group]) {
           _.each(filterValues, (value) => {
+
             store.dispatch(addActiveFilter({
               datastoreUid: activeDatastoreUid,
               filterUid: group,
               filterName: stateFilters[group].name,
               filterItemValue: value
             }))
+
           })
         }
+        */
       }
     })
   }
@@ -438,7 +434,7 @@ const switchToDatastorePride = (slug) => {
     return false;
   }
 
-  store.dispatch(changeActiveDatastore(uid))
+  //store.dispatch(changeActiveDatastore(uid))
   searchSwitcher.switchTo(uid)
 }
 
@@ -468,14 +464,14 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
 
   const getRecordFromPride = () => {
     const callback = (record) => {
-      store.dispatch(setRecord(record));
+      //store.dispatch(setRecord(record));
     }
 
     // We only want to send holdings requests for
     // record types that have holdings (e.g. the catalog)
     if (hasHoldings(datastoreUid)) {
       Pride.requestRecord(datastoreUid, recordUid, callback).getHoldings((holdings) => {
-        store.dispatch(setRecordHoldings(holdings))
+        //store.dispatch(setRecordHoldings(holdings))
       })
     } else {
       Pride.requestRecord(datastoreUid, recordUid, callback)
@@ -484,12 +480,16 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
 
   // Required params
   if (datastoreUid && recordUid) {
+    /*
     store.dispatch(clearRecord());
     const records = store.getState().records.records[datastoreUid];
+    */
 
     // Does state have records for this datastore?
     // This likely means the user is coming from a results page and we
     // already have this record data.
+
+    /*
     if (records) {
       // Look up this specific record
       const record = _.filter(records, (record) => {
@@ -502,13 +502,14 @@ const requestPrideRecord = (datastoreUid, recordUid) => {
       if (recordNeedsToRequestHoldings) {
         getRecordFromPride()
       } else {
-        store.dispatch(setRecord(record[0]));
+        //store.dispatch(setRecord(record[0]));
       }
     } else {
       // No records in state for this datastore,
       // so we need to ask Pride for this record
       getRecordFromPride()
     }
+    */
   }
 }
 
@@ -538,12 +539,13 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
 }
 
 const clearEverything = () => {
-  removeQuery('query');
-  removeQuery('filter');
 
+
+  /*
   store.dispatch(clearRecords())
   store.dispatch(clearAllFilters())
   store.dispatch(clearSearch())
+  */
 }
 
 /*

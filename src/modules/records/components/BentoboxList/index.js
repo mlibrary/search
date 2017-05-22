@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 
 import { getMultiSearchRecords } from '../../../../pride-interface';
 import Record from '../Record';
 import RecordPlaceholder from '../RecordPlaceholder';
-import { createSearchParams } from '../../../../router';
 
 class BentoboxList extends React.Component {
   render() {
@@ -88,13 +87,18 @@ class BentoboxList extends React.Component {
 
 const BentoboxHeading = ({ bentobox, search }) => {
   const totalResults = search.data[bentobox.uid].totalAvailable;
+  /*
+  // TODO
   const searchParams = createSearchParams({
     query: search.query
   })
-  const link = `${bentobox.slug}${searchParams}`;
+  */
+  //const link = `${bentobox.slug}${searchParams}`;
 
+
+  // TODO: fix to
   return (
-    <Link className="bentobox-heading-container" to={`/${link}`}>
+    <Link className="bentobox-heading-container" to='/'>
       <h2 className="bentobox-heading">{ bentobox.name }</h2>
       <BentoboxResultsNum totalResults={totalResults}/>
     </Link>

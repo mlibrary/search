@@ -7,7 +7,6 @@ import {
   Icon,
   ShowAllList
 } from '../../../core'
-import { store } from '../../../../store'
 import {
   clearActiveFilters,
   addActiveFilter,
@@ -74,24 +73,31 @@ class Filters extends React.Component {
     const isActive = isFilterItemActive({ datastoreUid, filterUid, filterItemValue })
 
     if (isActive) {
+      /*
       store.dispatch(removeActiveFilter({
         datastoreUid: datastoreUid,
         filterUid: filterUid,
         filterItemValue: filterItemValue,
       }))
+      */
+      console.log('TODO handleFilterItemClick isActive')
     } else {
+      /*
       store.dispatch(addActiveFilter({
         datastoreUid: datastoreUid,
         filterUid: filterUid,
         filterName: filterName,
         filterItemValue: filterItemValue
       }))
+      */
+      console.log('TODO handleFilterItemClick isActive')
     }
 
     runSearchPride()
   }
   handleClearActiveFilters({ datastoreUid }) {
-    store.dispatch(clearActiveFilters({ datastoreUid }))
+    //store.dispatch(clearActiveFilters({ datastoreUid }))
+    console.log('TODO handleClearActiveFilters datastoreUid')
     runSearchPride()
   }
   render() {

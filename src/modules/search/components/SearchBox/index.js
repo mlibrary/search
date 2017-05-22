@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { store } from '../../../../store';
 
 import {
   setSearchQuery
@@ -30,7 +29,8 @@ class SearchBox extends React.Component {
   }
 
   handleChange(query) {
-    store.dispatch(setSearchQuery(query))
+    //store.dispatch(setSearchQuery(query))
+    console.log('TODO: SearchBox handleChange')
   }
 
   handleSubmit(event) {
