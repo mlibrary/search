@@ -164,7 +164,7 @@ class AdvancedPage extends React.Component {
               </div>
             </div>
             <div className="container container-narrow advanced-search-button-container">
-              <button type="submit" className="button advanced-search-button"><Icon name="search"/>Advanced Search</button>
+              <button type="submit" className="button advanced-search-button"><Icon name="search"/>Search</button>
             </div>
           </div>
         </form>
