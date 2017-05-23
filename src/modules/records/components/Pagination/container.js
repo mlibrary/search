@@ -3,19 +3,24 @@ import { connect } from 'react-redux';
 
 import Pagination from './presenter';
 
+// TODO
+/*
 import {
   nextPage,
   prevPage,
 } from '../../../../pride-interface';
+*/
 
 class PaginationContainer extends React.Component {
   handlePreviousPage() {
-    prevPage();
-    window.scrollTo(0,0);
+    //TODO
+    //prevPage();
+    //window.scrollTo(0,0);
   }
   handleNextPage() {
-    nextPage();
-    window.scrollTo(0,0);
+    //TODO
+    //nextPage();
+    //window.scrollTo(0,0);
   }
   render() {
     const { records } = this.props;

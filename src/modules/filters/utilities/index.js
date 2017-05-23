@@ -1,6 +1,6 @@
 import { _ } from 'underscore';
 
-import { config } from '../../../pride-interface'
+import { config } from '../../../config'
 
 const isFilterItemChecked = ({
   datastoreUid,

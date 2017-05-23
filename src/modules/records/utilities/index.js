@@ -1,6 +1,6 @@
 import { _ } from 'underscore';
 
-import { config } from '../../../pride-interface';
+import { config } from '../../../config';
 
 const getField = function getField(fields, key) {
   return _.findWhere(fields, { uid: key });

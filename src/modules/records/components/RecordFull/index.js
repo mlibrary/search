@@ -19,17 +19,23 @@ import HoldingStatus from '../HoldingStatus'
 import {
   AccessItem
 } from '../AccessList'
+
+/*
+TODO
 import {
   getDatastoreUidBySlug,
   requestPrideRecord
 } from '../../../../pride-interface';
+*/
 
 class FullRecord extends React.Component {
   componentWillMount() {
     const recordUid = this.props.params.record
-    const datastoreUid = getDatastoreUidBySlug(this.props.params.datastore)
 
-    requestPrideRecord(datastoreUid, recordUid);
+    //TODO
+    //const datastoreUid = getDatastoreUidBySlug(this.props.params.datastore)
+
+    //requestPrideRecord(datastoreUid, recordUid);
   }
 
   render() {

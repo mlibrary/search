@@ -12,9 +12,14 @@ import {
   addActiveFilter,
   removeActiveFilter,
 } from '../../actions'
+
+//TODO
+/*
 import {
   runSearchPride,
 } from '../../../../pride-interface';
+*/
+
 import {
   getDisplayFilters,
   getFilterItems,
@@ -93,12 +98,15 @@ class Filters extends React.Component {
       console.log('TODO handleFilterItemClick isActive')
     }
 
-    runSearchPride()
+    // TODO
+    //runSearchPride()
   }
   handleClearActiveFilters({ datastoreUid }) {
     //store.dispatch(clearActiveFilters({ datastoreUid }))
     console.log('TODO handleClearActiveFilters datastoreUid')
-    runSearchPride()
+
+    // TODO
+    //runSearchPride()
   }
   render() {
     const { datastoreUid, filters, activeFilters } = this.props

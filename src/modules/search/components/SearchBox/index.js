@@ -5,10 +5,13 @@ import {
   setSearchQuery
 } from '../../actions'
 
+/*
+TODO
 import {
   runSearchPride,
   syncSearchURL
 } from '../../../../pride-interface'
+*/
 
 import { Icon } from '../../../core';
 
@@ -24,18 +27,21 @@ class SearchBox extends React.Component {
     const { isSearching } = this.props
 
     if (!isSearching) {
-      syncSearchURL()
+      //TODO
+      //syncSearchURL()
     }
   }
 
   handleChange(query) {
+    //TODO
     //store.dispatch(setSearchQuery(query))
     console.log('TODO: SearchBox handleChange')
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    runSearchPride()
+    //TODO
+    //runSearchPride()
   }
 
   render() {

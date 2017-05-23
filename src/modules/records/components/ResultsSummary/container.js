@@ -5,9 +5,12 @@ import { _ } from 'underscore';
 
 import ResultsSummary from './presenter';
 
+// TODO
+/*
 import {
   getDatastoreName,
 } from '../../../../pride-interface';
+*/
 
 class ResultsSummaryContainer extends React.Component {
   recordsSummary() {
@@ -18,7 +21,7 @@ class ResultsSummaryContainer extends React.Component {
     const resultsText = totalAvailable === 1 ? `result` : `results`
     const recordsFrom = (page - 1) * count + 1
     const recordsTo = (page - 1) * count + _.values(records).length;
-    const datastoreName = getDatastoreName(activeDatastoreUid);
+    const datastoreName = 'temo' // TODO getDatastoreName(activeDatastoreUid);
 
     return {
       range: `${recordsFrom}-${recordsTo}`,

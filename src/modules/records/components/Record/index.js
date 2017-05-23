@@ -9,7 +9,9 @@ import {
   ShowAllList
 } from '../../../core'
 import HoldingStatus from '../HoldingStatus';
-import { getDatastoreSlugByUid } from '../../../../pride-interface';
+
+// TODO
+//import { getDatastoreSlugByUid } from '../../../../pride-interface';
 import {
   getField,
   filterDisplayFields,
@@ -22,7 +24,11 @@ class Record extends React.Component {
   render() {
     const { record, datastoreUid, type } = this.props
     const titles = record.names ? [].concat(record.names) : [].concat('no title');
-    const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
+
+    // TODO
+    //const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
+    const datastoreSlug = 'temp' // TEMP
+
     const recordUidField = getField(record.fields, 'id');
     const displayFields = filterDisplayFields({
       fields: record.fields,
