@@ -18,7 +18,7 @@ import {
   routerReducer,
   routerMiddleware
 } from 'react-router-redux'
-import createHistory from 'history/createHashHistory'
+import createHistory from 'history/createBrowserHistory'
 
 import { datastoresReducer } from './modules/datastores'
 import { searchReducer } from './modules/search'
