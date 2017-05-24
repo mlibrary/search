@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import {
-  BrowserRouter as Router,
   Route,
   Switch,
   Redirect
@@ -16,9 +15,7 @@ import {
 } from './modules/pride'
 import {
   NoMatch,
-  IndexPage,
   DatastorePage,
-  AdvancedPage,
 } from './modules/pages'
 import store from './store'
 import history from './history'

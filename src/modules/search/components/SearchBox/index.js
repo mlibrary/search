@@ -1,19 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import qs from 'qs'
 
 import {
   setSearchQuery
 } from '../../actions'
-
-/*
-TODO
 import {
-  runSearchPride,
-  syncSearchURL
-} from '../../../../pride-interface'
-*/
-
-import { Icon } from '../../../core';
+  runSearch
+} from '../../../pride'
+import {
+  Icon
+} from '../../../core';
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -24,24 +22,17 @@ class SearchBox extends React.Component {
   }
 
   componentDidMount() {
-    const { isSearching } = this.props
-
-    if (!isSearching) {
-      //TODO
-      //syncSearchURL()
-    }
+    // TODO: search box check to see if a search should be submitted on load
   }
 
   handleChange(query) {
-    //TODO
-    //store.dispatch(setSearchQuery(query))
-    console.log('TODO: SearchBox handleChange')
+    this.props.setSearchQuery(query)
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    //TODO
-    //runSearchPride()
+
+    runSearch()
   }
 
   render() {
@@ -76,4 +67,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SearchBox);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    setSearchQuery
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);

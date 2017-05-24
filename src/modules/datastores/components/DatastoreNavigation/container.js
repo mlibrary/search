@@ -1,28 +1,47 @@
 import React from 'react';
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
+import {
+  withRouter
+} from 'react-router-dom'
 
+import { getDatastoreUidBySlug } from '../../../pride'
+import { changeActiveDatastore } from '../../actions'
 import DatastoreNavigationPresenter from './presenter';
 
 class DatastoreNavigationContainer extends React.Component {
-  render() {
-    const { datastores, search, filters, activeDatastoreUid } = this.props;
-    const activeFilters = filters.active;
+  componentDidUpdate() {
+    const { datastores, match } = this.props;
+    const routeDatastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug)
+    const activeDatastoreUid = datastores.active
 
+    if (routeDatastoreUid !== activeDatastoreUid) {
+      this.props.changeActiveDatastore(routeDatastoreUid)
+    }
+  }
+
+  render() {
+    const { datastores, search } = this.props;
     return <DatastoreNavigationPresenter
-      datastores={datastores}
-      search={search}
-      activeDatastoreUid={activeDatastoreUid}
-      activeFilters={activeFilters}/>;
+              datastores={datastores}
+              search={search} />;
   }
 };
 
 function mapStateToProps(state) {
   return {
     datastores: state.datastores,
-    search: state.search,
-    filters: state.filters,
-    activeDatastoreUid: state.datastores.active,
+    search: state.search
   };
 }
 
-export default connect(mapStateToProps)(DatastoreNavigationContainer);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    changeActiveDatastore
+  }, dispatch)
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)
+  (DatastoreNavigationContainer)
+)

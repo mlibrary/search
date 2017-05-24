@@ -4,13 +4,14 @@ import { _ } from 'underscore';
 import {
   Link
 } from 'react-router-dom';
+import { bindActionCreators } from 'redux'
 
-import {
-  Icon
-} from '../../../core'
 import {
   setSearchQuery
 } from '../../../search/actions'
+import {
+  Icon
+} from '../../../core'
 
 class AdvancedPage extends React.Component {
   constructor(props) {
@@ -76,7 +77,7 @@ class AdvancedPage extends React.Component {
     }, []).join(' ')
 
     if (query.length > 0) {
-      //store.dispatch(setSearchQuery(query))
+      this.props.setSearchQuery(query)
       console.log('TODO: AdvancedPage setSearchQuery')
 
       const activeDatastore = _.findWhere(this.props.datastores.datastores, {uid: this.props.datastores.active})
@@ -296,4 +297,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(AdvancedPage);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    setSearchQuery
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdvancedPage);

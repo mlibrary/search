@@ -1,9 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { _ } from 'underscore'
-import {
-  Redirect
-} from 'react-router-dom'
 
 import {
   SearchBox
@@ -21,9 +18,11 @@ import {
   BentoboxList,
 } from '../../../records'
 import {
-  switchPrideToDatastore,
-  isSlugADatastore
+  switchPrideToDatastore
 } from '../../../pride'
+import {
+  Main
+} from '../../../core'
 
 class DatastorePageContainer extends React.Component {
   componentWillMount() {
@@ -35,8 +34,6 @@ class DatastorePageContainer extends React.Component {
   render() {
     const { searching, datastores } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
-
-    console.log('activeDatastore', activeDatastore)
 
     if (activeDatastore === undefined) {
       return null // LOADING TODO: Fade IN?
@@ -55,7 +52,7 @@ class DatastorePageContainer extends React.Component {
 }
 
 const MultisearchSearching = ({ activeDatastore }) => (
-  <div>
+  <Main>
     <SearchBox />
     <DatastoreNavigation />
     <DatastoreInfo activeDatastore={activeDatastore} />
@@ -64,11 +61,11 @@ const MultisearchSearching = ({ activeDatastore }) => (
         <BentoboxList />
       </div>
     </div>
-  </div>
+  </Main>
 )
 
 const SingleResultSearching = ({ activeDatastore }) => (
-  <div>
+  <Main>
     <SearchBox />
     <DatastoreNavigation />
     <DatastoreInfo activeDatastore={activeDatastore} />
@@ -81,15 +78,15 @@ const SingleResultSearching = ({ activeDatastore }) => (
         <Pagination />
       </div>
     </div>
-  </div>
+  </Main>
 )
 
 const NotSearching = ({ activeDatastore }) => (
-  <div>
+  <Main>
     <SearchBox />
     <DatastoreNavigation />
     <DatastoreInfo activeDatastore={activeDatastore} />
-  </div>
+  </Main>
 )
 
 function mapStateToProps(state) {

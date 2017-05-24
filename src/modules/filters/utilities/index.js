@@ -1,6 +1,7 @@
 import { _ } from 'underscore';
 
-import { config } from '../../../config'
+import config from '../../../config'
+import store from '../../../store'
 
 const isFilterItemChecked = ({
   datastoreUid,
@@ -15,16 +16,13 @@ const isFilterItemChecked = ({
   */
 
   // Option A
-  //const state = store.getState()
-  /*
+  const state = store.getState()
   const isActive = ((
     state.filters.active[datastoreUid] &&
     state.filters.active[datastoreUid][filterUid]
   ) ? true : false)
   const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
-  */
 
-  /*
   // error messages
   if (!filterConfig) {
     console.log('Filter configuration does not exist for', filterUid)
@@ -50,7 +48,6 @@ const isFilterItemChecked = ({
   if (!isActive && (filterConfig.checkedCondition === filterConfig.defaultValueOnSpectrum)) {
     return true;
   }
-  */
 
   return false
 }
@@ -80,7 +77,7 @@ const getFiltersByType = ({ activeDatastoreUid, filters, type }) => {
 }
 
 const isFilterItemActive = ({ datastoreUid, filterUid, filterItemValue }) => {
-  //const state = store.getState()
+  const state = store.getState()
   const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
 
   if (!filterConfig) {
@@ -88,16 +85,13 @@ const isFilterItemActive = ({ datastoreUid, filterUid, filterItemValue }) => {
     return false
   }
 
-  /*
   const isActive = ((
     state.filters.active[datastoreUid] &&
     state.filters.active[datastoreUid][filterUid] &&
     _.contains(state.filters.active[datastoreUid][filterUid].filters, filterItemValue)
   ) ? true : false)
 
-
   return isActive;
-  */
 }
 
 const getDisplayFilters = ({ filters, datastoreUid }) => {

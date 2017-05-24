@@ -1,6 +1,9 @@
 import {
   initializePride,
-  switchPrideToDatastore
+  switchPrideToDatastore,
+  runSearch,
+  getDatastoreName,
+  getDatastoreUidBySlug
 } from './setup'
 import {
   isSlugADatastore
@@ -9,5 +12,8 @@ import {
 export {
   initializePride,
   isSlugADatastore,
-  switchPrideToDatastore
+  switchPrideToDatastore,
+  runSearch,
+  getDatastoreName,
+  getDatastoreUidBySlug
 }

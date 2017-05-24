@@ -7,19 +7,15 @@ import {
   Icon,
   ShowAllList
 } from '../../../core'
+import { store } from '../../../../store'
 import {
   clearActiveFilters,
   addActiveFilter,
   removeActiveFilter,
 } from '../../actions'
-
-//TODO
-/*
 import {
-  runSearchPride,
-} from '../../../../pride-interface';
-*/
-
+  runSearch,
+} from '../../../pride';
 import {
   getDisplayFilters,
   getFilterItems,
@@ -78,35 +74,25 @@ class Filters extends React.Component {
     const isActive = isFilterItemActive({ datastoreUid, filterUid, filterItemValue })
 
     if (isActive) {
-      /*
       store.dispatch(removeActiveFilter({
         datastoreUid: datastoreUid,
         filterUid: filterUid,
         filterItemValue: filterItemValue,
       }))
-      */
-      console.log('TODO handleFilterItemClick isActive')
     } else {
-      /*
       store.dispatch(addActiveFilter({
         datastoreUid: datastoreUid,
         filterUid: filterUid,
         filterName: filterName,
         filterItemValue: filterItemValue
       }))
-      */
-      console.log('TODO handleFilterItemClick isActive')
     }
 
-    // TODO
-    //runSearchPride()
+    runSearch()
   }
   handleClearActiveFilters({ datastoreUid }) {
-    //store.dispatch(clearActiveFilters({ datastoreUid }))
-    console.log('TODO handleClearActiveFilters datastoreUid')
-
-    // TODO
-    //runSearchPride()
+    store.dispatch(clearActiveFilters({ datastoreUid }))
+    runSearch()
   }
   render() {
     const { datastoreUid, filters, activeFilters } = this.props
@@ -223,7 +209,7 @@ const Filter = ({
               <ShowAllList
                 length={filterItems.length}
                 show={5}
-                name={`${filter.name.toLowerCase()} filters`}
+                name={`${filter.name} Filters`}
                 listClass={'filter-list'}>
                 {filterItems.map((filterItem, index) => (
                   <FilterItem
