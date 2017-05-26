@@ -37,6 +37,13 @@ import {
   clearAllFilters,
 } from '../filters';
 
+import {
+  getDatastoreSlug,
+  getDatastoreName,
+  getDatastoreUidBySlug,
+  getDatastoreSlugByUid
+} from './utils'
+
 /*
   Pride Internal Configuration
 */
@@ -50,41 +57,6 @@ Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = false; // Console log messages
 
 let searchSwitcher;
-
-/**
- * getDatastore() takes a datastore unique id {uid}
- * and an array of {datastores} objects, then returns
- * matching datastore Object or undefined if not found.
- */
-const getDatastore = ({ uid, datastores }) => {
-  return datastores.filter((ds) => {
-    return ds.uid === uid
-  })[0]
-}
-
-const getDatastoreName = (uid) => {
-  const ds = _.findWhere(config.datastores.list, { uid: uid })
-
-  if (ds && ds.name) {
-    return ds.name
-  }
-
-  return undefined;
-}
-
-const getDatastoreSlug = (uid) => {
-  const ds = _.findWhere(config.datastores.list, { uid: uid })
-
-  if (ds && ds.slug) {
-    return ds.slug
-  }
-
-  if (ds) {
-    return ds.uid
-  }
-
-  return undefined;
-}
 
 const setupSearches = () => {
   const allDatastores = Pride.AllDatastores.array;
@@ -164,24 +136,6 @@ const setupSearches = () => {
 
     store.dispatch(addDatastore(ds))
   });
-}
-
-const getDatastoreUidBySlug = (slugParam) => {
-  const slugDs = _.findWhere(config.datastores.list, {slug: slugParam})
-  const uidDs = _.findWhere(config.datastores.list, {uid: slugParam});
-  const ds = slugDs || uidDs;
-
-  if (!ds) {
-    return false;
-  }
-
-  return ds.uid;
-}
-
-const getDatastoreSlugByUid = (uid) => {
-  const ds = _.findWhere(config.datastores.list, {uid: uid})
-
-  return ds.slug || ds.uid;
 }
 
 const switchPrideToDatastore = (slug) => {
@@ -353,7 +307,5 @@ const initializePride = () => {
 export {
   runSearch,
   initializePride,
-  switchPrideToDatastore,
-  getDatastoreName,
-  getDatastoreUidBySlug
+  switchPrideToDatastore
 }

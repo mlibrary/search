@@ -5,6 +5,7 @@ import {
   Link
 } from 'react-router-dom';
 import { bindActionCreators } from 'redux'
+import qs from 'qs'
 
 import {
   setSearchQuery
@@ -77,13 +78,15 @@ class AdvancedPage extends React.Component {
     }, []).join(' ')
 
     if (query.length > 0) {
-      this.props.setSearchQuery(query)
-      console.log('TODO: AdvancedPage setSearchQuery')
 
-      const activeDatastore = _.findWhere(this.props.datastores.datastores, {uid: this.props.datastores.active})
+      const { match, history } = this.props
 
-      //browserHistory.push(`/${activeDatastore.slug}?query=${encodeURI(query)}`)
-      console.log('TODO advanced handleSubmit')
+      // Query is not empty
+      if (query.length > 0) {
+        const url = `${match.url}?${qs.stringify({query: query})}`
+
+        history.push(url)
+      }
     }
   }
 

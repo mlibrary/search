@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
+import qs from 'qs'
 import {
   withRouter
 } from 'react-router-dom'
@@ -22,16 +23,19 @@ class DatastoreNavigationContainer extends React.Component {
 
   render() {
     const { datastores, search } = this.props;
+    const queryString = search.query.length > 0 && search.searching ? `?${qs.stringify({query: search.query})}` : ''
+
     return <DatastoreNavigationPresenter
               datastores={datastores}
-              search={search} />;
+              search={search}
+              queryString={queryString}  />;
   }
 };
 
 function mapStateToProps(state) {
   return {
     datastores: state.datastores,
-    search: state.search
+    search: state.search,
   };
 }
 

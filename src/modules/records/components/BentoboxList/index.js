@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 
 //TODO
-//import { getMultiSearchRecords } from '../../../../pride-interface';
+import { getMultiSearchRecords } from '../../../pride';
 import Record from '../Record';
 import RecordPlaceholder from '../RecordPlaceholder';
 
@@ -14,9 +14,8 @@ class BentoboxList extends React.Component {
     const { allRecords, datastoreUid, search } = this.props;
 
     // TODO
-    //const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords);
-    const bentoboxListRecords = [] //TEMP
-    
+    const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords);
+
     return (
       <ul className="bentobox-list">
         {bentoboxListRecords.map(bentobox => {

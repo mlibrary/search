@@ -2,16 +2,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import qs from 'qs'
+import {
+  withRouter
+} from 'react-router-dom'
 
 import {
-  setSearchQuery
+  setSearchQuery,
+  searching
 } from '../../actions'
-import {
-  runSearch
-} from '../../../pride'
 import {
   Icon
 } from '../../../core';
+import {
+  runSearch
+} from '../../../pride';
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -21,18 +25,22 @@ class SearchBox extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    // TODO: search box check to see if a search should be submitted on load
-  }
-
   handleChange(query) {
     this.props.setSearchQuery(query)
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    const { match, history, query } = this.props
 
-    runSearch()
+    // Query is not empty
+    if (query.length > 0) {
+      const url = `${match.url}?${qs.stringify({query: query})}`
+
+      history.push(url)
+      this.props.searching(true)
+      runSearch()
+    }
   }
 
   render() {
@@ -69,8 +77,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    setSearchQuery
+    setSearchQuery,
+    searching
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SearchBox)
+);

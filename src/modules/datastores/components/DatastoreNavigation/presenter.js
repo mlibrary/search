@@ -7,10 +7,17 @@ import {
   Icon
 } from '../../../core'
 
+const isActive = ({
+  uid,
+  activeUid,
+}) => {
+  return uid === activeUid
+}
+
 const DatastoreNavigationPresenter = ({
   datastores,
   search,
-  location
+  queryString,
 }) => {
   return (
     <div className="datastore-list-container datastore-scroll-container">
@@ -20,9 +27,13 @@ const DatastoreNavigationPresenter = ({
           {datastores.datastores.map(ds => (
             <li className="datastore-item" key={ds.uid}>
               <NavLink
-                to={`/${ds.slug}`}
+                to={`/${ds.slug}${queryString}`}
                 className="datastore-item-link"
-                activeClassName="datastore-item-active">
+                activeClassName="datastore-item-active"
+                isActive={() => isActive({
+                  uid: ds.uid,
+                  activeUid: datastores.active
+                })}>
                 <div className="datastore-item-content-wrap">
                   {ds.isMultisearch && <Icon name="multi-result" />}
                   {ds.name}

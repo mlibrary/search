@@ -2,11 +2,12 @@ import {
   initializePride,
   switchPrideToDatastore,
   runSearch,
-  getDatastoreName,
-  getDatastoreUidBySlug
 } from './setup'
 import {
-  isSlugADatastore
+  isSlugADatastore,
+  getDatastoreUidBySlug,
+  getDatastoreName,
+  getMultiSearchRecords
 } from './utils'
 
 export {
@@ -15,5 +16,6 @@ export {
   switchPrideToDatastore,
   runSearch,
   getDatastoreName,
-  getDatastoreUidBySlug
+  getDatastoreUidBySlug,
+  getMultiSearchRecords
 }
