@@ -1,4 +1,5 @@
 import { _ } from 'underscore';
+import qs from 'qs'
 
 import config from '../../config';
 
@@ -87,6 +88,21 @@ const getDatastoreSlugByUid = (uid) => {
   return ds.slug || ds.uid;
 }
 
+/**
+ * getStateFromURL() takes a location {Object}, then returns
+ * matching datastore Object or undefined if no state exists
+ * in the URL (from the location {Object}).
+ */
+const getStateFromURL = ({ location }) => {
+  const urlStateString = location.search
+
+  if (urlStateString.length) {
+    return qs.parse(urlStateString.substring(1))
+  }
+
+  return undefined
+}
+
 export {
   isSlugADatastore,
   getMultiSearchRecords,
@@ -94,5 +110,6 @@ export {
   getDatastoreSlug,
   getDatastoreUidBySlug,
   getDatastore,
-  getDatastoreSlugByUid
+  getDatastoreSlugByUid,
+  getStateFromURL
 }

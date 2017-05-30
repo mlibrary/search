@@ -11,7 +11,8 @@ import {
 } from 'react-router-redux'
 import {
   initializePride,
-  isSlugADatastore
+  isSlugADatastore,
+  InitialStateWrapper
 } from './modules/pride'
 import {
   NoMatch,
@@ -23,22 +24,24 @@ import history from './history'
 const App = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Switch>
-        <Route path="/" exact render={() => (
-          <Redirect to={`/everything`} />
-        )}/>
-        <Route path={`/:datastoreSlug`} exact render={(props) => {
-          const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-          return (
-            isDatastore ? (
-              <DatastorePage {...props} />
-            ) : (
-              <NoMatch />
+      <InitialStateWrapper>
+        <Switch>
+          <Route path="/" exact render={() => (
+            <Redirect to={`/everything`} />
+          )}/>
+          <Route path={`/:datastoreSlug`} exact render={(props) => {
+            const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+            return (
+              isDatastore ? (
+                <DatastorePage {...props} />
+              ) : (
+                <NoMatch />
+              )
             )
-          )
-        }}/>
-        <Route component={NoMatch} />
-      </Switch>
+          }}/>
+          <Route component={NoMatch} />
+        </Switch>
+      </InitialStateWrapper>
     </ConnectedRouter>
   </Provider>
 )

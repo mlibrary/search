@@ -7,8 +7,10 @@ import {
   isSlugADatastore,
   getDatastoreUidBySlug,
   getDatastoreName,
-  getMultiSearchRecords
+  getMultiSearchRecords,
+  getStateFromURL
 } from './utils'
+import InitialStateWrapper from './components/InitialStateWrapper'
 
 export {
   initializePride,
@@ -17,5 +19,7 @@ export {
   runSearch,
   getDatastoreName,
   getDatastoreUidBySlug,
-  getMultiSearchRecords
+  getMultiSearchRecords,
+  InitialStateWrapper,
+  getStateFromURL
 }
