@@ -6,9 +6,11 @@ import {
 import {
   isSlugADatastore,
   getDatastoreUidBySlug,
+  getDatastoreSlugByUid,
   getDatastoreName,
   getMultiSearchRecords,
-  getStateFromURL
+  getStateFromURL,
+  requestRecord
 } from './utils'
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper'
 
@@ -21,5 +23,7 @@ export {
   getDatastoreUidBySlug,
   getMultiSearchRecords,
   URLSearchQueryWrapper,
-  getStateFromURL
+  getStateFromURL,
+  getDatastoreSlugByUid,
+  requestRecord
 }

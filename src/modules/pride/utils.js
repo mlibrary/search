@@ -1,7 +1,15 @@
+import { Pride } from 'pride'
 import { _ } from 'underscore';
 import qs from 'qs'
 
+import store from '../../store'
 import config from '../../config';
+
+import {
+  addRecord,
+  setRecord,
+  setRecordHoldings
+} from '../records';
 
 const isSlugADatastore = (slug) => {
   const slugDs = _.findWhere(config.datastores.list, {slug: slug})
@@ -103,6 +111,35 @@ const getStateFromURL = ({ location }) => {
   return undefined
 }
 
+const datastoreRecordsHaveHoldings = (datastore) => {
+  const fieldsConfig = _.findWhere(config.fields, { datastore: datastore })
+
+  if (fieldsConfig.holdings) {
+    return true
+  }
+
+  return false
+}
+
+const requestRecord = ({
+  datastoreUid,
+  recordUid,
+}) => {
+  const callback = (record) => {
+    store.dispatch(setRecord(record));
+  }
+
+  // We only want to send holdings requests for
+  // record types that have holdings (e.g. the catalog)
+  if (datastoreRecordsHaveHoldings(datastoreUid)) {
+    Pride.requestRecord(datastoreUid, recordUid, callback).getHoldings((holdings) => {
+      store.dispatch(setRecordHoldings(holdings))
+    })
+  } else {
+    Pride.requestRecord(datastoreUid, recordUid, callback)
+  }
+}
+
 export {
   isSlugADatastore,
   getMultiSearchRecords,
@@ -111,5 +148,6 @@ export {
   getDatastoreUidBySlug,
   getDatastore,
   getDatastoreSlugByUid,
-  getStateFromURL
+  getStateFromURL,
+  requestRecord
 }
