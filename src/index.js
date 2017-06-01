@@ -12,7 +12,7 @@ import {
 import {
   initializePride,
   isSlugADatastore,
-  InitialStateWrapper
+  URLSearchQueryWrapper
 } from './modules/pride'
 import {
   NoMatch,
@@ -24,7 +24,7 @@ import history from './history'
 const App = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <InitialStateWrapper>
+      <URLSearchQueryWrapper>
         <Switch>
           <Route path="/" exact render={() => (
             <Redirect to={`/everything`} />
@@ -41,7 +41,7 @@ const App = () => (
           }}/>
           <Route component={NoMatch} />
         </Switch>
-      </InitialStateWrapper>
+      </URLSearchQueryWrapper>
     </ConnectedRouter>
   </Provider>
 )

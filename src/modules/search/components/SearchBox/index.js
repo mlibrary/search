@@ -13,38 +13,38 @@ import {
 import {
   Icon
 } from '../../../core';
-import {
-  runSearch
-} from '../../../pride';
 
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+       query: this.props.query || ''
+    }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(query) {
-    this.props.setSearchQuery(query)
+    this.setState({ query })
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const { match, history, query } = this.props
+    const { match, history } = this.props
+    const { query } = this.state
 
     // Query is not empty
     if (query.length > 0) {
       const url = `${match.url}?${qs.stringify({query: query})}`
 
       history.push(url)
-      this.props.searching(true)
-      runSearch()
     }
   }
 
   render() {
-    const { query } = this.props;
+    const { query } = this.state;
 
     return (
       <div className="search-box-container-full">

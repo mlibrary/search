@@ -10,7 +10,7 @@ import {
   getMultiSearchRecords,
   getStateFromURL
 } from './utils'
-import InitialStateWrapper from './components/InitialStateWrapper'
+import URLSearchQueryWrapper from './components/URLSearchQueryWrapper'
 
 export {
   initializePride,
@@ -20,6 +20,6 @@ export {
   getDatastoreName,
   getDatastoreUidBySlug,
   getMultiSearchRecords,
-  InitialStateWrapper,
+  URLSearchQueryWrapper,
   getStateFromURL
 }
