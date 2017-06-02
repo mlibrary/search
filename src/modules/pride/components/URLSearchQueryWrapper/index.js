@@ -7,6 +7,9 @@ import {
   searching
 } from '../../../search/actions'
 import {
+  loadingRecords
+} from '../../../records'
+import {
   getStateFromURL,
   runSearch
 } from '../../../pride'
@@ -26,6 +29,7 @@ class URLSearchQueryWrapper extends React.Component {
       if (urlState.query !== query) {
         this.props.setSearchQuery(urlState.query)
         this.props.searching(true)
+        this.props.loadingRecords(true)
         runSearch()
       }
     }
@@ -57,7 +61,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     setSearchQuery,
-    searching
+    searching,
+    loadingRecords
   }, dispatch)
 }
 
