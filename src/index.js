@@ -21,6 +21,7 @@ import {
 import {
   NoMatch,
   DatastorePage,
+  RecordPage
 } from './modules/pages'
 import store from './store'
 import history from './history'
@@ -50,9 +51,22 @@ const App = () => (
           )}/>
           <Route path={`/:datastoreSlug`} exact render={(props) => {
             const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+
+            console.log('datastoreSlug', props.match.params.datastoreSlug)
+
             return (
               isDatastore ? (
                 <DatastorePage {...props} />
+              ) : (
+                <NoMatch />
+              )
+            )
+          }}/>
+          <Route path={`/:datastoreSlug/record/:recordUid`} exact render={(props) => {
+            const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+            return (
+              isDatastore ? (
+                <RecordPage {...props} />
               ) : (
                 <NoMatch />
               )

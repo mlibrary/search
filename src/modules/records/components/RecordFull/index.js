@@ -1,6 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { _ } from 'underscore'
+import {
+  withRouter
+} from 'react-router-dom'
 
 import {
   ShowAllList,
@@ -20,22 +23,18 @@ import {
   AccessItem
 } from '../AccessList'
 
-/*
-TODO
 import {
   getDatastoreUidBySlug,
-  requestPrideRecord
-} from '../../../../pride-interface';
-*/
+  requestRecord
+} from '../../../pride';
+
 
 class FullRecord extends React.Component {
   componentWillMount() {
-    const recordUid = this.props.params.record
+    const { recordUid, datastoreSlug } = this.props.match.params
+    const datastoreUid = getDatastoreUidBySlug(datastoreSlug)
 
-    //TODO
-    //const datastoreUid = getDatastoreUidBySlug(this.props.params.datastore)
-
-    //requestPrideRecord(datastoreUid, recordUid);
+    requestRecord({ recordUid, datastoreUid })
   }
 
   render() {
@@ -319,4 +318,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(FullRecord)
+export default withRouter(connect(mapStateToProps)(FullRecord))
