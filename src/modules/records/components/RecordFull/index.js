@@ -38,7 +38,9 @@ class FullRecord extends React.Component {
   }
 
   render() {
-    const { record, datastoreUid } = this.props;
+    const { record } = this.props;
+    const { datastoreSlug } = this.props.match.params
+    const datastoreUid = getDatastoreUidBySlug(datastoreSlug)
 
     if (!record) {
       return <SkeletonFullRecord />

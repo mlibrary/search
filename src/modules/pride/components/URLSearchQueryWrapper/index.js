@@ -22,13 +22,6 @@ class URLSearchQueryWrapper extends React.Component {
   handleURLState({ query, location }) {
     const urlState = getStateFromURL({ location })
 
-    console.log('handleURLState')
-    console.log('urlState', urlState)
-    console.log('location', location)
-    console.log('query', query)
-    console.log('props', this.props)
-    console.log(' ')
-
     if (urlState) {
       if (urlState.query !== query) {
         this.props.setSearchQuery(urlState.query)
