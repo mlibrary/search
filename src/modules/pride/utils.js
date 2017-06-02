@@ -6,7 +6,6 @@ import store from '../../store'
 import config from '../../config';
 
 import {
-  addRecord,
   setRecord,
   setRecordHoldings
 } from '../records';

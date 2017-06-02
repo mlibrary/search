@@ -15,33 +15,25 @@ import {
 import {
   addRecord,
   clearRecords,
-  setRecord,
-  clearRecord,
   loadingRecords,
   addHoldings,
   loadingHoldings,
-  setRecordHoldings,
 } from '../records';
 
 import {
   setSearchData,
   searching,
-  clearSearch,
-  setSearchQuery
 } from '../search';
 
 import {
   addFilter,
   clearFilters,
-  addActiveFilter,
-  clearAllFilters,
 } from '../filters';
 
 import {
   getDatastoreSlug,
   getDatastoreName,
   getDatastoreUidBySlug,
-  getDatastoreSlugByUid
 } from './utils'
 
 /*
@@ -57,101 +49,6 @@ Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = false; // Console log messages
 
 let searchSwitcher;
-
-const setupSearches = () => {
-  const allDatastores = Pride.AllDatastores.array;
-  const datastores = _.uniq(
-    _.reduce(config.datastores.list, (memo, dsConfig) => {
-      if (!dsConfig.datastores) {
-        memo = memo.concat([`${dsConfig.uid}`])
-      } else {
-        memo = memo.concat(dsConfig.datastores)
-      }
-      return memo
-    }, [])
-  );
-
-  const allSearchObjects = _.reduce(datastores, (memo, uid) => {
-    const foundDatastore = _.find(allDatastores, function(ds) {
-      return ds.get('uid') === uid
-    })
-
-    if (foundDatastore !== undefined) {
-      const searchObj = foundDatastore.baseSearch();
-
-      searchObj.set({count: 10}); // default page count for single result datastores
-      setupObservers(searchObj)
-
-      memo.push(searchObj)
-    }
-
-    return memo
-  }, [])
-
-  const multiSearchDatastores = _.reduce(config.datastores.list, (memo, dsConfig) => {
-      if (dsConfig.datastores) {
-        memo.push(dsConfig)
-      }
-    return memo;
-  }, [])
-
-  const multiSearchObjects = _.reduce(multiSearchDatastores, (memo, multiDatastoreConfig) => {
-    const multiSearchInternalObjects = [];
-
-    _.each(multiDatastoreConfig.datastores, (ds) => {
-      const foundSearchObj = _.findWhere(allSearchObjects, { uid: ds })
-
-      if (foundSearchObj) {
-        multiSearchInternalObjects.push(foundSearchObj);
-      }
-    })
-
-    if (multiSearchInternalObjects.length > 0) {
-      memo.push(new Pride.Util.MultiSearch(multiDatastoreConfig.uid, true, multiSearchInternalObjects))
-    }
-
-    return memo;
-  }, [])
-
-  const publicSearchObjects = multiSearchObjects.concat(allSearchObjects);
-  const defaultSearchObject = _.findWhere(publicSearchObjects, { uid: config.datastores.default })
-  const remainingSearchObjects = _.reject(publicSearchObjects, (searchObj) => {
-    return searchObj.uid === config.datastores.default
-  })
-
-  searchSwitcher = new Pride.Util.SearchSwitcher(
-    defaultSearchObject,
-    remainingSearchObjects
-  )
-
-  _.each(publicSearchObjects, function (searchObj) {
-    const name = getDatastoreName(searchObj.uid);
-    const slug = getDatastoreSlug(searchObj.uid);
-    const ds = {
-      uid: searchObj.uid,
-      name: name,
-      slug: slug || searchObj.uid,
-      isMultisearch: searchObj.searches !== undefined ? true : false,
-    }
-
-    store.dispatch(addDatastore(ds))
-  });
-}
-
-const switchPrideToDatastore = (slug) => {
-  const uid = getDatastoreUidBySlug(slug)
-
-  if (!uid) {
-    return false
-  }
-
-  if (!searchSwitcher) {
-    return false
-  }
-
-  store.dispatch(changeActiveDatastore(uid))
-  searchSwitcher.switchTo(uid)
-}
 
 const handleSearchData = (data, datastoreUid) => {
   const payload = {
@@ -273,6 +170,101 @@ const setupObservers = (searchObj) => {
       }) // end of for each filterGroup
     } // end of only listen to filter groups from active datastore
   }) // end of facet observer
+}
+
+const setupSearches = () => {
+  const allDatastores = Pride.AllDatastores.array;
+  const datastores = _.uniq(
+    _.reduce(config.datastores.list, (memo, dsConfig) => {
+      if (!dsConfig.datastores) {
+        memo = memo.concat([`${dsConfig.uid}`])
+      } else {
+        memo = memo.concat(dsConfig.datastores)
+      }
+      return memo
+    }, [])
+  );
+
+  const allSearchObjects = _.reduce(datastores, (memo, uid) => {
+    const foundDatastore = _.find(allDatastores, function(ds) {
+      return ds.get('uid') === uid
+    })
+
+    if (foundDatastore !== undefined) {
+      const searchObj = foundDatastore.baseSearch();
+
+      searchObj.set({count: 10}); // default page count for single result datastores
+      setupObservers(searchObj)
+
+      memo.push(searchObj)
+    }
+
+    return memo
+  }, [])
+
+  const multiSearchDatastores = _.reduce(config.datastores.list, (memo, dsConfig) => {
+      if (dsConfig.datastores) {
+        memo.push(dsConfig)
+      }
+    return memo;
+  }, [])
+
+  const multiSearchObjects = _.reduce(multiSearchDatastores, (memo, multiDatastoreConfig) => {
+    const multiSearchInternalObjects = [];
+
+    _.each(multiDatastoreConfig.datastores, (ds) => {
+      const foundSearchObj = _.findWhere(allSearchObjects, { uid: ds })
+
+      if (foundSearchObj) {
+        multiSearchInternalObjects.push(foundSearchObj);
+      }
+    })
+
+    if (multiSearchInternalObjects.length > 0) {
+      memo.push(new Pride.Util.MultiSearch(multiDatastoreConfig.uid, true, multiSearchInternalObjects))
+    }
+
+    return memo;
+  }, [])
+
+  const publicSearchObjects = multiSearchObjects.concat(allSearchObjects);
+  const defaultSearchObject = _.findWhere(publicSearchObjects, { uid: config.datastores.default })
+  const remainingSearchObjects = _.reject(publicSearchObjects, (searchObj) => {
+    return searchObj.uid === config.datastores.default
+  })
+
+  searchSwitcher = new Pride.Util.SearchSwitcher(
+    defaultSearchObject,
+    remainingSearchObjects
+  )
+
+  _.each(publicSearchObjects, function (searchObj) {
+    const name = getDatastoreName(searchObj.uid);
+    const slug = getDatastoreSlug(searchObj.uid);
+    const ds = {
+      uid: searchObj.uid,
+      name: name,
+      slug: slug || searchObj.uid,
+      isMultisearch: searchObj.searches !== undefined ? true : false,
+    }
+
+    store.dispatch(addDatastore(ds))
+  });
+}
+
+const switchPrideToDatastore = (slug) => {
+  const uid = getDatastoreUidBySlug(slug)
+
+  if (!uid) {
+    return false
+  }
+
+  if (!searchSwitcher) {
+    return false
+  }
+
+  store.dispatch(changeActiveDatastore(uid))
+  searchSwitcher.switchTo(uid)
 }
 
 const runSearch = () => {

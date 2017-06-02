@@ -39,10 +39,17 @@ class FullRecord extends React.Component {
 
   render() {
     const { record } = this.props;
-    const { datastoreSlug } = this.props.match.params
+    const { recordUid, datastoreSlug } = this.props.match.params
     const datastoreUid = getDatastoreUidBySlug(datastoreSlug)
 
     if (!record) {
+      return <SkeletonFullRecord />
+    }
+
+    // Check if the record in state matches the record ID in the URL
+    // If they don't match, then the new record is still being fetched.
+    const recordUidValue = getFieldValue(getField(record.fields, 'id'))[0]
+    if (recordUidValue !== recordUid) {
       return <SkeletonFullRecord />
     }
 

@@ -45,7 +45,7 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)
-  (DatastoreNavigationContainer)
-)
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DatastoreNavigationContainer))

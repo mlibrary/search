@@ -51,9 +51,6 @@ const App = () => (
           )}/>
           <Route path={`/:datastoreSlug`} exact render={(props) => {
             const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-
-            console.log('datastoreSlug', props.match.params.datastoreSlug)
-
             return (
               isDatastore ? (
                 <DatastorePage {...props} />
