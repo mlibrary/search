@@ -74,8 +74,11 @@ const recordsReducer = (state = recordsInitialState, action) => {
       });
     case actions.LOADING_RECORDS:
       return Object.assign({}, state, {
-        loading: action.payload,
-      });
+        loading: {
+          ...state.loading,
+          [action.payload.datastoreUid]: action.payload.loading
+        }
+      })
     case actions.LOADING_HOLDINGS:
       if (!state.records[action.payload.datastoreUid] || !state.records[action.payload.datastoreUid][action.payload.recordId]) {
         return state;

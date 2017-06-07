@@ -64,20 +64,20 @@ const handleSearchData = (data, datastoreUid) => {
   }
   store.dispatch(setSearchData(payload))
 
-  const activeDatastore = store.getState().datastores.active;
-  const activeRecords = store.getState().records.records[activeDatastore];
+  const records = store.getState().records.records[datastoreUid];
 
-  if (activeRecords) {
-    const activeRecordsLength = _.values(activeRecords).length
-    const count = data.count // page count
-    const page = data.page
-    const totalAvailable = data.total_available
-    const lastPage = (page - 1) * count + activeRecordsLength === totalAvailable
+  const recordsLength = _.values(records).length
+  const count = data.count // page count
+  const page = data.page
+  const totalAvailable = data.total_available
+  const lastPage = (page - 1) * count + recordsLength === totalAvailable
 
-    // Check to see if records have loaded.
-    if (activeRecordsLength === count || lastPage) {
-      store.dispatch(loadingRecords(false))
-    }
+  // Check to see if records have loaded.
+  if (recordsLength === count || lastPage) {
+    store.dispatch(loadingRecords({
+      datastoreUid,
+      loading: false
+    }))
   }
 }
 
@@ -276,7 +276,16 @@ const runSearch = () => {
   }
 
   store.dispatch(searching(true))
-  store.dispatch(loadingRecords(true))
+
+  const datastores = store.getState().datastores.datastores
+  datastores.forEach(datastore => {
+    if (!datastore.isMultisearch) {
+      store.dispatch(loadingRecords({
+        datastoreUid: datastore.uid,
+        loading: true
+      }))
+    }
+  })
   searchSwitcher.set(config).run();
 }
 

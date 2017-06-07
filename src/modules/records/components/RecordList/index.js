@@ -80,7 +80,7 @@ class RecordListContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     activeRecords: _.values(state.records.records[state.datastores.active]),
-    loadingRecords: state.records.loading,
+    loadingRecords: state.records.loading[state.datastores.active],
     datastoreUid: state.datastores.active,
     search: state.search,
   };
