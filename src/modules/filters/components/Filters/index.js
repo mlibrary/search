@@ -2,6 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { _ } from 'underscore'
 import numeral from 'numeral'
+import {
+  withRouter
+} from 'react-router-dom'
+import qs from 'qs'
 
 import {
   Icon,
@@ -32,10 +36,14 @@ class Filters extends React.Component {
     super(props)
 
     this.state = {
-       open: getOpenFilterDefaults()
+      open: getOpenFilterDefaults(),
+      active: this.props.activeFilters || {
+        filters: {}
+      }
     }
 
     this.handleFilterClick = this.handleFilterClick.bind(this)
+    this.handleFilterItemClick = this.handleFilterItemClick.bind(this)
   }
   openFilter({ datastoreUid, filterUid }) {
     const open = this.state.open;
@@ -72,33 +80,62 @@ class Filters extends React.Component {
       filterItemValue
     }) {
     const isActive = isFilterItemActive({ datastoreUid, filterUid, filterItemValue })
+    const activeFilterState = this.props.activeFilters || {}
+
+    console.log('')
+    console.log('handleFilterItemClick')
+    console.log('datastoreUid', datastoreUid)
+    console.log('filterUid', filterUid)
+    console.log('filterName', filterName)
+    console.log('filterItemValue', filterItemValue)
+    console.log('isActive', isActive)
+    console.log('activeFilters', this.props.activeFilters)
+    console.log('this.props', this.props)
 
     if (isActive) {
-      store.dispatch(removeActiveFilter({
-        datastoreUid: datastoreUid,
-        filterUid: filterUid,
-        filterItemValue: filterItemValue,
-      }))
-    } else {
-      store.dispatch(addActiveFilter({
-        datastoreUid: datastoreUid,
-        filterUid: filterUid,
-        filterName: filterName,
-        filterItemValue: filterItemValue
-      }))
-    }
+      console.log('remove filter')
 
-    runSearch()
+    } else {
+      console.log('add filter')
+      console.log('activeFilterState', activeFilterState)
+
+      const queryString = qs.stringify({
+        query: this.props.query,
+        filter: {
+          ...activeFilterState,
+          [filterUid]: [].concat(filterItemValue)
+        }
+      })
+
+      console.log('queryString', queryString)
+
+      if (queryString.length > 0) {
+        const { history, match } = this.props
+        const url = `${match.url}?${queryString}`
+
+        history.push(url)
+      }
+    }
   }
   handleClearActiveFilters({ datastoreUid }) {
+    /*
     store.dispatch(clearActiveFilters({ datastoreUid }))
     runSearch()
+    */
   }
   render() {
     const { datastoreUid, filters, activeFilters } = this.props
     const open = this.state.open[datastoreUid]
     const displayActiveFilters = getActiveFilters({ activeFilters, filters })
     const displayFilters = filtersWithOpenProperty({ open, filters })
+
+    /*
+    console.log('')
+    console.log('activeFilters', activeFilters)
+    console.log('filters', filters)
+    console.log('displayFilters', displayFilters)
+    console.log('filters state', this.state)
+    */
 
     return (
       <div className="filters-container">
@@ -295,6 +332,7 @@ const ActiveFilters = ({
 function mapStateToProps(state) {
   return {
     datastoreUid: state.datastores.active,
+    query: state.search.query,
     filters: getDisplayFilters({
       filters: state.filters.groups,
       datastoreUid: state.datastores.active
@@ -303,4 +341,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Filters);
+export default withRouter(connect(mapStateToProps)(Filters));
