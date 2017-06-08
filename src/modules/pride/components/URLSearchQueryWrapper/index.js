@@ -35,15 +35,19 @@ class URLSearchQueryWrapper extends React.Component {
     const urlState = getStateFromURL({ location })
     let shouldRunSearch = false
 
-    console.log('urlState', urlState)
-
     if (urlState) {
       if (urlState.query !== query) {
         this.props.setSearchQuery(urlState.query)
         shouldRunSearch = true
       }
 
+      console.log('')
+      console.log('handleURLState')
+      console.log('urlState.filter', urlState.filter)
+      console.log('filters', filters)
+
       if (datastoreUid && !_.isEqual(urlState.filter, filters)) {
+        console.log('setActiveFilters')
         this.props.setActiveFilters({
           datastoreUid,
           filters: urlState.filter
@@ -52,6 +56,7 @@ class URLSearchQueryWrapper extends React.Component {
       }
 
       if (shouldRunSearch) {
+        console.log('RUN SEARCH')
         runSearch()
       }
     }
