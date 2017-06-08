@@ -3,8 +3,7 @@ import { _ } from 'underscore';
 import {
   ADD_FILTER,
   CLEAR_FILTERS,
-  ADD_ACTIVE_FILTER,
-  REMOVE_ACTIVE_FILTER,
+  SET_ACTIVE_FILTERS,
   CLEAR_ACTIVE_FILTERS,
   CLEAR_ALL_FILTERS,
 } from '../actions';
@@ -64,102 +63,20 @@ const filtersReducer = function filterReducer(state = initialState, action) {
       return Object.assign({}, state, {
         groups: {}
       })
-    case ADD_ACTIVE_FILTER:
+    case SET_ACTIVE_FILTERS:
       /*
-      // payload fields:
-      datastoreUid,
-      filterUid
-      filterName
-      filterItemValue
-
-      // Example of data structure
-      active: {
-        'mirlyn': {
-          'format': {
-            uid: 'format',
-            name: 'Format'
-            filters: ['book', 'ebook']
-          },
-          // ...
-        },
-        // ...
-      }
+        payload:
+        - datastoreUid
+        - filters
       */
-      let {
-        datastoreUid,
-        filterUid,
-        filterName,
-        filterItemValue
-      } = action.payload
 
-      const filterExists = ((
-        state.active[datastoreUid] &&
-        state.active[datastoreUid][filterUid]
-      ) ? true : false)
+      const { datastoreUid, filters } = action.payload
 
-      if (filterExists) {
-        // append new filter item value to filters array
-        return {
-          ...state,
-          active: {
-            ...state.active,
-            [datastoreUid]: {
-              ...state.active[datastoreUid],
-              [filterUid]: {
-                ...state.active[datastoreUid][filterUid],
-                filters: _.uniq(state.active[datastoreUid][filterUid].filters.concat(filterItemValue))
-              }
-            }
-          }
-        }
-      } else {
-        // Create and add the new filter
-        return {
-          ...state,
-          active: {
-            ...state.active,
-            [datastoreUid]: {
-              ...state.active[datastoreUid],
-              [filterUid]: {
-                uid: filterUid,
-                name: filterName,
-                filters: [].concat(filterItemValue)
-              }
-            }
-          }
-        }
-      }
-    case REMOVE_ACTIVE_FILTER:
-      const removeEntireFilter = ((
-        state.active[action.payload.datastoreUid] &&
-        state.active[action.payload.datastoreUid][action.payload.filterUid] &&
-        state.active[action.payload.datastoreUid][action.payload.filterUid].filters.length === 1
-      ) ? true : false)
-
-      if (removeEntireFilter) {
-
-        // remove the entire filter group
-        return {
-          ...state,
-          active: {
-            ...state.active,
-            [action.payload.datastoreUid]: _.omit(state.active[action.payload.datastoreUid], action.payload.filterUid)
-          }
-        }
-      }
-
-      // remove just the one filter item from the filter group
       return {
         ...state,
         active: {
           ...state.active,
-          [action.payload.datastoreUid]: {
-            ...state.active[action.payload.datastoreUid],
-            [action.payload.filterUid]: {
-              ...state.active[action.payload.datastoreUid][action.payload.filterUid],
-              filters: _.without(state.active[action.payload.datastoreUid][action.payload.filterUid].filters, action.payload.filterItemValue)
-            }
-          }
+          [datastoreUid]: filters
         }
       }
     case CLEAR_ACTIVE_FILTERS:

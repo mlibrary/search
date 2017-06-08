@@ -272,7 +272,8 @@ const runSearch = () => {
   const { query, page } = state.search
   const config = {
     field_tree: Pride.FieldTree.parseField('all_fields', query),
-    page
+    page,
+    //facets: state.filters.active[state.datastores.active]
   }
 
   store.dispatch(searching(true))

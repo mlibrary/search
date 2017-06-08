@@ -78,20 +78,16 @@ const getFiltersByType = ({ activeDatastoreUid, filters, type }) => {
 
 const isFilterItemActive = ({ datastoreUid, filterUid, filterItemValue }) => {
   const state = store.getState()
-  const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
 
-  if (!filterConfig) {
-    console.log('not a valid filter config', filterUid)
-    return false
+  if (state.filters.active[datastoreUid]) {
+    if (state.filters.active[datastoreUid][filterUid]) {
+      if (state.filters.active[datastoreUid][filterUid].includes(filterItemValue)) {
+        return true
+      }
+    }
   }
 
-  const isActive = ((
-    state.filters.active[datastoreUid] &&
-    state.filters.active[datastoreUid][filterUid] &&
-    _.contains(state.filters.active[datastoreUid][filterUid].filters, filterItemValue)
-  ) ? true : false)
-
-  return isActive;
+  return false
 }
 
 const getDisplayFilters = ({ filters, datastoreUid }) => {
@@ -179,6 +175,25 @@ const getCheckboxOnClickValue = ({ datastoreUid, filterUid }) => {
 
   return filterConfig.onClickValue
 }
+
+const createActiveFilterObj = ({ activeFilters, filterUid, filterItemValue }) => {
+  if (activeFilters) {
+    if (activeFilters[filterUid]) {
+      return Object.assign(activeFilters, {
+        [filterUid]: activeFilters[filterUid].concat(filterItemValue)
+      })
+    } else {
+      return Object.assign(activeFilters, {
+        [filterUid]: [].concat(filterItemValue)
+      })
+    }
+  } else {
+    return {
+      [filterUid]: [].concat(filterItemValue)
+    }
+  }
+}
+
 export {
   getFiltersByType,
   isFilterItemActive,
@@ -189,4 +204,5 @@ export {
   getActiveFilters,
   isFilterItemChecked,
   getCheckboxOnClickValue,
+  createActiveFilterObj
 }

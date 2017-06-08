@@ -148,5 +148,5 @@ export {
   getDatastore,
   getDatastoreSlugByUid,
   getStateFromURL,
-  requestRecord
+  requestRecord,
 }

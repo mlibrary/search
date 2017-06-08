@@ -4,19 +4,22 @@ import filtersReducer from './reducer';
 import {
   addFilter,
   clearFilters,
-  addActiveFilter,
-  removeActiveFilter,
+  setActiveFilters,
   clearActiveFilters,
   clearAllFilters,
 } from './actions';
+
+import {
+  isFilterItemActive
+} from './utilities'
 
 export {
   Filters,
   filtersReducer,
   addFilter,
   clearFilters,
-  addActiveFilter,
-  removeActiveFilter,
+  setActiveFilters,
   clearActiveFilters,
-  clearAllFilters
+  clearAllFilters,
+  isFilterItemActive
 }

@@ -19,6 +19,7 @@ import {
 } from '../../actions'
 import {
   runSearch,
+  getFacetsForPride
 } from '../../../pride';
 import {
   getDisplayFilters,
@@ -29,6 +30,7 @@ import {
   getActiveFilters,
   isFilterItemChecked,
   getCheckboxOnClickValue,
+  createActiveFilterObj
 } from '../../utilities'
 
 class Filters extends React.Component {
@@ -36,10 +38,7 @@ class Filters extends React.Component {
     super(props)
 
     this.state = {
-      open: getOpenFilterDefaults(),
-      active: this.props.activeFilters || {
-        filters: {}
-      }
+      open: getOpenFilterDefaults()
     }
 
     this.handleFilterClick = this.handleFilterClick.bind(this)
@@ -74,47 +73,25 @@ class Filters extends React.Component {
     }
   }
   handleFilterItemClick({
-      datastoreUid,
+    datastoreUid,
+    filterUid,
+    filterItemValue
+  }) {
+    const filterObj = createActiveFilterObj({
+      activeFilters: this.props.activeFilters,
       filterUid,
-      filterName,
       filterItemValue
-    }) {
-    const isActive = isFilterItemActive({ datastoreUid, filterUid, filterItemValue })
-    const activeFilterState = this.props.activeFilters || {}
+    })
+    const queryString = qs.stringify({
+      query: this.props.query,
+      filter: filterObj
+    }, { encode: false })
 
-    console.log('')
-    console.log('handleFilterItemClick')
-    console.log('datastoreUid', datastoreUid)
-    console.log('filterUid', filterUid)
-    console.log('filterName', filterName)
-    console.log('filterItemValue', filterItemValue)
-    console.log('isActive', isActive)
-    console.log('activeFilters', this.props.activeFilters)
-    console.log('this.props', this.props)
+    if (queryString.length > 0) {
+      const { history, match } = this.props
+      const url = `${match.url}?${queryString}`
 
-    if (isActive) {
-      console.log('remove filter')
-
-    } else {
-      console.log('add filter')
-      console.log('activeFilterState', activeFilterState)
-
-      const queryString = qs.stringify({
-        query: this.props.query,
-        filter: {
-          ...activeFilterState,
-          [filterUid]: [].concat(filterItemValue)
-        }
-      })
-
-      console.log('queryString', queryString)
-
-      if (queryString.length > 0) {
-        const { history, match } = this.props
-        const url = `${match.url}?${queryString}`
-
-        history.push(url)
-      }
+      history.push(url)
     }
   }
   handleClearActiveFilters({ datastoreUid }) {
@@ -128,14 +105,6 @@ class Filters extends React.Component {
     const open = this.state.open[datastoreUid]
     const displayActiveFilters = getActiveFilters({ activeFilters, filters })
     const displayFilters = filtersWithOpenProperty({ open, filters })
-
-    /*
-    console.log('')
-    console.log('activeFilters', activeFilters)
-    console.log('filters', filters)
-    console.log('displayFilters', displayFilters)
-    console.log('filters state', this.state)
-    */
 
     return (
       <div className="filters-container">
@@ -255,7 +224,6 @@ const Filter = ({
                     handleFilterItemClick={() => handleFilterItemClick({
                       datastoreUid,
                       filterUid: filter.uid,
-                      filterName: filter.name,
                       filterItemValue: filterItem.value
                     })}
                   />
