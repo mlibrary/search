@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { withRouter } from 'react-router-dom'
 import _ from 'underscore'
 
 import {
@@ -24,30 +25,31 @@ class URLSearchQueryWrapper extends React.Component {
 
     this.handleURLState = this.handleURLState.bind(this)
   }
-  componentWillMount() {
-    this.handleURLState({
-      query: this.props.query,
-      location: this.props.location
-    })
-  }
 
-  handleURLState({ datastoreUid, query, filters, location }) {
+  handleURLState({ datastoreUid, query, activeFilters, location }) {
+    console.log('handleURLState')
     const urlState = getStateFromURL({ location })
     let shouldRunSearch = false
 
-    if (urlState) {
+    if (urlState && datastoreUid) {
+      /*
+      console.log('datastoreUid', datastoreUid)
+      console.log('query', query)
+      console.log('filters', filters)
+      console.log('location.search', location.search)
+      */
+
       if (urlState.query !== query) {
+        console.log('> SETTING SEARCH QUERY')
         this.props.setSearchQuery(urlState.query)
         shouldRunSearch = true
       }
 
-      console.log('')
-      console.log('handleURLState')
-      console.log('urlState.filter', urlState.filter)
-      console.log('filters', filters)
+      console.log('url filters', urlState.filter)
+      console.log('active filters', activeFilters)
 
-      if (datastoreUid && !_.isEqual(urlState.filter, filters)) {
-        console.log('setActiveFilters')
+      if (!_.isEqual(urlState.filter, activeFilters)) {
+        console.log('> SETTING ACTIVE FILTERS')
         this.props.setActiveFilters({
           datastoreUid,
           filters: urlState.filter
@@ -56,19 +58,21 @@ class URLSearchQueryWrapper extends React.Component {
       }
 
       if (shouldRunSearch) {
-        console.log('RUN SEARCH')
+        console.log('> RUNNING SEARCH')
         runSearch()
       }
     }
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps')
     this.handleURLState({
       query: nextProps.query,
-      filters: nextProps.filters,
+      activeFilters: nextProps.activeFilters,
       location: nextProps.location,
       datastoreUid: nextProps.datastoreUid
     })
+    console.log('')
   }
 
   render() {
@@ -83,7 +87,7 @@ class URLSearchQueryWrapper extends React.Component {
 function mapStateToProps(state) {
   return {
     query: state.search.query,
-    filters: state.filters.active[state.datastores.active],
+    activeFilters: state.filters.active[state.datastores.active],
     location: state.router.location,
     datastoreUid: state.datastores.active
   };
@@ -98,4 +102,6 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(URLSearchQueryWrapper);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(URLSearchQueryWrapper)
+)

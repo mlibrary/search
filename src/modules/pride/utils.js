@@ -1,5 +1,6 @@
 import { Pride } from 'pride'
 import { _ } from 'underscore';
+import deepcopy from 'deepcopy'
 import qs from 'qs'
 
 import store from '../../store'
@@ -101,7 +102,7 @@ const getDatastoreSlugByUid = (uid) => {
  * in the URL (from the location {Object}).
  */
 const getStateFromURL = ({ location }) => {
-  const urlStateString = location.search
+  const urlStateString = deepcopy(location).search
 
   if (urlStateString.length) {
     return qs.parse(urlStateString.substring(1))

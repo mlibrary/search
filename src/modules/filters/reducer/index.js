@@ -1,4 +1,4 @@
-import { _ } from 'underscore';
+import { _ } from 'underscore'
 
 import {
   ADD_FILTER,
@@ -14,6 +14,8 @@ const initialState = {
 };
 
 const filtersReducer = function filterReducer(state = initialState, action) {
+  console.log('filtersReducer', action)
+
   switch (action.type) {
     case ADD_FILTER:
       const uid = action.payload.metadata.uid
@@ -69,14 +71,19 @@ const filtersReducer = function filterReducer(state = initialState, action) {
         - datastoreUid
         - filters
       */
-
       const { datastoreUid, filters } = action.payload
+      const filterObjKeys = Object.keys(filters)
 
       return {
         ...state,
         active: {
           ...state.active,
-          [datastoreUid]: filters
+          [datastoreUid]: filterObjKeys.reduce((acc, filterUid) => {
+            return {
+              ...acc,
+              [filterUid]: [].concat(filters[filterUid])
+            }
+          }, {})
         }
       }
     case CLEAR_ACTIVE_FILTERS:

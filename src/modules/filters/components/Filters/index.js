@@ -11,22 +11,11 @@ import {
   Icon,
   ShowAllList
 } from '../../../core'
-import { store } from '../../../../store'
-import {
-  clearActiveFilters,
-  addActiveFilter,
-  removeActiveFilter,
-} from '../../actions'
-import {
-  runSearch,
-  getFacetsForPride
-} from '../../../pride';
 import {
   getDisplayFilters,
   getFilterItems,
   getOpenFilterDefaults,
   filtersWithOpenProperty,
-  isFilterItemActive,
   getActiveFilters,
   isFilterItemChecked,
   getCheckboxOnClickValue,
@@ -309,4 +298,6 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Filters));
+export default withRouter(
+  connect(mapStateToProps)(Filters)
+);
