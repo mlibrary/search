@@ -75,7 +75,11 @@ class Filters extends React.Component {
     const queryString = qs.stringify({
       query: this.props.query,
       filter: filterObj
-    }, { encode: false })
+    }, {
+      arrayFormat: 'repeat',
+      encodeValuesOnly: true,
+      allowDots: true
+    })
 
     if (queryString.length > 0) {
       const { history, match } = this.props

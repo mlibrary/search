@@ -105,7 +105,23 @@ const getStateFromURL = ({ location }) => {
   const urlStateString = deepcopy(location).search
 
   if (urlStateString.length) {
-    return qs.parse(urlStateString.substring(1))
+    const parsed = qs.parse(urlStateString.substring(1), { allowDots: true })
+
+    if (parsed.filter) {
+      const filterUids = Object.keys(parsed.filter)
+      const filterValuesAreArrays = Object.assign(parsed, {
+        filter: filterUids.reduce((obj, filterUid) => {
+          return {
+            ...obj,
+            [filterUid]: [].concat(parsed.filter[filterUid])
+          }
+        }, {})
+      })
+
+      return filterValuesAreArrays
+    }
+
+    return parsed
   }
 
   return undefined

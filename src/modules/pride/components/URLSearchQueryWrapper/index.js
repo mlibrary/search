@@ -38,6 +38,7 @@ class URLSearchQueryWrapper extends React.Component {
       }
 
       if (!_.isEqual(urlState.filter, activeFilters)) {
+
         if (urlState.filter) {
           this.props.setActiveFilters({
             datastoreUid,
