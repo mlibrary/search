@@ -5,7 +5,8 @@ import store from '../../../store'
 
 const isFilterItemChecked = ({
   datastoreUid,
-  filterUid
+  filterUid,
+  filters
 }) => {
   /*
     A filter item is checked (checkboxes only) if:
@@ -14,12 +15,25 @@ const isFilterItemChecked = ({
         - default configurations are set in Spectrum
         - If you want to do the inverse, then set the filter as active
   */
+  /*
 
+  console.log('isFilterItemChecked')
+  console.log('datastoreUid', datastoreUid)
+  console.log('filterUid', filterUid)
+  console.log('filters', filters)
+
+  const filter = _.findWhere(filters, {uid: filterUid})
+  const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
+
+  console.log('filter', filter)
+  console.log('filterConfig', filterConfig)
+  */
+
+  /*
   // Option A
-  const state = store.getState()
   const isActive = ((
-    state.filters.active[datastoreUid] &&
-    state.filters.active[datastoreUid][filterUid]
+    filters.active[datastoreUid] &&
+    filters.active[datastoreUid][filterUid]
   ) ? true : false)
   const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
 
@@ -34,7 +48,7 @@ const isFilterItemChecked = ({
   }
 
   if (isActive) {
-    const activeFilterValue = state.filters.active[datastoreUid][filterUid].filters
+    const activeFilterValue = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
 
     if (
       activeFilterValue.length === 1 &&
@@ -43,11 +57,14 @@ const isFilterItemChecked = ({
       return true
     }
   }
+  */
 
+  /*
   // Option B
   if (!isActive && (filterConfig.checkedCondition === filterConfig.defaultValueOnSpectrum)) {
     return true;
   }
+  */
 
   return false
 }
@@ -152,46 +169,90 @@ const filtersWithOpenProperty = ({ open, filters }) => {
   })
 }
 
-const getActiveFilters = ({ activeFilters, filters }) => {
-  return _.reduce(activeFilters, (previous, activeFilter) => {
-    const filter = _.findWhere(filters, { uid: activeFilter.uid })
-
-    if (filter && (filter.type !== 'checkbox')) {
-      _.each(activeFilter.filters, (value) => {
-        previous = previous.concat({
-          uid: activeFilter.uid,
-          name: activeFilter.name,
-          value: value
-        })
-      })
-    }
-
-    return previous
-  }, [])
-}
-
 const getCheckboxOnClickValue = ({ datastoreUid, filterUid }) => {
   const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
 
   return filterConfig.onClickValue
 }
 
-const createActiveFilterObj = ({ activeFilters, filterUid, filterItemValue }) => {
-  if (activeFilters) {
-    if (activeFilters[filterUid]) {
-      return Object.assign(activeFilters, {
-        [filterUid]: activeFilters[filterUid].concat(filterItemValue)
-      })
+const createActiveFilterObj = ({
+  addActiveFilter,
+  activeFilters,
+  filterUid,
+  filterItemValue
+}) => {
+  /*
+    Two options:
+
+    a) if addActiveFilter is true, then add new active filter
+    to activeFilters object
+
+    b) if addActiveFilter is false, then the the passed filterItemValue
+    must be removed from the filterUid values
+
+  */
+  if (addActiveFilter) {
+    if (activeFilters) {
+      if (activeFilters[filterUid]) {
+        return Object.assign(activeFilters, {
+          [filterUid]: activeFilters[filterUid].concat(filterItemValue)
+        })
+      } else {
+        return Object.assign(activeFilters, {
+          [filterUid]: [].concat(filterItemValue)
+        })
+      }
     } else {
-      return Object.assign(activeFilters, {
+      return {
         [filterUid]: [].concat(filterItemValue)
-      })
+      }
     }
   } else {
-    return {
-      [filterUid]: [].concat(filterItemValue)
-    }
+    return Object.assign(activeFilters, {
+      [filterUid]: activeFilters[filterUid].filter(value => value !== filterItemValue)
+    })
   }
+}
+
+const getActiveFilters = ({ activeFilters, filters }) => {
+  /*
+    Returns an Array of filters with a uid, name, and value that
+    also are not a checkbox.
+  */
+  if (!activeFilters) {
+    return []
+  }
+
+  const activeFilterUids = Object.keys(activeFilters);
+
+  return activeFilterUids.reduce((previous, filterUid) => {
+    const filter = _.findWhere(filters, { uid: filterUid })
+
+    if (filter && (filter.type !== 'checkbox')) {
+      activeFilters[filterUid].forEach((value) => {
+        previous = previous.concat({
+          uid: filter.uid,
+          name: filter.name,
+          value: value
+        })
+      })
+    } else {
+      /*
+      // The filter doesn't exist in the list of filters
+      // in state from Pride.
+      activeFilters[filterUid].forEach((value) => {
+        previous = previous.concat({
+          uid: filterUid,
+          name: filterUid,
+          value: value
+        })
+      })
+      */
+    }
+
+    return previous
+
+  }, [])
 }
 
 export {

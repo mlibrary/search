@@ -6,7 +6,6 @@ import {
   withRouter
 } from 'react-router-dom'
 import qs from 'qs'
-import deepcopy from 'deepcopy'
 
 import {
   Icon,
@@ -19,6 +18,7 @@ import {
   filtersWithOpenProperty,
   getActiveFilters,
   isFilterItemChecked,
+  isFilterItemActive,
   getCheckboxOnClickValue,
   createActiveFilterObj
 } from '../../utilities'
@@ -33,6 +33,7 @@ class Filters extends React.Component {
 
     this.handleFilterClick = this.handleFilterClick.bind(this)
     this.handleFilterItemClick = this.handleFilterItemClick.bind(this)
+    this.handleClearActiveFilters = this.handleClearActiveFilters.bind(this)
   }
   openFilter({ datastoreUid, filterUid }) {
     const open = this.state.open;
@@ -67,18 +68,37 @@ class Filters extends React.Component {
     filterUid,
     filterItemValue
   }) {
-    const filterObj = createActiveFilterObj({
-      activeFilters: deepcopy(this.props.activeFilters),
+    const isActive = isFilterItemActive({
+      datastoreUid,
       filterUid,
       filterItemValue
     })
+    let filterObj = {}
+
+    if (!isActive) {
+      filterObj = createActiveFilterObj({
+        addActiveFilter: true,
+        activeFilters: this.props.activeFilters,
+        filterUid,
+        filterItemValue,
+      })
+    } else {
+      filterObj = createActiveFilterObj({
+        addActiveFilter: false,
+        activeFilters: this.props.activeFilters,
+        filterUid,
+        filterItemValue,
+      })
+    }
+
     const queryString = qs.stringify({
       query: this.props.query,
       filter: filterObj
     }, {
       arrayFormat: 'repeat',
       encodeValuesOnly: true,
-      allowDots: true
+      allowDots: true,
+      format : 'RFC1738'
     })
 
     if (queryString.length > 0) {
@@ -89,10 +109,21 @@ class Filters extends React.Component {
     }
   }
   handleClearActiveFilters({ datastoreUid }) {
-    /*
-    store.dispatch(clearActiveFilters({ datastoreUid }))
-    runSearch()
-    */
+    const queryString = qs.stringify({
+      query: this.props.query
+    }, {
+      arrayFormat: 'repeat',
+      encodeValuesOnly: true,
+      allowDots: true,
+      format : 'RFC1738'
+    })
+
+    if (queryString.length > 0) {
+      const { history, match } = this.props
+      const url = `${match.url}?${queryString}`
+
+      history.push(url)
+    }
   }
   render() {
     const { datastoreUid, filters, activeFilters } = this.props
@@ -140,6 +171,7 @@ const FilterList = ({
           handleFilterClick={handleFilterClick}
           handleFilterItemClick={handleFilterItemClick}
           handleShowClick={handleShowClick}
+          filters={filters}
         />
       ))}
     </ul>
@@ -151,12 +183,14 @@ const Filter = ({
   filter,
   handleFilterClick,
   handleFilterItemClick,
+  filters
 }) => {
   switch (filter.type) {
     case 'checkbox':
       const isChecked = isFilterItemChecked({
         datastoreUid,
-        filterUid: filter.uid
+        filterUid: filter.uid,
+        filters
       })
       const value = getCheckboxOnClickValue({
         datastoreUid,
