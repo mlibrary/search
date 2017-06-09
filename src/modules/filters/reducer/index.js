@@ -64,7 +64,6 @@ const filtersReducer = function filterReducer(state = initialState, action) {
         groups: {}
       })
     case SET_ACTIVE_FILTERS:
-      console.log('SET_ACTIVE_FILTERS', action)
       /*
         payload:
         - datastoreUid

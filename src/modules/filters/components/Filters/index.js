@@ -6,6 +6,7 @@ import {
   withRouter
 } from 'react-router-dom'
 import qs from 'qs'
+import deepcopy from 'deepcopy'
 
 import {
   Icon,
@@ -67,7 +68,7 @@ class Filters extends React.Component {
     filterItemValue
   }) {
     const filterObj = createActiveFilterObj({
-      activeFilters: this.props.activeFilters,
+      activeFilters: deepcopy(this.props.activeFilters),
       filterUid,
       filterItemValue
     })
@@ -82,8 +83,6 @@ class Filters extends React.Component {
 
       history.push(url)
     }
-
-    console.log('handleFilterItemClick', this.props)
   }
   handleClearActiveFilters({ datastoreUid }) {
     /*

@@ -5,7 +5,8 @@
   "devDependencies": {
     "react-addons-perf": "^15.4.2",
     "react-addons-test-utils": "^15.5.1",
-    "react-scripts": "0.8.5"
+    "react-scripts": "0.8.5",
+    "redux-immutable-state-invariant": "^2.0.0"
   },
   "dependencies": {
     "deepcopy": "^0.6.3",
