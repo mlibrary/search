@@ -13,6 +13,7 @@ import {
 } from '../../../records'
 import {
   setActiveFilters,
+  clearActiveFilters
 } from '../../../filters'
 import {
   getStateFromURL,
@@ -50,10 +51,18 @@ class URLSearchQueryWrapper extends React.Component {
 
       if (!_.isEqual(urlState.filter, activeFilters)) {
         console.log('> SETTING ACTIVE FILTERS')
-        this.props.setActiveFilters({
-          datastoreUid,
-          filters: urlState.filter
-        })
+
+        if (urlState.filter) {
+          this.props.setActiveFilters({
+            datastoreUid,
+            filters: urlState.filter
+          })
+        } else {
+          this.props.clearActiveFilters({
+            datastoreUid
+          })
+        }
+
         shouldRunSearch = true
       }
 
@@ -97,6 +106,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     setSearchQuery,
     setActiveFilters,
+    clearActiveFilters,
     searching,
     loadingRecords
   }, dispatch)

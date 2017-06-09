@@ -14,8 +14,6 @@ const initialState = {
 };
 
 const filtersReducer = function filterReducer(state = initialState, action) {
-  console.log('filtersReducer', action)
-
   switch (action.type) {
     case ADD_FILTER:
       const uid = action.payload.metadata.uid
@@ -66,6 +64,7 @@ const filtersReducer = function filterReducer(state = initialState, action) {
         groups: {}
       })
     case SET_ACTIVE_FILTERS:
+      console.log('SET_ACTIVE_FILTERS', action)
       /*
         payload:
         - datastoreUid

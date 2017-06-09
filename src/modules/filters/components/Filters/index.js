@@ -82,6 +82,8 @@ class Filters extends React.Component {
 
       history.push(url)
     }
+
+    console.log('handleFilterItemClick', this.props)
   }
   handleClearActiveFilters({ datastoreUid }) {
     /*

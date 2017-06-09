@@ -19,7 +19,7 @@ class SearchBox extends React.Component {
     super(props);
 
     this.state = {
-       query: this.props.query || ''
+      query: this.props.query || ''
     }
 
     this.handleChange = this.handleChange.bind(this);
