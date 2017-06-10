@@ -146,6 +146,7 @@ class Filters extends React.Component {
           handleFilterClick={this.handleFilterClick}
           handleFilterItemClick={this.handleFilterItemClick}
           handleShowClick={this.handleShowClick}
+          activeFilters={activeFilters}
         />
       </div>
     )
@@ -159,6 +160,7 @@ const FilterList = ({
   handleFilterClick,
   handleFilterItemClick,
   handleShowClick,
+  activeFilters
 }) => (
   <div>
     <h2 className="filters-heading">Filter your search</h2>
@@ -172,6 +174,7 @@ const FilterList = ({
           handleFilterItemClick={handleFilterItemClick}
           handleShowClick={handleShowClick}
           filters={filters}
+          activeFilters={activeFilters}
         />
       ))}
     </ul>
@@ -183,6 +186,7 @@ const Filter = ({
   filter,
   handleFilterClick,
   handleFilterItemClick,
+  activeFilters,
   filters
 }) => {
   switch (filter.type) {
@@ -190,6 +194,7 @@ const Filter = ({
       const isChecked = isFilterItemChecked({
         datastoreUid,
         filterUid: filter.uid,
+        activeFilters,
         filters
       })
       const value = getCheckboxOnClickValue({

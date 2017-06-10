@@ -17,7 +17,8 @@ import {
 } from '../../../filters'
 import {
   getStateFromURL,
-  runSearch
+  runSearch,
+  switchPrideToDatastore
 } from '../../../pride'
 
 class URLSearchQueryWrapper extends React.Component {
@@ -60,6 +61,10 @@ class URLSearchQueryWrapper extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.datastoreUid !== this.props.datastoreUid) {
+      switchPrideToDatastore(nextProps.datastoreUid)
+    }
+
     this.handleURLState({
       query: nextProps.query,
       activeFilters: nextProps.activeFilters,

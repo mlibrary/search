@@ -32,12 +32,21 @@ class SearchBox extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { match, history } = this.props
+    const { match, history, activeFilters } = this.props
     const { query } = this.state
 
     // Query is not empty
     if (query.length > 0) {
-      const url = `${match.url}?${qs.stringify({query: query})}`
+      const queryString = qs.stringify({
+        query: query,
+        filter: activeFilters
+      }, {
+        arrayFormat: 'repeat',
+        encodeValuesOnly: true,
+        allowDots: true,
+        format : 'RFC1738'
+      })
+      const url = `${match.url}?${queryString}`
 
       history.push(url)
     }
@@ -71,6 +80,7 @@ function mapStateToProps(state) {
   return {
     isSearching: state.search.searching,
     query: state.search.query,
+    activeFilters: state.filters.active[state.datastores.active],
     activeDatastoreUid: state.datastores.active
   };
 }

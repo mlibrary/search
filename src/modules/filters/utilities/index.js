@@ -6,71 +6,29 @@ import store from '../../../store'
 const isFilterItemChecked = ({
   datastoreUid,
   filterUid,
+  activeFilters,
   filters
 }) => {
-  /*
-    A filter item is checked (checkboxes only) if:
-      a) the filter is active and matches the config checkedCondition
-      b) Has a default configuration and that is set
-        - default configurations are set in Spectrum
-        - If you want to do the inverse, then set the filter as active
-  */
-  /*
-
-  console.log('isFilterItemChecked')
-  console.log('datastoreUid', datastoreUid)
-  console.log('filterUid', filterUid)
-  console.log('filters', filters)
-
-  const filter = _.findWhere(filters, {uid: filterUid})
+  // Get the configuration for this specific filter
   const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
 
-  console.log('filter', filter)
-  console.log('filterConfig', filterConfig)
-  */
+  // If this filterUid exists on the activeFilters hash
+  const isActive = activeFilters && activeFilters[filterUid]
 
-  /*
-  // Option A
-  const isActive = ((
-    filters.active[datastoreUid] &&
-    filters.active[datastoreUid][filterUid]
-  ) ? true : false)
-  const filterConfig = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
-
-  // error messages
-  if (!filterConfig) {
-    console.log('Filter configuration does not exist for', filterUid)
-    if (!filterConfig.checkedCondition) {
-      console.log('Filter configuration does not contain a required `checkedConditation` for', filterUid)
-    }
-
-    return false
+  // The filter is active and it's active state is it's configured checked condition
+  if (isActive && (activeFilters[filterUid][0] === filterConfig.checkedCondition)) {
+    return true
   }
 
-  if (isActive) {
-    const activeFilterValue = _.findWhere(config.filters[datastoreUid], {uid: filterUid})
-
-    if (
-      activeFilterValue.length === 1 &&
-      filterConfig.checkedCondition === activeFilterValue[0]) {
-
-      return true
-    }
+  // When the filter is not active, has a config, and the configuration has it checked by default
+  if (!isActive && filterConfig && (filterConfig.checkedCondition === filterConfig.defaultValueOnSpectrum)) {
+    return true
   }
-  */
-
-  /*
-  // Option B
-  if (!isActive && (filterConfig.checkedCondition === filterConfig.defaultValueOnSpectrum)) {
-    return true;
-  }
-  */
 
   return false
 }
 
 const getFiltersByType = ({ activeDatastoreUid, filters, type }) => {
-
   // Pull the checkbox configurations
   const filtersOfTypeConfig = _.reduce(type, (previous, t) => {
     return previous.concat(
@@ -238,8 +196,10 @@ const getActiveFilters = ({ activeFilters, filters }) => {
       })
     } else {
       /*
+      // TODO
       // The filter doesn't exist in the list of filters
       // in state from Pride.
+
       activeFilters[filterUid].forEach((value) => {
         previous = previous.concat({
           uid: filterUid,
