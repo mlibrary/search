@@ -116,7 +116,8 @@ const config = {
         'marc_bookplate',
         'terms_of_use',
         'lcsh_subjects',
-        'other_subjects'
+        'other_subjects',
+        'table_of_contents'
       ],
       holdings: [
         {
