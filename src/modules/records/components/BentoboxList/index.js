@@ -3,17 +3,15 @@ import { connect } from 'react-redux';
 import { _ } from 'underscore';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
+import qs from 'qs'
 
-//TODO
 import { getMultiSearchRecords } from '../../../pride';
 import Record from '../Record';
 import RecordPlaceholder from '../RecordPlaceholder';
 
 class BentoboxList extends React.Component {
   render() {
-    const { allRecords, datastoreUid, search } = this.props;
-
-    // TODO
+    const { allRecords, datastoreUid, search, activeFilters } = this.props;
     const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords);
 
     return (
@@ -26,7 +24,10 @@ class BentoboxList extends React.Component {
           if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
             return (
               <li key={bentobox.uid} className="bentobox">
-                <BentoboxHeading bentobox={bentobox} search={search} />
+                <BentoboxHeading
+                  bentobox={bentobox}
+                  search={search}
+                  activeFilters={activeFilters[bentobox.uid]}/>
                 <ul className="results-list results-list-border">
                   <li className="record">
                     <div className="record-container">
@@ -41,7 +42,10 @@ class BentoboxList extends React.Component {
           if (bentobox.records.length === 0) {
             return (
               <li key={bentobox.uid} className="bentobox">
-                <BentoboxHeading bentobox={bentobox} search={search} />
+                <BentoboxHeading
+                  bentobox={bentobox}
+                  search={search}
+                  activeFilters={activeFilters[bentobox.uid]}/>
                 <ul className="results-list results-list-border">
                   <RecordPlaceholder />
                   <RecordPlaceholder />
@@ -54,7 +58,10 @@ class BentoboxList extends React.Component {
           if (bentobox.records.length === 0) {
             return (
               <li key={bentobox.uid} className="bentobox">
-                <BentoboxHeading bentobox={bentobox} search={search} />
+              <BentoboxHeading
+                bentobox={bentobox}
+                search={search}
+                activeFilters={activeFilters[bentobox.uid]}/>
                 <ul className="results-list results-list-border">
                   <RecordPlaceholder />
                   <RecordPlaceholder />
@@ -66,7 +73,10 @@ class BentoboxList extends React.Component {
 
           return (
             <li key={bentobox.uid} className="bentobox">
-              <BentoboxHeading bentobox={bentobox} search={search} />
+              <BentoboxHeading
+                bentobox={bentobox}
+                search={search}
+                activeFilters={activeFilters[bentobox.uid]}/>
               <ul className="results-list results-list-border">
                 {bentobox.records.map((record, index) => {
                   return (
@@ -88,20 +98,31 @@ class BentoboxList extends React.Component {
   }
 }
 
-const BentoboxHeading = ({ bentobox, search }) => {
+const BentoboxHeading = ({
+  bentobox,
+  search,
+  activeFilters
+}) => {
   const totalResults = search.data[bentobox.uid].totalAvailable;
-  /*
-  // TODO
-  const searchParams = createSearchParams({
-    query: search.query
+  const queryString = qs.stringify({
+    query: search.query,
+    filter: activeFilters
+  }, {
+    arrayFormat: 'repeat',
+    encodeValuesOnly: true,
+    allowDots: true,
+    format : 'RFC1738'
   })
-  */
-  //const link = `${bentobox.slug}${searchParams}`;
+  let url = '/'
 
+  if (queryString.length > 0) {
+    url = `/${bentobox.slug}?${queryString}`
+  } else {
+    url = `/${bentobox.slug}`
+  }
 
-  // TODO: fix to
   return (
-    <Link className="bentobox-heading-container" to='/'>
+    <Link className="bentobox-heading-container" to={url}>
       <h2 className="bentobox-heading">{ bentobox.name }</h2>
       <BentoboxResultsNum totalResults={totalResults}/>
     </Link>
@@ -124,6 +145,7 @@ function mapStateToProps(state) {
   return {
     allRecords: state.records.records,
     datastoreUid: state.datastores.active,
+    activeFilters: state.filters.active,
     search: state.search,
   };
 }

@@ -4,7 +4,6 @@ import { _ } from 'underscore';
 
 import Record from '../Record';
 import RecordPlaceholder from '../RecordPlaceholder';
-import { ClearSearchButton } from '../../../search';
 
 import {
   ResultsSummary,

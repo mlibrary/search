@@ -57,7 +57,7 @@ const DatastoreNavigationItem = ({
   })
 
   let url = ''
-  
+
   if (queryString.length > 0) {
     url = `/${datastore.slug}?${queryString}`
   } else {
