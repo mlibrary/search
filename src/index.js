@@ -44,34 +44,34 @@ const ConnectedSwitch = connect(mapStateToProps)(Switch);
 const App = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <URLSearchQueryWrapper>
-        <ConnectedSwitch>
-          <Route path="/" exact render={() => (
-            <Redirect to={`/everything`} />
-          )}/>
-          <Route path={`/:datastoreSlug`} exact render={(props) => {
-            const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-            return (
-              isDatastore ? (
+      <ConnectedSwitch>
+        <Route path="/" exact render={() => (
+          <Redirect to={`/everything`} />
+        )}/>
+        <Route path={`/:datastoreSlug`} exact render={(props) => {
+          const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+          return (
+            isDatastore ? (
+              <URLSearchQueryWrapper>
                 <DatastorePage {...props} />
-              ) : (
-                <NoMatch />
-              )
+              </URLSearchQueryWrapper>
+            ) : (
+              <NoMatch />
             )
-          }}/>
-          <Route path={`/:datastoreSlug/record/:recordUid`} exact render={(props) => {
-            const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-            return (
-              isDatastore ? (
-                <RecordPage {...props} />
-              ) : (
-                <NoMatch />
-              )
+          )
+        }}/>
+        <Route path={`/:datastoreSlug/record/:recordUid`} exact render={(props) => {
+          const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+          return (
+            isDatastore ? (
+              <RecordPage {...props} />
+            ) : (
+              <NoMatch />
             )
-          }}/>
-          <Route component={NoMatch} />
-        </ConnectedSwitch>
-      </URLSearchQueryWrapper>
+          )
+        }}/>
+        <Route component={NoMatch} />
+      </ConnectedSwitch>
     </ConnectedRouter>
   </Provider>
 )

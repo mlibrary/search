@@ -24,12 +24,11 @@ const rootReducer = combineReducers({
   router: routerReducer
 })
 
-// Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history)
+const middleware = [routerMiddleware(history)]
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(middleware))
+  composeWithDevTools(applyMiddleware(...middleware))
 )
 
 export default store

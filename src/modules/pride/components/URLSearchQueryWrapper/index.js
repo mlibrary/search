@@ -18,7 +18,8 @@ import {
 import {
   getStateFromURL,
   runSearch,
-  switchPrideToDatastore
+  switchPrideToDatastore,
+  getDatastoreUidBySlug
 } from '../../../pride'
 
 class URLSearchQueryWrapper extends React.Component {
@@ -55,22 +56,26 @@ class URLSearchQueryWrapper extends React.Component {
       }
 
       if (shouldRunSearch) {
+        console.log('RUN SEARCH')
         runSearch()
       }
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.datastoreUid !== this.props.datastoreUid) {
-      switchPrideToDatastore(nextProps.datastoreUid)
+    const datastoreUid = getDatastoreUidBySlug(nextProps.match.params.datastoreSlug)
+
+    if (this.props.datastoreUid !== datastoreUid) {
+      switchPrideToDatastore(datastoreUid)
     }
 
     this.handleURLState({
       query: nextProps.query,
-      activeFilters: nextProps.activeFilters,
+      activeFilters: nextProps.activeFilters[datastoreUid],
       location: nextProps.location,
-      datastoreUid: nextProps.datastoreUid
+      datastoreUid: datastoreUid
     })
+
   }
 
   render() {
@@ -85,7 +90,8 @@ class URLSearchQueryWrapper extends React.Component {
 function mapStateToProps(state) {
   return {
     query: state.search.query,
-    activeFilters: state.filters.active[state.datastores.active],
+    f: state.filters.active,
+    activeFilters: state.filters.active,
     location: state.router.location,
     datastoreUid: state.datastores.active
   };

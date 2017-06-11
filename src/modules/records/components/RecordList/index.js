@@ -21,7 +21,6 @@ class RecordListContainer extends React.Component {
             <div>
               <p className="no-margin"><b>No results</b> found for your search.</p>
             </div>
-            <ClearSearchButton />
           </div>
         </div>
       )
@@ -34,7 +33,6 @@ class RecordListContainer extends React.Component {
             <div>
               <p className="no-margin">Loading results...</p>
             </div>
-            <ClearSearchButton />
           </div>
           <ul className="results-list results-list-border">
             <RecordPlaceholder />
@@ -60,7 +58,6 @@ class RecordListContainer extends React.Component {
       <div>
         <div className="results-summary-container">
           <ResultsSummary />
-          <ClearSearchButton />
         </div>
         <ul className="results-list results-list-border">
           {activeRecords.map((record, index) =>
