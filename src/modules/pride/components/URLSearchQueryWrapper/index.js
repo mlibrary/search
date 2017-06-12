@@ -56,7 +56,6 @@ class URLSearchQueryWrapper extends React.Component {
       }
 
       if (shouldRunSearch) {
-        console.log('RUN SEARCH')
         runSearch()
       }
     }

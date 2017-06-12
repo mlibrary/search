@@ -1,4 +1,5 @@
 import { _ } from 'underscore';
+import deepcopy from 'deepcopy'
 
 import config from '../../../config'
 import store from '../../../store'
@@ -139,6 +140,7 @@ const createActiveFilterObj = ({
   filterUid,
   filterItemValue
 }) => {
+  const activeFiltersCopy = deepcopy(activeFilters)
   /*
     Two options:
 
@@ -150,13 +152,13 @@ const createActiveFilterObj = ({
 
   */
   if (addActiveFilter) {
-    if (activeFilters) {
-      if (activeFilters[filterUid]) {
-        return Object.assign(activeFilters, {
-          [filterUid]: activeFilters[filterUid].concat(filterItemValue)
+    if (activeFiltersCopy) {
+      if (activeFiltersCopy[filterUid]) {
+        return Object.assign(activeFiltersCopy, {
+          [filterUid]: activeFiltersCopy[filterUid].concat(filterItemValue)
         })
       } else {
-        return Object.assign(activeFilters, {
+        return Object.assign(activeFiltersCopy, {
           [filterUid]: [].concat(filterItemValue)
         })
       }
@@ -166,8 +168,8 @@ const createActiveFilterObj = ({
       }
     }
   } else {
-    return Object.assign(activeFilters, {
-      [filterUid]: activeFilters[filterUid].filter(value => value !== filterItemValue)
+    return Object.assign(activeFiltersCopy, {
+      [filterUid]: activeFiltersCopy[filterUid].filter(value => value !== filterItemValue)
     })
   }
 }
