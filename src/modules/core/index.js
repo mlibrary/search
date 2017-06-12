@@ -5,6 +5,7 @@ import Loading from './components/Loading';
 import Icon from './components/Icon';
 import ShowAllList from './components/ShowAllList'
 import TrimString from './components/TrimString'
+import TrimLink from './components/TrimLink'
 
 export {
   Header,
@@ -14,4 +15,5 @@ export {
   Icon,
   ShowAllList,
   TrimString,
+  TrimLink
 };

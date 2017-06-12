@@ -7,7 +7,8 @@ import {
 
 import {
   ShowAllList,
-  Icon
+  Icon,
+  TrimString,
 } from '../../../core'
 import FieldList from '../RecordFieldList';
 import {
@@ -77,7 +78,9 @@ class FullRecord extends React.Component {
           <div className="record-container">
             <h1 className="full-record-title">
               {[].concat(record.names).map((title, index) => (
-                <div key={index}>{title}</div>
+                <div key={index}>
+                  <TrimString string={title} />
+                </div>
               ))}
             </h1>
             <FieldList fields={displayFields} />

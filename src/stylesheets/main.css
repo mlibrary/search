@@ -1471,15 +1471,17 @@ body {
   cursor: pointer; }
 
 .trim-string-button {
+  display: inline-block;
   padding: 0;
   margin: 0;
   border: none;
   background: none;
-  display: inline-block;
-  margin-left: 0.5rem;
   cursor: pointer;
   color: #126DC1;
   text-decoration: underline; }
+
+.trim-string-text {
+  margin-right: 0.5rem; }
 
 .u-break-word {
   word-wrap: break-word; }

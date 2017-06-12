@@ -6,7 +6,8 @@ import {
   AccessItem,
 } from '../AccessList';
 import {
-  ShowAllList
+  ShowAllList,
+  TrimLink
 } from '../../../core'
 import HoldingStatus from '../HoldingStatus';
 
@@ -52,12 +53,10 @@ class Record extends React.Component {
             <h3 className="record-title">
             {titles.map((title, index) => (
               <div key={index}>
-                <Link
-                  className="record-title-link"
-                  to={`/${datastoreSlug}/record/${recordUid}`}
-                >
-                  {title}
-                </Link>
+                <TrimLink
+                  string={title}
+                  linkClassName={"record-title-link"}
+                  to={`/${datastoreSlug}/record/${recordUid}`} />
               </div>
             ))}
             </h3>

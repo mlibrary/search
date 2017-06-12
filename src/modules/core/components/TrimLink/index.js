@@ -1,6 +1,9 @@
 import React from 'react'
+import {
+  Link
+} from 'react-router-dom'
 
-class TrimString extends React.Component {
+class TrimLink extends React.Component {
   state = {
     show: false,
     trimlength: 240
@@ -13,11 +16,17 @@ class TrimString extends React.Component {
   }
 
   render() {
-    const { string } = this.props
+    const {
+      string,
+      linkClassName,
+      to,
+    } = this.props
 
     if (string.length < this.state.trimlength) {
       return (
-        <span>{string}</span>
+        <Link to={to} className={linkClassName}>
+          {string}
+        </Link>
       )
     }
 
@@ -30,7 +39,9 @@ class TrimString extends React.Component {
 
     return (
       <span>
-        <span className="trim-string-text">{displayString}</span>
+        <Link to={to}>
+          <span className={linkClassName + " trim-string-text"}>{displayString}</span>
+        </Link>
         <button
           onClick={() => this.handleShowToggleClick()}
           className="trim-string-button">
@@ -41,4 +52,4 @@ class TrimString extends React.Component {
   }
 }
 
-export default TrimString
+export default TrimLink
