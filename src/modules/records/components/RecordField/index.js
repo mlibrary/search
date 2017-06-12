@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { Icon } from '../../../core';
+import {
+  Icon,
+  TrimString
+} from '../../../core';
 
 function RecordField({ field }) {
   const uniqueFieldClassName = 'record-field record-field-uid-' + field.uid
@@ -45,7 +48,9 @@ function RecordField({ field }) {
   return (
     <div className={uniqueFieldClassName}>
       <dt className="record-field-name">{field.name}</dt>
-      <dd className="record-field-value">{field.value}</dd>
+      <dd className="record-field-value">
+        <TrimString string={field.value} />
+      </dd>
     </div>
   )
 }

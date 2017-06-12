@@ -12,25 +12,43 @@ class TrimString extends React.Component {
   }
 
   render() {
-    const string = this.props.string
-    const trimLength = this.props.trim
+    const { string } = this.props
 
-    // TODO have two parts of the string trimmed to show more and less and not move the button.
+    if (string.length < 200) {
+      return (
+        <span>{string}</span>
+      )
+    }
+
+    let displayString = null
+    if (this.state.show) {
+      displayString = string
+    } else {
+      displayString = `${string.substr(0, 240)}...`
+    }
 
     return (
       <span>
-        {string}
-        {this.state.show ? (
-          {string}
-        ) : (
-          {string.trim(trimLength)}
-        )}
-        <ShowHideButton
-          handleOnClick={handleShowToggleClick.bind(this)}
-          show: this.state.show
-        />
+        {displayString}
+        <button
+          onClick={() => this.handleShowToggleClick()}
+          className="trim-string-button">
+            {this.state.show ? 'Less' : 'More'}
+        </button>
       </span>
     )
+
+    /*
+    {this.state.show ? (
+      {string}
+    ) : (
+      {string.trim(trimLength)}
+    )}
+    <ShowHideButton
+      handleOnClick={handleShowToggleClick.bind(this)}
+      show: this.state.show
+    />
+    */
   }
 }
 
