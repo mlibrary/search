@@ -1477,6 +1477,7 @@ body {
   background: none;
   display: inline-block;
   margin-left: 0.5rem;
+  cursor: pointer;
   color: #126DC1;
   text-decoration: underline; }
 
