@@ -2,7 +2,9 @@ import { Pride } from 'pride'
 import { _ } from 'underscore';
 import deepcopy from 'deepcopy'
 import qs from 'qs'
+import { Validator } from 'jsonschema';
 
+import histroy from '../../history'
 import store from '../../store'
 import config from '../../config';
 
@@ -105,26 +107,47 @@ const getStateFromURL = ({ location }) => {
   const urlStateString = deepcopy(location).search
 
   if (urlStateString.length) {
-    const parsed = qs.parse(urlStateString.substring(1), { allowDots: true })
-
-    if (parsed.filter) {
-      const filterUids = Object.keys(parsed.filter)
-      const filterValuesAreArrays = Object.assign(parsed, {
-        filter: filterUids.reduce((obj, filterUid) => {
-          return {
-            ...obj,
-            [filterUid]: [].concat(parsed.filter[filterUid])
+    const parsed = deepcopy(qs.parse(urlStateString.substring(1), { allowDots: true }))
+    const v = new Validator()
+    const schema = {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "object",
+          "patternProperties": {
+            "^([A-Za-z0-9\_])+$": {
+              "type": ["string", "array"],
+            }
           }
-        }, {})
-      })
+        },
+        "query": {
+          "type": "string"
+        }
+      }
+    }
+    const validated = v.validate(parsed, schema)
 
-      return filterValuesAreArrays
+    if (validated.errors.length > 0) {
+      //throw new Error('URL state is not valid.');
+      return undefined
+    } else {
+      if (parsed.filter) {
+        const filterUids = Object.keys(parsed.filter)
+        const filterValuesAreArrays = Object.assign(parsed, {
+          filter: filterUids.reduce((obj, filterUid) => {
+            return {
+              ...obj,
+              [filterUid]: [].concat(parsed.filter[filterUid])
+            }
+          }, {})
+        })
+
+        return filterValuesAreArrays
+      }
     }
 
     return parsed
   }
-
-  return undefined
 }
 
 const datastoreRecordsHaveHoldings = (datastore) => {

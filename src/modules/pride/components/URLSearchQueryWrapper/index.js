@@ -33,6 +33,12 @@ class URLSearchQueryWrapper extends React.Component {
     const urlState = getStateFromURL({ location })
     let shouldRunSearch = false
 
+    // not valid URL state
+    if (urlState === undefined) {
+      // TODO some page about how your URL is not valid or 404
+      this.props.history.push('/')
+    }
+
     if (urlState && datastoreUid) {
       if (urlState.query !== query) {
         this.props.setSearchQuery(urlState.query)
