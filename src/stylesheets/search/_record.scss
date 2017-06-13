@@ -67,6 +67,7 @@
 }
 
 .record-field-name {
+  vertical-align: top;
   padding-right: 0.25rem;
   font-weight: 600;
   color: $grey-1;
@@ -161,6 +162,28 @@
 
 .results-list .record-field-value-item:not(:last-child):after {
   content: ", "
+}
+
+.record-field-value-list {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5rem;
+  list-style: none;
+}
+
+.record-field-value-list-item {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.record-field-value .show-all-list-container .show-all-button {
+  margin: 0;
+  border: none;
+  color: $main-3;
+  text-decoration: underline;
+  font-size: 1rem;
 }
 
 .record-field-uid-format .record-field-value-item {

@@ -17,12 +17,12 @@ class ShowAllList extends React.Component {
     const listClass = this.props.listClass || ''
     const hasShowHideButton = length > show
     const name = this.props.name || undefined
-    const showFewerText = `Show fewer ${name ? name : ''}`
-    const showAllText = `Show all ${length} ${name ? name : ''}`
+    const showFewerText = this.props.showFewerText || `Show fewer ${name ? name : ''}`
+    const showAllText = this.props.showAllText || `Show all ${length} ${name ? name : ''}`
     const buttonText = `${this.state.show ? showFewerText : showAllText }`
 
     return (
-      <div>
+      <div className='show-all-list-container'>
         <ul className={listClass}>
           {this.props.children.map((child, index) => {
             if (this.state.show || (show > index)) {

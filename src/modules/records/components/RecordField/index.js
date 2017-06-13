@@ -2,7 +2,8 @@ import React from 'react';
 
 import {
   Icon,
-  TrimString
+  TrimString,
+  ShowAllList
 } from '../../../core';
 
 function RecordField({ field }) {
@@ -37,9 +38,17 @@ function RecordField({ field }) {
       <div className={uniqueFieldClassName}>
         <dt className="record-field-name">{field.name}</dt>
         <dd className="record-field-value">
-          {field.value.map((value, index) => (
-            <span className="record-field-value-item" key={index}>{value}</span>
-          ))}
+          <ShowAllList
+            length={field.value.length}
+            show={5}
+            name={`${field.name}(s)`}
+            showAllText={'More'}
+            showFewerText={'Less'}
+            listClass={'record-field-value-list'}>
+            {field.value.map((value, index) => (
+              <li className="record-field-value-item record-field-value-list-item" key={index}>{value}</li>
+            ))}
+          </ShowAllList>
         </dd>
       </div>
     )
