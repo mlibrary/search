@@ -993,9 +993,6 @@ body {
   .record-field-value .icon g {
     fill: #6E6E6E; }
 
-.results-list .record-field-value-item:not(:last-child):after {
-  content: ", "; }
-
 .record-field-value-list {
   display: inline-block;
   margin: 0;
@@ -1004,16 +1001,33 @@ body {
   list-style: none; }
 
 .record-field-value-list-item {
-  display: inline;
+  display: inline-block;
   margin: 0;
   padding: 0; }
+  .record-field-value-list-item:after {
+    display: inline-block;
+    content: '/';
+    margin: 0 0.5rem;
+    color: #6E6E6E; }
+  .record-field-value-list-item:last-child:after {
+    content: ''; }
+
+.record-field-value-list-item:first-child:nth-last-child(n + 4),
+.record-field-value-list-item:first-child:nth-last-child(n + 4) ~ li {
+  display: block; }
+  .record-field-value-list-item:first-child:nth-last-child(n + 4):after,
+  .record-field-value-list-item:first-child:nth-last-child(n + 4) ~ li:after {
+    content: ''; }
 
 .record-field-value .show-all-list-container .show-all-button {
-  margin: 0;
+  display: block;
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
   border: none;
-  color: #126DC1;
-  text-decoration: underline;
-  font-size: 1rem; }
+  color: #4E4E4E;
+  border: solid 1px #CCC;
+  border-radius: 3px;
+  padding: 0 0.4rem; }
 
 .record-field-uid-format .record-field-value-item {
   font-weight: 600;
@@ -1027,9 +1041,6 @@ body {
   .record-field-uid-format .record-field-name {
     padding-bottom: 0.5rem;
     margin-right: 0.5rem; } }
-
-.full-record-container .record-field-value-item {
-  display: block; }
 
 .loading-container {
   display: flex;
@@ -1491,14 +1502,15 @@ body {
   cursor: pointer; }
 
 .trim-string-button {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
   border: none;
-  background: none;
-  cursor: pointer;
-  color: #126DC1;
-  text-decoration: underline; }
+  color: #4E4E4E;
+  border: solid 1px #CCC;
+  border-radius: 3px;
+  padding: 0 0.4rem;
+  background: white;
+  cursor: pointer; }
 
 .trim-string-text {
   margin-right: 0.5rem; }

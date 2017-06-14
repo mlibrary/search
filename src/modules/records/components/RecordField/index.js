@@ -40,10 +40,7 @@ function RecordField({ field }) {
         <dd className="record-field-value">
           <ShowAllList
             length={field.value.length}
-            show={5}
-            name={`${field.name}(s)`}
-            showAllText={'More'}
-            showFewerText={'Less'}
+            show={3}
             listClass={'record-field-value-list'}>
             {field.value.map((value, index) => (
               <li className="record-field-value-item record-field-value-list-item" key={index}>{value}</li>

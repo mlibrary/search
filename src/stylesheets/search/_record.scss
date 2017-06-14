@@ -160,10 +160,6 @@
   }
 }
 
-.results-list .record-field-value-item:not(:last-child):after {
-  content: ", "
-}
-
 .record-field-value-list {
   display: inline-block;
   margin: 0;
@@ -173,17 +169,40 @@
 }
 
 .record-field-value-list-item {
-  display: inline;
+  display: inline-block;
   margin: 0;
   padding: 0;
+
+  &:after {
+    display: inline-block;
+    content: '/';
+    margin: 0 0.5rem;
+    color: $grey-3;
+  }
+
+  &:last-child:after {
+    content: ''
+  }
+}
+
+.record-field-value-list-item:first-child:nth-last-child(n + 4),
+.record-field-value-list-item:first-child:nth-last-child(n + 4) ~ li {
+  display: block;
+
+  &:after {
+    content: ''
+  }
 }
 
 .record-field-value .show-all-list-container .show-all-button {
-  margin: 0;
+  display: block;
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
   border: none;
-  color: $main-3;
-  text-decoration: underline;
-  font-size: 1rem;
+  color: $grey-2;
+  border: solid 1px $grey-4;
+  border-radius: 3px;
+  padding: 0 0.4rem;
 }
 
 .record-field-uid-format .record-field-value-item {
@@ -204,8 +223,4 @@
     padding-bottom: 0.5rem;
     margin-right: 0.5rem;
   }
-}
-
-.full-record-container .record-field-value-item {
-  display: block;
 }

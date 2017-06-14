@@ -45,7 +45,7 @@ class TrimLink extends React.Component {
         <button
           onClick={() => this.handleShowToggleClick()}
           className="trim-string-button">
-            {this.state.show ? 'Less' : 'More'}
+            {this.state.show ? 'Show less' : 'Show more'}
         </button>
       </span>
     )

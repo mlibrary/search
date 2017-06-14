@@ -45,7 +45,7 @@ class ShowAllList extends React.Component {
 class ShowHideButton extends React.Component {
   render() {
     return (
-      <button onClick={() => this.props.handleOnClick()} className="button-link-light show-all-button font-small">
+      <button onClick={() => this.props.handleOnClick()} className="button-link-light show-all-button">
         {this.props.children}
       </button>
     )
