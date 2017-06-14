@@ -10,8 +10,19 @@ import {
 
 class PaginationContainer extends React.Component {
   handlePreviousPage() {
-    console.log('handlePreviousPage')
-    console.log('this.props', this.props)
+    const { search, filters } = this.props
+
+    // Only go to prev page if you're past page 1.
+    if (search.page > 1) {
+      const queryString = stringifySearchQueryForURL({
+        query: search.query,
+        filters,
+        page: search.page - 1
+      })
+
+      console.log('handlePreviousPage')
+      console.log('redirecting w/ new queryString', queryString)
+    }
   }
   handleNextPage() {
     const queryString = stringifySearchQueryForURL({
