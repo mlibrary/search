@@ -7,6 +7,9 @@ import qs from 'qs'
 import {
   Icon
 } from '../../../core'
+import {
+  stringifySearchQueryForURL
+} from '../../../pride'
 
 const isActive = ({
   uid,
@@ -46,15 +49,9 @@ const DatastoreNavigationItem = ({
   search,
   activeFilters
 }) => {
-
-  const queryString = qs.stringify({
-    query: search.query === '' ? undefined : search.query,
-    filter: activeFilters[datastore.uid]
-  }, {
-    arrayFormat: 'repeat',
-    encodeValuesOnly: true,
-    allowDots: true,
-    format : 'RFC1738'
+  const queryString = stringifySearchQueryForURL({
+    query: search.query,
+    filters: activeFilters[datastore.uid]
   })
 
   let url = ''

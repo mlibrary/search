@@ -1,32 +1,32 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-import Pagination from './presenter';
+import Pagination from './presenter'
 
-// TODO
-/*
 import {
-  nextPage,
-  prevPage,
-} from '../../../../pride-interface';
-*/
+  stringifySearchQueryForURL
+} from '../../../pride'
 
 class PaginationContainer extends React.Component {
   handlePreviousPage() {
-    //TODO
-    //prevPage();
-    //window.scrollTo(0,0);
+    console.log('handlePreviousPage')
+    console.log('this.props', this.props)
   }
   handleNextPage() {
-    //TODO
-    //nextPage();
-    //window.scrollTo(0,0);
+    const queryString = stringifySearchQueryForURL({
+      query: this.props.search.query,
+      filters: this.props.filters,
+      page: this.props.search.page + 1
+    })
+    console.log('handleNextPage')
+    console.log('redirecting w/ new queryString', queryString)
   }
   render() {
     const { records } = this.props;
 
     if (!records) {
-      return null;
+      return null
     }
 
     return <Pagination
@@ -39,7 +39,12 @@ class PaginationContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     records: state.records.records[state.datastores.active],
+    search: state.search,
+    activeDatastoreUid: state.datastores.active,
+    filters: state.filters.active[state.datastores.active],
   };
 }
 
-export default connect(mapStateToProps)(PaginationContainer);
+export default withRouter(
+  connect(mapStateToProps)(PaginationContainer)
+)
