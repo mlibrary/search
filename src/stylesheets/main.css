@@ -1371,7 +1371,8 @@ body {
   margin-bottom: 0; }
 
 .show-all-button {
-  margin-top: 1rem; }
+  margin-top: 1rem;
+  font-size: 0.85rem; }
 
 .feedback-widget {
   position: fixed;
