@@ -5,9 +5,6 @@ import { withRouter } from 'react-router-dom'
 import _ from 'underscore'
 
 import {
-  NoMatch
-} from '../../../pages'
-import {
   setSearchQuery,
   searching
 } from '../../../search/actions'
@@ -22,8 +19,7 @@ import {
   getStateFromURL,
   runSearch,
   switchPrideToDatastore,
-  getDatastoreUidBySlug,
-  isValidURLSearchQuery
+  getDatastoreUidBySlug
 } from '../../../pride'
 
 class URLSearchQueryWrapper extends React.Component {
