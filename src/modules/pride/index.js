@@ -10,7 +10,8 @@ import {
   getDatastoreName,
   getMultiSearchRecords,
   getStateFromURL,
-  requestRecord
+  requestRecord,
+  isValidURLSearchQuery
 } from './utils'
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper'
 
@@ -25,5 +26,6 @@ export {
   URLSearchQueryWrapper,
   getStateFromURL,
   getDatastoreSlugByUid,
-  requestRecord
+  requestRecord,
+  isValidURLSearchQuery
 }

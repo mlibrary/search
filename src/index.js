@@ -16,7 +16,8 @@ import {
 import {
   initializePride,
   isSlugADatastore,
-  URLSearchQueryWrapper
+  URLSearchQueryWrapper,
+  getStateFromURL
 } from './modules/pride'
 import {
   NoMatch,
@@ -50,8 +51,15 @@ const App = () => (
         )}/>
         <Route path={`/:datastoreSlug`} exact render={(props) => {
           const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+          // getStateFromURL() will return undefined if search query from the url
+          // is an invalid shape. TODO: redirect to page that is more specific.
+          // 'your search query in the url is not correct... here are some
+          // suggestions to improve it ...'
+          const urlState = getStateFromURL({
+            location: props.location
+          })
           return (
-            isDatastore ? (
+            isDatastore && urlState ? (
               <URLSearchQueryWrapper>
                 <DatastorePage {...props} />
               </URLSearchQueryWrapper>

@@ -46,8 +46,9 @@ const DatastoreNavigationItem = ({
   search,
   activeFilters
 }) => {
+
   const queryString = qs.stringify({
-    query: search.query,
+    query: search.query === '' ? undefined : search.query,
     filter: activeFilters[datastore.uid]
   }, {
     arrayFormat: 'repeat',

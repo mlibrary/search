@@ -5,6 +5,9 @@ import { withRouter } from 'react-router-dom'
 import _ from 'underscore'
 
 import {
+  NoMatch
+} from '../../../pages'
+import {
   setSearchQuery,
   searching
 } from '../../../search/actions'
@@ -19,7 +22,8 @@ import {
   getStateFromURL,
   runSearch,
   switchPrideToDatastore,
-  getDatastoreUidBySlug
+  getDatastoreUidBySlug,
+  isValidURLSearchQuery
 } from '../../../pride'
 
 class URLSearchQueryWrapper extends React.Component {
@@ -33,20 +37,13 @@ class URLSearchQueryWrapper extends React.Component {
     const urlState = getStateFromURL({ location })
     let shouldRunSearch = false
 
-    // not valid URL state
-    if (urlState === undefined) {
-      // TODO some page about how your URL is not valid or 404
-      this.props.history.push('/')
-    }
-
-    if (urlState && datastoreUid) {
+    if ((Object.keys(urlState).length > 0) && datastoreUid) {
       if (urlState.query !== query) {
         this.props.setSearchQuery(urlState.query)
         shouldRunSearch = true
       }
 
       if (!_.isEqual(urlState.filter, activeFilters)) {
-
         if (urlState.filter) {
           this.props.setActiveFilters({
             datastoreUid,
@@ -57,7 +54,6 @@ class URLSearchQueryWrapper extends React.Component {
             datastoreUid
           })
         }
-
         shouldRunSearch = true
       }
 
@@ -80,7 +76,6 @@ class URLSearchQueryWrapper extends React.Component {
       location: nextProps.location,
       datastoreUid: datastoreUid
     })
-
   }
 
   render() {

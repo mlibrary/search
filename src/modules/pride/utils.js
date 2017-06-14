@@ -4,7 +4,6 @@ import deepcopy from 'deepcopy'
 import qs from 'qs'
 import { Validator } from 'jsonschema';
 
-import histroy from '../../history'
 import store from '../../store'
 import config from '../../config';
 
@@ -98,6 +97,29 @@ const getDatastoreSlugByUid = (uid) => {
   return ds.slug || ds.uid;
 }
 
+const isValidURLSearchQuery = ({ urlState }) => {
+  const v = new Validator()
+  const schema = {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "type": "object",
+        "patternProperties": {
+          "^([A-Za-z0-9_])+$": {
+            "type": ["string", "array"],
+          }
+        }
+      },
+      "query": {
+        "type": "string"
+      }
+    }
+  }
+  const validated = v.validate(urlState, schema)
+
+  return validated.errors.length === 0
+}
+
 /**
  * getStateFromURL() takes a location {Object}, then returns
  * matching datastore Object or undefined if no state exists
@@ -108,27 +130,9 @@ const getStateFromURL = ({ location }) => {
 
   if (urlStateString.length) {
     const parsed = deepcopy(qs.parse(urlStateString.substring(1), { allowDots: true }))
-    const v = new Validator()
-    const schema = {
-      "type": "object",
-      "properties": {
-        "filter": {
-          "type": "object",
-          "patternProperties": {
-            "^([A-Za-z0-9\_])+$": {
-              "type": ["string", "array"],
-            }
-          }
-        },
-        "query": {
-          "type": "string"
-        }
-      }
-    }
-    const validated = v.validate(parsed, schema)
+    const isValid = isValidURLSearchQuery({ urlState: parsed })
 
-    if (validated.errors.length > 0) {
-      //throw new Error('URL state is not valid.');
+    if (!isValid) {
       return undefined
     } else {
       if (parsed.filter) {
@@ -148,6 +152,8 @@ const getStateFromURL = ({ location }) => {
 
     return parsed
   }
+
+  return {}
 }
 
 const datastoreRecordsHaveHoldings = (datastore) => {
@@ -189,4 +195,5 @@ export {
   getDatastoreSlugByUid,
   getStateFromURL,
   requestRecord,
+  isValidURLSearchQuery
 }
