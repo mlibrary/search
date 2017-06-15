@@ -185,6 +185,25 @@ const requestRecord = ({
   }
 }
 
+const stringifySearchQueryForURL = ({
+  query,
+  filters,
+  page
+}) => {
+  const SearchQueryString = qs.stringify({
+    query: query === '' ? undefined : query,
+    filters,
+    page,
+  }, {
+    arrayFormat: 'repeat',
+    encodeValuesOnly: true,
+    allowDots: true,
+    format : 'RFC1738'
+  })
+
+  return SearchQueryString
+}
+
 export {
   isSlugADatastore,
   getMultiSearchRecords,
@@ -195,5 +214,6 @@ export {
   getDatastoreSlugByUid,
   getStateFromURL,
   requestRecord,
-  isValidURLSearchQuery
+  isValidURLSearchQuery,
+  stringifySearchQueryForURL
 }

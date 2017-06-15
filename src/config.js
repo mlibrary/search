@@ -61,10 +61,7 @@ const config = {
       medium: [
         'format',
         'author',
-        'publication_date',
-        'place_of_publication',
-        'edition',
-        'publisher'
+        'publication_date'
       ],
       full: [
         'preferred_title',
