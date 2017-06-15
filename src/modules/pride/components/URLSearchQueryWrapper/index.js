@@ -33,28 +33,30 @@ class URLSearchQueryWrapper extends React.Component {
     const urlState = getStateFromURL({ location })
     let shouldRunSearch = false
 
-    if ((Object.keys(urlState).length > 0) && datastoreUid) {
-      if (urlState.query !== query) {
-        this.props.setSearchQuery(urlState.query)
-        shouldRunSearch = true
-      }
-
-      if (!_.isEqual(urlState.filter, activeFilters)) {
-        if (urlState.filter) {
-          this.props.setActiveFilters({
-            datastoreUid,
-            filters: urlState.filter
-          })
-        } else {
-          this.props.clearActiveFilters({
-            datastoreUid
-          })
+    if (datastoreUid) {
+      if ((Object.keys(urlState).length > 0)) {
+        if (urlState.query !== query) {
+          this.props.setSearchQuery(urlState.query)
+          shouldRunSearch = true
         }
-        shouldRunSearch = true
-      }
 
-      if (shouldRunSearch) {
-        runSearch()
+        if (!_.isEqual(urlState.filter, activeFilters)) {
+          if (urlState.filter) {
+            this.props.setActiveFilters({
+              datastoreUid,
+              filters: urlState.filter
+            })
+          } else {
+            this.props.clearActiveFilters({
+              datastoreUid
+            })
+          }
+          shouldRunSearch = true
+        }
+
+        if (shouldRunSearch) {
+          runSearch()
+        }
       }
     }
   }
@@ -89,7 +91,8 @@ function mapStateToProps(state) {
     f: state.filters.active,
     activeFilters: state.filters.active,
     location: state.router.location,
-    datastoreUid: state.datastores.active
+    datastoreUid: state.datastores.active,
+    isSearching: state.search.searching
   };
 }
 

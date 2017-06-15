@@ -187,12 +187,12 @@ const requestRecord = ({
 
 const stringifySearchQueryForURL = ({
   query,
-  filters,
+  filter,
   page
 }) => {
   const SearchQueryString = qs.stringify({
     query: query === '' ? undefined : query,
-    filters,
+    filter,
     page,
   }, {
     arrayFormat: 'repeat',

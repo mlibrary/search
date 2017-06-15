@@ -216,8 +216,6 @@ const getActiveFilters = ({ datastoreUid, activeFilters, filters }) => {
 
   }, [])
 
-  console.log('activeFilterObjs', activeFilterObjs)
-
   return activeFilterObjs
 }
 

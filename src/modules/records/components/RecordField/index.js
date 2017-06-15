@@ -3,13 +3,15 @@ import {
   Link,
   withRouter
 } from 'react-router-dom'
-import qs from 'qs'
 
 import {
   Icon,
   TrimString,
   ShowAllList
 } from '../../../core';
+import {
+  stringifySearchQueryForURL
+} from '../../../pride'
 
 const FieldValue = ({
   field,
@@ -17,14 +19,20 @@ const FieldValue = ({
   match
 }) => {
   if (field.uid === 'author') {
-    const authorFilter = qs.stringify({
-      filter: {
-        author: value
-      }
+    const queryString = stringifySearchQueryForURL({
+      filter: { 'author': value }
     })
 
+    let url = ''
+
+    if (queryString.length > 0) {
+      url = `${match.url}?${queryString}`
+    } else {
+      url = `${match.url}`
+    }
+
     return (
-      <Link to={`${match.url}${authorFilter}`} className="record-field-value-link">
+      <Link to={url} className="record-field-value-link">
         {value}
       </Link>
     )
@@ -40,7 +48,6 @@ const FieldValue = ({
 class RecordField extends React.Component {
   render() {
     const { field, match } = this.props
-
     const uniqueFieldClassName = 'record-field record-field-uid-' + field.uid
 
     if (field.uid === 'format') {

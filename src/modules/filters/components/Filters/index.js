@@ -68,6 +68,7 @@ class Filters extends React.Component {
     filterUid,
     filterItemValue
   }) {
+    const { history, match } = this.props
     const isActive = isFilterItemActive({
       datastoreUid,
       filterUid,
@@ -89,6 +90,8 @@ class Filters extends React.Component {
         filterUid,
         filterItemValue,
       })
+
+      console.log('filterObj', filterObj)
     }
 
     const queryString = qs.stringify({
@@ -102,10 +105,9 @@ class Filters extends React.Component {
     })
 
     if (queryString.length > 0) {
-      const { history, match } = this.props
-      const url = `${match.url}?${queryString}`
-
-      history.push(url)
+      history.push(`${match.url}?${queryString}`)
+    } else {
+      history.push(match.url)
     }
   }
   handleClearActiveFilters({ datastoreUid }) {
