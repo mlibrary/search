@@ -3,6 +3,7 @@ import Pagination from './components/Pagination';
 import RecordFull from './components/RecordFull';
 import ResultsSummary from './components/ResultsSummary';
 import BentoboxList from './components/BentoboxList';
+import RecordFieldValue from './components/RecordFieldValue';
 import recordsReducer from './reducer';
 import {
   addRecord,
@@ -30,4 +31,5 @@ export {
   addHoldings,
   loadingHoldings,
   setRecordHoldings,
+  RecordFieldValue
 };

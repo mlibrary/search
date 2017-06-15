@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Link,
   withRouter
 } from 'react-router-dom'
 
@@ -10,40 +9,9 @@ import {
   ShowAllList
 } from '../../../core';
 import {
-  stringifySearchQueryForURL
-} from '../../../pride'
+  RecordFieldValue
+} from '../../../records'
 
-const FieldValue = ({
-  field,
-  value,
-  match
-}) => {
-  if (field.uid === 'author') {
-    const queryString = stringifySearchQueryForURL({
-      filter: { 'author': value }
-    })
-
-    let url = ''
-
-    if (queryString.length > 0) {
-      url = `${match.url}?${queryString}`
-    } else {
-      url = `${match.url}`
-    }
-
-    return (
-      <Link to={url} className="record-field-value-link">
-        {value}
-      </Link>
-    )
-  }
-
-  return (
-    <span>
-      {value}
-    </span>
-  )
-}
 
 class RecordField extends React.Component {
   render() {
@@ -85,7 +53,7 @@ class RecordField extends React.Component {
               listClass={'record-field-value-list'}>
               {field.value.map((value, index) => (
                 <li className="record-field-value-item record-field-value-list-item" key={index}>
-                  <FieldValue field={field} value={value} match={match} />
+                  <RecordFieldValue field={field} value={value} match={match} />
                 </li>
               ))}
             </ShowAllList>

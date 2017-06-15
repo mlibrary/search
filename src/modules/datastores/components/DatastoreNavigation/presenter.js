@@ -50,7 +50,7 @@ const DatastoreNavigationItem = ({
 }) => {
   const queryString = stringifySearchQueryForURL({
     query: search.query,
-    filters: activeFilters[datastore.uid]
+    filter: activeFilters[datastore.uid]
   })
 
   let url = ''

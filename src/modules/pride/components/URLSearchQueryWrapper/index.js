@@ -34,6 +34,8 @@ class URLSearchQueryWrapper extends React.Component {
     let shouldRunSearch = false
 
     if (datastoreUid) {
+
+      // URL has state
       if ((Object.keys(urlState).length > 0)) {
         if (urlState.query !== query) {
           this.props.setSearchQuery(urlState.query)
@@ -56,6 +58,14 @@ class URLSearchQueryWrapper extends React.Component {
 
         if (shouldRunSearch) {
           runSearch()
+        }
+
+      } else {
+
+        // URL does not have state, but state has active filters
+        if (activeFilters && Object.keys(activeFilters).length > 0) {
+          this.props.searching(false)
+          this.props.clearActiveFilters({ datastoreUid })
         }
       }
     }
