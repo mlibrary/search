@@ -16,7 +16,7 @@ const isFilterItemChecked = ({
   // If this filterUid exists on the activeFilters hash
   const isActive = activeFilters && activeFilters[filterUid]
 
-  // The filter is active and it's active state is it's configured checked condition
+  // The filter is active and its active state is its configured checked condition
   if (isActive && (activeFilters[filterUid][0] === filterConfig.checkedCondition)) {
     return true
   }
@@ -174,7 +174,7 @@ const createActiveFilterObj = ({
   }
 }
 
-const getActiveFilters = ({ activeFilters, filters }) => {
+const getActiveFilters = ({ datastoreUid, activeFilters, filters }) => {
   /*
     Returns an Array of filters with a uid, name, and value that
     also are not a checkbox.
@@ -185,7 +185,7 @@ const getActiveFilters = ({ activeFilters, filters }) => {
 
   const activeFilterUids = Object.keys(activeFilters);
 
-  return activeFilterUids.reduce((previous, filterUid) => {
+  const activeFilterObjs = activeFilterUids.reduce((previous, filterUid) => {
     const filter = _.findWhere(filters, { uid: filterUid })
 
     if (filter && (filter.type !== 'checkbox')) {
@@ -197,24 +197,28 @@ const getActiveFilters = ({ activeFilters, filters }) => {
         })
       })
     } else {
-      /*
-      // TODO
-      // The filter doesn't exist in the list of filters
-      // in state from Pride.
-
       activeFilters[filterUid].forEach((value) => {
-        previous = previous.concat({
-          uid: filterUid,
-          name: filterUid,
-          value: value
-        })
+        if (value === 'true' || value === 'false') {
+          //TODO
+          // May want to accomodate booleans that are not
+          // configured and available in state.
+        } else {
+          previous = previous.concat({
+            uid: filterUid,
+            name: filterUid,
+            value: value
+          })
+        }
       })
-      */
     }
 
     return previous
 
   }, [])
+
+  console.log('activeFilterObjs', activeFilterObjs)
+
+  return activeFilterObjs
 }
 
 export {

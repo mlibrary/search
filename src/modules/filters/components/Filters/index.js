@@ -128,7 +128,7 @@ class Filters extends React.Component {
   render() {
     const { datastoreUid, filters, activeFilters } = this.props
     const open = this.state.open[datastoreUid]
-    const displayActiveFilters = getActiveFilters({ activeFilters, filters })
+    const displayActiveFilters = getActiveFilters({ datastoreUid, activeFilters, filters })
     const displayFilters = filtersWithOpenProperty({ open, filters })
 
     return (
