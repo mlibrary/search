@@ -1506,13 +1506,14 @@ body {
   cursor: pointer; }
 
 .trim-string-button {
-  margin: 0.25rem 0;
+  margin: 0;
   font-size: 0.85rem;
   border: none;
   color: #4E4E4E;
   border: solid 1px #CCC;
   border-radius: 3px;
-  padding: 0 0.4rem;
+  padding: 0 0.5rem;
+  line-height: 1.5;
   background: white;
   cursor: pointer; }
 
