@@ -13,7 +13,6 @@ import {
 import ShowAdditionalFieldList from '../ShowAdditionalFieldList';
 import {
   filterAccessFields,
-  filterDisplayFields,
   getHoldings,
   getField,
   getFieldValue,

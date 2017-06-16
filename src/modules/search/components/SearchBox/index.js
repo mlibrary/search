@@ -46,7 +46,8 @@ class SearchBox extends React.Component {
         allowDots: true,
         format : 'RFC1738'
       })
-      const url = `${match.url}?${queryString}`
+
+      const url = `/${match.params.datastoreSlug}?${queryString}`
 
       history.push(url)
     }

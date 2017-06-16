@@ -51,10 +51,6 @@ const App = () => (
         )}/>
         <Route path={`/:datastoreSlug`} exact render={(props) => {
           const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-          // getStateFromURL() will return undefined if search query from the url
-          // is an invalid shape. TODO: redirect to page that is more specific.
-          // 'your search query in the url is not correct... here are some
-          // suggestions to improve it ...'
           const urlState = getStateFromURL({
             location: props.location
           })
@@ -70,9 +66,14 @@ const App = () => (
         }}/>
         <Route path={`/:datastoreSlug/record/:recordUid`} exact render={(props) => {
           const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+          const urlState = getStateFromURL({
+            location: props.location
+          })
           return (
-            isDatastore ? (
-              <RecordPage {...props} />
+            isDatastore && urlState ? (
+              <URLSearchQueryWrapper>
+                <RecordPage {...props} />
+              </URLSearchQueryWrapper>
             ) : (
               <NoMatch />
             )
