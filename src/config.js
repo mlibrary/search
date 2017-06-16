@@ -62,9 +62,9 @@ const config = {
         'format',
         'author',
         'publication_date',
-        'place_of_publication',
-        'edition',
-        'publisher'
+        //'place_of_publication',
+        //'edition',
+        //'publisher'
       ],
       full: {
         standard: [

@@ -1000,24 +1000,37 @@ body {
   list-style: none; }
 
 .record-field-value-list-item {
-  display: inline-block;
+  display: block;
   margin: 0;
   padding: 0; }
-  .record-field-value-list-item:after {
+
+/*
+.record-field-value-list-item {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+
+  &:after {
     display: inline-block;
     content: '/';
     margin: 0 0.5rem;
-    color: #6E6E6E; }
-  .record-field-value-list-item:last-child:after {
-    content: ''; }
+    color: $grey-3;
+  }
+
+  &:last-child:after {
+    content: ''
+  }
+}
 
 .record-field-value-list-item:first-child:nth-last-child(n + 4),
 .record-field-value-list-item:first-child:nth-last-child(n + 4) ~ li {
-  display: block; }
-  .record-field-value-list-item:first-child:nth-last-child(n + 4):after,
-  .record-field-value-list-item:first-child:nth-last-child(n + 4) ~ li:after {
-    content: ''; }
+  display: block;
 
+  &:after {
+    content: ''
+  }
+}
+*/
 .record-field-value .show-all-list-container .show-all-button {
   display: block;
   margin: 0.25rem 0;

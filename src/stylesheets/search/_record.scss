@@ -169,6 +169,13 @@
 }
 
 .record-field-value-list-item {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+.record-field-value-list-item {
   display: inline-block;
   margin: 0;
   padding: 0;
@@ -193,6 +200,7 @@
     content: ''
   }
 }
+*/
 
 .record-field-value .show-all-list-container .show-all-button {
   display: block;
