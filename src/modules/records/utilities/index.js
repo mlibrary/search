@@ -56,21 +56,25 @@ const getFullRecordDisplayFields = ({ fields, datastore }) => {
 
   if (fieldsConfig['full']) {
     return ['standard', 'additional'].reduce((previous, type) => {
-      const fieldListOfType = fieldsConfig['full'][type].reduce((fieldList, fieldUid) => {
-        const field = _.findWhere(fields, { uid: fieldUid })
+      let fieldListOfType = []
 
-        if (field) { // does field exist from Spectrum (back end, solr)
-          return fieldList.concat(field)
-        } else if (fieldsConfig.defaultFields) { // check if field exists as default
-          const defaultField = _.findWhere(fieldsConfig.defaultFields, { uid: fieldUid })
+      if (fieldsConfig['full'][type]) {
+        fieldListOfType = fieldsConfig['full'][type].reduce((fieldList, fieldUid) => {
+          const field = _.findWhere(fields, { uid: fieldUid })
 
-          if (defaultField) {
-            return fieldList.concat(defaultField)
+          if (field) { // does field exist from Spectrum (back end, solr)
+            return fieldList.concat(field)
+          } else if (fieldsConfig.defaultFields) { // check if field exists as default
+            const defaultField = _.findWhere(fieldsConfig.defaultFields, { uid: fieldUid })
+
+            if (defaultField) {
+              return fieldList.concat(defaultField)
+            }
           }
-        }
 
-        return fieldList
-      }, [])
+          return fieldList
+        }, [])
+      }
 
       return {
         ...previous,
