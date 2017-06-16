@@ -32,7 +32,8 @@ const filterDisplayFields = ({ fields, type, datastore }) => {
   }
 
   // Look up and order fields as configured.
-  const displayFields = _.reduce(fieldsConfig[type], (previous, fieldUid) => {
+  // Will return an array of fields
+  return _.reduce(fieldsConfig[type], (previous, fieldUid) => {
     const field = _.findWhere(fields, { uid: fieldUid })
 
     if (field) { // does field exist from Spectrum (back end, solr)
@@ -47,8 +48,44 @@ const filterDisplayFields = ({ fields, type, datastore }) => {
 
     return previous
   }, [])
+}
 
-  return displayFields
+const getFullRecordDisplayFields = ({ fields, datastore }) => {
+  // Find config for this datastore view type.
+  const fieldsConfig = _.findWhere(config.fields, { datastore: datastore })
+
+  if (fieldsConfig['full']) {
+    return ['standard', 'additional'].reduce((previous, type) => {
+      const fieldListOfType = fieldsConfig['full'][type].reduce((fieldList, fieldUid) => {
+        const field = _.findWhere(fields, { uid: fieldUid })
+
+        if (field) { // does field exist from Spectrum (back end, solr)
+          return fieldList.concat(field)
+        } else if (fieldsConfig.defaultFields) { // check if field exists as default
+          const defaultField = _.findWhere(fieldsConfig.defaultFields, { uid: fieldUid })
+
+          if (defaultField) {
+            return fieldList.concat(defaultField)
+          }
+        }
+
+        return fieldList
+      }, [])
+
+      return {
+        ...previous,
+        [type]: fieldListOfType
+      }
+    }, {
+      standard: [],
+      additional: []
+    })
+  }
+
+  return {
+    standard: [],
+    additional: []
+  }
 }
 
 const filterAccessFields = ({ fields, type, datastore, holdings }) => {
@@ -267,5 +304,6 @@ export {
   displayLoadingFeedback,
   isFullRecordType,
   getHoldings,
-  getShowAllText
+  getShowAllText,
+  getFullRecordDisplayFields
 }

@@ -299,14 +299,13 @@ textarea {
   cursor: not-allowed; }
 
 .button-light {
-  background: #E5E5E5;
+  background: transparent;
   color: #4E4E4E;
-  border-color: #CCC; }
-
-.button-light:active {
-  background: #CCC;
-  color: #4E4E4E;
-  border-color: #6E6E6E; }
+  border: solid 1px #CCC;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.875rem;
+  cursor: pointer; }
 
 .button-small {
   padding: 0.4rem 0.8rem; }
@@ -949,7 +948,7 @@ body {
   border-radius: 4px;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.06); }
   .full-record-container .record-field-list {
-    margin-bottom: 2rem; }
+    margin-bottom: 1rem; }
   @media (min-width: 47rem) {
     .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
       padding: 0.5rem 1rem; }

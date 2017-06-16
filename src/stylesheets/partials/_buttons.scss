@@ -45,15 +45,13 @@
 }
 
 .button-light {
-  background: $grey-5;
+  background: transparent;
   color: $grey-2;
-  border-color: $grey-4;
-}
-
-.button-light:active {
-  background: $grey-4;
-  color: $grey-2;
-  border-color: $grey-3;
+  border: solid 1px $grey-4;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.875rem;
+  cursor: pointer;
 }
 
 .button-small {

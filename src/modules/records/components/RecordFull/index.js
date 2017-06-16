@@ -10,14 +10,15 @@ import {
   Icon,
   TrimString,
 } from '../../../core'
-import FieldList from '../RecordFieldList';
+import ShowAdditionalFieldList from '../ShowAdditionalFieldList';
 import {
   filterAccessFields,
   filterDisplayFields,
   getHoldings,
   getField,
   getFieldValue,
-  getShowAllText
+  getShowAllText,
+  getFullRecordDisplayFields
 } from '../../utilities';
 import HoldingStatus from '../HoldingStatus'
 import {
@@ -65,9 +66,8 @@ class FullRecord extends React.Component {
       datastoreUid: datastoreUid
     })
 
-    const displayFields = filterDisplayFields({
+    const displayFields = getFullRecordDisplayFields({
       fields: record.fields,
-      type: 'full',
       datastore: datastoreUid
     });
 
@@ -83,7 +83,8 @@ class FullRecord extends React.Component {
                 </div>
               ))}
             </h1>
-            <FieldList fields={displayFields} />
+
+            <ShowAdditionalFieldList fields={displayFields} />
 
             {access.length > 0 && (
               <ShowAllList
