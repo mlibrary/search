@@ -319,12 +319,12 @@ const config = {
         uid: 'links',
         fields: [
           {
-            uid: '856u',
+            uid: 'href',
             label: 'Go to online journal',
             isLink: true,
           },
           {
-            uid: '856z',
+            uid: 'text',
             label: 'Coverage',
           }
         ]
