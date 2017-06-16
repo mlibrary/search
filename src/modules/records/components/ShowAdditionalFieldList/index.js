@@ -28,6 +28,10 @@ class ShowAdditionalFieldList extends React.Component {
           ))}
         </dl>
 
+        {!this.state.show && (
+          <div className="zigzag-end"></div>
+        )}
+
         {fields.additional.length > 0 && (
           <div className="center-text">
             <button onClick={this.handleShowToggleClick.bind(this)} className="button-light">
