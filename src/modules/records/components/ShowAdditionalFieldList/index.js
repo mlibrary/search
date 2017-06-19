@@ -28,7 +28,7 @@ class ShowAdditionalFieldList extends React.Component {
           ))}
         </dl>
 
-        {!this.state.show && (
+        {(!this.state.show && fields.additional.length > 0) && (
           <div className="zigzag-end"></div>
         )}
 
