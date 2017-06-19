@@ -300,10 +300,6 @@ const initializePride = () => {
   Pride.init({
     success: () => {
       setupSearches();
-
-      // Default datastore
-      // TODO: make this configured
-      store.dispatch(changeActiveDatastore('mirlyn'))
       renderApp();
     },
     failure: () => {

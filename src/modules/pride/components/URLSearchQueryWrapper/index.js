@@ -21,11 +21,13 @@ import {
   switchPrideToDatastore,
   getDatastoreUidBySlug
 } from '../../../pride'
+import {
+  changeActiveDatastore,
+} from '../../../datastores'
 
 class URLSearchQueryWrapper extends React.Component {
   constructor(props) {
     super(props)
-
     this.handleURLState = this.handleURLState.bind(this)
   }
 
@@ -112,7 +114,8 @@ function mapDispatchToProps(dispatch) {
     setActiveFilters,
     clearActiveFilters,
     searching,
-    loadingRecords
+    loadingRecords,
+    changeActiveDatastore
   }, dispatch)
 }
 

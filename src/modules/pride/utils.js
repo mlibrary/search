@@ -204,6 +204,21 @@ const stringifySearchQueryForURL = ({
   return SearchQueryString
 }
 
+const isDatastoreAdvanced = (datastoreUid) => {
+  return config.advanced.includes(datastoreUid)
+}
+
+const parseField = ({
+  defaultFieldName,
+  stringToParse,
+}) => {
+  if (!stringToParse) {
+    return false
+  }
+
+  return Pride.FieldTree.parseField(defaultFieldName, stringToParse)
+}
+
 export {
   isSlugADatastore,
   getMultiSearchRecords,
@@ -215,5 +230,7 @@ export {
   getStateFromURL,
   requestRecord,
   isValidURLSearchQuery,
-  stringifySearchQueryForURL
+  stringifySearchQueryForURL,
+  isDatastoreAdvanced,
+  parseField
 }

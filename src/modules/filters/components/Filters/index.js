@@ -90,8 +90,6 @@ class Filters extends React.Component {
         filterUid,
         filterItemValue,
       })
-
-      console.log('filterObj', filterObj)
     }
 
     const queryString = qs.stringify({

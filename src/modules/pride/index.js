@@ -12,7 +12,9 @@ import {
   getStateFromURL,
   requestRecord,
   isValidURLSearchQuery,
-  stringifySearchQueryForURL
+  stringifySearchQueryForURL,
+  isDatastoreAdvanced,
+  parseField
 } from './utils'
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper'
 
@@ -29,5 +31,7 @@ export {
   getDatastoreSlugByUid,
   requestRecord,
   isValidURLSearchQuery,
-  stringifySearchQueryForURL
+  stringifySearchQueryForURL,
+  isDatastoreAdvanced,
+  parseField
 }

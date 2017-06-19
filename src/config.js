@@ -464,6 +464,12 @@ const config = {
       },
     ]
   },
+  advanced: [
+    'mirlyn',
+    'articlesplus',
+    'databases',
+    'journals'
+  ],
   holdingRewrites: [
     {
       match: {
@@ -481,7 +487,7 @@ const config = {
         }
       ]
     }
-  ]
+  ],
 };
 
 export default config;

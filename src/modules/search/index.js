@@ -1,5 +1,6 @@
 import SearchBox from './components/SearchBox';
 import ClearSearchButton from './components/ClearSearchButton';
+import AdvancedSearch from './components/AdvancedSearch';
 import searchReducer from './reducer';
 import {
   setSearchQuery,
@@ -11,6 +12,7 @@ import {
 
 export {
   SearchBox,
+  AdvancedSearch,
   searchReducer,
   setSearchQuery,
   setSearchData,

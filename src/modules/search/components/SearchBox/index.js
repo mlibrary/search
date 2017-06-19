@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import qs from 'qs'
 import {
-  withRouter
+  withRouter,
+  Route,
+  Link
 } from 'react-router-dom'
 
 import {
@@ -13,6 +15,12 @@ import {
 import {
   Icon
 } from '../../../core';
+import {
+  AdvancedSearch
+} from '../../../search'
+import {
+  isDatastoreAdvanced
+} from '../../../pride'
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -54,23 +62,39 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    const { query } = this.state;
+    const { match, activeDatastoreUid, location } = this.props
+    const { query } = this.state
+
+    const isAdvanced = isDatastoreAdvanced(activeDatastoreUid)
 
     return (
       <div className="search-box-container-full">
         <div className="container search-box-container" role="search">
-          <form className="search-box" onSubmit={this.handleSubmit}>
-            <label htmlFor="search-query" className="offpage">Search query</label>
-            <input
-              id="search-query"
-              className="no-margin search-box-input"
-              type="text"
-              value={query}
-              autoComplete="off"
-              onChange={event => this.handleChange(event.target.value)}
-            />
+          <form className="search-box-form" onSubmit={this.handleSubmit}>
+            <div className="search-box">
+              <label htmlFor="search-query" className="offpage">Search query</label>
+              <input
+                id="search-query"
+                className="search-box-input"
+                type="text"
+                value={query}
+                autoComplete="off"
+                onChange={event => this.handleChange(event.target.value)}
+              />
+            {isAdvanced && (
+              <Link to={`${match.url}/advanced${location.search}`} className="search-box-advanced-link"><Icon name="chevron-down" /></Link>
+            )}
+            </div>
+
             <button className="button search-box-button" type="submit"><Icon name="search"/>Search</button>
           </form>
+
+          <Route path={`${match.url}/advanced`} exact render={() => (
+            <AdvancedSearch
+              handleBasicSearchQueryChange={this.handleChange}
+              searchQueryFromURL={location.search}
+            />
+          )}/>
         </div>
       </div>
     )

@@ -17,13 +17,12 @@ import {
   initializePride,
   isSlugADatastore,
   URLSearchQueryWrapper,
-  getStateFromURL
+  getStateFromURL,
 } from './modules/pride'
 import {
   NoMatch,
   DatastorePage,
   RecordPage,
-  AdvancedPage
 } from './modules/pages'
 import store from './store'
 import history from './history'
@@ -50,36 +49,6 @@ const App = () => (
         <Route path="/" exact render={() => (
           <Redirect to={`/everything`} />
         )}/>
-        <Route path={`/:datastoreSlug`} exact render={(props) => {
-          const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-          const urlState = getStateFromURL({
-            location: props.location
-          })
-          return (
-            isDatastore && urlState ? (
-              <URLSearchQueryWrapper>
-                <DatastorePage {...props} />
-              </URLSearchQueryWrapper>
-            ) : (
-              <NoMatch />
-            )
-          )
-        }}/>
-      <Route path={`/:datastoreSlug/advanced`} exact render={(props) => {
-          const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-          const urlState = getStateFromURL({
-            location: props.location
-          })
-          return (
-            isDatastore && urlState ? (
-              <URLSearchQueryWrapper>
-                <AdvancedPage {...props} />
-              </URLSearchQueryWrapper>
-            ) : (
-              <NoMatch />
-            )
-          )
-        }}/>
         <Route path={`/:datastoreSlug/record/:recordUid`} exact render={(props) => {
           const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
           const urlState = getStateFromURL({
@@ -89,6 +58,21 @@ const App = () => (
             isDatastore && urlState ? (
               <URLSearchQueryWrapper>
                 <RecordPage {...props} />
+              </URLSearchQueryWrapper>
+            ) : (
+              <NoMatch />
+            )
+          )
+        }}/>
+        <Route path={`/:datastoreSlug`} render={(props) => {
+          const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+          const urlState = getStateFromURL({
+            location: props.location
+          })
+          return (
+            isDatastore && urlState ? (
+              <URLSearchQueryWrapper>
+                <DatastorePage {...props} />
               </URLSearchQueryWrapper>
             ) : (
               <NoMatch />

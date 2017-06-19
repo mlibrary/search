@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
 import {
-  Link
+  Link,
+  withRouter,
 } from 'react-router-dom';
 import { bindActionCreators } from 'redux'
 
@@ -11,13 +12,13 @@ import {
 } from '../../../search/actions'
 import {
   Icon,
-  Main
 } from '../../../core'
 import {
-  stringifySearchQueryForURL
+  stringifySearchQueryForURL,
+  //parseField,
 } from '../../../pride'
 
-class AdvancedPage extends React.Component {
+class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props)
 
@@ -81,7 +82,7 @@ class AdvancedPage extends React.Component {
     }, []).join(' ')
 
     if (query.length > 0) {
-      const { match, history } = this.props
+      const { history } = this.props
 
       // Query is not empty
       if (query.length > 0) {
@@ -89,7 +90,12 @@ class AdvancedPage extends React.Component {
           query
         })
 
-        const url = `/${match.params.datastoreSlug}?${queryString}`
+        const { datastores } = this.props;
+        const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+
+        this.props.handleBasicSearchQueryChange(query)
+
+        const url = `/${activeDatastore.slug}?${queryString}`
 
         history.push(url)
       }
@@ -142,21 +148,20 @@ class AdvancedPage extends React.Component {
   }
 
   render() {
-    const { datastores, fields } = this.props;
+    const { datastores, fields} = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
-      <Main>
-        <div className="advanced-heading-container">
-          <div className="container container-medium">
-            <Link to={`/${activeDatastore.slug}`} className="advanced-link button-secondary">Back to Simple Search</Link>
-          </div>
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="advanced-boolean-container">
-            <div className="container container-narrow">
+      <form onSubmit={this.handleSubmit} className="advanced-search-form">
+        <div className="advanced-boolean-container">
+          <div className="container container-narrow">
+            <div className="advanced-header">
               <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
-
+              <Link to={`/${activeDatastore.slug}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">
+                <Icon name="close"/><span className="offpage">Basic Search</span>
+              </Link>
+            </div>
+            <div className="advanced-field-container">
               {this.state.booleanFields.map((field, index) => (
                 <FieldInput
                   key={index}
@@ -169,16 +174,16 @@ class AdvancedPage extends React.Component {
                   handleOnFieldChange={this.handleOnFieldChange}
                 />
               ))}
-              <div className="advanced-add-field-container">
-                <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
-              </div>
+            </div>
+            <div className="advanced-add-field-container">
+              <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
             </div>
             <div className="container container-narrow advanced-search-button-container">
               <button type="submit" className="button advanced-search-button"><Icon name="search"/>Search</button>
             </div>
           </div>
-        </form>
-      </Main>
+        </div>
+      </form>
     )
   }
 }
@@ -219,7 +224,7 @@ const FieldInput = ({
           className="advanced-input-remove-button"
           type="button"
           onClick={handleRemoveField}>
-            <Icon name="close"/>Remove field
+            <Icon name="close"/>
         </button>
       ) : null}
     </div>
@@ -312,4 +317,6 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdvancedPage);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AdvancedSearch)
+)
