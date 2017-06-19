@@ -5,14 +5,17 @@ import {
   Link
 } from 'react-router-dom';
 import { bindActionCreators } from 'redux'
-import qs from 'qs'
 
 import {
   setSearchQuery
 } from '../../../search/actions'
 import {
-  Icon
+  Icon,
+  Main
 } from '../../../core'
+import {
+  stringifySearchQueryForURL
+} from '../../../pride'
 
 class AdvancedPage extends React.Component {
   constructor(props) {
@@ -64,26 +67,29 @@ class AdvancedPage extends React.Component {
     event.preventDefault()
 
     // Build the query
-    // example output: 'title:(parrots) AND author:(charles)'
+    // example output: 'title:parrots AND author:charles'
     const query = this.state.booleanFields.reduce((memo, field) => {
       if (field.value.length > 0) {
         if (typeof field.boolean !== 'undefined') {
           memo.push(this.state.booleanTypes[field.boolean])
         }
 
-        memo.push(`${field.field}:(${field.value})`)
+        memo.push(`${field.field}:${field.value}`)
       }
 
       return memo
     }, []).join(' ')
 
     if (query.length > 0) {
-
       const { match, history } = this.props
 
       // Query is not empty
       if (query.length > 0) {
-        const url = `${match.url}?${qs.stringify({query: query})}`
+        const queryString = stringifySearchQueryForURL({
+          query
+        })
+
+        const url = `/${match.params.datastoreSlug}?${queryString}`
 
         history.push(url)
       }
@@ -140,7 +146,7 @@ class AdvancedPage extends React.Component {
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
-      <div>
+      <Main>
         <div className="advanced-heading-container">
           <div className="container container-medium">
             <Link to={`/${activeDatastore.slug}`} className="advanced-link button-secondary">Back to Simple Search</Link>
@@ -172,7 +178,7 @@ class AdvancedPage extends React.Component {
             </div>
           </div>
         </form>
-      </div>
+      </Main>
     )
   }
 }

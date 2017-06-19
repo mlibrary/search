@@ -22,7 +22,8 @@ import {
 import {
   NoMatch,
   DatastorePage,
-  RecordPage
+  RecordPage,
+  AdvancedPage
 } from './modules/pages'
 import store from './store'
 import history from './history'
@@ -58,6 +59,21 @@ const App = () => (
             isDatastore && urlState ? (
               <URLSearchQueryWrapper>
                 <DatastorePage {...props} />
+              </URLSearchQueryWrapper>
+            ) : (
+              <NoMatch />
+            )
+          )
+        }}/>
+      <Route path={`/:datastoreSlug/advanced`} exact render={(props) => {
+          const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+          const urlState = getStateFromURL({
+            location: props.location
+          })
+          return (
+            isDatastore && urlState ? (
+              <URLSearchQueryWrapper>
+                <AdvancedPage {...props} />
               </URLSearchQueryWrapper>
             ) : (
               <NoMatch />

@@ -59,9 +59,11 @@ const handleSearchData = (data, datastoreUid) => {
       "totalAvailable": data.total_available,
       "sorts": data.sorts,
       "selectedSort": data.selected_sort,
+      "fields": data.fields,
     },
     datastoreUid: datastoreUid
   }
+
   store.dispatch(setSearchData(payload))
 
   const records = store.getState().records.records[datastoreUid];
@@ -298,6 +300,10 @@ const initializePride = () => {
   Pride.init({
     success: () => {
       setupSearches();
+
+      // Default datastore
+      // TODO: make this configured
+      store.dispatch(changeActiveDatastore('mirlyn'))
       renderApp();
     },
     failure: () => {
