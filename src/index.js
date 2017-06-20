@@ -49,7 +49,7 @@ const App = () => (
         <Route path="/" exact render={() => (
           <Redirect to={`/everything`} />
         )}/>
-        <Route path={`/:datastoreSlug/record/:recordUid`} exact render={(props) => {
+        <Route path={`/:datastoreSlug/record/:recordUid`} render={(props) => {
           const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
           const urlState = getStateFromURL({
             location: props.location
