@@ -238,10 +238,12 @@ const Filter = ({
               filterUid: filter.uid
             })}
           >
-            <h3 className="filter-group-heading">
-              {filter.name}
-            </h3>
-            {filter.open ? <Icon name="minus" /> : <Icon name="chevron-down" /> }
+            <span className="flex-space-between flex-center">
+              <h3 className="filter-group-heading">
+                {filter.name}
+              </h3>
+              {filter.open ? <Icon name="minus" /> : <Icon name="chevron-down" /> }
+            </span>
           </button>
           {filter.open && (
             <div className="filter-list-container">

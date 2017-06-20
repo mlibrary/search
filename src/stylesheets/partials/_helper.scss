@@ -32,3 +32,13 @@
 .center-text {
   text-align: center;
 }
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}

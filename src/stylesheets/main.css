@@ -556,6 +556,14 @@ footer {
 .center-text {
   text-align: center; }
 
+.flex-space-between {
+  display: flex;
+  justify-content: space-between; }
+
+.flex-center {
+  display: flex;
+  align-items: center; }
+
 .focus-outline-white {
   outline-color: white; }
 
@@ -613,10 +621,11 @@ input.search-box-input {
 .search-box-button {
   margin-left: 1rem;
   margin-right: 0;
-  display: flex;
+  display: inline-flex;
   align-items: center; }
   @media (min-width: 32rem) {
     .search-box-button .icon {
+      align-self: center;
       margin-right: 0.5rem; } }
 
 @media (max-width: 32rem) {
@@ -766,12 +775,10 @@ input.search-box-input {
   padding: 1rem; }
 
 .filter-group-toggle-show-button {
-  display: flex;
+  appearance: none;
   margin: 0;
   padding: 1rem;
   width: 100%;
-  justify-content: space-between;
-  align-items: center;
   cursor: pointer;
   border: none;
   background: none; }

@@ -222,7 +222,7 @@ const FieldInput = ({
           className="advanced-input-remove-button"
           type="button"
           onClick={handleRemoveField}>
-            <Icon name="close"/>
+            <Icon name="close"/><span className="offpage">Remove Field</span>
         </button>
       ) : null}
     </div>

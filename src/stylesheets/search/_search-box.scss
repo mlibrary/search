@@ -53,11 +53,12 @@ input.search-box-input {
 .search-box-button {
   margin-left: 1rem;
   margin-right: 0;
-  display: flex;
+  display: inline-flex;
   align-items: center;
 
   @media (min-width: $breakpoint-1) {
     .icon {
+      align-self: center;
       margin-right: 0.5rem;
     }
   }
