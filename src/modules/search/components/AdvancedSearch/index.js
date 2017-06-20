@@ -148,7 +148,7 @@ class AdvancedSearch extends React.Component {
   }
 
   render() {
-    const { datastores, fields} = this.props;
+    const { datastores, fields, match } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
@@ -156,7 +156,7 @@ class AdvancedSearch extends React.Component {
         <div className="advanced-search-container">
           <div className="advanced-header">
             <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
-            <Link to={`/${activeDatastore.slug}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">
+            <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">
               <Icon name="close"/><span className="offpage">Basic Search</span>
             </Link>
           </div>

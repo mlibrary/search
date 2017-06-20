@@ -232,6 +232,7 @@ const config = {
           'eisbn',
           'doi',
           'subject',
+          'academic_discipline',
           'language',
         ]
       },
