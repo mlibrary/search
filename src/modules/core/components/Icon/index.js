@@ -4,7 +4,7 @@ const Icon = ({ name }) => {
   switch (name) {
     case 'alert':
       return (
-        <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-857.000000, -61.000000)" fill="#000000">
                     <g transform="translate(822.000000, 60.000000)">
@@ -18,7 +18,7 @@ const Icon = ({ name }) => {
       )
     case 'newspaper':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 20 18" version="1.1" className="icon">
+        <svg viewBox="0 0 20 18" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-131.000000, -627.000000)">
                     <g transform="translate(131.000000, 627.000000)">
@@ -46,7 +46,7 @@ const Icon = ({ name }) => {
     case 'case':
     case 'paper':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-211.000000, -136.000000)">
                     <g transform="translate(68.000000, 61.000000)">
@@ -60,7 +60,7 @@ const Icon = ({ name }) => {
       )
     case 'check':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-168.000000, -957.000000)">
                     <g transform="translate(60.000000, 918.000000)">
@@ -78,7 +78,7 @@ const Icon = ({ name }) => {
     case 'audio lp':
     case 'audio (spoken word)':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-233.000000, -592.000000)">
                     <g transform="translate(232.000000, 592.000000)">
@@ -104,7 +104,7 @@ const Icon = ({ name }) => {
     case 'archive':
     case 'mixed material':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-234.000000, -1219.000000)">
                     <g transform="translate(234.000000, 1219.000000)">
@@ -116,7 +116,7 @@ const Icon = ({ name }) => {
       )
     case 'visual material':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 22 15" version="1.1" className="icon">
+        <svg viewBox="0 0 22 15" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-230.000000, -1031.000000)">
                     <path d="M240.99999,1035.5 C239.34299,1035.5 238,1036.84297 238,1038.49997 C238,1040.15697 239.34299,1041.49997 240.99999,1041.49997 C242.65699,1041.49997 243.99999,1040.15697 243.99999,1038.49997 C243.99999,1036.84297 242.65699,1035.5 240.99999,1035.5 L240.99999,1035.5 Z M240.99999,1043.49997 C238.239,1043.49997 236,1041.26097 236,1038.49997 C236,1035.73901 238.239,1033.5 240.99999,1033.5 C243.76099,1033.5 245.99999,1035.73901 245.99999,1038.49997 C245.99999,1041.26097 243.76099,1043.49997 240.99999,1043.49997 L240.99999,1043.49997 Z M240.99999,1031 C235.998,1031 231.728,1034.11102 230,1038.49997 C231.728,1042.88897 235.998,1045.99997 240.99999,1045.99997 C246.00299,1045.99997 250.27199,1042.88897 251.99999,1038.49997 C250.27199,1034.11102 246.00299,1031 240.99999,1031 L240.99999,1031 Z"></path>
@@ -127,7 +127,7 @@ const Icon = ({ name }) => {
     case 'database':
     case 'data file':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 16 18" version="1.1" className="icon">
+        <svg viewBox="0 0 16 18" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-557.000000, -635.000000)">
                     <g transform="translate(519.000000, 562.000000)">
@@ -141,7 +141,7 @@ const Icon = ({ name }) => {
       )
     case 'multi-result':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 16 16" version="1.1" className="icon">
+        <svg viewBox="0 0 16 16" version="1.1" className="icon">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g id="Silo-Navigation-Catalog" transform="translate(-372.000000, -16.000000)">
               <g id="Silo-Navigation" transform="translate(372.000000, 12.000000)">
@@ -153,7 +153,7 @@ const Icon = ({ name }) => {
       )
     case 'search':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 16 16" version="1.1" className="icon">
+        <svg viewBox="0 0 16 16" version="1.1" className="icon">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g id="Search-Field" transform="translate(-950.000000, -28.000000)">
               <g id="Search-Button" transform="translate(934.000000, 16.000000)">
@@ -167,7 +167,7 @@ const Icon = ({ name }) => {
       )
     case 'timetable':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-658.000000, -480.000000)">
                     <g transform="translate(519.000000, 289.000000)">
@@ -181,7 +181,7 @@ const Icon = ({ name }) => {
       )
     case 'wand':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 40 40" version="1.1">
+        <svg viewBox="0 0 40 40" version="1.1">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-700.000000, -224.000000)" fillRule="nonzero">
                     <path d="M712.38424,230.856327 L707.622902,233.522676 L710.289251,228.761338 L707.622902,224 L712.38424,226.666349 L717.145578,224 L714.479229,228.761338 L717.145578,233.522676 L712.38424,230.856327 L712.38424,230.856327 Z M735.238662,249.520771 L740,246.854422 L737.333651,251.61576 L740,256.377098 L735.238662,253.710749 L730.477324,256.377098 L733.143673,251.61576 L730.477324,246.854422 L735.238662,249.520771 L735.238662,249.520771 Z M740,224 L737.333651,228.761338 L740,233.522676 L735.238662,230.856327 L730.477324,233.522676 L733.143673,228.761338 L730.477324,224 L735.238662,226.666349 L740,224 L740,224 Z M723.506725,244.530889 L728.153791,239.883823 L724.116177,235.846209 L719.469111,240.493275 L723.506725,244.530889 L723.506725,244.530889 Z M725.468397,234.074991 L729.925009,238.531603 C730.667778,239.236281 730.667778,240.474229 729.925009,241.216998 L707.699083,263.442923 C706.956315,264.185692 705.718367,264.185692 705.013689,263.442923 L700.557077,258.986311 C699.814308,258.281633 699.814308,257.043685 700.557077,256.300917 L722.783002,234.074991 C723.525771,233.332222 724.763719,233.332222 725.468397,234.074991 Z" id="Shape" transform="translate(720.000000, 244.000000) rotate(-90.000000) translate(-720.000000, -244.000000) "></path>
@@ -192,7 +192,7 @@ const Icon = ({ name }) => {
     case 'ebook':
     case 'book':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 16 20" version="1.1" className="icon">
+        <svg viewBox="0 0 16 20" version="1.1" className="icon">
             <g id="Reference:-Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g id="Icons" transform="translate(-279.000000, -61.000000)">
                     <g id="Format" transform="translate(68.000000, 61.000000)">
@@ -206,7 +206,7 @@ const Icon = ({ name }) => {
       )
     case 'file':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 32 40" version="1.1" className="icon">
+        <svg viewBox="0 0 32 40" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-670.000000, -224.000000)">
                     <g id="file-document-copy" transform="translate(670.000000, 224.000000)">
@@ -220,7 +220,7 @@ const Icon = ({ name }) => {
     case 'microform':
     case 'motion picture (16mm)':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 16 19" version="1.1" className="icon">
+        <svg viewBox="0 0 16 19" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-236.000000, -1142.000000)">
                     <g transform="translate(235.000000, 1142.000000)">
@@ -233,7 +233,7 @@ const Icon = ({ name }) => {
     case 'music':
     case 'musical score':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 16 20" version="1.1" className="icon">
+        <svg viewBox="0 0 16 20" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-236.000000, -1104.000000)">
                     <g transform="translate(236.000000, 1104.000000)">
@@ -245,7 +245,7 @@ const Icon = ({ name }) => {
       )
     case 'manuscript':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-232.000000, -1067.000000)">
                     <g transform="translate(232.000000, 1067.000000)">
@@ -257,7 +257,7 @@ const Icon = ({ name }) => {
       )
     case 'cdrom':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-230.000000, -652.000000)">
                     <g id="checkbox-blank-circle-copy" transform="translate(230.000000, 652.000000)">
@@ -271,7 +271,7 @@ const Icon = ({ name }) => {
     case 'map':
     case 'maps-atlas':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-234.000000, -1183.000000)">
                     <g transform="translate(233.000000, 1182.000000)">
@@ -284,7 +284,7 @@ const Icon = ({ name }) => {
     case 'image':
     case 'photographs & pictorial works':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 40 40" version="1.1" className="icon">
+        <svg viewBox="0 0 40 40" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-806.000000, -224.000000)">
                     <g transform="translate(806.000000, 224.000000)">
@@ -298,7 +298,7 @@ const Icon = ({ name }) => {
     case 'online journal':
     case 'journal':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 18 20" version="1.1" className="icon">
+        <svg viewBox="0 0 18 20" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-135.000000, -61.000000)">
                     <g transform="translate(68.000000, 61.000000)">
@@ -315,7 +315,7 @@ const Icon = ({ name }) => {
     case 'website':
     case 'library website':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-696.000000, -711.000000)">
                     <g transform="translate(519.000000, 562.000000)">
@@ -329,7 +329,7 @@ const Icon = ({ name }) => {
       )
     case 'chevron-down':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 12 8" version="1.1" className="icon">
+        <svg viewBox="0 0 12 8" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-353.000000, -585.000000)">
                     <g transform="translate(60.000000, 477.000000)">
@@ -343,7 +343,7 @@ const Icon = ({ name }) => {
       )
     case 'minus':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 14 2" version="1.1" className="icon">
+        <svg viewBox="0 0 14 2" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-823.000000, -212.000000)">
                     <g transform="translate(822.000000, 60.000000)">
@@ -357,7 +357,7 @@ const Icon = ({ name }) => {
       )
     case 'close':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 14 14" version="1.1" className="icon">
+        <svg viewBox="0 0 14 14" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-274.000000, -993.000000)">
                     <g transform="translate(60.000000, 918.000000)">
@@ -375,7 +375,7 @@ const Icon = ({ name }) => {
     case 'vhs':
     case 'video recording':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-231.000000, -692.000000)">
                     <g transform="translate(231.000000, 692.000000)">
@@ -387,7 +387,7 @@ const Icon = ({ name }) => {
       )
     case 'checkbox-checked':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-240.000000, -957.000000)">
                     <g transform="translate(60.000000, 918.000000)">
@@ -401,7 +401,7 @@ const Icon = ({ name }) => {
       )
     case 'checkbox-unchecked':
       return (
-        <svg width="1rem" height="1rem" viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon">
             <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g transform="translate(-61.000000, -957.000000)">
                     <g transform="translate(60.000000, 918.000000)">

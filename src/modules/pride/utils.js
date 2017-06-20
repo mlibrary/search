@@ -205,7 +205,7 @@ const stringifySearchQueryForURL = ({
 }
 
 const isDatastoreAdvanced = (datastoreUid) => {
-  return config.advanced.includes(datastoreUid)
+  return _.contains(config.advanced, datastoreUid)
 }
 
 const parseField = ({
