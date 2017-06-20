@@ -69,7 +69,7 @@ class SearchBox extends React.Component {
 
     return (
       <div className="search-box-container-full">
-        <div className="container search-box-container" role="search">
+        <div className="search-box-container" role="search">
           <form className="search-box-form" onSubmit={this.handleSubmit}>
             <div className="search-box">
               <label htmlFor="search-query" className="offpage">Search query</label>
@@ -82,11 +82,11 @@ class SearchBox extends React.Component {
                 onChange={event => this.handleChange(event.target.value)}
               />
             {isAdvanced && (
-              <Link to={`${match.url}/advanced${location.search}`} className="search-box-advanced-link"><Icon name="chevron-down" /></Link>
+              <Link to={`${match.url}/advanced${location.search}`} className="search-box-advanced-link"><Icon name="chevron-down" /><span className="offpage">Advanced Search Options</span></Link>
             )}
             </div>
 
-            <button className="button search-box-button" type="submit"><Icon name="search"/>Search</button>
+            <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
           </form>
 
           <Route path={`${match.url}/advanced`} exact render={() => (

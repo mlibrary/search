@@ -6,6 +6,7 @@
 .search-box-container {
   position: relative;
   max-width: 46rem;
+  margin: 0 auto;
 }
 
 .search-box-form {
@@ -27,7 +28,8 @@
 
 input.search-box-input {
   border: 1px solid rgba($main-3, 0.4);
-
+  height: 100%;
+  background: transparent;
   /*
     Undo input style
   */
@@ -54,7 +56,16 @@ input.search-box-input {
   display: flex;
   align-items: center;
 
-  .icon {
-    margin-right: 0.5rem;
+  @media (min-width: $breakpoint-1) {
+    .icon {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.search-box-button-text {
+  @media (max-width: $breakpoint-1) {
+    position: absolute;
+    left: -999em;
   }
 }
