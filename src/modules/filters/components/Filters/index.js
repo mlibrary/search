@@ -283,8 +283,10 @@ const FilterItem = ({
         className="filter-button"
         onClick={handleFilterItemClick}
       >
-        <span className="filter-value">{filter.name}</span>
-        <span className="filter-count">{numeral(filter.count).format(0,0)}</span>
+        <span className="flex-space-between flex-center">
+          <span className="filter-value">{filter.name}</span>
+          <span className="filter-count">{numeral(filter.count).format(0,0)}</span>
+        </span>
       </button>
     </li>
   )
@@ -312,10 +314,12 @@ const ActiveFilters = ({
                     filterItemValue: activeFilter.value,
                   })
                 }>
-                <span className="active-filter-button-text">
-                  {activeFilter.name}: {activeFilter.value}
+                <span className="flex-space-between flex-center">
+                  <span className="active-filter-button-text">
+                    {activeFilter.name}: {activeFilter.value}
+                  </span>
+                  <Icon name="close" /><span className="offpage">Remove</span>
                 </span>
-                <Icon name="close" />
               </button>
             </li>
           ))}

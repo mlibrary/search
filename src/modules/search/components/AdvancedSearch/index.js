@@ -178,7 +178,11 @@ class AdvancedSearch extends React.Component {
             <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
           </div>
           <div className="container container-narrow advanced-search-button-container">
-            <button type="submit" className="button advanced-search-button"><Icon name="search"/>Search</button>
+            <button type="submit" className="button advanced-search-button">
+              <span className="flex-center">
+                <Icon name="search"/>Search
+              </span>
+            </button>
           </div>
         </div>
       </form>
