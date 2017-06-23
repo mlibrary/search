@@ -199,7 +199,8 @@ const FieldInput = ({
   handleOnBooleanSwitchChange,
   handleOnFieldChange
 }) => (
-  <div>
+  <fieldset>
+    <legend className="offpage">Search field {index + 1}</legend>
     {index === 0 ? null : (
       <Switch
         options={['AND', 'OR', 'NOT']}
@@ -230,7 +231,7 @@ const FieldInput = ({
         </button>
       ) : null}
     </div>
-  </div>
+  </fieldset>
 )
 
 const Dropdown = ({

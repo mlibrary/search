@@ -413,6 +413,8 @@ const Icon = ({ name }) => {
             </g>
         </svg>
       )
+    case 'unknown':
+      return (<span className="icon" style={{ 'fontWeight': 'bold' }}>¯\_(ツ)_/¯</span>)
     default:
       return null
   }
