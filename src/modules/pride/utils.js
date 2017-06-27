@@ -159,7 +159,7 @@ const getStateFromURL = ({ location }) => {
 const datastoreRecordsHaveHoldings = (datastore) => {
   const fieldsConfig = _.findWhere(config.fields, { datastore: datastore })
 
-  if (fieldsConfig.holdings) {
+  if (fieldsConfig && fieldsConfig.holdings) {
     return true
   }
 

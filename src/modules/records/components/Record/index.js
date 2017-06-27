@@ -23,10 +23,9 @@ import {
 
 class Record extends React.Component {
   render() {
-    const { record, datastoreUid, type } = this.props
+    const { record, datastoreUid, type, searchQuery } = this.props
     const titles = record.names ? [].concat(record.names) : [].concat('no title');
 
-    // TODO
     const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
     const recordUidField = getField(record.fields, 'id');
     const displayFields = filterDisplayFields({
@@ -55,7 +54,7 @@ class Record extends React.Component {
                 <TrimLink
                   string={title}
                   linkClassName={"record-title-link"}
-                  to={`/${datastoreSlug}/record/${recordUid}`} />
+                  to={`/${datastoreSlug}/record/${recordUid}${searchQuery}`} />
               </div>
             ))}
             </h3>

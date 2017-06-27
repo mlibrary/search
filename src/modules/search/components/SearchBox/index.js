@@ -62,7 +62,7 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    const { match, activeDatastoreUid, location } = this.props
+    const { activeDatastoreUid, location } = this.props
     const { query } = this.state
 
     const isAdvanced = isDatastoreAdvanced(activeDatastoreUid)
@@ -81,15 +81,15 @@ class SearchBox extends React.Component {
                 autoComplete="off"
                 onChange={event => this.handleChange(event.target.value)}
               />
-            {isAdvanced && (
-              <Link to={`${match.url}/advanced${location.search}`} className="search-box-advanced-link"><Icon name="chevron-down" /><span className="offpage">Advanced Search Options</span></Link>
-            )}
+              {isAdvanced && (
+                <Link to={`${location.pathname}/advanced${location.search}`} className="search-box-advanced-link"><Icon name="chevron-down" /><span className="offpage">Advanced Search Options</span></Link>
+              )}
             </div>
 
             <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
           </form>
 
-          <Route path={`${match.url}/advanced`} exact render={() => (
+          <Route path={`/:datastoreSlug/record/:recordUid/advanced`} location={location} render={() => (
             <AdvancedSearch
               handleBasicSearchQueryChange={this.handleChange}
               searchQueryFromURL={location.search}
@@ -106,7 +106,8 @@ function mapStateToProps(state) {
     isSearching: state.search.searching,
     query: state.search.query,
     activeFilters: state.filters.active[state.datastores.active],
-    activeDatastoreUid: state.datastores.active
+    activeDatastoreUid: state.datastores.active,
+    location: state.router.location,
   };
 }
 

@@ -199,7 +199,7 @@ const FieldInput = ({
   handleOnBooleanSwitchChange,
   handleOnFieldChange
 }) => (
-  <fieldset>
+  <fieldset style={{ margin: 0 }}>
     <legend className="offpage">Search field {index + 1}</legend>
     {index === 0 ? null : (
       <Switch

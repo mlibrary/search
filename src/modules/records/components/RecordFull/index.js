@@ -25,23 +25,22 @@ import {
 } from '../AccessList'
 
 import {
-  getDatastoreUidBySlug,
   requestRecord
 } from '../../../pride';
 
 
 class FullRecord extends React.Component {
   componentWillMount() {
-    const { recordUid, datastoreSlug } = this.props.match.params
-    const datastoreUid = getDatastoreUidBySlug(datastoreSlug)
+    const { recordUid } = this.props.match.params
+    const { datastoreUid } = this.props
 
     requestRecord({ recordUid, datastoreUid })
   }
 
   render() {
     const { record } = this.props;
-    const { recordUid, datastoreSlug } = this.props.match.params
-    const datastoreUid = getDatastoreUidBySlug(datastoreSlug)
+    const { recordUid } = this.props.match.params
+    const { datastoreUid } = this.props
 
     if (!record) {
       return <SkeletonFullRecord />

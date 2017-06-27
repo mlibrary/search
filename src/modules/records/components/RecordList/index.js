@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
-
+import { withRouter } from 'react-router-dom'
 import Record from '../Record';
 import RecordPlaceholder from '../RecordPlaceholder';
 
@@ -11,7 +11,13 @@ import {
 
 class RecordListContainer extends React.Component {
   render() {
-    const { activeRecords, datastoreUid, loadingRecords, search } = this.props;
+    const {
+      activeRecords,
+      datastoreUid,
+      loadingRecords,
+      search,
+      searchQuery
+    } = this.props;
 
     if (search.data[datastoreUid] && search.data[datastoreUid].totalAvailable === 0) {
       return (
@@ -65,6 +71,7 @@ class RecordListContainer extends React.Component {
               datastoreUid={datastoreUid}
               key={index}
               type='medium'
+              searchQuery={searchQuery}
             />,
           )}
         </ul>
@@ -79,7 +86,8 @@ function mapStateToProps(state) {
     loadingRecords: state.records.loading[state.datastores.active],
     datastoreUid: state.datastores.active,
     search: state.search,
+    searchQuery: state.router.location.search
   };
 }
 
-export default connect(mapStateToProps)(RecordListContainer);
+export default withRouter(connect(mapStateToProps)(RecordListContainer));

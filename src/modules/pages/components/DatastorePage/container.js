@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { _ } from 'underscore'
+import {
+  Route,
+  Switch
+} from 'react-router-dom'
 
 import {
   SearchBox
@@ -16,13 +20,14 @@ import {
   RecordList,
   Pagination,
   BentoboxList,
+  RecordFull
 } from '../../../records'
 import {
   switchPrideToDatastore
 } from '../../../pride'
-import {
-  Main
-} from '../../../core'
+
+
+const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class DatastorePageContainer extends React.Component {
   componentWillMount() {
@@ -32,67 +37,80 @@ class DatastorePageContainer extends React.Component {
   }
 
   render() {
-    const { searching, datastores } = this.props;
+    const { searching, datastores, match } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     if (activeDatastore === undefined) {
       return null // LOADING TODO: Fade IN?
     }
 
-    if (activeDatastore.isMultisearch && searching) {
-      return <MultisearchSearching activeDatastore={activeDatastore}/>
-    }
-
-    if (searching) {
-      return <SingleResultSearching activeDatastore={activeDatastore}/>
-    }
-
-    return <NotSearching activeDatastore={activeDatastore}/>
+    return (
+      <div>
+        <SearchBox />
+        <DatastoreNavigation />
+        <ConnectedSwitch>
+          <Route path={match.url + `/record/:recordUid`} render={(props) => {
+            return (
+              <RecordFull />
+            )
+          }}/>
+          <Route match={match.url} render={(props) => {
+            return (
+              <div>
+                <DatastoreInfo activeDatastore={activeDatastore} />
+                <Results searching={searching} activeDatastore={activeDatastore} />
+              </div>
+            )
+          }}/>
+        </ConnectedSwitch>
+      </div>
+    )
   }
 }
 
-const MultisearchSearching = ({ activeDatastore }) => (
-  <Main>
-    <SearchBox />
-    <DatastoreNavigation />
-    <DatastoreInfo activeDatastore={activeDatastore} />
-    <div className="container container-large flex-container">
-      <div className="main-container">
-        <BentoboxList />
-      </div>
+const Results = ({ searching, activeDatastore }) => {
+  if (activeDatastore.isMultisearch && searching) {
+    return <MultisearchSearching activeDatastore={activeDatastore}/>
+  }
+
+  if (searching) {
+    return <SingleResultSearching activeDatastore={activeDatastore}/>
+  }
+
+  return <NotSearching activeDatastore={activeDatastore}/>
+}
+
+const MultisearchSearching = () => (
+  <div className="container container-large flex-container">
+    <div className="main-container">
+      <BentoboxList />
     </div>
-  </Main>
+  </div>
 )
 
-const SingleResultSearching = ({ activeDatastore }) => (
-  <Main>
-    <SearchBox />
-    <DatastoreNavigation />
-    <DatastoreInfo activeDatastore={activeDatastore} />
-    <div className="container container-medium flex-container">
-      <div className="side-container">
-        <Filters />
-      </div>
-      <div className="main-container">
-        <RecordList />
-        <Pagination />
-      </div>
+const SingleResultSearching = (activeDatastore) => (
+  <div className="container container-medium flex-container">
+    <div className="side-container">
+      <Filters />
     </div>
-  </Main>
+    <div className="main-container">
+      <RecordList />
+      <Pagination />
+    </div>
+  </div>
 )
 
-const NotSearching = ({ activeDatastore }) => (
-  <Main>
-    <SearchBox />
-    <DatastoreNavigation />
-    <DatastoreInfo activeDatastore={activeDatastore} />
-  </Main>
-)
+const NotSearching = ({ activeDatastore }) => {
+  // TODO: empty state/not searching page content
+
+  return null
+}
 
 function mapStateToProps(state) {
   return {
     searching: state.search.searching,
     datastores: state.datastores,
+    location: state.router.location
   };
 }
 

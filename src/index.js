@@ -22,10 +22,12 @@ import {
 import {
   NoMatch,
   DatastorePage,
-  RecordPage,
 } from './modules/pages'
 import store from './store'
 import history from './history'
+import {
+  Main
+} from './modules/core'
 
 /*
  * Connected Switch: Quirk/Bugfix
@@ -45,42 +47,29 @@ const ConnectedSwitch = connect(mapStateToProps)(Switch);
 const App = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <ConnectedSwitch>
-        <Route path="/" exact render={() => (
-          <Redirect to={`/everything`} />
-        )}/>
-        <Route path={`/:datastoreSlug/record/:recordUid`} render={(props) => {
-          const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-          const urlState = getStateFromURL({
-            location: props.location
-          })
-          return (
-            isDatastore && urlState ? (
-              <URLSearchQueryWrapper>
-                <RecordPage {...props} />
-              </URLSearchQueryWrapper>
-            ) : (
-              <NoMatch />
+      <Main>
+        <ConnectedSwitch>
+          <Route path="/" exact render={() => (
+            <Redirect to={`/everything`} />
+          )}/>
+          <Route path={`/:datastoreSlug`} render={(props) => {
+            const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+            const urlState = getStateFromURL({
+              location: props.location
+            })
+            return (
+              isDatastore && urlState ? (
+                <URLSearchQueryWrapper>
+                  <DatastorePage {...props} />
+                </URLSearchQueryWrapper>
+              ) : (
+                <NoMatch />
+              )
             )
-          )
-        }}/>
-        <Route path={`/:datastoreSlug`} render={(props) => {
-          const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-          const urlState = getStateFromURL({
-            location: props.location
-          })
-          return (
-            isDatastore && urlState ? (
-              <URLSearchQueryWrapper>
-                <DatastorePage {...props} />
-              </URLSearchQueryWrapper>
-            ) : (
-              <NoMatch />
-            )
-          )
-        }}/>
-        <Route component={NoMatch} />
-      </ConnectedSwitch>
+          }}/>
+          <Route component={NoMatch} />
+        </ConnectedSwitch>
+      </Main>
     </ConnectedRouter>
   </Provider>
 )
