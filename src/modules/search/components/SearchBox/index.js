@@ -5,7 +5,8 @@ import qs from 'qs'
 import {
   withRouter,
   Route,
-  Link
+  Link,
+  Switch
 } from 'react-router-dom'
 
 import {
@@ -89,12 +90,20 @@ class SearchBox extends React.Component {
             <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
           </form>
 
-          <Route path={`/:datastoreSlug/record/:recordUid/advanced`} location={location} render={() => (
-            <AdvancedSearch
-              handleBasicSearchQueryChange={this.handleChange}
-              searchQueryFromURL={location.search}
-            />
-          )}/>
+          <Switch>
+            <Route path={`/:datastoreSlug/record/:recordUid/advanced`} location={location} render={() => (
+              <AdvancedSearch
+                handleBasicSearchQueryChange={this.handleChange}
+                searchQueryFromURL={location.search}
+              />
+            )}/>
+            <Route path={`/:datastoreSlug/advanced`} location={location} render={() => (
+              <AdvancedSearch
+                handleBasicSearchQueryChange={this.handleChange}
+                searchQueryFromURL={location.search}
+              />
+            )}/>
+          </Switch>
         </div>
       </div>
     )

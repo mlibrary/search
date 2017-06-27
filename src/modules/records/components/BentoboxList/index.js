@@ -30,6 +30,7 @@ class BentoboxList extends React.Component {
               <BentoResults
                 search={search}
                 bentobox={bentobox}
+                searchQuery={searchQuery}
               />
             </li>
           )
@@ -66,7 +67,7 @@ const BentoboxResultsNum = ({ totalResults }) => {
   return <span className="underline">{resultsNum} {resultsText}</span>
 }
 
-const BentoResults = ({ search, bentobox }) => {
+const BentoResults = ({ search, bentobox, searchQuery }) => {
 
   // No results
   if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
@@ -103,13 +104,12 @@ const BentoResults = ({ search, bentobox }) => {
             record={record}
             loading={record.loadingHoldings}
             type='preview'
+            searchQuery={searchQuery}
           />
         )
       })}
     </ul>
   )
-
-  return null
 }
 
 function mapStateToProps(state) {
