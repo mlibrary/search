@@ -4,6 +4,9 @@ import {
 } from 'react-router-dom'
 
 import {
+  getFormatIconName
+} from '../../../pride'
+import {
   Icon,
   TrimString,
   ShowAllList
@@ -25,7 +28,9 @@ class RecordField extends React.Component {
             <dt className="record-field-name">{field.name}</dt>
             <dd className="record-field-value">
               {field.value.map((fieldString, index) => (
-                <span className="record-field-value-item" key={index}><Icon name={fieldString.toLowerCase()} />{fieldString}</span>
+                <span className="record-field-value-item" key={index}>
+                  <FormatIcon format={fieldString} />{fieldString}
+                </span>
               ))}
             </dd>
           </div>
@@ -35,7 +40,9 @@ class RecordField extends React.Component {
           <div className={uniqueFieldClassName}>
             <dt className="record-field-name">{field.name}</dt>
             <dd className="record-field-value">
-              <span className="record-field-value-item"><Icon name={field.value.toLowerCase()} />{field.value}</span>
+              <span className="record-field-value-item">
+                <FormatIcon format={field.value} />{field.value}
+              </span>
             </dd>
           </div>
         )
@@ -71,6 +78,18 @@ class RecordField extends React.Component {
       </div>
     )
   }
+}
+
+const FormatIcon = ({ format }) => {
+  const iconName = getFormatIconName({ format })
+
+  if (iconName === undefined) {
+    return null
+  }
+
+  return (
+    <Icon name={iconName} />
+  )
 }
 
 export default withRouter(RecordField);

@@ -219,6 +219,20 @@ const parseField = ({
   return Pride.FieldTree.parseField(defaultFieldName, stringToParse)
 }
 
+const getFormatIconName = ({ format }) => {
+  const icons = config.formatIcons
+
+  const found = icons.filter(f => {
+    return f.formats.includes(format)
+  })
+
+  if (found.length === 0) {
+    return undefined
+  }
+
+  return found[0].icon
+}
+
 export {
   isSlugADatastore,
   getMultiSearchRecords,
@@ -232,5 +246,6 @@ export {
   isValidURLSearchQuery,
   stringifySearchQueryForURL,
   isDatastoreAdvanced,
-  parseField
+  parseField,
+  getFormatIconName
 }

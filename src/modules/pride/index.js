@@ -14,7 +14,8 @@ import {
   isValidURLSearchQuery,
   stringifySearchQueryForURL,
   isDatastoreAdvanced,
-  parseField
+  parseField,
+  getFormatIconName
 } from './utils'
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper'
 
@@ -33,5 +34,6 @@ export {
   isValidURLSearchQuery,
   stringifySearchQueryForURL,
   isDatastoreAdvanced,
-  parseField
+  parseField,
+  getFormatIconName
 }

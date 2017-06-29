@@ -489,6 +489,99 @@ const config = {
       ]
     }
   ],
+  formatIcons: [
+    // Core
+    {
+      formats: ['Journal', 'Serial'],
+      icon: 'book-multiple-variant'
+    },
+    {
+      formats: ['Journal Article'],
+      icon: 'file-document-box'
+    },
+    {
+      formats: ['Book', 'Conference', 'Dictionaries', 'Directories', 'Encyclopedias', 'Biography'],
+      icon: 'book-variant'
+    },
+    {
+      formats: ['Newspaper'],
+      icon: 'newspaper'
+    },
+
+    // Media
+    {
+      formats: ['Audio', 'Audio (music)', 'Audio CD', 'Audio LP', 'Audio (spoken word)'],
+      icon: 'volume'
+    },
+    {
+      formats: ['CDROM'],
+      icon: 'disc'
+    },
+    {
+      formats: ['Video (Blu-ray)', 'Video (DVD)', 'Video (VHS)'],
+      icon: 'arrow-right-drop-circle'
+    },
+    {
+      formats: ['Motion Picture'],
+      icon: 'filmstrip'
+    },
+    {
+      formats: ['Video Games'],
+      icon: 'gamepad'
+    },
+    {
+      formats: ['Software'],
+      icon: 'xml'
+    },
+
+    // Data
+    {
+      formats: ['Database'],
+      icon: 'database'
+    },
+    {
+      formats: ['Data File'],
+      icon: 'content-save'
+    },
+    {
+      formats: ['Statistics'],
+      icon: 'chart-line'
+    },
+
+    // Special
+    {
+      formats: ['Visual Material'],
+      icon: 'eye'
+    },
+    {
+      formats: ['Manuscript'],
+      icon: 'script'
+    },
+    {
+      formats: ['Music', 'Musical Score'],
+      icon: 'music-note'
+    },
+    {
+      formats: ['Microform'],
+      icon: 'filmstrip'
+    },
+    {
+      formats: ['Map', 'Maps-Atlas'],
+      icon: 'map'
+    },
+    {
+      formats: ['Archive'],
+      icon: 'archive'
+    },
+    {
+      formats: ['Mixed Material'],
+      icon: ''
+    },
+    {
+      formats: ['Library Website'],
+      icon: 'website'
+    },
+  ]
 };
 
 export default config;

@@ -82,12 +82,18 @@ class SearchBox extends React.Component {
                 autoComplete="off"
                 onChange={event => this.handleChange(event.target.value)}
               />
-              {isAdvanced && (
-                <Link to={`${location.pathname}/advanced${location.search}`} className="search-box-advanced-link"><Icon name="chevron-down" /><span className="offpage">Advanced Search Options</span></Link>
-              )}
             </div>
 
             <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
+
+            {isAdvanced && (
+              <Link to={`${location.pathname}/advanced${location.search}`} className="search-box-advanced-link">
+                <span className="search-box-advanced-link-text">Advanced
+                  <span className="offpage">Search Options</span>
+                </span>
+                <Icon name="chevron-down" />
+              </Link>
+            )}
           </form>
 
           <Switch>
