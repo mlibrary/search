@@ -523,7 +523,7 @@ const config = {
     },
     {
       formats: ['Motion Picture'],
-      icon: 'filmstrip'
+      icon: 'motion-picture'
     },
     {
       formats: ['Video Games'],

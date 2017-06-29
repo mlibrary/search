@@ -385,6 +385,22 @@ const Icon = ({ name }) => {
           </g>
         </svg>
       )
+    case 'motion-picture':
+    return (
+      <svg viewBox="0 0 21 20" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-974.000000, -677.000000)" fill="#000000">
+            <g transform="translate(974.000000, 677.000000)">
+              <g transform="translate(0.000000, 8.000000)">
+                <path d="M16.3333333,4.5 L16.3333333,1.00003 C16.3333333,0.44803 15.8106667,2.99999999e-05 15.1666667,2.99999999e-05 L1.16666667,2.99999999e-05 C0.522655,2.99999999e-05 0,0.44803 0,1.00003 L0,11 C0,11.552 0.522655,12 1.16666667,12 L15.1666667,12 C15.8106667,12 16.3333333,11.552 16.3333333,11 L16.3333333,7.5 L21,11.5 L21,0.50003 L16.3333333,4.5 L16.3333333,4.5 Z"></path>
+              </g>
+              <circle id="Oval" cx="3.5" cy="3.5" r="3.5"></circle>
+              <circle id="Oval" cx="12.5" cy="3.5" r="3.5"></circle>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
     case 'unknown':
     return (<span className="icon" style={{ 'fontWeight': 'bold' }}>¯\_(ツ)_/¯</span>)
     default:
