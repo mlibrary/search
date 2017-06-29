@@ -575,7 +575,7 @@ const config = {
     },
     {
       formats: ['Mixed Material'],
-      icon: ''
+      icon: 'shape-plus'
     },
     {
       formats: ['Library Website'],

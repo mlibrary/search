@@ -373,6 +373,18 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'shape-plus':
+      return (
+        <svg viewBox="0 0 20 20" className="icon">
+          <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+            <g transform="translate(-393.000000, -303.000000)" fill="#000000">
+              <g transform="translate(393.000000, 303.000000)">
+                <path d="M0,-1e-05 L9,-1e-05 L9,9 L0,9 L0,-1e-05 L0,-1e-05 Z M15.5,1e-05 C17.9853,1e-05 20,2.01473 20,4.50001 C20,6.98529 17.9853,9 15.5,9 C13.0147,9 11,6.98529 11,4.50001 C11,2.01473 13.0147,1e-05 15.5,1e-05 L15.5,1e-05 Z M4.5,12 L9,20 L0,20 L4.5,12 L4.5,12 Z M17,15 L20,15 L20,17 L17,17 L17,20 L15,20 L15,17 L12,17 L12,15 L15,15 L15,12 L17,12 L17,15 L17,15 Z"></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      )
     case 'unknown':
     return (<span className="icon" style={{ 'fontWeight': 'bold' }}>¯\_(ツ)_/¯</span>)
     default:
