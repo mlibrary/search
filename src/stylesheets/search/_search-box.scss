@@ -5,7 +5,7 @@
 
 .search-box-container {
   position: relative;
-  max-width: 46rem;
+  max-width: 50rem;
   margin: 0 auto;
 }
 
@@ -40,13 +40,26 @@ input.search-box-input {
 .search-box-advanced-link {
   display: flex;
   padding: 0.5rem 1rem;
+  align-items: center;
+  margin-right: -1rem;
 
   svg {
     width: 1rem;
   }
 
   g {
-    color: $grey-3;
+    color: $main-3;
+  }
+}
+
+.search-box-advanced-link-text {
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+  color: $main-3;
+  font-weight: 600;
+
+  @media (max-width: $breakpoint-1) {
+    display: none;
   }
 }
 
