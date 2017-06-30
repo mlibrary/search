@@ -1094,6 +1094,7 @@ body {
   text-decoration: underline; }
 
 .record-field-uid-format .record-field-value-item {
+  display: inline-block;
   font-weight: 600;
   margin-right: 1rem; }
   .record-field-uid-format .record-field-value-item:after {

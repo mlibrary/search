@@ -25,7 +25,8 @@ import {
 } from '../AccessList'
 
 import {
-  requestRecord
+  requestRecord,
+  getFormatIconName
 } from '../../../pride';
 
 
@@ -125,9 +126,13 @@ const Format = ({ fields }) => {
 
   return (
     <div className="full-record-header">
-      {formatFieldValue.map((value, index) => (
-        <span className="full-record-format" key={index}><Icon name={value.toLowerCase()} />{value}</span>
-      ))}
+      {formatFieldValue.map((value, index) => {
+        const iconName = getFormatIconName({ format: value })
+
+        return (
+          <span className="full-record-format" key={index}><Icon name={iconName} />{value}</span>
+        )
+      })}
     </div>
   )
 }

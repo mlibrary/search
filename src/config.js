@@ -533,6 +533,10 @@ const config = {
       formats: ['Software'],
       icon: 'xml'
     },
+    {
+      formats: ['Photographs & Pictorial Works'],
+      icon: 'image-multiple'
+    },
 
     // Data
     {
