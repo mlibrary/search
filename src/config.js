@@ -55,12 +55,12 @@ const config = {
       datastore: 'mirlyn',
       preview: [
         'format',
-        'author',
+        'main_author',
         'publication_date'
       ],
       medium: [
         'format',
-        'author',
+        'main_author',
         'publication_date',
         //'place_of_publication',
         //'edition',
@@ -465,12 +465,26 @@ const config = {
       },
     ]
   },
-  advanced: [
-    'mirlyn',
-    'articlesplus',
-    'databases',
-    'journals'
-  ],
+  advanced: {
+    datastores: [
+      'everything',
+      'mirlyn',
+      'articlesplus',
+      'databases',
+      'journals',
+      'website',
+    ],
+    defaultFields: [
+      {
+        uid: 'all_fields',
+        name: 'All Fields'
+      },
+      {
+        uid: 'title',
+        name: 'Title'
+      }
+    ]
+  },
   holdingRewrites: [
     {
       match: {

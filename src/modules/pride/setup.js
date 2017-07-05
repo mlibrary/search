@@ -67,7 +67,6 @@ const handleSearchData = (data, datastoreUid) => {
   store.dispatch(setSearchData(payload))
 
   const records = store.getState().records.records[datastoreUid];
-
   const recordsLength = _.values(records).length
   const count = data.count // page count
   const page = data.page

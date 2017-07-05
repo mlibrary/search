@@ -14,13 +14,20 @@ import {
   Icon,
 } from '../../../core'
 import {
+  getAdvancedFields,
   stringifySearchQueryForURL,
-  //parseField,
+  parseSearchQueryStringToBooleanFields,
 } from '../../../pride'
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props)
+
+    /*
+    const booleanFields = parseSearchQueryStringToBooleanFields(props.searchQuery)
+    console.log('AdvancedSearch constructor')
+    console.log('booleanFields', booleanFields)
+    */
 
     this.state = {
       booleanTypes: ['AND', 'OR', 'NOT'],
@@ -299,18 +306,15 @@ const Switch = ({
 }
 
 function mapStateToProps(state) {
-  const fields = state.search.data[state.datastores.active].fields.reduce((memo, field) => {
-    memo.push({
-      uid: field.uid,
-      name: field.metadata.name
-    })
-
-    return memo
-  }, [])
+  const fields = getAdvancedFields({
+    datastoreUid: state.datastores.active,
+    data: state.search.data[state.datastores.active],
+  })
 
   return {
     datastores: state.datastores,
-    fields: fields
+    fields: fields,
+    searchQuery: state.search.query
   };
 }
 

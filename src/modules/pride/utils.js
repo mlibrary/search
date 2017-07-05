@@ -205,7 +205,7 @@ const stringifySearchQueryForURL = ({
 }
 
 const isDatastoreAdvanced = (datastoreUid) => {
-  return _.contains(config.advanced, datastoreUid)
+  return _.contains(config.advanced.datastores, datastoreUid)
 }
 
 const parseField = ({
@@ -233,6 +233,67 @@ const getFormatIconName = ({ format }) => {
   return found[0].icon
 }
 
+const parseSearchQueryStringToBooleanFields = (query) => {
+  /*
+  console.log('query', query)
+
+  const parsed = Pride.FieldTree.parseField('all_fields', query)
+
+  console.log('parsed', parsed.toJSON())
+
+  if (parsed.hasOwnProperty('children')) {
+    console.log('parsed', parsed.toJSON().children.forEach(child => {
+      console.log('child', child.toJSON())
+    }))
+  }
+
+  const toJSON = (obj) => {
+    if (parsed.hasOwnProperty('children')) {
+      return {
+        ...obj,
+        children: obj.toJSON().children.forEach(child => {
+          console.log('child', child.toJSON())
+        }))
+      }
+      console.log('parsed', parsed.toJSON().children.forEach(child => {
+        console.log('child', child.toJSON())
+      }))
+    }
+  }
+
+  return query
+  */
+}
+
+const getAdvancedFields = ({
+  data,
+  datastoreUid
+}) => {
+  let advancedFields = []
+  const defaultFields = config.advanced.defaultFields
+
+  if (defaultFields) {
+    advancedFields = advancedFields.concat(defaultFields)
+  }
+
+  if (data && data.fields) {
+    advancedFields = advancedFields.concat(data.fields.reduce((prev, field) => {
+      const fieldExists = _.findWhere(advancedFields, { uid: field.uid }) ? true : false
+
+      if (!fieldExists) {
+        prev = prev.concat({
+          uid: field.uid,
+          name: field.metadata.name,
+        })
+      }
+
+      return prev
+    }, []))
+  }
+
+  return advancedFields
+}
+
 export {
   isSlugADatastore,
   getMultiSearchRecords,
@@ -247,5 +308,7 @@ export {
   stringifySearchQueryForURL,
   isDatastoreAdvanced,
   parseField,
-  getFormatIconName
+  getFormatIconName,
+  parseSearchQueryStringToBooleanFields,
+  getAdvancedFields
 }
