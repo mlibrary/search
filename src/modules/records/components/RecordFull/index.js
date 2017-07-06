@@ -17,7 +17,8 @@ import {
   getField,
   getFieldValue,
   getShowAllText,
-  getFullRecordDisplayFields
+  getFullRecordDisplayFields,
+  getRecordFormats
 } from '../../utilities';
 import HoldingStatus from '../HoldingStatus'
 import {
@@ -62,7 +63,7 @@ class FullRecord extends React.Component {
 
     const holdings = getHoldings({
       holdings: record.holdings,
-      datastoreUid: datastoreUid
+      datastoreUid
     })
 
     const displayFields = getFullRecordDisplayFields({
@@ -70,10 +71,15 @@ class FullRecord extends React.Component {
       datastore: datastoreUid
     });
 
+    const formats = getRecordFormats({
+      fields: record.fields,
+      datastoreUid
+    })
+
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
-          <Format fields={record.fields} />
+          <Format formats={formats} />
           <div className="record-container">
             <h1 className="full-record-title">
               {[].concat(record.names).map((title, index) => (
@@ -121,12 +127,11 @@ const SkeletonFullRecord = () => (
   </div>
 )
 
-const Format = ({ fields }) => {
-  const formatFieldValue = getFieldValue(getField(fields, 'format'))
+const Format = ({ formats }) => {
 
   return (
     <div className="full-record-header">
-      {formatFieldValue.map((value, index) => {
+      {formats.map((value, index) => {
         const iconName = getFormatIconName({ format: value })
 
         return (

@@ -1007,6 +1007,7 @@ body {
       background: #F2F2F2; } }
 
 .full-record-header {
+  display: flex;
   background: #E6F3FF;
   padding: 1rem 2rem;
   min-height: 3.68rem;
@@ -1017,11 +1018,13 @@ body {
 
 .full-record-format {
   color: #0C5292;
-  margin-right: 1rem; }
+  margin-right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600; }
   .full-record-format .icon {
     color: inherit;
-    margin-right: 0.3rem;
-    margin-bottom: -2px; }
+    margin-right: 0.5rem; }
 
 .full-record-title {
   font-size: 1.4rem;

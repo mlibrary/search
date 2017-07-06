@@ -112,6 +112,7 @@
 }
 
 .full-record-header {
+  display: flex;
   background: $main-5;
   padding: 1rem 2rem;
   min-height: 3.68rem;
@@ -126,12 +127,13 @@
 .full-record-format {
   color: $main-2;
   margin-right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
 
   .icon {
     color: inherit;
-    margin-right: 0.3rem;
-
-    margin-bottom: -2px;
+    margin-right: 0.5rem;
   }
 }
 

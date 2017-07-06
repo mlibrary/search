@@ -16,18 +16,11 @@ import {
 import {
   getAdvancedFields,
   stringifySearchQueryForURL,
-  parseSearchQueryStringToBooleanFields,
 } from '../../../pride'
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props)
-
-    /*
-    const booleanFields = parseSearchQueryStringToBooleanFields(props.searchQuery)
-    console.log('AdvancedSearch constructor')
-    console.log('booleanFields', booleanFields)
-    */
 
     this.state = {
       booleanTypes: ['AND', 'OR', 'NOT'],

@@ -416,7 +416,7 @@ const Icon = ({ name }) => {
       </svg>
     )
     case 'unknown':
-    return (<span className="icon" style={{ 'fontWeight': 'bold' }}>¯\_(ツ)_/¯</span>)
+    return (<span className="icon" style={{ 'fontWeight': 'bold' }}>🤷</span>)
     default:
     return null
   }

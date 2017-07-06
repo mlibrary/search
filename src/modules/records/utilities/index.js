@@ -300,6 +300,26 @@ const getShowAllText = ({ holdingUid, datastoreUid }) => {
   return undefined
 }
 
+const getRecordFormats = ({ fields, datastoreUid }) => {
+  const format = getField(fields, 'format')
+
+  if (format) {
+    return getFieldValue(format)
+  } else {
+    const fieldsConfig = _.findWhere(config.fields, { datastore: datastoreUid })
+
+    if (fieldsConfig.defaultFields) {
+      const defaultFormat = getField(fieldsConfig.defaultFields, 'format')
+
+      if (defaultFormat) {
+        return getFieldValue(defaultFormat)
+      }
+    }
+  }
+
+  return []
+}
+
 export {
   getField,
   getFieldValue,
@@ -309,5 +329,6 @@ export {
   isFullRecordType,
   getHoldings,
   getShowAllText,
-  getFullRecordDisplayFields
+  getFullRecordDisplayFields,
+  getRecordFormats
 }

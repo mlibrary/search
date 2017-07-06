@@ -599,6 +599,10 @@ const config = {
       formats: ['Library Website'],
       icon: 'website'
     },
+    {
+      formats: ['Unknown'],
+      icon: 'unknown'
+    },
   ]
 };
 
