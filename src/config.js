@@ -350,7 +350,6 @@ const config = {
       ],
       full: {
         standard: [
-          'format',
           'brief_description',
         ],
       },
