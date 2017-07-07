@@ -73,7 +73,7 @@ class RecordField extends React.Component {
       <div className={uniqueFieldClassName}>
         <dt className="record-field-name">{field.name}</dt>
         <dd className="record-field-value">
-          <TrimString string={field.value} />
+          <TrimString string={field.value.toString()} />
         </dd>
       </div>
     )
