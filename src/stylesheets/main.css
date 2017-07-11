@@ -1272,6 +1272,10 @@ body {
 .full-holding-item-detail dt, .full-holding-item-detail dd {
   line-height: 1.5; }
 
+@media (min-width: 47rem) {
+  .full-holding-item-detail .button {
+    white-space: nowrap; } }
+
 .full-holdings-group-container {
   margin-top: 2rem; }
 
@@ -1609,13 +1613,14 @@ body {
 .trim-string-text {
   margin-right: 0.5rem; }
 
-.zigzag-end {
-  background-image: url("/static/css/zigzag.svg");
-  height: 1rem;
-  width: 100%;
-  background-repeat: repeat-x;
-  margin-top: -20px;
-  margin-bottom: 0.75rem; }
+@media (min-width: 47rem) {
+  .zigzag-end {
+    background-image: url("/static/css/zigzag.svg");
+    height: 1rem;
+    width: 100%;
+    background-repeat: repeat-x;
+    margin-top: -20px;
+    margin-bottom: 0.75rem; } }
 
 .u-break-word {
   word-wrap: break-word; }

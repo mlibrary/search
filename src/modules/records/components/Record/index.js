@@ -118,6 +118,7 @@ const Holdings = ({ holdings, datastoreUid }) => {
                      <a href={holding.link} className="underline access-detail">{holding.linkText}</a>
                     <HoldingStatus status={holding.status} />
                     <span className="access-detail holding-detail-location">{holding.location}</span>
+                    <span className="access-detail">{holding.description}</span>
                     <span className="access-detail">{holding.callnumber}</span>
                     <span className="access-detail">{holding.source}</span>
                   </li>

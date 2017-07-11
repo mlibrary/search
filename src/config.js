@@ -130,6 +130,7 @@ const config = {
           defaultAccessText: 'Available online',
           heading: 'Online resources',
           label: 'Online',
+          description: 'text',
           showAllName: 'online resources'
         },
         {
@@ -144,7 +145,7 @@ const config = {
         },
         {
           uid: 'circulating',
-          link: 'get_this_url',
+          link: 'url',
           status: 'status',
           location: 'location',
           callnumber: 'callnumber',

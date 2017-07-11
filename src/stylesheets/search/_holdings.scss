@@ -99,6 +99,12 @@
   dt, dd {
     line-height: 1.5;
   }
+
+  @media (min-width: $breakpoint-2) {
+    .button {
+      white-space: nowrap;
+    }
+  }
 }
 
 .full-holdings-group-container {
