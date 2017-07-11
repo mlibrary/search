@@ -266,8 +266,7 @@ const config = {
       ],
       full: {
         standard: [
-          'full_description',
-          'brief_description',
+          'description',
           'database_type',
           'access_icon',
           'new',
@@ -277,8 +276,8 @@ const config = {
           'type',
           'coverage',
           'mobile_available',
-          'subject',
           'mobile_url',
+          'subject',
           'help',
           'platform'
         ],
