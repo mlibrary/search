@@ -18,7 +18,7 @@ import {
 
 class RecordField extends React.Component {
   render() {
-    const { field, match, datastoreUid } = this.props
+    const { field, datastoreUid } = this.props
     const uniqueFieldClassName = 'record-field record-field-uid-' + field.uid
 
     if (field.uid === 'format') {

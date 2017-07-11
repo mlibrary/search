@@ -5,7 +5,6 @@ import {
   Link,
   withRouter,
 } from 'react-router-dom';
-import { bindActionCreators } from 'redux'
 
 import {
   Icon,
