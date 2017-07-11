@@ -123,6 +123,12 @@ const config = {
           'table_of_contents'
         ]
       },
+      searches: [
+        {
+          uid: 'main_author',
+          fielded: 'author'
+        }
+      ],
       holdings: [
         {
           uid: 'online',

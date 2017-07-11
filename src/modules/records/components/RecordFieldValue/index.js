@@ -3,31 +3,27 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import {
-  stringifySearchQueryForURL
+  stringifySearchQueryForURL,
+  getDatastoreSlugByUid
 } from '../../../pride'
 
 class RecordFieldValue extends React.Component {
   render() {
-    const { field, value, match, datastoreUid } = this.props
+    const { field, value, datastoreUid } = this.props
 
-    if (datastoreUid === 'mirlyn' && field.uid === 'author') {
+    if (datastoreUid === 'mirlyn' && field.uid === 'main_author') {
+      const datastoreSlug = getDatastoreSlugByUid(datastoreUid)
       const queryString = stringifySearchQueryForURL({
-        filter: { 'author': value }
+        query: `author:${value}`
       })
 
-      let url = ''
-
       if (queryString.length > 0) {
-        url = `${match.url}?${queryString}`
-      } else {
-        url = `${match.url}`
+        return (
+          <Link to={`/${datastoreSlug}?${queryString}`} className="record-field-value-link">
+            {value}
+          </Link>
+        )
       }
-
-      return (
-        <Link to={url} className="record-field-value-link">
-          {value}
-        </Link>
-      )
     }
 
     return (
@@ -38,10 +34,4 @@ class RecordFieldValue extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    datastoreUid: state.datastores.active
-  };
-}
-
-export default connect(mapStateToProps)(RecordFieldValue)
+export default RecordFieldValue

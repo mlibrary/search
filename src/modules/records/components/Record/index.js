@@ -25,7 +25,6 @@ class Record extends React.Component {
   render() {
     const { record, datastoreUid, type, searchQuery } = this.props
     const titles = record.names ? [].concat(record.names) : [].concat('no title');
-
     const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
     const recordUidField = getField(record.fields, 'id');
     const displayFields = filterDisplayFields({
@@ -58,7 +57,7 @@ class Record extends React.Component {
               </div>
             ))}
             </h3>
-            <FieldList fields={displayFields} />
+            <FieldList fields={displayFields} datastoreUid={datastoreUid} />
           </div>
 
           {record.loadingHoldings ? (

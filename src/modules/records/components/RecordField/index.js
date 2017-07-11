@@ -18,7 +18,7 @@ import {
 
 class RecordField extends React.Component {
   render() {
-    const { field, match } = this.props
+    const { field, match, datastoreUid } = this.props
     const uniqueFieldClassName = 'record-field record-field-uid-' + field.uid
 
     if (field.uid === 'format') {
@@ -60,7 +60,10 @@ class RecordField extends React.Component {
               listClass={'record-field-value-list'}>
               {field.value.map((value, index) => (
                 <li className="record-field-value-item record-field-value-list-item" key={index}>
-                  <RecordFieldValue field={field} value={value} match={match} />
+                  <RecordFieldValue
+                    field={field}
+                    value={value}
+                    datastoreUid={datastoreUid} />
                 </li>
               ))}
             </ShowAllList>
