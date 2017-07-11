@@ -234,9 +234,7 @@ const getHoldings = ({ holdings, datastoreUid }) => {
 
         //rewrite config check
         _.each(config.holdingRewrites, rule => {
-          const isMatch = _.isMatch(holdingObj, { [rule.match.uid]: rule.match.value })
-
-          if (isMatch) {
+          if (holding[rule.match.uid] && holding[rule.match.uid] === rule.match.value) {
             _.each(rule.replace, replace => {
               holdingObj[replace.uid] = replace.value
             })
