@@ -8,9 +8,6 @@ import {
 import { bindActionCreators } from 'redux'
 
 import {
-  setSearchQuery
-} from '../../../search/actions'
-import {
   Icon,
 } from '../../../core'
 import {
@@ -311,12 +308,6 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    setAdvancedQuery,
-  }, dispatch)
-}
-
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(AdvancedSearch)
+  connect(mapStateToProps)(AdvancedSearch)
 )
