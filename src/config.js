@@ -131,6 +131,11 @@ const config = {
           type: 'filter' // or 'fielded'
         },
         {
+          uid: 'contributors',
+          search: 'author',
+          type: 'filter' // or 'fielded'
+        },
+        {
           uid: 'academic_discipline',
           search: 'academic_discipline',
           type: 'filter'
