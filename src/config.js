@@ -120,6 +120,7 @@ const config = {
           'terms_of_use',
           'lcsh_subjects',
           'other_subjects',
+          'academic_discipline',
           'table_of_contents'
         ]
       },
