@@ -127,7 +127,13 @@ const config = {
       searches: [
         {
           uid: 'main_author',
-          fielded: 'author'
+          search: 'author',
+          type: 'filter' // or 'fielded'
+        },
+        {
+          uid: 'academic_discipline',
+          search: 'academic_discipline',
+          type: 'filter'
         }
       ],
       holdings: [

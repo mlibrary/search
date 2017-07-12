@@ -294,6 +294,22 @@ const getAdvancedFields = ({
   return advancedFields
 }
 
+const isFieldASearchLink = ({
+  fieldUid,
+  datastoreUid
+}) => {
+  const fieldsConfig = _.findWhere(config.fields, { datastore: datastoreUid })
+  if (fieldsConfig && fieldsConfig.searches) {
+    const searchField = _.findWhere(fieldsConfig.searches, { uid: fieldUid })
+
+    if (searchField) {
+      return searchField
+    }
+  }
+
+  return undefined
+}
+
 export {
   isSlugADatastore,
   getMultiSearchRecords,
@@ -310,5 +326,6 @@ export {
   parseField,
   getFormatIconName,
   parseSearchQueryStringToBooleanFields,
-  getAdvancedFields
+  getAdvancedFields,
+  isFieldASearchLink
 }

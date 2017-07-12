@@ -17,7 +17,8 @@ import {
   parseField,
   getFormatIconName,
   parseSearchQueryStringToBooleanFields,
-  getAdvancedFields
+  getAdvancedFields,
+  isFieldASearchLink
 } from './utils'
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper'
 
@@ -39,5 +40,6 @@ export {
   parseField,
   getFormatIconName,
   parseSearchQueryStringToBooleanFields,
-  getAdvancedFields
+  getAdvancedFields,
+  isFieldASearchLink
 }

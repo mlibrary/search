@@ -89,7 +89,10 @@ class FullRecord extends React.Component {
               ))}
             </h1>
 
-            <ShowAdditionalFieldList fields={displayFields} />
+            <ShowAdditionalFieldList
+              fields={displayFields}
+              datastoreUid={datastoreUid}
+            />
 
             {access.length > 0 && (
               <ShowAllList
@@ -128,7 +131,6 @@ const SkeletonFullRecord = () => (
 )
 
 const Format = ({ formats }) => {
-
   return (
     <div className="full-record-header">
       {formats.map((value, index) => {
