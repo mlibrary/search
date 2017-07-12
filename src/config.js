@@ -135,12 +135,12 @@ const config = {
         {
           uid: 'main_author',
           search: 'author',
-          type: 'fielded' // or 'fielded'
+          type: 'filter' // or 'fielded'
         },
         {
           uid: 'contributors',
           search: 'author',
-          type: 'fielded' // or 'fielded'
+          type: 'filter' // or 'fielded'
         },
         {
           uid: 'academic_discipline',
