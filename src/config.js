@@ -125,15 +125,22 @@ const config = {
         ]
       },
       searches: [
+        /*
+        {
+          uid: 'field_uid',
+          search: 'search_uid', // what fielded or filter uid do you want to search one
+          type: 'fielded' // or filter
+        }
+        */
         {
           uid: 'main_author',
           search: 'author',
-          type: 'filter' // or 'fielded'
+          type: 'fielded' // or 'fielded'
         },
         {
           uid: 'contributors',
           search: 'author',
-          type: 'filter' // or 'fielded'
+          type: 'fielded' // or 'fielded'
         },
         {
           uid: 'academic_discipline',
