@@ -12,7 +12,9 @@ class RecordFieldValue extends React.Component {
     const { field, value, datastoreUid } = this.props
     const searchField = isFieldASearchLink({ fieldUid: field.uid, datastoreUid })
 
-    if (datastoreUid === 'mirlyn' && searchField) {
+
+
+    if (searchField) {
       const datastoreSlug = getDatastoreSlugByUid(datastoreUid)
       let queryString = ''
 

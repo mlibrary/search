@@ -283,6 +283,16 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'chevron-right':
+    return (
+      <svg viewBox="0 0 8 12" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(0.000000, -1.000000)" fill="#000000">
+            <polygon points="0.58527 11.584 5.1713 6.998 0.58527 2.41198 1.99927 0.99798 7.9993 6.998 1.99927 12.998"></polygon>
+          </g>
+        </g>
+      </svg>
+    )
     case 'minus':
     return (
       <svg viewBox="0 0 14 2" version="1.1" className="icon">

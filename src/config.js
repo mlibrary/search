@@ -258,7 +258,6 @@ const config = {
           'eisbn',
           'doi',
           'subject',
-          'academic_discipline',
           'language',
         ]
       },
@@ -329,14 +328,13 @@ const config = {
       medium: [
         'format',
         'issn',
-        'academic_disciplines',
+        'academic_discipline',
         'holdings',
       ],
       full: {
         standard: [
           'issn',
-          'access',
-          'academic_disciplines',
+          'academic_discipline',
           'holdings',
           'alt_title',
         ]
@@ -355,6 +353,15 @@ const config = {
           }
         ]
       },
+      /*
+      searches: [
+        {
+          uid: 'academic_discipline',
+          search: 'academic_discipline',
+          type: 'filter'
+        }
+      ],
+      */
     },
     {
       datastore: 'website',
@@ -473,18 +480,16 @@ const config = {
         uid: 'database_type',
         open: true,
       },
+    ],
+    'journals': [
       {
         uid: 'academic_discipline',
         open: true,
-      },
+      }
     ],
     'website': [
       {
         uid: 'author',
-        open: true,
-      },
-      {
-        uid: 'academic_discipline',
         open: true,
       },
     ]

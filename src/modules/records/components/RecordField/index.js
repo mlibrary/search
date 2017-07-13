@@ -49,6 +49,38 @@ class RecordField extends React.Component {
       }
     }
 
+    if (field.uid === 'academic_discipline') {
+
+      // Academic discipline is a special field,
+      // treated differently from the rest.
+
+      // An array of strings with terms seperated by | pipes, must be
+      // split and joined by a > right arrow.
+
+      return (
+        <div className={uniqueFieldClassName}>
+          <dt className="record-field-name">{field.name}</dt>
+          <dd className="record-field-value">
+            <span className="record-field-value-item">
+              {field.value.map((group, groupKey) => (
+                <li className="record-field-value-item record-field-value-list-item" key={groupKey}>
+                  {group.split(' | ').map((string, stringKey) => (
+                    <span>
+                      <RecordFieldValue
+                        key={stringKey}
+                        field={field}
+                        value={string}
+                        datastoreUid={datastoreUid} />
+                    </span>
+                  )).map((item, index) => [index > 0 && (<Icon name='chevron-right'/>), item])}
+                </li>
+              ))}
+            </span>
+          </dd>
+        </div>
+      )
+    }
+
     if (Array.isArray(field.value)) {
       return (
         <div className={uniqueFieldClassName}>
