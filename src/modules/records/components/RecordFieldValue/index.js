@@ -15,8 +15,17 @@ class RecordFieldValue extends React.Component {
     if (searchField) {
       const datastoreSlug = getDatastoreSlugByUid(datastoreUid)
       let queryString = ''
+      let valueString = Array.isArray(value) ? `${value.map(val => val.replace(/\.$/, '')).join(' ')}` : `${value}`
+      let displayString = undefined
 
-      const valueString = Array.isArray(value) ? `${value.join(' ')}` : `${value}`
+      switch (field.uid) {
+        case 'other_subjects':
+        case 'lcsh_subjects':
+          displayString = Array.isArray(value) ? `${value.map(val => val.replace(/\.$/, '')).join(' – ')}` : `${value}`
+          break;
+        default:
+          break;
+      }
 
       switch (searchField.type) {
         case 'fielded':
@@ -36,7 +45,7 @@ class RecordFieldValue extends React.Component {
       if (queryString.length > 0) {
         return (
           <Link to={`/${datastoreSlug}?${queryString}`} className="record-field-value-link">
-            {value}
+            {displayString ? displayString : value}
           </Link>
         )
       }

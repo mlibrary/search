@@ -146,6 +146,16 @@ const config = {
           uid: 'academic_discipline',
           search: 'academic_discipline',
           type: 'filter'
+        },
+        {
+          uid: 'other_subjects',
+          search: 'subject',
+          type: 'filter'
+        },
+        {
+          uid: 'lcsh_subjects',
+          search: 'subject',
+          type: 'filter'
         }
       ],
       holdings: [
