@@ -1,17 +1,18 @@
 .dropdown {
-  //appearance: none;
   background: white;
   box-shadow: none;
   line-height: 1.5;
   font-size: $font-size-base;
   font-family: $font-family-1;
   color: $grey-1;
-  background: $grey-6;
-  padding: 0.5rem 1rem;
-  padding-right: 2rem;
+  background: white;
   margin-right: 1rem;
-  background-position: top 1rem;
-  background-repeat: no-repeat;
   border: solid 1px rgba(0,0,0,0.3);
-  cursor: pointer;
+  appearance: none;
+  -webkit-appearance:none;
+  padding: 0.5rem;
+  padding-right: 2.5rem;
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="#4E4E4E" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42z"/></svg>')
 }
