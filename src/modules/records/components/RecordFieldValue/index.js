@@ -12,21 +12,21 @@ class RecordFieldValue extends React.Component {
     const { field, value, datastoreUid } = this.props
     const searchField = isFieldASearchLink({ fieldUid: field.uid, datastoreUid })
 
-
-
     if (searchField) {
       const datastoreSlug = getDatastoreSlugByUid(datastoreUid)
       let queryString = ''
 
+      const valueString = Array.isArray(value) ? `${value.join(' ')}` : `${value}`
+
       switch (searchField.type) {
         case 'fielded':
           queryString = stringifySearchQueryForURL({
-            query: `${searchField.search}:${value}`
+            query: `${searchField.search}:${valueString}`
           })
           break;
         case 'filter':
           queryString = stringifySearchQueryForURL({
-            filter: { [searchField.search]: [`${value}`] }
+            filter: { [searchField.search]: `${valueString}` }
           })
           break;
         default:

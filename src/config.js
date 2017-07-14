@@ -304,13 +304,21 @@ const config = {
           'mobile_url',
           'subject',
           'help',
-          'platform'
+          'platform',
+          'academic_discipline'
         ],
       },
       access: {
         link: 'permalink',
         defaultAccessText: 'Go to database',
-      }
+      },
+      searches: [
+        {
+          uid: 'academic_discipline',
+          search: 'academic_discipline',
+          type: 'filter'
+        }
+      ],
     },
     {
       datastore: 'journals',
@@ -353,7 +361,6 @@ const config = {
           }
         ]
       },
-      /*
       searches: [
         {
           uid: 'academic_discipline',
@@ -361,7 +368,6 @@ const config = {
           type: 'filter'
         }
       ],
-      */
     },
     {
       datastore: 'website',
@@ -477,7 +483,15 @@ const config = {
     ],
     'databases': [
       {
+        uid: 'academic_discipline',
+        open: true,
+      },
+      {
         uid: 'database_type',
+        open: true,
+      },
+      {
+        uid: 'access',
         open: true,
       },
     ],
