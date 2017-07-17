@@ -72,6 +72,7 @@ const config = {
           'new_title',
           'previous_title',
           'main_author',
+          'publication_date',
           'contributors',
           'marc_published',
           'created',
@@ -156,6 +157,16 @@ const config = {
           uid: 'lcsh_subjects',
           search: 'subject',
           type: 'filter'
+        },
+        {
+          uid: 'full_previous_title',
+          search: 'title',
+          type: 'fielded'
+        },
+        {
+          uid: 'other_titles',
+          search: 'title',
+          type: 'fielded'
         }
       ],
       holdings: [

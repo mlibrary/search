@@ -12,7 +12,7 @@ import {
 
 class ResultsSummaryContainer extends React.Component {
   recordsSummary() {
-    const { records, activeDatastoreUid } = this.props;
+    const { records, activeDatastoreUid, search } = this.props;
     const { count, page, totalAvailable } = this.props.search.data[activeDatastoreUid];
 
     const displayTotalAvailable = numeral(totalAvailable).format(0,0)
@@ -26,6 +26,7 @@ class ResultsSummaryContainer extends React.Component {
       total: `${displayTotalAvailable}`,
       resultsText: `${resultsText}`,
       from: `from ${datastoreName}`,
+      resultsFor: search.query ? (<span>for <b>{search.query}</b></span>) : null
     }
   }
   render() {
@@ -42,6 +43,7 @@ class ResultsSummaryContainer extends React.Component {
         recordsTotal={summary.total}
         recordsResultsText={summary.resultsText}
         resultsFrom={summary.from}
+        resultsFor={summary.resultsFor}
       />
   }
 }

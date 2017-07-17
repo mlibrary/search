@@ -5,9 +5,10 @@ const ResultsSummary = ({
   recordsTotal,
   recordsResultsText,
   resultsFrom,
+  resultsFor,
 }) => {
   return (
-      <span className="results-summary">{recordsRange} of <b>{recordsTotal} {recordsResultsText}</b> {resultsFrom}</span>
+      <span className="results-summary">{recordsRange} of <b>{recordsTotal} {recordsResultsText}</b> {resultsFrom} {resultsFor}</span>
   )
 }
 
