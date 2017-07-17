@@ -813,6 +813,9 @@ input.search-box-input {
   padding: 0;
   margin: 0; }
 
+.filter-item {
+  margin-bottom: 0.5rem; }
+
 .filter-button {
   background: none;
   border: none;
