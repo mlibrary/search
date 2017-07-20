@@ -32,17 +32,24 @@ class PaginationContainer extends React.Component {
   nextPageURL() {
     const { search, filters, activeDatastoreUid, history } = this.props
     const query = search.query
-    const page = search.page[activeDatastoreUid]
+    const page = search.page[activeDatastoreUid] ? search.page[activeDatastoreUid] : 1
+    const data = search.data[activeDatastoreUid]
+
+    if (data && data.totalPages && (data.page >= data.totalPages)) {
+      return undefined
+    }
 
     const queryString = stringifySearchQueryForURL({
       query,
       filters,
-      page: !page ? 2 : page + 1
+      page: page + 1
     })
 
     if (queryString.length > 0) {
       return `${history.location.pathname}?${queryString}`
     }
+
+    return undefined
   }
   render() {
     const { records } = this.props;

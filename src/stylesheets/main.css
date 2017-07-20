@@ -734,13 +734,13 @@ input.search-box-input {
   @media (min-width: 32rem) {
     .pagination-container {
       padding: 1rem 2rem; } }
+  .pagination-container .button-secondary,
   .pagination-container .results-summary {
-    padding: 0 1rem; }
-    @media (max-width: 47rem) {
-      .pagination-container .results-summary {
-        padding: 0;
-        display: block;
-        margin: 1rem 0; } }
+    margin-right: 1rem; }
+  @media (max-width: 47rem) {
+    .pagination-container .results-summary {
+      padding: 0;
+      display: block; } }
 
 .records-summary {
   padding: 0 1rem; }

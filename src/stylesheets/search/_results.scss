@@ -39,15 +39,17 @@
     padding: 1rem 2rem;
   }
 
+  .button-secondary,
+  .results-summary {
+    margin-right: 1rem;
+  }
+
   border-radius: 4px;
 
   .results-summary {
-    padding: 0 1rem;
-
     @media (max-width: $breakpoint-2) {
       padding: 0;
       display: block;
-      margin: 1rem 0;
     }
   }
 }
