@@ -1,14 +1,14 @@
 import React from 'react';
 
 const ResultsSummary = ({
-  recordsRange,
+  pageNum,
   recordsTotal,
   recordsResultsText,
   resultsFrom,
   resultsFor,
 }) => {
   return (
-      <span className="results-summary">{recordsRange} of <b>{recordsTotal} {recordsResultsText}</b> {resultsFrom} {resultsFor}</span>
+      <span className="results-summary">Page {pageNum} of <b>{recordsTotal} {recordsResultsText}</b> {resultsFrom}</span>
   )
 }
 

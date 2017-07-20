@@ -57,6 +57,7 @@ const App = () => (
             const urlState = getStateFromURL({
               location: props.location
             })
+
             return (
               isDatastore && urlState ? (
                 <URLSearchQueryWrapper>

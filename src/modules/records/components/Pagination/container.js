@@ -9,29 +9,40 @@ import {
 } from '../../../pride'
 
 class PaginationContainer extends React.Component {
-  handlePreviousPage() {
-    const { search, filters } = this.props
+  prevPageURL() {
+    const { search, filters, activeDatastoreUid, history } = this.props
+    const query = search.query
+    const page = search.page[activeDatastoreUid]
 
     // Only go to prev page if you're past page 1.
-    if (search.page > 1) {
+    if (page > 1) {
       const queryString = stringifySearchQueryForURL({
-        query: search.query,
+        query,
         filters,
-        page: search.page - 1
+        page: (page - 1) === 1 ? undefined : (page - 1)
       })
 
-      console.log('handlePreviousPage')
-      console.log('redirecting w/ new queryString', queryString)
+      if (queryString.length > 0) {
+        return `${history.location.pathname}?${queryString}`
+      }
     }
+
+    return undefined
   }
-  handleNextPage() {
+  nextPageURL() {
+    const { search, filters, activeDatastoreUid, history } = this.props
+    const query = search.query
+    const page = search.page[activeDatastoreUid]
+
     const queryString = stringifySearchQueryForURL({
-      query: this.props.search.query,
-      filters: this.props.filters,
-      page: this.props.search.page + 1
+      query,
+      filters,
+      page: !page ? 2 : page + 1
     })
-    console.log('handleNextPage')
-    console.log('redirecting w/ new queryString', queryString)
+
+    if (queryString.length > 0) {
+      return `${history.location.pathname}?${queryString}`
+    }
   }
   render() {
     const { records } = this.props;
@@ -41,8 +52,8 @@ class PaginationContainer extends React.Component {
     }
 
     return <Pagination
-        handlePreviousPage={this.handlePreviousPage.bind(this)}
-        handleNextPage={this.handleNextPage.bind(this)}
+        prevPageURL={this.prevPageURL()}
+        nextPageURL={this.nextPageURL()}
       />
   }
 }

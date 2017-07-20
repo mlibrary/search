@@ -4,7 +4,7 @@ const initialState = {
   searching: false,
   query: "",
   data: null,
-  page: 1,
+  page: {}
 }
 
 const searchReducer = function searchReducer(state = initialState, action) {
@@ -26,7 +26,10 @@ const searchReducer = function searchReducer(state = initialState, action) {
       });
     case actions.SET_PAGE:
       return Object.assign({}, state, {
-        page: action.payload,
+        page: {
+          ...state.page,
+          [action.payload.datastoreUid]: action.payload.page
+        },
       });
     case actions.CLEAR_SEARCH:
       return initialState;

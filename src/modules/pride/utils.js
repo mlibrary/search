@@ -112,6 +112,9 @@ const isValidURLSearchQuery = ({ urlState }) => {
       },
       "query": {
         "type": "string"
+      },
+      "page": {
+        "type": "string"
       }
     }
   }

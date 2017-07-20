@@ -270,7 +270,9 @@ const switchPrideToDatastore = (slug) => {
 
 const runSearch = () => {
   const state = store.getState()
-  const { query, page } = state.search
+  const { query } = state.search
+  const statePage = state.search.page[state.datastores.active]
+  const page = statePage ? statePage : 1
   const facets = state.filters.active[state.datastores.active] || {}
   const config = {
     field_tree: Pride.FieldTree.parseField('all_fields', query),

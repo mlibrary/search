@@ -6,7 +6,8 @@ import _ from 'underscore'
 
 import {
   setSearchQuery,
-  searching
+  searching,
+  setPage
 } from '../../../search/actions'
 import {
   loadingRecords
@@ -31,7 +32,13 @@ class URLSearchQueryWrapper extends React.Component {
     this.handleURLState = this.handleURLState.bind(this)
   }
 
-  handleURLState({ datastoreUid, query, activeFilters, location }) {
+  handleURLState({
+    datastoreUid,
+    query,
+    page,
+    activeFilters,
+    location
+  }) {
     const urlState = getStateFromURL({ location })
     let shouldRunSearch = false
 
@@ -39,11 +46,14 @@ class URLSearchQueryWrapper extends React.Component {
 
       // URL has state
       if ((Object.keys(urlState).length > 0)) {
+
+        // Query
         if (urlState.query !== query) {
           this.props.setSearchQuery(urlState.query)
           shouldRunSearch = true
         }
 
+        // Filters
         if (!_.isEqual(urlState.filter, activeFilters)) {
           if (urlState.filter) {
             this.props.setActiveFilters({
@@ -55,6 +65,24 @@ class URLSearchQueryWrapper extends React.Component {
               datastoreUid
             })
           }
+          shouldRunSearch = true
+        }
+
+        // Page
+        const urlStatePage = parseInt(urlState.page)
+        if (urlStatePage && (urlStatePage !== page)) {
+          this.props.setPage({
+            page: urlStatePage,
+            datastoreUid
+          })
+
+          shouldRunSearch = true
+        } else if (!urlStatePage && (page !== 1)) {
+          this.props.setPage({
+            page: 1,
+            datastoreUid
+          })
+
           shouldRunSearch = true
         }
 
@@ -84,7 +112,8 @@ class URLSearchQueryWrapper extends React.Component {
       query: nextProps.query,
       activeFilters: nextProps.activeFilters[datastoreUid],
       location: nextProps.location,
-      datastoreUid: datastoreUid
+      datastoreUid: datastoreUid,
+      page: nextProps.page[datastoreUid]
     })
   }
 
@@ -100,6 +129,7 @@ class URLSearchQueryWrapper extends React.Component {
 function mapStateToProps(state) {
   return {
     query: state.search.query,
+    page: state.search.page,
     f: state.filters.active,
     activeFilters: state.filters.active,
     location: state.router.location,
@@ -115,7 +145,8 @@ function mapDispatchToProps(dispatch) {
     clearActiveFilters,
     searching,
     loadingRecords,
-    changeActiveDatastore
+    changeActiveDatastore,
+    setPage
   }, dispatch)
 }
 
