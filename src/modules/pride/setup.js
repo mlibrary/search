@@ -279,6 +279,7 @@ const runSearch = () => {
     page,
     facets
   }
+
   store.dispatch(searching(true))
   const datastores = store.getState().datastores.datastores
 

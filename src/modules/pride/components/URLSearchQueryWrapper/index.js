@@ -71,13 +71,21 @@ class URLSearchQueryWrapper extends React.Component {
         // Page
         const urlStatePage = parseInt(urlState.page)
         if (urlStatePage && (urlStatePage !== page)) {
+          console.log('(urlStatePage && (urlStatePage !== page)) ')
+          console.log('urlStatePage', urlStatePage)
+          console.log('page', page)
+
           this.props.setPage({
             page: urlStatePage,
             datastoreUid
           })
 
           shouldRunSearch = true
-        } else if (!urlStatePage && (page !== 1)) {
+        } else if (page && !urlStatePage && (page !== 1)) {
+          console.log('(!urlStatePage && (page !== 1)')
+          console.log('urlStatePage', urlStatePage)
+          console.log('page', page)
+
           this.props.setPage({
             page: 1,
             datastoreUid

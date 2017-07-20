@@ -48,10 +48,11 @@ const DatastoreNavigationItem = ({
   search,
   activeFilters
 }) => {
+  const page = search.page[datastore.uid] === 1 ? undefined : search.page[datastore.uid]
   const queryString = stringifySearchQueryForURL({
     query: search.query,
     filter: activeFilters[datastore.uid],
-    page: search.page[datastore.uid],
+    page,
   })
 
   let url = ''
