@@ -6,7 +6,8 @@ import {
 } from '../AccessList';
 import {
   ShowAllList,
-  TrimLink
+  TrimLink,
+  TrimString,
 } from '../../../core'
 import HoldingStatus from '../HoldingStatus';
 
@@ -18,7 +19,8 @@ import {
   filterDisplayFields,
   filterAccessFields,
   getHoldings,
-  getShowAllText
+  getShowAllText,
+  hasRecordFullView
 } from '../../utilities';
 
 class Record extends React.Component {
@@ -40,6 +42,7 @@ class Record extends React.Component {
       holdings: record.holdings,
       datastoreUid: datastoreUid
     })
+    const hasFullView = hasRecordFullView({ datastoreUid })
 
     if (recordUidField) {
       const recordUid = recordUidField.value
@@ -50,10 +53,16 @@ class Record extends React.Component {
             <h3 className="record-title">
             {titles.map((title, index) => (
               <div key={index}>
-                <TrimLink
-                  string={title}
-                  linkClassName={"record-title-link"}
-                  to={`/${datastoreSlug}/record/${recordUid}${searchQuery}`} />
+                {hasFullView ? (
+                  <TrimLink
+                    string={title}
+                    linkClassName={"record-title-link"}
+                    to={`/${datastoreSlug}/record/${recordUid}${searchQuery}`} />
+                ) : (
+                  <h2 className="record-title">
+                    <TrimString string={title} />
+                  </h2>
+                )}
               </div>
             ))}
             </h3>

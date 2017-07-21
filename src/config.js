@@ -392,26 +392,14 @@ const config = {
     },
     {
       datastore: 'website',
-      defaultFields: [
-        {
-          uid: 'format',
-          name: 'Format',
-          value: ['Library Website']
-        }
-      ],
       preview: [
-        'format',
+        'page_type',
         'brief_description',
       ],
       medium: [
-        'format',
+        'page_type',
         'brief_description',
       ],
-      full: {
-        standard: [
-          'brief_description',
-        ],
-      },
       access: {
         defaultAccessText: 'Go to webpage',
         link: 'access_url'
