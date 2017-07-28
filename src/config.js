@@ -417,6 +417,10 @@ const config = {
         onClickValue: 'false',
       },
       {
+        uid: 'institution',
+        open: true,
+      },
+      {
         uid: 'subject',
         open: true,
       },
