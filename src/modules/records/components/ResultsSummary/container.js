@@ -12,8 +12,8 @@ import {
 
 class ResultsSummaryContainer extends React.Component {
   recordsSummary() {
-    const { records, activeDatastoreUid, search } = this.props;
-    const { count, page, totalAvailable } = this.props.search.data[activeDatastoreUid];
+    const { activeDatastoreUid, search } = this.props;
+    const { page, totalAvailable } = this.props.search.data[activeDatastoreUid];
 
     const displayTotalAvailable = numeral(totalAvailable).format(0,0)
     const resultsText = totalAvailable === 1 ? `result` : `results`
