@@ -214,7 +214,7 @@ const config = {
         },
         {
           uid: 'special',
-          link: 'get_this_url',
+          link: 'url',
           location: 'location',
           status: 'status',
           callnumber: 'callnumber',
