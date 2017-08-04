@@ -3,6 +3,7 @@ export const CLEAR_SEARCH = 'search/CLEAR_SEARCH';
 export const SEARCHING = 'search/SEARCHING';
 export const SET_SEARCH_DATA = 'search/SET_SEARCH_DATA';
 export const SET_PAGE = 'search/SET_PAGE';
+export const SET_SORT = 'records/SET_SORT';
 
 export const setSearchQuery = function submitSearch(payload) {
   return { type: SET_SEARCH_QUERY, payload };
@@ -22,4 +23,8 @@ export const setSearchData = function setSearchData(payload) {
 
 export const setPage = function setPage(payload) {
   return { type: SET_PAGE, payload };
+}
+
+export const setSort = function setSort(payload) {
+  return { type: SET_SORT, payload };
 }

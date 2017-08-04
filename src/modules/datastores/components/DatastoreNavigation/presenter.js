@@ -53,6 +53,7 @@ const DatastoreNavigationItem = ({
     query: search.query,
     filter: activeFilters[datastore.uid],
     page,
+    sort: search.sort[datastore.uid]
   })
 
   let url = ''

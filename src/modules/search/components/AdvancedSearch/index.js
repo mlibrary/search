@@ -237,7 +237,7 @@ const Dropdown = ({
   handleOnFieldChange
 }) => (
   <select
-    className="dropdown"
+    className="dropdown advanced-field-select"
     value={selectedOption}
     onChange={(event) => handleOnFieldChange({
       fieldIndex,

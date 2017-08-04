@@ -16,16 +16,21 @@
 */
 
 .results-summary-container {
-  @media (min-width: $breakpoint-2) {
-    display: flex;
-    justify-content: space-between;
-  }
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 1rem 2rem;
   background: white;
   background: $grey-6;
   border-radius: 4px;
+
+  @media (min-width: $breakpoint-2) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 3.5rem;
+    padding: 0 2rem;
+  }
 }
 
 .pagination-container {

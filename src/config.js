@@ -435,10 +435,6 @@ const config = {
             name: "Flint Thompson Library"
           },
           {
-            value: "Transportation Research Institute Library (UMTRI)",
-            name: "Transportation Research Institute Library (UMTRI)"
-          },
-          {
             value: "Bentley Historical Library",
             name: "Bentley Historical Library"
           },
@@ -548,6 +544,52 @@ const config = {
         open: true,
       },
     ]
+  },
+  sorts: {
+    'mirlyn': {
+      default: 'relevance',
+      sorts: [
+        'relevance',
+        'title_asc',
+        'title_desc',
+        'date_asc',
+        'date_desc'
+      ]
+    },
+    'articlesplus': {
+      default: 'relevance',
+      sorts: [
+        'relevance',
+        'date_asc',
+        'date_desc'
+      ]
+    },
+    'databases': {
+      default: 'relevance',
+      sorts: [
+        'relevance',
+        'title_asc',
+        'title_desc',
+      ]
+    },
+    'journals': {
+      default: 'relevance',
+      sorts: [
+        'relevance',
+        'title_asc',
+        'title_desc',
+      ]
+    },
+    'website': {
+      default: 'relevance',
+      sorts: [
+        'relevance',
+        'title_asc',
+        'title_desc',
+        'date_asc',
+        'date_desc'
+      ]
+    }
   },
   advanced: {
     datastores: [

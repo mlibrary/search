@@ -19,6 +19,7 @@
 @import "partials/accessibility";
 
 // Search Application
+@import "search/dropdown";
 @import "search/card";
 @import "search/search-box";
 @import "search/datastore-list";
@@ -39,8 +40,8 @@
 @import "search/feedback";
 @import "search/advanced";
 @import "search/switch";
-@import "search/dropdown";
 @import "search/trim-string";
 @import "search/zigzag";
+@import "search/sorts";
 
 @import "partials/utility";

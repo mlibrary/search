@@ -4,7 +4,8 @@ const initialState = {
   searching: false,
   query: "",
   data: null,
-  page: {}
+  page: {},
+  sort: {}
 }
 
 const searchReducer = function searchReducer(state = initialState, action) {
@@ -33,6 +34,14 @@ const searchReducer = function searchReducer(state = initialState, action) {
       });
     case actions.CLEAR_SEARCH:
       return initialState;
+    case actions.SET_SORT:
+      return {
+        ...state,
+        sort: {
+          ...state.sort,
+          [action.payload.datastoreUid]: action.payload.sort
+        }
+      }
     default:
       return state;
   }

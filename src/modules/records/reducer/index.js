@@ -13,7 +13,7 @@ const recordReducer = (state = {}, action) => {
 const recordsInitialState = {
   loading: false,
   records: null,
-  record: null
+  record: null,
 };
 
 const recordsReducer = (state = recordsInitialState, action) => {

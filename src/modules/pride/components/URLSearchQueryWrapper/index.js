@@ -4,10 +4,12 @@ import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
 import _ from 'underscore'
 
+import config from '../../../../config'
 import {
   setSearchQuery,
   searching,
-  setPage
+  setPage,
+  setSort
 } from '../../../search/actions'
 import {
   loadingRecords
@@ -37,6 +39,7 @@ class URLSearchQueryWrapper extends React.Component {
     query,
     page,
     activeFilters,
+    sort,
     location
   }) {
     const urlState = getStateFromURL({ location })
@@ -50,6 +53,7 @@ class URLSearchQueryWrapper extends React.Component {
         // Query
         if (urlState.query !== query) {
           this.props.setSearchQuery(urlState.query)
+
           shouldRunSearch = true
         }
 
@@ -86,6 +90,33 @@ class URLSearchQueryWrapper extends React.Component {
           shouldRunSearch = true
         }
 
+        // Sort]
+        if (urlState.sort !== sort) {
+          // Set sort to URL
+          if (urlState.sort) {
+            this.props.setSort({
+              sort: urlState.sort,
+              datastoreUid
+            })
+
+            shouldRunSearch = true
+
+          // if no URL state
+          } else {
+            const configuredDefaultSort = config.sorts[datastoreUid].default
+
+            // Sort should be set to default
+            if (sort !== configuredDefaultSort) {
+              this.props.setSort({
+                sort: configuredDefaultSort,
+                datastoreUid
+              })
+
+              shouldRunSearch = true
+            }
+          }
+        }
+
         if (shouldRunSearch) {
           runSearch()
         }
@@ -113,7 +144,8 @@ class URLSearchQueryWrapper extends React.Component {
       activeFilters: nextProps.activeFilters[datastoreUid],
       location: nextProps.location,
       datastoreUid: datastoreUid,
-      page: nextProps.page[datastoreUid]
+      page: nextProps.page[datastoreUid],
+      sort: nextProps.sort[datastoreUid]
     })
   }
 
@@ -134,7 +166,8 @@ function mapStateToProps(state) {
     activeFilters: state.filters.active,
     location: state.router.location,
     datastoreUid: state.datastores.active,
-    isSearching: state.search.searching
+    isSearching: state.search.searching,
+    sort: state.search.sort
   };
 }
 
@@ -146,7 +179,8 @@ function mapDispatchToProps(dispatch) {
     searching,
     loadingRecords,
     changeActiveDatastore,
-    setPage
+    setPage,
+    setSort,
   }, dispatch)
 }
 

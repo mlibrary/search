@@ -115,6 +115,9 @@ const isValidURLSearchQuery = ({ urlState }) => {
       },
       "page": {
         "type": "string"
+      },
+      "sort": {
+        "type": "string"
       }
     }
   }
@@ -191,12 +194,14 @@ const requestRecord = ({
 const stringifySearchQueryForURL = ({
   query,
   filter,
-  page
+  page,
+  sort
 }) => {
   const SearchQueryString = qs.stringify({
     query: query === '' ? undefined : query,
     filter,
-    page,
+    page: page && page > 1 ? page : undefined,
+    sort,
   }, {
     arrayFormat: 'repeat',
     encodeValuesOnly: true,

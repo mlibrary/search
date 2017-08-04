@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { _ } from 'underscore';
 import { withRouter } from 'react-router-dom'
 import Record from '../Record';
+import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
 
 import {
@@ -38,6 +39,7 @@ class RecordListContainer extends React.Component {
             <div>
               <p className="no-margin">Loading results...</p>
             </div>
+            <Sorts />
           </div>
           <ul className="results-list results-list-border">
             <RecordPlaceholder />
@@ -63,6 +65,7 @@ class RecordListContainer extends React.Component {
       <div>
         <div className="results-summary-container">
           <ResultsSummary />
+          <Sorts />
         </div>
         <ul className="results-list results-list-border">
           {activeRecords.map((record, index) =>
