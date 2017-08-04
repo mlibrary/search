@@ -13,13 +13,15 @@ class PaginationContainer extends React.Component {
     const { search, filters, activeDatastoreUid, history } = this.props
     const query = search.query
     const page = search.page[activeDatastoreUid]
+    const sort = search.sort[activeDatastoreUid]
 
     // Only go to prev page if you're past page 1.
     if (page > 1) {
       const queryString = stringifySearchQueryForURL({
         query,
-        filters,
-        page: (page - 1) === 1 ? undefined : (page - 1)
+        filter: filters,
+        page: (page - 1) === 1 ? undefined : (page - 1),
+        sort
       })
 
       if (queryString.length > 0) {
@@ -34,6 +36,7 @@ class PaginationContainer extends React.Component {
     const query = search.query
     const page = search.page[activeDatastoreUid] ? search.page[activeDatastoreUid] : 1
     const data = search.data[activeDatastoreUid]
+    const sort = search.sort[activeDatastoreUid]
 
     if (data && data.totalPages && (data.page >= data.totalPages)) {
       return undefined
@@ -41,8 +44,9 @@ class PaginationContainer extends React.Component {
 
     const queryString = stringifySearchQueryForURL({
       query,
-      filters,
-      page: page + 1
+      filter: filters,
+      page: page + 1,
+      sort,
     })
 
     if (queryString.length > 0) {
