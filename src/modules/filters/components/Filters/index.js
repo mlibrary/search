@@ -68,7 +68,7 @@ class Filters extends React.Component {
     filterUid,
     filterItemValue
   }) {
-    const { history, match } = this.props
+    const { history, match, query } = this.props
     const isActive = isFilterItemActive({
       datastoreUid,
       filterUid,
@@ -93,7 +93,7 @@ class Filters extends React.Component {
     }
 
     const queryString = qs.stringify({
-      query: this.props.query,
+      query,
       filter: filterObj
     }, {
       arrayFormat: 'repeat',
@@ -161,25 +161,31 @@ const FilterList = ({
   handleFilterItemClick,
   handleShowClick,
   activeFilters
-}) => (
-  <div>
-    <h2 className="filters-heading">Filter your search</h2>
-    <ul className="filter-group-list">
-      {filters.map((filter, index) => (
-        <Filter
-          key={index}
-          datastoreUid={datastoreUid}
-          filter={filter}
-          handleFilterClick={handleFilterClick}
-          handleFilterItemClick={handleFilterItemClick}
-          handleShowClick={handleShowClick}
-          filters={filters}
-          activeFilters={activeFilters}
-        />
-      ))}
-    </ul>
-  </div>
-)
+}) => {
+  if (filters.length > 0) {
+    return (
+      <div>
+        <h2 className="filters-heading">Filter your search</h2>
+        <ul className="filter-group-list">
+          {filters.map((filter, index) => (
+            <Filter
+              key={index}
+              datastoreUid={datastoreUid}
+              filter={filter}
+              handleFilterClick={handleFilterClick}
+              handleFilterItemClick={handleFilterItemClick}
+              handleShowClick={handleShowClick}
+              filters={filters}
+              activeFilters={activeFilters}
+            />
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  return null
+}
 
 const Filter = ({
   datastoreUid,
@@ -285,7 +291,10 @@ const FilterItem = ({
       >
         <span className="flex-space-between flex-center">
           <span className="filter-value">{filter.name}</span>
-          <span className="filter-count">{numeral(filter.count).format(0,0)}</span>
+
+          {filter.count ? (
+            <span className="filter-count">{numeral(filter.count).format(0,0)}</span>
+          ) : null}
         </span>
       </button>
     </li>
@@ -342,7 +351,8 @@ function mapStateToProps(state) {
     query: state.search.query,
     filters: getDisplayFilters({
       filters: state.filters.groups,
-      datastoreUid: state.datastores.active
+      datastoreUid: state.datastores.active,
+      searching: state.search.searching
     }),
     activeFilters: state.filters.active[state.datastores.active]
   }

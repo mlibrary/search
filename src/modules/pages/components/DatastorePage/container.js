@@ -73,11 +73,24 @@ const Results = ({ searching, activeDatastore }) => {
     return <MultisearchSearching activeDatastore={activeDatastore}/>
   }
 
-  if (searching) {
-    return <SingleResultSearching activeDatastore={activeDatastore}/>
-  }
+  return (
+    <div className="container container-medium flex-container">
+      {!activeDatastore.isMultisearch ? (
+        <div className="side-container">
+          <Filters />
+        </div>
+      ) : null }
 
-  return <NotSearching activeDatastore={activeDatastore}/>
+      <div className="main-container">
+        {searching ? (
+          <div>
+            <RecordList />
+            <Pagination />
+          </div>
+        ) : null }
+      </div>
+    </div>
+  )
 }
 
 const MultisearchSearching = () => (
@@ -87,24 +100,6 @@ const MultisearchSearching = () => (
     </div>
   </div>
 )
-
-const SingleResultSearching = (activeDatastore) => (
-  <div className="container container-medium flex-container">
-    <div className="side-container">
-      <Filters />
-    </div>
-    <div className="main-container">
-      <RecordList />
-      <Pagination />
-    </div>
-  </div>
-)
-
-const NotSearching = ({ activeDatastore }) => {
-  // TODO: empty state/not searching page content
-
-  return null
-}
 
 function mapStateToProps(state) {
   return {

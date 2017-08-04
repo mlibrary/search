@@ -69,7 +69,7 @@ class URLSearchQueryWrapper extends React.Component {
         }
 
         // Page
-        const urlStatePage = parseInt(urlState.page)
+        const urlStatePage = parseInt(urlState.page, 10)
         if (urlStatePage && (urlStatePage !== page)) {
           this.props.setPage({
             page: urlStatePage,

@@ -66,22 +66,25 @@ const isFilterItemActive = ({ datastoreUid, filterUid, filterItemValue }) => {
   return false
 }
 
-const getDisplayFilters = ({ filters, datastoreUid }) => {
-  return _.reduce(config.filters[datastoreUid], (previous, configFilter) => {
+const getDisplayFilters = ({ filters, datastoreUid, searching }) => {
+  const displayFilters = _.reduce(config.filters[datastoreUid], (previous, configFilter) => {
     const filter = _.findWhere(filters, { uid: configFilter.uid })
 
-    if (filter) {
+    if (filter && (searching || configFilter.persistent)) {
       return previous.concat(
         {
           ...filter,
           type: configFilter.type || 'multiselect',
-          name: configFilter.name || filter.name
+          name: configFilter.name || filter.name,
+          filters: configFilter.filterItems || filter.filters
         }
       )
     }
 
     return previous
   }, [])
+
+  return displayFilters
 }
 
 const getFilterItems = ({ datastoreUid, filterUid, items }) => {
@@ -229,5 +232,5 @@ export {
   getActiveFilters,
   isFilterItemChecked,
   getCheckboxOnClickValue,
-  createActiveFilterObj
+  createActiveFilterObj,
 }
