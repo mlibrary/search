@@ -81,7 +81,6 @@ class Record extends React.Component {
                   <ShowAllList
                     length={access.length}
                     show={1}
-                    name={name ? name : ''}
                     listClass={'access-list'}>
                       {access.map((item, index) => (
                         <AccessItem key={index} item={item} />

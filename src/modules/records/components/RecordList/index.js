@@ -27,6 +27,7 @@ class RecordListContainer extends React.Component {
             <div>
               <p className="no-margin"><b>No results</b> found for your search.</p>
             </div>
+            <Sorts />
           </div>
         </div>
       )
