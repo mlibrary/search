@@ -207,12 +207,14 @@ const FieldInput = ({
     )}
     <div className="advanced-input-container">
       <Dropdown
+        labelText={`Fields`}
         options={fields}
         fieldIndex={index}
         handleOnFieldChange={handleOnFieldChange}
       />
       <input
         type="text"
+        aria-label="query"
         className="advanced-input"
         placeholder={`Search Term ${index + 1}`}
         value={field.value}
@@ -231,12 +233,14 @@ const FieldInput = ({
 )
 
 const Dropdown = ({
+  labelText,
   fieldIndex,
   options,
   selectedOption,
   handleOnFieldChange
 }) => (
   <select
+    aria-label={labelText ? labelText : 'dropdown'}
     className="dropdown advanced-field-select"
     value={selectedOption}
     onChange={(event) => handleOnFieldChange({
