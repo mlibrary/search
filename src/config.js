@@ -401,9 +401,15 @@ const config = {
         'brief_description',
       ],
       access: {
-        defaultAccessText: 'Go to webpage',
-        link: 'access_url'
-      }
+        uid: 'links',
+        fields: [
+          {
+            uid: 'href',
+            label: 'Go to webpage',
+            isLink: true,
+          }
+        ]
+      },
     },
   ],
   filters: {
