@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import FocusTrap from 'focus-trap-react';
 import { _ } from 'underscore';
 import {
   Link,
@@ -148,40 +149,42 @@ class AdvancedSearch extends React.Component {
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
-      <form onSubmit={this.handleSubmit} className="advanced-search-form">
-        <div className="advanced-search-container">
-          <div className="advanced-header">
-            <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
-            <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">
-              <Icon name="close"/><span className="offpage">Basic Search</span>
-            </Link>
+      <FocusTrap>
+        <form onSubmit={this.handleSubmit} className="advanced-search-form">
+          <div className="advanced-search-container">
+            <div className="advanced-header">
+              <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
+              <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">
+                <Icon name="close"/><span className="offpage">Basic Search</span>
+              </Link>
+            </div>
+            <div className="advanced-field-container">
+              {this.state.booleanFields.map((field, index) => (
+                <FieldInput
+                  key={index}
+                  index={index}
+                  field={field}
+                  fields={fields}
+                  handleFieldInputValueChange={this.handleFieldInputValueChange}
+                  handleRemoveField={() => this.handleRemoveField({ removeIndex: index})}
+                  handleOnBooleanSwitchChange={this.handleOnBooleanSwitchChange}
+                  handleOnFieldChange={this.handleOnFieldChange}
+                />
+              ))}
+            </div>
+            <div className="advanced-add-field-container">
+              <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
+            </div>
+            <div className="container container-narrow advanced-search-button-container">
+              <button type="submit" className="button advanced-search-button">
+                <span className="flex-center">
+                  <Icon name="search"/>Search
+                </span>
+              </button>
+            </div>
           </div>
-          <div className="advanced-field-container">
-            {this.state.booleanFields.map((field, index) => (
-              <FieldInput
-                key={index}
-                index={index}
-                field={field}
-                fields={fields}
-                handleFieldInputValueChange={this.handleFieldInputValueChange}
-                handleRemoveField={() => this.handleRemoveField({ removeIndex: index})}
-                handleOnBooleanSwitchChange={this.handleOnBooleanSwitchChange}
-                handleOnFieldChange={this.handleOnFieldChange}
-              />
-            ))}
-          </div>
-          <div className="advanced-add-field-container">
-            <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
-          </div>
-          <div className="container container-narrow advanced-search-button-container">
-            <button type="submit" className="button advanced-search-button">
-              <span className="flex-center">
-                <Icon name="search"/>Search
-              </span>
-            </button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </FocusTrap>
     )
   }
 }

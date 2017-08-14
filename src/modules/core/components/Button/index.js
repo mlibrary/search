@@ -9,9 +9,4 @@ class Button extends React.Component {
   }
 }
 
-Button.propTypes = {
-  onButtonClick: React.PropTypes.func,
-  text: React.PropTypes.string,
-}
-
 export default Button;

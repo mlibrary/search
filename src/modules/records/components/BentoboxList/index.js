@@ -1,17 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { _ } from 'underscore';
-import { Link } from 'react-router-dom';
-import numeral from 'numeral';
+import React from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import numeral from 'numeral'
 
-import { getMultiSearchRecords } from '../../../pride';
-import Record from '../Record';
-import RecordPlaceholder from '../RecordPlaceholder';
+import { getMultiSearchRecords } from '../../../pride'
+import Record from '../Record'
+import RecordPlaceholder from '../RecordPlaceholder'
 
 class BentoboxList extends React.Component {
   render() {
-    const { allRecords, datastoreUid, search, searchQuery } = this.props;
-    const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords);
+    const { allRecords, datastoreUid, search, searchQuery } = this.props
+    const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords)
 
     return (
       <ul className="bentobox-list">
