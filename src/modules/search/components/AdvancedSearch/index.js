@@ -155,7 +155,7 @@ class AdvancedSearch extends React.Component {
             <div className="advanced-header">
               <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
               <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">
-                <Icon name="close"/><span className="offpage">Basic Search</span>
+                <Icon name="close"/><span className="offpage">Close {activeDatastore.name} advanced search</span>
               </Link>
             </div>
             <div className="advanced-field-container">
@@ -210,17 +210,17 @@ const FieldInput = ({
     )}
     <div className="advanced-input-container">
       <Dropdown
-        labelText={`Fields`}
+        labelText={`Selected field ${index + 1}`}
         options={fields}
         fieldIndex={index}
         handleOnFieldChange={handleOnFieldChange}
       />
       <input
         type="text"
-        aria-label="query"
         className="advanced-input"
         placeholder={`Search Term ${index + 1}`}
         value={field.value}
+        aria-label={`Search Term ${index + 1}`}
         onChange={(event) => handleFieldInputValueChange({ index, value: event.target.value })}
       />
       {index > 0 ? (
@@ -228,7 +228,7 @@ const FieldInput = ({
           className="advanced-input-remove-button"
           type="button"
           onClick={handleRemoveField}>
-            <Icon name="close"/><span className="offpage">Remove Field</span>
+            <Icon name="close"/><span className="offpage">Remove Field {index + 1}</span>
         </button>
       ) : null}
     </div>
