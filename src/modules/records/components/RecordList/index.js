@@ -24,7 +24,7 @@ class RecordListContainer extends React.Component {
       return (
         <div>
           <div className="results-summary-container">
-            <div>
+            <div aria-live="polite">
               <p className="no-margin"><b>No results</b> found for your search.</p>
             </div>
             <Sorts />
@@ -37,7 +37,7 @@ class RecordListContainer extends React.Component {
       return (
         <div>
           <div className="results-summary-container">
-            <div>
+            <div aria-live="polite">
               <p className="no-margin">Loading results...</p>
             </div>
             <Sorts />
@@ -65,7 +65,7 @@ class RecordListContainer extends React.Component {
     return (
       <div>
         <div className="results-summary-container">
-          <ResultsSummary />
+          <span aria-live="polite"><ResultsSummary /></span>
           <Sorts />
         </div>
         <ul className="results-list results-list-border">

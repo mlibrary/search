@@ -240,6 +240,8 @@ const Filter = ({
         <li className="filter-group filter-group-multiselect">
           <button
             className="filter-group-toggle-show-button"
+            aria-expanded={filter.open}
+            aria-label={`${filter.name} filter group`}
             onClick={() => handleFilterClick({
               datastoreUid: datastoreUid,
               filterUid: filter.uid
