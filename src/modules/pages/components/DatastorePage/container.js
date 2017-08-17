@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom'
 
 import {
-  SearchBox
+  SearchBox,
+  AdvancedSearch
 } from '../../../search'
 import {
   DatastoreNavigation,
@@ -37,7 +38,7 @@ class DatastorePageContainer extends React.Component {
   }
 
   render() {
-    const { searching, datastores, match } = this.props;
+    const { searching, datastores, match, location } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     if (activeDatastore === undefined) {
@@ -45,25 +46,36 @@ class DatastorePageContainer extends React.Component {
     }
 
     return (
-      <div>
-        <SearchBox />
-        <DatastoreNavigation />
-        <ConnectedSwitch>
-          <Route path={match.url + `/record/:recordUid`} render={(props) => {
-            return (
-              <RecordFull />
-            )
-          }}/>
-          <Route match={match.url} render={(props) => {
-            return (
-              <div>
-                <DatastoreInfo activeDatastore={activeDatastore} />
-                <Results searching={searching} activeDatastore={activeDatastore} />
-              </div>
-            )
-          }}/>
-        </ConnectedSwitch>
-      </div>
+      <Switch>
+        <Route path={`/:datastoreSlug/advanced`} location={location} render={() => (
+          <AdvancedSearch
+            handleBasicSearchQueryChange={this.handleChange}
+            searchQueryFromURL={location.search}
+          />
+        )}/>
+        <Route path={`/:datastoreSlug`} location={location} render={() => (
+          <div>
+            <SearchBox />
+            <DatastoreNavigation />
+            <ConnectedSwitch>
+              <Route path={match.url + `/record/:recordUid`} render={(props) => {
+                return (
+                  <RecordFull />
+                )
+              }}/>
+              <Route match={match.url} render={(props) => {
+                return (
+                  <div>
+                    <DatastoreInfo activeDatastore={activeDatastore} />
+                    <Results searching={searching} activeDatastore={activeDatastore} />
+                  </div>
+                )
+              }}/>
+            </ConnectedSwitch>
+          </div>
+        )}/>
+      </Switch>
+
     )
   }
 }
