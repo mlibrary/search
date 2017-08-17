@@ -17,9 +17,6 @@ import {
   Icon
 } from '../../../core';
 import {
-  AdvancedSearch
-} from '../../../search'
-import {
   isDatastoreAdvanced
 } from '../../../pride'
 
@@ -88,28 +85,10 @@ class SearchBox extends React.Component {
 
             {isAdvanced && (
               <Link to={`${location.pathname}/advanced${location.search}`} className="search-box-advanced-link">
-                <span className="search-box-advanced-link-text">Advanced
-                  <span className="offpage">Search Options</span>
-                </span>
-                <Icon name="chevron-down" />
+                Advanced<span className="offpage">Search Options</span>
               </Link>
             )}
           </form>
-
-          <Switch>
-            <Route path={`/:datastoreSlug/record/:recordUid/advanced`} location={location} render={() => (
-              <AdvancedSearch
-                handleBasicSearchQueryChange={this.handleChange}
-                searchQueryFromURL={location.search}
-              />
-            )}/>
-            <Route path={`/:datastoreSlug/advanced`} location={location} render={() => (
-              <AdvancedSearch
-                handleBasicSearchQueryChange={this.handleChange}
-                searchQueryFromURL={location.search}
-              />
-            )}/>
-          </Switch>
         </div>
       </div>
     )
