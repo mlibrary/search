@@ -17,10 +17,14 @@ import {
   parseField,
   getFormatIconName,
   parseSearchQueryStringToBooleanFields,
-  getAdvancedFields,
   isFieldASearchLink
 } from './utils'
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper'
+
+import {
+  getAdvancedFilters,
+  getAdvancedFields
+} from './utils/advanced-search'
 
 export {
   initializePride,
@@ -40,6 +44,9 @@ export {
   parseField,
   getFormatIconName,
   parseSearchQueryStringToBooleanFields,
-  getAdvancedFields,
-  isFieldASearchLink
+  isFieldASearchLink,
+
+  // './utils/advanced-search'
+  getAdvancedFilters,
+  getAdvancedFields
 }

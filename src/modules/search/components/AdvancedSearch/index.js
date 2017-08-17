@@ -12,6 +12,7 @@ import {
 } from '../../../core'
 import {
   getAdvancedFields,
+  getAdvancedFilters,
   stringifySearchQueryForURL,
 } from '../../../pride'
 
@@ -24,11 +25,11 @@ class AdvancedSearch extends React.Component {
       booleanFields: [
         {
           value: '',
-          field: this.props.fields[0].uid,
+          field: 'Any Field',
         },
         {
           value: '',
-          field: this.props.fields[0].uid,
+          field: 'Any Field',
           boolean: 0
         }
       ]
@@ -318,10 +319,18 @@ function mapStateToProps(state) {
     datastoreUid: state.datastores.active,
     data: state.search.data[state.datastores.active],
   })
+  const filters = getAdvancedFilters({
+    datastoreUid: state.datastores.active,
+    data: state.search.data[state.datastores.active],
+  })
+
+  console.log('fields', fields)
+  console.log('filters', filters)
 
   return {
     datastores: state.datastores,
-    fields: fields,
+    fields,
+    filters,
     searchQuery: state.search.query
   };
 }
