@@ -1,5 +1,5 @@
-import mirlyn from 'mirlyn.js'
+import advancedSearchConfig from 'advanced-search.js'
 
 export {
-  mirlyn
+  advancedSearchConfig
 }
