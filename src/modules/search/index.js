@@ -8,6 +8,7 @@ import {
   searching,
   setPage,
   clearSearch,
+  addAdvancedDatastore
 } from './actions';
 
 export {
@@ -18,6 +19,7 @@ export {
   setSearchData,
   setPage,
   searching,
+  addAdvancedDatastore,
   ClearSearchButton,
   clearSearch,
 }

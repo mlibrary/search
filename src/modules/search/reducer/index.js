@@ -4,6 +4,7 @@ const initialState = {
   searching: false,
   query: "",
   data: null,
+  advanced: {},
   page: {},
   sort: {}
 }
@@ -41,6 +42,26 @@ const searchReducer = function searchReducer(state = initialState, action) {
           ...state.sort,
           [action.payload.datastoreUid]: action.payload.sort
         }
+      }
+    case actions.ADD_ADVANCED_DATASTORE:
+      return Object.assign({}, state, {
+        advanced: {
+          ...state.advanced,
+          [action.payload.datastoreUid]: advancedDatastoreReducer(undefined, action),
+        },
+      });
+    default:
+      return state;
+  }
+}
+
+const advancedDatastoreReducer = (state, action) => {
+  switch (action.type) {
+    case actions.ADD_ADVANCED_DATASTORE:
+      return {
+        defaultField: action.payload.defaultField,
+        fields: action.payload.fields,
+        filters: action.payload.filters,
       }
     default:
       return state;

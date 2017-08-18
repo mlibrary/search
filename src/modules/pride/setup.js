@@ -23,6 +23,7 @@ import {
 import {
   setSearchData,
   searching,
+  addAdvancedDatastore
 } from '../search';
 
 import {
@@ -35,6 +36,10 @@ import {
   getDatastoreName,
   getDatastoreUidBySlug,
 } from './utils'
+
+import {
+  getAdvancedFields
+} from './utils/advanced-search'
 
 /*
   Pride Internal Configuration
@@ -65,6 +70,19 @@ const handleSearchData = (data, datastoreUid) => {
   }
 
   store.dispatch(setSearchData(payload))
+
+  // Set Advanced Search Fields, Filters basec on config
+  const configuredAdvancedFields = getAdvancedFields({
+    datastoreUid,
+    fields: data.fields
+  })
+
+  store.dispatch(addAdvancedDatastore({
+    datastoreUid,
+    defaultField: 'all_fields',
+    fields: configuredAdvancedFields,
+    filters: []
+  }))
 
   const records = store.getState().records.records[datastoreUid];
   const recordsLength = _.values(records).length

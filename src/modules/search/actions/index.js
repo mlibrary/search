@@ -3,7 +3,8 @@ export const CLEAR_SEARCH = 'search/CLEAR_SEARCH';
 export const SEARCHING = 'search/SEARCHING';
 export const SET_SEARCH_DATA = 'search/SET_SEARCH_DATA';
 export const SET_PAGE = 'search/SET_PAGE';
-export const SET_SORT = 'records/SET_SORT';
+export const SET_SORT = 'search/SET_SORT';
+export const ADD_ADVANCED_DATASTORE = 'search/ADD_ADVANCED_DATASTORE'
 
 export const setSearchQuery = function submitSearch(payload) {
   return { type: SET_SEARCH_QUERY, payload };
@@ -27,4 +28,8 @@ export const setPage = function setPage(payload) {
 
 export const setSort = function setSort(payload) {
   return { type: SET_SORT, payload };
+}
+
+export const addAdvancedDatastore = function addAdvancedDatastore(payload) {
+  return { type: ADD_ADVANCED_DATASTORE, payload };
 }

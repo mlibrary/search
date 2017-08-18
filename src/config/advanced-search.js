@@ -26,6 +26,7 @@ const advancedSearchConfig = {
   },
   */
   mirlyn: {
+    defaultField: 'all_fields',
     fields: [
       {
         uid: 'all_fields',
@@ -50,7 +51,7 @@ const advancedSearchConfig = {
       */
       {
         uid: 'location',
-        name: 'Location'
+        name: 'Location',
         type: 'select'
       },
       {
@@ -60,7 +61,7 @@ const advancedSearchConfig = {
       },
       {
         uid: 'date_of_publication',
-        name: 'Date of Publication'
+        name: 'Date of Publication',
         type: 'year_input'
       },
       {

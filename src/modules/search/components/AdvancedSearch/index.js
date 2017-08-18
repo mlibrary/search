@@ -20,16 +20,23 @@ class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props)
 
+    /*
+    const fields = getAdvancedFields({
+      datastoreUid: activeDatastore.uid,
+      fields: this.props.fields
+    })
+    */
+
     this.state = {
       booleanTypes: ['AND', 'OR', 'NOT'],
       booleanFields: [
         {
           value: '',
-          field: 'Any Field',
+          field: 'all_fields',
         },
         {
           value: '',
-          field: 'Any Field',
+          field: 'all_fields',
           boolean: 0
         }
       ]
@@ -90,8 +97,6 @@ class AdvancedSearch extends React.Component {
 
         const { datastores } = this.props;
         const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
-
-        this.props.handleBasicSearchQueryChange(query)
 
         const url = `/${activeDatastore.slug}?${queryString}`
 
@@ -315,22 +320,9 @@ const Switch = ({
 }
 
 function mapStateToProps(state) {
-  const fields = getAdvancedFields({
-    datastoreUid: state.datastores.active,
-    data: state.search.data[state.datastores.active],
-  })
-  const filters = getAdvancedFilters({
-    datastoreUid: state.datastores.active,
-    data: state.search.data[state.datastores.active],
-  })
-
-  console.log('fields', fields)
-  console.log('filters', filters)
-
   return {
     datastores: state.datastores,
-    fields,
-    filters,
+    fields: state.search.advanced[state.datastores.active].fields,
     searchQuery: state.search.query
   };
 }
