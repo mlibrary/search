@@ -8,7 +8,9 @@ import {
   searching,
   setPage,
   clearSearch,
-  addAdvancedDatastore
+  addAdvancedDatastore,
+  removeAdvancedField,
+  setAdvancedField
 } from './actions';
 
 export {
@@ -22,4 +24,6 @@ export {
   addAdvancedDatastore,
   ClearSearchButton,
   clearSearch,
+  removeAdvancedField,
+  setAdvancedField
 }

@@ -4,9 +4,56 @@ const initialState = {
   searching: false,
   query: "",
   data: null,
-  advanced: {},
+  advanced: {
+    booleanTypes: ['AND', 'OR', 'NOT']
+  },
   page: {},
   sort: {}
+}
+
+const setAdvancedFields = ({ advanced, payload }) => {
+  const { query, advancedFieldIndex } = payload
+
+  console.log('setAdvancedFields')
+  console.log('advanced', advanced)
+  console.log('payload', payload)
+
+  // Query change
+  if (query && advancedFieldIndex) {
+    const queryChangedAdvancedFields = advanced.advancedFields.map((item, i) => {
+      if (i !== advancedFieldIndex) {
+        return item
+      }
+
+      return {
+        ...item,
+        query,
+      }
+    })
+
+    return queryChangedAdvancedFields
+  }
+
+  // Default, no change.
+  return advanced.advancedFields
+}
+
+const getInitialAdvancedFields = ({ advanced, fields }) => {
+  if (advanced && advanced.advancedFields) {
+    return advanced.advancedFields
+  } else {
+    return [
+      {
+        selectedFieldUid: fields[0].uid,
+        query: ''
+      },
+      {
+        selectedFieldUid: fields[0].uid,
+        query: '',
+        booleanType: 0
+      }
+    ]
+  }
 }
 
 const searchReducer = function searchReducer(state = initialState, action) {
@@ -44,25 +91,41 @@ const searchReducer = function searchReducer(state = initialState, action) {
         }
       }
     case actions.ADD_ADVANCED_DATASTORE:
+      // A datastore can only be advanced if it has fields
+      if (!action.payload.fields || action.payload.fields === 0 ) {
+        return state
+      }
+
       return Object.assign({}, state, {
         advanced: {
           ...state.advanced,
-          [action.payload.datastoreUid]: advancedDatastoreReducer(undefined, action),
+          [action.payload.datastoreUid]: {
+            ...state.advanced[action.payload.datastoreUid],
+            fields: action.payload.fields,
+            filters: action.payload.filters,
+            advancedFields: getInitialAdvancedFields({
+              advanced: state.advanced[action.payload.datastoreUid],
+              fields: action.payload.fields
+            })
+          }
         },
-      });
-    default:
-      return state;
-  }
-}
-
-const advancedDatastoreReducer = (state, action) => {
-  switch (action.type) {
-    case actions.ADD_ADVANCED_DATASTORE:
+      })
+    case actions.SET_ADVANCED_FIELD:
       return {
-        defaultField: action.payload.defaultField,
-        fields: action.payload.fields,
-        filters: action.payload.filters,
+        ...state,
+        advanced: {
+          ...state.advanced,
+          [action.payload.datastoreUid]: {
+            ...state.advanced[action.payload.datastoreUid],
+            advancedFields: setAdvancedFields({
+              advanced: state.advanced[action.payload.datastoreUid],
+              payload: action.payload
+            })
+          }
+        }
       }
+
+    case actions.REMOVE_ADVANCED_FIELD:
     default:
       return state;
   }

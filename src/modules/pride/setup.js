@@ -38,7 +38,8 @@ import {
 } from './utils'
 
 import {
-  getAdvancedFields
+  getAdvancedFields,
+  getAdvancedFilters
 } from './utils/advanced-search'
 
 /*
@@ -77,11 +78,14 @@ const handleSearchData = (data, datastoreUid) => {
     fields: data.fields
   })
 
+  const configuredAdvancedFilters = getAdvancedFilters({
+    datastoreUid
+  })
+
   store.dispatch(addAdvancedDatastore({
     datastoreUid,
-    defaultField: 'all_fields',
     fields: configuredAdvancedFields,
-    filters: []
+    filters: configuredAdvancedFilters
   }))
 
   const records = store.getState().records.records[datastoreUid];

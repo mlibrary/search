@@ -5,7 +5,7 @@ const advancedSearchConfig = {
     fields: [ // fielded searching options
       {
         uid: 'all_fields', // unique for Spectrum and URL state
-        name: 'Any Field' // displayed name
+        name: 'All Field' // displayed name
       },
       {
         uid: 'title',
@@ -26,11 +26,10 @@ const advancedSearchConfig = {
   },
   */
   mirlyn: {
-    defaultField: 'all_fields',
     fields: [
       {
         uid: 'all_fields',
-        name: 'Any Field'
+        name: 'All Field'
       },
       {
         uid: 'title',

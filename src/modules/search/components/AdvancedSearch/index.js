@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import FocusTrap from 'focus-trap-react';
+import { bindActionCreators } from 'redux'
 import { _ } from 'underscore';
 import {
   Link,
@@ -16,61 +16,49 @@ import {
   stringifySearchQueryForURL,
 } from '../../../pride'
 
+import {
+  removeAdvancedField,
+  setAdvancedField
+} from '../../../search'
+
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props)
 
-    /*
-    const fields = getAdvancedFields({
-      datastoreUid: activeDatastore.uid,
-      fields: this.props.fields
-    })
-    */
-
-    this.state = {
-      booleanTypes: ['AND', 'OR', 'NOT'],
-      booleanFields: [
-        {
-          value: '',
-          field: 'all_fields',
-        },
-        {
-          value: '',
-          field: 'all_fields',
-          boolean: 0
-        }
-      ]
-    }
-
-    this.handleFieldInputValueChange = this.handleFieldInputValueChange.bind(this)
+    this.handleAdvancedFieldQueryChange = this.handleAdvancedFieldQueryChange.bind(this)
     this.handleOnBooleanSwitchChange = this.handleOnBooleanSwitchChange.bind(this)
     this.handleOnFieldChange = this.handleOnFieldChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleAddAnotherField() {
+    /*
     this.setState({
       booleanFields: [
-        ...this.state.booleanFields,
+        ...this.props.booleanFields,
         {
           value: '',
           field: this.props.fields[0].uid,
-          boolean: 0
+          booleanType: 0
         }
       ]
     })
+    */
   }
 
   handleRemoveField({ removeIndex }) {
+    /*
     const fields = this.state.booleanFields.filter((field, index) => removeIndex !== index)
 
     this.setState({
       booleanFields: fields
     })
+    */
   }
 
   handleSubmit(event) {
     event.preventDefault()
+    /*
 
     // Build the query
     // example output: 'title:parrots AND author:charles'
@@ -103,9 +91,17 @@ class AdvancedSearch extends React.Component {
         history.push(url)
       }
     }
+    */
   }
 
-  handleFieldInputValueChange({ index, value }) {
+  handleAdvancedFieldQueryChange({ index, value }) {
+    this.props.setAdvancedField({
+      datastoreUid: this.props.datastores.active,
+      advancedFieldIndex: index,
+      query: value
+    })
+
+    /*
     this.setState({
       booleanFields: this.state.booleanFields.map((item, i) => {
         if (i !== index) {
@@ -118,9 +114,11 @@ class AdvancedSearch extends React.Component {
         }
       })
     })
+    */
   }
 
   handleOnBooleanSwitchChange({ fieldIndex, switchOptionIndex }) {
+    /*
     this.setState({
       booleanFields: this.state.booleanFields.map((item, index) => {
         if (index !== fieldIndex) {
@@ -133,9 +131,11 @@ class AdvancedSearch extends React.Component {
         }
       })
     })
+    */
   }
 
   handleOnFieldChange({ fieldIndex, optionValue }) {
+    /*
     this.setState({
       booleanFields: this.state.booleanFields.map((item, index) => {
         if (index !== fieldIndex) {
@@ -148,10 +148,11 @@ class AdvancedSearch extends React.Component {
         }
       })
     })
+    */
   }
 
   render() {
-    const { datastores, fields, match } = this.props;
+    const { datastores, fields, match, advancedFields } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
@@ -162,13 +163,13 @@ class AdvancedSearch extends React.Component {
             <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">Back to Basic Search</Link>
           </div>
           <div className="advanced-field-container">
-            {this.state.booleanFields.map((field, index) => (
+            {advancedFields.map((field, index) => (
               <FieldInput
                 key={index}
                 index={index}
                 field={field}
                 fields={fields}
-                handleFieldInputValueChange={this.handleFieldInputValueChange}
+                handleAdvancedFieldQueryChange={this.handleAdvancedFieldQueryChange}
                 handleRemoveField={() => this.handleRemoveField({ removeIndex: index})}
                 handleOnBooleanSwitchChange={this.handleOnBooleanSwitchChange}
                 handleOnFieldChange={this.handleOnFieldChange}
@@ -185,20 +186,6 @@ class AdvancedSearch extends React.Component {
               </span>
             </button>
           </div>
-
-          <select multiple className="dropdown-multiple">
-            <option value="">All</option>
-            <option value="Academic and Specialized News">Academic and Specialized News</option>
-            <option value="Aerospace Engineering">Aerospace Engineering</option>
-            <option value="African American Studies">African American Studies</option>
-            <option value="African Studies">African Studies</option>
-            <option value="Allergy and Clinical Immunology">Allergy and Clinical Immunology</option>
-            <option value="American Culture">American Culture</option>
-            <option value="Analytical Chemistry">Analytical Chemistry</option>
-            <option value="Anesthesiology">Anesthesiology</option>
-            <option value="Anthropology">Anthropology</option>
-            <option value="Arab-American Studies">Arab-American Studies</option>
-          </select>
         </form>
       </div>
     )
@@ -210,7 +197,7 @@ const FieldInput = ({
   field,
   fields,
   handleRemoveField,
-  handleFieldInputValueChange,
+  handleAdvancedFieldQueryChange,
   handleOnBooleanSwitchChange,
   handleOnFieldChange
 }) => (
@@ -237,7 +224,7 @@ const FieldInput = ({
         placeholder={`Search Term ${index + 1}`}
         value={field.value}
         aria-label={`Search Term ${index + 1}`}
-        onChange={(event) => handleFieldInputValueChange({ index, value: event.target.value })}
+        onChange={(event) => handleAdvancedFieldQueryChange({ index, value: event.target.value })}
       />
       {index > 0 ? (
         <button
@@ -322,11 +309,21 @@ const Switch = ({
 function mapStateToProps(state) {
   return {
     datastores: state.datastores,
+    booleanTypes: state.search.advanced.booleanTypes,
+    advancedFields: state.search.advanced[state.datastores.active].advancedFields,
     fields: state.search.advanced[state.datastores.active].fields,
+    filters: state.search.advanced[state.datastores.active].filters,
     searchQuery: state.search.query
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    removeAdvancedField,
+    setAdvancedField
+  }, dispatch)
+}
+
 export default withRouter(
-  connect(mapStateToProps)(AdvancedSearch)
+  connect(mapStateToProps, mapDispatchToProps)(AdvancedSearch)
 )
