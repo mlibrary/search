@@ -4,9 +4,7 @@ import { bindActionCreators } from 'redux'
 import qs from 'qs'
 import {
   withRouter,
-  Route,
   Link,
-  Switch
 } from 'react-router-dom'
 
 import {

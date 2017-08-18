@@ -1,13 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
 import numeral from 'numeral'
-import { _ } from 'underscore';
 
-import ResultsSummary from './presenter';
+import ResultsSummary from './presenter'
 
 import {
   getDatastoreName,
-} from '../../../pride';
+} from '../../../pride'
 
 
 class ResultsSummaryContainer extends React.Component {

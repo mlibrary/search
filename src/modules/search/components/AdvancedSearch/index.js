@@ -10,11 +10,11 @@ import {
 import {
   Icon,
 } from '../../../core'
+/*
 import {
-  getAdvancedFields,
-  getAdvancedFilters,
   stringifySearchQueryForURL,
 } from '../../../pride'
+*/
 
 import {
   removeAdvancedField,
@@ -222,7 +222,7 @@ const FieldInput = ({
         type="text"
         className="advanced-input"
         placeholder={`Search Term ${index + 1}`}
-        value={field.value}
+        value={field.query}
         aria-label={`Search Term ${index + 1}`}
         onChange={(event) => handleAdvancedFieldQueryChange({ index, value: event.target.value })}
       />

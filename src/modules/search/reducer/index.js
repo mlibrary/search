@@ -14,12 +14,8 @@ const initialState = {
 const setAdvancedFields = ({ advanced, payload }) => {
   const { query, advancedFieldIndex } = payload
 
-  console.log('setAdvancedFields')
-  console.log('advanced', advanced)
-  console.log('payload', payload)
-
-  // Query change
-  if (query && advancedFieldIndex) {
+  // Update query
+  if (query) {
     const queryChangedAdvancedFields = advanced.advancedFields.map((item, i) => {
       if (i !== advancedFieldIndex) {
         return item

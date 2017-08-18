@@ -20,8 +20,4 @@ function RecordFieldList({ fields, datastoreUid }) {
   );
 }
 
-RecordFieldList.propTypes = {
-  fields: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-};
-
 export default RecordFieldList;

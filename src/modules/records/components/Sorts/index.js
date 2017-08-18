@@ -24,6 +24,8 @@ const getSorts = ({ sorts, configuredSorts }) => {
         name: foundSort.metadata.name
       })
     }
+
+    return acc
   }, [])
 
   return displaySorts
@@ -36,7 +38,7 @@ class Sorts extends React.Component {
     this.onChange = this.onChange.bind(this)
   }
   onChange(event) {
-    const { match, history, query, activeFilters, datastoreUid, page, sort } = this.props
+    const { match, history, query, activeFilters, page } = this.props
 
     const queryString = stringifySearchQueryForURL({
       query,
