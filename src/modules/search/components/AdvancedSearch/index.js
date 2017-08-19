@@ -25,9 +25,7 @@ class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props)
 
-    this.handleAdvancedFieldQueryChange = this.handleAdvancedFieldQueryChange.bind(this)
-    this.handleOnBooleanSwitchChange = this.handleOnBooleanSwitchChange.bind(this)
-    this.handleOnFieldChange = this.handleOnFieldChange.bind(this)
+    this.handleAdvancedFieldChange = this.handleAdvancedFieldChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -94,61 +92,19 @@ class AdvancedSearch extends React.Component {
     */
   }
 
-  handleAdvancedFieldQueryChange({ index, value }) {
+  handleAdvancedFieldChange({
+    advancedFieldIndex,
+    selectedFieldUid,
+    query,
+    booleanType
+  }) {
     this.props.setAdvancedField({
       datastoreUid: this.props.datastores.active,
-      advancedFieldIndex: index,
-      query: value
+      advancedFieldIndex,
+      selectedFieldUid,
+      query,
+      booleanType,
     })
-
-    /*
-    this.setState({
-      booleanFields: this.state.booleanFields.map((item, i) => {
-        if (i !== index) {
-          return item
-        }
-
-        return {
-          ...item,
-          value: value
-        }
-      })
-    })
-    */
-  }
-
-  handleOnBooleanSwitchChange({ fieldIndex, switchOptionIndex }) {
-    /*
-    this.setState({
-      booleanFields: this.state.booleanFields.map((item, index) => {
-        if (index !== fieldIndex) {
-          return item
-        }
-
-        return {
-          ...item,
-          boolean: switchOptionIndex
-        }
-      })
-    })
-    */
-  }
-
-  handleOnFieldChange({ fieldIndex, optionValue }) {
-    /*
-    this.setState({
-      booleanFields: this.state.booleanFields.map((item, index) => {
-        if (index !== fieldIndex) {
-          return item
-        }
-
-        return {
-          ...item,
-          field: optionValue
-        }
-      })
-    })
-    */
   }
 
   render() {
@@ -163,16 +119,14 @@ class AdvancedSearch extends React.Component {
             <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">Back to Basic Search</Link>
           </div>
           <div className="advanced-field-container">
-            {advancedFields.map((field, index) => (
+            {advancedFields.map((field, advancedFieldIndex) => (
               <FieldInput
-                key={index}
-                index={index}
+                key={advancedFieldIndex}
+                advancedFieldIndex={advancedFieldIndex}
                 field={field}
                 fields={fields}
-                handleAdvancedFieldQueryChange={this.handleAdvancedFieldQueryChange}
-                handleRemoveField={() => this.handleRemoveField({ removeIndex: index})}
-                handleOnBooleanSwitchChange={this.handleOnBooleanSwitchChange}
-                handleOnFieldChange={this.handleOnFieldChange}
+                handleAdvancedFieldChange={this.handleAdvancedFieldChange}
+                handleRemoveField={() => this.handleRemoveField({ removeIndex: advancedFieldIndex})}
               />
             ))}
           </div>
@@ -193,45 +147,47 @@ class AdvancedSearch extends React.Component {
 }
 
 const FieldInput = ({
-  index,
+  advancedFieldIndex,
   field,
   fields,
   handleRemoveField,
-  handleAdvancedFieldQueryChange,
-  handleOnBooleanSwitchChange,
-  handleOnFieldChange
+  handleAdvancedFieldChange,
 }) => (
   <fieldset style={{ margin: 0 }}>
-    <legend className="offpage">Search field {index + 1}</legend>
-    {index === 0 ? null : (
+    <legend className="offpage">Search field {advancedFieldIndex + 1}</legend>
+    {advancedFieldIndex === 0 ? null : (
       <Switch
         options={['AND', 'OR', 'NOT']}
-        fieldIndex={index}
-        selectedIndex={field.boolean}
-        onSwitchChange={handleOnBooleanSwitchChange}
+        advancedFieldIndex={advancedFieldIndex}
+        selectedIndex={field.booleanType}
+        onSwitchChange={handleAdvancedFieldChange}
       />
     )}
     <div className="advanced-input-container">
       <Dropdown
-        labelText={`Selected field ${index + 1}`}
+        labelText={`Selected field ${advancedFieldIndex + 1}`}
         options={fields}
-        fieldIndex={index}
-        handleOnFieldChange={handleOnFieldChange}
+        selectedOption={field.selectedFieldUid}
+        advancedFieldIndex={advancedFieldIndex}
+        handleOnFieldChange={handleAdvancedFieldChange}
       />
       <input
         type="text"
         className="advanced-input"
-        placeholder={`Search Term ${index + 1}`}
+        placeholder={`Search Term ${advancedFieldIndex + 1}`}
         value={field.query}
-        aria-label={`Search Term ${index + 1}`}
-        onChange={(event) => handleAdvancedFieldQueryChange({ index, value: event.target.value })}
+        aria-label={`Search Term ${advancedFieldIndex + 1}`}
+        onChange={(event) => handleAdvancedFieldChange({
+          advancedFieldIndex,
+          query: event.target.value
+        })}
       />
-      {index > 0 ? (
+      {advancedFieldIndex > 0 ? (
         <button
           className="advanced-input-remove-button"
           type="button"
           onClick={handleRemoveField}>
-            <Icon name="close"/><span className="offpage">Remove Field {index + 1}</span>
+            <Icon name="close"/><span className="offpage">Remove Field {advancedFieldIndex + 1}</span>
         </button>
       ) : null}
     </div>
@@ -240,7 +196,7 @@ const FieldInput = ({
 
 const Dropdown = ({
   labelText,
-  fieldIndex,
+  advancedFieldIndex,
   options,
   selectedOption,
   handleOnFieldChange,
@@ -252,8 +208,8 @@ const Dropdown = ({
     value={selectedOption}
     multiple={multiple ? multiple : false}
     onChange={(event) => handleOnFieldChange({
-      fieldIndex,
-      optionValue: event.target.value,
+      advancedFieldIndex,
+      selectedFieldUid: event.target.value,
     })}
   >
     {options.map((option, index) =>
@@ -284,7 +240,7 @@ const SwitchOption = ({
 
 const Switch = ({
   options,
-  fieldIndex,
+  advancedFieldIndex,
   selectedIndex,
   onSwitchChange
 }) => {
@@ -296,8 +252,8 @@ const Switch = ({
             optionIndex,
             isActive: selectedIndex === optionIndex,
             onSwitchChange: () => onSwitchChange({
-              fieldIndex,
-              switchOptionIndex: optionIndex
+              advancedFieldIndex,
+              booleanType: optionIndex,
             }),
           })
         )}

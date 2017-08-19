@@ -12,22 +12,42 @@ const initialState = {
 }
 
 const setAdvancedFields = ({ advanced, payload }) => {
-  const { query, advancedFieldIndex } = payload
+  const {
+    advancedFieldIndex,
+    selectedFieldUid,
+    query,
+    booleanType
+  } = payload
+  
+  if (typeof advancedFieldIndex === 'number') {
+    const updatedAdvancedFields = advanced.advancedFields.map((item, i) => {
+      if (i === advancedFieldIndex) {
+        if (typeof query === 'string') {
+          return {
+            ...item,
+            query,
+          }
+        }
 
-  // Update query
-  if (query) {
-    const queryChangedAdvancedFields = advanced.advancedFields.map((item, i) => {
-      if (i !== advancedFieldIndex) {
+        if (selectedFieldUid) {
+          return {
+            ...item,
+            selectedFieldUid,
+          }
+        }
+
+        if (typeof booleanType === 'number') {
+          return {
+            ...item,
+            booleanType
+          }
+        }
+      } else {
         return item
-      }
-
-      return {
-        ...item,
-        query,
       }
     })
 
-    return queryChangedAdvancedFields
+    return updatedAdvancedFields
   }
 
   // Default, no change.
@@ -120,7 +140,6 @@ const searchReducer = function searchReducer(state = initialState, action) {
           }
         }
       }
-
     case actions.REMOVE_ADVANCED_FIELD:
     default:
       return state;
