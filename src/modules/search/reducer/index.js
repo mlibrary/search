@@ -107,6 +107,8 @@ const searchReducer = function searchReducer(state = initialState, action) {
         }
       }
     case actions.ADD_ADVANCED_DATASTORE:
+      console.log('ADD_ADVANCED_DATASTORE', action.payload)
+      
       // A datastore can only be advanced if it has fields
       if (!action.payload.fields || action.payload.fields === 0 ) {
         return state

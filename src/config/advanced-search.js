@@ -24,7 +24,20 @@ const advancedSearchConfig = {
       ]
     ]
   },
+  // End of example config
   */
+  everything: {
+    fields: [
+      {
+        uid: 'all_fields',
+        name: 'All Field',
+      },
+      {
+        uid: 'title',
+        name: 'Title'
+      },
+    ]
+  },
   mirlyn: {
     fields: [
       {
@@ -39,15 +52,16 @@ const advancedSearchConfig = {
         uid: 'author',
         name: 'Author'
       },
+      {
+        uid: 'academic_discipline',
+        name: 'Academic Discipline'
+      },
+      {
+        uid: 'publisher',
+        name: 'Publisher'
+      }
     ],
     filters: [
-      /*
-      {
-        uid: // uid of filter from spectrum
-        name: // display name
-        type: 'select' | 'multiselect' | 'year_input'
-      },
-      */
       {
         uid: 'location',
         name: 'Location',
@@ -79,7 +93,19 @@ const advancedSearchConfig = {
         type: 'multiselect'
       },
     ]
-  }
+  },
+  articlesplus: {
+    fields: [
+      {
+        uid: 'all_fields',
+        name: 'All Field'
+      },
+      {
+        uid: 'title',
+        name: 'Title'
+      },
+    ]
+  },
 }
 
 export default advancedSearchConfig

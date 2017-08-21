@@ -2,6 +2,9 @@ import { Pride } from 'pride'
 import { _ } from 'underscore'
 
 import config from '../../config'
+import {
+  advancedSearchConfig
+} from '../../config/'
 import store from '../../store'
 import {
   renderApp
@@ -72,22 +75,6 @@ const handleSearchData = (data, datastoreUid) => {
 
   store.dispatch(setSearchData(payload))
 
-  // Set Advanced Search Fields, Filters basec on config
-  const configuredAdvancedFields = getAdvancedFields({
-    datastoreUid,
-    fields: data.fields
-  })
-
-  const configuredAdvancedFilters = getAdvancedFilters({
-    datastoreUid
-  })
-
-  store.dispatch(addAdvancedDatastore({
-    datastoreUid,
-    fields: configuredAdvancedFields,
-    filters: configuredAdvancedFilters
-  }))
-
   const records = store.getState().records.records[datastoreUid];
   const recordsLength = _.values(records).length
   const count = data.count // page count
@@ -112,8 +99,6 @@ const handleHoldings = (datastoreUid, recordId) => {
   }))
 
   return (holdingsData) => {
-    //console.log('holdingsData', datastoreUid, recordId, holdingsData)
-
     store.dispatch(addHoldings({
       datastoreUid: datastoreUid,
       recordId: recordId,
@@ -318,6 +303,16 @@ const runSearch = () => {
   searchSwitcher.set(config).run();
 }
 
+const setupAdvancedSearch = () => {
+  Object.keys(advancedSearchConfig).forEach(datastoreUid => {
+    store.dispatch(addAdvancedDatastore({
+      datastoreUid,
+      fields: getAdvancedFields({ datastoreUid }),
+      filters: getAdvancedFilters({ datastoreUid })
+    }))
+  })
+}
+
 /*
   Initialize Pride kicks off Pride's internal init and checks if
   communication with the back-end (Spectrum) is established.
@@ -326,6 +321,7 @@ const initializePride = () => {
   Pride.init({
     success: () => {
       setupSearches();
+      setupAdvancedSearch()
       renderApp();
     },
     failure: () => {
