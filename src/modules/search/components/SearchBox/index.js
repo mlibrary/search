@@ -58,10 +58,8 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    const { activeDatastoreUid, location } = this.props
+    const { activeDatastoreUid, location, isAdvanced } = this.props
     const { query } = this.state
-
-    const isAdvanced = isDatastoreAdvanced(activeDatastoreUid)
 
     return (
       <div className="search-box-container-full">
@@ -100,6 +98,7 @@ function mapStateToProps(state) {
     activeFilters: state.filters.active[state.datastores.active],
     activeDatastoreUid: state.datastores.active,
     location: state.router.location,
+    isAdvanced: state.search.advanced[state.datastores.active] ? true : false
   };
 }
 

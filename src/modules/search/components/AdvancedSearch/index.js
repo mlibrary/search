@@ -10,15 +10,16 @@ import {
 import {
   Icon,
 } from '../../../core'
-/*
+
 import {
   stringifySearchQueryForURL,
 } from '../../../pride'
-*/
+
 
 import {
   removeAdvancedField,
-  setAdvancedField
+  setAdvancedField,
+  addAdvancedField
 } from '../../../search'
 
 class AdvancedSearch extends React.Component {
@@ -30,43 +31,33 @@ class AdvancedSearch extends React.Component {
   }
 
   handleAddAnotherField() {
-    /*
-    this.setState({
-      booleanFields: [
-        ...this.props.booleanFields,
-        {
-          value: '',
-          field: this.props.fields[0].uid,
-          booleanType: 0
-        }
-      ]
+    this.props.addAdvancedField({
+      datastoreUid: this.props.datastores.active,
+      selectedFieldUid: this.props.fields[0].uid
     })
-    */
   }
 
   handleRemoveField({ removeIndex }) {
-    /*
-    const fields = this.state.booleanFields.filter((field, index) => removeIndex !== index)
-
-    this.setState({
-      booleanFields: fields
+    this.props.removeAdvancedField({
+      datastoreUid: this.props.datastores.active,
+      removeIndex
     })
-    */
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    /*
+
+    const { advancedFields, booleanTypes } = this.props
 
     // Build the query
     // example output: 'title:parrots AND author:charles'
-    const query = this.state.booleanFields.reduce((memo, field) => {
-      if (field.value.length > 0) {
-        if (typeof field.boolean !== 'undefined') {
-          memo.push(this.state.booleanTypes[field.boolean])
+    const query = advancedFields.reduce((memo, field) => {
+      if (field.query.length > 0) {
+        if (typeof field.booleanType !== 'undefined') {
+          memo.push(booleanTypes[field.booleanType])
         }
 
-        memo.push(`${field.field}:${field.value}`)
+        memo.push(`${field.selectedFieldUid}:${field.query}`)
       }
 
       return memo
@@ -89,7 +80,6 @@ class AdvancedSearch extends React.Component {
         history.push(url)
       }
     }
-    */
   }
 
   handleAdvancedFieldChange({
@@ -276,7 +266,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     removeAdvancedField,
-    setAdvancedField
+    setAdvancedField,
+    addAdvancedField
   }, dispatch)
 }
 

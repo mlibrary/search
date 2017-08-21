@@ -212,10 +212,6 @@ const stringifySearchQueryForURL = ({
   return SearchQueryString
 }
 
-const isDatastoreAdvanced = (datastoreUid) => {
-  return _.contains(config.advanced.datastores, datastoreUid)
-}
-
 const parseField = ({
   defaultFieldName,
   stringToParse,
@@ -301,7 +297,6 @@ export {
   requestRecord,
   isValidURLSearchQuery,
   stringifySearchQueryForURL,
-  isDatastoreAdvanced,
   parseField,
   getFormatIconName,
   parseSearchQueryStringToBooleanFields,

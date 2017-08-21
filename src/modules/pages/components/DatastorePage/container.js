@@ -7,6 +7,9 @@ import {
 } from 'react-router-dom'
 
 import {
+  NoMatch
+} from '../../../pages'
+import {
   SearchBox,
   AdvancedSearch
 } from '../../../search'
@@ -38,7 +41,7 @@ class DatastorePageContainer extends React.Component {
   }
 
   render() {
-    const { searching, datastores, match, location } = this.props;
+    const { searching, datastores, match, location, isAdvanced } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     if (activeDatastore === undefined) {
@@ -47,12 +50,18 @@ class DatastorePageContainer extends React.Component {
 
     return (
       <Switch>
-        <Route path={`/:datastoreSlug/advanced`} location={location} render={() => (
-          <AdvancedSearch
-            handleBasicSearchQueryChange={this.handleChange}
-            searchQueryFromURL={location.search}
-          />
-        )}/>
+        <Route path={`/:datastoreSlug/advanced`} location={location} render={() => {
+          if (isAdvanced) {
+            return (
+              <AdvancedSearch
+                handleBasicSearchQueryChange={this.handleChange}
+                searchQueryFromURL={location.search}
+              />
+            )
+          }
+
+          return <NoMatch/>
+        }}/>
         <Route path={`/:datastoreSlug`} location={location} render={() => (
           <div>
             <SearchBox />
@@ -117,7 +126,8 @@ function mapStateToProps(state) {
   return {
     searching: state.search.searching,
     datastores: state.datastores,
-    location: state.router.location
+    location: state.router.location,
+    isAdvanced: state.search.advanced[state.datastores.active] ? true : false
   };
 }
 

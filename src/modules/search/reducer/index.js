@@ -18,7 +18,7 @@ const setAdvancedFields = ({ advanced, payload }) => {
     query,
     booleanType
   } = payload
-  
+
   if (typeof advancedFieldIndex === 'number') {
     const updatedAdvancedFields = advanced.advancedFields.map((item, i) => {
       if (i === advancedFieldIndex) {
@@ -140,7 +140,36 @@ const searchReducer = function searchReducer(state = initialState, action) {
           }
         }
       }
+    case actions.ADD_ADVANCED_FIELD:
+      const addedAdvancedFields = state.advanced[action.payload.datastoreUid].advancedFields.concat({
+        selectedFieldUid: action.payload.selectedFieldUid,
+        query: '',
+        booleanType: 0
+      })
+
+      return {
+        ...state,
+        advanced: {
+          ...state.advanced,
+          [action.payload.datastoreUid]: {
+            ...state.advanced[action.payload.datastoreUid],
+            advancedFields: addedAdvancedFields
+          }
+        }
+      }
     case actions.REMOVE_ADVANCED_FIELD:
+      const removedAdvancedFields = state.advanced[action.payload.datastoreUid].advancedFields.filter((item, index) => index !== action.payload.removeIndex)
+
+      return {
+        ...state,
+        advanced: {
+          ...state.advanced,
+          [action.payload.datastoreUid]: {
+            ...state.advanced[action.payload.datastoreUid],
+            advancedFields: removedAdvancedFields
+          }
+        }
+      }
     default:
       return state;
   }
