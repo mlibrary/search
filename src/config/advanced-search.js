@@ -157,6 +157,14 @@ const advancedSearchConfig = {
         uid: 'title',
         name: 'Title'
       },
+      {
+        uid: 'author',
+        name: 'Author'
+      },,
+      {
+        uid: 'publication_date',
+        name: 'Publication Date'
+      },
     ]
   },
   journals: {
@@ -169,6 +177,10 @@ const advancedSearchConfig = {
         uid: 'title',
         name: 'Title'
       },
+      {
+        uid: 'academic_discipline',
+        name: 'Academic Discipline'
+      }
     ]
   },
   databases: {
