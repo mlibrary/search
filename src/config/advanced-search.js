@@ -62,11 +62,65 @@ const advancedSearchConfig = {
       }
     ],
     filters: [
+      /*
+      {
+        uid: 'institution',
+        name: 'Institution',
+        type: 'select',
+        values: [
+          'All',
+          'UM Ann Arbor Libraries',
+          'Bentley Historical Library',
+          'William L. Clements Library',
+          'Flint Thompson Library',
+          'University Library'
+        ]
+      },
       {
         uid: 'location',
         name: 'Location',
-        type: 'select'
+        type: 'select',
+        values: [
+          'All',
+          'Hatcher Graduate',
+          'Buhr Shelving Facility',
+          'Flint Thompson Library',
+          'Special Collections'
+        ]
       },
+
+      {
+        uid: 'academic_discipline',
+        name: 'Academic Discipline',
+        type: 'multiselect',
+        values: [
+          'All',
+          'Aerospace Engineering',
+          'African American Studies'
+        ]
+      },
+      {
+        uid: 'language',
+        name: 'Language',
+        type: 'multiselect',
+        values: [
+          'All',
+          'Abkhaz',
+          'Archinese'
+        ]
+      },
+      {
+        uid: 'format',
+        name: 'Format',
+        type: 'multiselect',
+        values: [
+          'All',
+          'Archive',
+          'Audio'
+        ]
+      },
+      */
+      /*
       {
         uid: 'place_of_publication',
         name: 'Place of Publication',
@@ -92,9 +146,46 @@ const advancedSearchConfig = {
         name: 'Format',
         type: 'multiselect'
       },
+      */
     ]
   },
   articlesplus: {
+    fields: [
+      {
+        uid: 'all_fields',
+        name: 'All Field'
+      },
+      {
+        uid: 'title',
+        name: 'Title'
+      },
+    ]
+  },
+  journals: {
+    fields: [
+      {
+        uid: 'all_fields',
+        name: 'All Field'
+      },
+      {
+        uid: 'title',
+        name: 'Title'
+      },
+    ]
+  },
+  databases: {
+    fields: [
+      {
+        uid: 'all_fields',
+        name: 'All Field'
+      },
+      {
+        uid: 'title',
+        name: 'Title'
+      },
+    ]
+  },
+  website: {
     fields: [
       {
         uid: 'all_fields',

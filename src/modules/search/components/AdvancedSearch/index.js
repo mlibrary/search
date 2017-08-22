@@ -98,14 +98,14 @@ class AdvancedSearch extends React.Component {
   }
 
   render() {
-    const { datastores, fields, match, advancedFields } = this.props;
+    const { datastores, fields, filters, match, advancedFields } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
-      <div className="container container-narrow">
-        <form onSubmit={this.handleSubmit} className="advanced-search-form">
+      <form onSubmit={this.handleSubmit} className="advanced-search-form">
+        <div className="container container-narrow">
           <div className="advanced-header">
-            <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
+            <h1 className="advanced-heading">Advanced Search: {activeDatastore.name}</h1>
             <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">Back to Basic Search</Link>
           </div>
           <div className="advanced-field-container">
@@ -123,16 +123,51 @@ class AdvancedSearch extends React.Component {
           <div className="advanced-add-field-container">
             <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
           </div>
-          <div className="container container-narrow advanced-search-button-container">
+        </div>
+        {filters && (
+          <div className="advanced-filters-container">
+            <div className="container container-narrow advanced-filters-inner-container">
+              {filters.map((advancedFilter, filterIndex) => (
+                <fieldset key={filterIndex} className="advanced-filter-fieldset">
+                  <label>
+                    <span className="advanced-filter-label-text">{advancedFilter.name}</span>
+                    <AdvancedFilter advancedFilter={advancedFilter} />
+                  </label>
+                </fieldset>
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="advanced-search-button-container">
+          <div className="container container-narrow ">
             <button type="submit" className="button advanced-search-button">
               <span className="flex-center">
                 <Icon name="search"/>Search
               </span>
             </button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     )
+  }
+}
+
+const AdvancedFilter = ({ advancedFilter }) => {
+  switch (advancedFilter.type) {
+    case 'multiselect':
+      const selectMultiple = true;
+    case 'select':
+      return (
+        <select
+          className={selectMultiple ? 'dropdown-multiple' : 'dropdown'}
+          multiple={selectMultiple ? true : false}>
+            {advancedFilter.values.map((value, index) => (
+              <option key={index} value={value}>{value}</option>
+            ))}
+        </select>
+      )
+    default:
+      return null
   }
 }
 

@@ -87,3 +87,27 @@
 .advanced-field-select {
   margin-right: 1rem;
 }
+
+.advanced-filters-container {
+  margin-top: 1rem;
+
+  border-top: solid 2px $grey-5;
+}
+
+.advanced-filter-label-text {
+  display: block;
+}
+
+.advanced-filters-inner-container {
+  @media (min-width: $breakpoint-1) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+  }
+}
+
+.advanced-filter-fieldset {
+  select {
+    width: 100%;
+  }
+}
