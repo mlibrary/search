@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
     "react-addons-perf": "^15.4.2",
     "react-addons-test-utils": "^15.5.1",
     "react-scripts": "1.0.11"

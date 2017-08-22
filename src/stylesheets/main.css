@@ -1557,7 +1557,8 @@ body {
   text-align: center; }
 
 .advanced-field-select {
-  margin-right: 1rem; }
+  margin-right: 1rem;
+  min-width: 12rem; }
 
 .advanced-filters-container {
   margin-top: 1rem;

@@ -61,8 +61,8 @@ const advancedSearchConfig = {
         name: 'Publisher'
       }
     ],
+    /*
     filters: [
-      /*
       {
         uid: 'institution',
         name: 'Institution',
@@ -119,8 +119,6 @@ const advancedSearchConfig = {
           'Audio'
         ]
       },
-      */
-      /*
       {
         uid: 'place_of_publication',
         name: 'Place of Publication',
@@ -146,8 +144,8 @@ const advancedSearchConfig = {
         name: 'Format',
         type: 'multiselect'
       },
-      */
     ]
+    */
   },
   articlesplus: {
     fields: [
