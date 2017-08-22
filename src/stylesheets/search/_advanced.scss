@@ -91,7 +91,6 @@
 
 .advanced-filters-container {
   margin-top: 1rem;
-
   border-top: solid 2px $grey-5;
 }
 
@@ -102,7 +101,7 @@
 .advanced-filters-inner-container {
   @media (min-width: $breakpoint-1) {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 1rem;
   }
 }

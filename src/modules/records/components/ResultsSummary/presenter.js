@@ -8,7 +8,7 @@ const ResultsSummary = ({
   resultsFor,
 }) => {
   return (
-    <span className="results-summary">Page {pageNum} of <b>{recordsTotal} {recordsResultsText}</b> {resultsFrom} {resultsFor}</span>
+    <span className="results-summary">Page {pageNum} of <b>{recordsTotal} {recordsResultsText}</b> {resultsFrom}</span>
   )
 }
 

@@ -61,21 +61,29 @@ const advancedSearchConfig = {
         name: 'Publisher'
       }
     ],
-    /*
     filters: [
       {
         uid: 'institution',
         name: 'Institution',
         type: 'select',
         values: [
-          'All',
           'UM Ann Arbor Libraries',
+          'Flint Thompson Library',
           'Bentley Historical Library',
           'William L. Clements Library',
-          'Flint Thompson Library',
-          'University Library'
         ]
       },
+      {
+        uid: 'academic_discipline',
+        name: 'Academic Discipline',
+        type: 'multiselect',
+        values: [
+          'All',
+          'Aerospace Engineering',
+          'African American Studies'
+        ]
+      },
+      /*
       {
         uid: 'location',
         name: 'Location',
@@ -88,7 +96,6 @@ const advancedSearchConfig = {
           'Special Collections'
         ]
       },
-
       {
         uid: 'academic_discipline',
         name: 'Academic Discipline',
@@ -144,8 +151,8 @@ const advancedSearchConfig = {
         name: 'Format',
         type: 'multiselect'
       },
+      */
     ]
-    */
   },
   articlesplus: {
     fields: [
