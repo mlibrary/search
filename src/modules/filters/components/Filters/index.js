@@ -212,6 +212,8 @@ const Filter = ({
       return (
         <li className="filter-group filter-group-checkbox">
           <label
+            role="checkbox"
+            aria-checked={isChecked}
             className="filter-checkbox-label"
             onClick={() => handleFilterItemClick({
               datastoreUid,
