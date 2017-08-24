@@ -158,7 +158,7 @@ const advancedSearchConfig = {
     fields: [
       {
         uid: 'all_fields',
-        name: 'All Field'
+        name: 'All Fields'
       },
       {
         uid: 'title',
@@ -178,7 +178,7 @@ const advancedSearchConfig = {
     fields: [
       {
         uid: 'all_fields',
-        name: 'All Field'
+        name: 'All Fields'
       },
       {
         uid: 'title',
@@ -194,7 +194,7 @@ const advancedSearchConfig = {
     fields: [
       {
         uid: 'all_fields',
-        name: 'All Field'
+        name: 'All Fields'
       },
       {
         uid: 'title',
@@ -206,7 +206,7 @@ const advancedSearchConfig = {
     fields: [
       {
         uid: 'all_fields',
-        name: 'All Field'
+        name: 'All Fields'
       },
       {
         uid: 'title',
