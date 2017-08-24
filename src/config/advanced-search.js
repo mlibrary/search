@@ -5,7 +5,7 @@ const advancedSearchConfig = {
     fields: [ // fielded searching options
       {
         uid: 'all_fields', // unique for Spectrum and URL state
-        name: 'All Field' // displayed name
+        name: 'All Fields' // displayed name
       },
       {
         uid: 'title',
@@ -30,7 +30,7 @@ const advancedSearchConfig = {
     fields: [
       {
         uid: 'all_fields',
-        name: 'All Field',
+        name: 'All Fields',
       },
       {
         uid: 'title',
@@ -42,7 +42,7 @@ const advancedSearchConfig = {
     fields: [
       {
         uid: 'all_fields',
-        name: 'All Field'
+        name: 'All Fields'
       },
       {
         uid: 'title',
