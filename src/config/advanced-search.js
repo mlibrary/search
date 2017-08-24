@@ -61,6 +61,7 @@ const advancedSearchConfig = {
         name: 'Publisher'
       }
     ],
+    /*
     filters: [
       {
         uid: 'institution',
@@ -151,8 +152,8 @@ const advancedSearchConfig = {
         name: 'Format',
         type: 'multiselect'
       },
-      */
     ]
+    */
   },
   articlesplus: {
     fields: [
