@@ -1,0 +1,33 @@
+.multiselect {
+  background: $grey-6;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+input.multiselect-search {
+  font-size: 0.937rem;
+}
+
+.multiselect-options {
+  margin: 0;
+  margin-top: 1rem;
+
+  border: solid 1px $grey-4;
+  border-radius: 4px;
+  padding: 0.2rem;
+  background: white;
+
+  height: 16rem;
+  overflow-y: scroll;
+}
+
+.multiselect-option {
+  display: flex;
+  font-size: 0.937rem;
+  cursor: pointer;
+  padding-right: 1rem;
+}
+
+.multiselect-apply {
+  margin-top: 1rem;
+}

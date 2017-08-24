@@ -1561,17 +1561,26 @@ body {
   min-width: 12rem; }
 
 .advanced-filters-container {
+  display: flex;
+  justify-content: center;
   margin-top: 1rem;
   border-top: solid 2px #E5E5E5; }
 
 .advanced-filter-label-text {
-  display: block; }
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #4E4E4E;
+  font-size: 1rem; }
 
 @media (min-width: 32rem) {
   .advanced-filters-inner-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem; } }
+    justify-content: center; } }
+
+.advanced-filter-container {
+  max-width: 22rem; }
 
 .advanced-filter-fieldset select {
   width: 100%; }
@@ -1647,6 +1656,33 @@ body {
 
 .sorts-label-text {
   padding-right: 0.5rem; }
+
+.multiselect {
+  background: #FAFAFA;
+  padding: 1rem;
+  border-radius: 4px; }
+
+input.multiselect-search {
+  font-size: 0.937rem; }
+
+.multiselect-options {
+  margin: 0;
+  margin-top: 1rem;
+  border: solid 1px #CCC;
+  border-radius: 4px;
+  padding: 0.2rem;
+  background: white;
+  height: 16rem;
+  overflow-y: scroll; }
+
+.multiselect-option {
+  display: flex;
+  font-size: 0.937rem;
+  cursor: pointer;
+  padding-right: 1rem; }
+
+.multiselect-apply {
+  margin-top: 1rem; }
 
 .u-break-word {
   word-wrap: break-word; }

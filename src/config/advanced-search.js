@@ -61,8 +61,35 @@ const advancedSearchConfig = {
         name: 'Publisher'
       }
     ],
-    /*
     filters: [
+      {
+        uid: 'academic_discipline',
+        name: 'Academic Discipline',
+        type: 'multiselect',
+        values: [
+          'Academic and Specialized News',
+          'Aerospace Engineering',
+          'African American Studies',
+          'African Studies',
+          'Allergy and Clinical Immunology',
+          'American Culture',
+          'Analytical Chemistry',
+          'Anesthesiology',
+          'Anthropology',
+          'Arab-American Studies',
+          'Archaeology',
+          'Architecture',
+          'Archives & Record Management',
+          'Armenian Studies',
+          'Art History',
+          'Art and Design',
+          'Arts',
+          'Asian Languages and Cultures',
+          'Asian Studies',
+          'Asian/Pacific Islander American Studies'
+        ]
+      },
+      /*
       {
         uid: 'institution',
         name: 'Institution',
@@ -74,17 +101,6 @@ const advancedSearchConfig = {
           'William L. Clements Library',
         ]
       },
-      {
-        uid: 'academic_discipline',
-        name: 'Academic Discipline',
-        type: 'multiselect',
-        values: [
-          'All',
-          'Aerospace Engineering',
-          'African American Studies'
-        ]
-      },
-      /*
       {
         uid: 'location',
         name: 'Location',
@@ -152,8 +168,9 @@ const advancedSearchConfig = {
         name: 'Format',
         type: 'multiselect'
       },
+      */
     ]
-    */
+
   },
   articlesplus: {
     fields: [

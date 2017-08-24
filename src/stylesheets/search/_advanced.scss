@@ -90,20 +90,30 @@
 }
 
 .advanced-filters-container {
+  display: flex;
+  justify-content: center;
   margin-top: 1rem;
   border-top: solid 2px $grey-5;
 }
 
 .advanced-filter-label-text {
   display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: $grey-2;
+  font-size: 1rem;
 }
 
 .advanced-filters-inner-container {
   @media (min-width: $breakpoint-1) {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
+    justify-content: center;
   }
+}
+
+.advanced-filter-container {
+  max-width: 22rem;
 }
 
 .advanced-filter-fieldset {

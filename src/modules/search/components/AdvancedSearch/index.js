@@ -9,6 +9,7 @@ import {
 
 import {
   Icon,
+  Multiselect
 } from '../../../core'
 
 import {
@@ -126,14 +127,12 @@ class AdvancedSearch extends React.Component {
         </div>
         {filters && (
           <div className="advanced-filters-container">
-            <div className="container container-narrow advanced-filters-inner-container">
+            <div className="container advanced-filters-inner-container">
               {filters.map((advancedFilter, filterIndex) => (
-                <fieldset key={filterIndex} className="advanced-filter-fieldset">
-                  <label>
-                    <span className="advanced-filter-label-text">{advancedFilter.name}</span>
-                    <AdvancedFilter advancedFilter={advancedFilter} />
-                  </label>
-                </fieldset>
+                <div key={filterIndex} className="advanced-filter-container">
+                  <h2 className="advanced-filter-label-text">{advancedFilter.name}</h2>
+                  <AdvancedFilter advancedFilter={advancedFilter} />
+                </div>
               ))}
             </div>
           </div>
@@ -155,17 +154,15 @@ class AdvancedSearch extends React.Component {
 const AdvancedFilter = ({ advancedFilter }) => {
   switch (advancedFilter.type) {
     case 'multiselect':
-      const selectMultiple = true;
+      const options = advancedFilter.values.map(option => {
+        return {
+          checked: false,
+          value: option,
+          name: option,
+        }
+      })
+      return <Multiselect options={options} onSelection={console.log} />
     case 'select':
-      return (
-        <select
-          className={selectMultiple ? 'dropdown-multiple' : 'dropdown'}
-          multiple={selectMultiple ? true : false}>
-            {advancedFilter.values.map((value, index) => (
-              <option key={index} value={value}>{value}</option>
-            ))}
-        </select>
-      )
     default:
       return null
   }

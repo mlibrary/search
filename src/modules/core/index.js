@@ -6,6 +6,7 @@ import Icon from './components/Icon';
 import ShowAllList from './components/ShowAllList'
 import TrimString from './components/TrimString'
 import TrimLink from './components/TrimLink'
+import Multiselect from './components/Multiselect'
 
 export {
   Header,
@@ -15,5 +16,6 @@ export {
   Icon,
   ShowAllList,
   TrimString,
-  TrimLink
+  TrimLink,
+  Multiselect
 };
