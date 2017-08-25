@@ -320,10 +320,10 @@ const Switch = ({
 function mapStateToProps(state) {
   return {
     datastores: state.datastores,
-    booleanTypes: state.search.advanced.booleanTypes,
-    advancedFields: state.search.advanced[state.datastores.active].advancedFields,
-    fields: state.search.advanced[state.datastores.active].fields,
-    filters: state.search.advanced[state.datastores.active].filters,
+    booleanTypes: state.advanced.booleanTypes,
+    advancedFields: state.advanced[state.datastores.active].advancedFields,
+    fields: state.advanced[state.datastores.active].fields,
+    filters: state.advanced[state.datastores.active].filters,
     searchQuery: state.search.query
   };
 }

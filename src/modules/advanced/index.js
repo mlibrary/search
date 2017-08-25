@@ -6,6 +6,7 @@ import {
   addAdvancedField,
   removeAdvancedField,
   setAdvancedField,
+  addAdvancedBooleanTypes,
   addAdvancedFilter,
 } from './actions'
 
@@ -21,6 +22,7 @@ export {
   addAdvancedField,
   removeAdvancedField,
   setAdvancedField,
+  addAdvancedBooleanTypes,
   addAdvancedFilter,
 
   // Components

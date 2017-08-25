@@ -595,6 +595,11 @@ const config = {
       ]
     }
   },
+  advancedBooleanTypes: [
+    'AND',
+    'OR',
+    'NOT'
+  ],
   advanced: {
     'everything': {
       forcedFields: [

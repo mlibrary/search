@@ -26,8 +26,9 @@ import {
 } from '../search';
 
 import {
+  addAdvancedBooleanTypes,
   addAdvancedField,
-  addAdvancedFilter
+  addAdvancedFilter,
 } from '../advanced'
 
 import {
@@ -322,8 +323,6 @@ const setupAdvancedSearch = () => {
         const fields = getPotentialAdvancedFields(dsUid)
         const fieldExists = _.findWhere(fields, { uid: fieldUid })
 
-        console.log('fieldExists', fieldExists)
-
         if (fieldExists) {
           store.dispatch(addAdvancedField({
             datastoreUid: dsUid,
@@ -335,6 +334,11 @@ const setupAdvancedSearch = () => {
         }
       })
     }
+
+    // Setup advanced boolean types
+    store.dispatch(addAdvancedBooleanTypes(config.advancedBooleanTypes))
+
+    // Setup advanced complete fields for default display
 
     // Setup Filters
   })

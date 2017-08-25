@@ -1,6 +1,8 @@
 import * as actions from '../actions/';
 
-const initialState = {}
+const initialState = {
+  booleanTypes: []
+}
 
 /*
   Example State
@@ -62,6 +64,11 @@ const advancedReducer = (state = initialState, action) => {
     case actions.SET_ADVANCED_FIELD:
       console.log('SET_ADVANCED_FIELD')
       return state
+    case actions.ADD_ADVANCED_BOOLEAN_TYPES:
+      return {
+        ...state,
+        booleanTypes: action.payload
+      }
     case actions.ADD_ADVANCED_FILTER:
       console.log('ADD_ADVANCED_FILTER')
       return state
