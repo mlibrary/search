@@ -2,40 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { _ } from 'underscore'
 
-const isOptionChecked = ({ option, index, tempSelections }) => {
-  if (option.checked) {
-    return true
-  }
-  const isTempChecked = _.contains(tempSelections, index)
-  return isTempChecked
-}
-
 class Multiselect extends React.Component {
   constructor(props) {
     super(props)
-    this.handleOptionSelect = this.handleOptionSelect.bind(this)
+    this.handleOptionSelection = this.handleOptionSelection.bind(this)
     this.handleFilterQueryChange = this.handleFilterQueryChange.bind(this)
     this.isOptionFiltered = this.isOptionFiltered.bind(this)
+    this.handleShowOnlySelectedOptionsClick = this.handleShowOnlySelectedOptionsClick.bind(this)
 
     this.state = {
-      tempSelections: [],
-      filterQuery: ''
+      filterQuery: '',
+      showOnlySelectedOptions: false,
     }
   }
 
-  handleOptionSelect(option, index) {
-    const isTempChecked = _.contains(this.state.tempSelections, index)
-
-    // Add
-    if (!isTempChecked) {
-      const tempSelections = this.state.tempSelections.concat(index)
-      this.setState({ tempSelections })
-
-    // Remove
-    } else {
-      const tempSelections = _.filter(this.state.tempSelections, (tempIndex => tempIndex !== index))
-      this.setState({ tempSelections })
-    }
+  handleOptionSelection(option, index) {
+    this.props.handleSelection(index, option)
   }
 
   handleFilterQueryChange(value) {
@@ -44,26 +26,31 @@ class Multiselect extends React.Component {
     })
   }
 
-  isOptionFiltered(option) {
-    const { filterQuery } = this.state
+  handleShowOnlySelectedOptionsClick() {
+    this.setState({
+      showOnlySelectedOptions: !this.sate.showOnlySelectedOptions
+    })
+  }
 
-    console.log('filterQuery', filterQuery)
-    console.log('this.state', this.state)
+  isOptionFiltered(option) {
+    const { filterQuery, showOnlySelectedOptions } = this.state
 
     if (filterQuery.length === 0) {
       return false
     }
 
-    return option.name.includes(filterQuery)
+    return !option.name.toLowerCase().includes(filterQuery.toLowerCase())
   }
 
   render() {
     const { options } = this.props
-    const { filterQuery } = this.state
+    const { filterQuery, showOnlySelectedOptions } = this.state
 
     if (!options || options.length === 0) {
       return null
     }
+
+    const selectedOptions = _.filter(options, (option => option.checked))
 
     return (
       <div className="multiselect">
@@ -84,42 +71,43 @@ class Multiselect extends React.Component {
 
             return (
               <MultiselectOption
-                handleClick={() => this.handleOptionSelect(option, index)}
+                handleClick={() => this.handleOptionSelection(option, index)}
                 option={option}
-                isChecked={isOptionChecked({
-                  option,
-                  index,
-                  tempSelections: this.state.tempSelections
-                })}
                 key={index} />
             )
           })}
         </fieldset>
-        {this.state.tempSelections.length > 0 ? (
-          <button className="button-light multiselect-apply">Apply</button>
+        {selectedOptions.length > 0 ? (
+          <button
+            className="button-link-light multiselect-apply" onClick={this.handleShowOnlySelectedOptionsClick}>
+            {showOnlySelectedOptions ? (
+              <span>Show all options</span>
+            ) : (
+              <span>Show only selected options</span>
+            )}
+          </button>
         ) : null}
       </div>
     )
   }
 }
 
-const MultiselectOption = ({ option, isChecked, handleClick }) => {
+const MultiselectOption = ({ option, handleClick }) => {
   return (
     <label className="multiselect-option">
       <input
         type="checkbox"
-        checked={isChecked}
+        checked={option.checked}
         value={option.value}
         onClick={handleClick}
-        aria-label={option.name}
-      >
-      </input>
+      ></input>
       <span className="multiselect-option-label-text">{option.name}</span>
     </label>
   )
 }
 
 Multiselect.propTypes = {
+  handleSelection: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.shape({
     checked: PropTypes.bool,
     value: PropTypes.string,

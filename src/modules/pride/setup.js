@@ -2,9 +2,6 @@ import { Pride } from 'pride'
 import { _ } from 'underscore'
 
 import config from '../../config'
-import {
-  advancedSearchConfig
-} from '../../config/'
 import store from '../../store'
 import {
   renderApp
@@ -26,8 +23,12 @@ import {
 import {
   setSearchData,
   searching,
-  addAdvancedDatastore
 } from '../search';
+
+import {
+  addAdvancedField,
+  addAdvancedFilter
+} from '../advanced'
 
 import {
   addFilter,
@@ -39,11 +40,6 @@ import {
   getDatastoreName,
   getDatastoreUidBySlug,
 } from './utils'
-
-import {
-  getAdvancedFields,
-  getAdvancedFilters
-} from './utils/advanced-search'
 
 /*
   Pride Internal Configuration
@@ -282,7 +278,7 @@ const runSearch = () => {
   const page = statePage ? statePage : 1
   const facets = state.filters.active[state.datastores.active] || {}
   const sort = state.search.sort[state.datastores.active]
-  const config = {
+  const prideConfig = {
     field_tree: Pride.FieldTree.parseField('all_fields', query),
     page,
     facets,
@@ -300,10 +296,50 @@ const runSearch = () => {
       }))
     }
   })
-  searchSwitcher.set(config).run();
+  searchSwitcher.set(prideConfig).run();
+}
+
+// All available advanced fields and
+// forced fields from config
+const getPotentialAdvancedFields = (dsUid) => {
+  const dsData = store.getState().search.data[dsUid]
+  const spectrumFields = dsData ? dsData.fields : []
+  const dsForcedFields = config.advanced[dsUid].forcedFields
+  const configForcedFields = dsForcedFields ? dsForcedFields : []
+  const potentialAdvancedFields = spectrumFields.concat(configForcedFields)
+
+  return potentialAdvancedFields
 }
 
 const setupAdvancedSearch = () => {
+  // Setup Fields
+  const dsConfigs = Object.keys(config.advanced)
+
+  dsConfigs.forEach(dsUid => {
+    // Setup Fields
+    if (config.advanced[dsUid].fields) {
+      config.advanced[dsUid].fields.forEach(fieldUid => {
+        const fields = getPotentialAdvancedFields(dsUid)
+        const fieldExists = _.findWhere(fields, { uid: fieldUid })
+
+        console.log('fieldExists', fieldExists)
+
+        if (fieldExists) {
+          store.dispatch(addAdvancedField({
+            datastoreUid: dsUid,
+            field: {
+              uid: fieldExists.uid,
+              name: fieldExists.name ? fieldExists.name : fieldExists.metadata.name
+            }
+          }))
+        }
+      })
+    }
+
+    // Setup Filters
+  })
+
+  /*
   Object.keys(advancedSearchConfig).forEach(datastoreUid => {
     store.dispatch(addAdvancedDatastore({
       datastoreUid,
@@ -311,6 +347,7 @@ const setupAdvancedSearch = () => {
       filters: getAdvancedFilters({ datastoreUid })
     }))
   })
+  */
 }
 
 /*

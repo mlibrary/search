@@ -92,8 +92,17 @@
 .advanced-filters-container {
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
   border-top: solid 2px $grey-5;
+}
+
+.advanced-filter-container {
+  width: 100%;
+
+  @media (min-width: $breakpoint-1) {
+    width: 22rem;
+  }
 }
 
 .advanced-filter-label-text {
@@ -106,14 +115,7 @@
 }
 
 .advanced-filters-inner-container {
-  @media (min-width: $breakpoint-1) {
-    display: grid;
-    justify-content: center;
-  }
-}
 
-.advanced-filter-container {
-  max-width: 22rem;
 }
 
 .advanced-filter-fieldset {

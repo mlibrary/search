@@ -98,7 +98,7 @@ function mapStateToProps(state) {
     activeFilters: state.filters.active[state.datastores.active],
     activeDatastoreUid: state.datastores.active,
     location: state.router.location,
-    isAdvanced: state.search.advanced[state.datastores.active] ? true : false
+    isAdvanced: state.advanced[state.datastores.active] ? true : false
   };
 }
 

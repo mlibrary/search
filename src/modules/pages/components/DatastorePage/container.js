@@ -9,23 +9,31 @@ import {
 import {
   NoMatch
 } from '../../../pages'
+
 import {
   SearchBox,
-  AdvancedSearch
 } from '../../../search'
+
+import {
+  AdvancedSearch
+} from '../../../advanced'
+
 import {
   DatastoreNavigation,
   DatastoreInfo,
 } from '../../../datastores'
+
 import {
   Filters
 } from '../../../filters'
+
 import {
   RecordList,
   Pagination,
   BentoboxList,
   RecordFull
 } from '../../../records'
+
 import {
   switchPrideToDatastore
 } from '../../../pride'
@@ -127,7 +135,7 @@ function mapStateToProps(state) {
     searching: state.search.searching,
     datastores: state.datastores,
     location: state.router.location,
-    isAdvanced: state.search.advanced[state.datastores.active] ? true : false
+    isAdvanced: state.advanced[state.datastores.active] ? true : false
   };
 }
 

@@ -21,13 +21,14 @@ import {
   removeAdvancedField,
   setAdvancedField,
   addAdvancedField
-} from '../../../search'
+} from '../../../advanced'
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props)
 
     this.handleAdvancedFieldChange = this.handleAdvancedFieldChange.bind(this)
+    this.handleAdvancedFilterChange = this.handleAdvancedFilterChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -43,6 +44,10 @@ class AdvancedSearch extends React.Component {
       datastoreUid: this.props.datastores.active,
       removeIndex
     })
+  }
+
+  handleOptionSelection() {
+
   }
 
   handleSubmit(event) {
@@ -75,9 +80,7 @@ class AdvancedSearch extends React.Component {
 
         const { datastores } = this.props;
         const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
-
         const url = `/${activeDatastore.slug}?${queryString}`
-
         history.push(url)
       }
     }
@@ -96,6 +99,25 @@ class AdvancedSearch extends React.Component {
       query,
       booleanType,
     })
+  }
+
+  handleAdvancedFilterChange({
+    index,
+    option,
+    advancedFilter
+  }) {
+    console.log('handleAdvancedFilterChange',
+      index,
+      option,
+      advancedFilter)
+
+    switch (advancedFilter.type) {
+      case 'multiselect':
+        // Option was changed. Updated the state accordingly.
+
+      default:
+        console.log('default')
+    }
   }
 
   render() {
@@ -131,7 +153,9 @@ class AdvancedSearch extends React.Component {
               {filters.map((advancedFilter, filterIndex) => (
                 <div key={filterIndex} className="advanced-filter-container">
                   <h2 className="advanced-filter-label-text">{advancedFilter.name}</h2>
-                  <AdvancedFilter advancedFilter={advancedFilter} />
+                  <AdvancedFilter
+                    advancedFilter={advancedFilter}
+                    handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
                 </div>
               ))}
             </div>
@@ -151,7 +175,10 @@ class AdvancedSearch extends React.Component {
   }
 }
 
-const AdvancedFilter = ({ advancedFilter }) => {
+const AdvancedFilter = ({
+  advancedFilter,
+  handleAdvancedFilterChange
+}) => {
   switch (advancedFilter.type) {
     case 'multiselect':
       const options = advancedFilter.values.map(option => {
@@ -161,7 +188,13 @@ const AdvancedFilter = ({ advancedFilter }) => {
           name: option,
         }
       })
-      return <Multiselect options={options} onSelection={console.log} />
+      return <Multiselect
+                options={options}
+                handleSelection={(index, option) => handleAdvancedFilterChange({
+                  index,
+                  option,
+                  advancedFilter
+                })} />
     case 'select':
     default:
       return null

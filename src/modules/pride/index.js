@@ -20,11 +20,6 @@ import {
 } from './utils'
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper'
 
-import {
-  getAdvancedFilters,
-  getAdvancedFields
-} from './utils/advanced-search'
-
 export {
   initializePride,
   isSlugADatastore,
@@ -43,8 +38,4 @@ export {
   getFormatIconName,
   parseSearchQueryStringToBooleanFields,
   isFieldASearchLink,
-
-  // './utils/advanced-search'
-  getAdvancedFilters,
-  getAdvancedFields
 }

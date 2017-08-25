@@ -546,7 +546,7 @@ const config = {
     ],
     'website': [
       {
-        uid: 'author',
+        uid: 'page_type',
         open: true,
       },
     ]
@@ -556,8 +556,6 @@ const config = {
       default: 'relevance',
       sorts: [
         'relevance',
-        'title_asc',
-        'title_desc',
         'date_asc',
         'date_desc'
       ]
@@ -598,24 +596,63 @@ const config = {
     }
   },
   advanced: {
-    datastores: [
-      'everything',
-      'mirlyn',
-      'articlesplus',
-      'databases',
-      'journals',
-      'website',
-    ],
-    defaultFields: [
-      {
-        uid: 'all_fields',
-        name: 'All Fields'
-      },
-      {
-        uid: 'title',
-        name: 'Title'
-      }
-    ]
+    'everything': {
+      forcedFields: [
+        {
+          uid: 'all_fields',
+          name: 'All Fields',
+          force: true,
+        },
+        {
+          uid: 'title',
+          name: 'Title',
+          force: true,
+        }
+      ],
+      fields: [
+        'all_fields',
+        'title',
+      ]
+    },
+    'mirlyn': {
+      fields: [
+        'all_fields',
+        'title',
+        'author',
+        'journal_title',
+        'subject',
+        'academic_discipline',
+        'publisher',
+        'series'
+      ]
+    },
+    'articlesplus': {
+      fields: [
+        'all_fields',
+        'title',
+        'author',
+        'publication_date',
+      ]
+    },
+    'databases': {
+      fields: [
+        'all_fields',
+        'title',
+      ]
+    },
+    'journals': {
+      fields: [
+        'all_fields',
+        'title',
+        'academic_discipline',
+      ]
+    },
+    'website': {
+      fields: [
+        'all_fields',
+        'title',
+      ]
+    }
   },
   holdingRewrites: [
     {

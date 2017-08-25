@@ -1563,8 +1563,15 @@ body {
 .advanced-filters-container {
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
   border-top: solid 2px #E5E5E5; }
+
+.advanced-filter-container {
+  width: 100%; }
+  @media (min-width: 32rem) {
+    .advanced-filter-container {
+      width: 22rem; } }
 
 .advanced-filter-label-text {
   display: block;
@@ -1573,14 +1580,6 @@ body {
   font-weight: 600;
   color: #4E4E4E;
   font-size: 1rem; }
-
-@media (min-width: 32rem) {
-  .advanced-filters-inner-container {
-    display: grid;
-    justify-content: center; } }
-
-.advanced-filter-container {
-  max-width: 22rem; }
 
 .advanced-filter-fieldset select {
   width: 100%; }
