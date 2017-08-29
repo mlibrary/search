@@ -641,7 +641,6 @@ const config = {
         'publication_date',
         'subject',
         'series',
-        'publication_date',
         'isn'
       ]
     },
