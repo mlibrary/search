@@ -29,7 +29,7 @@ import {
   addAdvancedField,
   addAdvancedBooleanTypes,
   addFieldedSearch,
-  addAdvancedFilter,
+  addAdvancedFilterGroups,
 } from '../advanced'
 
 import {
@@ -313,9 +313,6 @@ const getPotentialbooleanField = (dsUid) => {
   return potentialbooleanField
 }
 
-const setupAdvancedFilters = (dsUid) => {
-}
-
 const setupAdvancedSearch = () => {
   // Setup Fields
   const dsConfigs = Object.keys(config.advanced)
@@ -348,7 +345,32 @@ const setupAdvancedSearch = () => {
 
     // Setup Advanced Filters
     if (config.advanced[dsUid].filters) {
-      setupAdvancedFilters(dsUid)
+      const availableFilterGroups = Pride.AllDatastores.get(dsUid).get('facets')
+      const configuredFilterGroups = config.advanced[dsUid].filters.reduce((prev, filterGroupConfig) => {
+        const foundFilterGroup = _.findWhere(availableFilterGroups, { uid: filterGroupConfig.uid })
+        if (foundFilterGroup) {
+          return prev.concat({
+            uid: foundFilterGroup.uid,
+            name: foundFilterGroup.metadata.name,
+            type: filterGroupConfig.type,
+            filters: foundFilterGroup.values.reduce((filters, filter) => {
+              return filters.concat(filter.value)
+            }, []).sort(),
+            activeFilters: [],
+          })
+        }
+        return prev
+      }, [])
+
+      if (configuredFilterGroups.length > 0) {
+        console.log('configuredFilterGroups', configuredFilterGroups)
+
+        store.dispatch(addAdvancedFilterGroups({
+          datastoreUid: dsUid,
+          filterGroups: configuredFilterGroups
+        }))
+        
+      }
     }
   })
 

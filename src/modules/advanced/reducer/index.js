@@ -120,9 +120,17 @@ const advancedFieldedSearchingReducer = (state, action) => {
 }
 
 const advancedFilterReducer = (state, action) => {
+  const dsUid = action.payload.datastoreUid
+
   switch (action.type) {
-    case actions.ADD_ADVANCED_FILTER:
-      return state.concat(action.payload.filter)
+    case actions.ADD_ADVANCED_FILTER_GROUPS:
+      return {
+        ...state,
+        [dsUid]: {
+          ...state[dsUid],
+          filters: action.payload.filterGroups
+        }
+      }
     default:
       return state
   }
@@ -137,7 +145,7 @@ const advancedReducer = (state = initialState, action) => {
     case actions.REMOVE_FIELDED_SEARCH:
     case actions.SET_FIELDED_SEARCH:
       return advancedFieldedSearchingReducer(state, action)
-    case actions.ADD_ADVANCED_FILTER:
+    case actions.ADD_ADVANCED_FILTER_GROUPS:
     case actions.SET_ADVANCED_FILTER:
       return advancedFilterReducer(state, action)
     default:

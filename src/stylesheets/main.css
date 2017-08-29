@@ -1561,14 +1561,13 @@ body {
   min-width: 12rem; }
 
 .advanced-filters-container {
-  display: flex;
-  justify-content: center;
   margin-top: 2rem;
   padding-top: 1rem;
   border-top: solid 2px #E5E5E5; }
 
 .advanced-filter-container {
-  width: 100%; }
+  width: 100%;
+  margin: 0 0.5rem; }
   @media (min-width: 32rem) {
     .advanced-filter-container {
       width: 22rem; } }
@@ -1580,6 +1579,10 @@ body {
   font-weight: 600;
   color: #4E4E4E;
   font-size: 1rem; }
+
+.advanced-filters-inner-container {
+  display: flex;
+  justify-content: center; }
 
 .advanced-filter-fieldset select {
   width: 100%; }

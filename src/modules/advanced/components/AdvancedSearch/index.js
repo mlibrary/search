@@ -120,7 +120,7 @@ class AdvancedSearch extends React.Component {
   }
 
   render() {
-    const { datastores, fields, filters, match, fieldedSearches } = this.props;
+    const { datastores, fields, filterGroups, match, fieldedSearches } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
@@ -146,14 +146,14 @@ class AdvancedSearch extends React.Component {
             <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherFieldedSearch()}>Add another field</button>
           </div>
         </div>
-        {filters && (
+        {filterGroups && (
           <div className="advanced-filters-container">
             <div className="container advanced-filters-inner-container">
-              {filters.map((advancedFilter, filterIndex) => (
-                <div key={filterIndex} className="advanced-filter-container">
-                  <h2 className="advanced-filter-label-text">{advancedFilter.name}</h2>
+              {filterGroups.map((filterGroup, index) => (
+                <div key={index} className="advanced-filter-container">
+                  <h2 className="advanced-filter-label-text">{filterGroup.name}</h2>
                   <AdvancedFilter
-                    advancedFilter={advancedFilter}
+                    advancedFilter={filterGroup}
                     handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
                 </div>
               ))}
@@ -179,14 +179,15 @@ const AdvancedFilter = ({
   handleAdvancedFilterChange
 }) => {
   switch (advancedFilter.type) {
-    case 'multiselect':
-      const options = advancedFilter.values.map(option => {
+    case 'multiple_select':
+      const options = advancedFilter.filters.map(option => {
         return {
           checked: false,
           value: option,
           name: option,
         }
       })
+      console.log('options', options)
       return <Multiselect
                 options={options}
                 handleSelection={(index, option) => handleAdvancedFilterChange({
@@ -323,7 +324,7 @@ function mapStateToProps(state) {
     booleanTypes: state.advanced.booleanTypes,
     fieldedSearches: state.advanced[state.datastores.active].fieldedSearches,
     fields: state.advanced[state.datastores.active].fields,
-    filters: state.advanced[state.datastores.active].filters,
+    filterGroups: state.advanced[state.datastores.active].filters,
     searchQuery: state.search.query
   };
 }
