@@ -18,29 +18,28 @@ import {
 
 
 import {
-  removeAdvancedField,
-  setAdvancedField,
-  addAdvancedField
+  addFieldedSearch,
+  removeFieldedSearch,
+  setFieldedSearch,
 } from '../../../advanced'
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
     super(props)
 
-    this.handleAdvancedFieldChange = this.handleAdvancedFieldChange.bind(this)
+    this.handleFieldedSearchChange = this.handleFieldedSearchChange.bind(this)
     this.handleAdvancedFilterChange = this.handleAdvancedFilterChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleAddAnotherField() {
-    this.props.addAdvancedField({
-      datastoreUid: this.props.datastores.active,
-      selectedFieldUid: this.props.fields[0].uid
+  handleAddAnotherFieldedSearch() {
+    this.props.addFieldedSearch({
+      datastoreUid: this.props.datastores.active
     })
   }
 
-  handleRemoveField({ removeIndex }) {
-    this.props.removeAdvancedField({
+  handleRemoveFieldedSearch({ removeIndex }) {
+    this.props.removeFieldedSearch({
       datastoreUid: this.props.datastores.active,
       removeIndex
     })
@@ -53,17 +52,17 @@ class AdvancedSearch extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
 
-    const { advancedFields, booleanTypes } = this.props
+    const { fieldedSearches, booleanTypes } = this.props
 
     // Build the query
     // example output: 'title:parrots AND author:charles'
-    const query = advancedFields.reduce((memo, field) => {
-      if (field.query.length > 0) {
-        if (typeof field.booleanType !== 'undefined') {
-          memo.push(booleanTypes[field.booleanType])
+    const query = fieldedSearches.reduce((memo, fieldedSearch, index) => {
+      if (fieldedSearch.query.length > 0) {
+        if (index > 0) {
+          memo.push(booleanTypes[fieldedSearch.booleanType])
         }
 
-        memo.push(`${field.selectedFieldUid}:${field.query}`)
+        memo.push(`${fieldedSearch.field}:${fieldedSearch.query}`)
       }
 
       return memo
@@ -86,15 +85,15 @@ class AdvancedSearch extends React.Component {
     }
   }
 
-  handleAdvancedFieldChange({
-    advancedFieldIndex,
+  handleFieldedSearchChange({
+    fieldedSearchIndex,
     selectedFieldUid,
     query,
     booleanType
   }) {
-    this.props.setAdvancedField({
+    this.props.setFieldedSearch({
       datastoreUid: this.props.datastores.active,
-      advancedFieldIndex,
+      fieldedSearchIndex,
       selectedFieldUid,
       query,
       booleanType,
@@ -121,7 +120,7 @@ class AdvancedSearch extends React.Component {
   }
 
   render() {
-    const { datastores, fields, filters, match, advancedFields } = this.props;
+    const { datastores, fields, filters, match, fieldedSearches } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
@@ -132,19 +131,19 @@ class AdvancedSearch extends React.Component {
             <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">Back to Basic Search</Link>
           </div>
           <div className="advanced-field-container">
-            {advancedFields.map((field, advancedFieldIndex) => (
+            {fieldedSearches.map((fieldedSearch, index) => (
               <FieldInput
-                key={advancedFieldIndex}
-                advancedFieldIndex={advancedFieldIndex}
-                field={field}
+                key={index}
+                fieldedSearchIndex={index}
+                fieldedSearch={fieldedSearch}
                 fields={fields}
-                handleAdvancedFieldChange={this.handleAdvancedFieldChange}
-                handleRemoveField={() => this.handleRemoveField({ removeIndex: advancedFieldIndex})}
+                handleFieldedSearchChange={this.handleFieldedSearchChange}
+                handleRemoveFieldedSearch={() => this.handleRemoveFieldedSearch({ removeIndex: index})}
               />
             ))}
           </div>
           <div className="advanced-add-field-container">
-            <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherField()}>Add another field</button>
+            <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherFieldedSearch()}>Add another field</button>
           </div>
         </div>
         {filters && (
@@ -201,48 +200,49 @@ const AdvancedFilter = ({
   }
 }
 
+
 const FieldInput = ({
-  advancedFieldIndex,
-  field,
+  fieldedSearchIndex,
+  fieldedSearch,
   fields,
-  handleRemoveField,
-  handleAdvancedFieldChange,
+  handleFieldedSearchChange,
+  handleRemoveFieldedSearch,
 }) => (
   <fieldset style={{ margin: 0 }}>
-    <legend className="offpage">Search field {advancedFieldIndex + 1}</legend>
-    {advancedFieldIndex === 0 ? null : (
+    <legend className="offpage">Search field {fieldedSearchIndex + 1}</legend>
+    {fieldedSearchIndex === 0 ? null : (
       <Switch
         options={['AND', 'OR', 'NOT']}
-        advancedFieldIndex={advancedFieldIndex}
-        selectedIndex={field.booleanType}
-        onSwitchChange={handleAdvancedFieldChange}
+        fieldedSearchIndex={fieldedSearchIndex}
+        selectedIndex={fieldedSearch.booleanType}
+        onSwitchChange={handleFieldedSearchChange}
       />
     )}
     <div className="advanced-input-container">
       <Dropdown
-        labelText={`Selected field ${advancedFieldIndex + 1}`}
+        labelText={`Selected field ${fieldedSearchIndex + 1}`}
         options={fields}
-        selectedOption={field.selectedFieldUid}
-        advancedFieldIndex={advancedFieldIndex}
-        handleOnFieldChange={handleAdvancedFieldChange}
+        selectedOption={fieldedSearch.field}
+        fieldedSearchIndex={fieldedSearchIndex}
+        handleOnFieldChange={handleFieldedSearchChange}
       />
       <input
         type="text"
         className="advanced-input"
-        placeholder={`Search Term ${advancedFieldIndex + 1}`}
-        value={field.query}
-        aria-label={`Search Term ${advancedFieldIndex + 1}`}
-        onChange={(event) => handleAdvancedFieldChange({
-          advancedFieldIndex,
+        placeholder={`Search Term ${fieldedSearchIndex + 1}`}
+        value={fieldedSearch.query}
+        aria-label={`Search Term ${fieldedSearchIndex + 1}`}
+        onChange={(event) => handleFieldedSearchChange({
+          fieldedSearchIndex,
           query: event.target.value
         })}
       />
-      {advancedFieldIndex > 0 ? (
+      {fieldedSearchIndex > 0 ? (
         <button
           className="advanced-input-remove-button"
           type="button"
-          onClick={handleRemoveField}>
-            <Icon name="close"/><span className="offpage">Remove Field {advancedFieldIndex + 1}</span>
+          onClick={handleRemoveFieldedSearch}>
+            <Icon name="close"/><span className="offpage">Remove Field {fieldedSearchIndex + 1}</span>
         </button>
       ) : null}
     </div>
@@ -251,7 +251,7 @@ const FieldInput = ({
 
 const Dropdown = ({
   labelText,
-  advancedFieldIndex,
+  fieldedSearchIndex,
   options,
   selectedOption,
   handleOnFieldChange,
@@ -263,7 +263,7 @@ const Dropdown = ({
     value={selectedOption}
     multiple={multiple ? multiple : false}
     onChange={(event) => handleOnFieldChange({
-      advancedFieldIndex,
+      fieldedSearchIndex,
       selectedFieldUid: event.target.value,
     })}
   >
@@ -295,7 +295,7 @@ const SwitchOption = ({
 
 const Switch = ({
   options,
-  advancedFieldIndex,
+  fieldedSearchIndex,
   selectedIndex,
   onSwitchChange
 }) => {
@@ -307,7 +307,7 @@ const Switch = ({
             optionIndex,
             isActive: selectedIndex === optionIndex,
             onSwitchChange: () => onSwitchChange({
-              advancedFieldIndex,
+              fieldedSearchIndex,
               booleanType: optionIndex,
             }),
           })
@@ -321,7 +321,7 @@ function mapStateToProps(state) {
   return {
     datastores: state.datastores,
     booleanTypes: state.advanced.booleanTypes,
-    advancedFields: state.advanced[state.datastores.active].advancedFields,
+    fieldedSearches: state.advanced[state.datastores.active].fieldedSearches,
     fields: state.advanced[state.datastores.active].fields,
     filters: state.advanced[state.datastores.active].filters,
     searchQuery: state.search.query
@@ -330,9 +330,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    removeAdvancedField,
-    setAdvancedField,
-    addAdvancedField
+    addFieldedSearch,
+    removeFieldedSearch,
+    setFieldedSearch
   }, dispatch)
 }
 

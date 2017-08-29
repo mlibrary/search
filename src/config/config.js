@@ -628,7 +628,9 @@ const config = {
         'subject',
         'academic_discipline',
         'publisher',
-        'series'
+        'series',
+        'publication_date',
+        'isn'
       ]
     },
     'articlesplus': {
@@ -637,6 +639,10 @@ const config = {
         'title',
         'author',
         'publication_date',
+        'subject',
+        'series',
+        'publication_date',
+        'isn'
       ]
     },
     'databases': {

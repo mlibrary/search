@@ -26,8 +26,9 @@ import {
 } from '../search';
 
 import {
-  addAdvancedBooleanTypes,
   addAdvancedField,
+  addAdvancedBooleanTypes,
+  addFieldedSearch,
   addAdvancedFilter,
 } from '../advanced'
 
@@ -302,25 +303,28 @@ const runSearch = () => {
 
 // All available advanced fields and
 // forced fields from config
-const getPotentialAdvancedFields = (dsUid) => {
+const getPotentialbooleanField = (dsUid) => {
   const dsData = store.getState().search.data[dsUid]
   const spectrumFields = dsData ? dsData.fields : []
   const dsForcedFields = config.advanced[dsUid].forcedFields
   const configForcedFields = dsForcedFields ? dsForcedFields : []
-  const potentialAdvancedFields = spectrumFields.concat(configForcedFields)
+  const potentialbooleanField = spectrumFields.concat(configForcedFields)
 
-  return potentialAdvancedFields
+  return potentialbooleanField
 }
 
 const setupAdvancedSearch = () => {
   // Setup Fields
   const dsConfigs = Object.keys(config.advanced)
 
+  // Setup advanced boolean types
+  store.dispatch(addAdvancedBooleanTypes(config.advancedBooleanTypes))
+
   dsConfigs.forEach(dsUid => {
     // Setup Fields
     if (config.advanced[dsUid].fields) {
       config.advanced[dsUid].fields.forEach(fieldUid => {
-        const fields = getPotentialAdvancedFields(dsUid)
+        const fields = getPotentialbooleanField(dsUid)
         const fieldExists = _.findWhere(fields, { uid: fieldUid })
 
         if (fieldExists) {
@@ -333,12 +337,11 @@ const setupAdvancedSearch = () => {
           }))
         }
       })
+
+      // Setup two initially
+      store.dispatch(addFieldedSearch({ datastoreUid: dsUid }))
+      store.dispatch(addFieldedSearch({ datastoreUid: dsUid }))
     }
-
-    // Setup advanced boolean types
-    store.dispatch(addAdvancedBooleanTypes(config.advancedBooleanTypes))
-
-    // Setup advanced complete fields for default display
 
     // Setup Filters
   })
@@ -347,7 +350,7 @@ const setupAdvancedSearch = () => {
   Object.keys(advancedSearchConfig).forEach(datastoreUid => {
     store.dispatch(addAdvancedDatastore({
       datastoreUid,
-      fields: getAdvancedFields({ datastoreUid }),
+      fields: getbooleanField({ datastoreUid }),
       filters: getAdvancedFilters({ datastoreUid })
     }))
   })

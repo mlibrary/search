@@ -1,7 +1,7 @@
 import * as actions from '../actions/';
 
 const initialState = {
-  booleanTypes: []
+  booleanTypes: [],
 }
 
 /*
@@ -27,9 +27,93 @@ const initialState = {
 */
 
 const advancedFieldReducer = (state, action) => {
+  const dsUid = action.payload.datastoreUid
+  let fields = []
+
+  if (state[dsUid] && state[dsUid].fields) {
+    fields = state[dsUid].fields
+  }
+
   switch (action.type) {
     case actions.ADD_ADVANCED_FIELD:
-      return state.concat(action.payload.field)
+      return {
+        ...state,
+        [dsUid]: {
+          ...state[dsUid],
+          fields: fields.concat(action.payload.field)
+        }
+      }
+    default:
+      return state
+  }
+}
+
+const advancedFieldedSearchingReducer = (state, action) => {
+  const dsUid = action.payload.datastoreUid
+
+  switch (action.type) {
+    case actions.ADD_ADVANCED_BOOLEAN_TYPES:
+      return {
+        ...state,
+        booleanTypes: action.payload
+      }
+    case actions.ADD_FIELDED_SEARCH:
+      const defaultFieldedSearch = {
+        field: state[dsUid].fields[0].uid,
+        query: '',
+        booleanType: 0
+      }
+
+      if (state[dsUid].fieldedSearches) {
+        return {
+          ...state,
+          [dsUid]: {
+            ...state[dsUid],
+            fieldedSearches: state[dsUid].fieldedSearches.concat(defaultFieldedSearch)
+          }
+        }
+      } else {
+        return {
+          ...state,
+          [dsUid]: {
+            ...state[dsUid],
+            fieldedSearches: [].concat(defaultFieldedSearch)
+          }
+        }
+      }
+    case actions.SET_FIELDED_SEARCH:
+      return {
+        ...state,
+        [dsUid]: {
+          ...state[dsUid],
+          fieldedSearches: state[dsUid].fieldedSearches.map((item, index) => {
+            if (index !== action.payload.fieldedSearchIndex) {
+              return item
+            }
+
+            const { selectedFieldUid, query, booleanType } = action.payload
+
+            let newQuery = state[dsUid].fieldedSearches[index].query
+            if (typeof query === 'string') {
+              newQuery = query
+            }
+
+            return {
+              field: selectedFieldUid ? selectedFieldUid : state[dsUid].fieldedSearches[index].field,
+              query: newQuery,
+              booleanType: booleanType === undefined ? state[dsUid].fieldedSearches[index].booleanType : booleanType
+            }
+          })
+        }
+      }
+    case actions.REMOVE_FIELDED_SEARCH:
+      return {
+        ...state,
+        [dsUid]: {
+          ...state[dsUid],
+          fieldedSearches: state[dsUid].fieldedSearches.filter((item, index) => index !== action.payload.removeIndex)
+        }
+      }
     default:
       return state
   }
@@ -47,34 +131,15 @@ const advancedFilterReducer = (state, action) => {
 const advancedReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.ADD_ADVANCED_FIELD:
-      const dsUid = action.payload.datastoreUid
-      const fieldsState = state[dsUid] ? state[dsUid].fields : []
-      const filtersState = state[dsUid] ? state[dsUid].filters : []
-
-      return {
-        ...state,
-        [dsUid]: {
-          fields: advancedFieldReducer(fieldsState, action),
-          filters: advancedFilterReducer(filtersState, action),
-        }
-      }
-    case actions.REMOVE_ADVANCED_FIELD:
-      console.log('REMOVE_ADVANCED_FIELD')
-      return state
-    case actions.SET_ADVANCED_FIELD:
-      console.log('SET_ADVANCED_FIELD')
-      return state
+      return advancedFieldReducer(state, action)
     case actions.ADD_ADVANCED_BOOLEAN_TYPES:
-      return {
-        ...state,
-        booleanTypes: action.payload
-      }
+    case actions.ADD_FIELDED_SEARCH:
+    case actions.REMOVE_FIELDED_SEARCH:
+    case actions.SET_FIELDED_SEARCH:
+      return advancedFieldedSearchingReducer(state, action)
     case actions.ADD_ADVANCED_FILTER:
-      console.log('ADD_ADVANCED_FILTER')
-      return state
     case actions.SET_ADVANCED_FILTER:
-      console.log('SET_ADVANCED_FILTER')
-      return state
+      return advancedFilterReducer(state, action)
     default:
       return state
   }

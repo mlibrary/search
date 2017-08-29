@@ -4,9 +4,10 @@ import advancedReducer from './reducer'
 // Actions
 import {
   addAdvancedField,
-  removeAdvancedField,
-  setAdvancedField,
   addAdvancedBooleanTypes,
+  addFieldedSearch,
+  removeFieldedSearch,
+  setFieldedSearch,
   addAdvancedFilter,
 } from './actions'
 
@@ -20,9 +21,10 @@ export {
 
   // Actions
   addAdvancedField,
-  removeAdvancedField,
-  setAdvancedField,
   addAdvancedBooleanTypes,
+  addFieldedSearch,
+  removeFieldedSearch,
+  setFieldedSearch,
   addAdvancedFilter,
 
   // Components
