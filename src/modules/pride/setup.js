@@ -313,6 +313,9 @@ const getPotentialbooleanField = (dsUid) => {
   return potentialbooleanField
 }
 
+const setupAdvancedFilters = (dsUid) => {
+}
+
 const setupAdvancedSearch = () => {
   // Setup Fields
   const dsConfigs = Object.keys(config.advanced)
@@ -321,7 +324,7 @@ const setupAdvancedSearch = () => {
   store.dispatch(addAdvancedBooleanTypes(config.advancedBooleanTypes))
 
   dsConfigs.forEach(dsUid => {
-    // Setup Fields
+    // Setup Advanced Fields
     if (config.advanced[dsUid].fields) {
       config.advanced[dsUid].fields.forEach(fieldUid => {
         const fields = getPotentialbooleanField(dsUid)
@@ -338,12 +341,15 @@ const setupAdvancedSearch = () => {
         }
       })
 
-      // Setup two initially
+      // Setup two fielded searches initially
       store.dispatch(addFieldedSearch({ datastoreUid: dsUid }))
       store.dispatch(addFieldedSearch({ datastoreUid: dsUid }))
     }
 
-    // Setup Filters
+    // Setup Advanced Filters
+    if (config.advanced[dsUid].filters) {
+      setupAdvancedFilters(dsUid)
+    }
   })
 
   /*

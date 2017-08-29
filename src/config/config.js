@@ -631,6 +631,12 @@ const config = {
         'series',
         'publication_date',
         'isn'
+      ],
+      filters: [
+        {
+          uid: 'academic_discipline',
+          type: 'multiple_select'
+        }
       ]
     },
     'articlesplus': {
