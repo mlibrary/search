@@ -1582,7 +1582,8 @@ body {
 
 .advanced-filters-inner-container {
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+  flex-wrap: wrap; }
 
 .advanced-filter-fieldset select {
   width: 100%; }
@@ -1682,6 +1683,9 @@ input.multiselect-search {
   font-size: 0.937rem;
   cursor: pointer;
   padding-right: 1rem; }
+
+.multiselect-option-label-text {
+  flex: 2; }
 
 .multiselect-show-checked-toggle {
   margin-top: 1rem;
