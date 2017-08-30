@@ -1,4 +1,5 @@
-import * as actions from '../actions/';
+import * as actions from '../actions/'
+import { _ } from 'underscore'
 
 const initialState = {
   booleanTypes: [],
@@ -119,8 +120,35 @@ const advancedFieldedSearchingReducer = (state, action) => {
   }
 }
 
+const filterGroupReducer = ({ filterGroup, filterValue }) => {
+  // filter group has no active filters, so add it.
+  if (!filterGroup) {
+    return [].concat(filterValue)
+  }
+
+  // filter group exists
+  if (filterGroup) {
+
+    // Remove filter value
+    if (_.contains(filterGroup, filterValue)) {
+      const newFilters = _.filter(filterGroup, (item => item !== filterValue))
+
+      if (newFilters.length === 0) {
+        return undefined
+      } else {
+        return newFilters
+      }
+
+    // Add filter value to existing filter group list
+    } else {
+      return filterGroup.concat(filterValue)
+    }
+  }
+}
+
 const advancedFilterReducer = (state, action) => {
   const dsUid = action.payload.datastoreUid
+  const { filterGroupUid, filterValue } = action.payload
 
   switch (action.type) {
     case actions.ADD_ADVANCED_FILTER_GROUPS:
@@ -129,6 +157,20 @@ const advancedFilterReducer = (state, action) => {
         [dsUid]: {
           ...state[dsUid],
           filters: action.payload.filterGroups
+        }
+      }
+    case actions.SET_ADVANCED_FILTER:
+      return {
+        ...state,
+        [dsUid]: {
+          ...state[dsUid],
+          activeFilters: {
+            ...state[dsUid].activeFilters,
+            [filterGroupUid]: filterGroupReducer({
+              filterGroup: state[dsUid].activeFilters ? state[dsUid].activeFilters[filterGroupUid] : undefined,
+              filterValue: filterValue
+            })
+          }
         }
       }
     default:

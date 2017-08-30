@@ -9,6 +9,7 @@ import {
   removeFieldedSearch,
   setFieldedSearch,
   addAdvancedFilterGroups,
+  setAdvancedFilter,
 } from './actions'
 
 // Components
@@ -26,6 +27,7 @@ export {
   removeFieldedSearch,
   setFieldedSearch,
   addAdvancedFilterGroups,
+  setAdvancedFilter,
 
   // Components
   AdvancedSearch,

@@ -1683,8 +1683,9 @@ input.multiselect-search {
   cursor: pointer;
   padding-right: 1rem; }
 
-.multiselect-apply {
-  margin-top: 1rem; }
+.multiselect-show-checked-toggle {
+  margin-top: 1rem;
+  font-size: 0.9rem; }
 
 .u-break-word {
   word-wrap: break-word; }

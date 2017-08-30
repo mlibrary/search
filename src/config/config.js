@@ -660,12 +660,32 @@ const config = {
         'subject',
         'series',
         'isn'
+      ],
+      filters: [
+        {
+          uid: 'language',
+          type: 'multiple_select',
+        },
+        {
+          uid: 'format',
+          type: 'multiple_select',
+        }
       ]
     },
     'databases': {
       fields: [
         'all_fields',
         'title',
+      ],
+      filters: [
+        {
+          uid: 'academic_discipline',
+          type: 'multiple_select',
+        },
+        {
+          uid: 'database_type',
+          type: 'multiple_select',
+        }
       ]
     },
     'journals': {
@@ -673,6 +693,16 @@ const config = {
         'all_fields',
         'title',
         'academic_discipline',
+      ],
+      filters: [
+        {
+          uid: 'academic_discipline',
+          type: 'multiple_select',
+        },
+        {
+          uid: 'language',
+          type: 'multiple_select',
+        }
       ]
     },
     'website': {

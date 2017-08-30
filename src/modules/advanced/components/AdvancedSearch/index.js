@@ -21,6 +21,7 @@ import {
   addFieldedSearch,
   removeFieldedSearch,
   setFieldedSearch,
+  setAdvancedFilter,
 } from '../../../advanced'
 
 class AdvancedSearch extends React.Component {
@@ -45,14 +46,10 @@ class AdvancedSearch extends React.Component {
     })
   }
 
-  handleOptionSelection() {
-
-  }
-
   handleSubmit(event) {
     event.preventDefault()
 
-    const { fieldedSearches, booleanTypes } = this.props
+    const { fieldedSearches, booleanTypes, activeFilters } = this.props
 
     // Build the query
     // example output: 'title:parrots AND author:charles'
@@ -68,20 +65,25 @@ class AdvancedSearch extends React.Component {
       return memo
     }, []).join(' ')
 
-    if (query.length > 0) {
+    let hasActiveFilters = false
+
+    if (activeFilters && Object.keys(activeFilters).length > 0) {
+      hasActiveFilters = true
+    }
+
+    // Submit search if query or filters are active
+    if ((query.length > 0) || hasActiveFilters ){
       const { history } = this.props
 
-      // Query is not empty
-      if (query.length > 0) {
-        const queryString = stringifySearchQueryForURL({
-          query
-        })
+      const queryString = stringifySearchQueryForURL({
+        query,
+        filter: activeFilters
+      })
 
-        const { datastores } = this.props;
-        const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
-        const url = `/${activeDatastore.slug}?${queryString}`
-        history.push(url)
-      }
+      const { datastores } = this.props;
+      const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+      const url = `/${activeDatastore.slug}?${queryString}`
+      history.push(url)
     }
   }
 
@@ -105,22 +107,20 @@ class AdvancedSearch extends React.Component {
     option,
     advancedFilter
   }) {
-    console.log('handleAdvancedFilterChange',
-      index,
-      option,
-      advancedFilter)
-
     switch (advancedFilter.type) {
-      case 'multiselect':
-        // Option was changed. Updated the state accordingly.
-
+      case 'multiple_select':
+        this.props.setAdvancedFilter({
+          datastoreUid: this.props.datastores.active,
+          filterGroupUid: advancedFilter.uid,
+          filterValue: option.value
+        })
       default:
-        console.log('default')
+        break
     }
   }
 
   render() {
-    const { datastores, fields, filterGroups, match, fieldedSearches } = this.props;
+    const { datastores, fields, advancedFilters, match, fieldedSearches } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
@@ -146,14 +146,14 @@ class AdvancedSearch extends React.Component {
             <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherFieldedSearch()}>Add another field</button>
           </div>
         </div>
-        {filterGroups && (
+        {advancedFilters && (
           <div className="advanced-filters-container">
             <div className="container advanced-filters-inner-container">
-              {filterGroups.map((filterGroup, index) => (
+              {advancedFilters.map((advancedFilter, index) => (
                 <div key={index} className="advanced-filter-container">
-                  <h2 className="advanced-filter-label-text">{filterGroup.name}</h2>
+                  <h2 className="advanced-filter-label-text">{advancedFilter.name}</h2>
                   <AdvancedFilter
-                    advancedFilter={filterGroup}
+                    advancedFilter={advancedFilter}
                     handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
                 </div>
               ))}
@@ -182,12 +182,12 @@ const AdvancedFilter = ({
     case 'multiple_select':
       const options = advancedFilter.filters.map(option => {
         return {
-          checked: false,
-          value: option,
-          name: option,
+          checked: option.isActive,
+          value: option.value,
+          name: option.value,
         }
       })
-      console.log('options', options)
+
       return <Multiselect
                 options={options}
                 handleSelection={(index, option) => handleAdvancedFilterChange({
@@ -318,13 +318,43 @@ const Switch = ({
   )
 }
 
+const getAdvancedFilters = ({ filterGroups, activeFilters }) => {
+  if (!filterGroups) {
+    return []
+  }
+
+  const advancedFilters = filterGroups.map(filterGroup => {
+    return {
+      ...filterGroup,
+      filters: filterGroup.filters.map(filterValue => {
+        let isActive = false
+
+        if (activeFilters && activeFilters[filterGroup.uid]) {
+          isActive = _.contains(activeFilters[filterGroup.uid], filterValue)
+        }
+
+        return {
+          value: filterValue,
+          isActive
+        }
+      })
+    }
+  })
+
+  return advancedFilters
+}
+
 function mapStateToProps(state) {
   return {
     datastores: state.datastores,
     booleanTypes: state.advanced.booleanTypes,
     fieldedSearches: state.advanced[state.datastores.active].fieldedSearches,
     fields: state.advanced[state.datastores.active].fields,
-    filterGroups: state.advanced[state.datastores.active].filters,
+    advancedFilters: getAdvancedFilters({
+      filterGroups: state.advanced[state.datastores.active].filters,
+      activeFilters: state.advanced[state.datastores.active].activeFilters,
+    }),
+    activeFilters: state.advanced[state.datastores.active].activeFilters,
     searchQuery: state.search.query
   };
 }
@@ -333,7 +363,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     addFieldedSearch,
     removeFieldedSearch,
-    setFieldedSearch
+    setFieldedSearch,
+    setAdvancedFilter
   }, dispatch)
 }
 

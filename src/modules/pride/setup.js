@@ -363,26 +363,13 @@ const setupAdvancedSearch = () => {
       }, [])
 
       if (configuredFilterGroups.length > 0) {
-        console.log('configuredFilterGroups', configuredFilterGroups)
-
         store.dispatch(addAdvancedFilterGroups({
           datastoreUid: dsUid,
           filterGroups: configuredFilterGroups
         }))
-        
       }
     }
   })
-
-  /*
-  Object.keys(advancedSearchConfig).forEach(datastoreUid => {
-    store.dispatch(addAdvancedDatastore({
-      datastoreUid,
-      fields: getbooleanField({ datastoreUid }),
-      filters: getAdvancedFilters({ datastoreUid })
-    }))
-  })
-  */
 }
 
 /*

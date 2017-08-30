@@ -16,6 +16,21 @@ class Multiselect extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { showOnlySelectedOptions } = this.state
+
+    // Reset show only selected toggle when unchecking the last checked option
+    if (showOnlySelectedOptions) {
+      const selectedOptions = _.filter(nextProps.options, (option => option.checked))
+
+      if (selectedOptions.length === 0) {
+        this.setState({
+          showOnlySelectedOptions: false
+        })
+      }
+    }
+  }
+
   handleOptionSelection(option, index) {
     this.props.handleSelection(index, option)
   }
@@ -28,7 +43,7 @@ class Multiselect extends React.Component {
 
   handleShowOnlySelectedOptionsClick() {
     this.setState({
-      showOnlySelectedOptions: !this.sate.showOnlySelectedOptions
+      showOnlySelectedOptions: !this.state.showOnlySelectedOptions
     })
   }
 
@@ -69,21 +84,26 @@ class Multiselect extends React.Component {
               return null
             }
 
-            return (
-              <MultiselectOption
-                handleClick={() => this.handleOptionSelection(option, index)}
-                option={option}
-                key={index} />
-            )
+            if (!showOnlySelectedOptions || (showOnlySelectedOptions && option.checked)) {
+              return (
+                <MultiselectOption
+                  handleClick={() => this.handleOptionSelection(option, index)}
+                  option={option}
+                  key={index} />
+              )
+            }
+
+            return null
           })}
         </fieldset>
         {selectedOptions.length > 0 ? (
           <button
-            className="button-link-light multiselect-apply" onClick={this.handleShowOnlySelectedOptionsClick}>
+            type="button"
+            className="button-link-light multiselect-show-checked-toggle" onClick={this.handleShowOnlySelectedOptionsClick}>
             {showOnlySelectedOptions ? (
               <span>Show all options</span>
             ) : (
-              <span>Show only selected options</span>
+              <span>{`Show only selected options (${selectedOptions.length})`}</span>
             )}
           </button>
         ) : null}
@@ -99,7 +119,7 @@ const MultiselectOption = ({ option, handleClick }) => {
         type="checkbox"
         checked={option.checked}
         value={option.value}
-        onClick={handleClick}
+        onChange={handleClick}
       ></input>
       <span className="multiselect-option-label-text">{option.name}</span>
     </label>
