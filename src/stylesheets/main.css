@@ -1490,6 +1490,9 @@ body {
   font-size: 0.9rem;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3); }
 
+.advanced-search-form {
+  margin-bottom: 2rem; }
+
 .advanced-input {
   border: solid 1px rgba(0, 0, 0, 0.3); }
 
@@ -1570,7 +1573,7 @@ body {
   margin: 0 0.5rem; }
   @media (min-width: 32rem) {
     .advanced-filter-container {
-      width: 22rem; } }
+      width: 18rem; } }
 
 .advanced-filter-label-text {
   display: block;
@@ -1675,7 +1678,7 @@ input.multiselect-search {
   border-radius: 4px;
   padding: 0.2rem;
   background: white;
-  height: 16rem;
+  height: 18rem;
   overflow-y: scroll; }
 
 .multiselect-option {
