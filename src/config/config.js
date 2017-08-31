@@ -634,6 +634,10 @@ const config = {
       ],
       filters: [
         {
+          uid: 'date_of_publication',
+          type: 'date_range_input'
+        },
+        {
           uid: 'academic_discipline',
           type: 'multiple_select'
         },

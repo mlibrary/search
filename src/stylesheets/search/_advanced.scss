@@ -56,6 +56,7 @@
 
 .advanced-input-container {
   margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex;
 
   @media (max-width: $breakpoint-2) {
@@ -84,7 +85,6 @@
 }
 
 .advanced-add-field-container {
-  margin-top: 1rem;
   text-align: center;
 }
 
@@ -106,6 +106,11 @@
   @media (min-width: $breakpoint-1) {
     width: 18rem;
   }
+}
+
+.advanced-filter-inner-container {
+  background: $grey-6;
+  padding: 1rem;
 }
 
 .advanced-filter-label-text {

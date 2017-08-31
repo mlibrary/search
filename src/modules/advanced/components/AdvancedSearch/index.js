@@ -9,13 +9,14 @@ import {
 
 import {
   Icon,
-  Multiselect
+  Multiselect,
+  DateRangeInput,
+  Switch
 } from '../../../core'
 
 import {
   stringifySearchQueryForURL,
 } from '../../../pride'
-
 
 import {
   addFieldedSearch,
@@ -114,6 +115,18 @@ class AdvancedSearch extends React.Component {
           filterGroupUid: advancedFilter.uid,
           filterValue: option.value
         })
+      case 'date_range_input':
+        // TODO This should be just one value, not saving every different value
+        /*
+        this.props.setAdvancedFilter({
+          datastoreUid: this.props.datastores.active,
+          filterGroupUid: advancedFilter.uid,
+          filterValue: option.value,
+          onlyOneFilterValue: true
+        })
+        */
+
+        console.log('add', advancedFilter.uid, option.value)
       default:
         break
     }
@@ -152,9 +165,11 @@ class AdvancedSearch extends React.Component {
               {advancedFilters.map((advancedFilter, index) => (
                 <div key={index} className="advanced-filter-container">
                   <h2 className="advanced-filter-label-text">{advancedFilter.name}</h2>
-                  <AdvancedFilter
-                    advancedFilter={advancedFilter}
-                    handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
+                  <div className="advanced-filter-inner-container">
+                    <AdvancedFilter
+                      advancedFilter={advancedFilter}
+                      handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
+                  </div>
                 </div>
               ))}
             </div>
@@ -188,19 +203,27 @@ const AdvancedFilter = ({
         }
       })
 
-      return <Multiselect
-                options={options}
-                handleSelection={(index, option) => handleAdvancedFilterChange({
-                  index,
-                  option,
-                  advancedFilter
-                })} />
-    case 'select':
+      return (
+        <Multiselect
+          options={options}
+          handleSelection={(index, option) => handleAdvancedFilterChange({
+            index,
+            option,
+            advancedFilter
+          })} />
+      )
+    case 'date_range_input':
+      return (
+        <DateRangeInput
+          handleSelection={(dateRangeChangeValue) => handleAdvancedFilterChange({
+            option: { value: dateRangeChangeValue },
+            advancedFilter
+          })} />
+      )
     default:
       return null
   }
 }
-
 
 const FieldInput = ({
   fieldedSearchIndex,
@@ -214,9 +237,11 @@ const FieldInput = ({
     {fieldedSearchIndex === 0 ? null : (
       <Switch
         options={['AND', 'OR', 'NOT']}
-        fieldedSearchIndex={fieldedSearchIndex}
         selectedIndex={fieldedSearch.booleanType}
-        onSwitchChange={handleFieldedSearchChange}
+        onSwitchChange={({ switchIndex }) => handleFieldedSearchChange({
+          fieldedSearchIndex,
+          booleanType: switchIndex
+        })}
       />
     )}
     <div className="advanced-input-container">
@@ -273,50 +298,6 @@ const Dropdown = ({
     )}
   </select>
 )
-
-const SwitchOption = ({
-  option,
-  optionIndex,
-  isActive,
-  onSwitchChange
-}) => {
-  return (
-    <label key={optionIndex} className={`switch-option ${isActive ? 'switch-option-selected' : ''}`}>
-      <span className="switch-option-label-text">{option}</span>
-      <input
-        type="radio"
-        className="switch-option-input"
-        checked={`${isActive ? 'selected' : ''}`}
-        value={option}
-        onChange={onSwitchChange}
-      />
-    </label>
-  )
-}
-
-const Switch = ({
-  options,
-  fieldedSearchIndex,
-  selectedIndex,
-  onSwitchChange
-}) => {
-  return (
-    <fieldset className="switch">
-      <div className="switch-options">
-        {options.map((option, optionIndex) => SwitchOption({
-            option,
-            optionIndex,
-            isActive: selectedIndex === optionIndex,
-            onSwitchChange: () => onSwitchChange({
-              fieldedSearchIndex,
-              booleanType: optionIndex,
-            }),
-          })
-        )}
-      </div>
-    </fieldset>
-  )
-}
 
 const getAdvancedFilters = ({ filterGroups, activeFilters }) => {
   if (!filterGroups) {

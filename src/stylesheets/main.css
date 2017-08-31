@@ -1536,6 +1536,7 @@ body {
 
 .advanced-input-container {
   margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex; }
   @media (max-width: 47rem) {
     .advanced-input-container {
@@ -1556,7 +1557,6 @@ body {
     margin-right: 0.5rem; }
 
 .advanced-add-field-container {
-  margin-top: 1rem;
   text-align: center; }
 
 .advanced-field-select {
@@ -1575,6 +1575,10 @@ body {
     .advanced-filter-container {
       width: 18rem; } }
 
+.advanced-filter-inner-container {
+  background: #FAFAFA;
+  padding: 1rem; }
+
 .advanced-filter-label-text {
   display: block;
   margin-top: 1rem;
@@ -1591,18 +1595,22 @@ body {
 .advanced-filter-fieldset select {
   width: 100%; }
 
+.switch {
+  margin: 0; }
+
 .switch-legend {
   text-align: center; }
 
 .switch-options {
-  display: flex; }
+  display: flex;
+  flex-wrap: wrap; }
   @media (min-width: 32rem) {
     .switch-options {
       justify-content: center; } }
 
 .switch-option {
   background: white;
-  padding: 0.25rem 1rem;
+  padding: 0.25rem 0.75rem;
   font-size: 0.85rem;
   cursor: pointer;
   border: solid 1px #CCC;
@@ -1664,8 +1672,6 @@ body {
   padding-right: 0.5rem; }
 
 .multiselect {
-  background: #FAFAFA;
-  padding: 1rem;
   border-radius: 4px; }
 
 input.multiselect-search {
@@ -1693,6 +1699,12 @@ input.multiselect-search {
 .multiselect-show-checked-toggle {
   margin-top: 1rem;
   font-size: 0.9rem; }
+
+.date-range-input-text {
+  margin-top: 1rem; }
+
+.date-range-input .switch-options {
+  justify-content: flex-start; }
 
 .u-break-word {
   word-wrap: break-word; }

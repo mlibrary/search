@@ -7,6 +7,8 @@ import ShowAllList from './components/ShowAllList'
 import TrimString from './components/TrimString'
 import TrimLink from './components/TrimLink'
 import Multiselect from './components/Multiselect'
+import DateRangeInput from './components/DateRangeInput'
+import Switch from './components/Switch'
 
 export {
   Header,
@@ -17,5 +19,7 @@ export {
   ShowAllList,
   TrimString,
   TrimLink,
-  Multiselect
+  Multiselect,
+  DateRangeInput,
+  Switch
 };
