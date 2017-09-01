@@ -473,7 +473,7 @@ const config = {
         uid: 'date_of_publication'
       },
       {
-        uid: 'place_of_publication'
+        uid: 'place_of_publication_filter'
       },
       {
         uid: 'region'
@@ -650,7 +650,7 @@ const config = {
           type: 'multiple_select',
         },
         {
-          uid: 'location',
+          uid: 'place_of_publication_filter',
           type: 'multiple_select',
         }
       ]
@@ -666,6 +666,10 @@ const config = {
         'isn'
       ],
       filters: [
+        {
+          uid: 'publication_date',
+          type: 'date_range_input'
+        },
         {
           uid: 'language',
           type: 'multiple_select',

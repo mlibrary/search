@@ -117,16 +117,12 @@ class AdvancedSearch extends React.Component {
         })
       case 'date_range_input':
         // TODO This should be just one value, not saving every different value
-        /*
         this.props.setAdvancedFilter({
           datastoreUid: this.props.datastores.active,
           filterGroupUid: advancedFilter.uid,
-          filterValue: option.value,
+          filterValue: option,
           onlyOneFilterValue: true
         })
-        */
-
-        console.log('add', advancedFilter.uid, option.value)
       default:
         break
     }
@@ -189,6 +185,33 @@ class AdvancedSearch extends React.Component {
   }
 }
 
+const getDateRangeValue = ({ beginDateQuery, endDateQuery, selectedRange }) => {
+  switch (selectedRange) {
+    case 'Before':
+      if (!endDateQuery) {
+        return undefined
+      }
+      return `before${endDateQuery}`
+    case 'After':
+      if (!beginDateQuery) {
+        return undefined
+      }
+      return `after${beginDateQuery}`
+    case 'Between':
+      if (!beginDateQuery || !endDateQuery) {
+        return undefined
+      }
+      return `${beginDateQuery}to${endDateQuery}`
+    case 'In':
+      if (!beginDateQuery) {
+        return undefined
+      }
+      return beginDateQuery
+    default:
+      return undefined
+  }
+}
+
 const AdvancedFilter = ({
   advancedFilter,
   handleAdvancedFilterChange
@@ -215,8 +238,8 @@ const AdvancedFilter = ({
     case 'date_range_input':
       return (
         <DateRangeInput
-          handleSelection={(dateRangeChangeValue) => handleAdvancedFilterChange({
-            option: { value: dateRangeChangeValue },
+          handleSelection={({ beginDateQuery, endDateQuery, selectedRange }) => handleAdvancedFilterChange({
+            option: getDateRangeValue({ beginDateQuery, endDateQuery, selectedRange }),
             advancedFilter
           })} />
       )

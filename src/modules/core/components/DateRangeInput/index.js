@@ -4,24 +4,6 @@ import { _ } from 'underscore'
 
 import { Switch } from '../../../core'
 
-const getRangeValue = ({ beginQuery, endQuery, rangeOption }) => {
-  switch (rangeOption) {
-    case 'Before':
-
-      break;
-    case 'After':
-
-      break;
-    case 'Between':
-
-      break;
-    case 'In':
-
-      break;
-    default:
-
-  }
-}
 
 class DateRangeInput extends React.Component {
   constructor(props) {
@@ -30,6 +12,8 @@ class DateRangeInput extends React.Component {
     this.handleRangeChange = this.handleRangeChange.bind(this)
     this.handleBeginQueryChange = this.handleBeginQueryChange.bind(this)
     this.handleEndQueryChange = this.handleEndQueryChange.bind(this)
+
+    this.handleStateChange = this.handleStateChange.bind(this)
 
     this.renderDateInputs = this.renderDateInputs.bind(this)
     this.renderBeginQueryInput = this.renderBeginQueryInput.bind(this)
@@ -43,24 +27,45 @@ class DateRangeInput extends React.Component {
     }
   }
 
+  handleStateChange({ beginQuery, endQuery, selectedRange }) {
+    this.props.handleSelection({
+      selectedRange,
+      beginDateQuery: beginQuery,
+      endDateQuery: endQuery
+    })
+  }
+
   handleRangeChange({ switchIndex }) {
-    const { dateRangeOptions, query } = this.state
+    const { beginQuery, endQuery, dateRangeOptions } = this.state
+    const selectedRange = dateRangeOptions[switchIndex]
 
     this.setState({
       selectedRangeOption: switchIndex
     })
+
+    this.handleStateChange({ beginQuery, endQuery, selectedRange })
   }
 
   handleBeginQueryChange(beginQuery) {
+    const { endQuery, selectedRangeOption, dateRangeOptions } = this.state
+    const selectedRange = dateRangeOptions[selectedRangeOption]
+
     this.setState({
       beginQuery
     })
+
+    this.handleStateChange({ beginQuery, endQuery, selectedRange })
   }
 
   handleEndQueryChange(endQuery) {
+    const { beginQuery, selectedRangeOption, dateRangeOptions } = this.state
+    const selectedRange = dateRangeOptions[selectedRangeOption]
+
     this.setState({
       endQuery
     })
+
+    this.handleStateChange({ beginQuery, endQuery, selectedRange })
   }
 
   renderBeginQueryInput() {
@@ -101,6 +106,7 @@ class DateRangeInput extends React.Component {
             {this.renderEndQueryInput()}
           </div>
         )
+      case 'In':
       case 'After':
         return (
           <div className="date-range-container">
@@ -108,7 +114,6 @@ class DateRangeInput extends React.Component {
           </div>
         )
       case 'Between':
-      case 'In':
         return (
           <div className="date-range-container">
             {this.renderBeginQueryInput()}

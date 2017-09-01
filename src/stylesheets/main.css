@@ -1577,7 +1577,8 @@ body {
 
 .advanced-filter-inner-container {
   background: #FAFAFA;
-  padding: 1rem; }
+  padding: 1rem;
+  border-radius: 4px; }
 
 .advanced-filter-label-text {
   display: block;
@@ -1700,8 +1701,9 @@ input.multiselect-search {
   margin-top: 1rem;
   font-size: 0.9rem; }
 
-.date-range-input-text {
-  margin-top: 1rem; }
+input.date-range-input-text {
+  margin-top: 1rem;
+  width: 50%; }
 
 .date-range-input .switch-options {
   justify-content: flex-start; }
