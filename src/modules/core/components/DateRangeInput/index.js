@@ -36,7 +36,7 @@ class DateRangeInput extends React.Component {
     this.renderEndQueryInput = this.renderEndQueryInput.bind(this)
 
     this.state = {
-      dateRangeOptions: ['Before', 'After', 'Between'],
+      dateRangeOptions: ['Before', 'After', 'Between', 'In'],
       beginQuery: '',
       endQuery: '',
       selectedRangeOption: 0
@@ -96,12 +96,21 @@ class DateRangeInput extends React.Component {
 
     switch (rangeOption) {
       case 'Before':
-        return this.renderEndQueryInput()
-      case 'After':
-        return this.renderBeginQueryInput()
-      case 'Between':
         return (
-          <div>
+          <div className="date-range-container">
+            {this.renderEndQueryInput()}
+          </div>
+        )
+      case 'After':
+        return (
+          <div className="date-range-container">
+            {this.renderBeginQueryInput()}
+          </div>
+        )
+      case 'Between':
+      case 'In':
+        return (
+          <div className="date-range-container">
             {this.renderBeginQueryInput()}
             {this.renderEndQueryInput()}
           </div>
@@ -109,15 +118,6 @@ class DateRangeInput extends React.Component {
       default:
         return null
     }
-
-    return (
-      <input
-        className="date-range-input-text"
-        type="text"
-        value={beginQuery}
-        onChange={(e) => this.handleInputQueryChange({})}>
-      </input>
-    )
   }
 
   render() {
