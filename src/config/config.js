@@ -203,7 +203,7 @@ const config = {
         },
         {
           uid: 'media',
-          link: 'get_this_url',
+          link: 'url',
           location: 'location',
           status: 'status',
           defaultAccessText: 'Request this media item',
@@ -225,7 +225,7 @@ const config = {
         },
         {
           uid: 'other',
-          link: 'get_this_url',
+          link: 'url',
           location: 'location',
           status: 'status',
           heading: 'Holdings (Other)',
