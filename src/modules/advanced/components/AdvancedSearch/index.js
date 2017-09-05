@@ -187,14 +187,47 @@ class AdvancedSearch extends React.Component {
 }
 
 const getStateDateRangeValues = ({ advancedFilter }) => {
-  if (advancedFilter.activeFilters.length === 0) {
-    return {
-      stateSelectedRangeOption: 0,
-      stateBeginQuery: '',
-      stateEndQuery: ''
+  if (advancedFilter.activeFilters && advancedFilter.activeFilters.length > 0) {
+    const filterValue = advancedFilter.activeFilters[0]
+
+    // For splitting string into before, after, between, and in values
+
+    // Before
+    if (filterValue.includes('before')) {
+      const values = filterValue.split('before')
+
+      return {
+        stateSelectedRangeOption: 0,
+        stateEndQuery: values[1]
+      }
     }
-  } else {
-    // TODO, parse filter query
+
+    // After
+    if (filterValue.includes('after')) {
+      const values = filterValue.split('after')
+
+      return {
+        stateSelectedRangeOption: 1,
+        stateBeginQuery: values[1]
+      }
+    }
+
+    // Between
+    if (filterValue.includes('to')) {
+      const values = filterValue.split('to')
+
+      return {
+        stateSelectedRangeOption: 2,
+        stateBeginQuery: values[0],
+        stateEndQuery: values[1]
+      }
+    }
+
+    // In or other
+    return {
+      stateSelectedRangeOption: 3,
+      stateBeginQuery: filterValue
+    }
   }
 
   return {
@@ -366,7 +399,8 @@ const getAdvancedFilters = ({ filterGroups, activeFilters }) => {
           value: filterValue,
           isActive
         }
-      })
+      }),
+      activeFilters: activeFilters ? activeFilters[filterGroup.uid] : [],
     }
   })
 
