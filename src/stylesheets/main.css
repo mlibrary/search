@@ -1565,12 +1565,12 @@ body {
 
 .advanced-filters-container {
   margin-top: 2rem;
-  padding-top: 1rem;
   border-top: solid 2px #E5E5E5; }
 
 .advanced-filter-container {
   width: 100%;
-  margin: 0 0.5rem; }
+  margin: 0 0.5rem;
+  margin-top: 1rem; }
   @media (min-width: 32rem) {
     .advanced-filter-container {
       width: 18rem; } }

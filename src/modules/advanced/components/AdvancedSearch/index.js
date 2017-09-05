@@ -104,25 +104,26 @@ class AdvancedSearch extends React.Component {
   }
 
   handleAdvancedFilterChange({
-    index,
-    option,
-    advancedFilter
+    filterType,
+    filterGroupUid,
+    filterValue
   }) {
-    switch (advancedFilter.type) {
+    switch (filterType) {
       case 'multiple_select':
         this.props.setAdvancedFilter({
           datastoreUid: this.props.datastores.active,
-          filterGroupUid: advancedFilter.uid,
-          filterValue: option.value
+          filterGroupUid,
+          filterValue
         })
+        break
       case 'date_range_input':
-        // TODO This should be just one value, not saving every different value
         this.props.setAdvancedFilter({
           datastoreUid: this.props.datastores.active,
-          filterGroupUid: advancedFilter.uid,
-          filterValue: option,
+          filterGroupUid,
+          filterValue,
           onlyOneFilterValue: true
         })
+        break
       default:
         break
     }
@@ -185,6 +186,24 @@ class AdvancedSearch extends React.Component {
   }
 }
 
+const getStateDateRangeValues = ({ advancedFilter }) => {
+  if (advancedFilter.activeFilters.length === 0) {
+    return {
+      stateSelectedRangeOption: 0,
+      stateBeginQuery: '',
+      stateEndQuery: ''
+    }
+  } else {
+    // TODO, parse filter query
+  }
+
+  return {
+    stateSelectedRangeOption: 0,
+    stateBeginQuery: '',
+    stateEndQuery: ''
+  }
+}
+
 const getDateRangeValue = ({ beginDateQuery, endDateQuery, selectedRange }) => {
   switch (selectedRange) {
     case 'Before':
@@ -230,17 +249,23 @@ const AdvancedFilter = ({
         <Multiselect
           options={options}
           handleSelection={(index, option) => handleAdvancedFilterChange({
-            index,
-            option,
-            advancedFilter
+            filterType: advancedFilter.type,
+            filterGroupUid: advancedFilter.uid,
+            filterValue: option.value
           })} />
       )
     case 'date_range_input':
+      const { stateSelectedRangeOption, stateBeginQuery, stateEndQuery } = getStateDateRangeValues({ advancedFilter })
+
       return (
         <DateRangeInput
+          selectedRangeOption={stateSelectedRangeOption}
+          beginQuery={stateBeginQuery}
+          endQuery={stateEndQuery}
           handleSelection={({ beginDateQuery, endDateQuery, selectedRange }) => handleAdvancedFilterChange({
-            option: getDateRangeValue({ beginDateQuery, endDateQuery, selectedRange }),
-            advancedFilter
+            filterType: advancedFilter.type,
+            filterGroupUid: advancedFilter.uid,
+            filterValue: getDateRangeValue({ beginDateQuery, endDateQuery, selectedRange }),
           })} />
       )
     default:
@@ -349,15 +374,17 @@ const getAdvancedFilters = ({ filterGroups, activeFilters }) => {
 }
 
 function mapStateToProps(state) {
+  const advancedFilters = getAdvancedFilters({
+    filterGroups: state.advanced[state.datastores.active].filters,
+    activeFilters: state.advanced[state.datastores.active].activeFilters,
+  })
+
   return {
     datastores: state.datastores,
     booleanTypes: state.advanced.booleanTypes,
     fieldedSearches: state.advanced[state.datastores.active].fieldedSearches,
     fields: state.advanced[state.datastores.active].fields,
-    advancedFilters: getAdvancedFilters({
-      filterGroups: state.advanced[state.datastores.active].filters,
-      activeFilters: state.advanced[state.datastores.active].activeFilters,
-    }),
+    advancedFilters,
     activeFilters: state.advanced[state.datastores.active].activeFilters,
     searchQuery: state.search.query
   };

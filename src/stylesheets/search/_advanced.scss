@@ -95,13 +95,13 @@
 
 .advanced-filters-container {
   margin-top: 2rem;
-  padding-top: 1rem;
   border-top: solid 2px $grey-5;
 }
 
 .advanced-filter-container {
   width: 100%;
   margin: 0 0.5rem;
+  margin-top: 1rem;
 
   @media (min-width: $breakpoint-1) {
     width: 18rem;

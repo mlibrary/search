@@ -21,9 +21,9 @@ class DateRangeInput extends React.Component {
 
     this.state = {
       dateRangeOptions: ['Before', 'After', 'Between', 'In'],
-      beginQuery: '',
-      endQuery: '',
-      selectedRangeOption: 0
+      beginQuery:  this.props.beginQuery || '',
+      endQuery: this.props.endQuery || '',
+      selectedRangeOption: this.props.selectedRangeOption || 0,
     }
   }
 
