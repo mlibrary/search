@@ -666,7 +666,7 @@ const config = {
         'publication_title',
         'subject',
         'series',
-        'publication_date'
+        'publication_date',
         'isn'
       ],
       filters: [
