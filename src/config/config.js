@@ -623,14 +623,17 @@ const config = {
       fields: [
         'all_fields',
         'title',
+        'title_starts_with',
         'author',
         'journal_title',
         'subject',
         'academic_discipline',
+        'call_number_starts_with',
         'publisher',
         'series',
         'publication_date',
-        'isn'
+        'isn',
+        'toc'
       ],
       filters: [
         {
@@ -660,9 +663,10 @@ const config = {
         'all_fields',
         'title',
         'author',
-        'publication_date',
+        'publication_title',
         'subject',
         'series',
+        'publication_date'
         'isn'
       ],
       filters: [
@@ -684,6 +688,8 @@ const config = {
       fields: [
         'all_fields',
         'title',
+        'academic_discipline',
+        'publisher',
       ],
       filters: [
         {
@@ -700,7 +706,11 @@ const config = {
       fields: [
         'all_fields',
         'title',
+        'title_starts_with',
+        'subject',
         'academic_discipline',
+        'call_number_starts_with',
+        'isn'
       ],
       filters: [
         {
