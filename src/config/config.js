@@ -195,7 +195,7 @@ const config = {
           status: 'status',
           location: 'location',
           callnumber: 'callnumber',
-          defaultAccessText: 'Request this item',
+          defaultAccessText: 'Get this',
           heading: 'Physical Holdings',
           map: 'info_link',
           coverage: 'enum',
@@ -206,7 +206,7 @@ const config = {
           link: 'url',
           location: 'location',
           status: 'status',
-          defaultAccessText: 'Advance booking',
+          defaultAccessText: 'Advanced booking',
           callnumber: 'callnumber',
           heading: 'Media Holdings',
           map: 'info_link',
@@ -229,7 +229,7 @@ const config = {
           location: 'location',
           status: 'status',
           heading: 'Holdings (Other)',
-          defaultAccessText: 'Request this item',
+          defaultAccessText: 'Get this',
           map: 'info_link',
           showAllName: 'holdings'
         }
@@ -557,7 +557,8 @@ const config = {
       sorts: [
         'relevance',
         'date_asc',
-        'date_desc'
+        'date_desc',
+        'madeup'
       ]
     },
     'articlesplus': {
