@@ -58,7 +58,7 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    const { activeDatastoreUid, location, isAdvanced } = this.props
+    const { activeDatastoreUid, match, location, isAdvanced } = this.props
     const { query } = this.state
 
     return (
@@ -80,7 +80,7 @@ class SearchBox extends React.Component {
             <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
 
             {isAdvanced && (
-              <Link to={`${location.pathname}/advanced${location.search}`} className="search-box-advanced-link">
+              <Link to={`/${match.params.datastoreSlug}/advanced${location.search}`} className="search-box-advanced-link">
                 Advanced<span className="offpage">Search Options</span>
               </Link>
             )}
