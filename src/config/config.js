@@ -56,12 +56,12 @@ const config = {
       preview: [
         'format',
         'main_author',
-        'publication_date'
+        'published_brief'
       ],
       medium: [
         'format',
         'main_author',
-        'publication_date',
+        'published_brief',
         //'place_of_publication',
         //'edition',
         //'publisher'
@@ -72,9 +72,8 @@ const config = {
           'new_title',
           'previous_title',
           'main_author',
-          'publication_date',
+          'published_brief',
           'contributors',
-          'marc_published',
           'created',
           'distributed',
           'manufactured',
@@ -557,8 +556,7 @@ const config = {
       sorts: [
         'relevance',
         'date_asc',
-        'date_desc',
-        'madeup'
+        'date_desc'
       ]
     },
     'articlesplus': {
