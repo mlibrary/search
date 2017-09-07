@@ -692,11 +692,15 @@ const config = {
       ],
       filters: [
         {
+          uid: 'type',
+          type: 'multiple_select',
+        },
+        {
           uid: 'academic_discipline',
           type: 'multiple_select',
         },
         {
-          uid: 'database_type',
+          uid: 'access',
           type: 'multiple_select',
         }
       ]
