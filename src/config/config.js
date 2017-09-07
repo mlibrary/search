@@ -217,7 +217,7 @@ const config = {
           location: 'location',
           status: 'status',
           callnumber: 'callnumber',
-          heading: 'Special Holdings',
+          heading: 'Reading Room Use Only',
           defaultAccessText: 'Request this',
           map: 'info_link',
           coverage: 'enum',
