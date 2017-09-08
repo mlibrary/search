@@ -9,6 +9,7 @@ import TrimLink from './components/TrimLink'
 import Multiselect from './components/Multiselect'
 import DateRangeInput from './components/DateRangeInput'
 import Switch from './components/Switch'
+import AskALibrarian from './components/AskALibrarian'
 
 export {
   Header,
@@ -21,5 +22,6 @@ export {
   TrimLink,
   Multiselect,
   DateRangeInput,
-  Switch
+  Switch,
+  AskALibrarian
 };

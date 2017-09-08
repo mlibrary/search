@@ -1714,6 +1714,14 @@ input.date-range-input-text {
 .date-range-input-text:nth-child(2) {
   margin-left: 1rem; }
 
+.ask-a-librarian-button {
+  border: none;
+  background: none;
+  color: white;
+  padding: 0;
+  margin: 0;
+  cursor: pointer; }
+
 .u-break-word {
   word-wrap: break-word; }
 

@@ -3,6 +3,10 @@ import React from 'react';
 import umichBlockM from './umich_block_m.png';
 import parrot from './parrot.gif';
 
+import {
+  AskALibrarian
+} from '../../../core'
+
 class Header extends React.Component {
   state = {
     isParty: false
@@ -45,6 +49,9 @@ class Header extends React.Component {
           <ul className="site-header-list">
             <li>
               <a href="https://docs.google.com/document/d/1q1PkusiC83c1yfqJdFWRSEGRQGBqHB3ZhBpBUq0H_FI/edit">What's in the Beta?</a>
+            </li>
+            <li>
+              <AskALibrarian />
             </li>
             <li>
               <a href="https://www.lib.umich.edu/my-account/">My Account</a>
