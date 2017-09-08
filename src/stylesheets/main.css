@@ -1366,19 +1366,24 @@ body {
 .landing-container {
   margin: 0 auto;
   padding: 1rem 0;
-  margin-top: 0.5rem;
+  margin-top: 1.5rem;
   border-radius: 4px;
-  max-width: 36rem; }
+  max-width: 28rem;
+  line-height: 1.6; }
   .landing-container p {
-    font-size: 1.2rem; }
+    font-size: 1.25rem; }
   .landing-container .landing-heading-text {
-    padding-bottom: 1rem;
-    border-bottom: solid 2px #CCC;
-    margin-top: 0; }
+    padding-bottom: 1.5rem;
+    border-bottom: solid 4px #CCC;
+    margin-top: 0;
+    color: #4E4E4E; }
+    .landing-container .landing-heading-text b {
+      color: #333; }
   .landing-container p:not(.landing-heading-text) {
-    color: #6E6E6E; }
+    color: #6E6E6E;
+    padding-top: 1rem; }
   .landing-container p a {
-    text-decoration: underline; }
+    border-bottom: solid 2px rgba(18, 109, 193, 0.5); }
 
 .landing-icons {
   margin-bottom: 1rem;

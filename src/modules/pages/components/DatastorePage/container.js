@@ -21,6 +21,7 @@ import {
 import {
   DatastoreNavigation,
   DatastoreInfo,
+  Landing
 } from '../../../datastores'
 
 import {
@@ -83,7 +84,11 @@ class DatastorePageContainer extends React.Component {
               <Route match={match.url} render={(props) => {
                 return (
                   <div>
-                    <DatastoreInfo activeDatastore={activeDatastore} />
+                    {!searching ? (
+                      <Landing activeDatastore={activeDatastore} />
+                    ) : (
+                      <DatastoreInfo activeDatastore={activeDatastore} />
+                    )}
                     <Results searching={searching} activeDatastore={activeDatastore} />
                   </div>
                 )

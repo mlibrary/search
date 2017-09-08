@@ -8,22 +8,22 @@ const Landing = ({ content, activeDatastore }) => {
     case 'everything':
       return (
         <div className="landing-container">
-          <LandingIcons icons={['want']} />
-          <p className="landing-heading-text"><b>Everything</b> provides a sampling of results from across the library, while guiding you to additional materials and deeper details.</p>
-          <p>You will see results from the <Link to={`/catalog`}>Catalog</Link>, <Link to={`/articlesplus`}>Articles+</Link>, <Link to={`/databases`}>Databases</Link>, <Link to={`/onlinejournals`}>Online Journals</Link>, and <Link to={`/librarywebsite`}>Library Website</Link> pages.</p>
+          <p className="landing-heading-text">Search <b>Everything</b> to see a broad sampling of results from across 'Library Search' and to explore specific areas and records in greater detail.</p>
+          <p>You will see results from the <Link to={`/catalog`}>Catalog</Link>, <Link to={`/articlesplus`}>Articles</Link>, <Link to={`/databases`}>Databases</Link>, <Link to={`/onlinejournals`}>Online Journals</Link>, and <Link to={`/librarywebsite`}>Library Website</Link> pages.</p>
+          <p>Enter a search term in the search box to start your own Everything search.</p>
         </div>
       )
     case 'mirlyn':
       return (
         <div className="landing-container">
-          <p className="landing-heading-text"><b>Catalog</b> is the definitive place for finding materials held by the U-M Library.</p>
+          <p className="landing-heading-text">The <b>Catalog</b> is the definitive place for finding materials held by the U-M Library.</p>
           <p>Your results will include everything in our physical collection (books, audio, video, maps, musical scores, archival materials, and more), as well as materials available online such as electronic books, streaming audio and video, and online journals.</p>
         </div>
       )
     case 'articlesplus':
       return (
         <div className="landing-container">
-          <p className="landing-heading-text"><b>Articles+</b> is a gateway to discovering a wide variety of library resources.</p>
+          <p className="landing-heading-text"><b>Articles</b> is a gateway to discovering a wide variety of library resources.</p>
           <p>Your results will include scholarly journal articles, newspaper articles, book chapters, conference proceedings, and more.</p>
         </div>
       )
@@ -58,13 +58,15 @@ const Landing = ({ content, activeDatastore }) => {
 };
 
 const LandingIcons = ({ icons }) => {
-  if (!icons) {
-    return null
-  }
+  const renderedIcons = icons.map((icon, index) => <Icon key={index} name={alert} />)
 
   return (
     <div className="landing-icons">
-      {icons.map((icon, index) => <Icon key={index} name={icon} />)}
+      {icons.map((icon, index) => {
+        return (
+          <Icon key={index} name={icon} />
+        )
+      })}
     </div>
   )
 }
