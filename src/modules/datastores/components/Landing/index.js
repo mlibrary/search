@@ -18,6 +18,7 @@ const Landing = ({ content, activeDatastore }) => {
         <div className="landing-container">
           <p className="landing-heading-text">The <b>Catalog</b> is the definitive place for finding materials held by the U-M Library.</p>
           <p>Your results will include everything in our physical collection (books, audio, video, maps, musical scores, archival materials, and more), as well as materials available online such as electronic books, streaming audio and video, and online journals.</p>
+          <p className="landing-mirlyn-classic"><a href="http://mirlyn-classic.lib.umich.edu/">Mirlyn Classic Catalog</a></p>
         </div>
       )
     case 'articlesplus':

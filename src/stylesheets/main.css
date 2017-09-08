@@ -1392,6 +1392,11 @@ body {
   .landing-icons svg {
     margin: 0 1rem; }
 
+.landing-mirlyn-classic {
+  text-align: center; }
+  .landing-mirlyn-classic a {
+    font-size: 1rem; }
+
 .datastore-info-container {
   display: flex;
   align-items: flex-start;
