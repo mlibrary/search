@@ -12,3 +12,15 @@
     margin-bottom: -0.1rem;
   }
 }
+
+.ask-a-librarian-status {
+  padding: 0.05rem 0.3rem;
+  background: $green-2;
+  margin-left: 0.2rem;
+  border-radius: 4px;
+  font-size: 0.6rem;
+}
+
+.ask-a-librarian-offline {
+  background: $red-2;
+}

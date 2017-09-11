@@ -13,6 +13,7 @@ const config = {
       {
         uid: 'articlesplus',
         name: 'Articles',
+        slug: 'articles'
       },
       {
         uid: 'databases',
