@@ -503,7 +503,7 @@ nav {
     display: inline-block;
     margin: 0;
     padding: 0;
-    margin-left: 1rem; }
+    margin-left: 2rem; }
     @media (max-width: 47rem) {
       .site-header-list li {
         display: block;
@@ -1731,6 +1731,10 @@ input.date-range-input-text {
   padding: 0;
   margin: 0;
   cursor: pointer; }
+  .ask-a-librarian-button .icon {
+    color: white;
+    margin-right: 0.5rem;
+    margin-bottom: -0.1rem; }
 
 .u-break-word {
   word-wrap: break-word; }

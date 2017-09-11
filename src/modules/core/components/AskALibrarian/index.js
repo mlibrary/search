@@ -1,4 +1,6 @@
-import React from 'react';
+import React from 'react'
+
+import { Icon } from '../../../core'
 
 class AskALibrarian extends React.Component {
   handleClick() {
@@ -15,7 +17,7 @@ class AskALibrarian extends React.Component {
         className="ask-a-librarian-button"
         aria-label="Open a new window to the Ask a Librarian service."
         onClick={this.handleClick}
-      >Ask a Librarian</button>
+      ><Icon name="forum" />Ask a Librarian</button>
     )
   }
 }
