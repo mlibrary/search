@@ -1746,6 +1746,11 @@ input.date-range-input-text {
 .ask-a-librarian-offline {
   background: #ED5D47; }
 
+.marc-link-container {
+  text-align: center;
+  margin-top: -1.5rem;
+  margin-bottom: 2rem; }
+
 .u-break-word {
   word-wrap: break-word; }
 

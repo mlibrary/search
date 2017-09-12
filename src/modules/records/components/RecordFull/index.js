@@ -21,8 +21,11 @@ import {
 } from '../../utilities';
 import HoldingStatus from '../HoldingStatus'
 import {
-  AccessItem
+  AccessItem,
 } from '../AccessList'
+import {
+  LinkToMARC
+} from '../../../records'
 
 import {
   requestRecord,
@@ -106,6 +109,8 @@ class FullRecord extends React.Component {
             {holdings && (<Holdings holdings={holdings} datastoreUid={datastoreUid} />)}
           </div>
         </div>
+
+        {datastoreUid === 'mirlyn' && <LinkToMARC recordUid={recordUid} />}
       </div>
     )
   }
