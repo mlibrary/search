@@ -357,7 +357,8 @@ const setupAdvancedSearch = () => {
       const availableFilterGroups = Pride.AllDatastores.get(dsUid).get('facets')
       const configuredFilterGroups = config.advanced[dsUid].filters.reduce((prev, filterGroupConfig) => {
         const foundFilterGroup = _.findWhere(availableFilterGroups, { uid: filterGroupConfig.uid })
-        if (foundFilterGroup && foundFilterGroup.values.length > 0) {
+
+        if (foundFilterGroup) {
           return prev.concat({
             uid: foundFilterGroup.uid,
             name: foundFilterGroup.metadata.name,

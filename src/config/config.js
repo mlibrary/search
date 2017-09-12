@@ -509,7 +509,7 @@ const config = {
         onClickValue: 'false',
       },
       {
-        uid: 'subject',
+        uid: 'publication_date',
         open: true,
       },
       {
@@ -517,8 +517,11 @@ const config = {
         open: true,
       },
       {
-        uid: 'language',
+        uid: 'subject',
         open: true,
+      },
+      {
+        uid: 'language',
       },
       {
         uid: 'fulltext'
