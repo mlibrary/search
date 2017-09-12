@@ -560,7 +560,10 @@ const config = {
       sorts: [
         'relevance',
         'date_asc',
-        'date_desc'
+        'date_desc',
+        'author_asc',
+        'author_desc',
+        'date_added'
       ]
     },
     'articlesplus': {
