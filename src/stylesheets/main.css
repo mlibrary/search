@@ -514,7 +514,11 @@ nav {
 footer {
   background: #00274C;
   padding: 2rem 0;
-  margin-top: 3rem; }
+  margin-top: 3rem;
+  color: white; }
+  footer a {
+    color: white;
+    text-decoration: underline; }
 
 .callout {
   background: #F2F9FF;
@@ -1750,6 +1754,28 @@ input.date-range-input-text {
   text-align: center;
   margin-top: -1.5rem;
   margin-bottom: 2rem; }
+
+.site-footer {
+  padding: 2rem 1rem;
+  /* keep it to the bottom */
+  position: absolute;
+  bottom: 0;
+  width: 100%; }
+  @media (min-width: 47rem) {
+    .site-footer {
+      text-align: center; } }
+  .site-footer p {
+    margin: 0; }
+
+/* container styles because footers */
+#root {
+  min-height: 100vh;
+  /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 6rem;
+  /* height of your footer */ }
 
 .u-break-word {
   word-wrap: break-word; }

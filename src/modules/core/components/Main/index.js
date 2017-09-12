@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../Header/'
+import Footer from '../Footer/'
 
 import '../../../../stylesheets/main.css';
 
@@ -10,6 +11,7 @@ class Main extends React.Component {
         <Header />
         {this.props.children}
         <FeedbackWidget />
+        <Footer />
       </div>
     )
   }

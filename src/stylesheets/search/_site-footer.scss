@@ -1,0 +1,25 @@
+.site-footer {
+  padding: 2rem 1rem;
+
+  @media (min-width: $breakpoint-2) {
+    text-align: center;
+  }
+
+  /* keep it to the bottom */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  p {
+    margin: 0;
+  }
+}
+
+/* container styles because footers */
+#root {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 6rem; /* height of your footer */
+}
