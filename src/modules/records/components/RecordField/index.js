@@ -2,6 +2,7 @@ import React from 'react'
 import {
   withRouter
 } from 'react-router-dom'
+import { _ } from 'underscore'
 
 import {
   getFormatIconName
@@ -12,7 +13,8 @@ import {
   ShowAllList
 } from '../../../core';
 import {
-  RecordFieldValue
+  RecordFieldValue,
+  Bookplate
 } from '../../../records'
 
 
@@ -20,6 +22,25 @@ class RecordField extends React.Component {
   render() {
     const { field, datastoreUid } = this.props
     const uniqueFieldClassName = 'record-field record-field-uid-' + field.uid
+
+    // Super special field because libraries
+    if (field.uid === 'bookplate') {
+      const imageUrl = _.findWhere(field.value, { uid: 'image' })
+      const description = _.findWhere(field.value, { uid: 'desc' })
+
+      if (!imageUrl || !description) {
+        return null
+      }
+
+      return (
+        <div className={uniqueFieldClassName}>
+          <dt className="record-field-name">{field.name}</dt>
+          <dd className="record-field-value">
+            <Bookplate imageUrl={imageUrl.value} description={description.value} />
+          </dd>
+        </div>
+      )
+    }
 
     if (field.uid === 'format') {
       if (Array.isArray(field.value)) {

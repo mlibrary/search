@@ -1755,6 +1755,14 @@ input.date-range-input-text {
   margin-top: -1.5rem;
   margin-bottom: 2rem; }
 
+.bookplate-image {
+  width: 100%;
+  max-width: 100%; }
+
+.bookplate-description {
+  margin-top: 0;
+  margin-bottom: 0.5rem; }
+
 .site-footer {
   padding: 2rem 1rem;
   /* keep it to the bottom */

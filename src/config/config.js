@@ -122,7 +122,8 @@ const config = {
           'lcsh_subjects',
           'other_subjects',
           'academic_discipline',
-          'table_of_contents'
+          'table_of_contents',
+          'bookplate'
         ]
       },
       searches: [
