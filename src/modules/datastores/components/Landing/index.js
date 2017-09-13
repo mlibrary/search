@@ -40,14 +40,14 @@ const Landing = ({ content, activeDatastore }) => {
       return (
         <div className="landing-container">
           <p className="landing-heading-text"><b>Online Journals</b> are serial (repeating) publications the library subscribes to electronically. This includes not only journals, but also newspapers, trade publications, magazines, and more.</p>
-          <p>Your results will include journals <b>the library subscribes to</b> &mdash; as well as some available to anyone via <b>open access</b> &mdash; and feature a statement with any specifics about access. Many journals will be available through multiple platforms, so you will available dates alongside each link.</p>
+          <p>Your results will include journals the library subscribes to, as well as some available to anyone via open access. You will see statements with any specifics about access and many journals will be available through multiple platforms. Be sure to check dates alongside each to see what you can access.</p>
         </div>
       )
     case 'website':
       return (
         <div className="landing-container">
           <p className="landing-heading-text">Our <b>library website</b> is the place to learn about our services, spaces, and collections.</p>
-          <p>Your results will include website pages, events, exhibits, news, and more.</p>
+          <p>Your results will include website pages, research guides, events, exhibits, news, and more.</p>
         </div>
       )
     default:
