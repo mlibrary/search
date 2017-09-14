@@ -1,112 +1,53 @@
-.access-list .holding-detail {
-  margin-right: 1rem;
-
-  &:empty {
-    display: none;
-  }
+.holdings {
+  background: $grey-6;
+  border-top: solid 1px $grey-5;
+  margin: -2rem;
+  margin-top: 1.5rem;
+  padding: 2rem;
+  border-radius: 0 0 4px 4px;
 }
 
-.holding-detail-location {
+.holding-group-heading {
+  margin-top: 0;
   font-weight: 600;
+  font-size: 1.25rem;
 }
 
-.holding-detail-label {
-  font-weight: 600;
-  margin-right: 0;
-
-  &:after {
-    content: ':';
-  }
-}
-
-// Special styling
-
-.holding-detail-on-shelf,
-.holding-detail-missing,
-.holding-detail-checked-out {
-  svg {
-    width: 0.8rem;
-    height: 0.8rem;
-  }
-}
-
-.holding-detail-on-shelf {
-  color: $green-1;
-}
-
-.holding-detail-missing {
-  color: $red-1;
-}
-
-.holding-detail-checked-out {
-  color: $orange-1;
-
-  svg {
-    margin-right: 0.25rem;
-  }
-}
-
-/*
-  Full record holdings
-*/
-
-.full-holding-group-heading {
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: solid 2px $grey-4;
-}
-
-.full-holding-item {
-  @media (min-width: $breakpoint-2) {
-    display: flex;
-  }
-}
-
-.full-holding-list {
-  margin: 0;
+.holding-table {
+  border: none;
   padding: 0;
-  list-style: none;
-}
 
-.full-holding-list-item {
-  padding: 0;
-}
+  thead {
+    background: none;
+    font-weight: 600;
+    color: $grey-2;
+    font-size: 0.8125rem;
+  }
 
-.full-holding-list.show-all .full-holding-list-item {
-  &:not(:last-child) {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: solid 1px $grey-5;
+  tr {
+    border: none;
+  }
+
+  td, th {
+    padding: 0;
   }
 }
 
-.full-holding-item-detail-label {
-  font-family: 'Source Code Pro', monospace;
-  font-weight: 600;
+.holding-field {
+  vertical-align: middle;
 }
 
-.full-holding-item-detail {
+.holding-link {
   @media (min-width: $breakpoint-2) {
-    &:not(:last-child) {
-      margin-right: 1rem
-    }
-  }
-
-  @media (max-width: $breakpoint-2) {
-    margin-bottom: 0.5rem;
-  }
-
-  dt, dd {
-    line-height: 1.5;
-  }
-
-  @media (min-width: $breakpoint-2) {
-    .button {
-      white-space: nowrap;
-    }
+    white-space: nowrap;
   }
 }
 
-.full-holdings-group-container {
-  margin-top: 2rem;
+.holding-table-field {
+  display: inline-block;
+  padding: 0.5rem 0;
+}
+
+.holdings-show-all-button {
+  font-size: 0.875rem;
 }

@@ -18,7 +18,6 @@ import {
   getField,
   filterDisplayFields,
   filterAccessFields,
-  getHoldings,
   getShowAllText,
   hasRecordFullView
 } from '../../utilities';
@@ -38,10 +37,10 @@ class Record extends React.Component {
       fields: record.fields,
       datastore: datastoreUid,
     });
-    const holdings = getHoldings({
-      holdings: record.holdings,
-      datastoreUid: datastoreUid
-    })
+
+    //TODO
+    const holdings = []
+
     const hasFullView = hasRecordFullView({ datastoreUid })
 
     if (recordUidField) {

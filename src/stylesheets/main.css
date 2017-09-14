@@ -1241,83 +1241,45 @@ body {
 .party-parrot-container:hover .party-parrot {
   opacity: 0.3; }
 
-.access-list .holding-detail {
-  margin-right: 1rem; }
-  .access-list .holding-detail:empty {
-    display: none; }
+.holdings {
+  background: #FAFAFA;
+  border-top: solid 1px #E5E5E5;
+  margin: -2rem;
+  margin-top: 1.5rem;
+  padding: 2rem;
+  border-radius: 0 0 4px 4px; }
 
-.holding-detail-location {
-  font-weight: 600; }
-
-.holding-detail-label {
+.holding-group-heading {
+  margin-top: 0;
   font-weight: 600;
-  margin-right: 0; }
-  .holding-detail-label:after {
-    content: ':'; }
+  font-size: 1.25rem; }
 
-.holding-detail-on-shelf svg,
-.holding-detail-missing svg,
-.holding-detail-checked-out svg {
-  width: 0.8rem;
-  height: 0.8rem; }
-
-.holding-detail-on-shelf {
-  color: #057C42; }
-
-.holding-detail-missing {
-  color: #C53B26; }
-
-.holding-detail-checked-out {
-  color: #AA5600; }
-  .holding-detail-checked-out svg {
-    margin-right: 0.25rem; }
-
-/*
-  Full record holdings
-*/
-.full-holding-group-heading {
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: solid 2px #CCC; }
-
-@media (min-width: 47rem) {
-  .full-holding-item {
-    display: flex; } }
-
-.full-holding-list {
-  margin: 0;
-  padding: 0;
-  list-style: none; }
-
-.full-holding-list-item {
+.holding-table {
+  border: none;
   padding: 0; }
+  .holding-table thead {
+    background: none;
+    font-weight: 600;
+    color: #4E4E4E;
+    font-size: 0.8125rem; }
+  .holding-table tr {
+    border: none; }
+  .holding-table td, .holding-table th {
+    padding: 0; }
 
-.full-holding-list.show-all .full-holding-list-item:not(:last-child) {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: solid 1px #E5E5E5; }
-
-.full-holding-item-detail-label {
-  font-family: 'Source Code Pro', monospace;
-  font-weight: 600; }
-
-@media (min-width: 47rem) {
-  .full-holding-item-detail:not(:last-child) {
-    margin-right: 1rem; } }
-
-@media (max-width: 47rem) {
-  .full-holding-item-detail {
-    margin-bottom: 0.5rem; } }
-
-.full-holding-item-detail dt, .full-holding-item-detail dd {
-  line-height: 1.5; }
+.holding-field {
+  vertical-align: middle; }
 
 @media (min-width: 47rem) {
-  .full-holding-item-detail .button {
+  .holding-link {
     white-space: nowrap; } }
 
-.full-holdings-group-container {
-  margin-top: 2rem; }
+.holding-table-field {
+  display: inline-block;
+  padding: 0.5rem 0; }
+
+.holdings-show-all-button {
+  font-size: 0.875rem; }
 
 @-webkit-keyframes placeHolderShimmer {
   0% {

@@ -195,98 +195,6 @@ const isFullRecordType = ({ datastoreUid }) => {
   return accessConfig.hasOwnProperty('full')
 }
 
-const getHoldings = ({ holdings, datastoreUid }) => {
-  if (!holdings) {
-    return []
-  }
-
-  const datastoreConfig = _.findWhere(config.fields, { datastore: datastoreUid })
-  if (!datastoreConfig) {
-    return []
-  }
-
-  const holdingsConfig = datastoreConfig.holdings;
-  if (!holdingsConfig) {
-    return []
-  }
-
-  return holdingsConfig.reduce((previous, holdingConfig) => {
-    if (!holdings[holdingConfig.uid]) {
-      return previous
-    }
-
-    const holdingsType = {
-      uid: holdingConfig.uid,
-      name: holdingConfig.heading,
-      holdings: _.reduce(holdings[holdingConfig.uid], (acc, holding) => {
-        let holdingObj = {
-          label: holdingConfig.label,
-          link: holding[holdingConfig.link],
-          linkText: holdingConfig.defaultAccessText,
-          status: holding[holdingConfig.status],
-          location: holding[holdingConfig.location],
-          source: holding[holdingConfig.source],
-          callnumber: holding[holdingConfig.callnumber],
-          map: holding[holdingConfig.map],
-          coverage: holding[holdingConfig.coverage],
-          description: holding[holdingConfig.description],
-        }
-
-        //rewrite config check
-        _.each(config.holdingRewrites, rule => {
-          if (holding[rule.match.uid] && holding[rule.match.uid] === rule.match.value) {
-            _.each(rule.replace, replace => {
-              holdingObj[replace.uid] = replace.value
-            })
-          }
-        })
-
-        // Hack
-        // A very special hack to remove Search Only HathiTrust holdings
-        // from Mirlyn records when search only filter is active.
-        /*
-        if (
-          (holding[holdingConfig.status] === 'Search only (no full text)') &&
-          isFilterItemChecked({
-            datastoreUid: 'mirlyn',
-            filterUid: 'search_only'
-          })
-        ) {
-          return acc
-        }
-        */
-        // OK, carry on.
-
-        return acc.concat(holdingObj)
-      }, [])
-    }
-
-    if (holdingsType.holdings.length > 0) {
-      return previous.concat(holdingsType)
-    } else {
-      return previous
-    }
-  }, [])
-
-  /*
-  Returns an object with this example shape.
-
-  [
-    {
-      uid: 'hathitrust',
-      name: 'HathiTrust',
-      holdings: [
-        {
-          link: '',
-          linkText: '',
-          status: '',
-        }
-      ]
-    }
-  ]
-  */
-}
-
 const getShowAllText = ({ holdingUid, datastoreUid }) => {
   const accessConfig = _.findWhere(config.fields, { datastore: datastoreUid })
 
@@ -331,7 +239,6 @@ export {
   filterAccessFields,
   displayLoadingFeedback,
   isFullRecordType,
-  getHoldings,
   getShowAllText,
   getFullRecordDisplayFields,
   getRecordFormats,

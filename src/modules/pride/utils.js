@@ -172,6 +172,82 @@ const datastoreRecordsHaveHoldings = (datastore) => {
   return false
 }
 
+const createHolding = ({ config, holding }) => {
+  const fields = config.fields.reduce((prev, field) => {
+    const configuredField = Object.keys(field).reduce((memo, fieldKey) => {
+
+      // Checks to see if a field value should be set to a uid
+      // off the holding from the backend.
+      if (field[fieldKey].uid) {        
+        return {
+          ...memo,
+          [fieldKey]: holding[field[fieldKey].uid]
+        }
+      } else {
+        return {
+          ...memo,
+          [fieldKey]: field[fieldKey]
+        }
+      }
+    }, {})
+
+    return prev.concat(configuredField)
+  }, [])
+
+  return {
+    fields: fields
+  }
+}
+
+
+// Used to transform backend holdings data to a
+// shape better for React and based on configuration.
+const transformHoldings = (datastoreUid, holdings) => {
+  const fieldsConfig = _.findWhere(config.fields, { datastore: datastoreUid })
+
+  // Ensure there is a config for this datastore and its holdings
+  if (fieldsConfig && fieldsConfig.holdings) {
+    const holdingGroupUids = Object.keys(fieldsConfig.holdings)
+    const holdingsConfigured = holdings.reduce((prev, holding) => {
+      const holdingGroupUid = holding.type
+
+      // Do we care about these types of holdings, are they configured?
+      if (holdingGroupUids.includes(holdingGroupUid)) {
+        const newHolding = createHolding({
+          config: fieldsConfig.holdings[holdingGroupUid],
+          holding
+        })
+
+        if (!prev[holdingGroupUid]) {
+          return {
+            ...prev,
+            [holdingGroupUid]: {
+              heading: fieldsConfig.holdings[holdingGroupUid].heading,
+              holdings: [].concat(newHolding)
+            }
+          }
+
+        // Add onto an existing list of holdings.
+        } else {
+          return {
+            ...prev,
+            [holdingGroupUid]: {
+              ...prev[holdingGroupUid],
+              holdings: prev[holdingGroupUid].holdings.concat(newHolding)
+            }
+          }
+        }
+      }
+
+      return prev
+    }, {})
+
+    return holdingsConfigured
+  } else {
+    return undefined
+  }
+}
+
 const requestRecord = ({
   datastoreUid,
   recordUid,
@@ -184,7 +260,7 @@ const requestRecord = ({
   // record types that have holdings (e.g. the catalog)
   if (datastoreRecordsHaveHoldings(datastoreUid)) {
     Pride.requestRecord(datastoreUid, recordUid, callback).getHoldings((holdings) => {
-      store.dispatch(setRecordHoldings(holdings))
+      store.dispatch(setRecordHoldings(transformHoldings(datastoreUid, holdings)))
     })
   } else {
     Pride.requestRecord(datastoreUid, recordUid, callback)
@@ -237,38 +313,6 @@ const getFormatIconName = ({ format }) => {
   return found[0].icon
 }
 
-const parseSearchQueryStringToBooleanFields = (query) => {
-  /*
-  console.log('query', query)
-
-  const parsed = Pride.FieldTree.parseField('all_fields', query)
-
-  console.log('parsed', parsed.toJSON())
-
-  if (parsed.hasOwnProperty('children')) {
-    console.log('parsed', parsed.toJSON().children.forEach(child => {
-      console.log('child', child.toJSON())
-    }))
-  }
-
-  const toJSON = (obj) => {
-    if (parsed.hasOwnProperty('children')) {
-      return {
-        ...obj,
-        children: obj.toJSON().children.forEach(child => {
-          console.log('child', child.toJSON())
-        }))
-      }
-      console.log('parsed', parsed.toJSON().children.forEach(child => {
-        console.log('child', child.toJSON())
-      }))
-    }
-  }
-
-  return query
-  */
-}
-
 const isFieldASearchLink = ({
   fieldUid,
   datastoreUid
@@ -299,6 +343,5 @@ export {
   stringifySearchQueryForURL,
   parseField,
   getFormatIconName,
-  parseSearchQueryStringToBooleanFields,
   isFieldASearchLink
 }

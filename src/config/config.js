@@ -170,71 +170,77 @@ const config = {
           type: 'fielded'
         }
       ],
-      holdings: [
-        {
-          uid: 'online',
-          link: 'href',
-          defaultAccessText: 'Available online',
-          heading: 'Online resources',
-          label: 'Online',
-          description: 'text',
-          showAllName: 'online resources'
+      holdings: {
+        'online': {
+          heading: 'Online Holdings',
+          fields: [
+            {
+              type: 'button-link',
+              heading: 'Link',
+              value: 'Available Online',
+              link: { uid: 'href' },
+            },
+            {
+              type: 'text',
+              value: { uid: 'text' },
+              heading: 'Description',
+            },
+          ]
         },
-        {
-          uid: 'hathitrust',
-          link: 'handle_url',
-          defaultAccessText: 'Full text online',
-          heading: 'HathiTrust Digital Library',
-          label: 'HathiTrust',
-          source: 'source',
-          description: 'description',
-          showAllName: 'HathiTrust sources'
+        'hathitrust': {
+          heading: 'Hathitrust',
+          fields: [
+            {
+              type: 'button-link',
+              heading: 'Link',
+              value: { uid: 'status' },
+              link: { uid: 'handle_url' },
+            },
+            {
+              type: 'text',
+              heading: 'Description',
+              value: { uid: 'description' },
+            },
+            {
+              type: 'text',
+              heading: 'Source',
+              value: { uid: 'source' },
+            }
+          ]
         },
-        {
-          uid: 'circulating',
-          link: 'url',
-          status: 'status',
-          location: 'location',
-          callnumber: 'callnumber',
-          defaultAccessText: 'Get this',
+        'circulating': {
           heading: 'Physical Holdings',
-          map: 'info_link',
-          coverage: 'enum',
-          showAllName: 'physical holdings',
-        },
-        {
-          uid: 'media',
-          link: 'url',
-          location: 'location',
-          status: 'status',
-          defaultAccessText: 'Advanced booking',
-          callnumber: 'callnumber',
-          heading: 'Media Holdings',
-          map: 'info_link',
-          coverage: 'enum',
-        },
-        {
-          uid: 'special',
-          link: 'url',
-          location: 'location',
-          status: 'status',
-          callnumber: 'callnumber',
-          heading: 'Reading Room Use Only',
-          defaultAccessText: 'Request this',
-          map: 'info_link',
-          coverage: 'enum',
-        },
-        {
-          uid: 'other',
-          link: 'url',
-          location: 'location',
-          status: 'status',
-          heading: 'Holdings (Other)',
-          defaultAccessText: 'Get this',
-          map: 'info_link',
-          showAllName: 'holdings'
+          fields: [
+            {
+              type: 'link',
+              heading: 'Action',
+              value: 'Get This',
+              link: { uid: 'url' },
+            },
+            {
+              type: 'text',
+              value: { uid: 'enum' },
+              heading: 'Coverage',
+            },
+            {
+              type: 'text',
+              value: { uid: 'status' },
+              heading: 'Status',
+            },
+            {
+              type: 'link',
+              heading: 'Location',
+              value: { uid: 'location' },
+              link: { uid: 'info_link' },
+            },
+            {
+              type: 'text',
+              value: { uid: 'callnumber' },
+              heading: 'Callnumber',
+            },
+          ]
         }
-      ]
+      }
     },
     {
       datastore: 'articlesplus',

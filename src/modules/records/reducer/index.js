@@ -69,7 +69,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
       return Object.assign({}, state, {
         record: {
           ...state.record,
-          holdings: _.groupBy(action.payload, 'type')
+          holdings: action.payload
         }
       });
     case actions.LOADING_RECORDS:

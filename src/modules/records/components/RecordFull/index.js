@@ -12,7 +12,6 @@ import {
 import ShowAdditionalFieldList from '../ShowAdditionalFieldList';
 import {
   filterAccessFields,
-  getHoldings,
   getField,
   getFieldValue,
   getShowAllText,
@@ -64,10 +63,8 @@ class FullRecord extends React.Component {
       datastore: datastoreUid,
     });
 
-    const holdings = getHoldings({
-      holdings: record.holdings,
-      datastoreUid
-    })
+    // TODO
+    const holdings = record.holdings
 
     const displayFields = getFullRecordDisplayFields({
       fields: record.fields,
@@ -108,7 +105,7 @@ class FullRecord extends React.Component {
               </ShowAllList>
             )}
 
-            {holdings.length > 0 && (<Holdings holdings={holdings} />)}
+            {holdings && (<Holdings holdings={holdings} />)}
           </div>
         </div>
 
