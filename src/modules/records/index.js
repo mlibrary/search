@@ -6,6 +6,7 @@ import BentoboxList from './components/BentoboxList';
 import RecordFieldValue from './components/RecordFieldValue';
 import LinkToMARC from './components/LinkToMARC';
 import Bookplate from './components/Bookplate';
+import Holdings from './components/Holdings';
 import recordsReducer from './reducer';
 import {
   addRecord,
@@ -35,5 +36,6 @@ export {
   setRecordHoldings,
   RecordFieldValue,
   LinkToMARC,
-  Bookplate
+  Bookplate,
+  Holdings
 };

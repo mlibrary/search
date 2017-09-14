@@ -24,7 +24,8 @@ import {
   AccessItem,
 } from '../AccessList'
 import {
-  LinkToMARC
+  LinkToMARC,
+  Holdings
 } from '../../../records'
 
 import {
@@ -106,7 +107,8 @@ class FullRecord extends React.Component {
                 ))}
               </ShowAllList>
             )}
-            {holdings && (<Holdings holdings={holdings} datastoreUid={datastoreUid} />)}
+
+            {holdings.length > 0 && (<Holdings holdings={holdings} />)}
           </div>
         </div>
 
@@ -147,196 +149,6 @@ const Format = ({ formats }) => {
     </div>
   )
 }
-
-const Holdings = ({ holdings, datastoreUid }) => {
-  return (
-    <div className="full-holdings-container">
-      {holdings.map((holdingsGroup, index) => (
-      <div key={index} className="full-holdings-group-container">
-        <h3 className="full-holding-group-heading">{holdingsGroup.name}</h3>
-        <HoldingsGroup group={holdingsGroup} datastoreUid={datastoreUid} />
-      </div>
-      ))}
-    </div>
-  )
-}
-
-const HoldingsGroup = ({ group, datastoreUid }) => {
-  const length = group.holdings.length
-  const showAllText = getShowAllText({
-    holdingUid: group.uid,
-    datastoreUid
-  }) || ''
-
-  switch (group.uid) {
-    case 'hathitrust':
-    case 'online':
-      return (
-        <ShowAllList
-          length={length}
-          show={1}
-          name={showAllText ? showAllText : ''}
-          listClass={'full-holding-list'}>
-            {group.holdings.map((holding, index) => (
-              <li key={index} className='full-holding-list-item'>
-                <OnlineHolding holding={holding} />
-              </li>
-            ))}
-        </ShowAllList>
-      )
-    default:
-      return (
-        <ShowAllList
-          length={length}
-          show={1}
-          name={showAllText ? showAllText : ''}
-          listClass={'full-holding-list'}>
-            {group.holdings.map((holding, index) => (
-              <li key={index} className='full-holding-list-item'>
-                <PhysicalHolding holding={holding} />
-              </li>
-            ))}
-        </ShowAllList>
-      )
-  }
-}
-
-const PhysicalHolding = ({ holding }) => (
-  <dl className='full-holding-item'>
-    {holding.status && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Status
-        </dt>
-        <dd>
-          <HoldingStatus status={holding.status} />
-        </dd>
-      </div>
-    )}
-    {holding.coverage && holding.coverage.length > 0 && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Coverage
-        </dt>
-        <dd>
-          {holding.coverage.map((value, index) => (
-            <span key={index}>{value}</span>
-          ))}
-        </dd>
-      </div>
-    )}
-    {holding.location && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Location
-        </dt>
-        <dd>
-          {holding.map ? (
-            <a className="underline" href={holding.map}>{holding.location}</a>
-          ) : ( <span>{holding.location}</span> )}
-          <div>{holding.callnumber}</div>
-        </dd>
-      </div>
-    )}
-    {holding.source && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Source
-        </dt>
-        <dd>
-          {holding.source}
-        </dd>
-      </div>
-    )}
-    {holding.link && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Actions
-        </dt>
-        <dd>
-          <a href={holding.link} className="underline">{holding.linkText}</a>
-        </dd>
-      </div>
-    )}
-  </dl>
-)
-
-const OnlineHolding = ({ holding }) => (
-  <dl className="full-holding-item">
-    {holding.link && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          {holding.linkStyle === 'link' && (
-            'Actions'
-          )}
-        </dt>
-        <dd>
-          {holding.linkStyle === 'link' ? (
-            <a href={holding.link} className="underline">{holding.linkText}</a>
-          ) : (
-            <a href={holding.link} className="button">{holding.linkText}</a>
-          )}
-        </dd>
-      </div>
-    )}
-    {holding.description && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Description
-        </dt>
-        <dd>
-          {holding.description}
-        </dd>
-      </div>
-    )}
-    {holding.status && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Status
-        </dt>
-        <dd>
-          <HoldingStatus status={holding.status} />
-        </dd>
-      </div>
-    )}
-    {holding.location && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Location
-        </dt>
-        <dd>
-          {holding.location} {holding.map && (
-            <a className="underline" href={holding.map}>Map</a>
-          )}
-          {holding.info_link}
-          <div>{holding.callnumber}</div>
-        </dd>
-      </div>
-    )}
-    {holding.source && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Source
-        </dt>
-        <dd>
-          {holding.source}
-        </dd>
-      </div>
-    )}
-    {holding.coverage && holding.coverage.length > 0 && (
-      <div className="full-holding-item-detail">
-        <dt className="full-holding-item-detail-label font-small">
-          Coverage
-        </dt>
-        <dd>
-          {holding.coverage.map((value, index) => (
-            <span key={index}>{value}</span>
-          ))}
-        </dd>
-      </div>
-    )}
-  </dl>
-)
 
 function mapStateToProps(state) {
   return {
