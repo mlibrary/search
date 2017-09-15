@@ -7,8 +7,12 @@
   border-radius: 0 0 4px 4px;
 }
 
+.holding-group:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
 .holding-group-heading {
-  margin-top: 0;
+  margin: 0;
   font-weight: 600;
   font-size: 1.25rem;
 }
@@ -16,12 +20,17 @@
 .holding-table {
   border: none;
   padding: 0;
+  margin: 0;
 
   thead {
     background: none;
     font-weight: 600;
-    color: $grey-2;
+    color: $grey-3;
     font-size: 0.8125rem;
+  }
+
+  tbody td {
+    border-bottom: solid 1px $grey-5;
   }
 
   tr {
@@ -30,24 +39,29 @@
 
   td, th {
     padding: 0;
+    vertical-align: middle;
   }
 }
 
-.holding-field {
-  vertical-align: middle;
-}
-
-.holding-link {
+.holding-link,
+.holding-button {
   @media (min-width: $breakpoint-2) {
     white-space: nowrap;
   }
 }
 
+.holding-link {
+  text-decoration: underline;
+}
+
 .holding-table-field {
-  display: inline-block;
+  display: block;
   padding: 0.5rem 0;
+  margin-right: 1rem;
 }
 
 .holdings-show-all-button {
   font-size: 0.875rem;
+  color: $grey-3;
+  margin-top: 0.75rem;
 }

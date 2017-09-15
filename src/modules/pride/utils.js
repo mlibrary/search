@@ -178,7 +178,7 @@ const createHolding = ({ config, holding }) => {
 
       // Checks to see if a field value should be set to a uid
       // off the holding from the backend.
-      if (field[fieldKey].uid) {        
+      if (field[fieldKey].uid) {
         return {
           ...memo,
           [fieldKey]: holding[field[fieldKey].uid]
@@ -223,6 +223,7 @@ const transformHoldings = (datastoreUid, holdings) => {
             ...prev,
             [holdingGroupUid]: {
               heading: fieldsConfig.holdings[holdingGroupUid].heading,
+              showAllName: fieldsConfig.holdings[holdingGroupUid].showAllName,
               holdings: [].concat(newHolding)
             }
           }

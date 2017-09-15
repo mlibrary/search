@@ -11,7 +11,7 @@ const FieldValue = ({ field }) => {
       )
     case 'button-link':
       return (
-        <span><a className="holding-link button" href={field.link}>{field.value}</a></span>
+        <span><a className="holding-button button" href={field.link}>{field.value}</a></span>
       )
     default:
       return (
@@ -44,12 +44,13 @@ class Holdings extends React.Component {
       <div className="holdings">
         {Object.keys(holdingsData).map(holdingGroupUid => {
           const heading = holdingsData[holdingGroupUid].heading
+          const showAllName = holdingsData[holdingGroupUid].showAllName
           const holdings = holdingsData[holdingGroupUid].holdings
           const headings = _.pluck(holdings[0].fields, 'heading')
           const showAll = _.contains(this.state.show, holdingGroupUid)
 
           return (
-            <div key={holdingGroupUid}>
+            <div key={holdingGroupUid} className="holding-group">
               <h3 className="holding-group-heading">{heading}</h3>
               <table className="holding-table">
                 <thead>
@@ -82,11 +83,11 @@ class Holdings extends React.Component {
                 </tbody>
               </table>
 
-              {holdings.length > 0 && (
+              {holdings.length > 1 && (
                 <button
                   className="button-light holdings-show-all-button"
                   onClick={() => this.handleShowAllClick(holdingGroupUid)}>
-                  Show All
+                  {showAll ? ('Show Fewer') : ('Show All')} {showAllName}
                 </button>
               )}
             </div>

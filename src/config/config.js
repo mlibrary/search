@@ -172,7 +172,8 @@ const config = {
       ],
       holdings: {
         'online': {
-          heading: 'Online Holdings',
+          heading: 'Online Resources',
+          showAllName: 'Online Resources',
           fields: [
             {
               type: 'button-link',
@@ -188,7 +189,8 @@ const config = {
           ]
         },
         'hathitrust': {
-          heading: 'Hathitrust',
+          heading: 'HathiTrust Digital Library',
+          showAllName: 'HathiTrust Sources',
           fields: [
             {
               type: 'button-link',
@@ -210,6 +212,7 @@ const config = {
         },
         'circulating': {
           heading: 'Physical Holdings',
+          showAllName: 'Phyiscal Holdings',
           fields: [
             {
               type: 'link',
@@ -236,7 +239,7 @@ const config = {
             {
               type: 'text',
               value: { uid: 'callnumber' },
-              heading: 'Callnumber',
+              heading: 'Call Number',
             },
           ]
         }
