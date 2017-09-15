@@ -344,5 +344,6 @@ export {
   stringifySearchQueryForURL,
   parseField,
   getFormatIconName,
-  isFieldASearchLink
+  isFieldASearchLink,
+  transformHoldings
 }

@@ -4,6 +4,12 @@ import { _ } from 'underscore'
 const FieldValue = ({ field }) => {
   // AND is to also ensure a link exists.
 
+  if (!field.value || field.value.length === 0) {
+    return (
+      <span className="holding-value-na">N/A</span>
+    )
+  }
+
   switch (field.type) {
     case 'link':
       return (
@@ -52,7 +58,7 @@ class Holdings extends React.Component {
           return (
             <div key={holdingGroupUid} className="holding-group">
               <h3 className="holding-group-heading">{heading}</h3>
-              <table className="holding-table">
+              <table className="holding-table responsive-table">
                 <thead>
                   <tr>
                     {headings.map((heading, index) => (
@@ -71,7 +77,7 @@ class Holdings extends React.Component {
                     return (
                       <tr key={index}>
                         {holding.fields.map((field, index) => (
-                          <td key={index}>
+                          <td key={index} data-label={field.heading}>
                             <span className="holding-table-field">
                               <FieldValue field={field} />
                             </span>
@@ -87,7 +93,7 @@ class Holdings extends React.Component {
                 <button
                   className="button-light holdings-show-all-button"
                   onClick={() => this.handleShowAllClick(holdingGroupUid)}>
-                  {showAll ? ('Show Fewer') : ('Show All')} {showAllName}
+                  {showAll ? ('Show Fewer') : ('Show All ' + `${holdings.length}`)} {showAllName}
                 </button>
               )}
             </div>

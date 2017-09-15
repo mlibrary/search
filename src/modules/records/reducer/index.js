@@ -32,7 +32,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
     case actions.ADD_HOLDINGS:
       const { datastoreUid, recordId, holdingsData } = action.payload;
 
-      if (holdingsData.length > 0 && state.records[datastoreUid] && state.records[datastoreUid][recordId]) {
+      if (holdingsData && state.records[datastoreUid] && state.records[datastoreUid][recordId]) {
         return {
           ...state,
           records: {
@@ -41,7 +41,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
               ...state.records[datastoreUid],
               [recordId]: {
                 ...state.records[datastoreUid][recordId],
-                holdings: _.groupBy(holdingsData, 'type')
+                holdings: holdingsData
               }
             }
           }

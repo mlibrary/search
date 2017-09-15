@@ -41,6 +41,7 @@ import {
   getDatastoreSlug,
   getDatastoreName,
   getDatastoreUidBySlug,
+  transformHoldings
 } from './utils'
 
 /*
@@ -97,10 +98,12 @@ const handleHoldings = (datastoreUid, recordId) => {
   }))
 
   return (holdingsData) => {
+    const transformedHoldings = transformHoldings(datastoreUid, holdingsData)
+
     store.dispatch(addHoldings({
       datastoreUid: datastoreUid,
       recordId: recordId,
-      holdingsData: holdingsData,
+      holdingsData: transformedHoldings,
     }))
 
     store.dispatch(loadingHoldings({

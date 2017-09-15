@@ -31,11 +31,11 @@
 @import "search/bentobox";
 @import "search/parrot";
 @import "search/holdings";
+@import "search/access";
 @import "search/placeholder";
 @import "search/landing";
 @import "search/datastore-info";
 @import "search/icon";
-@import "search/access";
 @import "search/show-more";
 @import "search/feedback";
 @import "search/advanced";
@@ -49,5 +49,6 @@
 @import "search/marc-link";
 @import "search/bookplate";
 @import "search/site-footer";
+@import "search/responsive-table";
 
 @import "partials/utility";

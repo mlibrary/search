@@ -63,7 +63,6 @@ class FullRecord extends React.Component {
       datastore: datastoreUid,
     });
 
-    // TODO
     const holdings = record.holdings
 
     const displayFields = getFullRecordDisplayFields({

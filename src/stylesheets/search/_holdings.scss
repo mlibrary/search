@@ -29,11 +29,15 @@
     font-size: 0.8125rem;
   }
 
+  tr {
+    border: none;
+  }
+
   tbody td {
     border-bottom: solid 1px $grey-5;
   }
 
-  tr {
+  tbody tr:last-child td {
     border: none;
   }
 
@@ -54,6 +58,10 @@
   text-decoration: underline;
 }
 
+.holding-value-na {
+  color: $grey-3;
+}
+
 .holding-table-field {
   display: block;
   padding: 0.5rem 0;
@@ -64,4 +72,78 @@
   font-size: 0.875rem;
   color: $grey-3;
   margin-top: 0.75rem;
+}
+
+@media screen and (max-width: $breakpoint-2) {
+  .responsive-table {
+    td:before {
+      font-weight: 600;
+      color: $grey-3;
+      font-size: 0.8125rem;
+    }
+
+    tbody tr:last-child {
+      td:not(:last-child) {
+        border-bottom: solid 1px $grey-5;
+      }
+    }
+
+    td:last-child {
+      border-bottom: $grey-4 solid 2px;
+    }
+
+    tr {
+      border: none;
+    }
+  }
+}
+
+.holdings-condensed {
+  .holdings {
+    margin: 0;
+    padding: 1rem 2rem;
+
+    @media (max-width: $breakpoint-1) {
+      padding: 1.5rem 1rem;
+    }
+  }
+
+  .holding-table {
+    td, th {
+      vertical-align: top;
+    }
+  }
+
+  .holding-group:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+
+  .holding-group-heading {
+    font-size: 1rem;
+  }
+
+  .holding-button {
+    background: none;
+    padding: 0;
+    color: $main-3;
+    border: none;
+    text-decoration: underline;
+  }
+
+  .holdings-show-all-button {
+    border: none;
+    padding: 0;
+    color: $grey-3;
+    border-bottom: solid 1px $grey-4;
+    border-radius: 0;
+    margin-top: 0;
+
+    &:hover {
+      border-color: $grey-3;
+    }
+  }
+}
+
+.bentobox .holdings {
+  display: none;
 }

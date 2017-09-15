@@ -1,0 +1,21 @@
+@media screen and (max-width: $breakpoint-2) {
+  .responsive-table {
+    border: 0;
+  }
+
+  .responsive-table thead {
+    display: none;
+  }
+
+  .responsive-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: right;
+  }
+
+  .responsive-table td:before {
+    content: attr(data-label);
+    margin-right: 1rem;
+  }
+}
