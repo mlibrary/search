@@ -1,3 +1,23 @@
+@mixin table-inline() {
+  thead {
+    display: none;
+  }
+
+  tr {
+    display: block;
+    margin-bottom: 0.5rem;
+
+    &:not(:last-child) {
+      border-bottom: solid 1px $grey-5;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  tbody td {
+    display: inline-block;
+  }
+}
+
 .holdings {
   background: $grey-6;
   border-top: solid 1px $grey-5;
@@ -33,24 +53,27 @@
     border: none;
   }
 
-  tbody td {
-    border-bottom: solid 1px $grey-5;
-  }
+  tbody {
+    td:first-child {
+      white-space: nowrap;
+    }
 
-  tbody tr:last-child td {
-    border: none;
+    tr:last-child td {
+      border: none;
+    }
+
+    td {
+      border-bottom: solid 1px $grey-5;
+    }
   }
 
   td, th {
     padding: 0;
     vertical-align: middle;
   }
-}
 
-.holding-link,
-.holding-button {
-  @media (min-width: $breakpoint-2) {
-    white-space: nowrap;
+  @media (max-width: $breakpoint-2) {
+    @include table-inline();
   }
 }
 
@@ -63,9 +86,12 @@
 }
 
 .holding-table-field {
-  display: block;
-  padding: 0.5rem 0;
+  display: inline-block;
   margin-right: 1rem;
+
+  @media (min-width: $breakpoint-2) {
+    padding: 0.5rem 0;
+  }
 }
 
 .holdings-show-all-button {
@@ -74,37 +100,13 @@
   margin-top: 0.75rem;
 }
 
-@media screen and (max-width: $breakpoint-2) {
-  .responsive-table {
-    td:before {
-      font-weight: 600;
-      color: $grey-3;
-      font-size: 0.8125rem;
-    }
-
-    tbody tr:last-child {
-      td:not(:last-child) {
-        border-bottom: solid 1px $grey-5;
-      }
-    }
-
-    td:last-child {
-      border-bottom: $grey-4 solid 2px;
-    }
-
-    tr {
-      border: none;
-    }
-  }
-}
-
 .holdings-condensed {
   .holdings {
     margin: 0;
-    padding: 1rem 2rem;
+    padding: 1.5rem 2rem;
 
     @media (max-width: $breakpoint-1) {
-      padding: 1.5rem 1rem;
+      padding: 1.5rem;
     }
   }
 
@@ -144,6 +146,22 @@
   }
 }
 
-.bentobox .holdings {
-  display: none;
+.bentobox {
+  .holdings {
+    padding: 1rem 1.5rem;
+  }
+
+  .holding-table {
+    @include table-inline();
+
+    tbody {
+      td {
+        border: none;
+      }
+
+      .holding-table-field {
+        padding: 0;
+      }
+    }
+  }
 }
