@@ -242,6 +242,39 @@ const config = {
               heading: 'Call Number',
             },
           ]
+        },
+        'other': {
+          heading: 'Other Holdings',
+          showAllName: 'Holdings',
+          fields: [
+            {
+              type: 'link',
+              heading: 'Action',
+              value: 'Get This',
+              link: { uid: 'url' },
+            },
+            {
+              type: 'text',
+              value: { uid: 'description' },
+              heading: 'Description',
+            },
+            {
+              type: 'text',
+              value: { uid: 'status' },
+              heading: 'Status',
+            },
+            {
+              type: 'link',
+              heading: 'Location',
+              value: { uid: 'location' },
+              link: { uid: 'info_link' },
+            },
+            {
+              type: 'text',
+              value: { uid: 'callnumber' },
+              heading: 'Call Number',
+            },
+          ]
         }
       }
     },
