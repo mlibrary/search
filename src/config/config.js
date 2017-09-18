@@ -222,8 +222,8 @@ const config = {
             },
             {
               type: 'text',
-              value: { uid: 'enum' },
-              heading: 'Coverage',
+              value: { uid: 'description' },
+              heading: 'Description',
             },
             {
               type: 'text',
@@ -283,7 +283,7 @@ const config = {
             {
               type: 'link',
               heading: 'Action',
-              value: 'Request advanced booking',
+              value: 'Advanced booking',
               link: { uid: 'url' },
             },
             {
