@@ -1244,8 +1244,6 @@ body {
 .holdings {
   background: #FAFAFA;
   border-top: solid 1px #E5E5E5;
-  margin: -2rem;
-  margin-top: 1.5rem;
   padding: 2rem;
   border-radius: 0 0 4px 4px; }
 
@@ -1256,6 +1254,10 @@ body {
   margin: 0;
   font-weight: 600;
   font-size: 1.25rem; }
+  @media (max-width: 47rem) {
+    .holding-group-heading {
+      font-size: 1rem;
+      margin-bottom: 0.5rem; } }
 
 .holding-table {
   border: none;
@@ -1314,14 +1316,14 @@ body {
     .holdings-condensed .holdings {
       padding: 1.5rem; } }
 
+.holdings-condensed .holding-group-heading {
+  font-size: 1rem; }
+
 .holdings-condensed .holding-table td, .holdings-condensed .holding-table th {
   vertical-align: top; }
 
 .holdings-condensed .holding-group:not(:last-child) {
   margin-bottom: 1.5rem; }
-
-.holdings-condensed .holding-group-heading {
-  font-size: 1rem; }
 
 .holdings-condensed .holding-button {
   background: none;
@@ -1827,8 +1829,11 @@ input.date-range-input-text {
   overflow: hidden;
   display: block;
   position: relative;
-  padding-bottom: 6rem;
+  padding-bottom: 8rem;
   /* height of your footer */ }
+  @media (max-width: 47rem) {
+    #root {
+      padding-bottom: 10rem; } }
 
 .u-break-word {
   word-wrap: break-word; }

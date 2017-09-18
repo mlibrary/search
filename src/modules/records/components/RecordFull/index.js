@@ -103,9 +103,8 @@ class FullRecord extends React.Component {
                 ))}
               </ShowAllList>
             )}
-
-            {holdings && (<Holdings holdings={holdings} />)}
           </div>
+          {holdings && (<Holdings holdings={holdings} />)}
         </div>
 
         {datastoreUid === 'mirlyn' && <LinkToMARC recordUid={recordUid} />}

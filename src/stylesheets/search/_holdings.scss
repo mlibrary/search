@@ -21,8 +21,6 @@
 .holdings {
   background: $grey-6;
   border-top: solid 1px $grey-5;
-  margin: -2rem;
-  margin-top: 1.5rem;
   padding: 2rem;
   border-radius: 0 0 4px 4px;
 }
@@ -35,6 +33,11 @@
   margin: 0;
   font-weight: 600;
   font-size: 1.25rem;
+
+  @media (max-width: $breakpoint-2) {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .holding-table {
@@ -110,6 +113,10 @@
     }
   }
 
+  .holding-group-heading {
+    font-size: 1rem;
+  }
+
   .holding-table {
     td, th {
       vertical-align: top;
@@ -118,10 +125,6 @@
 
   .holding-group:not(:last-child) {
     margin-bottom: 1.5rem;
-  }
-
-  .holding-group-heading {
-    font-size: 1rem;
   }
 
   .holding-button {
