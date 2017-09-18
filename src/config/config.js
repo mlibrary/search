@@ -178,7 +178,7 @@ const config = {
             {
               type: 'button-link',
               heading: 'Link',
-              value: 'Available Online',
+              value: 'Available online',
               link: { uid: 'href' },
             },
             {
@@ -217,7 +217,7 @@ const config = {
             {
               type: 'link',
               heading: 'Action',
-              value: 'Get This',
+              value: 'Get this',
               link: { uid: 'url' },
             },
             {
@@ -250,13 +250,74 @@ const config = {
             {
               type: 'link',
               heading: 'Action',
-              value: 'Get This',
+              value: 'Request this item',
               link: { uid: 'url' },
             },
             {
               type: 'text',
               value: { uid: 'description' },
               heading: 'Description',
+            },
+            {
+              type: 'text',
+              value: { uid: 'status' },
+              heading: 'Status',
+            },
+            {
+              type: 'link',
+              heading: 'Location',
+              value: { uid: 'location' },
+              link: { uid: 'info_link' },
+            },
+            {
+              type: 'text',
+              value: { uid: 'callnumber' },
+              heading: 'Call Number',
+            },
+          ]
+        },
+        'media': {
+          heading: 'Media Holdings',
+          showAllName: 'Media Holdings',
+          fields: [
+            {
+              type: 'link',
+              heading: 'Action',
+              value: 'Request advanced booking',
+              link: { uid: 'url' },
+            },
+            {
+              type: 'text',
+              value: { uid: 'description' },
+              heading: 'Description',
+            },
+            {
+              type: 'text',
+              value: { uid: 'status' },
+              heading: 'Status',
+            },
+            {
+              type: 'link',
+              heading: 'Location',
+              value: { uid: 'location' },
+              link: { uid: 'info_link' },
+            },
+            {
+              type: 'text',
+              value: { uid: 'callnumber' },
+              heading: 'Call Number',
+            },
+          ]
+        },
+        'special': {
+          heading: 'Reading Room Use Only',
+          showAllName: 'Special Holdings',
+          fields: [
+            {
+              type: 'link',
+              heading: 'Action',
+              value: 'Request this',
+              link: { uid: 'url' },
             },
             {
               type: 'text',
