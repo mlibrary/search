@@ -1265,7 +1265,7 @@ body {
   @media (max-width: 47rem) {
     .holding-group-heading {
       font-size: 1rem;
-      margin-bottom: 0.5rem; } }
+      padding-bottom: 0.5rem; } }
 
 .holding-group-info-link {
   display: inline-block;
@@ -1290,6 +1290,8 @@ body {
   .holding-table td, .holding-table th {
     padding: 0;
     vertical-align: middle; }
+  .holding-table td {
+    width: 25%; }
   @media (max-width: 47rem) {
     .holding-table thead {
       display: none; }
@@ -1299,10 +1301,11 @@ body {
       .holding-table tr:not(:last-child) {
         border-bottom: solid 1px #E5E5E5;
         padding-bottom: 0.5rem; }
+    .holding-table td {
+      width: auto; }
     .holding-table tbody td {
-      display: inline-block; } }
-  .holding-table td {
-    width: 25%; }
+      display: inline-block;
+      border: none; } }
 
 .holding-link {
   text-decoration: underline; }
@@ -1368,8 +1371,12 @@ body {
     border-bottom: solid 1px #E5E5E5;
     padding-bottom: 0.5rem; }
 
+.bentobox .holding-table td {
+  width: auto; }
+
 .bentobox .holding-table tbody td {
-  display: inline-block; }
+  display: inline-block;
+  border: none; }
 
 .bentobox .holding-table tbody td {
   border: none; }

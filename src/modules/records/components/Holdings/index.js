@@ -60,7 +60,7 @@ class Holdings extends React.Component {
             <div key={holdingGroupUid} className="holding-group">
               <div className="holding-group-heading-container">
                 <h3 className="holding-group-heading">{heading}</h3>
-                {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">View Map</a> )}
+                {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">View map</a> )}
               </div>
               <table className="holding-table responsive-table">
                 <thead>
@@ -81,7 +81,7 @@ class Holdings extends React.Component {
                     return (
                       <tr key={index}>
                         {holding.fields.map((field, index) => (
-                          <td key={index} data-label={field.heading}>
+                          <td key={index}>
                             <span className="holding-table-field">
                               <FieldValue field={field} />
                             </span>

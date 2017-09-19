@@ -13,8 +13,13 @@
     }
   }
 
+  td {
+    width: auto;
+  }
+
   tbody td {
     display: inline-block;
+    border: none;
   }
 }
 
@@ -42,7 +47,7 @@
 
   @media (max-width: $breakpoint-2) {
     font-size: 1rem;
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 }
 
@@ -85,13 +90,13 @@
     vertical-align: middle;
   }
 
-  @media (max-width: $breakpoint-2) {
-    @include table-inline();
-  }
-
   //trying to make table column widths more consistent
   td {
     width: 25%;
+  }
+
+  @media (max-width: $breakpoint-2) {
+    @include table-inline();
   }
 }
 
