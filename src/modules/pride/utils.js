@@ -213,16 +213,34 @@ const transformHoldings = (datastoreUid, holdings) => {
 
       // Do we care about these types of holdings, are they configured?
       if (holdingGroupUids.includes(holdingGroupUid)) {
+        const holdingGroupConfig = fieldsConfig.holdings[holdingGroupUid]
         const newHolding = createHolding({
-          config: fieldsConfig.holdings[holdingGroupUid],
+          config: holdingGroupConfig,
           holding
         })
 
-        if (!prev[holdingGroupUid]) {
+        let holdingGroupNameSpace = holdingGroupUid
+        let heading = fieldsConfig.holdings[holdingGroupNameSpace].heading
+        let infoUrl = undefined
+
+        // If these types of holdings are grouped by some other field besides type
+        if (holdingGroupConfig.groupBy) {
+          heading = holding[holdingGroupConfig.groupBy.uid]
+          holdingGroupNameSpace = holding[holdingGroupConfig.groupBy.uid]
+        }
+
+        // If these types of holdings have an info link
+        if (holdingGroupConfig.infoUrl) {
+          infoUrl = holding[holdingGroupConfig.infoUrl.uid]
+        }
+
+        // First of its kind
+        if (!prev[holdingGroupNameSpace]) {
           return {
             ...prev,
-            [holdingGroupUid]: {
-              heading: fieldsConfig.holdings[holdingGroupUid].heading,
+            [holdingGroupNameSpace]: {
+              heading,
+              infoUrl: infoUrl,
               showAllName: fieldsConfig.holdings[holdingGroupUid].showAllName,
               holdings: [].concat(newHolding)
             }
@@ -232,9 +250,9 @@ const transformHoldings = (datastoreUid, holdings) => {
         } else {
           return {
             ...prev,
-            [holdingGroupUid]: {
-              ...prev[holdingGroupUid],
-              holdings: prev[holdingGroupUid].holdings.concat(newHolding)
+            [holdingGroupNameSpace]: {
+              ...prev[holdingGroupNameSpace],
+              holdings: prev[holdingGroupNameSpace].holdings.concat(newHolding)
             }
           }
         }

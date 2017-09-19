@@ -117,6 +117,7 @@ const SkeletonFullRecord = () => (
   <div className="container container-narrow">
     <div className="full-record-container">
       <div className="full-record-header">
+        <span className="loading-record-text">Loading record...</span>
       </div>
       <div className="record-container placeholder-container">
         <div className="placeholder placeholder-title"></div>

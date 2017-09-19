@@ -212,7 +212,9 @@ const config = {
         },
         'circulating': {
           heading: 'Physical Holdings',
-          showAllName: 'Phyiscal Holdings',
+          showAllName: 'Holdings',
+          groupBy: { uid: 'location' },
+          infoUrl: { uid: 'info_link' },
           fields: [
             {
               type: 'link',
@@ -231,12 +233,6 @@ const config = {
               heading: 'Status',
             },
             {
-              type: 'link',
-              heading: 'Location',
-              value: { uid: 'location' },
-              link: { uid: 'info_link' },
-            },
-            {
               type: 'text',
               value: { uid: 'callnumber' },
               heading: 'Call Number',
@@ -246,6 +242,7 @@ const config = {
         'other': {
           heading: 'Other Holdings',
           showAllName: 'Holdings',
+          groupBy: { uid: 'location' },
           fields: [
             {
               type: 'link',
@@ -264,12 +261,6 @@ const config = {
               heading: 'Status',
             },
             {
-              type: 'link',
-              heading: 'Location',
-              value: { uid: 'location' },
-              link: { uid: 'info_link' },
-            },
-            {
               type: 'text',
               value: { uid: 'callnumber' },
               heading: 'Call Number',
@@ -278,7 +269,8 @@ const config = {
         },
         'media': {
           heading: 'Media Holdings',
-          showAllName: 'Media Holdings',
+          showAllName: 'Holdings',
+          groupBy: { uid: 'location' },
           fields: [
             {
               type: 'link',
@@ -297,12 +289,6 @@ const config = {
               heading: 'Status',
             },
             {
-              type: 'link',
-              heading: 'Location',
-              value: { uid: 'location' },
-              link: { uid: 'info_link' },
-            },
-            {
               type: 'text',
               value: { uid: 'callnumber' },
               heading: 'Call Number',
@@ -312,6 +298,7 @@ const config = {
         'special': {
           heading: 'Reading Room Use Only',
           showAllName: 'Special Holdings',
+          groupBy: { uid: 'location' },
           fields: [
             {
               type: 'link',
@@ -323,12 +310,6 @@ const config = {
               type: 'text',
               value: { uid: 'status' },
               heading: 'Status',
-            },
-            {
-              type: 'link',
-              heading: 'Location',
-              value: { uid: 'location' },
-              link: { uid: 'info_link' },
             },
             {
               type: 'text',
@@ -746,6 +727,14 @@ const config = {
         'toc'
       ],
       filters: [
+        {
+          uid: 'search_only',
+          type: 'checkbox'
+        },
+        {
+          uid: 'available_online',
+          type: 'checkbox'
+        },
         {
           uid: 'date_of_publication',
           type: 'date_range_input'

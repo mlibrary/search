@@ -29,15 +29,26 @@
   margin-bottom: 2rem;
 }
 
+.holding-group-heading-container {
+  display: flex;
+  align-items: center;
+}
+
 .holding-group-heading {
   margin: 0;
   font-weight: 600;
   font-size: 1.25rem;
+  margin-right: 1rem;
 
   @media (max-width: $breakpoint-2) {
     font-size: 1rem;
     margin-bottom: 0.5rem;
   }
+}
+
+.holding-group-info-link {
+  display: inline-block;
+  text-decoration: underline;
 }
 
 .holding-table {
@@ -47,8 +58,7 @@
 
   thead {
     background: none;
-    font-weight: 600;
-    color: $grey-3;
+    color: $grey-2;
     font-size: 0.8125rem;
   }
 
@@ -77,6 +87,11 @@
 
   @media (max-width: $breakpoint-2) {
     @include table-inline();
+  }
+
+  //trying to make table column widths more consistent
+  td {
+    width: 25%;
   }
 }
 

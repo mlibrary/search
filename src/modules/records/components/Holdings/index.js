@@ -50,6 +50,7 @@ class Holdings extends React.Component {
       <div className="holdings">
         {Object.keys(holdingsData).map(holdingGroupUid => {
           const heading = holdingsData[holdingGroupUid].heading
+          const infoUrl = holdingsData[holdingGroupUid].infoUrl
           const showAllName = holdingsData[holdingGroupUid].showAllName
           const holdings = holdingsData[holdingGroupUid].holdings
           const headings = _.pluck(holdings[0].fields, 'heading')
@@ -57,7 +58,10 @@ class Holdings extends React.Component {
 
           return (
             <div key={holdingGroupUid} className="holding-group">
-              <h3 className="holding-group-heading">{heading}</h3>
+              <div className="holding-group-heading-container">
+                <h3 className="holding-group-heading">{heading}</h3>
+                {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">View Map</a> )}
+              </div>
               <table className="holding-table responsive-table">
                 <thead>
                   <tr>
