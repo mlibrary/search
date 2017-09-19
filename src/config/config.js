@@ -798,6 +798,7 @@ const config = {
       fields: [
         'all_fields',
         'title',
+        'title_starts_with',
         'academic_discipline',
         'publisher',
       ],
