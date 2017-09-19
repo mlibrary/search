@@ -1291,7 +1291,7 @@ body {
     padding: 0;
     vertical-align: middle; }
   .holding-table td {
-    width: 25%; }
+    width: 20%; }
   @media (max-width: 47rem) {
     .holding-table thead {
       display: none; }
