@@ -1255,7 +1255,7 @@ body {
 
 .holding-group-heading-container {
   display: flex;
-  align-items: center; }
+  align-items: baseline; }
 
 .holding-group-heading {
   margin: 0;
