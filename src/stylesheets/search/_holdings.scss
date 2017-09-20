@@ -193,3 +193,33 @@
   margin-bottom: 0;
   margin-top: 0.5rem;
 }
+
+/*
+  Holding statuses
+*/
+
+.holding-status-on-shelf,
+.holding-status-missing,
+.holding-status-checked-out {
+  color: $green-2;
+  display: flex;
+  align-items: center;
+
+  .icon {
+    min-width: 0.75rem;
+    max-width: 0.75rem;
+    margin-right: 0.5rem;
+  }
+}
+
+.holding-status-on-shelf {
+  color: $green-2;
+}
+
+.holding-status-missing {
+  color: $red-2;
+}
+
+.holding-status-checked-out {
+  color: $orange-2;
+}

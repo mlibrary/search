@@ -1,6 +1,8 @@
 import React from 'react'
 import { _ } from 'underscore'
 
+import HoldingStatus from '../HoldingStatus'
+
 const FieldValue = ({ field }) => {
   // AND is to also ensure a link exists.
 
@@ -20,6 +22,10 @@ const FieldValue = ({ field }) => {
         <span><a className="holding-button button" href={field.link}>{field.value}</a></span>
       )
     default:
+      if (field.heading === 'Status') {
+        return <HoldingStatus status={field.value} />
+      }
+
       return (
         <span className="holding-text">{field.value}</span>
       )

@@ -7,32 +7,30 @@ const HoldingStatus = ({ status }) => {
     switch (status.trim()) {
       case 'On shelf':
         return (
-          <span className="access-detail holding-detail-on-shelf">
-            <Icon name="check" /> {status}
+          <span className="holding-text holding-status-on-shelf">
+            <Icon name="checkbox-marked-circle" /> {status}
           </span>
         )
       case 'Missing':
         return (
-          <span className="access-detail holding-detail-missing">
+          <span className="holding-text holding-status-missing">
             <Icon name="alert" /> {status}
           </span>
         )
       default:
         // do nothing
     }
-
-    const checkedOutindex = status.indexOf('Checked out:')
-
-    if (checkedOutindex !== -1) {
-      return (
-        <span className="access-detail holding-detail-checked-out">
-          <Icon name="timetable" />{status}
-        </span>
-      )
-    }
   }
 
-  return <span className="access-detail">{status}</span>
+  if (status.indexOf('Checked out:') !== -1) { // Is checked out
+    return (
+      <span className="holding-text holding-status-checked-out">
+        <Icon name="timetable" />{status}
+      </span>
+    )
+  }
+
+  return <span className="holding-text">{status}</span>
 }
 
 export default HoldingStatus;

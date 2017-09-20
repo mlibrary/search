@@ -397,6 +397,18 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'checkbox-marked-circle':
+    return (
+      <svg viewBox="0 0 20 20" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-168.000000, -957.000000)" fill="#000000">
+            <g transform="translate(167.000000, 956.000000)">
+              <path d="M8.99939,15.9981 L3.99939,10.9981 L5.41339,9.5841 L8.99939,13.1701 L16.5854,5.58407 L17.9994,6.99807 L8.99939,15.9981 Z M10.9994,0.99807 C5.47639,0.99807 0.99939,5.47507 0.99939,10.9981 C0.99939,16.5211 5.47639,20.9981 10.9994,20.9981 C16.5214,20.9981 20.9994,16.5211 20.9994,10.9981 C20.9994,5.47507 16.5214,0.99807 10.9994,0.99807 L10.9994,0.99807 Z" ></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
     case 'xml':
     return (
       <svg viewBox="0 0 22 18" version="1.1" className="icon">
