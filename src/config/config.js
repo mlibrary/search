@@ -212,6 +212,7 @@ const config = {
         },
         'circulating': {
           heading: 'Physical Holdings',
+          summaryText: { uid: 'summary_holdings' },
           showAllName: 'Holdings',
           groupBy: { uid: 'location' },
           infoUrl: { uid: 'info_link' },

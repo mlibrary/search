@@ -222,6 +222,7 @@ const transformHoldings = (datastoreUid, holdings) => {
         let holdingGroupNameSpace = holdingGroupUid
         let heading = fieldsConfig.holdings[holdingGroupNameSpace].heading
         let infoUrl = undefined
+        let summaryText = undefined
 
         // If these types of holdings are grouped by some other field besides type
         if (holdingGroupConfig.groupBy) {
@@ -234,13 +235,19 @@ const transformHoldings = (datastoreUid, holdings) => {
           infoUrl = holding[holdingGroupConfig.infoUrl.uid]
         }
 
+        // If these types of holdings have a holdings summary
+        if (holdingGroupConfig.summaryText) {
+          summaryText = holding[holdingGroupConfig.summaryText.uid]
+        }
+
         // First of its kind
         if (!prev[holdingGroupNameSpace]) {
           return {
             ...prev,
             [holdingGroupNameSpace]: {
               heading,
-              infoUrl: infoUrl,
+              infoUrl,
+              summaryText,
               showAllName: fieldsConfig.holdings[holdingGroupUid].showAllName,
               holdings: [].concat(newHolding)
             }
