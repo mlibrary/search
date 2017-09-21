@@ -483,8 +483,25 @@ const config = {
         'brief_description',
       ],
       medium: [
+        // All Types
         'page_type',
+
+        // Website
         'brief_description',
+
+        // Research Guides
+        'section_title',
+        'section_description',
+        'author',
+        'academic_discipline',
+
+        // People
+        'name',
+        'email',
+        'picture',
+        'department',
+        'phone',
+        'office'
       ],
       access: {
         uid: 'links',
@@ -729,12 +746,24 @@ const config = {
       ],
       filters: [
         {
-          uid: 'search_only',
-          type: 'checkbox'
+          uid: 'available_online',
+          type: 'checkbox',
+          groupBy: 'Access Options',
+          conditions: {
+            checked: true,
+            unchecked: undefined
+          }
         },
         {
-          uid: 'available_online',
-          type: 'checkbox'
+          uid: 'search_only',
+          name: 'Remove Search Only HathiTrust Materials',
+          groupBy: 'Access Options',
+          type: 'checkbox',
+          conditions: {
+            checked: undefined,
+            unchecked: false,
+            default: 'checked',
+          }
         },
         {
           uid: 'date_of_publication',

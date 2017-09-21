@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Icon } from '../../../core';
+//import { Icon } from '../../../core';
 
 const Landing = ({ content, activeDatastore }) => {
   switch (activeDatastore.uid) {
@@ -59,6 +59,7 @@ const Landing = ({ content, activeDatastore }) => {
   }
 };
 
+/*
 const LandingIcons = ({ icons }) => {
   const renderedIcons = icons.map((icon, index) => <Icon key={index} name={alert} />)
 
@@ -72,5 +73,6 @@ const LandingIcons = ({ icons }) => {
     </div>
   )
 }
+*/
 
 export default Landing;

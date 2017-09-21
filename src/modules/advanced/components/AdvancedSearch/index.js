@@ -11,7 +11,8 @@ import {
   Icon,
   Multiselect,
   DateRangeInput,
-  Switch
+  Switch,
+  Checkbox
 } from '../../../core'
 
 import {
@@ -31,6 +32,7 @@ class AdvancedSearch extends React.Component {
 
     this.handleFieldedSearchChange = this.handleFieldedSearchChange.bind(this)
     this.handleAdvancedFilterChange = this.handleAdvancedFilterChange.bind(this)
+    this.renderAdvancedFilters = this.renderAdvancedFilters.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -109,6 +111,14 @@ class AdvancedSearch extends React.Component {
     filterValue
   }) {
     switch (filterType) {
+      case 'checkbox':
+        this.props.setAdvancedFilter({
+          datastoreUid: this.props.datastores.active,
+          filterGroupUid,
+          filterValue,
+          onlyOneFilterValue: true
+        })
+        break
       case 'multiple_select':
         this.props.setAdvancedFilter({
           datastoreUid: this.props.datastores.active,
@@ -129,8 +139,47 @@ class AdvancedSearch extends React.Component {
     }
   }
 
+  renderAdvancedFilters() {
+    const { advancedFilters } = this.props
+    const advancedFiltersGroups = Object.keys(advancedFilters)
+
+    return (
+      <div className="advanced-filters-container">
+        {advancedFiltersGroups.map((filterGroup, groupIndex) => (
+          <div className="container advanced-filters-inner-container">
+            {filterGroup !== 'undefined' ? (
+              <div className="advanced-filter-container">
+                <h2 className="advanced-filter-label-text">{filterGroup}</h2>
+                <div className="advanced-filter-inner-container">
+                {advancedFilters[filterGroup].map((advancedFilter, index) => (
+                  <AdvancedFilter
+                    advancedFilter={advancedFilter}
+                    handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
+                ))}
+                </div>
+              </div>
+            ) : (
+              <div className="advanced-filters-inner-container">
+                {advancedFilters[filterGroup].map((advancedFilter, index) => (
+                  <div key={index} className="advanced-filter-container">
+                    <h2 className="advanced-filter-label-text">{advancedFilter.name}</h2>
+                    <div className="advanced-filter-inner-container">
+                      <AdvancedFilter
+                        advancedFilter={advancedFilter}
+                        handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   render() {
-    const { datastores, fields, advancedFilters, match, fieldedSearches } = this.props;
+    const { datastores, fields, match, fieldedSearches } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
@@ -156,22 +205,9 @@ class AdvancedSearch extends React.Component {
             <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherFieldedSearch()}>Add another field</button>
           </div>
         </div>
-        {advancedFilters && (
-          <div className="advanced-filters-container">
-            <div className="container advanced-filters-inner-container">
-              {advancedFilters.map((advancedFilter, index) => (
-                <div key={index} className="advanced-filter-container">
-                  <h2 className="advanced-filter-label-text">{advancedFilter.name}</h2>
-                  <div className="advanced-filter-inner-container">
-                    <AdvancedFilter
-                      advancedFilter={advancedFilter}
-                      handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+
+        {this.renderAdvancedFilters()}
+
         <div className="advanced-search-button-container">
           <div className="container container-narrow ">
             <button type="submit" className="button advanced-search-button">
@@ -264,11 +300,42 @@ const getDateRangeValue = ({ beginDateQuery, endDateQuery, selectedRange }) => {
   }
 }
 
+const getIsCheckboxFilterChecked = ({ advancedFilter }) => {
+  const hasActiveFilter = advancedFilter.activeFilters && advancedFilter.activeFilters.length > 0
+
+  if (!hasActiveFilter && advancedFilter.conditions.default === 'checked') {
+    return true
+  } else if (hasActiveFilter) {
+    // Compare active filters to configured checked conditions
+    if (advancedFilter.activeFilters[0] === advancedFilter.conditions.checked) {
+      return true
+    }
+  }
+
+  return false
+}
+
 const AdvancedFilter = ({
   advancedFilter,
   handleAdvancedFilterChange
 }) => {
+
   switch (advancedFilter.type) {
+    case 'checkbox':
+      const isChecked = getIsCheckboxFilterChecked({ advancedFilter })
+      const value = isChecked ? advancedFilter.conditions.unchecked : advancedFilter.conditions.checked
+
+      return (
+        <Checkbox
+          handleClick={() => handleAdvancedFilterChange({
+            filterType: advancedFilter.type,
+            filterGroupUid: advancedFilter.uid,
+            filterValue: value
+          })}
+          isChecked={isChecked}
+          label={advancedFilter.name}
+        />
+      )
     case 'multiple_select':
       const options = advancedFilter.filters.map(option => {
         return {
@@ -404,7 +471,7 @@ const getAdvancedFilters = ({ filterGroups, activeFilters }) => {
     }
   })
 
-  return advancedFilters
+  return _.groupBy(advancedFilters, 'groupBy')
 }
 
 function mapStateToProps(state) {

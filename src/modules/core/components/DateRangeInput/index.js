@@ -1,6 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { _ } from 'underscore'
 
 import { Switch } from '../../../core'
 
@@ -95,7 +93,7 @@ class DateRangeInput extends React.Component {
   }
 
   renderDateInputs() {
-    const { beginQuery, endQuery, dateRangeOptions, selectedRangeOption } = this.state
+    const { dateRangeOptions, selectedRangeOption } = this.state
 
     const rangeOption = dateRangeOptions[selectedRangeOption]
 
@@ -126,7 +124,7 @@ class DateRangeInput extends React.Component {
   }
 
   render() {
-    const { dateRangeOptions, query, selectedRangeOption } = this.state
+    const { dateRangeOptions, selectedRangeOption } = this.state
 
     return (
       <div className="date-range-input">

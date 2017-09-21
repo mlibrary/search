@@ -1,7 +1,7 @@
 import React from 'react'
-import reqwest from 'reqwest'
+//import reqwest from 'reqwest'
 
-import { Icon } from '../../../core'
+//import { Icon } from '../../../core'
 
 class AskALibrarian extends React.Component {
   state = {}
@@ -16,11 +16,17 @@ class AskALibrarian extends React.Component {
 
   componentDidMount() {
     /*
-    const queue = 'umlibraryaskalibrarian'
-    const presenceUrl = 'http://libraryh3lp.com/presence/jid/' + queue + '/chat.libraryh3lp.com/xml'
-    */
-    
+    const presenceUrl = '//login.proxy.lib.umich.edu/login?url=https://libraryh3lp.com/presence/jid/umlibraryaskalibrarian/chat.libraryh3lp.com/text'
+
     // TODO: Get status of chat service and set online state as true or false
+
+    reqwest({
+      url: presenceUrl,
+      method: 'get',
+      error: (msg) => { console.log('error:', msg) },
+      success: (msg) => { console.log('success': msg) }
+    })
+    */
   }
 
   renderStatus() {

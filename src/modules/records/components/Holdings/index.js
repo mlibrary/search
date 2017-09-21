@@ -40,7 +40,7 @@ class Holdings extends React.Component {
   handleShowAllClick(uid) {
     if (_.contains(this.state.show, uid)) {
       this.setState({
-        show: _.reject(this.state.show = (showUid) => uid === showUid)
+        show: _.reject(this.state.show, (showUid) => uid === showUid)
       })
     } else {
       this.setState({
@@ -105,7 +105,7 @@ class Holdings extends React.Component {
                 <button
                   className="button-light holdings-show-all-button"
                   onClick={() => this.handleShowAllClick(holdingGroupUid)}>
-                  {showAll ? ('Show Fewer') : ('Show All ' + `${holdings.length}`)} {showAllName}
+                  {showAll ? ('Show Fewer') : (`Show All ${holdings.length}`)} {showAllName}
                 </button>
               )}
             </div>

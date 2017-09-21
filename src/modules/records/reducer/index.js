@@ -1,5 +1,4 @@
 import * as actions from '../actions';
-import { _ } from 'underscore';
 
 const recordReducer = (state = {}, action) => {
   switch (action.type) {

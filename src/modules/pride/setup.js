@@ -364,8 +364,10 @@ const setupAdvancedSearch = () => {
         if (foundFilterGroup) {
           return prev.concat({
             uid: foundFilterGroup.uid,
-            name: foundFilterGroup.metadata.name,
+            name: filterGroupConfig.name || foundFilterGroup.metadata.name,
             type: filterGroupConfig.type,
+            conditions: filterGroupConfig.conditions,
+            groupBy: filterGroupConfig.groupBy,
             filters: foundFilterGroup.values.reduce((filters, filter) => {
               return filters.concat(filter.value)
             }, []).sort(),

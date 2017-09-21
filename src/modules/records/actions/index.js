@@ -1,5 +1,3 @@
-import { _ } from 'underscore';
-
 export const ADD_RECORD = 'records/ADD_RECORD';
 export const CLEAR_RECORDS = 'records/CLEAR_RECORDS';
 export const CLEAR_RECORD = 'records/CLEAR_RECORD';

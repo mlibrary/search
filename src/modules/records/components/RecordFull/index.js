@@ -14,11 +14,9 @@ import {
   filterAccessFields,
   getField,
   getFieldValue,
-  getShowAllText,
   getFullRecordDisplayFields,
   getRecordFormats
 } from '../../utilities';
-import HoldingStatus from '../HoldingStatus'
 import {
   AccessItem,
 } from '../AccessList'

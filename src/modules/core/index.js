@@ -8,6 +8,7 @@ import TrimString from './components/TrimString'
 import TrimLink from './components/TrimLink'
 import Multiselect from './components/Multiselect'
 import DateRangeInput from './components/DateRangeInput'
+import Checkbox from './components/Checkbox'
 import Switch from './components/Switch'
 import AskALibrarian from './components/AskALibrarian'
 
@@ -22,6 +23,7 @@ export {
   TrimLink,
   Multiselect,
   DateRangeInput,
+  Checkbox,
   Switch,
   AskALibrarian
 };

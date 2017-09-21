@@ -18,7 +18,6 @@ import {
   getField,
   filterDisplayFields,
   filterAccessFields,
-  getShowAllText,
   hasRecordFullView
 } from '../../utilities';
 

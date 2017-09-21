@@ -14,9 +14,6 @@ import {
 import {
   Icon
 } from '../../../core';
-import {
-  isDatastoreAdvanced
-} from '../../../pride'
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -58,7 +55,7 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    const { activeDatastoreUid, match, location, isAdvanced } = this.props
+    const { match, location, isAdvanced } = this.props
     const { query } = this.state
 
     return (

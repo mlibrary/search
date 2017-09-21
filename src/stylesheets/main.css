@@ -1805,11 +1805,21 @@ input.multiselect-search {
   padding-right: 1rem; }
 
 .multiselect-option-label-text {
-  flex: 2; }
+  flex: 2;
+  overflow-wrap: break-word; }
 
 .multiselect-show-checked-toggle {
   margin-top: 1rem;
   font-size: 0.9rem; }
+
+.checkbox-label {
+  display: inline-block;
+  cursor: pointer; }
+
+.checkbox {
+  display: inline-block;
+  margin-right: 0.5rem;
+  cursor: pointer; }
 
 input.date-range-input-text {
   margin-top: 1rem;

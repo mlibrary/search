@@ -48,7 +48,7 @@ class Multiselect extends React.Component {
   }
 
   isOptionFiltered(option) {
-    const { filterQuery, showOnlySelectedOptions } = this.state
+    const { filterQuery } = this.state
 
     if (filterQuery.length === 0) {
       return false
