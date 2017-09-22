@@ -1804,15 +1804,6 @@ input.multiselect-search {
     cursor: pointer;
     padding-right: 1rem; }
 
-.checkbox-label {
-  display: inline-block;
-  cursor: pointer; }
-
-.checkbox {
-  display: inline-block;
-  margin-right: 0.5rem;
-  cursor: pointer; }
-
 input.date-range-input-text {
   margin-top: 1rem;
   width: 50%; }
@@ -1885,6 +1876,14 @@ input.date-range-input-text {
   @media (max-width: 47rem) {
     #root {
       padding-bottom: 10rem; } }
+
+.checkbox-label {
+  display: flex;
+  cursor: pointer; }
+
+.checkbox {
+  margin-right: 0.5rem;
+  cursor: pointer; }
 
 .u-break-word {
   word-wrap: break-word; }
