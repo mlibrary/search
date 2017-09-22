@@ -171,7 +171,7 @@ const setupObservers = (searchObj) => {
             store.dispatch(addFilters({
               uid: filterGroup.uid,
               name: metadata.metadata.name,
-              filters
+              filters: filters.slice(0, 50)
             }))
           })
         } // end of config filter group check
