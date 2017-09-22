@@ -1,4 +1,4 @@
-export const ADD_FILTER = 'filters/ADD_FILTER';
+export const ADD_FILTERS = 'filters/ADD_FILTERS';
 export const CLEAR_FILTERS = 'filters/CLEAR_FILTERS';
 
 export const SET_ACTIVE_FILTERS = 'filters/SET_ACTIVE_FILTERS';
@@ -8,8 +8,8 @@ export const CLEAR_ALL_FILTERS = 'filters/CLEAR_ALL_FILTERS'
 
 export const OPEN_FILTER = 'filters/OPEN_FILTER';
 
-export const addFilter = function addFilter(payload) {
-  return { type: ADD_FILTER, payload };
+export const addFilters = function addFilters(payload) {
+  return { type: ADD_FILTERS, payload };
 };
 
 export const clearFilters = function clearFilters(payload) {

@@ -2,7 +2,7 @@ import Filters from './components/Filters';
 import filtersReducer from './reducer';
 
 import {
-  addFilter,
+  addFilters,
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
@@ -16,7 +16,7 @@ import {
 export {
   Filters,
   filtersReducer,
-  addFilter,
+  addFilters,
   clearFilters,
   setActiveFilters,
   clearActiveFilters,

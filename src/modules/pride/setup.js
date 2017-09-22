@@ -33,7 +33,7 @@ import {
 } from '../advanced'
 
 import {
-  addFilter,
+  addFilters,
   clearFilters,
 } from '../filters';
 
@@ -165,15 +165,14 @@ const setupObservers = (searchObj) => {
         // Does the filter configuration request that this
         // filter group be used and displayed.
         if (_.findWhere(config.filters[searchObj.uid], { uid: filterGroup.uid })) {
-
           filterGroup.resultsObservers.add(filters => {
-            filters.forEach(filter => {
-              const metadata = filterGroup.getData('metadata')
+            const metadata = filterGroup.getData('metadata')
 
-              store.dispatch(addFilter(Object.assign({}, filter, {
-                metadata: metadata
-              }))) // Look at all these )s
-            })
+            store.dispatch(addFilters({
+              uid: filterGroup.uid,
+              name: metadata.metadata.name,
+              filters
+            }))
           })
         } // end of config filter group check
       }) // end of for each filterGroup
