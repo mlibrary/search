@@ -146,16 +146,17 @@ class AdvancedSearch extends React.Component {
     return (
       <div className="advanced-filters-container">
         {advancedFiltersGroups.map((filterGroup, groupIndex) => (
-          <div className="container advanced-filters-inner-container">
+          <div className="container advanced-filters-inner-container" key={groupIndex}>
             {filterGroup !== 'undefined' ? (
               <div className="advanced-filter-container">
                 <h2 className="advanced-filter-label-text">{filterGroup}</h2>
                 <div className="advanced-filter-inner-container">
-                {advancedFilters[filterGroup].map((advancedFilter, index) => (
-                  <AdvancedFilter
-                    advancedFilter={advancedFilter}
-                    handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
-                ))}
+                  {advancedFilters[filterGroup].map((advancedFilter, index) => (
+                    <AdvancedFilter
+                      key={index}
+                      advancedFilter={advancedFilter}
+                      handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
+                  ))}
                 </div>
               </div>
             ) : (
