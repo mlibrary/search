@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { _ } from 'underscore'
 
+import { Checkbox } from '../../../core'
+
 class Multiselect extends React.Component {
   constructor(props) {
     super(props)
@@ -114,15 +116,11 @@ class Multiselect extends React.Component {
 
 const MultiselectOption = ({ option, handleClick }) => {
   return (
-    <label className="multiselect-option">
-      <input
-        type="checkbox"
-        checked={option.checked}
-        value={option.value}
-        onChange={handleClick}
-      ></input>
-      <span className="multiselect-option-label-text">{option.name}</span>
-    </label>
+    <Checkbox
+      isChecked={option.checked}
+      label={option.name}
+      handleClick={handleClick}
+    />
   )
 }
 

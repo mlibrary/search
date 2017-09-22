@@ -12,26 +12,16 @@ input.multiselect-search {
 
   border: solid 1px $grey-4;
   border-radius: 4px;
-  padding: 0.2rem;
+  padding: 0.5rem;
   background: white;
 
   height: 18rem;
   overflow-y: scroll;
-}
 
-.multiselect-option {
-  display: flex;
-  font-size: 0.937rem;
-  cursor: pointer;
-  padding-right: 1rem;
-}
-
-.multiselect-option-label-text {
-  flex: 2;
-  overflow-wrap: break-word;
-}
-
-.multiselect-show-checked-toggle {
-  margin-top: 1rem;
-  font-size: 0.9rem
+  .checkbox-label {
+    display: flex;
+    font-size: 0.937rem;
+    cursor: pointer;
+    padding-right: 1rem;
+  }
 }

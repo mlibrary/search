@@ -1598,7 +1598,8 @@ body {
   right: 1rem;
   padding: 0.3rem 0.8rem;
   font-size: 0.9rem;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3); }
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1; }
 
 .advanced-search-form {
   margin-bottom: 2rem; }
@@ -1683,7 +1684,7 @@ body {
   margin-top: 1rem; }
   @media (min-width: 32rem) {
     .advanced-filter-container {
-      width: 18rem; } }
+      width: 22rem; } }
 
 .advanced-filter-inner-container {
   background: #FAFAFA;
@@ -1793,24 +1794,15 @@ input.multiselect-search {
   margin-top: 1rem;
   border: solid 1px #CCC;
   border-radius: 4px;
-  padding: 0.2rem;
+  padding: 0.5rem;
   background: white;
   height: 18rem;
   overflow-y: scroll; }
-
-.multiselect-option {
-  display: flex;
-  font-size: 0.937rem;
-  cursor: pointer;
-  padding-right: 1rem; }
-
-.multiselect-option-label-text {
-  flex: 2;
-  overflow-wrap: break-word; }
-
-.multiselect-show-checked-toggle {
-  margin-top: 1rem;
-  font-size: 0.9rem; }
+  .multiselect-options .checkbox-label {
+    display: flex;
+    font-size: 0.937rem;
+    cursor: pointer;
+    padding-right: 1rem; }
 
 .checkbox-label {
   display: inline-block;
