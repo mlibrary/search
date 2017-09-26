@@ -582,7 +582,7 @@ const config = {
         open: true,
       },
       {
-        uid: 'available_online',
+        uid: 'availability',
       },
       {
         uid: 'date_of_publication'
