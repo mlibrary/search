@@ -309,6 +309,11 @@ const config = {
             },
             {
               type: 'text',
+              value: { uid: 'description' },
+              heading: 'Description',
+            },
+            {
+              type: 'text',
               value: { uid: 'status' },
               heading: 'Status',
             },
