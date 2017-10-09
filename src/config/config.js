@@ -183,8 +183,13 @@ const config = {
             },
             {
               type: 'text',
-              value: { uid: 'text' },
+              value: { uid: 'relationship' },
               heading: 'Description',
+            },
+            {
+              type: 'text',
+              value: { uid: 'text' },
+              heading: 'Source',
             },
           ]
         },

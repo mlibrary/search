@@ -1,6 +1,6 @@
 import React from 'react';
 
-import umichBlockM from './umich_block_m.png';
+import mlibLogo from './mlib_logo.png';
 import parrot from './parrot.gif';
 
 import {
@@ -25,17 +25,17 @@ class Header extends React.Component {
           <div className="site-heading">
             <ul className="logo-item-list">
               <li className="logo-block-m">
-                <a href="http://umich.edu" className="logo-link">
-                  <img src={umichBlockM} alt="Go to the University of Michigan Library homepage" />
+                <a href="http://lib.umich.edu" className="logo-link">
+                  <img src={mlibLogo} alt="Go to the University of Michigan Library homepage" />
                 </a>
               </li>
-              <li className="logo-library"><a href="http://lib.umich.edu">Library</a></li>
+              <li className="logo-library">Search</li>
               <li className="logo-search">
                 <span>
-                  <a href="/">Search</a>
+                  <a href="/">Mirlyn</a>
                   <sup
                     className="party-parrot-container"
-                    onClick={this.handleParty}>BETA
+                    onClick={this.handleParty}><span className="beta-tag">Beta</span>
                     <img
                       src={parrot}
                       alt=""
