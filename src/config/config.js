@@ -770,6 +770,11 @@ const config = {
       ],
       filters: [
         {
+          uid: 'narrow_search',
+          type: 'scope_down',
+          name: 'Narrow Search To'
+        },
+        {
           uid: 'available_online',
           type: 'checkbox',
           groupBy: 'Access Options',

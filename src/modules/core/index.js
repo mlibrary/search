@@ -11,6 +11,7 @@ import DateRangeInput from './components/DateRangeInput'
 import Checkbox from './components/Checkbox'
 import Switch from './components/Switch'
 import AskALibrarian from './components/AskALibrarian'
+import ScopeDown from './components/ScopeDown'
 
 export {
   Header,
