@@ -528,6 +528,13 @@ const config = {
   filters: {
     'mirlyn': [
       {
+        uid: 'available_online',
+        type: 'checkbox',
+        name: 'Available online',
+        checkedCondition: 'true',
+        onClickValue: 'true',
+      },
+      {
         uid: 'search_only',
         type: 'checkbox',
         name: 'Remove search only HathiTrust materials',
@@ -580,7 +587,7 @@ const config = {
         open: true,
       },
       {
-        uid: 'available_online',
+        uid: 'availability',
       },
       {
         uid: 'date_of_publication'
@@ -603,6 +610,13 @@ const config = {
         uid: 'is_scholarly',
         type: 'checkbox',
         name: 'Articles from scholarly journals only',
+        checkedCondition: 'true',
+        onClickValue: 'true',
+      },
+      {
+        uid: 'exclude_newspapers',
+        type: 'checkbox',
+        name: 'Exclude newspaper articles',
         checkedCondition: 'true',
         onClickValue: 'true',
       },
