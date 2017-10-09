@@ -12,7 +12,8 @@ import {
   Multiselect,
   DateRangeInput,
   Switch,
-  Checkbox
+  Checkbox,
+  ScopeDown
 } from '../../../core'
 
 import {
@@ -322,6 +323,13 @@ const AdvancedFilter = ({
 }) => {
 
   switch (advancedFilter.type) {
+    case 'scope_down':
+      return (
+        <ScopeDown
+          handleClick={() => console.log('ScopeDown handleClick')}
+          options={advancedFilter.filters}
+        />
+      )
     case 'checkbox':
       const isChecked = getIsCheckboxFilterChecked({ advancedFilter })
       const value = isChecked ? advancedFilter.conditions.unchecked : advancedFilter.conditions.checked
@@ -454,6 +462,10 @@ const getAdvancedFilters = ({ filterGroups, activeFilters }) => {
   }
 
   const advancedFilters = filterGroups.map(filterGroup => {
+    if (filterGroup.type === 'scope_down') {
+      return filterGroup
+    }
+
     return {
       ...filterGroup,
       filters: filterGroup.filters.map(filterValue => {

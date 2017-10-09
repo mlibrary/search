@@ -372,6 +372,20 @@ const setupAdvancedSearch = () => {
             }, []).sort(),
             activeFilters: [],
           })
+        } else {
+          // for filter groups that are configured, but not typical
+          // or in the filters available in Pride.
+          if (filterGroupConfig.uid === 'narrow_search') {
+            const hierarchy = Pride.AllDatastores.get(dsUid).get('hierarchy')
+
+            if (hierarchy) {
+              return prev.concat({
+                ...filterGroupConfig,
+                filters: [].concat(hierarchy),
+                activeFilters: [],
+              })
+            }
+          }
         }
         return prev
       }, [])

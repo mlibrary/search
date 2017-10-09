@@ -26,5 +26,6 @@ export {
   DateRangeInput,
   Checkbox,
   Switch,
-  AskALibrarian
+  AskALibrarian,
+  ScopeDown
 };
