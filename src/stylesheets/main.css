@@ -1730,6 +1730,15 @@ body {
 .advanced-filter-fieldset select {
   width: 100%; }
 
+.scopedown-dropdown-container {
+  margin: 0; }
+
+.scopedown-dropdown {
+  width: 100%; }
+
+.scopedown-label-text {
+  display: block; }
+
 .switch {
   margin: 0; }
 

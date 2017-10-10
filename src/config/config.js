@@ -772,7 +772,21 @@ const config = {
         {
           uid: 'narrow_search',
           type: 'scope_down',
-          name: 'Narrow Search To'
+          name: 'Narrow Search To',
+          defaults: [
+            {
+              uid: 'institution',
+              value: 'all',
+            },
+            {
+              uid: 'location',
+              value: 'all',
+            },
+            {
+              uid: 'collection',
+              value: 'ALL',
+            }
+          ]
         },
         {
           uid: 'available_online',

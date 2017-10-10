@@ -327,7 +327,7 @@ const AdvancedFilter = ({
       return (
         <ScopeDown
           handleClick={() => console.log('ScopeDown handleClick')}
-          options={advancedFilter.filters}
+          options={advancedFilter.options}
         />
       )
     case 'checkbox':
@@ -463,7 +463,18 @@ const getAdvancedFilters = ({ filterGroups, activeFilters }) => {
 
   const advancedFilters = filterGroups.map(filterGroup => {
     if (filterGroup.type === 'scope_down') {
-      return filterGroup
+
+      console.log('filterGroup', filterGroup)
+
+      const options = filterGroup.filters.reduce((prev, filter) => {
+
+        return prev
+      }, [])
+
+      return {
+        ...filterGroup,
+        options
+      }
     }
 
     return {
