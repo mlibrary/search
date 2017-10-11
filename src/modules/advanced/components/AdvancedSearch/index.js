@@ -473,14 +473,16 @@ const Dropdown = ({
 )
 
 const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
-  console.log('getCatalogNarrowSearchToOptions', data)
-
-  this.getActiveFilter = (filterUid) => {
-    if (activeFilters && activeFilters[filterUid]) {
-      return activeFilters[filterUid][0]
+  this.getActiveFilter = ({ uid, defaultFilter, filters }) => {
+    if (activeFilters && activeFilters[uid]) {
+      return activeFilters[uid][0]
     }
 
-    return undefined
+    if (_.contains(filters, defaultFilter)) {
+      return defaultFilter
+    }
+
+    return filters[0]
   }
 
   let options = []
@@ -497,8 +499,12 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
   // institution
   const institutionData = _.findWhere(data.filters, { uid: 'institution' })
   const institutionDefaultFilter = _.findWhere(data.defaults, { uid: 'institution' })
-  const institutionActiveFilter = this.getActiveFilter('institution') || institutionDefaultFilter.value
   const institutionFilters = institutionData.values.map(value => value.label)
+  const institutionActiveFilter = this.getActiveFilter({
+    uid: 'institution',
+    defaultFilter: institutionDefaultFilter.value,
+    filters: institutionFilters
+  })
   options = options.concat({
     uid: 'institution',
     label: institutionData.field,
@@ -509,8 +515,12 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
   // location
   const locationData = _.findWhere(institutionData.values, { label: institutionActiveFilter })
   const locationDefaultFilter = _.findWhere(data.defaults, { uid: 'location' })
-  const locationActiveFilter = this.getActiveFilter('location') || locationDefaultFilter.value
   const locationFilters = locationData.values.map(value => value.label)
+  const locationActiveFilter = this.getActiveFilter({
+    uid: 'location',
+    defaultFilter: locationDefaultFilter.value,
+    filters: locationFilters
+  })
   options = options.concat({
     uid: 'location',
     label: locationData.field,
@@ -518,18 +528,19 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
     filters: locationFilters
   })
 
-  console.log('locationData', locationData)
-  console.log('locationFilters', locationFilters)
-  console.log('')
-
   // collection
   const collectionData = _.findWhere(locationData.values, { label: locationActiveFilter })
   const collectionDefaultFilter = _.findWhere(data.defaults, { uid: 'collection' })
   const collectionFilters = collectionData.values.map(value => value.label)
+  const collectionActiveFilter = this.getActiveFilter({
+    uid: 'collection',
+    defaultFilter: collectionDefaultFilter.value,
+    filters: collectionFilters
+  })
   options = options.concat({
     uid: 'collection',
     label: collectionData.field,
-    activeFilter: this.getActiveFilter('collection') || collectionDefaultFilter.value,
+    activeFilter: collectionActiveFilter,
     filters: collectionFilters
   })
 

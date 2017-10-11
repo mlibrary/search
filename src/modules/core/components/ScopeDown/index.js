@@ -4,8 +4,6 @@ class ScopeDown extends React.Component {
   render() {
     const { options, handleChange } = this.props
 
-    console.log('ScopeDown options', options)
-
     return (
       <div>
         {options.map((option, index) => (
