@@ -113,11 +113,6 @@ class AdvancedSearch extends React.Component {
   }) {
     switch (filterType) {
       case 'scope_down':
-
-        // if the value is default, then clear advanced filters under groupUid.
-
-        // special case for 'narrow_search'
-
         // Clear active filters
         if (filterGroupUid === 'institution' && filterValue) {
           this.props.setAdvancedFilter({
