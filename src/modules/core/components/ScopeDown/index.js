@@ -4,16 +4,17 @@ class ScopeDown extends React.Component {
   render() {
     const { options, handleChange } = this.props
 
-    console.log('options', options)
+    console.log('ScopeDown options', options)
 
     return (
       <div>
-        {options.map(option => (
+        {options.map((option, index) => (
           <Dropdown
-            key={option.uid}
+            key={index}
+            option={option}
             label={option.label}
-            options={option.options}
-            selected={option.selected}
+            options={option.filters}
+            selected={option.activeFilter}
             handleChange={handleChange}
           />
         ))}
@@ -22,17 +23,21 @@ class ScopeDown extends React.Component {
   }
 }
 
-const Dropdown = ({ key, label, options, selected, handleChange }) => (
-  <fieldset className="scopedown-dropdown-container" key={key}>
+const Dropdown = ({ option, label, options, selected, handleChange }) => (
+  <fieldset className="scopedown-dropdown-container">
     <label>
       <span className="scopedown-label-text">{label}</span>
-      <select className="dropdown scopedown-dropdown" onChange={handleChange}>
-        {options.map(option => (
+      <select
+        className="dropdown scopedown-dropdown"
+        onChange={(e) => handleChange({ uid: option.uid, value: e.target.value })}
+        value={selected}
+      >
+        {options.map((opt, index) => (
           <option
-            key={option.value}
-            value={option.value}
+            key={index}
+            value={opt}
           >
-            {option.label}
+            {opt}
           </option>
         ))}
       </select>

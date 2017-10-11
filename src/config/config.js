@@ -776,15 +776,15 @@ const config = {
           defaults: [
             {
               uid: 'institution',
-              value: 'all',
+              value: 'All Libraries',
             },
             {
               uid: 'location',
-              value: 'all',
+              value: 'All locations',
             },
             {
               uid: 'collection',
-              value: 'ALL',
+              value: 'All collections',
             }
           ]
         },

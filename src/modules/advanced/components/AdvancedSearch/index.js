@@ -112,6 +112,18 @@ class AdvancedSearch extends React.Component {
     filterValue
   }) {
     switch (filterType) {
+      case 'scope_down':
+
+        // if the value is default, then clear advanced filters under groupUid.
+
+        this.props.setAdvancedFilter({
+          datastoreUid: this.props.datastores.active,
+          filterType,
+          filterGroupUid,
+          filterValue,
+          onlyOneFilterValue: true
+        })
+        break
       case 'checkbox':
         this.props.setAdvancedFilter({
           datastoreUid: this.props.datastores.active,
@@ -326,7 +338,11 @@ const AdvancedFilter = ({
     case 'scope_down':
       return (
         <ScopeDown
-          handleClick={() => console.log('ScopeDown handleClick')}
+          handleChange={(option) => handleAdvancedFilterChange({
+            filterType: advancedFilter.type,
+            filterGroupUid: option.uid,
+            filterValue: option.value
+          })}
           options={advancedFilter.options}
         />
       )
@@ -456,20 +472,106 @@ const Dropdown = ({
   </select>
 )
 
+const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
+  console.log('getCatalogNarrowSearchToOptions', data)
+
+  this.getActiveFilter = (filterUid) => {
+    if (activeFilters && activeFilters[filterUid]) {
+      return activeFilters[filterUid][0]
+    }
+
+    return undefined
+  }
+
+  let options = []
+
+  // Return three filters:
+  //  - institution
+  //  - location
+  //  - collection
+
+  // Any active filters?
+  //   - no? Then use defaults
+  //   - yes? Then scope accordingly
+
+  // institution
+  const institutionData = _.findWhere(data.filters, { uid: 'institution' })
+  const institutionDefaultFilter = _.findWhere(data.defaults, { uid: 'institution' })
+  const institutionActiveFilter = this.getActiveFilter('institution') || institutionDefaultFilter.value
+  const institutionFilters = institutionData.values.map(value => value.label)
+  options = options.concat({
+    uid: 'institution',
+    label: institutionData.field,
+    activeFilter: institutionActiveFilter,
+    filters: institutionFilters
+  })
+
+  // location
+  const locationData = _.findWhere(institutionData.values, { label: institutionActiveFilter })
+  const locationDefaultFilter = _.findWhere(data.defaults, { uid: 'location' })
+  const locationActiveFilter = this.getActiveFilter('location') || locationDefaultFilter.value
+  const locationFilters = locationData.values.map(value => value.label)
+  options = options.concat({
+    uid: 'location',
+    label: locationData.field,
+    activeFilter: locationActiveFilter,
+    filters: locationFilters
+  })
+
+  console.log('locationData', locationData)
+  console.log('locationFilters', locationFilters)
+  console.log('')
+
+  // collection
+  const collectionData = _.findWhere(locationData.values, { label: locationActiveFilter })
+  const collectionDefaultFilter = _.findWhere(data.defaults, { uid: 'collection' })
+  const collectionFilters = collectionData.values.map(value => value.label)
+  options = options.concat({
+    uid: 'collection',
+    label: collectionData.field,
+    activeFilter: this.getActiveFilter('collection') || collectionDefaultFilter.value,
+    filters: collectionFilters
+  })
+
+  // Example of what to return:
+
+  /*
+    [
+      {
+        uid: 'institution',
+        label: 'Library',
+        activeFilter: 'All Libraries'
+        filters: [
+          'All Libraries'
+          'William L. Clements Library'
+          // ...
+        ]
+      },
+      {
+        uid: 'location',
+        // ...
+      },
+      {
+        uid: 'collection',
+        // ...
+      }
+    ]
+
+  */
+
+  return options
+}
+
 const getAdvancedFilters = ({ filterGroups, activeFilters }) => {
   if (!filterGroups) {
     return []
   }
 
   const advancedFilters = filterGroups.map(filterGroup => {
-    if (filterGroup.type === 'scope_down') {
 
-      console.log('filterGroup', filterGroup)
-
-      const options = filterGroup.filters.reduce((prev, filter) => {
-
-        return prev
-      }, [])
+    // Special case for narrowing search...
+    if (filterGroup.uid === 'narrow_search') {
+      const options = getCatalogNarrowSearchToOptions(filterGroup, activeFilters)
 
       return {
         ...filterGroup,
