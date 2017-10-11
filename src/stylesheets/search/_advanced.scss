@@ -135,6 +135,12 @@
   }
 }
 
+.scopedown-container {
+  .scopedown-dropdown-container:not(:first-child) {
+    margin-top: 0.5rem;
+  }
+}
+
 .scopedown-dropdown-container {
   margin: 0;
 }
@@ -145,4 +151,5 @@
 
 .scopedown-label-text {
   display: block;
+  line-height: 1.6;
 }

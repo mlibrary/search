@@ -5,7 +5,7 @@ class ScopeDown extends React.Component {
     const { options, handleChange } = this.props
 
     return (
-      <div>
+      <div className="scopedown-container">
         {options.map((option, index) => (
           <Dropdown
             key={index}

@@ -1730,6 +1730,9 @@ body {
 .advanced-filter-fieldset select {
   width: 100%; }
 
+.scopedown-container .scopedown-dropdown-container:not(:first-child) {
+  margin-top: 0.5rem; }
+
 .scopedown-dropdown-container {
   margin: 0; }
 
@@ -1737,7 +1740,8 @@ body {
   width: 100%; }
 
 .scopedown-label-text {
-  display: block; }
+  display: block;
+  line-height: 1.6; }
 
 .switch {
   margin: 0; }
