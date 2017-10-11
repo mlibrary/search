@@ -116,6 +116,38 @@ class AdvancedSearch extends React.Component {
 
         // if the value is default, then clear advanced filters under groupUid.
 
+        // special case for 'narrow_search'
+
+        // Clear active filters
+        if (filterGroupUid === 'institution' && filterValue) {
+          this.props.setAdvancedFilter({
+            datastoreUid: this.props.datastores.active,
+            filterType,
+            filterGroupUid: 'collection',
+            filterValue: undefined,
+            onlyOneFilterValue: true
+          })
+
+          this.props.setAdvancedFilter({
+            datastoreUid: this.props.datastores.active,
+            filterType,
+            filterGroupUid: 'location',
+            filterValue: undefined,
+            onlyOneFilterValue: true
+          })
+        }
+
+        // Clear active filters
+        if (filterGroupUid === 'location' && filterValue) {
+          this.props.setAdvancedFilter({
+            datastoreUid: this.props.datastores.active,
+            filterType,
+            filterGroupUid: 'collection',
+            filterValue: undefined,
+            onlyOneFilterValue: true
+          })
+        }
+
         this.props.setAdvancedFilter({
           datastoreUid: this.props.datastores.active,
           filterType,
