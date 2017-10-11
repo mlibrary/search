@@ -238,6 +238,10 @@ const Filter = ({
         items: filter.filters
       })
 
+      if (filterItems.length === 0) {
+        return null
+      }
+
       return (
         <li className="filter-group filter-group-multiselect">
           <button
