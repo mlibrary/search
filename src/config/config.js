@@ -770,25 +770,6 @@ const config = {
       ],
       filters: [
         {
-          uid: 'narrow_search',
-          type: 'scope_down',
-          name: 'Narrow Search To',
-          defaults: [
-            {
-              uid: 'institution',
-              value: 'All Libraries',
-            },
-            {
-              uid: 'location',
-              value: 'All locations',
-            },
-            {
-              uid: 'collection',
-              value: 'All collections',
-            }
-          ]
-        },
-        {
           uid: 'available_online',
           type: 'checkbox',
           groupBy: 'Access Options',
@@ -807,6 +788,25 @@ const config = {
             unchecked: false,
             default: 'checked',
           }
+        },
+        {
+          uid: 'narrow_search',
+          type: 'scope_down',
+          name: 'Narrow Search To',
+          defaults: [
+            {
+              uid: 'institution',
+              value: 'All Libraries',
+            },
+            {
+              uid: 'location',
+              value: 'All locations',
+            },
+            {
+              uid: 'collection',
+              value: 'All collections',
+            }
+          ]
         },
         {
           uid: 'date_of_publication',
