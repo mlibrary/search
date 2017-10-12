@@ -9,7 +9,8 @@ import qs from 'qs'
 
 import {
   Icon,
-  ShowAllList
+  ShowAllList,
+  Checkbox
 } from '../../../core'
 import {
   getDisplayFilters,
@@ -211,24 +212,15 @@ const Filter = ({
 
       return (
         <li className="filter-group filter-group-checkbox">
-          <label
-            role="checkbox"
-            aria-checked={isChecked}
-            className="filter-checkbox-label"
-            onClick={() => handleFilterItemClick({
+          <Checkbox
+            handleClick={() => handleFilterItemClick({
               datastoreUid,
               filterUid: filter.uid,
               filterItemValue: value
-            })}>
-            <div className="filter-checkbox">
-              {isChecked ? (
-                <span className="filter-checkbox-checked"><Icon name='checkbox-checked' /></span>
-              ) : (
-                <Icon name='checkbox-unchecked' />
-              )}
-            </div>
-            <span className="filter-name">{filter.name}</span>
-          </label>
+            })}
+            isChecked={isChecked}
+            label={filter.name}
+          />
         </li>
       )
     case 'multiselect':

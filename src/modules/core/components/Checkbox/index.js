@@ -11,11 +11,11 @@ class Checkbox extends React.Component {
         aria-checked={isChecked}
         className="checkbox-label"
         tabIndex="0"
-        onClick={() => handleClick(!isChecked)}
+        onClick={handleClick}
         onKeyPress={(event) => {
           if (event.charCode === 32) {
             event.preventDefault()
-            handleClick(!isChecked)
+            handleClick()
           }
         }}>
         <div className="checkbox">

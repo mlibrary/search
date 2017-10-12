@@ -935,15 +935,13 @@ input.search-box-input {
   color: #6E6E6E;
   text-decoration: underline; }
 
-.filter-checkbox-label {
+.filter-group-checkbox {
   display: flex;
   cursor: pointer;
   margin-bottom: 0;
-  padding: 0 1rem 1rem; }
-  .filter-checkbox-label:hover {
+  padding: 0 1rem 0.75rem; }
+  .filter-group-checkbox:hover {
     text-decoration: underline; }
-  .filter-checkbox-label .filter-name {
-    margin-top: -2px; }
 
 .filter-checkbox {
   display: inline-block;
