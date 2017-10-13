@@ -1560,11 +1560,16 @@ body {
     border-bottom: solid 2px rgba(18, 109, 193, 0.5); }
 
 .landing-icons {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: center; }
   .landing-icons svg {
     margin: 0 1rem; }
+  .landing-icons .icon {
+    width: 2.5rem;
+    height: 2.5rem; }
+    .landing-icons .icon g {
+      color: #126DC1; }
 
 .landing-extra-info {
   text-align: center;

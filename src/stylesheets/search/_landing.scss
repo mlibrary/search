@@ -32,11 +32,21 @@
 }
 
 .landing-icons {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
+
   svg {
     margin: 0 1rem;
+  }
+
+  .icon {
+    width: 2.5rem;
+    height: 2.5rem;
+
+    g {
+      color: $main-3;
+    }
   }
 }
 
