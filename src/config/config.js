@@ -1,7 +1,7 @@
 const config = {
   spectrum: {
-    production: 'https://earleyj-drupal8.www.lib.umich.edu/testapp/spectrum/',
-    development: 'http://earleyj.www.lib.umich.edu/testapp/spectrum/',
+    production: window.location.origin + '/spectrum/',
+    development: window.location.origin + '/spectrum/',
   },
   datastores: {
     list: [
