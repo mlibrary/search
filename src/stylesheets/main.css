@@ -779,6 +779,17 @@ input.search-box-input {
       height: 3.5rem;
       padding: 0 2rem; } }
 
+.no-results-suggestions {
+  background: #FAFAFA;
+  border-radius: 4px;
+  padding: 1rem 2rem; }
+  .no-results-suggestions h2 {
+    font-size: 1rem;
+    font-weight: 600; }
+  .no-results-suggestions li {
+    margin: 0;
+    color: #4E4E4E; }
+
 .pagination-container {
   padding: 1.5rem;
   background: white;

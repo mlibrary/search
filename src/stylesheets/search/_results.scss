@@ -33,6 +33,22 @@
   }
 }
 
+.no-results-suggestions {
+  background: $grey-6;
+  border-radius: 4px;
+  padding: 1rem 2rem;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  li {
+    margin: 0;
+    color: $grey-2;
+  }
+}
+
 .pagination-container {
   padding: 1.5rem;
   background: white;

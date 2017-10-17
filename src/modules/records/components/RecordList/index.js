@@ -25,9 +25,19 @@ class RecordListContainer extends React.Component {
         <div>
           <div className="results-summary-container">
             <div aria-live="polite">
-              <p className="no-margin"><b>No results</b> found for your search.</p>
+              <p className="no-margin"><b>No results</b> match your search.</p>
             </div>
-            <Sorts />
+          </div>
+
+          <div className="no-results-suggestions">
+            <h2>Other Search Suggestions</h2>
+            <ul>
+              <li>Try using the other options in the search navigation.</li>
+              <li>Check your spelling.</li>
+              <li>Try more general keywords.</li>
+              <li>Try different keywords that mean the same thing.</li>
+              <li>Use Ask a Librarian and we will help you find what you're looking for.</li>
+            </ul>
           </div>
         </div>
       )

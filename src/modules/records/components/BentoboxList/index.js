@@ -56,10 +56,6 @@ const BentoboxHeading = ({
 }
 
 const BentoboxResultsNum = ({ totalResults }) => {
-  if (!totalResults) {
-    return null;
-  }
-
   const resultsNum = numeral(totalResults).format(0,0)
   const resultsText = resultsNum === 1 ? `Result` : `Results`
 
@@ -74,7 +70,7 @@ const BentoResults = ({ search, bentobox, searchQuery }) => {
       <ul className="results-list results-list-border">
         <li className="record">
           <div className="record-container">
-            <p className="no-margin"><b>No results</b> found for your search.</p>
+            <p className="no-margin"><b>No results</b> match your search.</p>
           </div>
         </li>
       </ul>
