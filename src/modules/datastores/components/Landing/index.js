@@ -53,7 +53,7 @@ const Landing = ({ content, activeDatastore }) => {
         <div className="landing-container">
           <LandingIcons icons={['calendar-clock', 'map-marker-radius', 'website']} />
           <p className="landing-heading-text">Our <b>library website</b> is the place to learn about our services, spaces, and collections.</p>
-          <p>Your results will include website pages, research guides, events, exhibits, news, and more.</p>
+          <p>Your results will include website pages, research guides, library staff, events, exhibits, news, and more.</p>
         </div>
       )
     default:
