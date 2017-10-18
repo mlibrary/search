@@ -75,7 +75,7 @@ class FullRecord extends React.Component {
 
     return (
       <div className="container container-narrow">
-        <div className="full-record-container page">
+        <div className="full-record-container">
           <Format formats={formats} />
           <div className="record-container">
             <h1 className="full-record-title">
@@ -95,7 +95,7 @@ class FullRecord extends React.Component {
               <ShowAllList
                 length={access.length}
                 show={1}
-                listClass={'full-holding-list'}>
+                listClass={'access-list'}>
                 {access.map((item, key) => (
                   <AccessItem key={key} type='full' item={item} />
                 ))}

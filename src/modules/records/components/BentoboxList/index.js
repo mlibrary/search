@@ -50,15 +50,26 @@ const BentoboxHeading = ({
   return (
     <Link className="bentobox-heading-container" to={url}>
       <h2 className="bentobox-heading">{ bentobox.name }</h2>
-      <BentoboxResultsNum totalResults={totalResults}/>
+      <BentoboxResultsNum bentobox={bentobox} search={search} totalResults={totalResults}/>
     </Link>
   )
 }
 
-const BentoboxResultsNum = ({ totalResults }) => {
+const BentoboxResultsNum = ({ bentobox, search, totalResults }) => {
   const resultsNum = numeral(totalResults).format(0,0)
   const resultsText = resultsNum === 1 ? `Result` : `Results`
 
+  // No results
+  if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
+    return <span className="underline">{resultsNum} {resultsText}</span>
+  }
+
+  // Loading results
+  if (bentobox.records.length === 0) {
+    return <span className="underline">Loading...</span>
+  }
+
+  // Results have loaded
   return <span className="underline">{resultsNum} {resultsText}</span>
 }
 
