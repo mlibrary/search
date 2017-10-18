@@ -27,3 +27,15 @@ body {
 .grey-background {
   background: $grey-5;
 }
+
+.page {
+  background: white;
+  border-radius: 4px;
+  padding: 2rem;
+  margin: 1rem;
+  @include box-shadow();
+
+  @media (max-width: $breakpoint-2) {
+    padding: 1.5rem;
+  }
+}

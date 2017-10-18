@@ -75,7 +75,7 @@ class FullRecord extends React.Component {
 
     return (
       <div className="container container-narrow">
-        <div className="full-record-container">
+        <div className="full-record-container page">
           <Format formats={formats} />
           <div className="record-container">
             <h1 className="full-record-title">

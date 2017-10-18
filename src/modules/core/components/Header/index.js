@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 import mlibLogo from './mlib_logo.png';
 import parrot from './parrot.gif';
@@ -29,10 +30,10 @@ class Header extends React.Component {
                   <img src={mlibLogo} alt="Go to the University of Michigan Library homepage" />
                 </a>
               </li>
-              <li className="logo-library">Search</li>
+              <li className="logo-library"><Link to="/">Search</Link></li>
               <li className="logo-search">
                 <span>
-                  <a href="/">Mirlyn</a>
+                  <Link to="/">Mirlyn</Link>
                   <sup
                     className="party-parrot-container"
                     onClick={this.handleParty}><span className="beta-tag">Beta</span>
@@ -47,6 +48,9 @@ class Header extends React.Component {
           </div>
 
           <ul className="site-header-list">
+            <li>
+              <Link to="/how-to-use-search">How to use Search</Link>
+            </li>
             <li>
               <a href="https://docs.google.com/document/d/1q1PkusiC83c1yfqJdFWRSEGRQGBqHB3ZhBpBUq0H_FI/edit">What's in the Beta?</a>
             </li>

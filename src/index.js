@@ -23,6 +23,9 @@ import {
   NoMatch,
   DatastorePage,
 } from './modules/pages'
+import {
+  HelpContent,
+} from './modules/search'
 import store from './store'
 import history from './history'
 import {
@@ -49,6 +52,7 @@ const App = () => (
     <ConnectedRouter history={history}>
       <Main>
         <ConnectedSwitch>
+          <Route path="/how-to-use-search" component={HelpContent}/>
           <Route path="/" exact render={() => (
             <Redirect to={`/everything`} />
           )}/>
