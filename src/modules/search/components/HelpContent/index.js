@@ -72,7 +72,7 @@ const HelpContent = () => (
               <th>Explained</th>
             </tr>
             <tr>
-              <td><Link to="/everything?query=*">*</Link></td>
+              <td><a href="/everything?query=*">*</a></td>
               <td>An asterisk will retrieve all items, which you can then filter.</td>
             </tr>
           </tbody>
