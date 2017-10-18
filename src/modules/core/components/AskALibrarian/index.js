@@ -1,5 +1,6 @@
 import React from 'react'
 import reqwest from 'reqwest'
+import axios from 'axios'
 
 import { Icon } from '../../../core'
 
@@ -19,35 +20,29 @@ class AskALibrarian extends React.Component {
 
     // TODO: Get status of chat service and set online state as 'online' or 'offline'
 
-    reqwest({
-      url: presenceUrl,
-      method: 'get',
-      success: (msg) => { console.log('success': msg) }
-    })
-  }
-
-  renderStatus() {
-    if (this.state.online === undefined) {
-      return null
-    }
-
-    if (this.state.online) {
-      return (
-        <sup className="ask-a-librarian-status">active</sup>
-      )
-    } else {
-      return (
-        <sup className="ask-a-librarian-status ask-a-librarian-offline">away</sup>
-      )
-    }
+    axios.get(presenceUrl)
+      .then((response) => {
+        if (response.data) {
+          switch (response.data) {
+            case 'available':
+              this.setState({ status: 'online' })
+              break;
+            case 'unavailable':
+              this.setState({ status: 'offline' })
+              break;
+            default:
+              break;
+          }
+        }
+      })
   }
 
   renderStatusIcon() {
-    const { status } = this.props
+    const { status } = this.state
 
     switch (status) {
       case 'online':
-        return <Icon name="comment" />
+        return <span className="ask-a-librarian-online"><Icon name="comment" /></span>
       case 'offline':
         return <Icon name="comment-remove-outline" />
       default:
@@ -61,7 +56,7 @@ class AskALibrarian extends React.Component {
         className="ask-a-librarian-button"
         aria-label="Open a new window to the Ask a Librarian service."
         onClick={this.handleClick}
-      >{this.renderStatusIcon()}Ask a Librarian{this.renderStatus()}</button>
+      >{this.renderStatusIcon()}Ask a Librarian</button>
     )
   }
 }

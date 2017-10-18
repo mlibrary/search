@@ -1889,15 +1889,8 @@ input.date-range-input-text {
     margin-right: 0.5rem;
     margin-bottom: -0.1rem; }
 
-.ask-a-librarian-status {
-  padding: 0.05rem 0.3rem;
-  background: #05A657;
-  margin-left: 0.2rem;
-  border-radius: 4px;
-  font-size: 0.6rem; }
-
-.ask-a-librarian-offline {
-  background: #ED5D47; }
+.ask-a-librarian-online .icon g {
+  color: #05A657; }
 
 .marc-link-container {
   text-align: center;
