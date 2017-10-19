@@ -5,8 +5,6 @@
 }
 
 .site-header-container {
-  padding: 0 1rem;
-
   @media (min-width: $breakpoint-2) {
     display: flex;
     justify-content: space-between;

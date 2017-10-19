@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -388,53 +387,29 @@ nav {
 .alert *:first-child {
   margin: 0; }
 
-.site-message-warning {
-  background: #FFEEDD;
-  border-bottom: solid 2px #E77504; }
-
-.site-message-info {
-  background: #F2F9FF;
-  border-bottom: solid 2px #CCE6FF; }
-
 .site-message {
-  position: relative;
-  padding: 0.5rem 1rem;
-  padding-right: 6rem; }
+  background: #FAFAFA;
+  border-bottom: solid 2px #CCC;
+  margin: 0;
+  padding: 1rem 0;
+  font-size: 0.9rem; }
   .site-message p {
-    margin: 0;
-    text-align: center; }
-
-.site-message-dismiss {
-  /* remove button style */
-  border: none;
-  font-size: 100%;
-  background: none;
-  padding: 0;
-  /* continue */
-  position: absolute;
-  right: 1rem;
-  top: 0.6rem;
-  cursor: pointer;
-  line-height: 1.4; }
-  .site-message-dismiss span {
+    margin: 0; }
+  .site-message a {
     text-decoration: underline; }
-  .site-message-dismiss:after {
-    content: '✕';
-    padding-left: 0.5rem;
-    text-decoration: none; }
+  .site-message .tag {
+    margin-right: 0.5rem; }
 
 .site-header {
   background: #00274C;
   padding-top: 1rem;
   padding-bottom: 1rem; }
 
-.site-header-container {
-  padding: 0 1rem; }
-  @media (min-width: 47rem) {
-    .site-header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center; } }
+@media (min-width: 47rem) {
+  .site-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; } }
 
 .logo-item-list {
   margin: 0;
@@ -513,7 +488,7 @@ nav {
 
 footer {
   background: #00274C;
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   margin-top: 3rem;
   color: white; }
   footer a {
@@ -569,6 +544,14 @@ footer {
   display: flex;
   align-items: center; }
 
+.tag {
+  vertical-align: top;
+  background: rgba(18, 109, 193, 0.8);
+  padding: 0 0.25rem;
+  border-radius: 2px;
+  margin-right: 0.5rem;
+  color: white; }
+
 .focus-outline-white {
   outline-color: white; }
 
@@ -587,13 +570,6 @@ footer {
 
 .logo-search {
   padding-left: 0.5rem; }
-
-.beta-tag {
-  vertical-align: top;
-  background: rgba(18, 109, 193, 0.4);
-  padding: 0 0.25rem;
-  border-radius: 2px;
-  margin-left: 0.2rem; }
 
 .dropdown,
 .dropdown-multiple {
@@ -1906,14 +1882,10 @@ input.date-range-input-text {
   margin-bottom: 0.5rem; }
 
 .site-footer {
-  padding: 2rem 1rem;
   /* keep it to the bottom */
   position: absolute;
   bottom: 0;
   width: 100%; }
-  @media (min-width: 47rem) {
-    .site-footer {
-      text-align: center; } }
   .site-footer p {
     margin: 0; }
 

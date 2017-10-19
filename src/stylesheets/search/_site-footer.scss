@@ -1,10 +1,4 @@
 .site-footer {
-  padding: 2rem 1rem;
-
-  @media (min-width: $breakpoint-2) {
-    text-align: center;
-  }
-
   /* keep it to the bottom */
   position: absolute;
   bottom: 0;

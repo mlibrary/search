@@ -5,7 +5,7 @@ class SiteMessage extends React.Component {
     const { type } = this.props
 
     return (
-      <div className={`alert site-alert ${type ? 'site-' + type : '' }`}>
+      <div className={`site-message ${type ? 'site-message-' + type : '' }`}>
         {this.props.children}
       </div>
     )

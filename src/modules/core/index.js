@@ -12,6 +12,7 @@ import Checkbox from './components/Checkbox'
 import Switch from './components/Switch'
 import AskALibrarian from './components/AskALibrarian'
 import ScopeDown from './components/ScopeDown'
+import SiteMessage from './components/SiteMessage'
 
 export {
   Header,
@@ -27,5 +28,6 @@ export {
   Checkbox,
   Switch,
   AskALibrarian,
-  ScopeDown
+  ScopeDown,
+  SiteMessage
 };
