@@ -34,7 +34,7 @@ class Header extends React.Component {
                 <Link to="/how-to-use-search">How to Use Search</Link>
               </li>
               <li>
-                <a href="www.lib.umich.edu/get-help">Get Help</a>
+                <a href="https://www.lib.umich.edu/get-help">Get Help</a>
               </li>
               <li>
                 <AskALibrarian />

@@ -85,7 +85,9 @@ class DatastorePageContainer extends React.Component {
                 return (
                   <div>
                     {!searching ? (
-                      <Landing activeDatastore={activeDatastore} />
+                      <div className="container">
+                        <Landing activeDatastore={activeDatastore} />
+                      </div>
                     ) : (
                       <DatastoreInfo activeDatastore={activeDatastore} />
                     )}
