@@ -22,6 +22,7 @@ import {
 import {
   NoMatch,
   DatastorePage,
+  RoadMapPage
 } from './modules/pages'
 import {
   HelpContent,
@@ -53,6 +54,7 @@ const App = () => (
       <Main>
         <ConnectedSwitch>
           <Route path="/how-to-use-search" component={HelpContent}/>
+          <Route path="/feature-road-map" component={RoadMapPage}/>
           <Route path="/" exact render={() => (
             <Redirect to={`/everything`} />
           )}/>
