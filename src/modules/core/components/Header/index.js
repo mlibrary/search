@@ -31,7 +31,10 @@ class Header extends React.Component {
 
             <ul className="site-header-list">
               <li>
-                <Link to="/how-to-use-search">How to use Search</Link>
+                <Link to="/how-to-use-search">How to Use Search</Link>
+              </li>
+              <li>
+                <a href="www.lib.umich.edu/get-help">Get Help</a>
               </li>
               <li>
                 <AskALibrarian />

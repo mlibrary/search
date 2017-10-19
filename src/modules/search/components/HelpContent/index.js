@@ -5,7 +5,7 @@ const HelpContent = () => (
   <div className="container container-narrow">
     <article className="page">
       <section>
-        <h1 style={{ marginTop: 0 }}>How to use Search</h1>
+        <h1 style={{ marginTop: 0 }}>How to Use Search</h1>
         <p style={{ fontSize: '1.2rem' }}>You can search using keywords, exact phrases, AND or ORs, and filters to narrow your search results.</p>
       </section>
 

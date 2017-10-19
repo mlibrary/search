@@ -16,7 +16,7 @@ const RoadMapPage = () => (
       </section>
 
       <section>
-        <h2>"What's To Come"</h2>
+        <h2>What's To Come</h2>
         <p>Major features still in development include:</p>
         <ul>
           <li><b>Select and act on items</b> -- The ability to select items in search results to share with others or generate citations.</li>
@@ -29,7 +29,7 @@ const RoadMapPage = () => (
 
       <section>
         <h2>Feedback Wanted</h2>
-        <p>We want and appreciate your feedback on the beta version of our new search interface. When you see something you wish were different -- or like -- helps us make improvements by <a href="https://umich.qualtrics.com/jfe/form/SV_9SH992ZSrUoTeIJ" style={{ textDecoration: 'underline' }}>taking our quick survey</a>.</p>
+        <p>We want and appreciate your feedback on the beta version of our new search interface. When you see something you wish were different -- or like -- help us make improvements by <a href="https://umich.qualtrics.com/jfe/form/SV_9SH992ZSrUoTeIJ" style={{ textDecoration: 'underline' }}>taking our quick survey</a>.</p>
 
         <p style={marginBottomNone}><b>Search Beta Feedback Email</b></p>
         <p style={marginBottom}><a href="mailto:search-beta-feedback@umich.edu" style={{ textDecoration: 'underline' }}>search-beta-feedback@umich.edu</a></p>
