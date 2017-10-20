@@ -38,6 +38,10 @@ import {
 } from '../filters';
 
 import {
+  setDefaultInstitution
+} from '../institution';
+
+import {
   getDatastoreSlug,
   getDatastoreName,
   getDatastoreUidBySlug,
