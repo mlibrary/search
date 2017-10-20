@@ -13,14 +13,14 @@ class BentoboxList extends React.Component {
     const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords)
 
     return (
-      <ul className="bentobox-list">
+      <ul className={`bentobox-list`}>
         {bentoboxListRecords.map(bentobox => {
           if (!bentobox.records) {
             return null
           }
 
           return (
-            <li key={bentobox.uid} className="bentobox">
+            <li key={bentobox.uid} className={`bentobox bentobox-${bentobox.uid}`}>
               <BentoboxHeading
                 bentobox={bentobox}
                 search={search}

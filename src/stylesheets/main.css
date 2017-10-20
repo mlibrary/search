@@ -1246,6 +1246,10 @@ body {
   .bentobox .record .record-field-name {
     width: 6rem; }
 
+.bentobox-mirlyn .holdings-condensed,
+.bentobox-mirlyn .access-placeholder-container {
+  display: none; }
+
 .party-parrot-container {
   cursor: pointer; }
 
