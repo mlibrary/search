@@ -6,7 +6,7 @@ import {
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
-  clearAllFilters,
+  addDefaultFilter,
 } from './actions';
 
 import {
@@ -20,6 +20,6 @@ export {
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
-  clearAllFilters,
+  addDefaultFilter,
   isFilterItemActive
 }

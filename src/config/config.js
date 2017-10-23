@@ -544,17 +544,18 @@ const config = {
       },
       {
         uid: 'institution',
+        type: 'singleselect',
         persistent: true,
         displayCount: false,
-        name: 'Institution',
+        name: 'Library',
         filterItems: [
+          {
+            value: "All Libraries",
+            name: "All Libraries"
+          },
           {
             value: "UM Ann Arbor Libraries",
             name: "UM Ann Arbor Libraries"
-          },
-          {
-            value: "University Library",
-            name: "University Library"
           },
           {
             value: "Flint Thompson Library",

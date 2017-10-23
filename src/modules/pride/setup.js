@@ -35,11 +35,8 @@ import {
 import {
   addFilters,
   clearFilters,
+  addDefaultFilter,
 } from '../filters';
-
-import {
-  setDefaultInstitution
-} from '../institution';
 
 import {
   getDatastoreSlug,
@@ -404,6 +401,17 @@ const setupAdvancedSearch = () => {
   })
 }
 
+const setupFilterDefaults = () => {
+  store.dispatch(addDefaultFilter({
+    datastoreUid: 'mirlyn',
+    filter: {
+      uid: 'institution',
+      name: 'Library',
+      value: 'UM Ann Arbor Libraries'
+    }
+  }))
+}
+
 /*
   Initialize Pride kicks off Pride's internal init and checks if
   communication with the back-end (Spectrum) is established.
@@ -413,6 +421,7 @@ const initializePride = () => {
     success: () => {
       setupSearches();
       setupAdvancedSearch()
+      setupFilterDefaults()
       renderApp();
     },
     failure: () => {

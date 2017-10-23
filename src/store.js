@@ -14,7 +14,6 @@ import { searchReducer } from './modules/search'
 import { recordsReducer } from './modules/records'
 import { filtersReducer } from './modules/filters'
 import { advancedReducer } from './modules/advanced'
-import { institutionReducer } from './modules/institution'
 
 import history from './history'
 
@@ -25,7 +24,6 @@ const rootReducer = combineReducers({
   filters: filtersReducer,
   router: routerReducer,
   advanced: advancedReducer,
-  institution: institutionReducer,
 })
 
 const middleware = [routerMiddleware(history)]

@@ -189,6 +189,35 @@ const FilterList = ({
   return null
 }
 
+/*
+
+TODO: Add dropdown for institution filter
+
+const Dropdown = ({
+  labelText,
+  fieldedSearchIndex,
+  options,
+  selectedOption,
+  handleOnFieldChange,
+  multiple
+}) => (
+  <select
+    aria-label={labelText ? labelText : 'dropdown'}
+    className="dropdown advanced-field-select"
+    value={selectedOption}
+    multiple={multiple ? multiple : false}
+    onChange={(event) => handleOnFieldChange({
+      fieldedSearchIndex,
+      selectedFieldUid: event.target.value,
+    })}
+  >
+    {options.map((option, index) =>
+      <option value={option.uid} key={index}>{option.name}</option>
+    )}
+  </select>
+)
+*/
+
 const Filter = ({
   datastoreUid,
   filter,
@@ -222,6 +251,10 @@ const Filter = ({
             label={filter.name}
           />
         </li>
+      )
+    case 'singleselect':
+      return (
+        <p>{filter.name} Single Select</p>
       )
     case 'multiselect':
       const filterItems = getFilterItems({

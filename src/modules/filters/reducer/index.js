@@ -5,12 +5,13 @@ import {
   CLEAR_FILTERS,
   SET_ACTIVE_FILTERS,
   CLEAR_ACTIVE_FILTERS,
-  CLEAR_ALL_FILTERS,
+  ADD_DEFAULT_FILTER
 } from '../actions';
 
 const initialState = {
   active: {},
-  groups: {}
+  groups: {},
+  defaults: {} // are active on the server by default
 };
 
 const filtersReducer = function filterReducer(state = initialState, action) {
@@ -53,8 +54,17 @@ const filtersReducer = function filterReducer(state = initialState, action) {
         ...state,
         active: _.omit(state.active, action.payload.datastoreUid)
       }
-    case CLEAR_ALL_FILTERS:
-      return initialState;
+    case ADD_DEFAULT_FILTER:
+      return {
+        ...state,
+        defaults: {
+          ...state.defaults,
+          [action.payload.datastoreUid]: {
+              ...state.defaults.datastoreUid,
+              [action.payload.filter.uid]: action.payload.filter
+          }
+        }
+      }
     default:
       return state;
   }
