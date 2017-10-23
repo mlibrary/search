@@ -3,21 +3,33 @@ import { _ } from 'underscore'
 
 import HoldingStatus from '../HoldingStatus'
 
+const HoldingFieldNotAvailable = () => {
+  return <span className="holding-value-na">N/A</span>
+}
+
 const FieldValue = ({ field }) => {
   // AND is to also ensure a link exists.
 
   if (!field.value || field.value.length === 0) {
     return (
-      <span className="holding-value-na">N/A</span>
+      <HoldingFieldNotAvailable />
     )
   }
 
   switch (field.type) {
     case 'link':
+      if (!field.link) {
+        return <HoldingFieldNotAvailable />
+      }
+
       return (
         <span><a className="holding-link" href={field.link}>{field.value}</a></span>
       )
     case 'button-link':
+      if (!field.link) {
+        return <HoldingFieldNotAvailable />
+      }
+
       return (
         <span><a className="holding-button button" href={field.link}>{field.value}</a></span>
       )
@@ -67,7 +79,7 @@ class Holdings extends React.Component {
             <div key={holdingGroupUid} className="holding-group">
               <div className="holding-group-heading-container">
                 <h3 className="holding-group-heading">{heading}</h3>
-                {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">View map</a> )}
+                {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">View Location Info</a> )}
               </div>
               {summaryText && ( <p className="holding-summary-text">Library has: {summaryText}</p> )}
               <table className="holding-table responsive-table">
