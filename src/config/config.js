@@ -796,7 +796,7 @@ const config = {
           defaults: [
             {
               uid: 'institution',
-              value: 'All Libraries',
+              value: 'All libraries',
             },
             {
               uid: 'location',
