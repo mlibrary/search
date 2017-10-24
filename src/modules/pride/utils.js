@@ -212,7 +212,7 @@ const transformHoldings = (datastoreUid, holdings) => {
       const holdingGroupUid = holding.type
 
       // Do we care about these types of holdings, are they configured?
-      if (holdingGroupUids.includes(holdingGroupUid)) {
+      if (holdingGroupUids.indexOf(holdingGroupUid) !== -1) {
         const holdingGroupConfig = fieldsConfig.holdings[holdingGroupUid]
         const newHolding = createHolding({
           config: holdingGroupConfig,
@@ -329,7 +329,7 @@ const getFormatIconName = ({ format }) => {
   const icons = config.formatIcons
 
   const found = icons.filter(f => {
-    return f.formats.includes(format)
+    return f.formats.indexOf(format) !== -1
   })
 
   if (found.length === 0) {

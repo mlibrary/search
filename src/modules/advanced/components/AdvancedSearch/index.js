@@ -270,7 +270,7 @@ const getStateDateRangeValues = ({ advancedFilter }) => {
     // For splitting string into before, after, between, and in values
 
     // Before
-    if (filterValue.includes('before')) {
+    if (filterValue.indexOf('before') !== -1) {
       const values = filterValue.split('before')
 
       return {
@@ -280,7 +280,7 @@ const getStateDateRangeValues = ({ advancedFilter }) => {
     }
 
     // After
-    if (filterValue.includes('after')) {
+    if (filterValue.indexOf('after') !== -1) {
       const values = filterValue.split('after')
 
       return {
@@ -290,7 +290,7 @@ const getStateDateRangeValues = ({ advancedFilter }) => {
     }
 
     // Between
-    if (filterValue.includes('to')) {
+    if (filterValue.indexOf('to') !== -1) {
       const values = filterValue.split('to')
 
       return {

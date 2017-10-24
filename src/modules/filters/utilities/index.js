@@ -57,7 +57,7 @@ const isFilterItemActive = ({ datastoreUid, filterUid, filterItemValue }) => {
 
   if (state.filters.active[datastoreUid]) {
     if (state.filters.active[datastoreUid][filterUid]) {
-      if (state.filters.active[datastoreUid][filterUid].includes(filterItemValue)) {
+      if (state.filters.active[datastoreUid][filterUid].indexOf(filterItemValue) !== -1) {
         return true
       }
     }

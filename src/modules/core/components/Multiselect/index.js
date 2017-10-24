@@ -56,7 +56,7 @@ class Multiselect extends React.Component {
       return false
     }
 
-    return !option.name.toLowerCase().includes(filterQuery.toLowerCase())
+    return !option.name.toLowerCase().indexOf(filterQuery.toLowerCase() !== -1)
   }
 
   render() {
