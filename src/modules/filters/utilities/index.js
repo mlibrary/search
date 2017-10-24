@@ -141,6 +141,7 @@ const createActiveFilterObj = ({
   addActiveFilter,
   activeFilters,
   filterUid,
+  filterType,
   filterItemValue
 }) => {
   const activeFiltersCopy = deepcopy(activeFilters)
@@ -150,13 +151,13 @@ const createActiveFilterObj = ({
     a) if addActiveFilter is true, then add new active filter
     to activeFilters object
 
-    b) if addActiveFilter is false, then the the passed filterItemValue
+    b) if addActiveFilter is false, then the passed filterItemValue
     must be removed from the filterUid values
 
   */
   if (addActiveFilter) {
     if (activeFiltersCopy) {
-      if (activeFiltersCopy[filterUid]) {
+      if (activeFiltersCopy[filterUid] && filterType !== 'singleselect') {
         return Object.assign(activeFiltersCopy, {
           [filterUid]: activeFiltersCopy[filterUid].concat(filterItemValue)
         })
@@ -180,46 +181,69 @@ const createActiveFilterObj = ({
 const getActiveFilters = ({ datastoreUid, activeFilters, filters }) => {
   /*
     Returns an Array of filters with a uid, name, and value that
-    also are not a checkbox.
+    also are not a checkbox or a singleselect.
   */
-  if (!activeFilters) {
-    return []
-  }
 
-  const activeFilterUids = Object.keys(activeFilters);
+  let activeFiltersList = []
 
-  const activeFilterObjs = activeFilterUids.reduce((previous, filterUid) => {
-    const filter = _.findWhere(filters, { uid: filterUid })
+  if (activeFilters) {
+    const activeFilterUids = Object.keys(activeFilters);
 
-    if (filter && (filter.type !== 'checkbox')) {
-      activeFilters[filterUid].forEach((value) => {
-        previous = previous.concat({
-          uid: filter.uid,
-          name: filter.name,
-          value: value
-        })
-      })
-    } else {
-      activeFilters[filterUid].forEach((value) => {
-        if (value === 'true' || value === 'false') {
-          //TODO
-          // May want to accomodate booleans that are not
-          // configured and available in state.
-        } else {
+    const activeFilterObjs = activeFilterUids.reduce((previous, filterUid) => {
+      const filter = _.findWhere(filters, { uid: filterUid })
+
+      if (filter && (filter.type !== 'checkbox' && filter.type !== 'singleselect')) {
+        activeFilters[filterUid].forEach((value) => {
           previous = previous.concat({
-            uid: filterUid,
-            name: filterUid,
+            uid: filter.uid,
+            name: filter.name,
             value: value
           })
-        }
-      })
-    }
+        })
+      } else {
+        activeFilters[filterUid].forEach((value) => {
+          // This filter has a type,
+          if (filter && (filter.type === 'checkbox' || filter.type === 'singleselect')) {
+            //TODO
+            // May want to accomodate booleans that are not
+            // configured and available in state.
+          } else {
+            previous = previous.concat({
+              uid: filterUid,
+              name: filterUid,
+              value: value
+            })
+          }
+        })
+      }
 
-    return previous
+      return previous
 
-  }, [])
+    }, [])
 
-  return activeFilterObjs
+    activeFiltersList = activeFiltersList.concat(activeFilterObjs)
+  }
+
+  return activeFiltersList
+}
+
+/*
+  For returning the selected value (could be a default too) for SingleSelect filters.
+*/
+const getSingleSelectedFilterValue = ({ filter, activeFilters}) => {
+  let selectedFilterValue = filter.filters[0].value
+
+  // This filter has an active filter, so use that over the default.
+  if (activeFilters && activeFilters[filter.uid]) {
+    selectedFilterValue = activeFilters[filter.uid][0]
+
+  // No active filter, so use the default that is available.
+  } else if (filter.defaultValue) {
+    selectedFilterValue = filter.defaultValue
+  }
+
+  // No default available, so use the first filter's value.
+  return selectedFilterValue
 }
 
 export {
@@ -233,4 +257,5 @@ export {
   isFilterItemChecked,
   getCheckboxOnClickValue,
   createActiveFilterObj,
+  getSingleSelectedFilterValue
 }

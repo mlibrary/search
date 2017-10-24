@@ -528,21 +528,6 @@ const config = {
   filters: {
     'mirlyn': [
       {
-        uid: 'available_online',
-        type: 'checkbox',
-        name: 'Available online',
-        checkedCondition: 'true',
-        onClickValue: 'true',
-      },
-      {
-        uid: 'search_only',
-        type: 'checkbox',
-        name: 'Remove search only HathiTrust materials',
-        checkedCondition: 'true',
-        defaultValueOnSpectrum: 'true',
-        onClickValue: 'false',
-      },
-      {
         uid: 'institution',
         type: 'singleselect',
         persistent: true,
@@ -554,8 +539,8 @@ const config = {
             name: "All Libraries"
           },
           {
-            value: "UM Ann Arbor Libraries",
-            name: "UM Ann Arbor Libraries"
+            value: "U-M Ann Arbor Libraries",
+            name: "U-M Ann Arbor Libraries"
           },
           {
             value: "Flint Thompson Library",
@@ -570,6 +555,21 @@ const config = {
             name: "William L. Clements Library"
           },
         ]
+      },
+      {
+        uid: 'available_online',
+        type: 'checkbox',
+        name: 'Available online',
+        checkedCondition: 'true',
+        onClickValue: 'true',
+      },
+      {
+        uid: 'search_only',
+        type: 'checkbox',
+        name: 'Remove search only HathiTrust materials',
+        checkedCondition: 'true',
+        defaultValueOnSpectrum: 'true',
+        onClickValue: 'false',
       },
       {
         uid: 'subject',
@@ -797,7 +797,7 @@ const config = {
           defaults: [
             {
               uid: 'institution',
-              value: 'All Libraries',
+              value: 'All libraries',
             },
             {
               uid: 'location',

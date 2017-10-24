@@ -35,7 +35,6 @@ import {
 import {
   addFilters,
   clearFilters,
-  addDefaultFilter,
 } from '../filters';
 
 import {
@@ -169,9 +168,20 @@ const setupObservers = (searchObj) => {
           filterGroup.resultsObservers.add(filters => {
             const metadata = filterGroup.getData('metadata')
 
+            // BEGIN TEMP
+            // Hack to add in temporary filter value
+            // TODO: Update when Pride sends default_value and perhaps
+            // handle defaults in a generic way.
+            let defaultValue
+            if (filterGroup.uid === 'institution') {
+              defaultValue = 'U-M Ann Arbor Libraries'
+            }
+            // END TEMP
+
             store.dispatch(addFilters({
               uid: filterGroup.uid,
               name: metadata.metadata.name,
+              defaultValue,
               filters: filters.slice(0, 50)
             }))
           })
@@ -401,17 +411,6 @@ const setupAdvancedSearch = () => {
   })
 }
 
-const setupFilterDefaults = () => {
-  store.dispatch(addDefaultFilter({
-    datastoreUid: 'mirlyn',
-    filter: {
-      uid: 'institution',
-      name: 'Library',
-      value: 'UM Ann Arbor Libraries'
-    }
-  }))
-}
-
 /*
   Initialize Pride kicks off Pride's internal init and checks if
   communication with the back-end (Spectrum) is established.
@@ -421,7 +420,6 @@ const initializePride = () => {
     success: () => {
       setupSearches();
       setupAdvancedSearch()
-      setupFilterDefaults()
       renderApp();
     },
     failure: () => {
