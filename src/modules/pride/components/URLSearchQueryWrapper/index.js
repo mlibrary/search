@@ -122,7 +122,7 @@ class URLSearchQueryWrapper extends React.Component {
         }
 
         // library aka institution
-        if (urlState.library !== institution.active) {
+        if (datastoreUid === 'mirlyn' && urlState.library !== institution.active) {
           this.props.setActiveInstitution(urlState.library)
 
           // Do not run search if it is the landing page.

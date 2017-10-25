@@ -6,7 +6,9 @@ const initialState = {
   options: [
     'All Libraries',
     'U-M Ann Arbor Libraries',
-    'Flint Thompson Library'
+    'Flint Thompson Library',
+    'Bentley Historical Library',
+    'William L. Clements Library',
   ],
 };
 
