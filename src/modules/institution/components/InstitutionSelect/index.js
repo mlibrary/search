@@ -35,9 +35,6 @@ class InstitutionSelect extends React.Component {
       library = event.target.value
     }
 
-    console.log('searchQuery', searchQuery)
-    console.log('activeFilters', activeFilters)
-
     const queryString = stringifySearchQueryForURL({
       query: searchQuery,
       filter: activeFilters,
