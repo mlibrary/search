@@ -535,8 +535,8 @@ const config = {
         name: 'Library',
         filterItems: [
           {
-            value: "All Libraries",
-            name: "All Libraries"
+            value: "All libraries",
+            name: "All libraries"
           },
           {
             value: "U-M Ann Arbor Libraries",
