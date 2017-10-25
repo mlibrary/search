@@ -17,7 +17,8 @@ class RecordListContainer extends React.Component {
       datastoreUid,
       loadingRecords,
       search,
-      searchQuery
+      searchQuery,
+      institution
     } = this.props;
 
     if (search.data[datastoreUid] && search.data[datastoreUid].totalAvailable === 0) {
@@ -86,6 +87,7 @@ class RecordListContainer extends React.Component {
               key={index}
               type='medium'
               searchQuery={searchQuery}
+              institution={institution}
             />,
           )}
         </ul>
@@ -100,7 +102,8 @@ function mapStateToProps(state) {
     loadingRecords: state.records.loading[state.datastores.active],
     datastoreUid: state.datastores.active,
     search: state.search,
-    searchQuery: state.router.location.search
+    searchQuery: state.router.location.search,
+    institution: state.institution
   };
 }
 

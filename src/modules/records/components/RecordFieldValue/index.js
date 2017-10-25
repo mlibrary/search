@@ -38,7 +38,7 @@ const getSearchValue = (value) => {
 
 class RecordFieldValue extends React.Component {
   render() {
-    const { field, value, datastoreUid } = this.props
+    const { field, value, datastoreUid, institution } = this.props
     const displayValue = getDisplayValue(value)
     const searchValue = getSearchValue(value)
 
@@ -51,15 +51,19 @@ class RecordFieldValue extends React.Component {
       const datastoreSlug = getDatastoreSlugByUid(datastoreUid)
       let queryString = ''
 
+      const library = datastoreUid === 'mirlyn' ? institution.active : undefined
+
       switch (searchField.type) {
         case 'fielded':
           queryString = stringifySearchQueryForURL({
-            query: `${searchField.search}:${searchValue}`
+            query: `${searchField.search}:${searchValue}`,
+            library
           })
           break;
         case 'filter':
           queryString = stringifySearchQueryForURL({
-            filter: { [searchField.search]: `${searchValue}` }
+            filter: { [searchField.search]: `${searchValue}` },
+            library
           })
           break;
         default:

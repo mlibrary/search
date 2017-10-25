@@ -23,7 +23,7 @@ import {
 
 class Record extends React.Component {
   render() {
-    const { record, datastoreUid, type, searchQuery } = this.props
+    const { record, datastoreUid, type, searchQuery, institution } = this.props
     const titles = record.names ? [].concat(record.names) : [].concat('no title');
     const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
     const recordUidField = getField(record.fields, 'id');
@@ -61,7 +61,7 @@ class Record extends React.Component {
               </div>
             ))}
             </h3>
-            <FieldList fields={displayFields} datastoreUid={datastoreUid} />
+            <FieldList fields={displayFields} datastoreUid={datastoreUid} institution={institution} />
           </div>
 
           {record.loadingHoldings ? (

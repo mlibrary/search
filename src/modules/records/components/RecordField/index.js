@@ -20,7 +20,7 @@ import {
 
 class RecordField extends React.Component {
   render() {
-    const { field, datastoreUid } = this.props
+    const { field, datastoreUid, institution } = this.props
     const uniqueFieldClassName = 'record-field record-field-uid-' + field.uid
 
     // Super special field because libraries
@@ -91,7 +91,8 @@ class RecordField extends React.Component {
                         key={stringKey}
                         field={field}
                         value={string}
-                        datastoreUid={datastoreUid} />
+                        datastoreUid={datastoreUid}
+                        institution={institution} />
                     </span>
                   )).map((item, index) => [index > 0 && (<Icon name='chevron-right'/>), item])}
                 </li>
@@ -116,7 +117,8 @@ class RecordField extends React.Component {
                   <RecordFieldValue
                     field={field}
                     value={value}
-                    datastoreUid={datastoreUid} />
+                    datastoreUid={datastoreUid}
+                    institution={institution} />
                 </li>
               ))}
             </ShowAllList>

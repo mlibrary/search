@@ -86,11 +86,13 @@ class Filters extends React.Component {
       filterItemValue,
     })
 
+    const library = datastoreUid === 'mirlyn' ? institution.active : undefined
+
     const queryString = qs.stringify({
       query,
       filter: filterObj,
       sort,
-      library: institution.active
+      library
     }, {
       arrayFormat: 'repeat',
       encodeValuesOnly: true,

@@ -10,10 +10,12 @@ import {
 
 class PaginationContainer extends React.Component {
   prevPageURL() {
-    const { search, filters, activeDatastoreUid, history } = this.props
+    const { search, filters, activeDatastoreUid, history, institution } = this.props
     const query = search.query
     const page = search.page[activeDatastoreUid]
     const sort = search.sort[activeDatastoreUid]
+    const library = activeDatastoreUid === 'mirlyn' ? institution.active : undefined
+
 
     // Only go to prev page if you're past page 1.
     if (page > 1) {
@@ -21,6 +23,7 @@ class PaginationContainer extends React.Component {
         query,
         filter: filters,
         page: (page - 1) === 1 ? undefined : (page - 1),
+        library,
         sort
       })
 
@@ -32,11 +35,12 @@ class PaginationContainer extends React.Component {
     return undefined
   }
   nextPageURL() {
-    const { search, filters, activeDatastoreUid, history } = this.props
+    const { search, filters, activeDatastoreUid, history, institution } = this.props
     const query = search.query
     const page = search.page[activeDatastoreUid] ? search.page[activeDatastoreUid] : 1
     const data = search.data[activeDatastoreUid]
     const sort = search.sort[activeDatastoreUid]
+    const library = activeDatastoreUid === 'mirlyn' ? institution.active : undefined
 
     if (data && data.totalPages && (data.page >= data.totalPages)) {
       return undefined
@@ -46,6 +50,7 @@ class PaginationContainer extends React.Component {
       query,
       filter: filters,
       page: page + 1,
+      library,
       sort,
     })
 
@@ -75,6 +80,7 @@ function mapStateToProps(state) {
     search: state.search,
     activeDatastoreUid: state.datastores.active,
     filters: state.filters.active[state.datastores.active],
+    institution: state.institution
   };
 }
 

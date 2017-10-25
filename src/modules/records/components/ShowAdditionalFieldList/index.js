@@ -13,7 +13,7 @@ class ShowAdditionalFieldList extends React.Component {
   }
 
   render() {
-    const { fields, datastoreUid } = this.props
+    const { fields, datastoreUid, institution } = this.props
     const buttonText = `${this.state.show ? 'Show Brief Record' : 'Show Complete Record' }`
     const displayFields = this.state.show ? fields.standard.concat(fields.additional) : fields.standard
 
@@ -25,6 +25,7 @@ class ShowAdditionalFieldList extends React.Component {
               field={field}
               datastoreUid={datastoreUid}
               key={index}
+              institution={institution}
             />
           ))}
         </dl>

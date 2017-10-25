@@ -40,9 +40,8 @@ class FullRecord extends React.Component {
   }
 
   render() {
-    const { record } = this.props;
+    const { record, institution, datastoreUid } = this.props;
     const { recordUid } = this.props.match.params
-    const { datastoreUid } = this.props
 
     if (!record) {
       return <SkeletonFullRecord />
@@ -89,6 +88,7 @@ class FullRecord extends React.Component {
             <ShowAdditionalFieldList
               fields={displayFields}
               datastoreUid={datastoreUid}
+              institution={institution}
             />
 
             {access.length > 0 && (
@@ -148,6 +148,7 @@ function mapStateToProps(state) {
   return {
     record: state.records.record,
     datastoreUid: state.datastores.active,
+    institution: state.institution
   }
 }
 
