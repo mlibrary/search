@@ -36,8 +36,6 @@ class SearchBox extends React.Component {
     const { match, history, activeFilters, institution } = this.props
     const { query } = this.state
 
-    console.log('institution.active', institution.active)
-
     // Query is not empty
     if (query.length > 0) {
       const queryString = qs.stringify({
