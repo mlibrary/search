@@ -9,7 +9,7 @@ import RecordPlaceholder from '../RecordPlaceholder'
 
 class BentoboxList extends React.Component {
   render() {
-    const { allRecords, datastoreUid, search, searchQuery } = this.props
+    const { allRecords, datastoreUid, search, searchQuery, institution } = this.props
     const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords)
 
     return (
@@ -30,6 +30,7 @@ class BentoboxList extends React.Component {
                 search={search}
                 bentobox={bentobox}
                 searchQuery={searchQuery}
+                institution={institution}
               />
             </li>
           )
@@ -73,7 +74,7 @@ const BentoboxResultsNum = ({ bentobox, search, totalResults }) => {
   return <span className="underline">{resultsNum} {resultsText}</span>
 }
 
-const BentoResults = ({ search, bentobox, searchQuery }) => {
+const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
 
   // No results
   if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
@@ -111,6 +112,7 @@ const BentoResults = ({ search, bentobox, searchQuery }) => {
             loading={record.loadingHoldings}
             type='preview'
             searchQuery={searchQuery}
+            institution={institution}
           />
         )
       })}
@@ -123,7 +125,8 @@ function mapStateToProps(state) {
     allRecords: state.records.records,
     datastoreUid: state.datastores.active,
     search: state.search,
-    searchQuery: state.router.location.search
+    searchQuery: state.router.location.search,
+    institution: state.institution
   };
 }
 

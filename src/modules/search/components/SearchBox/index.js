@@ -49,8 +49,6 @@ class SearchBox extends React.Component {
         format : 'RFC1738'
       })
 
-      console.log('queryString', queryString)
-
       const url = `/${match.params.datastoreSlug}?${queryString}`
 
       history.push(url)
