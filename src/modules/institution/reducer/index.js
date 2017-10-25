@@ -1,8 +1,8 @@
 import * as actions from '../actions/';
 
 const initialState = {
-  active: null,
-  defaultInstitution: null,
+  active: undefined,
+  defaultInstitution: undefined,
   options: [
     'All Libraries',
     'U-M Ann Arbor Libraries',
