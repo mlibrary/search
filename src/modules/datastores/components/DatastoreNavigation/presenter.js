@@ -20,7 +20,8 @@ const isActive = ({
 const DatastoreNavigationPresenter = ({
   datastores,
   search,
-  activeFilters
+  activeFilters,
+  institution
 }) => {
   return (
     <div className="datastore-list-container datastore-scroll-container">
@@ -34,6 +35,7 @@ const DatastoreNavigationPresenter = ({
               datastores={datastores}
               search={search}
               activeFilters={activeFilters}
+              institution={institution}
             />
           ))}
         </ul>
@@ -46,14 +48,20 @@ const DatastoreNavigationItem = ({
   datastore,
   datastores,
   search,
-  activeFilters
+  activeFilters,
+  institution
 }) => {
   const page = search.page[datastore.uid] === 1 ? undefined : search.page[datastore.uid]
+
+  // We only want to use library if it is Mirlyn aka the catalog
+  const library = datastore.uid === 'mirlyn' ? institution.active : undefined
+
   const queryString = stringifySearchQueryForURL({
     query: search.query,
     filter: activeFilters[datastore.uid],
     page,
-    sort: search.sort[datastore.uid]
+    sort: search.sort[datastore.uid],
+    library,
   })
 
   let url = ''

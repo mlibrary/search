@@ -39,6 +39,10 @@ import {
   switchPrideToDatastore
 } from '../../../pride'
 
+import {
+  InstitutionSelect
+} from '../../../institution'
+
 
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
@@ -113,6 +117,7 @@ const Results = ({ searching, activeDatastore }) => {
     <div className="container container-medium flex-container">
       {!activeDatastore.isMultisearch ? (
         <div className="side-container">
+          <InstitutionSelect />
           <Filters />
         </div>
       ) : null }

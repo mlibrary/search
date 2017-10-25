@@ -27,6 +27,9 @@ import {
 import {
   changeActiveDatastore,
 } from '../../../datastores'
+import {
+  setActiveInstitution
+} from '../../../institution'
 
 class URLSearchQueryWrapper extends React.Component {
   constructor(props) {
@@ -40,7 +43,8 @@ class URLSearchQueryWrapper extends React.Component {
     page,
     activeFilters,
     sort,
-    location
+    location,
+    institution
   }) {
     const urlState = getStateFromURL({ location })
     let shouldRunSearch = false
@@ -51,7 +55,7 @@ class URLSearchQueryWrapper extends React.Component {
       if ((Object.keys(urlState).length > 0)) {
 
         // Query
-        if (urlState.query !== query) {
+        if (urlState.query && urlState.query !== query) {
           this.props.setSearchQuery(urlState.query)
 
           shouldRunSearch = true
@@ -90,7 +94,7 @@ class URLSearchQueryWrapper extends React.Component {
           shouldRunSearch = true
         }
 
-        // Sort]
+        // Sort
         if (urlState.sort !== sort) {
           // Set sort to URL
           if (urlState.sort) {
@@ -114,6 +118,16 @@ class URLSearchQueryWrapper extends React.Component {
 
               shouldRunSearch = true
             }
+          }
+        }
+
+        // library aka institution
+        if (datastoreUid === 'mirlyn' && urlState.library !== institution.active) {
+          this.props.setActiveInstitution(urlState.library)
+
+          // Do not run search if it is the landing page.
+          if (Object.keys(urlState).length > 1) {
+            shouldRunSearch = true
           }
         }
 
@@ -145,7 +159,8 @@ class URLSearchQueryWrapper extends React.Component {
       location: nextProps.location,
       datastoreUid: datastoreUid,
       page: nextProps.page[datastoreUid],
-      sort: nextProps.sort[datastoreUid]
+      sort: nextProps.sort[datastoreUid],
+      institution: nextProps.institution
     })
   }
 
@@ -167,6 +182,7 @@ function mapStateToProps(state) {
     location: state.router.location,
     datastoreUid: state.datastores.active,
     isSearching: state.search.searching,
+    institution: state.institution,
     sort: state.search.sort
   };
 }
@@ -181,6 +197,7 @@ function mapDispatchToProps(dispatch) {
     changeActiveDatastore,
     setPage,
     setSort,
+    setActiveInstitution,
   }, dispatch)
 }
 

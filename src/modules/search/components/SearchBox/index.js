@@ -33,14 +33,15 @@ class SearchBox extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { match, history, activeFilters } = this.props
+    const { match, history, activeFilters, institution } = this.props
     const { query } = this.state
 
     // Query is not empty
     if (query.length > 0) {
       const queryString = qs.stringify({
         query: query,
-        filter: activeFilters
+        filter: activeFilters,
+        library: institution.active
       }, {
         arrayFormat: 'repeat',
         encodeValuesOnly: true,
@@ -95,7 +96,8 @@ function mapStateToProps(state) {
     activeFilters: state.filters.active[state.datastores.active],
     activeDatastoreUid: state.datastores.active,
     location: state.router.location,
-    isAdvanced: state.advanced[state.datastores.active] ? true : false
+    isAdvanced: state.advanced[state.datastores.active] ? true : false,
+    institution: state.institution
   };
 }
 

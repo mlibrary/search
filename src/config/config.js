@@ -528,35 +528,6 @@ const config = {
   filters: {
     'mirlyn': [
       {
-        uid: 'institution',
-        type: 'singleselect',
-        persistent: true,
-        displayCount: false,
-        name: 'Library',
-        filterItems: [
-          {
-            value: "All libraries",
-            name: "All libraries"
-          },
-          {
-            value: "U-M Ann Arbor Libraries",
-            name: "U-M Ann Arbor Libraries"
-          },
-          {
-            value: "Flint Thompson Library",
-            name: "Flint Thompson Library"
-          },
-          {
-            value: "Bentley Historical Library",
-            name: "Bentley Historical Library"
-          },
-          {
-            value: "William L. Clements Library",
-            name: "William L. Clements Library"
-          },
-        ]
-      },
-      {
         uid: 'available_online',
         type: 'checkbox',
         name: 'Available online',
