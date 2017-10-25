@@ -1,0 +1,18 @@
+.institution-select-container {
+  background: $grey-6;
+  border-radius: 4px;
+  padding: 1rem;
+
+  .dropdown {
+    width: 100%;
+  }
+}
+
+.institution-select-label {
+}
+
+.institution-select-label-text {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}

@@ -69,7 +69,7 @@ class Filters extends React.Component {
     filterUid,
     filterItemValue
   }) {
-    const { history, match, query, sort } = this.props
+    const { history, match, query, sort, institution } = this.props
     const isActive = isFilterItemActive({
       datastoreUid,
       filterUid,
@@ -97,6 +97,7 @@ class Filters extends React.Component {
       query,
       filter: filterObj,
       sort,
+      library: institution.active
     }, {
       arrayFormat: 'repeat',
       encodeValuesOnly: true,
@@ -356,7 +357,8 @@ function mapStateToProps(state) {
       datastoreUid: state.datastores.active,
       searching: state.search.searching
     }),
-    activeFilters: state.filters.active[state.datastores.active]
+    activeFilters: state.filters.active[state.datastores.active],
+    institution: state.institution
   }
 }
 

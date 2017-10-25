@@ -296,12 +296,14 @@ const requestRecord = ({
 const stringifySearchQueryForURL = ({
   query,
   filter,
+  library,
   page,
   sort
 }) => {
   const SearchQueryString = qs.stringify({
     query: query === '' ? undefined : query,
     filter,
+    library,
     page: page && page > 1 ? page : undefined,
     sort,
   }, {

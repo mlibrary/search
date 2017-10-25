@@ -285,7 +285,7 @@ const runSearch = () => {
 
   const statePage = state.search.page[state.datastores.active]
   const page = statePage ? statePage : 1
-  const facets = state.filters.active[state.datastores.active] || {}
+  let facets = state.filters.active[state.datastores.active] || {}
   const sort = state.search.sort[state.datastores.active]
   let fieldTree
 
@@ -293,6 +293,15 @@ const runSearch = () => {
     fieldTree = {} // search all
   } else {
     fieldTree = Pride.FieldTree.parseField('all_fields', query)
+  }
+
+  // Inject library aka institution filter with facets
+  // if the datastore is Mirlyn.
+  if (state.datastores.active === 'mirlyn' && state.institution.active) {
+    facets = {
+      ...facets,
+      institution: state.institution.active
+    }
   }
 
   const prideConfig = {
@@ -303,7 +312,7 @@ const runSearch = () => {
   }
 
   store.dispatch(searching(true))
-  const datastores = store.getState().datastores.datastores
+  const datastores = state.datastores.datastores
 
   datastores.forEach(datastore => {
     if (!datastore.isMultisearch) {
@@ -404,6 +413,10 @@ const setupAdvancedSearch = () => {
   })
 }
 
+const setupDefaultInstitution = () => {
+  store.dispatch(setDefaultInstitution(Pride.Settings.default_institution))
+}
+
 /*
   Initialize Pride kicks off Pride's internal init and checks if
   communication with the back-end (Spectrum) is established.
@@ -413,6 +426,7 @@ const initializePride = () => {
     success: () => {
       setupSearches();
       setupAdvancedSearch()
+      setupDefaultInstitution()
       renderApp();
     },
     failure: () => {

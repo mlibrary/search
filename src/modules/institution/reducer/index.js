@@ -1,7 +1,13 @@
 import * as actions from '../actions/';
 
 const initialState = {
-  default: null,
+  active: null,
+  defaultInstitution: null,
+  options: [
+    'All Libraries',
+    'U-M Ann Arbor Libraries',
+    'Flint Thompson Library'
+  ],
 };
 
 const institutionReducer = (state = initialState, action) => {
@@ -9,7 +15,12 @@ const institutionReducer = (state = initialState, action) => {
     case actions.SET_DEFAULT_INSTITUTION:
       return {
         ...state,
-        default: action.payload
+        defaultInstitution: action.payload
+      };
+    case actions.SET_ACTIVE_INSTITUTION:
+      return {
+        ...state,
+        active: action.payload
       };
     default:
       return state;

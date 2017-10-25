@@ -543,34 +543,6 @@ const config = {
         onClickValue: 'false',
       },
       {
-        uid: 'institution',
-        persistent: true,
-        displayCount: false,
-        name: 'Institution',
-        filterItems: [
-          {
-            value: "UM Ann Arbor Libraries",
-            name: "UM Ann Arbor Libraries"
-          },
-          {
-            value: "University Library",
-            name: "University Library"
-          },
-          {
-            value: "Flint Thompson Library",
-            name: "Flint Thompson Library"
-          },
-          {
-            value: "Bentley Historical Library",
-            name: "Bentley Historical Library"
-          },
-          {
-            value: "William L. Clements Library",
-            name: "William L. Clements Library"
-          },
-        ]
-      },
-      {
         uid: 'subject',
         open: true,
       },
