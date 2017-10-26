@@ -1,5 +1,4 @@
 import React from 'react'
-import reqwest from 'reqwest'
 import axios from 'axios'
 
 import { Icon } from '../../../core'

@@ -7,6 +7,8 @@ import {
   withRouter,
 } from 'react-router-dom';
 
+import store from '../../../../store'
+
 import {
   Icon,
   Multiselect,
@@ -53,7 +55,13 @@ class AdvancedSearch extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
 
-    const { fieldedSearches, booleanTypes, activeFilters } = this.props
+    const {
+      fieldedSearches,
+      booleanTypes,
+      activeFilters,
+      institution,
+      datastores
+    } = this.props
 
     // Build the query
     // example output: 'title:parrots AND author:charles'
@@ -75,16 +83,26 @@ class AdvancedSearch extends React.Component {
       hasActiveFilters = true
     }
 
+    // Library filter
+    // If the catalog and advanced search narrow search to was used to change the institution.
+    let library = undefined
+    let filter = activeFilters
+
+    if (datastores.active === 'mirlyn') {
+      library = activeFilters['institution'] ? activeFilters['institution'] : institution.active
+      delete activeFilters['institution']
+    }
+
     // Submit search if query or filters are active
     if ((query.length > 0) || hasActiveFilters ){
       const { history } = this.props
 
       const queryString = stringifySearchQueryForURL({
         query,
-        filter: activeFilters
+        filter,
+        library
       })
 
-      const { datastores } = this.props;
       const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
       const url = `/${activeDatastore.slug}?${queryString}`
       history.push(url)
@@ -499,7 +517,7 @@ const Dropdown = ({
   </select>
 )
 
-const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
+const getCatalogNarrowSearchToOptions = (data, activeFilters, institution) => {
   this.getActiveFilter = ({ uid, defaultFilter, filters }) => {
     if (activeFilters && activeFilters[uid]) {
       return activeFilters[uid][0]
@@ -523,19 +541,23 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
   //   - no? Then use defaults
   //   - yes? Then scope accordingly
 
+  const state = store.getState()
+
+  // library aka institution
+  const library = state.institution.active ? state.institution.active : state.institution.defaultInstitution // Get the site wide set institution to be used with the advanced search
+
   // institution
   const institutionData = _.findWhere(data.filters, { uid: 'institution' })
-  const institutionDefaultFilter = _.findWhere(data.defaults, { uid: 'institution' })
   const institutionFilters = institutionData.values.map(value => value.label)
   const institutionActiveFilter = this.getActiveFilter({
     uid: 'institution',
-    defaultFilter: institutionDefaultFilter.value,
+    defaultFilter: library,
     filters: institutionFilters
   })
   options = options.concat({
     uid: 'institution',
     label: institutionData.field,
-    activeFilter: institutionActiveFilter,
+    activeFilter: institutionActiveFilter ,
     filters: institutionFilters
   })
 
@@ -615,6 +637,7 @@ const getAdvancedFilters = ({ filterGroups, activeFilters }) => {
         ...filterGroup,
         options
       }
+
     }
 
     return {
@@ -651,7 +674,8 @@ function mapStateToProps(state) {
     fields: state.advanced[state.datastores.active].fields,
     advancedFilters,
     activeFilters: state.advanced[state.datastores.active].activeFilters,
-    searchQuery: state.search.query
+    searchQuery: state.search.query,
+    institution: state.institution
   };
 }
 
