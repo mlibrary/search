@@ -69,16 +69,17 @@ class InstitutionSelect extends React.Component {
       return (
         <fieldset className="radio-fieldset">
           {options.map((option, index) => (
-            <label key={index} className={`radio-label ${selectedOption === option ? 'radio-selected' : ''}`}>
+            <span key={index}>
               <input
+                id={`library-${index}`}
                 type="radio"
                 className="radio-input"
                 checked={`${selectedOption === option ? true : ''}`}
                 value={option}
                 onChange={(event) => this.handleChange(event)}
               />
-            <span className="radio-label-text">{option}</span>
-            </label>
+            <label htmlFor={`library-${index}`} className={`radio-label ${selectedOption === option ? 'radio-selected' : ''}`}><span className="radio-label-text">{option}</span></label>
+            </span>
           ))}
         </fieldset>
       )

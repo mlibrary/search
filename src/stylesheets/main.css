@@ -1955,6 +1955,9 @@ input.date-range-input-text {
   margin-right: 0.5rem;
   opacity: 0; }
 
+.radio-input:focus + .radio-label {
+  outline: auto; }
+
 .u-break-word {
   word-wrap: break-word; }
 

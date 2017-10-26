@@ -23,6 +23,6 @@
   opacity: 0;
 }
 
-.radio-label-text {
-
+.radio-input:focus + .radio-label {
+  outline: auto;
 }
