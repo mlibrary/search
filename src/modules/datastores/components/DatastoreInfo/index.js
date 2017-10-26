@@ -6,7 +6,7 @@ const DatastoreInfo = ({ activeDatastore }) => {
     case 'everything':
       return (
         <div className="datastore-info">
-          <p><b>Everything</b>: results from the Catalog, Articles+, Databases, Online Journals, and Library Website pages.</p>
+          <p><b>Everything</b>: results from the Catalog, Articles, Databases, Online Journals, and Library Website pages.</p>
         </div>
       )
     case 'mirlyn':
