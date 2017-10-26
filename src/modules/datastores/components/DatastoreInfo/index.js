@@ -36,7 +36,7 @@ const DatastoreInfo = ({ activeDatastore }) => {
     case 'website':
       return (
         <div className="datastore-info">
-          <p><b>Library Website</b>: the place to learn about our services, spaces, and collections. Your results will include website pages, events, exhibits, news, and more.</p>
+          <p><b>Library Website</b>: the place to learn about our services, spaces, and collections. Your results will include research guides, library staff, events, exhibits, news, and more.</p>
         </div>
       )
     default:
