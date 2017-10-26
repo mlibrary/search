@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { _ } from 'underscore'
+import { withRouter } from 'react-router-dom';
+
 import {
-  withRouter,
-} from 'react-router-dom';
+  setActiveInstitution
+} from '../../../institution'
 
 import {
   stringifySearchQueryForURL
@@ -31,7 +34,9 @@ class InstitutionSelect extends React.Component {
     let library = undefined
 
     // If the library selected is the default, then just send undefined.
-    if (institution.defaultInstitution !== event.target.value) {
+    if (institution.defaultInstitution === event.target.value) {
+      this.props.setActiveInstitution(event.target.value)
+    } else {
       library = event.target.value
     }
 
@@ -81,6 +86,13 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(
-  connect(mapStateToProps)(InstitutionSelect)
-)
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    setActiveInstitution
+  }, dispatch)
+}
+
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(InstitutionSelect))
