@@ -1557,8 +1557,6 @@ body {
   .landing-container p:not(.landing-heading-text) {
     color: #6E6E6E;
     padding-top: 1rem; }
-  .landing-container p a {
-    border-bottom: solid 2px rgba(18, 109, 193, 0.5); }
 
 .landing-icons {
   margin-bottom: 2rem;
@@ -1575,9 +1573,11 @@ body {
 .landing-extra-info {
   text-align: center;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  margin-bottom: 1rem; }
   .landing-extra-info a {
-    font-size: 1rem; }
+    font-size: 1rem;
+    border-bottom: solid 2px rgba(18, 109, 193, 0.5); }
 
 .datastore-info-container {
   display: flex;
@@ -1925,6 +1925,35 @@ input.date-range-input-text {
   display: block;
   font-weight: 600;
   margin-bottom: 0.75rem; }
+
+.institution-select-landing-container .radio-fieldset {
+  text-align: center; }
+
+.institution-select-landing-heading {
+  font-weight: 400;
+  text-align: center;
+  margin-top: 0; }
+
+.radio-label {
+  background: white;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  border: solid 1px #CCC;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 1rem; }
+  .radio-label.radio-selected {
+    background: #E6F3FF;
+    border-color: #126DC1;
+    color: #0C5292; }
+
+.radio-input {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  margin-right: 0.5rem;
+  opacity: 0; }
 
 .u-break-word {
   word-wrap: break-word; }

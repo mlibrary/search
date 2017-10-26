@@ -26,9 +26,6 @@
     padding-top: 1rem;
   }
 
-  p a {
-    border-bottom: solid 2px rgba($main-3, 0.5);
-  }
 }
 
 .landing-icons {
@@ -54,8 +51,11 @@
   text-align: center;
   margin: 0;
   padding: 0;
+  margin-bottom: 1rem;
+
 
   a {
     font-size: 1rem;
+    border-bottom: solid 2px rgba($main-3, 0.5);
   }
 }

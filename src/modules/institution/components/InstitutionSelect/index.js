@@ -9,8 +9,13 @@ import {
 } from '../../../institution'
 
 import {
+  Switch
+} from '../../../core'
+
+import {
   stringifySearchQueryForURL
 } from '../../../pride'
+
 
 class InstitutionSelect extends React.Component {
 
@@ -50,30 +55,50 @@ class InstitutionSelect extends React.Component {
   }
 
   render() {
-    const { activeDatastore } = this.props
+    const { activeDatastore, type } = this.props
+    const { active, defaultInstitution, options } = this.props.institution
 
     // This feature is only for Mirlyn.
     if (activeDatastore.uid !== 'mirlyn') {
       return null
     }
 
-    const { active, defaultInstitution, options } = this.props.institution
+    if (type === 'switch') {
+      const selectedOption = active ? active : defaultInstitution
 
-    return (
-      <fieldset className="institution-select-container">
-        <label className="institution-select-label"><span className="institution-select-label-text">Library</span>
-          <select
-            className="dropdown"
-            value={active ? active : defaultInstitution}
-            onChange={(event) => {this.handleChange(event)}}
-          >
-            {options.map((option, index) =>
-              <option value={option} key={index}>{option}</option>
-            )}
-          </select>
-        </label>
-      </fieldset>
-    )
+      return (
+        <fieldset className="radio-fieldset">
+          {options.map((option, index) => (
+            <label key={index} className={`radio-label ${selectedOption === option ? 'radio-selected' : ''}`}>
+              <input
+                type="radio"
+                className="radio-input"
+                checked={`${selectedOption === option ? true : ''}`}
+                value={option}
+                onChange={(event) => this.handleChange(event)}
+              />
+            <span className="radio-label-text">{option}</span>
+            </label>
+          ))}
+        </fieldset>
+      )
+    } else {
+      return (
+        <fieldset className="institution-select-container">
+          <label className="institution-select-label"><span className="institution-select-label-text">Library</span>
+            <select
+              className="dropdown"
+              value={active ? active : defaultInstitution}
+              onChange={this.handleChange}
+            >
+              {options.map((option, index) =>
+                <option value={option} key={index}>{option}</option>
+              )}
+            </select>
+          </label>
+        </fieldset>
+      )
+    }
   }
 }
 

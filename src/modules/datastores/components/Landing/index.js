@@ -20,14 +20,22 @@ const Landing = ({ content, activeDatastore }) => {
       )
     case 'mirlyn':
       return (
-        <div className="landing-container">
-          <LandingIcons icons={['book-variant', 'document', 'arrow-right-drop-circle', 'image-multiple', 'music-note']} />
-          <p className="landing-heading-text">The <b>Catalog</b> is the definitive place for finding materials held by the U-M Library.</p>
-          <p>Your results will include everything in our physical collection (books, audio, video, maps, musical scores, archival materials, and more), as well as materials available online such as electronic books, streaming audio and video, and online journals.</p>
-          <InstitutionSelect />
-          <p className="landing-extra-info"><a href="http://mirlyn-classic.lib.umich.edu/">Mirlyn Classic Catalog</a></p>
-          <p className="landing-extra-info"><a href="https://www.lib.umich.edu/library-catalogs">About our other Library Catalogs</a></p>
-        </div>
+        <div>
+          <div className="landing-container">
+            <LandingIcons icons={['book-variant', 'document', 'arrow-right-drop-circle', 'image-multiple', 'music-note']} />
+            <p className="landing-heading-text">The <b>Catalog</b> is the definitive place for finding materials held by the U-M Library.</p>
+            <p>Your results will include everything in our physical collection (books, audio, video, maps, musical scores, archival materials, and more), as well as materials available online such as electronic books, streaming audio and video, and online journals.</p>
+          </div>
+
+          <div className="container container-narrow">
+            <div className="institution-select-landing-container">
+              <h3 className="institution-select-landing-heading"> To find materials closest to you, please choose a library</h3>
+              <InstitutionSelect type="switch" />
+            </div>
+            <p className="landing-extra-info"><a href="http://mirlyn-classic.lib.umich.edu/">Mirlyn Classic Catalog</a></p>
+            <p className="landing-extra-info"><a href="https://www.lib.umich.edu/library-catalogs">About our other Library Catalogs</a></p>
+          </div>
+      </div>
       )
     case 'articlesplus':
       return (
