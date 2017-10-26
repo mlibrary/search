@@ -117,7 +117,7 @@ const Results = ({ searching, activeDatastore }) => {
     <div className="container container-medium flex-container">
       {!activeDatastore.isMultisearch ? (
         <div className="side-container">
-          <InstitutionSelect />
+          {searching ? (<InstitutionSelect />) : null}
           <Filters />
         </div>
       ) : null }
