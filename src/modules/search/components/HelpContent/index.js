@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 const HelpContent = () => (
   <div className="container container-narrow">
