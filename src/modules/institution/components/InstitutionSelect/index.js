@@ -90,7 +90,7 @@ class InstitutionSelect extends React.Component {
             <select
               className="dropdown"
               value={active ? active : defaultInstitution}
-              onChange={this.handleChange}
+              onChange={(event) => this.handleChange(event)}
             >
               {options.map((option, index) =>
                 <option value={option} key={index}>{option}</option>
