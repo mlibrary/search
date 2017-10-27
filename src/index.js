@@ -48,10 +48,30 @@ const mapStateToProps = state => {
 };
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
+class GoogleAnalytics extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    if (process.env.NODE_ENV === 'production' && typeof window.ga === 'function') {
+      const path = this.props.location.pathname + this.props.location.search
+      const nextPath = nextProps.location.pathname + nextProps.location.search
+      const locationChanged = path !== nextPath
+
+      if (locationChanged) {
+        window.ga('set', 'page', nextPath);
+        window.ga('send', 'pageview');
+      }
+    }
+  }
+
+  render() {
+    return null
+  }
+}
+
 const App = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Main>
+        <Route component={GoogleAnalytics} />
         <ConnectedSwitch>
           <Route path="/how-to-use-search" component={HelpContent}/>
           <Route path="/feature-road-map" component={RoadMapPage}/>
