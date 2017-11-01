@@ -21,26 +21,32 @@ class ScopeDown extends React.Component {
   }
 }
 
-const Dropdown = ({ option, label, options, selected, handleChange }) => (
-  <fieldset className="scopedown-dropdown-container">
-    <label>
-      <span className="scopedown-label-text">{label}</span>
-      <select
-        className="dropdown scopedown-dropdown"
-        onChange={(e) => handleChange({ uid: option.uid, value: e.target.value })}
-        value={selected}
-      >
-        {options.map((opt, index) => (
-          <option
-            key={index}
-            value={opt}
-          >
-            {opt}
-          </option>
-        ))}
-      </select>
-    </label>
-  </fieldset>
-)
+const Dropdown = ({ option, label, options, selected, handleChange }) => {
+  if (options.length <= 1) {
+    return null
+  }
+
+  return (
+    <fieldset className="scopedown-dropdown-container">
+      <label>
+        <span className="scopedown-label-text">{label}</span>
+        <select
+          className="dropdown scopedown-dropdown"
+          onChange={(e) => handleChange({ uid: option.uid, value: e.target.value })}
+          value={selected}
+        >
+          {options.map((opt, index) => (
+            <option
+              key={index}
+              value={opt}
+            >
+              {opt}
+            </option>
+          ))}
+        </select>
+      </label>
+    </fieldset>
+  )
+}
 
 export default ScopeDown
