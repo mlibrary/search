@@ -25,10 +25,20 @@ class SearchBox extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
   }
 
   handleChange(query) {
     this.setState({ query })
+  }
+
+  onBackButtonEvent(e) {
+    const { query } = this.props
+    this.handleChange(query)
+  }
+
+  componentDidMount() {
+    window.onpopstate = this.onBackButtonEvent
   }
 
   handleSubmit(event) {
