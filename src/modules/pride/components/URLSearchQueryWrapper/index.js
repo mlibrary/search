@@ -38,6 +38,7 @@ class URLSearchQueryWrapper extends React.Component {
   }
 
   handleURLState({
+    isSearching,
     datastoreUid,
     query,
     page,
@@ -135,12 +136,21 @@ class URLSearchQueryWrapper extends React.Component {
           runSearch()
         }
 
-      } else {
+      } else { // URL does not have state,
 
-        // URL does not have state, but state has active filters
+        // Clear active filters
         if (activeFilters && Object.keys(activeFilters).length > 0) {
-          this.props.searching(false)
           this.props.clearActiveFilters({ datastoreUid })
+        }
+
+        // Not searching
+        if (isSearching) {
+          this.props.searching(false)
+        }
+
+        // Reset query
+        if (query.length > 0) {
+          this.props.setSearchQuery('')
         }
       }
     }
@@ -154,6 +164,7 @@ class URLSearchQueryWrapper extends React.Component {
     }
 
     this.handleURLState({
+      isSearching: nextProps.isSearching,
       query: nextProps.query,
       activeFilters: nextProps.activeFilters[datastoreUid],
       location: nextProps.location,
