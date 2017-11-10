@@ -555,6 +555,9 @@ footer {
 .focus-outline-white {
   outline-color: white; }
 
+*:focus {
+  outline: 3px solid #FFCB05; }
+
 .logo-link {
   height: 2.5rem; }
   .logo-link li {
@@ -686,9 +689,7 @@ input.search-box-input {
   margin: 0 0.5rem; }
 
 .datastore-scroll-x {
-  white-space: nowrap;
-  overflow: hidden;
-  overflow-x: auto; }
+  white-space: nowrap; }
 
 .datastore-scroll-gradient {
   background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(248, 248, 248, 0)), color-stop(100%, #f8f8f8));
@@ -1596,7 +1597,6 @@ body {
   padding-right: 1rem; }
 
 .datastore-info-hide {
-  outline: none;
   padding: 0 0.25rem;
   border: none;
   background: none;
