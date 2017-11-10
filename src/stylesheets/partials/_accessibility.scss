@@ -1,3 +1,7 @@
 .focus-outline-white {
   outline-color: white;
 }
+
+*:focus {
+  outline: 3px solid $u-m-yellow;
+}
