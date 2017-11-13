@@ -60,6 +60,13 @@ class PaginationContainer extends React.Component {
 
     return undefined
   }
+  scrollToTop() {
+    console.log('scroll to top')
+
+    if (window) {
+      window.scrollTo(0, 0)
+    }
+  }
   render() {
     const { records } = this.props;
 
@@ -70,6 +77,7 @@ class PaginationContainer extends React.Component {
     return <Pagination
         prevPageURL={this.prevPageURL()}
         nextPageURL={this.nextPageURL()}
+        scrollToTop={this.scrollToTop}
       />
   }
 }
