@@ -2,6 +2,10 @@
   outline-color: white;
 }
 
-*:focus {
+@mixin focus () {
   outline: 3px solid $u-m-yellow;
+}
+
+*:focus {
+  @include focus();
 }

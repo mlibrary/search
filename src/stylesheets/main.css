@@ -1956,7 +1956,7 @@ input.date-range-input-text {
   opacity: 0; }
 
 .radio-input:focus + .radio-label {
-  outline: auto; }
+  outline: 3px solid #FFCB05; }
 
 .u-break-word {
   word-wrap: break-word; }
