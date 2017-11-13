@@ -88,7 +88,7 @@ class AdvancedSearch extends React.Component {
     let library = undefined
     let filter = activeFilters
 
-    if (datastores.active === 'mirlyn') {
+    if (activeFilters && datastores.active === 'mirlyn') {
       library = activeFilters['institution'] ? activeFilters['institution'] : institution.active
       delete activeFilters['institution']
     }
