@@ -39,6 +39,13 @@ class AdvancedSearch extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentWillMount() {
+    const { datastores } = this.props
+    const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+
+    document.title = `Advanced Search · ${activeDatastore.name} · Library Search`
+  }
+
   handleAddAnotherFieldedSearch() {
     this.props.addFieldedSearch({
       datastoreUid: this.props.datastores.active
