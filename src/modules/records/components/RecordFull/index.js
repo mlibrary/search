@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import _ from 'underscore'
 import {
   withRouter
 } from 'react-router-dom'
@@ -71,6 +72,9 @@ class FullRecord extends React.Component {
       fields: record.fields,
       datastoreUid
     })
+
+    // Set page title
+    document.title = `${record.names} · Library Search`
 
     return (
       <div className="container container-narrow">

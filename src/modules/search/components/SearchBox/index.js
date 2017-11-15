@@ -6,6 +6,7 @@ import {
   withRouter,
   Link,
 } from 'react-router-dom'
+import _ from 'underscore'
 
 import {
   setSearchQuery,
@@ -66,8 +67,16 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    const { match, location, isAdvanced } = this.props
+    const { match, location, isAdvanced, datastores } = this.props
     const { query } = this.state
+
+    const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+
+    if (this.props.query) {
+      document.title = `${this.props.query} · ${activeDatastore.name} · Library Search`
+    } else {
+      document.title = `${activeDatastore.name} · Library Search`
+    }
 
     return (
       <div className="search-box-container-full">
@@ -107,7 +116,8 @@ function mapStateToProps(state) {
     activeDatastoreUid: state.datastores.active,
     location: state.router.location,
     isAdvanced: state.advanced[state.datastores.active] ? true : false,
-    institution: state.institution
+    institution: state.institution,
+    datastores: state.datastores
   };
 }
 
