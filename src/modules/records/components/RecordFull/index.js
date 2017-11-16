@@ -41,7 +41,7 @@ class FullRecord extends React.Component {
   }
 
   render() {
-    const { record, institution, datastoreUid } = this.props;
+    const { record, institution, datastoreUid, datastores } = this.props;
     const { recordUid } = this.props.match.params
 
     if (!record) {
@@ -73,8 +73,10 @@ class FullRecord extends React.Component {
       datastoreUid
     })
 
+    const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+
     // Set page title
-    document.title = `${record.names} · Library Search`
+    document.title = `${record.names} · ${activeDatastore.name} record · Library Search`
 
     return (
       <div className="container container-narrow">
@@ -152,6 +154,7 @@ function mapStateToProps(state) {
   return {
     record: state.records.record,
     datastoreUid: state.datastores.active,
+    datastores: state.datastores,
     institution: state.institution
   }
 }
