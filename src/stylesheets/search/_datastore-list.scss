@@ -15,6 +15,8 @@
 
 .datastore-scroll-x {
   white-space: nowrap;
+  overflow-x: auto;
+  padding-top: 3px;
 }
 
 .datastore-scroll-gradient {
