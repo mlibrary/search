@@ -60,6 +60,8 @@ class URLSearchQueryWrapper extends React.Component {
           this.props.setSearchQuery(urlState.query)
 
           shouldRunSearch = true
+        } else if (!urlState.query && query) {
+          this.props.setSearchQuery('')
         }
 
         // Filters

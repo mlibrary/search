@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 import _ from 'underscore'
 
+import history from '../../../../history'
 import {
   setSearchQuery,
   searching
