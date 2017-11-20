@@ -38,13 +38,12 @@ class Sorts extends React.Component {
     this.onChange = this.onChange.bind(this)
   }
   onChange(event) {
-    const { match, history, query, activeFilters, page, datastoreUid, institution } = this.props
+    const { match, history, query, activeFilters, datastoreUid, institution } = this.props
     const library = datastoreUid === 'mirlyn' ? institution.active : undefined
 
     const queryString = stringifySearchQueryForURL({
       query,
       filter: activeFilters,
-      page,
       library,
       sort: event.target.value
     })
@@ -88,7 +87,6 @@ function mapStateToProps(state) {
   return {
     datastoreUid,
     query,
-    page,
     activeFilters,
     sort,
     sorts: getSorts({
