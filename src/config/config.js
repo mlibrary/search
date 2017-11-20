@@ -1,7 +1,7 @@
 const config = {
   spectrum: {
-    production: window.location.origin + '/spectrum/',
-    development: 'https://search-staging.www.lib.umich.edu/spectrum/',
+    production: window.location.origin + '/spectrum',
+    development: 'https://search-staging.www.lib.umich.edu/spectrum',
   },
   datastores: {
     list: [
