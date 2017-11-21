@@ -21,17 +21,24 @@ class BentoboxList extends React.Component {
 
           return (
             <li key={bentobox.uid} className={`bentobox bentobox-${bentobox.uid}`}>
-              <BentoboxHeading
-                bentobox={bentobox}
-                search={search}
-                searchQuery={searchQuery}
-              />
-              <BentoResults
-                search={search}
-                bentobox={bentobox}
-                searchQuery={searchQuery}
-                institution={institution}
-              />
+              <div className="bentobox-inner-container">
+                <BentoHeading
+                  bentobox={bentobox}
+                  search={search}
+                  searchQuery={searchQuery}
+                />
+                <BentoResults
+                  search={search}
+                  bentobox={bentobox}
+                  searchQuery={searchQuery}
+                  institution={institution}
+                />
+                <BentoFooter
+                  bentobox={bentobox}
+                  search={search}
+                  searchQuery={searchQuery}
+                />
+              </div>
             </li>
           )
         })}
@@ -40,7 +47,7 @@ class BentoboxList extends React.Component {
   }
 }
 
-const BentoboxHeading = ({
+const BentoHeading = ({
   bentobox,
   search,
   searchQuery
@@ -56,22 +63,49 @@ const BentoboxHeading = ({
   )
 }
 
+const BentoFooter = ({
+  bentobox,
+  search,
+  searchQuery
+}) => {
+  const totalResults = search.data[bentobox.uid].totalAvailable;
+  const url = `/${bentobox.slug}${searchQuery}`
+
+  const footerText = `View All ${bentobox.name} Results`
+
+  // No results
+  if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
+    return null
+  }
+
+  // Loading results
+  if (bentobox.records.length === 0) {
+    return null
+  }
+
+  return (
+    <Link className="bentobox-footer-container" to={url}>
+      <span>{footerText}</span>
+    </Link>
+  )
+}
+
 const BentoboxResultsNum = ({ bentobox, search, totalResults }) => {
   const resultsNum = numeral(totalResults).format(0,0)
   const resultsText = resultsNum === 1 ? `Result` : `Results`
 
   // No results
   if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
-    return <span className="underline">{resultsNum} {resultsText}</span>
+    return <span className="bentobox-results-info">{resultsNum} {resultsText}</span>
   }
 
   // Loading results
   if (bentobox.records.length === 0) {
-    return <span className="underline">Loading...</span>
+    return <span className="bentobox-results-info">Loading...</span>
   }
 
   // Results have loaded
-  return <span className="underline">{resultsNum} {resultsText}</span>
+  return <span className="bentobox-results-info">{resultsNum} {resultsText}</span>
 }
 
 const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
