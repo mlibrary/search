@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
 import { getMultiSearchRecords } from '../../../pride'
-import Record from '../Record'
+import RecordPreview from '../RecordPreview'
 import RecordPlaceholder from '../RecordPlaceholder'
 
 class BentoboxList extends React.Component {
@@ -32,6 +32,7 @@ class BentoboxList extends React.Component {
                   bentobox={bentobox}
                   searchQuery={searchQuery}
                   institution={institution}
+                  datastoreUid={datastoreUid}
                 />
                 <BentoFooter
                   bentobox={bentobox}
@@ -113,13 +114,7 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
   // No results
   if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
     return (
-      <ul className="results-list results-list-border">
-        <li className="record">
-          <div className="record-container">
-            <p className="no-margin"><b>No results</b> match your search.</p>
-          </div>
-        </li>
-      </ul>
+      <p className="bentobox-no-results"><b>No results</b> match your search.</p>
     )
   }
 
@@ -139,14 +134,11 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
     <ul className="results-list results-list-border">
       {bentobox.records.map((record, index) => {
         return (
-          <Record
+          <RecordPreview
             key={index}
             datastoreUid={bentobox.uid}
             record={record}
-            loading={record.loadingHoldings}
-            type='preview'
             searchQuery={searchQuery}
-            institution={institution}
           />
         )
       })}

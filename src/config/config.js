@@ -54,11 +54,9 @@ const config = {
   fields: [
     {
       datastore: 'mirlyn',
-      preview: [
-        'format',
-        'main_author',
-        'published_brief'
-      ],
+      preview: {
+        
+      },
       medium: [
         'format',
         'main_author',

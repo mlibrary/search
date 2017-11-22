@@ -1,0 +1,66 @@
+.record-preview {
+  padding: 1rem;
+  background: white;
+  border-bottom: solid 1px $grey-4;
+}
+
+.record-preview-heading {
+  font-size: 1rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+.record-preview-title-link {
+  margin-right: 0.25rem;
+}
+
+.record-preview-published-date {
+  color: $grey-3;
+}
+
+.record-preview-format-and-author {
+  margin: 0;
+}
+
+.record-preview-about {
+  margin: 0;
+  color: $grey-3;
+}
+
+.record-preview-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  text-decoration: underline;
+}
+
+.record-preview-format-list {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+}
+
+.record-preview-format {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  color: $grey-2;
+  margin-right: 0.5rem;
+
+  .icon {
+    color: inherit;
+    margin-right: 0.2rem;
+    margin-bottom: -0.1rem;
+  }
+}
+
+.record-preview-author {
+  color: $grey-2;
+}
+
+.record-preview-format-list + .record-preview-author {
+  &:before {
+    content: '\00b7';
+    font-weight: 600;
+    margin-right: 0.4rem;
+  }
+}

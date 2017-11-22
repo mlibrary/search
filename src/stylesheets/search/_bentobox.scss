@@ -22,48 +22,6 @@
   .results-list {
     border-radius: 4px;
   }
-
-  .record-container {
-    padding: 1rem;
-    padding-bottom: 0;
-    margin-bottom: 1rem;
-  }
-
-  .access-container {
-    padding: 1rem 1.5rem;
-  }
-
-  .record-title {
-    font-size: 1rem;
-  }
-
-  .record-title-link {
-    border: none;
-  }
-
-  .access-item {
-    display: block;
-  }
-
-  .record {
-    margin: 0;
-  }
-
-  .access-container {
-    background: none;
-    border: none;
-    margin: 0;
-    padding: 1rem;
-    padding-top: 0;
-  }
-
-  span.access-detail {
-    display: none;
-  }
-
-  .show-all-button {
-    display: none;
-  }
 }
 
 .bentobox-inner-container {
@@ -108,6 +66,13 @@
   border-radius: 0 0 4px 4px;
 }
 
+.bentobox-no-results {
+  margin: 0;
+  background: white;
+  padding: 1rem;
+  border-radius: 0 0 4px 4px;
+}
+
 @media (min-width: $breakpoint-2) {
   .bentobox {
     width: calc(100% * (1/2) - 2rem);
@@ -126,24 +91,5 @@
   .bentobox {
     width: calc(100% * (1/5) - 2rem);
     margin-right: 2rem;
-  }
-}
-
-// Special Bentobox record formatting
-
-.bentobox {
-  .record {
-    margin-bottom: 0;
-
-    .record-field-name {
-      width: 6rem;
-    }
-  }
-}
-
-.bentobox-mirlyn {
-  .holdings-condensed,
-  .access-placeholder-container {
-    display: none;
   }
 }

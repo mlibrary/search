@@ -486,12 +486,12 @@ nav {
     .site-header-list li a {
       color: white; }
 
-footer {
+.site-footer {
   background: #00274C;
   padding: 1.5rem 0;
   margin-top: 3rem;
   color: white; }
-  footer a {
+  .site-footer a {
     color: white;
     text-decoration: underline; }
 
@@ -1199,30 +1199,6 @@ body {
   padding: 0; }
   .bentobox .results-list {
     border-radius: 4px; }
-  .bentobox .record-container {
-    padding: 1rem;
-    padding-bottom: 0;
-    margin-bottom: 1rem; }
-  .bentobox .access-container {
-    padding: 1rem 1.5rem; }
-  .bentobox .record-title {
-    font-size: 1rem; }
-  .bentobox .record-title-link {
-    border: none; }
-  .bentobox .access-item {
-    display: block; }
-  .bentobox .record {
-    margin: 0; }
-  .bentobox .access-container {
-    background: none;
-    border: none;
-    margin: 0;
-    padding: 1rem;
-    padding-top: 0; }
-  .bentobox span.access-detail {
-    display: none; }
-  .bentobox .show-all-button {
-    display: none; }
 
 .bentobox-inner-container {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
@@ -1258,6 +1234,12 @@ body {
   padding: 1rem;
   border-radius: 0 0 4px 4px; }
 
+.bentobox-no-results {
+  margin: 0;
+  background: white;
+  padding: 1rem;
+  border-radius: 0 0 4px 4px; }
+
 @media (min-width: 47rem) {
   .bentobox {
     width: calc(100% * (1/2) - 2rem);
@@ -1273,14 +1255,57 @@ body {
     width: calc(100% * (1/5) - 2rem);
     margin-right: 2rem; } }
 
-.bentobox .record {
-  margin-bottom: 0; }
-  .bentobox .record .record-field-name {
-    width: 6rem; }
+.record-preview {
+  padding: 1rem;
+  background: white;
+  border-bottom: solid 1px #CCC; }
 
-.bentobox-mirlyn .holdings-condensed,
-.bentobox-mirlyn .access-placeholder-container {
-  display: none; }
+.record-preview-heading {
+  font-size: 1rem;
+  margin: 0;
+  margin-bottom: 0.5rem; }
+
+.record-preview-title-link {
+  margin-right: 0.25rem; }
+
+.record-preview-published-date {
+  color: #6E6E6E; }
+
+.record-preview-format-and-author {
+  margin: 0; }
+
+.record-preview-about {
+  margin: 0;
+  color: #6E6E6E; }
+
+.record-preview-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  text-decoration: underline; }
+
+.record-preview-format-list {
+  display: inline-block;
+  list-style: none;
+  margin: 0; }
+
+.record-preview-format {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  color: #4E4E4E;
+  margin-right: 0.5rem; }
+  .record-preview-format .icon {
+    color: inherit;
+    margin-right: 0.2rem;
+    margin-bottom: -0.1rem; }
+
+.record-preview-author {
+  color: #4E4E4E; }
+
+.record-preview-format-list + .record-preview-author:before {
+  content: '\00b7';
+  font-weight: 600;
+  margin-right: 0.4rem; }
 
 .party-parrot-container {
   cursor: pointer; }
