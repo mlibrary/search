@@ -75,9 +75,11 @@ html {
 /*
   Site
 */
-@media (max-width: 47rem) {
-  html {
-    font-size: 12px; } }
+html {
+  font-size: 16px; }
+  @media (max-width: 47rem) {
+    html {
+      font-size: 14px; } }
 
 body {
   line-height: 1.6;
@@ -1601,6 +1603,10 @@ body {
   content: '\00b7';
   font-weight: 600;
   margin-right: 0.4rem; }
+
+.record-preview-description {
+  margin: 0;
+  color: #6E6E6E; }
 
 .record-preview-placeholder {
   padding: 1.5rem 1rem; }

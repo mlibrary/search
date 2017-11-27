@@ -3,8 +3,10 @@
 */
 
 html {
+  font-size: 16px;
+
   @media (max-width: $breakpoint-2) {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 

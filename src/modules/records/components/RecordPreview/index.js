@@ -58,6 +58,32 @@ const Header = ({
   )
 }
 
+const Description = ({ record, datastoreUid }) => {
+  if (datastoreUid === 'website' || datastoreUid === 'databases') {
+    const brief_description = getFieldValue(getField(record.fields, 'brief_description'))
+
+    if (brief_description) {
+      return (
+        <p className="record-preview-description">
+          <TrimString string={brief_description[0]} trimLength={140} showMore={false}/>
+        </p>
+      )
+    }
+  } else if (datastoreUid === 'articlesplus') {
+    const publication_title = getFieldValue(getField(record.fields, 'publication_title'))
+
+    if (publication_title) {
+      return (
+        <p className="record-preview-description">
+          <TrimString string={publication_title[0]} trimLength={140} showMore={false}/>
+        </p>
+      )
+    }
+  }
+
+  return null
+}
+
 const Formats = ({ record, datastoreUid }) => {
   const formats = getRecordFormats({
     fields: record.fields,
@@ -109,6 +135,7 @@ const Main = ({ record, datastoreUid }) => {
       <div className="record-preview-format-and-author">
         <Formats record={record} datastoreUid={datastoreUid} />
         <Authors record={record} />
+        <Description record={record} datastoreUid={datastoreUid} />
       </div>
     </section>
   )

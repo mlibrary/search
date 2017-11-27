@@ -1,9 +1,16 @@
 import React from 'react'
 
 class TrimString extends React.Component {
-  state = {
-    show: false,
-    trimlength: 240
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      show: false,
+      trimLength: this.props.trimLength || 240,
+      showMore: this.props.showMore === false ? false : true
+    }
+
+    this.handleShowToggleClick = this.handleShowToggleClick.bind(this)
   }
 
   handleShowToggleClick() {
@@ -15,7 +22,7 @@ class TrimString extends React.Component {
   render() {
     const { string } = this.props
 
-    if (string.length < this.state.trimlength) {
+    if (string.length < this.state.trimLength) {
       return (
         <span>{string}</span>
       )
@@ -25,7 +32,13 @@ class TrimString extends React.Component {
     if (this.state.show) {
       displayString = string
     } else {
-      displayString = `${string.substr(0, this.state.trimlength)}...`
+      displayString = `${string.substr(0, this.state.trimLength)}...`
+    }
+
+    if (!this.state.showMore) {
+      return (
+        <span className="trim-string-text">{displayString}</span>
+      )
     }
 
     return (
