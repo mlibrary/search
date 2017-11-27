@@ -55,7 +55,7 @@ const config = {
     {
       datastore: 'mirlyn',
       preview: {
-        
+
       },
       medium: [
         'format',
@@ -938,12 +938,12 @@ const config = {
   formatIcons: [
     // Core
     {
-      formats: ['Journal', 'Serial'],
+      formats: ['Online Journal', 'Journal', 'Serial'],
       icon: 'book-multiple-variant'
     },
     {
       formats: ['Journal Article'],
-      icon: 'file-document-box'
+      icon: 'document'
     },
     {
       formats: ['Book', 'Conference', 'Dictionaries', 'Directories', 'Encyclopedias', 'Biography'],

@@ -60,7 +60,10 @@
 }
 
 .bentobox-footer-container {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+    
   background: $grey-6;
   padding: 1rem;
   border-radius: 0 0 4px 4px;

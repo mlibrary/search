@@ -75,6 +75,10 @@ html {
 /*
   Site
 */
+@media (max-width: 47rem) {
+  html {
+    font-size: 12px; } }
+
 body {
   line-height: 1.6;
   font-size: 1rem;
@@ -1229,7 +1233,9 @@ body {
   font-weight: 600; }
 
 .bentobox-footer-container {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: #FAFAFA;
   padding: 1rem;
   border-radius: 0 0 4px 4px; }
@@ -1254,58 +1260,6 @@ body {
   .bentobox {
     width: calc(100% * (1/5) - 2rem);
     margin-right: 2rem; } }
-
-.record-preview {
-  padding: 1rem;
-  background: white;
-  border-bottom: solid 1px #CCC; }
-
-.record-preview-heading {
-  font-size: 1rem;
-  margin: 0;
-  margin-bottom: 0.5rem; }
-
-.record-preview-title-link {
-  margin-right: 0.25rem; }
-
-.record-preview-published-date {
-  color: #6E6E6E; }
-
-.record-preview-format-and-author {
-  margin: 0; }
-
-.record-preview-about {
-  margin: 0;
-  color: #6E6E6E; }
-
-.record-preview-link {
-  display: inline-block;
-  margin-top: 0.5rem;
-  text-decoration: underline; }
-
-.record-preview-format-list {
-  display: inline-block;
-  list-style: none;
-  margin: 0; }
-
-.record-preview-format {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-  color: #4E4E4E;
-  margin-right: 0.5rem; }
-  .record-preview-format .icon {
-    color: inherit;
-    margin-right: 0.2rem;
-    margin-bottom: -0.1rem; }
-
-.record-preview-author {
-  color: #4E4E4E; }
-
-.record-preview-format-list + .record-preview-author:before {
-  content: '\00b7';
-  font-weight: 600;
-  margin-right: 0.4rem; }
 
 .party-parrot-container {
   cursor: pointer; }
@@ -1595,6 +1549,65 @@ body {
   max-width: 12rem;
   background: linear-gradient(to left, #F2F9FF 20%, #E6F3FF 50%, #F2F9FF 80%); }
 
+.record-preview {
+  margin: 0;
+  padding: 1rem;
+  background: white;
+  border-bottom: solid 1px #CCC; }
+
+.record-preview-heading {
+  font-size: 1rem;
+  margin: 0;
+  margin-bottom: 0.5rem; }
+
+.record-preview-title-link {
+  margin-right: 0.25rem; }
+
+.record-preview-published-date {
+  color: #6E6E6E; }
+
+.record-preview-format-and-author {
+  margin: 0; }
+
+.record-preview-about {
+  margin: 0;
+  color: #6E6E6E; }
+
+.record-preview-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  text-decoration: underline; }
+
+.record-preview-format-list {
+  display: inline-block;
+  list-style: none;
+  margin: 0; }
+
+.record-preview-format {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  color: #4E4E4E;
+  margin-right: 0.5rem; }
+  .record-preview-format .icon {
+    color: inherit;
+    margin-right: 0.2rem;
+    margin-bottom: -0.1rem; }
+
+.record-preview-author {
+  color: #4E4E4E; }
+
+.record-preview-format-list + .record-preview-author:before {
+  content: '\00b7';
+  font-weight: 600;
+  margin-right: 0.4rem; }
+
+.record-preview-placeholder {
+  padding: 1.5rem 1rem; }
+
+.record-placeholder-last {
+  margin-bottom: 0; }
+
 .landing-container {
   margin: 0 auto;
   padding: 1rem 0;
@@ -1673,7 +1686,8 @@ body {
 
 .show-all-button {
   margin-top: 1rem;
-  font-size: 0.85rem; }
+  font-size: 0.85rem;
+  border-radius: 0; }
 
 .feedback-widget {
   position: fixed;

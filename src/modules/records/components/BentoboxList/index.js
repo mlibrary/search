@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
+import { Icon } from '../../../core'
 import { getMultiSearchRecords } from '../../../pride'
 import RecordPreview from '../RecordPreview'
-import RecordPlaceholder from '../RecordPlaceholder'
+import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder'
 
 class BentoboxList extends React.Component {
   render() {
@@ -86,7 +87,7 @@ const BentoFooter = ({
 
   return (
     <Link className="bentobox-footer-container" to={url}>
-      <span>{footerText}</span>
+      <span>{footerText}</span><Icon name="arrow-forward" />
     </Link>
   )
 }
@@ -122,9 +123,9 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
   if (bentobox.records.length === 0) {
     return (
       <ul className="results-list results-list-border">
-        <RecordPlaceholder />
-        <RecordPlaceholder />
-        <RecordPlaceholder />
+        <RecordPreviewPlaceholder />
+        <RecordPreviewPlaceholder />
+        <RecordPreviewPlaceholder />
       </ul>
     )
   }

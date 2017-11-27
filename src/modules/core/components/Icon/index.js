@@ -441,6 +441,18 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'arrow-forward':
+    return (
+      <svg viewBox="0 0 16 16" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-164.000000, -549.000000)" fill="#000000">
+            <g transform="translate(164.000000, 549.000000)">
+              <polygon points="0 7 0 9 12.0104 9 6.5052 14.5052 7.9194 15.9194 15.8388 8 7.9194 0.08058 6.5052 1.49479 12.0104 7"></polygon>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
     case 'arrow-right-drop-circle':
     return (
       <svg viewBox="0 0 20 20" version="1.1" className="icon">

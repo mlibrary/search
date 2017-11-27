@@ -2,6 +2,12 @@
   Site
 */
 
+html {
+  @media (max-width: $breakpoint-2) {
+    font-size: 12px;
+  }
+}
+
 body {
   line-height: 1.6;
   font-size: $font-size-base;
