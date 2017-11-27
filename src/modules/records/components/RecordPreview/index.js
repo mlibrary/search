@@ -58,30 +58,35 @@ const Header = ({
   )
 }
 
-const Description = ({ record, datastoreUid }) => {
-  if (datastoreUid === 'website' || datastoreUid === 'databases') {
-    const brief_description = getFieldValue(getField(record.fields, 'brief_description'))
+class Description extends React.Component {
+  getDescriptionElement({ fieldUid }) {
+    const { record } = this.props
+    const field = [].concat(getFieldValue(getField(record.fields, fieldUid)))
 
-    if (brief_description) {
-      return (
-        <p className="record-preview-description">
-          <TrimString string={brief_description[0]} trimLength={140} showMore={false}/>
-        </p>
-      )
+    if (typeof field[0] !== 'string') {
+      return null
     }
-  } else if (datastoreUid === 'articlesplus') {
-    const publication_title = getFieldValue(getField(record.fields, 'publication_title'))
 
-    if (publication_title) {
-      return (
-        <p className="record-preview-description">
-          <TrimString string={publication_title[0]} trimLength={140} showMore={false}/>
-        </p>
-      )
-    }
+    return (
+      <p className="record-preview-description">
+        <TrimString string={field[0]} trimLength={140} showMore={false}/>
+      </p>
+    )
+
+    return null
   }
 
-  return null
+  render() {
+    const { record, datastoreUid } = this.props
+
+    if (datastoreUid === 'website' || datastoreUid === 'databases') {
+      return this.getDescriptionElement({ fieldUid: 'brief_description' })
+    } else if (datastoreUid === 'articlesplus') {
+      return this.getDescriptionElement({ fieldUid: 'publication_title' })
+    }
+
+    return null
+  }
 }
 
 const Formats = ({ record, datastoreUid }) => {
