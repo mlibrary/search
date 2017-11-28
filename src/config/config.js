@@ -1,7 +1,7 @@
 const config = {
   spectrum: {
-    production: window.location.origin + '/spectrum/',
-    development: 'https://search-staging.www.lib.umich.edu/spectrum/',
+    production: window.location.origin + '/spectrum',
+    development: 'https://search-staging.www.lib.umich.edu/spectrum',
   },
   datastores: {
     list: [
@@ -54,11 +54,9 @@ const config = {
   fields: [
     {
       datastore: 'mirlyn',
-      preview: [
-        'format',
-        'main_author',
-        'published_brief'
-      ],
+      preview: {
+
+      },
       medium: [
         'format',
         'main_author',
@@ -940,38 +938,38 @@ const config = {
   formatIcons: [
     // Core
     {
-      formats: ['Journal', 'Serial'],
-      icon: 'book-multiple-variant'
+      icon: 'book-variant', // book
+      formats: ['Biography', 'Book', 'eBook', 'Book Chapter', 'Conference', 'Dictionaries', 'Directories', 'Encyclopedias', 'Monograph']
     },
     {
-      formats: ['Journal Article'],
-      icon: 'file-document-box'
+      icon: 'book-multiple-variant', // collections-bookmark
+      formats: ['Magazine', 'Journal', 'eJournal', 'Publication', 'Research Guide', 'Research Publication', 'Serial']
     },
     {
-      formats: ['Book', 'Conference', 'Dictionaries', 'Directories', 'Encyclopedias', 'Biography'],
-      icon: 'book-variant'
+      icon: 'document', // file-document-box
+      formats: ['Article', 'Book Review', 'Blog Post', 'Case', 'Catalog', 'Conference Proceeding', 'Course Reading', 'Dissertation', 'Exam', 'Journal Article', 'Magazine Article', 'Manuscript', 'Market Research', 'Newspaper Article', 'Pamphlet', 'Paper', 'Patent', 'Personal Article', 'Personal Narrative', 'Poem', 'Publication Article', 'Reference', 'Report', 'Standard', 'Student Thesis', ' Technical Report', 'Tool', 'Trade Publication Article', 'Transcript']
     },
     {
-      formats: ['Newspaper'],
-      icon: 'newspaper'
+      icon: 'newspaper',
+      formats: ['Newsletter', 'Newspaper'],
     },
 
     // Media
     {
-      formats: ['Audio', 'Audio (music)', 'Audio CD', 'Audio LP', 'Audio (spoken word)'],
-      icon: 'volume'
+      icon: 'volume',
+      formats: ['Audio', 'Audio CD', 'Audio LP', 'Audio (music)', 'Audio (spoken word)', 'Audio Recording', ' Music Recording', 'Sound Recording', 'Spoken Word Recording', 'Streaming Audio']
     },
     {
-      formats: ['CDROM'],
-      icon: 'disc'
+      icon: 'disc',
+      formats: ['CDROM', 'Compact Disk', 'DVD']
     },
     {
+      icon: 'arrow-right-drop-circle', // play-circle
       formats: ['Video (Blu-ray)', 'Video (DVD)', 'Video (VHS)'],
-      icon: 'arrow-right-drop-circle'
     },
     {
-      formats: ['Motion Picture'],
-      icon: 'motion-picture'
+      icon: 'motion-picture',
+      formats: ['Motion Picture']
     },
     {
       formats: ['Video Games'],
@@ -980,6 +978,10 @@ const config = {
     {
       formats: ['Software'],
       icon: 'xml'
+    },
+    {
+      icon: 'photo',
+      formats: ['']
     },
     {
       formats: ['Photographs & Pictorial Works'],
