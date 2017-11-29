@@ -942,7 +942,7 @@ const config = {
     },
     {
       icon: 'book-multiple-variant', // collections-bookmark
-      formats: ['Magazine', 'Journal', 'eJournal', 'Publication', 'Research Guide', 'Research Publication', 'Serial']
+      formats: ['Magazine', 'Journal', 'eJournal', 'Online Journal', 'Publication', 'Research Guide', 'Research Publication', 'Serial']
     },
     {
       icon: 'document', // file-document-box
