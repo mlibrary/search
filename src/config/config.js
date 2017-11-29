@@ -936,100 +936,115 @@ const config = {
     }
   ],
   formatIcons: [
-    // Core
     {
-      formats: ['Online Journal', 'Journal', 'Serial'],
-      icon: 'book-multiple-variant'
+      icon: 'book-variant', // book
+      formats: ["Biography", "Book", "eBook", "Book Chapter", "Conference", "Dictionaries", "Directories", "Encyclopedias"]
     },
     {
-      formats: ['Journal Article'],
-      icon: 'document'
+      icon: 'book-multiple-variant', // collections-bookmark
+      formats: ['Magazine', 'Journal', 'eJournal', 'Publication', 'Research Guide', 'Research Publication', 'Serial']
     },
     {
-      formats: ['Book', 'Conference', 'Dictionaries', 'Directories', 'Encyclopedias', 'Biography'],
-      icon: 'book-variant'
+      icon: 'document', // file-document-box
+      formats: ["Album", "Article", "Book Review", "Blog Post", "Case", "Catalog", "Conference Proceeding", "Course Reading", "Dissertation", "Exam", "Journal Article", "Magazine Article", "Manuscript", "Market Research", "Newspaper Article", "Pamphlet", "Paper", "Patent", "Personal Article", "Personal Narrative", "Poem", "Publication Article", "Reference", "Report", "Standard", "Student Thesis", "Technical Report", "Tool", "Trade Publication Article", "Transcript"]
     },
     {
-      formats: ['Newspaper'],
-      icon: 'newspaper'
-    },
-
-    // Media
-    {
-      formats: ['Audio', 'Audio (music)', 'Audio CD', 'Audio LP', 'Audio (spoken word)'],
-      icon: 'volume'
+      icon: 'newspaper',
+      formats: ['Newsletter', 'Newspaper'],
     },
     {
-      formats: ['CDROM'],
-      icon: 'disc'
+      icon: 'volume', // column-high
+      formats: ["Audio", "Audio CD", "Audio LP", "Audio (music)", "Audio (spoken word)", "Audio Recording", "Music Recording", "Sound Recording", "Spoken Word Recording", "Streaming Audio"]
     },
     {
-      formats: ['Video (Blu-ray)', 'Video (DVD)', 'Video (VHS)'],
-      icon: 'arrow-right-drop-circle'
+      icon: 'disc',
+      formats: ['CDROM', 'Compact Disk', 'DVD']
     },
     {
-      formats: ['Motion Picture'],
-      icon: 'motion-picture'
+      icon: 'arrow-right-drop-circle', // play-circle
+      formats: ["Streaming Video", "Video (Blu-ray)", "Video (DVD)", "Video (VHS)", "Video Recording"],
     },
     {
-      formats: ['Video Games'],
-      icon: 'gamepad'
+      icon: 'motion-picture',
+      formats: ["Motion Picture"]
+    },
+    {
+      icon: 'photo',
+      formats: ["Art", "Drawing", "Graphic Arts", "Image", "Mixed (?what is this?)", "Painting", "Photograph", "Postcard", "Poster", "Presentation", "Slide"]
+    },
+    {
+      icon: 'image-multiple', // photo-library
+      formats: ["Photographs & Pictorial Works"],
+    },
+    {
+      icon: 'eye', // remove red eye
+      formats: ['Visual Material']
+    },
+    {
+      icon: 'music-note',
+      formats: ["Music", "Music Manuscript", "Music Score", "Musical Score", "Play", "Sheet Music"]
+    },
+    {
+      icon: 'gamepad',
+      formats: ['Video Games']
     },
     {
       formats: ['Software'],
       icon: 'xml'
     },
     {
-      formats: ['Photographs & Pictorial Works'],
-      icon: 'image-multiple'
-    },
-
-    // Data
-    {
-      formats: ['Database'],
-      icon: 'database'
+      icon: 'gesture-double-tap',
+      formats: ["Interactive Media", "Learning Object"]
     },
     {
-      formats: ['Data File'],
-      icon: 'content-save'
+      icon: 'website',
+      formats: ["Web Resource", "Electronic Resource", "Website"]
     },
     {
-      formats: ['Statistics'],
-      icon: 'chart-line'
+      icon: 'database',
+      formats: ["Database", "Data Set"]
+    },
+    {
+      icon: 'content-save', // save
+      formats: ['Data File']
+    },
+    {
+      icon: 'chart-line',
+      formats: ['Statistics']
+    },
+    {
+      icon: 'archive',
+      formats: ["Archive", "Archival Material", "Artifact", "Clothing", "Finding Aid", "Furnishing", "Model", "Special Collection", "Realia"]
+    },
+    {
+      icon: 'shape-plus',
+      formats: ['Mixed Material']
+    },
+    {
+      icon: 'filmstrip',
+      formats: ['Microform']
+    },
+    {
+      icon: 'script',
+      formats: ['Manuscript']
     },
 
     // Special
     {
-      formats: ['Visual Material'],
-      icon: 'eye'
-    },
-    {
       formats: ['Manuscript'],
       icon: 'script'
-    },
-    {
-      formats: ['Music', 'Musical Score'],
-      icon: 'music-note'
     },
     {
       formats: ['Microform'],
       icon: 'filmstrip'
     },
     {
-      formats: ['Map', 'Maps-Atlas'],
-      icon: 'map'
+      icon: 'map',
+      formats: ['Map', 'Maps-Atlas']
     },
     {
-      formats: ['Archive'],
-      icon: 'archive'
-    },
-    {
-      formats: ['Mixed Material'],
-      icon: 'shape-plus'
-    },
-    {
-      formats: ['Library Website'],
-      icon: 'website'
+      icon: 'account', // person
+      formats: ['People']
     },
     {
       formats: ['Unknown'],
