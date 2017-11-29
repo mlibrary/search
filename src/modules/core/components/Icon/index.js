@@ -2,6 +2,18 @@ import React from 'react';
 
 const Icon = ({ name }) => {
   switch (name) {
+    case 'account':
+    return (
+      <svg viewBox="0 0 16 16" version="1.1" className="icon">
+          <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+              <g transform="translate(-519.000000, -909.000000)" fill="#000000">
+                  <g transform="translate(519.000000, 909.000000)">
+                      <path d="M8,0 C10.2091,0 12,1.79086 12,4 C12,6.2091 10.2091,8 8,8 C5.79086,8 4,6.2091 4,4 C4,1.79086 5.79086,0 8,0 L8,0 Z M8,10 C12.4183,10 16,11.7909 16,14 L16,16 L0,16 L0,14 C0,11.7909 3.58172,10 8,10 L8,10 Z"></path>
+                  </g>
+              </g>
+          </g>
+      </svg>
+    )
     case 'alert':
     return (
       <svg viewBox="0 0 20 20" version="1.1" className="icon">
@@ -505,6 +517,18 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'gesture-double-tap':
+      return (
+        <svg viewBox="0 0 14 20" version="1.1" className="icon">
+          <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+            <g transform="translate(-136.000000, -1089.000000)" fillRule="nonzero" fill="#6E6E6E">
+              <g transform="translate(136.000000, 1089.000000)">
+                <path d="M5,6 C5,5.44771525 5.44771525,5 6,5 C6.55228475,5 7,5.44771525 7,6 L7,10.47 L8.21,10.6 L13.15,12.79 C13.68,13.03 14,13.56 14,14.14 L14,18.5 C13.97,19.32 13.32,19.97 12.5,20 L6,20 C5.62,20 5.26,19.85 5,19.57 L0.1,15.37 L0.84,14.6 C1.03,14.39 1.3,14.28 1.58,14.28 L1.8,14.28 L5,16 L5,6 L5,6 Z M6,2 C8.209139,2 10,3.790861 10,6 C10,7.5 9.2,8.77 8,9.46 L8,8.24 C8.61,7.69 9,6.89 9,6 C9,4.34314575 7.65685425,3 6,3 C4.34314575,3 3,4.34314575 3,6 C3,6.89 3.39,7.69 4,8.24 L4,9.46 C2.8,8.77 2,7.5 2,6 C2,3.790861 3.790861,2 6,2 L6,2 Z M6,0 C9.3137085,8.8817842e-16 12,2.6862915 12,6 C12,7.7 11.29,9.23 10.16,10.33 L9.16,9.88 C10.28,8.96 11,7.56 11,6 C11,3.23857625 8.76142375,1 6,1 C3.23857625,1 1,3.23857625 1,6 C1,8.05 2.23,9.81 4,10.58 L4,11.66 C1.67,10.83 0,8.61 0,6 C-8.8817842e-16,2.6862915 2.6862915,8.8817842e-16 6,0 L6,0 Z"></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      )
     case 'shape-plus':
       return (
         <svg viewBox="0 0 20 20" className="icon">
