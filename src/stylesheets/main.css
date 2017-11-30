@@ -1034,7 +1034,7 @@ body {
         display: table-cell;
         width: 11rem;
         padding-right: 1rem;
-        color: #4E4E4E;
+        color: #6E6E6E;
         font-weight: 400; }
         .record-field-list .record-field-name:after {
           content: none; }
@@ -1045,9 +1045,13 @@ body {
 .record-field-name {
   vertical-align: top;
   padding-right: 0.25rem;
-  font-weight: 600;
-  color: #333;
+  color: #6E6E6E;
   display: block; }
+  @media (max-width: 47rem) {
+    .record-field-name {
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: #4E4E4E; } }
 
 .record-field-value {
   display: block; }
@@ -1127,33 +1131,6 @@ body {
   height: 0.65rem;
   margin: 0 0.25rem; }
 
-/*
-.record-field-value-list-item {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-
-  &:after {
-    display: inline-block;
-    content: '/';
-    margin: 0 0.5rem;
-    color: $grey-3;
-  }
-
-  &:last-child:after {
-    content: ''
-  }
-}
-
-.record-field-value-list-item:first-child:nth-last-child(n + 4),
-.record-field-value-list-item:first-child:nth-last-child(n + 4) ~ li {
-  display: block;
-
-  &:after {
-    content: ''
-  }
-}
-*/
 .record-field-value .show-all-list-container .show-all-button {
   display: block;
   margin: 0.25rem 0;

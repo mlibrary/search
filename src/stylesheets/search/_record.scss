@@ -57,7 +57,7 @@
       width: 11rem;
 
       padding-right: 1rem;
-      color: $grey-2;
+      color: $grey-3;
       font-weight: 400;
 
       &:after {
@@ -75,9 +75,14 @@
 .record-field-name {
   vertical-align: top;
   padding-right: 0.25rem;
-  font-weight: 600;
-  color: $grey-1;
+  color: $grey-3;
   display: block;
+
+  @media (max-width: $breakpoint-2) {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: $grey-2;
+  }
 }
 
 .record-field-value {
@@ -190,34 +195,6 @@
     margin: 0 0.25rem;
   }
 }
-
-/*
-.record-field-value-list-item {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-
-  &:after {
-    display: inline-block;
-    content: '/';
-    margin: 0 0.5rem;
-    color: $grey-3;
-  }
-
-  &:last-child:after {
-    content: ''
-  }
-}
-
-.record-field-value-list-item:first-child:nth-last-child(n + 4),
-.record-field-value-list-item:first-child:nth-last-child(n + 4) ~ li {
-  display: block;
-
-  &:after {
-    content: ''
-  }
-}
-*/
 
 .record-field-value .show-all-list-container .show-all-button {
   display: block;
