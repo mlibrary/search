@@ -10,7 +10,10 @@ import {
   getField,
   getFieldValue,
   getRecordFormats,
-  filterAccessFields
+  getAccessField,
+  filterAccessFields,
+  filterDisplayFields,
+  hasRecordFullView
 } from '../../utilities';
 
 import {
@@ -27,6 +30,8 @@ const Header = ({
   const publishedDate = getFieldValue(getField(record.fields, 'published_date'))[0]
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0]
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
+  const hasFullView = hasRecordFullView({ datastoreUid })
+
   let recordUrl = `/${datastoreSlug}/record/${recordUid}${searchQuery}`
 
   if (datastoreUid === 'website') {
@@ -39,17 +44,34 @@ const Header = ({
 
   return (
     <header>
+
       <h3 className="record-preview-heading">
-        <Link
-          to={recordUrl}
-          className="record-preview-title-link"
-        >
-          {[].concat(record.names).map((title, index) => (
-            <span key={index}>
-              <TrimString string={title} />
-            </span>
-          ))}
-        </Link>
+        {hasFullView ? (
+          <Link
+            to={recordUrl}
+            className="record-preview-title-link"
+          >
+            {[].concat(record.names).map((title, index) => (
+              <span key={index}>
+                <TrimString string={title} />
+              </span>
+            ))}
+          </Link>
+        ) : (
+          <span>
+            <a
+              href={recordUrl}
+              className="record-preview-title-link"
+            >
+              {[].concat(record.names).map((title, index) => (
+                <span key={index}>
+                  <TrimString string={title} />
+                </span>
+              ))}
+            </a>
+            <Icon name="launch" />
+          </span>
+        )}
         {publishedDate && (
           <span className="record-preview-published-date">2012</span>
         )}
@@ -90,10 +112,18 @@ class Description extends React.Component {
 }
 
 const Formats = ({ record, datastoreUid }) => {
-  const formats = getRecordFormats({
+  let formats = getRecordFormats({
     fields: record.fields,
     datastoreUid
   })
+
+  if (datastoreUid === 'website') {
+    const pageTypeValue = getFieldValue(getField(record.fields, 'page_type'))
+
+    if (pageTypeValue) {
+      formats = [].concat(formats).concat(pageTypeValue)
+    }
+  }
 
   if (formats.length > 0) {
     return (
@@ -107,6 +137,11 @@ const Formats = ({ record, datastoreUid }) => {
         })}
       </ul>
     )
+  }
+
+  // Special non-format formats like website record types
+  if (datastoreUid === 'website') {
+
   }
 
   return null
@@ -132,6 +167,41 @@ const Authors = ({ record }) => {
   return null
 }
 
+const FieldValue = ({ field }) => {
+  if (field.uid === 'email') {
+    return (
+      <a href={field.value} className="record-field-value-link">{field.value}</a>
+    )
+  }
+
+  return (
+    <span>{field.value}</span>
+  )
+}
+
+const Fields = ({ record, datastoreUid }) => {
+  const displayFields = filterDisplayFields({
+    fields: record.fields,
+    type: 'preview',
+    datastore: datastoreUid
+  });
+
+  if (displayFields && displayFields.length > 0) {
+    return (
+      <dl className="record-preview__fields">
+        {displayFields.map((field, index) => (
+          <div className="record-preview__field" key={index}>
+            <dt className="record-preview__field-name">{field.name}</dt>
+            <dd className="record-preview__field-value"><FieldValue field={field} /></dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+
+  return null
+}
+
 const Main = ({ record, datastoreUid }) => {
   // TODO: add <p className="record-preview-about"></p>
 
@@ -140,24 +210,11 @@ const Main = ({ record, datastoreUid }) => {
       <div className="record-preview-format-and-author">
         <Formats record={record} datastoreUid={datastoreUid} />
         <Authors record={record} />
+        <Fields record={record} datastoreUid={datastoreUid} />
         <Description record={record} datastoreUid={datastoreUid} />
       </div>
     </section>
   )
-}
-
-const getAccessField = ({ record, datastoreUid }) => {
-  const access = filterAccessFields({
-    fields: record.fields,
-    type: 'access',
-    datastore: datastoreUid,
-  });
-
-  if (access[0] && access[0][0] && access[0][0].isLink) {
-    return access[0][0]
-  }
-
-  return undefined
 }
 
 const Footer = ({ record, datastoreUid }) => {

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   withRouter
 } from 'react-router-dom'
@@ -23,6 +24,24 @@ class RecordField extends React.Component {
     const { field, datastoreUid, institution } = this.props
     const uniqueFieldClassName = 'record-field record-field-uid-' + field.uid
 
+    // Special picture field. This will be used next to the title.
+    if (field.uid === 'picture') {
+      return null
+    }
+
+    if (field.uid === 'email') {
+      return (
+        <div className={uniqueFieldClassName}>
+          <dt className="record-field-name">{field.name}</dt>
+          <dd className="record-field-value">
+            <span className="record-field-value-item">
+              <a href={field.value} className="record-field-value-link">{field.value}</a>
+            </span>
+          </dd>
+        </div>
+      )
+    }
+
     // Super special field because libraries
     if (field.uid === 'bookplate') {
       const imageUrl = _.findWhere(field.value, { uid: 'image' })
@@ -42,7 +61,7 @@ class RecordField extends React.Component {
       )
     }
 
-    if (field.uid === 'format') {
+    if (field.uid === 'format' || field.uid === 'page_type') {
       if (Array.isArray(field.value)) {
         return (
           <div className={uniqueFieldClassName}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 import FieldList from '../RecordFieldList';
 import {
@@ -8,6 +9,7 @@ import {
   ShowAllList,
   TrimLink,
   TrimString,
+  Icon
 } from '../../../core'
 import Holdings from '../Holdings';
 
@@ -16,17 +18,113 @@ import {
 } from '../../../pride';
 import {
   getField,
+  getFieldValue,
   filterDisplayFields,
   filterAccessFields,
-  hasRecordFullView
+  hasRecordFullView,
+  getAccessField
 } from '../../utilities';
+
+const Header = ({
+  record,
+  datastoreUid,
+  searchQuery
+}) => {
+  const title = record.names
+  const recordUid = getFieldValue(getField(record.fields, 'id'))[0]
+  const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
+  const pictureField = getField(record.fields, 'picture')
+  let recordUrl = `/${datastoreSlug}/record/${recordUid}${searchQuery}`
+  let recordHeaderClassName = 'record-title'
+  const hasFullView = hasRecordFullView({ datastoreUid })
+
+  if (datastoreUid === 'website') {
+    const accessField = getAccessField({ record, datastoreUid })
+
+    if (accessField && accessField.value) {
+      recordUrl = accessField.value
+    }
+
+    if (pictureField) {
+      recordHeaderClassName = 'record-title record-person__header-has-picture '
+    }
+  }
+
+  return (
+    <h3 className={recordHeaderClassName}>
+      {pictureField && (
+        <img src={pictureField.value[0]} alt="" className="record-person__profile-picture" />
+      )}
+      {hasFullView ? (
+        <Link
+          to={recordUrl}
+          className="record-title-link"
+        >
+          {[].concat(record.names).map((title, index) => (
+            <span key={index}>
+              <TrimString string={title} />
+            </span>
+          ))}
+        </Link>
+      ) : (
+        <span>
+          <a
+            href={recordUrl}
+            className="record-title-link"
+          >
+            {[].concat(record.names).map((title, index) => (
+              <span key={index}>
+                <TrimString string={title} />
+              </span>
+            ))}
+          </a>
+          <Icon name="launch" />
+        </span>
+      )}
+    </h3>
+  )
+}
+
+const Footer = ({
+  record,
+  access,
+  holdings
+}) => {
+  return (
+    <div>
+      {record.loadingHoldings ? (
+        <div className="access-container access-placeholder-container">
+          <div className="placeholder placeholder-access placeholder-inline"></div>
+          <div className="placeholder placeholder-inline"></div>
+        </div>
+      ) : (
+        <div>
+          {access.length > 0 && (
+            <div className="access-container">
+              <div className="access-list-container">
+                <ShowAllList
+                  length={access.length}
+                  show={1}
+                  listClass={'access-list'}>
+                    {access.map((item, index) => (
+                      <AccessItem key={index} item={item} />
+                    ))}
+                </ShowAllList>
+              </div>
+            </div>
+          )}
+          {holdings && (
+            <div className="holdings-condensed"><Holdings holdings={holdings} /></div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
 
 class Record extends React.Component {
   render() {
     const { record, datastoreUid, type, searchQuery, institution } = this.props
-    const titles = record.names ? [].concat(record.names) : [].concat('no title');
-    const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
-    const recordUidField = getField(record.fields, 'id');
     const displayFields = filterDisplayFields({
       fields: record.fields,
       type: type,
@@ -37,59 +135,29 @@ class Record extends React.Component {
       datastore: datastoreUid,
     });
     const holdings = record.holdings
-    const hasFullView = hasRecordFullView({ datastoreUid })
+    const recordUidField = getField(record.fields, 'id');
 
     if (recordUidField) {
-      const recordUid = recordUidField.value
 
       return (
         <li className="record">
           <div className="record-container">
-            <h3 className="record-title">
-            {titles.map((title, index) => (
-              <div key={index}>
-                {hasFullView ? (
-                  <TrimLink
-                    string={title}
-                    linkClassName={"record-title-link"}
-                    to={`/${datastoreSlug}/record/${recordUid}${searchQuery}`} />
-                ) : (
-                  <h2 className="record-title">
-                    <TrimString string={title} />
-                  </h2>
-                )}
-              </div>
-            ))}
-            </h3>
+            <Header
+              record={record}
+              datastoreUid={datastoreUid}
+              searchQuery={searchQuery}
+            />
             <FieldList fields={displayFields} datastoreUid={datastoreUid} institution={institution} />
           </div>
 
-          {record.loadingHoldings ? (
-            <div className="access-container access-placeholder-container">
-              <div className="placeholder placeholder-access placeholder-inline"></div>
-              <div className="placeholder placeholder-inline"></div>
-            </div>
-          ) : (
-            <div>
-              {access.length > 0 && (
-                <div className="access-container">
-                  <div className="access-list-container">
-                    <ShowAllList
-                      length={access.length}
-                      show={1}
-                      listClass={'access-list'}>
-                        {access.map((item, index) => (
-                          <AccessItem key={index} item={item} />
-                        ))}
-                    </ShowAllList>
-                  </div>
-                </div>
-              )}
-              {holdings && (
-                <div className="holdings-condensed"><Holdings holdings={holdings} /></div>
-              )}
-            </div>
+          {datastoreUid === 'website' ? null : (
+            <Footer
+              record={record}
+              access={access}
+              holdings={holdings}
+            />
           )}
+
         </li>
       )
     }

@@ -1010,9 +1010,13 @@ body {
   font-size: 1.25rem;
   text-decoration: none;
   margin: 0; }
+  .record-title .icon {
+    width: 0.85rem;
+    color: #6E6E6E; }
 
 .record-title-link {
-  border-bottom: solid 2px rgba(18, 109, 193, 0.4); }
+  border-bottom: solid 2px rgba(18, 109, 193, 0.4);
+  margin-right: 0.5rem; }
   .record-title-link:hover {
     background: #E6F3FF; }
 
@@ -1176,6 +1180,18 @@ body {
   .record-field-uid-format .record-field-name {
     padding-bottom: 0.5rem;
     margin-right: 0.5rem; } }
+
+.record-person__header-has-picture {
+  display: flex;
+  align-items: center; }
+
+.record-person__profile-picture {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+  object-fit: cover;
+  object-position: top right; }
 
 .loading-container {
   display: flex;
@@ -1561,6 +1577,9 @@ body {
   font-size: 1rem;
   margin: 0;
   margin-bottom: 0.5rem; }
+  .record-preview-heading .icon {
+    color: #6E6E6E;
+    width: 0.85rem; }
 
 .record-preview-title-link {
   margin-right: 0.25rem; }
@@ -1592,7 +1611,7 @@ body {
   color: #4E4E4E;
   margin-right: 0.5rem; }
   .record-preview-format .icon {
-    color: inherit;
+    color: #6E6E6E;
     margin-right: 0.2rem;
     margin-bottom: -0.1rem; }
 
@@ -1613,6 +1632,22 @@ body {
 
 .record-placeholder-last {
   margin-bottom: 0; }
+
+/*
+  Record Preview Fields
+*/
+.record-preview__field {
+  color: #6E6E6E; }
+
+.record-preview__field-name {
+  display: inline-block;
+  font-weight: 400; }
+  .record-preview__field-name:after {
+    content: ":";
+    padding-right: 0.25rem; }
+
+.record-preview__field-value {
+  display: inline-block; }
 
 .landing-container {
   margin: 0 auto;

@@ -21,10 +21,16 @@
   font-size: 1.25rem;
   text-decoration: none;
   margin: 0;
+
+  .icon {
+    width: 0.85rem;
+    color: $grey-3;
+  }
 }
 
 .record-title-link {
   border-bottom: solid 2px rgba($main-3, 0.4);
+  margin-right: 0.5rem;
 
   &:hover {
     background: $main-5;

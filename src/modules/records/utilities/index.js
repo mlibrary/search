@@ -232,6 +232,20 @@ const hasRecordFullView = ({ datastoreUid }) => {
   return accessConfig.full ? true : false
 }
 
+const getAccessField = ({ record, datastoreUid }) => {
+  const access = filterAccessFields({
+    fields: record.fields,
+    type: 'access',
+    datastore: datastoreUid,
+  });
+
+  if (access[0] && access[0][0] && access[0][0].isLink) {
+    return access[0][0]
+  }
+
+  return undefined
+}
+
 export {
   getField,
   getFieldValue,
@@ -242,5 +256,6 @@ export {
   getShowAllText,
   getFullRecordDisplayFields,
   getRecordFormats,
-  hasRecordFullView
+  hasRecordFullView,
+  getAccessField
 }

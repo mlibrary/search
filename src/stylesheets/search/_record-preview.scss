@@ -9,6 +9,11 @@
   font-size: 1rem;
   margin: 0;
   margin-bottom: 0.5rem;
+
+  .icon {
+    color: $grey-3;
+    width: 0.85rem;
+  }
 }
 
 .record-preview-title-link {
@@ -48,7 +53,7 @@
   margin-right: 0.5rem;
 
   .icon {
-    color: inherit;
+    color: $grey-3;
     margin-right: 0.2rem;
     margin-bottom: -0.1rem;
   }
@@ -77,4 +82,30 @@
 
 .record-placeholder-last {
   margin-bottom: 0;
+}
+
+/*
+  Record Preview Fields
+*/
+
+.record-preview__fields {
+
+}
+
+.record-preview__field {
+  color: $grey-3;
+}
+
+.record-preview__field-name {
+  display: inline-block;
+  font-weight: 400;
+
+  &:after {
+    content: ":";
+    padding-right: 0.25rem;
+  }
+}
+
+.record-preview__field-value {
+  display: inline-block;
 }

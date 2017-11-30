@@ -54,9 +54,6 @@ const config = {
   fields: [
     {
       datastore: 'mirlyn',
-      preview: {
-
-      },
       medium: [
         'format',
         'main_author',
@@ -331,12 +328,6 @@ const config = {
     },
     {
       datastore: 'articlesplus',
-      preview: [
-        'format',
-        'publication_date',
-        'publication_title',
-        'author',
-      ],
       medium: [
         'format',
         'publication_date',
@@ -390,11 +381,6 @@ const config = {
           value: ['Database'],
         }
       ],
-      preview: [
-        'format',
-        'brief_description',
-        'coverage',
-      ],
       medium: [
         'format',
         'brief_description',
@@ -444,10 +430,6 @@ const config = {
           value: ['Online Journal']
         }
       ],
-      preview: [
-        'format',
-        'holdings',
-      ],
       medium: [
         'format',
         'issn',
@@ -487,8 +469,9 @@ const config = {
     {
       datastore: 'website',
       preview: [
-        'page_type',
-        'brief_description',
+        // People
+        'job_title',
+        'email',
       ],
       medium: [
         // All Types
@@ -969,8 +952,8 @@ const config = {
       formats: ["Motion Picture"]
     },
     {
-      icon: 'photo',
-      formats: ["Art", "Drawing", "Graphic Arts", "Image", "Mixed (?what is this?)", "Painting", "Photograph", "Postcard", "Poster", "Presentation", "Slide"]
+      icon: 'image', //photo
+      formats: ["Art", "Drawing", "Graphic Arts", "Image", "Mixed", "Painting", "Photograph", "Postcard", "Poster", "Presentation", "Slide"]
     },
     {
       icon: 'image-multiple', // photo-library
@@ -1044,7 +1027,7 @@ const config = {
     },
     {
       icon: 'account', // person
-      formats: ['People']
+      formats: ['People', 'Staff Directory / People']
     },
     {
       formats: ['Unknown'],
