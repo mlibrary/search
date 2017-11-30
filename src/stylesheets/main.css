@@ -1586,7 +1586,7 @@ body {
   display: inline-block;
   padding: 0;
   margin: 0;
-  color: #4E4E4E;
+  color: #333;
   margin-right: 0.5rem; }
   .record-preview-format .icon {
     color: #6E6E6E;
@@ -1594,7 +1594,7 @@ body {
     margin-bottom: -0.1rem; }
 
 .record-preview-author {
-  color: #4E4E4E; }
+  color: #333; }
 
 .record-preview-format-list + .record-preview-author:before {
   content: '\00b7';
