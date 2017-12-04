@@ -1557,7 +1557,8 @@ body {
   margin-bottom: 0.5rem; }
   .record-preview-heading .icon {
     color: #6E6E6E;
-    width: 0.85rem; }
+    width: 0.85rem;
+    margin-right: 0.25rem; }
 
 .record-preview-title-link {
   margin-right: 0.25rem; }

@@ -27,7 +27,7 @@ const Header = ({
   searchQuery
 }) => {
   const title = record.names
-  const publishedDate = getFieldValue(getField(record.fields, 'published_date'))[0]
+  const publishedDate = getFieldValue(getField(record.fields, 'published_year'))[0]
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0]
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const hasFullView = hasRecordFullView({ datastoreUid })
@@ -73,7 +73,7 @@ const Header = ({
           </span>
         )}
         {publishedDate && (
-          <span className="record-preview-published-date">2012</span>
+          <span className="record-preview-published-date">{publishedDate}</span>
         )}
       </h3>
     </header>
