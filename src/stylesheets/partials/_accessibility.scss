@@ -3,7 +3,8 @@
 }
 
 @mixin focus () {
-  outline: 3px solid $u-m-yellow;
+  outline: 5px solid transparentize($u-m-yellow, 0.1);
+  transition: outline 0.075s ease-out;
 }
 
 *:focus {

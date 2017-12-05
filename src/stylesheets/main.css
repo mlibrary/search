@@ -553,7 +553,7 @@ nav {
 
 .tag {
   vertical-align: top;
-  background: rgba(18, 109, 193, 0.8);
+  background: #1060aa;
   padding: 0 0.25rem;
   border-radius: 2px;
   margin-right: 0.5rem;
@@ -563,7 +563,8 @@ nav {
   outline-color: white; }
 
 *:focus {
-  outline: 3px solid #FFCB05; }
+  outline: 5px solid rgba(255, 203, 5, 0.9);
+  transition: outline 0.075s ease-out; }
 
 .logo-link {
   height: 2.5rem; }
@@ -1195,7 +1196,7 @@ body {
 
 .bentobox {
   width: 100%;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   padding: 0; }
   .bentobox .results-list {
     border-radius: 4px; }
@@ -2046,7 +2047,8 @@ input.date-range-input-text {
   opacity: 0; }
 
 .radio-input:focus + .radio-label {
-  outline: 3px solid #FFCB05; }
+  outline: 5px solid rgba(255, 203, 5, 0.9);
+  transition: outline 0.075s ease-out; }
 
 .u-break-word {
   word-wrap: break-word; }

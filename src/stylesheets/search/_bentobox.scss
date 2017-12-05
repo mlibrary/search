@@ -16,7 +16,7 @@
 
 .bentobox {
   width: 100%;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   padding: 0;
 
   .results-list {
@@ -63,7 +63,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-    
+
   background: $grey-6;
   padding: 1rem;
   border-radius: 0 0 4px 4px;
