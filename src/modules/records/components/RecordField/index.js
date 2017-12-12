@@ -30,12 +30,14 @@ class RecordField extends React.Component {
     }
 
     if (field.uid === 'email') {
+      const mailto = `mailto:${field.value}`
+
       return (
         <div className={uniqueFieldClassName}>
           <dt className="record-field-name">{field.name}</dt>
           <dd className="record-field-value">
             <span className="record-field-value-item">
-              <a href={field.value} className="record-field-value-link">{field.value}</a>
+              <a href={mailto} className="record-field-value-link">{field.value}</a>
             </span>
           </dd>
         </div>
