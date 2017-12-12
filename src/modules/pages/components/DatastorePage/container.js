@@ -54,7 +54,7 @@ class DatastorePageContainer extends React.Component {
   }
 
   render() {
-    const { searching, datastores, match, location, isAdvanced, query } = this.props;
+    const { searching, datastores, match, location, isAdvanced } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     if (activeDatastore === undefined) {

@@ -7,7 +7,6 @@ import {
 } from '../AccessList';
 import {
   ShowAllList,
-  TrimLink,
   TrimString,
   Icon
 } from '../../../core'
@@ -30,7 +29,6 @@ const Header = ({
   datastoreUid,
   searchQuery
 }) => {
-  const title = record.names
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0]
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const pictureField = getField(record.fields, 'picture')

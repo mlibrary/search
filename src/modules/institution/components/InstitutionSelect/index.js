@@ -9,10 +9,6 @@ import {
 } from '../../../institution'
 
 import {
-  Switch
-} from '../../../core'
-
-import {
   stringifySearchQueryForURL
 } from '../../../pride'
 
