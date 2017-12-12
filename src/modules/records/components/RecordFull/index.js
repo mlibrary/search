@@ -91,6 +91,7 @@ class FullRecord extends React.Component {
               ))}
             </h1>
 
+            <h3 className="full-record__record-info">Record Info</h3>
             <ShowAdditionalFieldList
               fields={displayFields}
               datastoreUid={datastoreUid}
