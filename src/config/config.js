@@ -367,6 +367,13 @@ const config = {
           'language',
         ]
       },
+      searches: [
+        {
+          uid: 'subject',
+          search: 'subject',
+          type: 'filter'
+        },
+      ],
       access: {
         defaultAccessText: 'Go to item',
         link: 'access_url'

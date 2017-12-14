@@ -563,8 +563,9 @@ nav {
   outline-color: white; }
 
 *:focus {
-  outline: 5px solid rgba(255, 203, 5, 0.9);
-  transition: outline 0.075s ease-out; }
+  outline: 3px solid rgba(255, 203, 5, 0.9);
+  outline-offset: 0;
+  transition: outline 0.05s ease-out; }
 
 .logo-link {
   height: 2.5rem; }
@@ -1101,11 +1102,16 @@ body {
 .full-record-title {
   font-size: 1.4rem;
   margin-top: 0;
-  margin-bottom: 1.5rem; }
+  margin-bottom: 1.5rem;
+  font-weight: 400; }
   @media (min-width: 32rem) {
     .full-record-title {
       font-size: 2rem;
       margin-bottom: 2rem; } }
+
+.full-record__record-info {
+  font-size: 1rem;
+  margin-bottom: 0; }
 
 /*
   Record special fields
@@ -2047,8 +2053,9 @@ input.date-range-input-text {
   opacity: 0; }
 
 .radio-input:focus + .radio-label {
-  outline: 5px solid rgba(255, 203, 5, 0.9);
-  transition: outline 0.075s ease-out; }
+  outline: 3px solid rgba(255, 203, 5, 0.9);
+  outline-offset: 0;
+  transition: outline 0.05s ease-out; }
 
 .u-break-word {
   word-wrap: break-word; }

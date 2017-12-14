@@ -152,11 +152,17 @@
   font-size: 1.4rem;
   margin-top: 0;
   margin-bottom: 1.5rem;
+  font-weight: 400;
 
   @media (min-width: $breakpoint-1) {
     font-size: 2rem;
     margin-bottom: 2rem;
   }
+}
+
+.full-record__record-info {
+  font-size: 1rem;
+  margin-bottom: 0;
 }
 
 /*

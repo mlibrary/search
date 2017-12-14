@@ -169,8 +169,10 @@ const Authors = ({ record }) => {
 
 const FieldValue = ({ field }) => {
   if (field.uid === 'email') {
+    const mailto = `mailto:${field.value}`
+
     return (
-      <a href={field.value} className="record-field-value-link">{field.value}</a>
+      <a href={mailto} className="record-field-value-link">{field.value}</a>
     )
   }
 
