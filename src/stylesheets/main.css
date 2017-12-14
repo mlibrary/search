@@ -191,7 +191,7 @@ blockquote {
   font-style: italic; }
 
 b {
-  font-weight: 600; }
+  font-weight: 700; }
 
 sup {
   font-size: 0.6em;
@@ -2056,6 +2056,28 @@ input.date-range-input-text {
   outline: 3px solid rgba(255, 203, 5, 0.9);
   outline-offset: 0;
   transition: outline 0.05s ease-out; }
+
+.marc__heading {
+  font-size: 1rem; }
+
+.marc__table {
+  background: white;
+  font-family: monospace; }
+  .marc__table tr:nth-child(even) {
+    background: #FAFAFA; }
+
+.marc__field-name {
+  color: #6E6E6E; }
+
+.marc__subfield {
+  display: inline-block;
+  padding-right: 0.5rem; }
+
+.marc__ind {
+  margin-right: 1rem; }
+
+.marc__ind1 {
+  margin-right: 1rem; }
 
 .u-break-word {
   word-wrap: break-word; }
