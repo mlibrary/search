@@ -2062,9 +2062,16 @@ input.date-range-input-text {
 
 .marc__table {
   background: white;
-  font-family: monospace; }
+  font-family: monospace;
+  vertical-align: top;
+  max-width: 100%;
+  overflow-x: scroll; }
   .marc__table tr:nth-child(even) {
     background: #FAFAFA; }
+  .marc__table td {
+    padding: 0.75rem 1rem; }
+  .marc__table td:not(:first-child):not(:last-child) {
+    padding-left: 0; }
 
 .marc__field-name {
   color: #6E6E6E; }

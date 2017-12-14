@@ -4,7 +4,7 @@ const Leader = ({ marc }) => {
   if (marc['leader']) {
     return (
       <tr>
-        <td className="marc__field-name" colSpan="3">LEADER</td>
+        <td className="marc__field-name" colSpan="3"><abbr title="LEADER">LDR</abbr></td>
         <td>{marc['leader']}</td>
       </tr>
     )
