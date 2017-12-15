@@ -191,7 +191,7 @@ blockquote {
   font-style: italic; }
 
 b {
-  font-weight: 600; }
+  font-weight: 700; }
 
 sup {
   font-size: 0.6em;
@@ -553,7 +553,7 @@ nav {
 
 .tag {
   vertical-align: top;
-  background: rgba(18, 109, 193, 0.8);
+  background: #1060aa;
   padding: 0 0.25rem;
   border-radius: 2px;
   margin-right: 0.5rem;
@@ -563,7 +563,9 @@ nav {
   outline-color: white; }
 
 *:focus {
-  outline: 3px solid #FFCB05; }
+  outline: 3px solid rgba(255, 203, 5, 0.9);
+  outline-offset: 0;
+  transition: outline 0.05s ease-out; }
 
 .logo-link {
   height: 2.5rem; }
@@ -1206,7 +1208,7 @@ body {
 
 .bentobox {
   width: 100%;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   padding: 0; }
   .bentobox .results-list {
     border-radius: 4px; }
@@ -2057,7 +2059,38 @@ input.date-range-input-text {
   opacity: 0; }
 
 .radio-input:focus + .radio-label {
-  outline: 3px solid #FFCB05; }
+  outline: 3px solid rgba(255, 203, 5, 0.9);
+  outline-offset: 0;
+  transition: outline 0.05s ease-out; }
+
+.marc__heading {
+  font-size: 1rem; }
+
+.marc__table {
+  background: white;
+  font-family: monospace;
+  vertical-align: top;
+  max-width: 100%;
+  overflow-x: scroll; }
+  .marc__table tr:nth-child(even) {
+    background: #FAFAFA; }
+  .marc__table td {
+    vertical-align: top; }
+  .marc__table td:not(:first-child):not(:last-child) {
+    padding-left: 0; }
+
+.marc__field-name {
+  color: #6E6E6E; }
+
+.marc__subfield {
+  display: inline-block;
+  padding-right: 0.5rem; }
+
+.marc__ind {
+  margin-right: 1rem; }
+
+.marc__ind1 {
+  margin-right: 1rem; }
 
 .u-break-word {
   word-wrap: break-word; }

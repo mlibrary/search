@@ -22,7 +22,7 @@ import {
   AccessItem,
 } from '../AccessList'
 import {
-  LinkToMARC,
+  ViewMARC,
   Holdings
 } from '../../../records'
 
@@ -112,7 +112,7 @@ class FullRecord extends React.Component {
           {holdings && (<Holdings holdings={holdings} />)}
         </div>
 
-        {datastoreUid === 'mirlyn' && <LinkToMARC recordUid={recordUid} />}
+        {datastoreUid === 'mirlyn' && <ViewMARC record={record} />}
       </div>
     )
   }

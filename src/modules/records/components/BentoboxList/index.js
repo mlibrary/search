@@ -14,14 +14,14 @@ class BentoboxList extends React.Component {
     const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords)
 
     return (
-      <ul className={`bentobox-list`}>
+      <article className={`bentobox-list`}>
         {bentoboxListRecords.map(bentobox => {
           if (!bentobox.records) {
             return null
           }
 
           return (
-            <li key={bentobox.uid} className={`bentobox bentobox-${bentobox.uid}`}>
+            <section key={bentobox.uid} className={`bentobox bentobox-${bentobox.uid}`}>
               <div className="bentobox-inner-container">
                 <BentoHeading
                   bentobox={bentobox}
@@ -41,10 +41,10 @@ class BentoboxList extends React.Component {
                   searchQuery={searchQuery}
                 />
               </div>
-            </li>
+            </section>
           )
         })}
-      </ul>
+      </article>
     )
   }
 }
@@ -120,17 +120,17 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
   // Loading results
   if (bentobox.records.length === 0) {
     return (
-      <ul className="results-list results-list-border">
+      <div className="results-list results-list-border">
         <RecordPreviewPlaceholder />
         <RecordPreviewPlaceholder />
         <RecordPreviewPlaceholder />
-      </ul>
+      </div>
     )
   }
 
   // Results
   return (
-    <ul className="results-list results-list-border">
+    <div className="results-list results-list-border">
       {bentobox.records.map((record, index) => {
         return (
           <RecordPreview
@@ -141,7 +141,7 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
           />
         )
       })}
-    </ul>
+    </div>
   )
 }
 
