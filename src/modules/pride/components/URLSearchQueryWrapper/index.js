@@ -7,6 +7,7 @@ import _ from 'underscore'
 import config from '../../../../config'
 import {
   setSearchQuery,
+  setSearchQueryInput,
   searching,
   setPage,
   setSort
@@ -58,10 +59,12 @@ class URLSearchQueryWrapper extends React.Component {
         // Query
         if (urlState.query && urlState.query !== query) {
           this.props.setSearchQuery(urlState.query)
+          this.props.setSearchQueryInput(urlState.query)
 
           shouldRunSearch = true
         } else if (!urlState.query && query) {
           this.props.setSearchQuery('')
+          this.props.setSearchQueryInput('')
         }
 
         // Filters
@@ -203,6 +206,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     setSearchQuery,
+    setSearchQueryInput,
     setActiveFilters,
     clearActiveFilters,
     searching,

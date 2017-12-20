@@ -3,6 +3,7 @@ import * as actions from '../actions/';
 const initialState = {
   searching: false,
   query: "",
+  queryInput: "",
   data: null,
   page: {},
   sort: {}
@@ -13,6 +14,10 @@ const searchReducer = function searchReducer(state = initialState, action) {
     case actions.SET_SEARCH_QUERY:
       return Object.assign({}, state, {
         query: action.payload,
+      });
+    case actions.SET_SEARCH_QUERY_INPUT:
+      return Object.assign({}, state, {
+        queryInput: action.payload,
       });
     case actions.SEARCHING:
       return Object.assign({}, state, {
