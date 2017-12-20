@@ -5,6 +5,7 @@ import HelpContent from './components/HelpContent';
 import searchReducer from './reducer';
 import {
   setSearchQuery,
+  setSearchQueryInput,
   setSearchData,
   searching,
   setPage,
@@ -15,6 +16,7 @@ export {
   SearchBox,
   searchReducer,
   setSearchQuery,
+  setSearchQueryInput,
   setSearchData,
   setPage,
   searching,
