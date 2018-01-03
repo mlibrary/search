@@ -124,6 +124,18 @@ class RecordField extends React.Component {
       )
     }
 
+    // Special case where database record description field values are HTML.
+    if (field.uid === 'description' && datastoreUid === 'databases') {
+      return (
+        <div className={uniqueFieldClassName}>
+          <dt className="record-field-name">{field.name}</dt>
+          <dd className="record-field-value">
+            <div className="record-field-value-has-html" dangerouslySetInnerHTML={{ __html: field.value }}></div>
+          </dd>
+        </div>
+      )
+    }
+
     if (Array.isArray(field.value)) {
       return (
         <div className={uniqueFieldClassName}>

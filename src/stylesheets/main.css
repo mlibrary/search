@@ -1059,6 +1059,10 @@ body {
 .record-field-value {
   display: block; }
 
+.record-field-value-has-html > * {
+  margin-top: 0;
+  padding-top: 0; }
+
 /*
   Full Record Specific
 */
