@@ -282,15 +282,31 @@ const requestRecord = ({
     store.dispatch(setRecord(record));
   }
 
+  const record = Pride.requestRecord(datastoreUid, recordUid, callback)
+
   // We only want to send holdings requests for
   // record types that have holdings (e.g. the catalog)
   if (datastoreRecordsHaveHoldings(datastoreUid)) {
-    Pride.requestRecord(datastoreUid, recordUid, callback).getHoldings((holdings) => {
+    record.getHoldings((holdings) => {
       store.dispatch(setRecordHoldings(transformHoldings(datastoreUid, holdings)))
     })
-  } else {
-    Pride.requestRecord(datastoreUid, recordUid, callback)
   }
+}
+
+const requestGetThis = ({
+  datastoreUid,
+  recordUid,
+  barcode
+}) => {
+  const callback = (getThisData) => {
+    console.log('getThisData', getThisData)
+  }
+
+  const record = Pride.requestRecord(datastoreUid, recordUid)
+
+  console.log('record', record)
+
+  record.getGetThis(barcode, callback)
 }
 
 const stringifySearchQueryForURL = ({
@@ -372,5 +388,6 @@ export {
   parseField,
   getFormatIconName,
   isFieldASearchLink,
-  transformHoldings
+  transformHoldings,
+  requestGetThis
 }

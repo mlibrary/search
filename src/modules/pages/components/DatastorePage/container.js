@@ -36,6 +36,10 @@ import {
 } from '../../../records'
 
 import {
+  GetThis
+} from '../../../getthis'
+
+import {
   switchPrideToDatastore
 } from '../../../pride'
 
@@ -82,7 +86,12 @@ class DatastorePageContainer extends React.Component {
             <SearchBox />
             <DatastoreNavigation />
             <ConnectedSwitch>
-              <Route path={match.url + `/record/:recordUid`} render={(props) => {
+              <Route path={match.url + `/record/:recordUid/get/:barcode`} render={(props) => {
+                return (
+                  <GetThis />
+                )
+              }}/>
+              <Route path={match.url + `/record/:recordUid`} exact render={(props) => {
                 return (
                   <RecordFull />
                 )

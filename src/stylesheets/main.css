@@ -2098,6 +2098,9 @@ input.date-range-input-text {
 .margin-right-2 {
   margin-right: 2rem; }
 
+.margin-top-2 {
+  margin-top: 2rem; }
+
 .underline {
   text-decoration: underline; }
 
@@ -2122,3 +2125,6 @@ input.date-range-input-text {
 
 .font-small {
   font-size: 0.85rem; }
+
+.text-center {
+  text-align: center; }
