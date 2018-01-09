@@ -1,0 +1,120 @@
+
+/*
+  Get This sections
+*/
+
+.get-this-section {
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+
+.get-this-section-heading {
+  margin-top: 0;
+  font-size: 1.75rem;
+}
+
+
+/*
+  Get This options
+*/
+
+.get-this-options {
+
+}
+
+.get-this-option {
+  border: solid 2px $grey-5;
+}
+
+.get-this-option-summary {
+  cursor: pointer;
+  background: $grey-6;
+
+  padding: 1rem 1.5rem;
+}
+
+.get-this-option-heading {
+  display: inline;
+  color: $main-3;
+  font-size: 1.25rem;
+}
+
+.get-this-option-subheading {
+  display: block;
+  color: $grey-2;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.get-this-option-details-container {
+  display: flex;
+}
+
+.get-this-option-left-half,
+.get-this-option-right-half {
+  padding: 1rem 1.5rem;
+}
+
+.get-this-option-left-half {
+  flex: 1;
+  padding-right: 0;
+}
+
+.get-this-option-right-half {
+  flex: 1;
+}
+
+/*
+  Get This Policies
+*/
+
+.get-this-policies-heading {
+  font-weight: 600;
+  color: $grey-2;
+  margin-bottom: 0.5rem;
+}
+
+.get-this-policies-list {
+  color: $grey-2;
+
+  margin-top: 0.5rem;
+
+  li {
+    margin-top: 0.5rem;
+  }
+}
+
+.get-this-policies-container {
+  border-left: solid 2px $grey-4;
+  padding-left: 1rem;
+}
+
+
+/*
+  Get This forms
+*/
+
+.get-this-option-label {
+  color: $grey-2;
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+
+.get-this-field-group-inline {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+input.get-this-field-input-year {
+  width: 3rem;
+}
+
+/*
+  Get this FAQ
+*/
+
+.get-this-faq-heading {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}

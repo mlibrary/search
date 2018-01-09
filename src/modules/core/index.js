@@ -13,6 +13,7 @@ import Switch from './components/Switch'
 import AskALibrarian from './components/AskALibrarian'
 import ScopeDown from './components/ScopeDown'
 import SiteMessage from './components/SiteMessage'
+import DetailsList from './components/DetailsList'
 
 export {
   Header,
@@ -29,5 +30,6 @@ export {
   Switch,
   AskALibrarian,
   ScopeDown,
-  SiteMessage
+  SiteMessage,
+  DetailsList
 };

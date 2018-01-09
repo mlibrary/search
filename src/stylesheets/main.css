@@ -191,7 +191,7 @@ blockquote {
   font-style: italic; }
 
 b {
-  font-weight: 700; }
+  font-weight: 600; }
 
 sup {
   font-size: 0.6em;
@@ -2086,6 +2086,94 @@ input.date-range-input-text {
 .marc__ind1 {
   margin-right: 1rem; }
 
+/*
+  Get This sections
+*/
+.get-this-section {
+  padding: 1.5rem;
+  margin: 1rem 0; }
+
+.get-this-section-heading {
+  margin-top: 0;
+  font-size: 1.75rem; }
+
+/*
+  Get This options
+*/
+.get-this-option {
+  border: solid 2px #E5E5E5; }
+
+.get-this-option-summary {
+  cursor: pointer;
+  background: #FAFAFA;
+  padding: 1rem 1.5rem; }
+
+.get-this-option-heading {
+  display: inline;
+  color: #126DC1;
+  font-size: 1.25rem; }
+
+.get-this-option-subheading {
+  display: block;
+  color: #4E4E4E;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5; }
+
+.get-this-option-details-container {
+  display: flex; }
+
+.get-this-option-left-half,
+.get-this-option-right-half {
+  padding: 1rem 1.5rem; }
+
+.get-this-option-left-half {
+  flex: 1;
+  padding-right: 0; }
+
+.get-this-option-right-half {
+  flex: 1; }
+
+/*
+  Get This Policies
+*/
+.get-this-policies-heading {
+  font-weight: 600;
+  color: #4E4E4E;
+  margin-bottom: 0.5rem; }
+
+.get-this-policies-list {
+  color: #4E4E4E;
+  margin-top: 0.5rem; }
+  .get-this-policies-list li {
+    margin-top: 0.5rem; }
+
+.get-this-policies-container {
+  border-left: solid 2px #CCC;
+  padding-left: 1rem; }
+
+/*
+  Get This forms
+*/
+.get-this-option-label {
+  color: #4E4E4E;
+  margin: 0.5rem 0;
+  font-weight: 600; }
+
+.get-this-field-group-inline {
+  display: inline-block;
+  margin-right: 1rem; }
+
+input.get-this-field-input-year {
+  width: 3rem; }
+
+/*
+  Get this FAQ
+*/
+.get-this-faq-heading {
+  margin-bottom: 0;
+  padding-bottom: 0; }
+
 .u-break-word {
   word-wrap: break-word; }
 
@@ -2100,6 +2188,10 @@ input.date-range-input-text {
 
 .margin-top-2 {
   margin-top: 2rem; }
+
+.margin-y-half {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem; }
 
 .underline {
   text-decoration: underline; }
