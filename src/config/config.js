@@ -369,6 +369,11 @@ const config = {
       },
       searches: [
         {
+          uid: 'author',
+          search: 'author',
+          type: 'fielded'
+        },
+        {
           uid: 'subject',
           search: 'subject',
           type: 'filter'
