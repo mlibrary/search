@@ -1,26 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import _ from 'underscore'
+import {
+  withRouter
+} from 'react-router-dom'
 
-import { requestGetThis } from '../../../pride';
+import {
+  requestRecord,
+  requestGetThis
+} from '../../../pride';
 import { DetailsList } from '../../../core'
 
-import PickItUpAtLibrary from '../PickItUpAtLibrary'
+import GetThisOptionList from '../GetThisOptionList'
 
-class GetThis extends React.Component {
-  componentDidMount() {
-    console.log('did mount')
 
-    const datastoreUid = 'mirlyn'
-    const recordUid = '000675299'
-    const barcode = '39015035425662'
-
-    const getThis = requestGetThis({
-      datastoreUid,
-      recordUid,
-      barcode,
-    })
-  }
-
+class GetThisPage extends React.Component {
   render() {
     return (
       <article className="container container-narrow">
@@ -29,18 +23,7 @@ class GetThis extends React.Component {
           <p className="u-margin-top-none">Request books and other media to the campus library or department most convenient for you.</p>
         </section>
 
-        <section className="card get-this-section">
-          <h2 className="get-this-section-heading">Record title</h2>
-
-        </section>
-
-        <section className="card get-this-section">
-          <h2 className="get-this-section-heading">How would you like to get this item?</h2>
-
-          <DetailsList className="get-this-options">
-            <PickItUpAtLibrary />
-          </DetailsList>
-        </section>
+        <GetThisOptionList />
 
         <section className="card get-this-section">
           <h3 className="get-this-section-heading">Frequently asked questions</h3>
@@ -64,4 +47,11 @@ class GetThis extends React.Component {
   }
 }
 
-export default GetThis;
+function mapStateToProps(state) {
+  return {
+    record: state.records.record,
+    datastoreUid: state.datastores.active
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(GetThisPage))

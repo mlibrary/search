@@ -2101,7 +2101,8 @@ input.date-range-input-text {
   Get This options
 */
 .get-this-option {
-  border: solid 2px #E5E5E5; }
+  border: solid 2px #E5E5E5;
+  margin-bottom: 1rem; }
 
 .get-this-option-summary {
   cursor: pointer;
@@ -2109,9 +2110,12 @@ input.date-range-input-text {
   padding: 1rem 1.5rem; }
 
 .get-this-option-heading {
-  display: inline;
+  display: inline; }
+
+.get-this-option-heading-text {
   color: #126DC1;
-  font-size: 1.25rem; }
+  font-size: 1.25rem;
+  text-decoration: underline; }
 
 .get-this-option-subheading {
   display: block;

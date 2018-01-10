@@ -16,7 +16,8 @@ import {
   loadingRecords,
   addHoldings,
   loadingHoldings,
-  setRecordHoldings
+  setRecordHoldings,
+  setRecordGetThis
 } from './actions';
 
 export {
@@ -34,6 +35,7 @@ export {
   addHoldings,
   loadingHoldings,
   setRecordHoldings,
+  setRecordGetThis,
   RecordFieldValue,
   ViewMARC,
   Bookplate,

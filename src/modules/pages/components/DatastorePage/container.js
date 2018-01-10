@@ -36,7 +36,7 @@ import {
 } from '../../../records'
 
 import {
-  GetThis
+  GetThisPage
 } from '../../../getthis'
 
 import {
@@ -88,7 +88,7 @@ class DatastorePageContainer extends React.Component {
             <ConnectedSwitch>
               <Route path={match.url + `/record/:recordUid/get/:barcode`} render={(props) => {
                 return (
-                  <GetThis />
+                  <GetThisPage />
                 )
               }}/>
               <Route path={match.url + `/record/:recordUid`} exact render={(props) => {

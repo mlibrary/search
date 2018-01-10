@@ -1,5 +1,5 @@
-import GetThis from './components/GetThis';
+import GetThisPage from './components/GetThisPage';
 
 export {
-  GetThis
+  GetThisPage
 };

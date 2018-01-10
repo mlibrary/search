@@ -24,6 +24,7 @@
 
 .get-this-option {
   border: solid 2px $grey-5;
+  margin-bottom: 1rem;
 }
 
 .get-this-option-summary {
@@ -35,8 +36,12 @@
 
 .get-this-option-heading {
   display: inline;
+}
+
+.get-this-option-heading-text {
   color: $main-3;
   font-size: 1.25rem;
+  text-decoration: underline;
 }
 
 .get-this-option-subheading {

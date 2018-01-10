@@ -9,7 +9,8 @@ import config from '../../config';
 
 import {
   setRecord,
-  setRecordHoldings
+  setRecordHoldings,
+  setRecordGetThis
 } from '../records';
 
 const isSlugADatastore = (slug) => {
@@ -298,13 +299,11 @@ const requestGetThis = ({
   recordUid,
   barcode
 }) => {
-  const callback = (getThisData) => {
-    console.log('getThisData', getThisData)
+  const callback = (data) => {
+    store.dispatch(setRecordGetThis(data));
   }
 
   const record = Pride.requestRecord(datastoreUid, recordUid)
-
-  console.log('record', record)
 
   record.getGetThis(barcode, callback)
 }
