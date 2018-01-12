@@ -173,13 +173,22 @@ const datastoreRecordsHaveHoldings = (datastore) => {
   return false
 }
 
-const createHolding = ({ config, holding }) => {
+const createHolding = ({ config, holding, recordUid }) => {
   const fields = config.fields.reduce((prev, field) => {
     const configuredField = Object.keys(field).reduce((memo, fieldKey) => {
 
       // Checks to see if a field value should be set to a uid
       // off the holding from the backend.
       if (field[fieldKey].uid) {
+
+        // This is a special case, to construct the Get This URL.
+        if (field[fieldKey].uid === 'url' && holding.barcode) {
+          return {
+            ...memo,
+            [fieldKey]: `/catalog/record/${recordUid}/get-this/${holding.barcode}`
+          }
+        }
+
         return {
           ...memo,
           [fieldKey]: holding[field[fieldKey].uid]
@@ -194,7 +203,6 @@ const createHolding = ({ config, holding }) => {
 
     return prev.concat(configuredField)
   }, [])
-
   return {
     fields: fields
   }
@@ -203,7 +211,7 @@ const createHolding = ({ config, holding }) => {
 
 // Used to transform backend holdings data to a
 // shape better for React and based on configuration.
-const transformHoldings = (datastoreUid, holdings) => {
+const transformHoldings = ({ datastoreUid, recordUid, holdings }) => {
   const fieldsConfig = _.findWhere(config.fields, { datastore: datastoreUid })
 
   // Ensure there is a config for this datastore and its holdings
@@ -217,7 +225,8 @@ const transformHoldings = (datastoreUid, holdings) => {
         const holdingGroupConfig = fieldsConfig.holdings[holdingGroupUid]
         const newHolding = createHolding({
           config: holdingGroupConfig,
-          holding
+          holding,
+          recordUid
         })
 
         let holdingGroupNameSpace = holdingGroupUid
@@ -289,7 +298,7 @@ const requestRecord = ({
   // record types that have holdings (e.g. the catalog)
   if (datastoreRecordsHaveHoldings(datastoreUid)) {
     record.getHoldings((holdings) => {
-      store.dispatch(setRecordHoldings(transformHoldings(datastoreUid, holdings)))
+      store.dispatch(setRecordHoldings(transformHoldings({ datastoreUid, holdings, recordUid })))
     })
   }
 }

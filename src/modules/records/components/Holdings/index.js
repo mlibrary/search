@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { _ } from 'underscore'
 
 import HoldingStatus from '../HoldingStatus'
@@ -23,7 +24,7 @@ const FieldValue = ({ field }) => {
       }
 
       return (
-        <span><a className="holding-link" href={field.link}>{field.value}</a></span>
+        <span><Link className="holding-link" to={field.link}>{field.value}</Link></span>
       )
     case 'button-link':
       if (!field.link) {

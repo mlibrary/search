@@ -86,7 +86,7 @@ class DatastorePageContainer extends React.Component {
             <SearchBox />
             <DatastoreNavigation />
             <ConnectedSwitch>
-              <Route path={match.url + `/record/:recordUid/get/:barcode`} render={(props) => {
+              <Route path={match.url + `/record/:recordUid/get-this/:barcode`} render={(props) => {
                 return (
                   <GetThisPage />
                 )

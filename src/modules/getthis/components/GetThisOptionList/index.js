@@ -1,9 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
-import {
-  withRouter
-} from 'react-router-dom'
 
 import {
   requestRecord,
@@ -15,21 +12,6 @@ import GetThisOption from '../GetThisOption'
 
 
 class GetThisOptions extends React.Component {
-  componentWillMount() {
-    const { recordUid, barcode } = this.props.match.params
-    const { datastoreUid } = this.props
-
-    requestRecord({
-      recordUid,
-      datastoreUid
-    })
-    requestGetThis({
-      datastoreUid,
-      recordUid,
-      barcode,
-    })
-  }
-
   render() {
     const { record } = this.props
 
@@ -56,18 +38,15 @@ class GetThisOptions extends React.Component {
         )
       }
     } else {
-      return (
-        <p>Loading</p> // loading
-      )
+      return null // loading
     }
   }
 }
 
 function mapStateToProps(state) {
   return {
-    record: state.records.record,
-    datastoreUid: state.datastores.active
+    record: state.records.record
   }
 }
 
-export default withRouter(connect(mapStateToProps)(GetThisOptions))
+export default connect(mapStateToProps)(GetThisOptions)
