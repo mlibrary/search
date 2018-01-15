@@ -1,0 +1,33 @@
+.browse {
+  padding: 1.5rem 2rem;
+  background: white;
+}
+
+.browse-heading {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.browse-list {
+  margin: 0;
+  padding: 0;
+}
+
+.browse-item {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.browse-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  line-height: 1;
+}

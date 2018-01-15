@@ -10,6 +10,10 @@ import {
   ResultsSummary,
 } from '../../../records';
 
+import {
+  AtoZ,
+} from '../../../browse';
+
 class RecordListContainer extends React.Component {
   render() {
     const {
@@ -79,6 +83,7 @@ class RecordListContainer extends React.Component {
           <span aria-live="polite"><ResultsSummary /></span>
           <Sorts />
         </div>
+        <AtoZ />
         <ul className="results-list results-list-border">
           {activeRecords.map((record, index) =>
             <Record
