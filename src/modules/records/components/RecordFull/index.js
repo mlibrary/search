@@ -7,7 +7,6 @@ import {
 
 import {
   ShowAllList,
-  Icon,
   TrimString,
 } from '../../../core'
 import ShowAdditionalFieldList from '../ShowAdditionalFieldList';
@@ -16,19 +15,19 @@ import {
   getField,
   getFieldValue,
   getFullRecordDisplayFields,
-  getRecordFormats
 } from '../../utilities';
 import {
   AccessItem,
 } from '../AccessList'
 import {
   ViewMARC,
-  Holdings
+  Holdings,
+  RecordFullFormats,
+  FullRecordPlaceholder
 } from '../../../records'
 
 import {
-  requestRecord,
-  getFormatIconName
+  requestRecord
 } from '../../../pride';
 
 
@@ -45,14 +44,22 @@ class FullRecord extends React.Component {
     const { recordUid } = this.props.match.params
 
     if (!record) {
-      return <SkeletonFullRecord />
+      return (
+        <div className="container container-narrow">
+          <FullRecordPlaceholder />
+        </div>
+      )
     }
 
     // Check if the record in state matches the record ID in the URL
     // If they don't match, then the new record is still being fetched.
     const recordUidValue = getFieldValue(getField(record.fields, 'id'))[0]
     if (recordUidValue !== recordUid) {
-      return <SkeletonFullRecord />
+      return (
+        <div className="container container-narrow">
+          <FullRecordPlaceholder />
+        </div>
+      )
     }
 
     const access = filterAccessFields({
@@ -68,11 +75,6 @@ class FullRecord extends React.Component {
       datastore: datastoreUid
     });
 
-    const formats = getRecordFormats({
-      fields: record.fields,
-      datastoreUid
-    })
-
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     // Set page title
@@ -81,7 +83,10 @@ class FullRecord extends React.Component {
     return (
       <div className="container container-narrow">
         <div className="full-record-container">
-          <Format formats={formats} />
+          <RecordFullFormats
+            fields={record.fields}
+            datastoreUid={datastoreUid}
+          />
           <div className="record-container">
             <h1 className="full-record-title">
               {[].concat(record.names).map((title, index) => (
@@ -116,39 +121,6 @@ class FullRecord extends React.Component {
       </div>
     )
   }
-}
-
-const SkeletonFullRecord = () => (
-  <div className="container container-narrow">
-    <div className="full-record-container">
-      <div className="full-record-header">
-        <span className="loading-record-text">Loading record...</span>
-      </div>
-      <div className="record-container placeholder-container">
-        <div className="placeholder placeholder-title"></div>
-        <div className="placeholder placeholder-line"></div>
-        <div className="placeholder placeholder-line placeholder-line-alt"></div>
-        <div className="placeholder placeholder-line"></div>
-        <div className="placeholder placeholder-line placeholder-line-alt"></div>
-        <div className="placeholder placeholder-line"></div>
-        <div className="placeholder placeholder-line"></div>
-      </div>
-    </div>
-  </div>
-)
-
-const Format = ({ formats }) => {
-  return (
-    <div className="full-record-header">
-      {formats.map((value, index) => {
-        const iconName = getFormatIconName({ format: value })
-
-        return (
-          <span className="full-record-format" key={index}><Icon name={iconName} />{value}</span>
-        )
-      })}
-    </div>
-  )
 }
 
 function mapStateToProps(state) {

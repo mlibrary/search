@@ -7,14 +7,16 @@ import {
 
 import {
   requestRecord,
-  requestGetThis
+  requestGetThis,
+  requestGetThisHolding,
 } from '../../../pride';
 import {
   DetailsList
 } from '../../../core'
 import {
   GetThisOptionList,
-  GetThisFAQ
+  GetThisFAQ,
+  GetThisRecord,
 } from '../../../getthis'
 
 
@@ -24,7 +26,9 @@ class GetThisPage extends React.Component {
       recordUid,
       barcode
     } = this.props.match.params
-    const { datastoreUid } = this.props
+    const {
+      datastoreUid
+    } = this.props
 
     requestRecord({
       recordUid,
@@ -38,7 +42,12 @@ class GetThisPage extends React.Component {
   }
 
   render() {
-    const { record } = this.props
+    const {
+      record
+    } = this.props
+    const {
+      barcode
+    } = this.props.match.params
 
     return (
       <article className="container container-narrow">
@@ -47,6 +56,7 @@ class GetThisPage extends React.Component {
           <p className="u-margin-top-none">Request books and other media to the campus library or department most convenient for you.</p>
         </section>
 
+        <GetThisRecord barcode={barcode} />
         <GetThisOptionList record={record} />
         <GetThisFAQ />
       </article>

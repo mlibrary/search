@@ -178,7 +178,11 @@ const datastoreRecordsHaveHoldings = (datastore) => {
   return false
 }
 
-const createHolding = ({ config, holding, recordUid }) => {
+const createHolding = ({
+  config,
+  holding,
+  recordUid
+}) => {
   const fields = config.fields.reduce((prev, field) => {
     const configuredField = Object.keys(field).reduce((memo, fieldKey) => {
 
@@ -208,8 +212,10 @@ const createHolding = ({ config, holding, recordUid }) => {
 
     return prev.concat(configuredField)
   }, [])
+
   return {
-    fields: fields
+    fields: fields,
+    barcode: holding.barcode,
   }
 }
 
@@ -345,8 +351,6 @@ const requestRecord = ({
       })
     }
   }
-
-
 }
 
 const requestGetThis = ({

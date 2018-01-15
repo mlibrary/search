@@ -123,3 +123,13 @@ input.get-this-field-input-year {
   margin-bottom: 0;
   padding-bottom: 0;
 }
+
+/*
+  Holdings
+*/
+
+.get-this-holdings-container {
+  .holding-table td:first-child {
+    display: none;
+  }
+}

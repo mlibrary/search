@@ -746,7 +746,7 @@ input.search-box-input {
   margin: 0;
   list-style: none; }
 
-.results-list-border > li {
+.results-list-border > .record {
   border-bottom: solid 1px #CCC; }
 
 /*
@@ -998,7 +998,7 @@ body {
   Record
 */
 .record {
-  margin: 0.5rem 0;
+  margin: 0.75rem 0;
   padding: 0;
   background: white; }
 
@@ -1006,7 +1006,7 @@ body {
   padding: 1.5rem; }
   @media (min-width: 32rem) {
     .record-container {
-      padding: 2rem; } }
+      padding: 1.5rem 2rem; } }
 
 .record-title {
   font-weight: 600;
@@ -1283,7 +1283,7 @@ body {
 .holdings {
   background: #FAFAFA;
   border-top: solid 1px #E5E5E5;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   border-radius: 0 0 4px 4px; }
 
 .holding-group:not(:last-child) {
@@ -1296,7 +1296,7 @@ body {
 .holding-group-heading {
   margin: 0;
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: 1rem;
   margin-right: 1rem; }
   @media (max-width: 47rem) {
     .holding-group-heading {
@@ -1305,7 +1305,8 @@ body {
 
 .holding-group-info-link {
   display: inline-block;
-  text-decoration: underline; }
+  text-decoration: underline;
+  font-size: 0.875rem; }
 
 .holding-table {
   border: none;
@@ -1356,42 +1357,34 @@ body {
     .holding-table-field {
       padding: 0.5rem 0; } }
 
-.holdings-show-all-button {
-  font-size: 0.875rem;
-  color: #6E6E6E;
-  margin-top: 0.75rem; }
-
-.holdings-condensed .holdings {
+.holdings {
   margin: 0;
   padding: 1.5rem 2rem; }
   @media (max-width: 32rem) {
-    .holdings-condensed .holdings {
+    .holdings {
       padding: 1.5rem; } }
 
-.holdings-condensed .holding-group-heading {
-  font-size: 1rem; }
-
-.holdings-condensed .holding-table td, .holdings-condensed .holding-table th {
+.holding-table td, .holding-table th {
   vertical-align: top; }
 
-.holdings-condensed .holding-group:not(:last-child) {
+.holding-group:not(:last-child) {
   margin-bottom: 1.5rem; }
 
-.holdings-condensed .holding-button {
+.holding-button {
   background: none;
   padding: 0;
   color: #126DC1;
   border: none;
   text-decoration: underline; }
 
-.holdings-condensed .holdings-show-all-button {
+.holdings-show-all-button {
   border: none;
   padding: 0;
   color: #6E6E6E;
   border-bottom: solid 1px #CCC;
   border-radius: 0;
   margin-top: 0; }
-  .holdings-condensed .holdings-show-all-button:hover {
+  .holdings-show-all-button:hover {
     border-color: #6E6E6E; }
 
 .bentobox .holdings {
@@ -2178,6 +2171,12 @@ input.get-this-field-input-year {
   margin-bottom: 0;
   padding-bottom: 0; }
 
+/*
+  Holdings
+*/
+.get-this-holdings-container .holding-table td:first-child {
+  display: none; }
+
 .u-break-word {
   word-wrap: break-word; }
 
@@ -2186,6 +2185,9 @@ input.get-this-field-input-year {
 
 .u-margin-bottom-none {
   margin-bottom: 0; }
+
+.u-margin-bottom-1 {
+  margin-bottom: 1rem; }
 
 .margin-right-2 {
   margin-right: 2rem; }
