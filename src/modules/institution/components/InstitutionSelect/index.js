@@ -7,11 +7,6 @@ import { withRouter } from 'react-router-dom';
 import {
   setActiveInstitution
 } from '../../../institution'
-
-import {
-  Switch
-} from '../../../core'
-
 import {
   stringifySearchQueryForURL
 } from '../../../pride'

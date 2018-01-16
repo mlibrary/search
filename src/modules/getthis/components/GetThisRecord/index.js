@@ -6,12 +6,8 @@ import {
   TrimString
 } from '../../../core'
 import {
-  getField,
-  getFieldValue,
-  getRecordFormats,
   RecordFullFormats,
   FullRecordPlaceholder,
-  RecordPlaceholder,
   Holdings
 } from '../../../records'
 
@@ -86,8 +82,6 @@ class GetThisRecord extends React.Component {
     const {
       record,
       datastoreUid,
-      searchQuery,
-      institution,
       barcode
     } = this.props;
 

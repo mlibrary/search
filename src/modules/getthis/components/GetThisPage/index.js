@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import _ from 'underscore'
 import {
   withRouter
 } from 'react-router-dom'
@@ -8,11 +7,7 @@ import {
 import {
   requestRecord,
   requestGetThis,
-  requestGetThisHolding,
 } from '../../../pride';
-import {
-  DetailsList
-} from '../../../core'
 import {
   GetThisOptionList,
   GetThisFAQ,
@@ -48,6 +43,21 @@ class GetThisPage extends React.Component {
     const {
       barcode
     } = this.props.match.params
+
+    if (record && record.fields.length === 0 && record.names.length === 0) {
+      return (
+        <article className="container container-narrow">
+          <section>
+            <h1 className="u-margin-bottom-none">Get This</h1>
+            <p className="u-margin-top-none">Request books and other media to the campus library or department most convenient for you.</p>
+          </section>
+
+          <div class="alert">
+            <p><b>Error:</b> Unable to find this record.</p>
+          </div>
+        </article>
+      )
+    }
 
     return (
       <article className="container container-narrow">

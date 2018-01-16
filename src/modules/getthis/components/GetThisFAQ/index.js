@@ -2,7 +2,7 @@ import React from 'react'
 
 const GetThisFAQ = () => (
   <section className="card get-this-section">
-    <h3 className="get-this-section-heading">Frequently asked questions</h3>
+    <h3 className="get-this-section-heading get-this-faq-heading">Frequently asked questions</h3>
 
     <h4 className="u-margin-bottom-none">I can't find my book on the shelf. Can you look for it?</h4>
     <p className="u-margin-top-none">Yes! Request it for pickup and we will take a look.</p>
