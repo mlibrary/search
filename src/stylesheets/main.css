@@ -268,6 +268,22 @@ textarea {
   border-radius: 4px;
   max-width: 100%; }
 
+.form-label {
+  display: block;
+  padding-bottom: 0.15rem;
+  line-height: 1.4; }
+
+.form-control {
+  padding: 0.15rem 0.25rem;
+  border: solid 2px black;
+  width: 100%;
+  font-size: 1rem;
+  line-height: inherit;
+  max-width: 24em; }
+
+.form-group {
+  margin-bottom: 1.5rem; }
+
 .button {
   display: inline-block;
   margin: 0;
@@ -2139,15 +2155,13 @@ input.date-range-input-text {
   Get This Policies
 */
 .get-this-policies-heading {
-  font-weight: 600;
-  color: #4E4E4E;
-  margin-bottom: 0.5rem; }
+  font-weight: 600; }
 
 .get-this-policies-list {
   color: #4E4E4E;
   margin-top: 0.5rem; }
   .get-this-policies-list li {
-    margin-top: 0.5rem; }
+    margin-top: 0; }
 
 .get-this-policies-container {
   border-left: solid 2px #CCC;
