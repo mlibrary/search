@@ -1,5 +1,10 @@
 import React from 'react'
 
+import {
+  GetThisForm
+} from '../../../getthis'
+
+
 class GetThisOption extends React.Component {
   render() {
     const { option } = this.props
@@ -12,11 +17,7 @@ class GetThisOption extends React.Component {
 
         <div className="get-this-option-details-container">
           <div className="get-this-option-left-half">
-            {option.form ? (
-              <p>[Need to add form here]</p>
-            ) : (
-              <p>[TBD]</p>
-            )}
+            <GetThisForm form={option.form} />
           </div>
           <div className="get-this-option-right-half">
             <div className="get-this-policies-container">

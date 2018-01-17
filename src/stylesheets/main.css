@@ -197,6 +197,9 @@ sup {
   font-size: 0.6em;
   vertical-align: top; }
 
+form {
+  box-sizing: border-box; }
+
 label {
   margin-bottom: 0.1rem;
   color: #333;
@@ -212,7 +215,8 @@ textarea {
   font-family: "Open Sans", sans-serif;
   color: #333; }
 
-input[type="text"] {
+input[type="text"],
+input[type="date"] {
   font-size: 1rem;
   border: solid 1px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);

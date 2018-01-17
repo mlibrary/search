@@ -1,3 +1,7 @@
+form {
+  box-sizing: border-box;
+}
+
 label {
   margin-bottom: 0.1rem;
   color: $grey-1;
@@ -16,7 +20,8 @@ textarea, {
   color: $grey-1;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="date"] {
   font-size: $font-size-base;
   border: solid 1px rgba(0,0,0,0.3);
   box-shadow: inset 0 1px 4px rgba(0,0,0,0.08);
