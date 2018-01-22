@@ -1,40 +1,48 @@
 import React from 'react'
 
-const Options = ({ field }) => {
-  const { type, name, value, options } = field;
+const Select = ({ field }) => {
+  const { name, options } = field;
   const optionKeys = Object.keys(options)
 
   return (
-    <select className="dropdown" name={name}>
+    <select id={name} name={name} className="dropdown">
       {optionKeys.map(key => (
-        <option value={key}>{options[key]} key={key}</option>
+        <option key={key} value={key}>{options[key]}</option>
       ))}
     </select>
   )
 }
 
 const Field = ({ field }) => {
-  const { type, name, value, options } = field;
+  const { type, name, value } = field;
 
   if (type === 'hidden') {
     return (
-      <input type="text" hidden="true" name={name} value={value} readOnly />
+      <input id={name} type={type} name={name} defaultValue={value} />
     )
-  } else if (type === 'option') {
+  } else if (type === 'select') {
     return (
-      <Options field={field} />
+      <div className="form-group">
+        {field.label && (
+          <label className="form-label" htmlFor={field.name}>{field.label}</label>
+        )}
+        <Select field={field} />
+      </div>
     )
-  } else if (type === 'date') {
+  } else if (type === 'submit') {
     return (
-      <input type="date" name={name} value={value} />
-    )
-  } else if (type === 'button') {
-    return (
-      <input type="submit" value={field.content} className="button" />
+      <input className="button" id={name} type={type} name={name} defaultValue={value} />
     )
   }
 
-  return null
+  return (
+    <div className="form-group">
+      {field.label && (
+        <label className="form-label" htmlFor={field.name}>{field.label}</label>
+      )}
+      <input className="form-control" id={name} type={type} name={name} defaultValue={value} />
+    </div>
+  )
 }
 
 class GetThisForm extends React.Component {
@@ -50,7 +58,7 @@ class GetThisForm extends React.Component {
     }
 
     return (
-      <form method={form.method} post={form.post}>
+      <form action={form.action} method={form.method}>
         {form.fields.map((field, key) => (
           <Field field={field} key={key} />
         ))}
