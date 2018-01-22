@@ -2138,18 +2138,23 @@ input.date-range-input-text {
   line-height: 1.5; }
 
 .get-this-option-details-container {
-  display: flex; }
-
-.get-this-option-left-half,
-.get-this-option-right-half {
   padding: 1rem 1.5rem; }
 
-.get-this-option-left-half {
-  flex: 1;
-  padding-right: 0; }
-
-.get-this-option-right-half {
-  flex: 1; }
+@media (min-width: 47rem) {
+  .get-this-option-details-container {
+    display: flex;
+    padding: 0; }
+  .get-this-option-left-half,
+  .get-this-option-right-half {
+    padding: 1rem 1.5rem; }
+  .get-this-option-left-half {
+    flex: 1;
+    padding-right: 0; }
+  .get-this-option-right-half {
+    flex: 1; }
+  .get-this-policies-container {
+    border-left: solid 2px #CCC;
+    padding-left: 1rem; } }
 
 /*
   Get This Policies
@@ -2159,15 +2164,13 @@ input.date-range-input-text {
 
 .get-this-policies-list {
   color: #4E4E4E;
-  margin-top: 0.5rem; }
+  margin-top: 0.5rem;
+  margin-left: 2rem; }
   .get-this-policies-list li {
-    margin-top: 0; }
+    margin-top: 0;
+    padding-left: 0.25rem; }
   .get-this-policies-list a {
     text-decoration: underline; }
-
-.get-this-policies-container {
-  border-left: solid 2px #CCC;
-  padding-left: 1rem; }
 
 /*
   Get This forms

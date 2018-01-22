@@ -19,9 +19,11 @@ class GetThisOption extends React.Component {
         </summary>
 
         <div className="get-this-option-details-container">
-          <div className="get-this-option-left-half">
-            <GetThisForm form={option.form} />
-          </div>
+          {option.form && (
+            <div className="get-this-option-left-half">
+              <GetThisForm form={option.form} />
+            </div>
+          )}
 
           {option.description && (
             <div className="get-this-option-right-half">
