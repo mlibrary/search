@@ -52,7 +52,7 @@ class GetThisPage extends React.Component {
             <p className="u-margin-top-none">Request books and other media to the campus library or department most convenient for you.</p>
           </section>
 
-          <div class="alert">
+          <div className="alert">
             <p><b>Error:</b> Unable to find this record.</p>
           </div>
         </article>

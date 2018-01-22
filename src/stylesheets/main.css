@@ -617,7 +617,8 @@ nav {
   appearance: none;
   -webkit-appearance: none;
   padding: 0.5rem 0.75rem;
-  cursor: pointer; }
+  cursor: pointer;
+  max-width: 100%; }
 
 .dropdown {
   padding-right: 2.5rem;
