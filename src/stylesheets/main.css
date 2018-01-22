@@ -2148,6 +2148,8 @@ input.date-range-input-text {
   margin-top: 0.5rem; }
   .get-this-policies-list li {
     margin-top: 0.5rem; }
+  .get-this-policies-list a {
+    text-decoration: underline; }
 
 .get-this-policies-container {
   border-left: solid 2px #CCC;

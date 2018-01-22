@@ -4,10 +4,15 @@ import {
   GetThisForm
 } from '../../../getthis'
 
+const createMarkup = (html) => {
+  return { __html: html };
+};
 
 class GetThisOption extends React.Component {
   render() {
     const { option } = this.props
+
+    console.log('option', option)
 
     return (
       <details className="get-this-option">
@@ -24,11 +29,8 @@ class GetThisOption extends React.Component {
               <h4 className="get-this-policies-heading">Policies and additional information:</h4>
 
               <ul className="get-this-policies-list">
-                {option.description.map((policy, key) => (
-                  <li key={key}>{policy}</li>
-                ))}
-                {option.tip.map((policy, key) => (
-                  <li key={key}>{policy}</li>
+                {option.description.content.map((policy, key) => (
+                  <li key={key} dangerouslySetInnerHTML={createMarkup(policy)} />
                 ))}
               </ul>
             </div>
