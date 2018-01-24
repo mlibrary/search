@@ -2,12 +2,18 @@ import React from 'react'
 
 const Select = ({ field }) => {
   const { name, options } = field;
-  const optionKeys = Object.keys(options)
+
+  console.log('options', options)
 
   return (
     <select id={name} name={name} className="dropdown">
-      {optionKeys.map(key => (
-        <option key={key} value={key}>{options[key]}</option>
+      {options.map((option, key) => (
+        <option
+          key={key}
+          value={option.value}
+          disabled={option.disabled && 'disabled'}
+          selected={option.selected && 'selected'}
+        >{option.name}</option>
       ))}
     </select>
   )
