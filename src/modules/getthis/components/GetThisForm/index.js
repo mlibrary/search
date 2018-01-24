@@ -3,8 +3,6 @@ import React from 'react'
 const Select = ({ field }) => {
   const { name, options } = field;
 
-  console.log('options', options)
-
   return (
     <select id={name} name={name} className="dropdown">
       {options.map((option, key) => (
