@@ -92,6 +92,20 @@ const BentoFooter = ({
   )
 }
 
+const BentoboxNoResults = ({ bentobox }) => {
+  const hasBrowse = (bentobox.uid === 'databases' || bentobox.uid === 'onlinejournals') ? true : false
+
+  return (
+    <div className="bentobox-no-results">
+      <p className="no-margin"><b>No results</b> match your search.</p>
+
+      {hasBrowse && (
+        <p className="u-margin-bottom-none">Try our <Link className="underline" to={`/${bentobox.slug}/browse`}>Browse {bentobox.name} page</Link> to view all databases by titles alphabetically or by academic discipline.</p>
+      )}
+    </div>
+  )
+}
+
 const BentoboxResultsNum = ({ bentobox, search, totalResults }) => {
   const resultsNum = numeral(totalResults).format(0,0)
   const resultsText = resultsNum === 1 ? `Result` : `Results`
@@ -115,7 +129,7 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
   // No results
   if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
     return (
-      <p className="bentobox-no-results"><b>No results</b> match your search.</p>
+      <BentoboxNoResults bentobox={bentobox} />
     )
   }
 

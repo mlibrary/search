@@ -19,8 +19,6 @@
   display: inline-block;
   margin: 0;
   padding: 0;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
 }
 
 .browse-button {
@@ -30,4 +28,17 @@
   display: flex;
   justify-content: space-around;
   line-height: 1;
+  background: none;
+  border: none;
+  color: $main-3;
+  font-size: 1.15rem;
+  font-weight: 600;
+
+  &:hover {
+    background: $main-5;
+    border: solid 1px $main-4;
+    border-radius: 4px;
+
+    cursor: pointer;
+  }
 }
