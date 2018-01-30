@@ -1,4 +1,5 @@
 export const SET_SEARCH_QUERY = 'search/SET_SEARCH_QUERY';
+export const SET_SEARCH_QUERY_INPUT = 'search/SET_SEARCH_QUERY_INPUT';
 export const CLEAR_SEARCH = 'search/CLEAR_SEARCH';
 export const SEARCHING = 'search/SEARCHING';
 export const SET_SEARCH_DATA = 'search/SET_SEARCH_DATA';
@@ -11,6 +12,10 @@ export const ADD_ADVANCED_FIELD = 'search/ADD_ADVANCED_FIELD'
 
 export const setSearchQuery = function submitSearch(payload) {
   return { type: SET_SEARCH_QUERY, payload };
+};
+
+export const setSearchQueryInput = function submitSearch(payload) {
+  return { type: SET_SEARCH_QUERY_INPUT, payload };
 };
 
 export const clearSearch = function clearSearch() {

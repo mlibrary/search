@@ -373,6 +373,11 @@ const config = {
       },
       searches: [
         {
+          uid: 'author',
+          search: 'author',
+          type: 'fielded'
+        },
+        {
           uid: 'subject',
           search: 'subject',
           type: 'filter'
@@ -394,8 +399,8 @@ const config = {
       ],
       medium: [
         'format',
+        'type',
         'brief_description',
-        'database_type',
         'new',
         'trial',
         'outage',
@@ -403,8 +408,8 @@ const config = {
       ],
       full: {
         standard: [
+          'type',
           'description',
-          'database_type',
           'access_icon',
           'new',
           'trial',

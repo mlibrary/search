@@ -7,8 +7,10 @@ import {
   Link,
 } from 'react-router-dom'
 import _ from 'underscore'
+
 import {
   setSearchQuery,
+  setSearchQueryInput,
   searching
 } from '../../actions'
 import {
@@ -19,17 +21,13 @@ class SearchBox extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      query: this.props.query || ''
-    }
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
   }
 
   handleChange(query) {
-    this.setState({ query })
+    this.props.setSearchQueryInput(query)
   }
 
   onBackButtonEvent(e) {
@@ -43,13 +41,12 @@ class SearchBox extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { match, history, activeFilters, institution } = this.props
-    const { query } = this.state
+    const { match, history, queryInput, activeFilters, institution } = this.props
 
     // Query is not empty
-    if (query.length > 0) {
+    if (queryInput.length > 0) {
       const queryString = qs.stringify({
-        query: query,
+        query: queryInput,
         filter: activeFilters,
         library: institution.active
       }, {
@@ -66,9 +63,7 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    const { match, location, isAdvanced, datastores } = this.props
-    const { query } = this.state
-
+    const { match, location, query, queryInput, isAdvanced, datastores } = this.props
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     if (this.props.query) {
@@ -87,7 +82,7 @@ class SearchBox extends React.Component {
                 id="search-query"
                 className="search-box-input"
                 type="text"
-                value={query}
+                value={queryInput}
                 autoComplete="off"
                 onChange={event => this.handleChange(event.target.value)}
               />
@@ -111,6 +106,7 @@ function mapStateToProps(state) {
   return {
     isSearching: state.search.searching,
     query: state.search.query,
+    queryInput: state.search.queryInput,
     activeFilters: state.filters.active[state.datastores.active],
     activeDatastoreUid: state.datastores.active,
     location: state.router.location,
@@ -122,7 +118,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    setSearchQuery,
+    setSearchQueryInput,
     searching
   }, dispatch)
 }

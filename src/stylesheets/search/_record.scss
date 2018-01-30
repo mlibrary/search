@@ -89,6 +89,16 @@
   display: block;
 }
 
+.record-field-description-has-inner-html {
+  *:first-child {
+    margin-top: 0;
+  }
+
+  *:last-child {
+    margin-bottom: 0;
+  }
+}
+
 /*
   Full Record Specific
 */

@@ -18,6 +18,10 @@ import {
 } from '../../../records'
 
 
+function createMarkup(markup_string) {
+  return {__html: markup_string};
+}
+
 class RecordField extends React.Component {
   render() {
     const { field, datastoreUid, institution } = this.props
@@ -39,6 +43,16 @@ class RecordField extends React.Component {
               <a href={mailto} className="record-field-value-link">{field.value}</a>
             </span>
           </dd>
+        </div>
+      )
+    }
+
+    if (field.uid === 'description') {
+
+      return (
+        <div className={uniqueFieldClassName}>
+          <dt className="record-field-name">{field.name}</dt>
+          <dd className="record-field-value record-field-description-has-inner-html" dangerouslySetInnerHTML={createMarkup(field.value)} />
         </div>
       )
     }
@@ -106,7 +120,7 @@ class RecordField extends React.Component {
               {field.value.map((group, groupKey) => (
                 <li className="record-field-value-item record-field-value-list-item" key={groupKey}>
                   {group.split(' | ').map((string, stringKey) => (
-                    <span>
+                    <span key={stringKey}>
                       <RecordFieldValue
                         key={stringKey}
                         field={field}
@@ -118,6 +132,18 @@ class RecordField extends React.Component {
                 </li>
               ))}
             </span>
+          </dd>
+        </div>
+      )
+    }
+
+    // Special case where database record description field values are HTML.
+    if (field.uid === 'description' && datastoreUid === 'databases') {
+      return (
+        <div className={uniqueFieldClassName}>
+          <dt className="record-field-name">{field.name}</dt>
+          <dd className="record-field-value">
+            <div className="record-field-value-has-html" dangerouslySetInnerHTML={{ __html: field.value }}></div>
           </dd>
         </div>
       )

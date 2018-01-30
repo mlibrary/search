@@ -71,7 +71,6 @@ const BentoFooter = ({
   searchQuery
 }) => {
   const url = `/${bentobox.slug}${searchQuery}`
-
   const footerText = `View All ${bentobox.name} Results`
 
   // No results
