@@ -22,7 +22,7 @@ class GetThisOption extends React.Component {
           {option.form && (
             <div className="get-this-option-left-half">
               {option.orientation && (
-                <p>{option.orientation}</p>
+                <div dangerouslySetInnerHTML={createMarkup(option.orientation)} />
               )}
               <GetThisForm form={option.form} />
             </div>
