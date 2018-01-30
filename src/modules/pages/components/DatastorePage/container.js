@@ -29,7 +29,8 @@ import {
 } from '../../../filters'
 
 import {
-  BrowsePage
+  BrowsePage,
+  BrowseInfo
 } from '../../../browse'
 
 import {
@@ -134,6 +135,7 @@ const Results = ({ searching, activeDatastore }) => {
         <div className="side-container">
           {searching ? (<InstitutionSelect />) : null}
           <Filters />
+          {searching ? (<BrowseInfo datastore={activeDatastore} />) : null}
         </div>
       ) : null }
 
