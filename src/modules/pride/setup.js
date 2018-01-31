@@ -319,7 +319,8 @@ const runSearch = () => {
     field_tree: fieldTree,
     page,
     facets,
-    sort
+    sort,
+    count: 20
   }
 
   store.dispatch(searching(true))

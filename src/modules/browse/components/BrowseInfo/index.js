@@ -8,7 +8,7 @@ class BrowseInfo extends React.Component {
 
     if (datastore.uid === 'databases' || datastore.uid === 'journals') {
       return (
-        <p><Link className="underline" to={`/${datastore.slug}/browse`}>Browse {datastore.name}</Link> alphabetically or by academic discipline.</p>
+        <p><Link className="underline" to={`/${datastore.slug}/browse`}>Browse All {datastore.name}</Link> alphabetically or by academic discipline.</p>
       )
     }
 
