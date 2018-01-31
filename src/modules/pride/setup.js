@@ -320,7 +320,7 @@ const runSearch = () => {
     page,
     facets,
     sort,
-    count: 20
+    count: 10
   }
 
   store.dispatch(searching(true))

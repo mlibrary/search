@@ -17,14 +17,11 @@ class BrowseAtoZ extends React.Component {
 
   handleClick(query) {
     const {
-      match,
-      activeFilters,
-      activeSort
+      match
     } = this.props
 
     const queryString = qs.stringify({
       query: 'title_starts_with:' + query,
-      filter: activeFilters,
       sort: 'title_asc'
     }, {
       arrayFormat: 'repeat',
@@ -53,11 +50,4 @@ class BrowseAtoZ extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    activeFilters: state.filters.active[state.datastores.active],
-    activeSort: state.search.sort[state.datastores.active]
-  };
-}
-
-export default withRouter(connect(mapStateToProps)(BrowseAtoZ));
+export default withRouter(BrowseAtoZ);
