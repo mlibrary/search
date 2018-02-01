@@ -189,11 +189,11 @@ const createHolding = ({
       // Checks to see if a field value should be set to a uid
       // off the holding from the backend.
       if (field[fieldKey].uid) {
-
         // This is a special case, to construct the Get This URL.
-        if (field[fieldKey].uid === 'url' && holding.barcode) {
+        if (holding.type === 'circulating' && field[fieldKey].uid === 'url' && holding.barcode) {
           return {
             ...memo,
+            type: 'get-this',
             [fieldKey]: `/catalog/record/${recordUid}/get-this/${holding.barcode}`
           }
         }

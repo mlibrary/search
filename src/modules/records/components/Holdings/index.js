@@ -18,13 +18,17 @@ const FieldValue = ({ field }) => {
   }
 
   switch (field.type) {
+    case 'get-this':
+      return (
+        <span><Link className="holding-link" to={field.link}>{field.value}</Link></span>
+      )
     case 'link':
       if (!field.link) {
         return <HoldingFieldNotAvailable />
       }
 
       return (
-        <span><Link className="holding-link" to={field.link}>{field.value}</Link></span>
+        <span><a className="holding-link" href={field.link}>{field.value}</a></span>
       )
     case 'button-link':
       if (!field.link) {
