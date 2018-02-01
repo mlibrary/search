@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Icon } from '../../../core';
+import { BrowseInfo } from '../../../browse';
 
 import {
   InstitutionSelect
@@ -52,7 +53,7 @@ const Landing = ({ content, activeDatastore }) => {
           <p className="landing-heading-text"><b>Databases</b> are library search engines focused on a specific subject or range of subjects. Some may highlight a particular format, while others will contain a variety of material types.</p>
           <p>Your results will include databases the library subscribes to, databases of locally created materials, and databases available to anyone via open access.</p>
 
-          <p>Use <Link className="underline" to={`/databases/browse`}>Browse Databases</Link> to view all databases by titles alphabetically or by academic discipline.</p>
+          <BrowseInfo datastore={activeDatastore} />
         </div>
       )
     case 'journals':
@@ -62,7 +63,7 @@ const Landing = ({ content, activeDatastore }) => {
           <p className="landing-heading-text"><b>Online Journals</b> are serial (repeating) publications the library subscribes to electronically. This includes not only journals, but also newspapers, trade publications, magazines, and more.</p>
           <p>Your results will include journals the library subscribes to, as well as some available to anyone via open access. You will see statements with any specifics about access and many journals will be available through multiple platforms. Be sure to check dates alongside each to see what you can access.</p>
 
-          <p>Use <Link className="underline" to={`/onlinejournals/browse`}>Online Journals Browse</Link> to view all online journals by titles alphabetically or by academic discipline.</p>
+          <BrowseInfo datastore={activeDatastore} />
         </div>
       )
     case 'website':
