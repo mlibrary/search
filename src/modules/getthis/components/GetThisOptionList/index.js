@@ -13,6 +13,19 @@ class GetThisOptions extends React.Component {
       const { status, options } = record.getthis
 
       if (status === 'Success') {
+
+        if (options.length === 0) {
+          return (
+            <section className="card get-this-section">
+              <h2 className="get-this-section-heading">How would you like to get this item?</h2>
+
+                <div className="alert alert-warning">
+                  <p><b>Error:</b> No options available.</p>
+                </div>
+            </section>
+          )
+        }
+
         return (
           <section className="card get-this-section">
             <h2 className="get-this-section-heading">How would you like to get this item?</h2>
@@ -32,8 +45,6 @@ class GetThisOptions extends React.Component {
         }
 
         const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
-
-        console.log('loginUrl', loginUrl)
 
         return (
           <section className="card get-this-section">
