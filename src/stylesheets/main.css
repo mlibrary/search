@@ -1455,7 +1455,7 @@ body {
 .holding-status-on-shelf,
 .holding-status-missing,
 .holding-status-checked-out {
-  color: #05A657;
+  color: #057C42;
   display: flex;
   align-items: center; }
   .holding-status-on-shelf .icon,
@@ -1466,13 +1466,13 @@ body {
     margin-right: 0.5rem; }
 
 .holding-status-on-shelf {
-  color: #05A657; }
+  color: #057C42; }
 
 .holding-status-missing {
-  color: #ED5D47; }
+  color: #C53B26; }
 
 .holding-status-checked-out {
-  color: #E77504; }
+  color: #AA5600; }
 
 .access-container {
   background: #FAFAFA;
