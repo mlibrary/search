@@ -70,9 +70,7 @@ const BentoFooter = ({
   search,
   searchQuery
 }) => {
-  const totalResults = search.data[bentobox.uid].totalAvailable;
   const url = `/${bentobox.slug}${searchQuery}`
-
   const footerText = `View All ${bentobox.name} Results`
 
   // No results

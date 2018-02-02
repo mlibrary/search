@@ -3,6 +3,10 @@ const config = {
     production: window.location.origin + '/spectrum',
     development: 'https://search-staging.www.lib.umich.edu/spectrum',
   },
+  loginUrl: {
+    production: window.location.origin + '/login',
+    development: 'https://search-staging.www.lib.umich.edu/login',
+  },
   datastores: {
     list: [
       {
@@ -330,12 +334,12 @@ const config = {
       datastore: 'articlesplus',
       medium: [
         'format',
+        'author',
         'publication_date',
         'abstract',
         'volume',
         'issue',
         'publication_title',
-        'author',
         'start_page',
         'end_page',
         'genre',
@@ -345,12 +349,12 @@ const config = {
       ],
       full: {
         standard: [
+          'author',
           'publication_date',
           'abstract',
           'volume',
           'issue',
           'publication_title',
-          'author',
           'start_page',
           'end_page',
           'genre',
@@ -395,8 +399,8 @@ const config = {
       ],
       medium: [
         'format',
+        'type',
         'brief_description',
-        'database_type',
         'new',
         'trial',
         'outage',
@@ -404,8 +408,8 @@ const config = {
       ],
       full: {
         standard: [
+          'type',
           'description',
-          'database_type',
           'access_icon',
           'new',
           'trial',

@@ -53,7 +53,7 @@ class RecordListContainer extends React.Component {
             </div>
             <Sorts />
           </div>
-          <ul className="results-list results-list-border">
+          <section className="results-list results-list-border">
             <RecordPlaceholder />
             <RecordPlaceholder />
             <RecordPlaceholder />
@@ -64,7 +64,7 @@ class RecordListContainer extends React.Component {
             <RecordPlaceholder />
             <RecordPlaceholder />
             <RecordPlaceholder />
-          </ul>
+          </section>
         </div>
       )
     }

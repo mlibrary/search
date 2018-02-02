@@ -11,7 +11,6 @@ import {
   getFieldValue,
   getRecordFormats,
   getAccessField,
-  filterAccessFields,
   filterDisplayFields,
   hasRecordFullView
 } from '../../utilities';
@@ -26,7 +25,6 @@ const Header = ({
   datastoreUid,
   searchQuery
 }) => {
-  const title = record.names
   const publishedDate = getFieldValue(getField(record.fields, 'published_year'))[0]
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0]
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
@@ -94,12 +92,10 @@ class Description extends React.Component {
         <TrimString string={field[0]} trimLength={140} showMore={false}/>
       </p>
     )
-
-    return null
   }
 
   render() {
-    const { record, datastoreUid } = this.props
+    const { datastoreUid } = this.props
 
     if (datastoreUid === 'website' || datastoreUid === 'databases') {
       return this.getDescriptionElement({ fieldUid: 'brief_description' })

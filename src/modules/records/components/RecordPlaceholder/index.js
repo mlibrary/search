@@ -2,7 +2,7 @@ import React from 'react';
 
 const RecordPlaceholder = () => {
   return (
-    <li className="record">
+    <article className="record">
       <div className="record-container placeholder-container">
         <div className="placeholder placeholder-title"></div>
         <div className="placeholder placeholder-line"></div>
@@ -14,7 +14,7 @@ const RecordPlaceholder = () => {
         <div className="placeholder placeholder-access placeholder-inline"></div>
         <div className="placeholder placeholder-inline"></div>
       </div>
-    </li>
+    </article>
   )
 }
 

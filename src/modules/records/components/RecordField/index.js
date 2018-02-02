@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import {
   withRouter
 } from 'react-router-dom'
@@ -18,6 +17,10 @@ import {
   Bookplate
 } from '../../../records'
 
+
+function createMarkup(markup_string) {
+  return {__html: markup_string};
+}
 
 class RecordField extends React.Component {
   render() {
@@ -40,6 +43,16 @@ class RecordField extends React.Component {
               <a href={mailto} className="record-field-value-link">{field.value}</a>
             </span>
           </dd>
+        </div>
+      )
+    }
+
+    if (field.uid === 'description') {
+
+      return (
+        <div className={uniqueFieldClassName}>
+          <dt className="record-field-name">{field.name}</dt>
+          <dd className="record-field-value record-field-description-has-inner-html" dangerouslySetInnerHTML={createMarkup(field.value)} />
         </div>
       )
     }
@@ -107,7 +120,7 @@ class RecordField extends React.Component {
               {field.value.map((group, groupKey) => (
                 <li className="record-field-value-item record-field-value-list-item" key={groupKey}>
                   {group.split(' | ').map((string, stringKey) => (
-                    <span>
+                    <span key={stringKey}>
                       <RecordFieldValue
                         key={stringKey}
                         field={field}

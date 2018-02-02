@@ -3,7 +3,7 @@
 */
 
 .record {
-  margin: 0.5rem 0;
+  margin: 0.75rem 0;
   padding: 0;
   background: white;
 }
@@ -12,7 +12,7 @@
   padding: 1.5rem;
 
   @media (min-width: $breakpoint-1) {
-    padding: 2rem;
+    padding: 1.5rem 2rem;
   }
 }
 
@@ -89,10 +89,13 @@
   display: block;
 }
 
-.record-field-value-has-html {
-  & > * {
+.record-field-description-has-inner-html {
+  *:first-child {
     margin-top: 0;
-    padding-top: 0;
+  }
+
+  *:last-child {
+    margin-bottom: 0;
   }
 }
 

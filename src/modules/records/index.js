@@ -1,6 +1,10 @@
 import RecordList from './components/RecordList';
 import Pagination from './components/Pagination';
 import RecordFull from './components/RecordFull';
+import RecordFullFormats from './components/RecordFullFormats';
+import Record from './components/Record';
+import RecordPlaceholder from './components/RecordPlaceholder';
+import FullRecordPlaceholder from './components/FullRecordPlaceholder'
 import ResultsSummary from './components/ResultsSummary';
 import BentoboxList from './components/BentoboxList';
 import RecordFieldValue from './components/RecordFieldValue';
@@ -16,7 +20,8 @@ import {
   loadingRecords,
   addHoldings,
   loadingHoldings,
-  setRecordHoldings
+  setRecordHoldings,
+  setRecordGetThis
 } from './actions';
 
 export {
@@ -26,6 +31,10 @@ export {
   ResultsSummary,
   recordsReducer,
   addRecord,
+  Record,
+  RecordFullFormats,
+  RecordPlaceholder,
+  FullRecordPlaceholder,
   clearRecords,
   setRecord,
   clearRecord,
@@ -34,6 +43,7 @@ export {
   addHoldings,
   loadingHoldings,
   setRecordHoldings,
+  setRecordGetThis,
   RecordFieldValue,
   ViewMARC,
   Bookplate,
