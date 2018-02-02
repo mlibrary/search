@@ -36,6 +36,10 @@ import {
 } from '../../../records'
 
 import {
+  GetThisPage
+} from '../../../getthis'
+
+import {
   switchPrideToDatastore
 } from '../../../pride'
 
@@ -54,7 +58,14 @@ class DatastorePageContainer extends React.Component {
   }
 
   render() {
-    const { searching, datastores, match, location, isAdvanced } = this.props;
+    const {
+      searching,
+      datastores,
+      match,
+      location,
+      isAdvanced
+    } = this.props;
+    
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     if (activeDatastore === undefined) {
@@ -82,7 +93,12 @@ class DatastorePageContainer extends React.Component {
             <SearchBox />
             <DatastoreNavigation />
             <ConnectedSwitch>
-              <Route path={match.url + `/record/:recordUid`} render={(props) => {
+              <Route path={match.url + `/record/:recordUid/get-this/:barcode`} render={(props) => {
+                return (
+                  <GetThisPage />
+                )
+              }}/>
+              <Route path={match.url + `/record/:recordUid`} exact render={(props) => {
                 return (
                   <RecordFull />
                 )

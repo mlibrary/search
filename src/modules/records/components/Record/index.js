@@ -138,7 +138,7 @@ class Record extends React.Component {
     if (recordUidField) {
 
       return (
-        <li className="record">
+        <article className="record">
           <div className="record-container">
             <Header
               record={record}
@@ -156,7 +156,7 @@ class Record extends React.Component {
             />
           )}
 
-        </li>
+        </article>
       )
     }
 

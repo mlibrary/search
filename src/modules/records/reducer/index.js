@@ -71,6 +71,13 @@ const recordsReducer = (state = recordsInitialState, action) => {
           holdings: action.payload
         }
       });
+    case actions.SET_RECORD_GET_THIS:
+    return Object.assign({}, state, {
+      record: {
+        ...state.record,
+        getthis: action.payload
+      }
+    });
     case actions.LOADING_RECORDS:
       return Object.assign({}, state, {
         loading: {

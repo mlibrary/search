@@ -26,7 +26,7 @@
 .holdings {
   background: $grey-6;
   border-top: solid 1px $grey-5;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   border-radius: 0 0 4px 4px;
 }
 
@@ -42,7 +42,7 @@
 .holding-group-heading {
   margin: 0;
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: 1rem;
   margin-right: 1rem;
 
   @media (max-width: $breakpoint-2) {
@@ -54,6 +54,7 @@
 .holding-group-info-link {
   display: inline-block;
   text-decoration: underline;
+  font-size: 0.875rem;
 }
 
 .holding-table {
@@ -117,55 +118,43 @@
   }
 }
 
-.holdings-show-all-button {
-  font-size: 0.875rem;
-  color: $grey-3;
-  margin-top: 0.75rem;
+.holdings {
+  margin: 0;
+  padding: 1.5rem 2rem;
+
+  @media (max-width: $breakpoint-1) {
+    padding: 1.5rem;
+  }
 }
 
-.holdings-condensed {
-  .holdings {
-    margin: 0;
-    padding: 1.5rem 2rem;
-
-    @media (max-width: $breakpoint-1) {
-      padding: 1.5rem;
-    }
+.holding-table {
+  td, th {
+    vertical-align: top;
   }
+}
 
-  .holding-group-heading {
-    font-size: 1rem;
-  }
+.holding-group:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
 
-  .holding-table {
-    td, th {
-      vertical-align: top;
-    }
-  }
+.holding-button {
+  background: none;
+  padding: 0;
+  color: $main-3;
+  border: none;
+  text-decoration: underline;
+}
 
-  .holding-group:not(:last-child) {
-    margin-bottom: 1.5rem;
-  }
+.holdings-show-all-button {
+  border: none;
+  padding: 0;
+  color: $grey-3;
+  border-bottom: solid 1px $grey-4;
+  border-radius: 0;
+  margin-top: 0;
 
-  .holding-button {
-    background: none;
-    padding: 0;
-    color: $main-3;
-    border: none;
-    text-decoration: underline;
-  }
-
-  .holdings-show-all-button {
-    border: none;
-    padding: 0;
-    color: $grey-3;
-    border-bottom: solid 1px $grey-4;
-    border-radius: 0;
-    margin-top: 0;
-
-    &:hover {
-      border-color: $grey-3;
-    }
+  &:hover {
+    border-color: $grey-3;
   }
 }
 

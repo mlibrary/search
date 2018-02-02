@@ -3,6 +3,10 @@ const config = {
     production: window.location.origin + '/spectrum',
     development: 'https://search-staging.www.lib.umich.edu/spectrum',
   },
+  loginUrl: {
+    production: window.location.origin + '/login',
+    development: 'https://search-staging.www.lib.umich.edu/login',
+  },
   datastores: {
     list: [
       {
