@@ -13,7 +13,7 @@ import {
   Icon,
   Multiselect,
   DateRangeInput,
-  Switch,
+  MultipleChoice,
   Checkbox,
   ScopeDown
 } from '../../../core'
@@ -460,12 +460,14 @@ const FieldInput = ({
   <fieldset style={{ margin: 0 }}>
     <legend className="offpage">Search field {fieldedSearchIndex + 1}</legend>
     {fieldedSearchIndex === 0 ? null : (
-      <Switch
+      <MultipleChoice
+        name={`search-field-${fieldedSearchIndex}-booleans`}
+        heading={`Boolean operator for field ${fieldedSearchIndex} and field ${fieldedSearchIndex + 1}`}
         options={['AND', 'OR', 'NOT']}
         selectedIndex={fieldedSearch.booleanType}
-        onSwitchChange={({ switchIndex }) => handleFieldedSearchChange({
+        onMultipleChoiceChange={({ index }) => handleFieldedSearchChange({
           fieldedSearchIndex,
-          booleanType: switchIndex
+          booleanType: index
         })}
       />
     )}

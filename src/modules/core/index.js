@@ -9,7 +9,7 @@ import TrimLink from './components/TrimLink'
 import Multiselect from './components/Multiselect'
 import DateRangeInput from './components/DateRangeInput'
 import Checkbox from './components/Checkbox'
-import Switch from './components/Switch'
+import MultipleChoice from './components/MultipleChoice'
 import AskALibrarian from './components/AskALibrarian'
 import ScopeDown from './components/ScopeDown'
 import SiteMessage from './components/SiteMessage'
@@ -27,7 +27,7 @@ export {
   Multiselect,
   DateRangeInput,
   Checkbox,
-  Switch,
+  MultipleChoice,
   AskALibrarian,
   ScopeDown,
   SiteMessage,

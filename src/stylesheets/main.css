@@ -587,6 +587,59 @@ nav {
   outline-offset: 0;
   transition: outline 0.05s ease-out; }
 
+.offscreen {
+  position: absolute;
+  left: -999em; }
+
+.multiple-choice {
+  display: inline-block;
+  cursor: pointer;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation; }
+  .multiple-choice:not(:last-child) {
+    margin-right: 1rem; }
+
+/* HTML5 Boilerplate accessible hidden styles */
+[type="radio"] {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+[type="radio"] + span {
+  display: block;
+  padding: 0.25rem;
+  margin: 0;
+  margin-bottom: 0.5rem; }
+
+/* the basic, unchecked style */
+[type="radio"] + span:before {
+  content: '';
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  vertical-align: -0.25rem;
+  border-radius: 50%;
+  border: 4px solid white;
+  background: white;
+  box-shadow: 0 0 0 2px #4E4E4E;
+  margin-right: 0.4rem; }
+
+/* the checked style using the :checked pseudo class */
+[type="radio"]:checked + span:before {
+  background: #126DC1;
+  box-shadow: 0 0 0 2px #4E4E4E; }
+
+/* never forget focus styling */
+[type="radio"]:focus + span {
+  outline: 3px solid rgba(255, 203, 5, 0.9);
+  outline-offset: 0;
+  transition: outline 0.05s ease-out; }
+
 .logo-link {
   height: 2.5rem; }
   .logo-link li {
@@ -1869,49 +1922,10 @@ body {
   display: block;
   line-height: 1.6; }
 
-.switch {
-  margin: 0; }
-
-.switch-legend {
-  text-align: center; }
-
-.switch-options {
-  display: flex;
-  flex-wrap: wrap; }
-  @media (min-width: 32rem) {
-    .switch-options {
-      justify-content: center; } }
-
-.switch-option {
-  background: white;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.85rem;
-  cursor: pointer;
-  border: solid 1px #CCC;
-  margin: 0; }
-  .switch-option:not(:first-child):not(:last-child) {
-    border-left: none; }
-  .switch-option:last-child:not(:first-child) {
-    border-left: none; }
-  .switch-option:first-child {
-    border-radius: 4px 0 0 4px; }
-  .switch-option:last-child {
-    border-radius: 0 4px 4px 0; }
-  .switch-option:last-child:first-child {
-    border-radius: 4px; }
-  .switch-option.active {
-    font-weight: 600; }
-
-.switch-option + .switch-option-selected {
-  margin-left: -1px; }
-
-.switch-option-selected {
-  border: solid 1px #05A657 !important;
-  color: #057C42;
-  background: #E2F4EB; }
-
-.switch-option-input {
-  display: none; }
+.advanced-field-container fieldset {
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0; }
 
 .trim-string-button {
   margin: 0;

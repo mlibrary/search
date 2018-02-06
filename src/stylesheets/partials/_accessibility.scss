@@ -11,3 +11,8 @@
 *:focus {
   @include focus();
 }
+
+.offscreen {
+  position: absolute;
+  left: -999em;
+}
