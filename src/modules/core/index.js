@@ -14,6 +14,7 @@ import AskALibrarian from './components/AskALibrarian'
 import ScopeDown from './components/ScopeDown'
 import SiteMessage from './components/SiteMessage'
 import DetailsList from './components/DetailsList'
+import SkipToID from './components/SkipToID'
 
 export {
   Header,
@@ -31,5 +32,6 @@ export {
   AskALibrarian,
   ScopeDown,
   SiteMessage,
-  DetailsList
+  DetailsList,
+  SkipToID
 };

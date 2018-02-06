@@ -23,7 +23,7 @@ class RecordListContainer extends React.Component {
 
     if (search.data[datastoreUid] && search.data[datastoreUid].totalAvailable === 0) {
       return (
-        <div>
+        <div id="search-results">
           <div className="results-summary-container">
             <div aria-live="polite">
               <p className="no-margin"><b>No results</b> match your search.</p>
@@ -46,7 +46,7 @@ class RecordListContainer extends React.Component {
 
     if (loadingRecords) {
       return (
-        <div>
+        <div id="search-results">
           <div className="results-summary-container">
             <div aria-live="polite">
               <p className="no-margin">Loading results...</p>
@@ -79,7 +79,7 @@ class RecordListContainer extends React.Component {
           <span aria-live="polite"><ResultsSummary /></span>
           <Sorts />
         </div>
-        <ul className="results-list results-list-border">
+        <ul className="results-list results-list-border" id="search-results">
           {activeRecords.map((record, index) =>
             <Record
               record={record}

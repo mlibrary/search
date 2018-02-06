@@ -10,7 +10,8 @@ import qs from 'qs'
 import {
   Icon,
   ShowAllList,
-  Checkbox
+  Checkbox,
+  SkipToID
 } from '../../../core'
 import {
   getDisplayFilters,
@@ -172,6 +173,7 @@ const FilterList = ({
   if (filters.length > 0) {
     return (
       <div>
+        <SkipToID id="search-results" name="search results" />
         <h2 className="filters-heading">Filter your search</h2>
         <ul className="filter-group-list">
           {filters.map((filter, index) => (

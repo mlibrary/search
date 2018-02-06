@@ -591,6 +591,18 @@ nav {
   position: absolute;
   left: -999em; }
 
+.skip-to-id {
+  position: fixed;
+  left: -999px; }
+  .skip-to-id:focus {
+    left: 0.5rem;
+    top: 0.5rem;
+    background: #0C5292;
+    text-decoration: underline;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px; }
+
 .multiple-choice {
   display: inline-block;
   cursor: pointer;
