@@ -330,7 +330,7 @@ textarea {
   border: none;
   display: inline-block;
   margin: 0;
-  color: #0C5292;
+  color: #126DC1;
   background: none;
   font-size: 1rem;
   padding: 0;
@@ -2112,7 +2112,7 @@ input.date-range-input-text {
 .browse-heading {
   margin: 0;
   padding: 0;
-  font-size: 1rem;
+  font-size: 1.25rem;
   margin-bottom: 1rem; }
 
 .browse-list {
@@ -2142,6 +2142,49 @@ input.date-range-input-text {
     border-radius: 4px;
     cursor: pointer; }
 
+.browse ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.browse li {
+  margin: 0;
+  padding: 0; }
+
+.browse .nested-list {
+  column-count: 2;
+  column-gap: 2rem; }
+  .browse .nested-list ul {
+    margin-left: 1rem;
+    padding-left: 1rem; }
+  .browse .nested-list > li {
+    display: inline-block; }
+  .browse .nested-list li {
+    font-size: 1rem;
+    font-weight: 400;
+    padding-top: 0.5rem; }
+  .browse .nested-list h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.1rem;
+    font-weight: 600; }
+  .browse .nested-list button {
+    font-size: inherit;
+    font-weight: inherit;
+    text-align: left; }
+  .browse .nested-list > li {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem; }
+  .browse .nested-list li li li {
+    font-size: 0.9rem; }
+
+.browse-button-text {
+  padding-right: 0.25rem; }
+
+.browse-button-count {
+  color: #6E6E6E; }
+
 .u-break-word {
   word-wrap: break-word; }
 
@@ -2150,6 +2193,9 @@ input.date-range-input-text {
 
 .u-margin-bottom-none {
   margin-bottom: 0; }
+
+.u-margin-top-1 {
+  margin-top: 1rem; }
 
 .margin-right-2 {
   margin-right: 2rem; }

@@ -5,13 +5,16 @@ import _ from 'underscore'
 
 import {
   BrowseAtoZ,
-  BrowseByAcademicDiscipline
+  BrowseByFilters
 } from '../../../browse'
 
 
 class BrowsePage extends React.Component {
   render() {
-    const { datastore } = this.props;
+    const {
+      datastore,
+      browse
+    } = this.props;
 
     return (
       <div className="container container-narrow">
@@ -24,6 +27,8 @@ class BrowsePage extends React.Component {
         <h1>Browse {datastore.name}</h1>
         <p>When you're stuck looking for specific {datastore.name.toLowerCase()} or just want to see what's out there, the browse page makes finding the right {datastore.name.toLowerCase()} easy. Browse all {datastore.name.toLowerCase()} titles alphabetically or by academic discipline.</p>
         <BrowseAtoZ />
+
+        <BrowseByFilters filters={browse} />
       </div>
     )
   }
@@ -31,7 +36,8 @@ class BrowsePage extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    datastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active })
+    datastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
+    browse: state.browse[state.datastores.active]
   };
 }
 

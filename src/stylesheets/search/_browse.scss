@@ -6,7 +6,7 @@
 .browse-heading {
   margin: 0;
   padding: 0;
-  font-size: 1rem;
+  font-size: 1.25rem;
   margin-bottom: 1rem;
 }
 
@@ -41,4 +41,73 @@
 
     cursor: pointer;
   }
+}
+
+.browse-filter-link {
+
+}
+
+.browse {
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+  }
+
+  .nested-list {
+    ul {
+      margin-left: 1rem;
+      padding-left: 1rem;
+    }
+
+    column-count: 2;
+    column-gap: 2rem;
+
+    & > li {
+      display: inline-block; // prevents split between columns.
+    }
+
+    li {
+      font-size: 1rem;
+      font-weight: 400;
+      padding-top: 0.5rem;
+    }
+
+    h3 {
+      margin: 0;
+      padding: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    button {
+      font-size: inherit;
+      font-weight: inherit;
+      text-align: left;
+    }
+
+    & > li {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    li li li {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.browse-button-text {
+  padding-right: 0.25rem;
+}
+
+.browse-button-count {
+  color: $grey-3;
 }
