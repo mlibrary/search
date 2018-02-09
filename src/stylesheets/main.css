@@ -197,13 +197,11 @@ sup {
   font-size: 0.6em;
   vertical-align: top; }
 
-<<<<<<< HEAD
 .text-small {
   font-size: 0.85rem; }
-=======
+
 form {
   box-sizing: border-box; }
->>>>>>> master
 
 label {
   margin-bottom: 0.1rem;
@@ -2154,7 +2152,6 @@ input.date-range-input-text {
 .marc__ind1 {
   margin-right: 1rem; }
 
-<<<<<<< HEAD
 .browse {
   padding: 1.5rem 2rem;
   background: white; }
@@ -2241,7 +2238,7 @@ input.date-range-input-text {
 
 .browse-button-count {
   color: #6E6E6E; }
-=======
+
 /*
   Get This sections
 */
@@ -2343,7 +2340,6 @@ input.get-this-field-input-year {
 */
 .get-this-holdings-container .holding-table td:first-child {
   display: none; }
->>>>>>> master
 
 .u-break-word {
   word-wrap: break-word; }
@@ -2354,13 +2350,11 @@ input.get-this-field-input-year {
 .u-margin-bottom-none {
   margin-bottom: 0; }
 
-<<<<<<< HEAD
 .u-margin-top-1 {
   margin-top: 1rem; }
-=======
+
 .u-margin-bottom-1 {
   margin-bottom: 1rem; }
->>>>>>> master
 
 .margin-right-2 {
   margin-right: 2rem; }
