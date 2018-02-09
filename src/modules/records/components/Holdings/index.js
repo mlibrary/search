@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { _ } from 'underscore'
 
 import HoldingStatus from '../HoldingStatus'
@@ -17,6 +18,10 @@ const FieldValue = ({ field }) => {
   }
 
   switch (field.type) {
+    case 'get-this':
+      return (
+        <span><Link className="holding-link" to={field.link}>{field.value}</Link></span>
+      )
     case 'link':
       if (!field.link) {
         return <HoldingFieldNotAvailable />

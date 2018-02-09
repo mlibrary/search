@@ -8,14 +8,14 @@ import {
 } from 'react-router-dom'
 import _ from 'underscore'
 
-import history from '../../../../history'
 import {
   setSearchQuery,
   setSearchQueryInput,
   searching
 } from '../../actions'
 import {
-  Icon
+  Icon,
+  SkipToID
 } from '../../../core';
 
 class SearchBox extends React.Component {
@@ -83,8 +83,8 @@ class SearchBox extends React.Component {
 
     return (
       <div className="search-box-container-full">
-        <div className="search-box-container" role="search">
-          <form className="search-box-form" onSubmit={this.handleSubmit}>
+        <div className="search-box-container">
+          <form className="search-box-form" onSubmit={this.handleSubmit} role="search" id="search-box">
             <div className="search-box">
               <label htmlFor="search-query" className="offpage">Search query</label>
               <input
@@ -98,6 +98,8 @@ class SearchBox extends React.Component {
             </div>
 
             <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
+
+            <SkipToID id="search-results" name="search results" />
 
             {isAdvanced && (
               <Link to={`/${match.params.datastoreSlug}/advanced${location.search}`} className="search-box-advanced-link">

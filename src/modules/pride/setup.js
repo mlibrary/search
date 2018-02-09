@@ -21,6 +21,11 @@ import {
 } from '../records';
 
 import {
+  getField,
+  getFieldValue,
+} from '../records/utilities';
+
+import {
   setSearchData,
   searching,
 } from '../search';
@@ -99,7 +104,7 @@ const handleSearchData = (data, datastoreUid) => {
   }
 }
 
-const handleHoldings = (datastoreUid, recordId) => {
+const handleHoldings = (datastoreUid, recordId, recordUid) => {
   store.dispatch(loadingHoldings({
     loading: true,
     datastoreUid: datastoreUid,
@@ -107,7 +112,7 @@ const handleHoldings = (datastoreUid, recordId) => {
   }))
 
   return (holdingsData) => {
-    const transformedHoldings = transformHoldings(datastoreUid, holdingsData)
+    const transformedHoldings = transformHoldings({ datastoreUid, recordUid, holdings: holdingsData })
 
     store.dispatch(addHoldings({
       datastoreUid: datastoreUid,
@@ -154,8 +159,10 @@ const setupObservers = (searchObj) => {
             }
           }));
 
+          const recordUid = getFieldValue(getField(recordData.fields, 'id'))[0]
+
           if (doesHaveHoldings) {
-            record.getHoldings(handleHoldings(searchObj.uid, id))
+            record.getHoldings(handleHoldings(searchObj.uid, id, recordUid))
           }
         })
       }

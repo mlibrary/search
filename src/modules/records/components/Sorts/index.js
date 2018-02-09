@@ -80,7 +80,6 @@ function mapStateToProps(state) {
   const sorts = data[datastoreUid] ? data[datastoreUid].sorts : []
 
   const query = state.search.query
-  const page = state.search.page[datastoreUid] ? state.search.page[datastoreUid] : 1
   const activeFilters = state.filters.active[datastoreUid]
   const sort = state.search.sort[datastoreUid]
 

@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { Switch } from '../../../core'
+import {
+  MultipleChoice
+} from '../../../core'
 
 
 class DateRangeInput extends React.Component {
@@ -33,12 +35,12 @@ class DateRangeInput extends React.Component {
     })
   }
 
-  handleRangeChange({ switchIndex }) {
+  handleRangeChange({ index }) {
     const { beginQuery, endQuery, dateRangeOptions } = this.state
-    const selectedRange = dateRangeOptions[switchIndex]
+    const selectedRange = dateRangeOptions[index]
 
     this.setState({
-      selectedRangeOption: switchIndex
+      selectedRangeOption: index
     })
 
     this.handleStateChange({ beginQuery, endQuery, selectedRange })
@@ -128,10 +130,12 @@ class DateRangeInput extends React.Component {
 
     return (
       <div className="date-range-input">
-        <Switch
+        <MultipleChoice
+          name={`date-range-input`}
+          heading={`Select the type of date range to search on`}
           options={dateRangeOptions}
           selectedIndex={selectedRangeOption}
-          onSwitchChange={this.handleRangeChange}
+          onMultipleChoiceChange={this.handleRangeChange}
         />
         {this.renderDateInputs()}
       </div>

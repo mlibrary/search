@@ -9,8 +9,14 @@ import config from '../../config';
 
 import {
   setRecord,
-  setRecordHoldings
+  setRecordHoldings,
+  setRecordGetThis
 } from '../records';
+
+import {
+  getField,
+  getFieldValue,
+} from '../records/utilities';
 
 const isSlugADatastore = (slug) => {
   const slugDs = _.findWhere(config.datastores.list, {slug: slug})
@@ -172,13 +178,26 @@ const datastoreRecordsHaveHoldings = (datastore) => {
   return false
 }
 
-const createHolding = ({ config, holding }) => {
+const createHolding = ({
+  config,
+  holding,
+  recordUid
+}) => {
   const fields = config.fields.reduce((prev, field) => {
     const configuredField = Object.keys(field).reduce((memo, fieldKey) => {
 
       // Checks to see if a field value should be set to a uid
       // off the holding from the backend.
       if (field[fieldKey].uid) {
+        // This is a special case, to construct the Get This URL.
+        if (holding.type === 'circulating' && field[fieldKey].uid === 'url' && holding.barcode) {
+          return {
+            ...memo,
+            type: 'get-this',
+            [fieldKey]: `/catalog/record/${recordUid}/get-this/${holding.barcode}`
+          }
+        }
+
         return {
           ...memo,
           [fieldKey]: holding[field[fieldKey].uid]
@@ -195,14 +214,15 @@ const createHolding = ({ config, holding }) => {
   }, [])
 
   return {
-    fields: fields
+    fields: fields,
+    barcode: holding.barcode,
   }
 }
 
 
 // Used to transform backend holdings data to a
 // shape better for React and based on configuration.
-const transformHoldings = (datastoreUid, holdings) => {
+const transformHoldings = ({ datastoreUid, recordUid, holdings }) => {
   const fieldsConfig = _.findWhere(config.fields, { datastore: datastoreUid })
 
   // Ensure there is a config for this datastore and its holdings
@@ -216,7 +236,8 @@ const transformHoldings = (datastoreUid, holdings) => {
         const holdingGroupConfig = fieldsConfig.holdings[holdingGroupUid]
         const newHolding = createHolding({
           config: holdingGroupConfig,
-          holding
+          holding,
+          recordUid
         })
 
         let holdingGroupNameSpace = holdingGroupUid
@@ -274,23 +295,76 @@ const transformHoldings = (datastoreUid, holdings) => {
   }
 }
 
+const fetchRecordFromState = ({
+  datastoreUid,
+  recordUid
+}) => {
+  const state = store.getState() // global state
+  const records = state.records.records[datastoreUid]
+  let recordFromState = undefined
+
+  if (records) { // records exist for this datastore
+    // Record ids are different from record uids.
+    // Ids are the internal ID for a record, where the uid
+    // is the record's identifier from it's external source.
+    const recordIds = Object.keys(records)
+
+    if (recordIds.length > 0) {
+
+      recordIds.forEach((id) => {
+        const record = records[id]
+        const recordId = getFieldValue(getField(record.fields, 'id'))[0]
+
+        if (recordId === recordUid) { // The record exists in state
+          recordFromState = record
+        }
+      })
+    }
+  }
+
+  return recordFromState
+}
+
 const requestRecord = ({
   datastoreUid,
   recordUid,
 }) => {
-  const callback = (record) => {
-    store.dispatch(setRecord(record));
+  // Requesting a record ordered options:
+  // 1. Is the record in the results? Use that.
+  // 2. If not, then ask Pride to fetch the record.
+  const recordFromState = fetchRecordFromState({ datastoreUid, recordUid })
+
+  if (recordFromState) {
+    store.dispatch(setRecord(recordFromState));
+  } else {
+    const callback = (record) => {
+      store.dispatch(setRecord(record));
+    }
+
+    const record = Pride.requestRecord(datastoreUid, recordUid, callback)
+
+    // We only want to send holdings requests for
+    // record types that have holdings (e.g. the catalog)
+    if (datastoreRecordsHaveHoldings(datastoreUid)) {
+      record.getHoldings((holdings) => {
+        store.dispatch(setRecordHoldings(transformHoldings({ datastoreUid, holdings, recordUid })))
+      })
+    }
+  }
+}
+
+const requestGetThis = ({
+  datastoreUid,
+  recordUid,
+  barcode
+}) => {
+  const callback = (data) => {
+    store.dispatch(setRecordGetThis(data));
   }
 
-  // We only want to send holdings requests for
-  // record types that have holdings (e.g. the catalog)
-  if (datastoreRecordsHaveHoldings(datastoreUid)) {
-    Pride.requestRecord(datastoreUid, recordUid, callback).getHoldings((holdings) => {
-      store.dispatch(setRecordHoldings(transformHoldings(datastoreUid, holdings)))
-    })
-  } else {
-    Pride.requestRecord(datastoreUid, recordUid, callback)
-  }
+  const record = Pride.requestRecord(datastoreUid, recordUid)
+
+  record.getGetThis(barcode, callback)
 }
 
 const stringifySearchQueryForURL = ({
@@ -372,5 +446,6 @@ export {
   parseField,
   getFormatIconName,
   isFieldASearchLink,
-  transformHoldings
+  transformHoldings,
+  requestGetThis
 }

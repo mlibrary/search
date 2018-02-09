@@ -73,12 +73,12 @@ const App = () => (
       <Main>
         <Route component={GoogleAnalytics} />
         <ConnectedSwitch>
-          <Route path="/how-to-use-search" component={HelpContent}/>
-          <Route path="/feature-road-map" component={RoadMapPage}/>
+          <Route path="/how-to-use-search" exact component={HelpContent}/>
+          <Route path="/feature-road-map" exact component={RoadMapPage}/>
           <Route path="/" exact render={() => (
             <Redirect to={`/everything`} />
           )}/>
-          <Route path={`/:datastoreSlug`} render={(props) => {
+        <Route path={`/:datastoreSlug`} render={(props) => {
             const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
             const urlState = getStateFromURL({
               location: props.location

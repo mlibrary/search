@@ -18,6 +18,7 @@
 @import "partials/helper";
 @import "partials/tags";
 @import "partials/accessibility";
+@import "partials/multiple-choice";
 
 // Search Application
 @import "search/header";
@@ -43,7 +44,6 @@
 @import "search/show-more";
 @import "search/feedback";
 @import "search/advanced";
-@import "search/switch";
 @import "search/trim-string";
 @import "search/zigzag";
 @import "search/sorts";
@@ -57,7 +57,11 @@
 @import "search/institution";
 @import "search/radio";
 @import "search/marc";
+<<<<<<< HEAD
 @import "search/browse";
 @import "search/nested-list";
+=======
+@import "search/get-this";
+>>>>>>> master
 
 @import "partials/utility";

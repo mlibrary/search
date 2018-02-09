@@ -14,7 +14,7 @@ class BentoboxList extends React.Component {
     const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords)
 
     return (
-      <article className={`bentobox-list`}>
+      <article className={`bentobox-list`} id="search-results">
         {bentoboxListRecords.map(bentobox => {
           if (!bentobox.records) {
             return null
@@ -70,9 +70,7 @@ const BentoFooter = ({
   search,
   searchQuery
 }) => {
-  const totalResults = search.data[bentobox.uid].totalAvailable;
   const url = `/${bentobox.slug}${searchQuery}`
-
   const footerText = `View All ${bentobox.name} Results`
 
   // No results
