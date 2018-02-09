@@ -2224,6 +2224,8 @@ input.date-range-input-text {
   font-size: inherit;
   font-weight: inherit;
   text-align: left; }
+  .browse .nested-list button:hover .browse-button-text {
+    text-decoration: underline; }
 
 .browse .nested-list > li {
   font-size: 1.1rem;

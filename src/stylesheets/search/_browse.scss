@@ -92,6 +92,13 @@
       font-size: inherit;
       font-weight: inherit;
       text-align: left;
+
+      &:hover {
+
+        .browse-button-text {
+          text-decoration: underline;
+        }
+      }
     }
 
     & > li {
