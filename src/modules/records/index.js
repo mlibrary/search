@@ -11,6 +11,7 @@ import RecordFieldValue from './components/RecordFieldValue';
 import ViewMARC from './components/ViewMARC';
 import Bookplate from './components/Bookplate';
 import Holdings from './components/Holdings';
+import RecommendedResource from './components/RecommendedResource';
 import recordsReducer from './reducer';
 import {
   addRecord,
@@ -47,5 +48,6 @@ export {
   RecordFieldValue,
   ViewMARC,
   Bookplate,
-  Holdings
+  Holdings,
+  RecommendedResource
 };

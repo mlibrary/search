@@ -1119,8 +1119,7 @@ body {
     color: #6E6E6E; }
 
 .record-title-link {
-  border-bottom: solid 2px rgba(18, 109, 193, 0.4);
-  margin-right: 0.5rem; }
+  border-bottom: solid 2px rgba(18, 109, 193, 0.4); }
   .record-title-link:hover {
     background: #E6F3FF; }
 
@@ -2240,6 +2239,14 @@ input.date-range-input-text {
 
 .browse-button-count {
   color: #6E6E6E; }
+
+.recommended-resource-tag {
+  vertical-align: super;
+  font-size: 0.8rem;
+  background: #FFCB05;
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+  margin-left: 0.3rem; }
 
 /*
   Get This sections

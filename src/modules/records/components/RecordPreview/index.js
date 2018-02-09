@@ -20,6 +20,10 @@ import {
   getFormatIconName
 } from '../../../pride';
 
+import {
+  RecommendedResource
+}  from '../../../records'
+
 const Header = ({
   record,
   datastoreUid,
@@ -73,6 +77,7 @@ const Header = ({
         {publishedDate && (
           <span className="record-preview-published-date">{publishedDate}</span>
         )}
+        <RecommendedResource record={record} />
       </h3>
     </header>
   )

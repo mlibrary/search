@@ -120,3 +120,12 @@
 .browse-button-count {
   color: $grey-3;
 }
+
+.recommended-resource-tag {
+  vertical-align: super;
+  font-size: 0.8rem;
+  background: $u-m-yellow;
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+  margin-left: 0.3rem;
+}
