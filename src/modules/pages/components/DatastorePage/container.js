@@ -29,6 +29,11 @@ import {
 } from '../../../filters'
 
 import {
+  BrowsePage,
+  BrowseInfo
+} from '../../../browse'
+
+import {
   RecordList,
   Pagination,
   BentoboxList,
@@ -76,6 +81,15 @@ class DatastorePageContainer extends React.Component {
 
     return (
       <Switch>
+        <Route path={`/:datastoreSlug/browse`} location={location} render={() => {
+          if (activeDatastore.uid === 'databases' || activeDatastore.uid === 'journals') {
+            return (
+              <BrowsePage />
+            )
+          }
+
+          return <NoMatch/>
+        }}/>
         <Route path={`/:datastoreSlug/advanced`} location={location} render={() => {
           if (isAdvanced) {
             return (
@@ -137,6 +151,7 @@ const Results = ({ searching, activeDatastore }) => {
         <div className="side-container">
           {searching ? (<InstitutionSelect />) : null}
           <Filters />
+          {searching ? (<BrowseInfo datastore={activeDatastore} />) : null}
         </div>
       ) : null }
 

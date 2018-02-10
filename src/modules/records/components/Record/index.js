@@ -13,6 +13,10 @@ import {
 import Holdings from '../Holdings';
 
 import {
+  RecommendedResource
+}  from '../../../records'
+
+import {
   getDatastoreSlugByUid
 } from '../../../pride';
 import {
@@ -79,6 +83,7 @@ const Header = ({
           <Icon name="launch" />
         </span>
       )}
+      <RecommendedResource record={record} />
     </h3>
   )
 }

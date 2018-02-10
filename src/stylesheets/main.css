@@ -197,6 +197,9 @@ sup {
   font-size: 0.6em;
   vertical-align: top; }
 
+.text-small {
+  font-size: 0.85rem; }
+
 form {
   box-sizing: border-box; }
 
@@ -347,7 +350,7 @@ textarea {
   border: none;
   display: inline-block;
   margin: 0;
-  color: #0C5292;
+  color: #126DC1;
   background: none;
   font-size: 1rem;
   padding: 0;
@@ -387,6 +390,18 @@ nav {
 .navigation-item {
   display: inline-block;
   margin-top: 0.25rem; }
+
+.breadcrumbs {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+  .breadcrumbs li {
+    display: inline-block;
+    padding: 0; }
+  .breadcrumbs li + li:before {
+    content: "/";
+    margin-left: 0.5rem;
+    margin-right: 0.5rem; }
 
 .alert {
   margin: 1rem 0;
@@ -1104,8 +1119,7 @@ body {
     color: #6E6E6E; }
 
 .record-title-link {
-  border-bottom: solid 2px rgba(18, 109, 193, 0.4);
-  margin-right: 0.5rem; }
+  border-bottom: solid 2px rgba(18, 109, 193, 0.4); }
   .record-title-link:hover {
     background: #E6F3FF; }
 
@@ -2137,6 +2151,103 @@ input.date-range-input-text {
 .marc__ind1 {
   margin-right: 1rem; }
 
+.browse {
+  padding: 1.5rem 2rem;
+  background: white; }
+
+.browse-heading {
+  margin: 0;
+  padding: 0;
+  font-size: 1.25rem;
+  margin-bottom: 1rem; }
+
+.browse-list {
+  margin: 0;
+  padding: 0; }
+
+.browse-item {
+  display: inline-block;
+  margin: 0;
+  padding: 0; }
+
+.browse-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  line-height: 1;
+  background: none;
+  border: none;
+  color: #126DC1;
+  font-size: 1.15rem;
+  font-weight: 600; }
+  .browse-button:hover {
+    background: #E6F3FF;
+    border: solid 1px #CCE6FF;
+    border-radius: 4px;
+    cursor: pointer; }
+
+.browse ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.browse li {
+  margin: 0;
+  padding: 0; }
+
+.browse .nested-list ul {
+  margin-left: 1rem;
+  padding-left: 1rem; }
+
+@media (min-width: 47rem) {
+  .browse .nested-list {
+    column-count: 2;
+    column-gap: 2rem; }
+    .browse .nested-list > li {
+      display: inline-block; } }
+
+.browse .nested-list li {
+  font-size: 1rem;
+  font-weight: 400;
+  padding-top: 0.5rem; }
+
+.browse .nested-list h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.1rem;
+  font-weight: 600; }
+
+.browse .nested-list button {
+  font-size: inherit;
+  font-weight: inherit;
+  text-align: left; }
+  .browse .nested-list button:hover .browse-button-text {
+    text-decoration: underline; }
+
+.browse .nested-list > li {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem; }
+
+.browse .nested-list li li li {
+  font-size: 0.9rem; }
+
+.browse-button-text {
+  padding-right: 0.25rem; }
+
+.browse-button-count {
+  color: #6E6E6E; }
+
+.recommended-resource-tag {
+  vertical-align: super;
+  font-size: 0.8rem;
+  background: #FFCB05;
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+  margin-left: 0.3rem; }
+
 /*
   Get This sections
 */
@@ -2247,6 +2358,9 @@ input.get-this-field-input-year {
 
 .u-margin-bottom-none {
   margin-bottom: 0; }
+
+.u-margin-top-1 {
+  margin-top: 1rem; }
 
 .u-margin-bottom-1 {
   margin-bottom: 1rem; }

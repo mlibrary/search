@@ -53,6 +53,11 @@ import {
   setDefaultInstitution
 } from '../institution'
 
+import {
+  addBrowseFilter,
+  organizeByParents
+} from '../browse'
+
 /*
   Pride Internal Configuration
 */
@@ -326,7 +331,8 @@ const runSearch = () => {
     field_tree: fieldTree,
     page,
     facets,
-    sort
+    sort,
+    count: 10
   }
 
   store.dispatch(searching(true))
@@ -435,6 +441,34 @@ const setupDefaultInstitution = () => {
   store.dispatch(setDefaultInstitution(Pride.Settings.default_institution))
 }
 
+const setupBrowse = () => {
+  /*
+    To setup browse
+
+    1) Know what datastores have a browse.
+    2) Get from Pride a full list of filters used for browse.
+    3) Organize filters by parents.
+    4) Add filters to browse state.
+  */
+
+  ['databases', 'journals'].forEach(datastoreUid => {
+    const facets = Pride.AllDatastores.get(datastoreUid).get('facets')
+    const facet = _.findWhere(facets, { uid: 'academic_discipline' })
+    const filters = organizeByParents(facet.values)
+
+    store.dispatch(addBrowseFilter({
+      datastoreUid,
+      filter: {
+        uid: facet.uid,
+        name: facet.metadata.name,
+        filters
+      }
+    }))
+  })
+
+
+}
+
 /*
   Initialize Pride kicks off Pride's internal init and checks if
   communication with the back-end (Spectrum) is established.
@@ -445,6 +479,7 @@ const initializePride = () => {
       setupSearches();
       setupAdvancedSearch()
       setupDefaultInstitution()
+      setupBrowse()
       renderApp();
     },
     failure: () => {

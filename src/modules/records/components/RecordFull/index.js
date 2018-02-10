@@ -23,7 +23,8 @@ import {
   ViewMARC,
   Holdings,
   RecordFullFormats,
-  FullRecordPlaceholder
+  FullRecordPlaceholder,
+  RecommendedResource
 } from '../../../records'
 
 import {
@@ -90,10 +91,11 @@ class FullRecord extends React.Component {
           <div className="record-container">
             <h1 className="full-record-title">
               {[].concat(record.names).map((title, index) => (
-                <div key={index}>
+                <span key={index}>
                   <TrimString string={title} />
-                </div>
+                </span>
               ))}
+              <RecommendedResource record={record} />
             </h1>
 
             <h3 className="full-record__record-info">Record Info</h3>

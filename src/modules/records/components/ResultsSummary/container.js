@@ -16,14 +16,14 @@ class ResultsSummaryContainer extends React.Component {
 
     const displayTotalAvailable = numeral(totalAvailable).format(0,0)
     const resultsText = totalAvailable === 1 ? `result` : `results`
-    const pageNum = page
+    const showingRange = `${(page * 20 - 19)} to ${(page * 20)}`
     const datastoreName = getDatastoreName(activeDatastoreUid);
 
     return {
-      pageNum: `${pageNum}`,
+      showingRange: `${showingRange}`,
       total: `${displayTotalAvailable}`,
       resultsText: `${resultsText}`,
-      from: `from ${datastoreName}`,
+      from: `${datastoreName}`,
       resultsFor: search.query ? (<span>for <b>{search.query}</b></span>) : null
     }
   }
@@ -37,7 +37,7 @@ class ResultsSummaryContainer extends React.Component {
     const summary = this.recordsSummary();
 
     return <ResultsSummary
-        pageNum={summary.pageNum}
+        showingRange={summary.showingRange}
         recordsTotal={summary.total}
         recordsResultsText={summary.resultsText}
         resultsFrom={summary.from}

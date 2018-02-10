@@ -15,3 +15,22 @@ nav {
   display: inline-block;
   margin-top: 0.25rem;
 }
+
+.breadcrumbs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: inline-block;
+    padding: 0;
+  }
+
+  li + li {
+    &:before {
+      content: "/";
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+}
