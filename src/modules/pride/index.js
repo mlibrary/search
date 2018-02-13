@@ -19,6 +19,11 @@ import {
   isFieldASearchLink,
   requestGetThis
 } from './utils'
+
+import {
+  isDatastoreBrowseable
+} from './browse'
+
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper'
 
 export {
@@ -39,5 +44,6 @@ export {
   getFormatIconName,
   parseSearchQueryStringToBooleanFields,
   isFieldASearchLink,
-  requestGetThis
+  requestGetThis,
+  isDatastoreBrowseable
 }
