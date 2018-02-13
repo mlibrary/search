@@ -6,7 +6,7 @@ const config = {
   loginUrl: {
     production: window.location.origin + '/login',
     development: 'https://search-staging.www.lib.umich.edu/login',
-  },
+  }[process.env.NODE_ENV],
   datastores: {
     list: [
       {
