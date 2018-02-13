@@ -244,6 +244,7 @@ const transformHoldings = ({ datastoreUid, recordUid, holdings }) => {
         let heading = fieldsConfig.holdings[holdingGroupNameSpace].heading
         let infoUrl = undefined
         let summaryText = undefined
+        let publicNote = undefined
 
         // If these types of holdings are grouped by some other field besides type
         if (holdingGroupConfig.groupBy) {
@@ -261,6 +262,11 @@ const transformHoldings = ({ datastoreUid, recordUid, holdings }) => {
           summaryText = holding[holdingGroupConfig.summaryText.uid]
         }
 
+        // If these types of holdings have a public note
+        if (holdingGroupConfig.publicNote) {
+          publicNote = holding[holdingGroupConfig.publicNote.uid]
+        }
+
         // First of its kind
         if (!prev[holdingGroupNameSpace]) {
           return {
@@ -269,6 +275,7 @@ const transformHoldings = ({ datastoreUid, recordUid, holdings }) => {
               heading,
               infoUrl,
               summaryText,
+              publicNote,
               showAllName: fieldsConfig.holdings[holdingGroupUid].showAllName,
               holdings: [].concat(newHolding)
             }

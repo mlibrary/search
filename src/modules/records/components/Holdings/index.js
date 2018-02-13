@@ -75,6 +75,7 @@ class Holdings extends React.Component {
           const heading = holdingsData[holdingGroupUid].heading
           const infoUrl = holdingsData[holdingGroupUid].infoUrl
           const summaryText = holdingsData[holdingGroupUid].summaryText
+          const publicNote = holdingsData[holdingGroupUid].publicNote
           const showAllName = holdingsData[holdingGroupUid].showAllName
           const holdings = holdingsData[holdingGroupUid].holdings
           const headings = _.pluck(holdings[0].fields, 'heading')
@@ -86,7 +87,8 @@ class Holdings extends React.Component {
                 <h3 className="holding-group-heading">{heading}</h3>
                 {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">View Location Info</a> )}
               </div>
-              {summaryText && ( <p className="holding-summary-text">Library has: {summaryText}</p> )}
+              {summaryText && ( <p className="font-small no-margin">Library has: {summaryText}</p> )}
+              {publicNote && ( <p className="font-small no-margin">Note: {publicNote}</p> )}
               <table className="holding-table responsive-table">
                 <thead>
                   <tr>
