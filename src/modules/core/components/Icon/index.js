@@ -50,6 +50,18 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'calendar-multiple-check':
+    return (
+      <svg viewBox="0 0 22 22" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-35.000000, -74.000000)" fill="#000000">
+            <g transform="translate(35.000000, 74.000000)">
+              <path d="M20,16 L20,7.00001 L6,7.00001 L6,16 L20,16 L20,16 Z M20,2.00001 C21.1,2.00001 22,2.90001 22,4.00001 L22,16 C22,17.1 21.1,18 20,18 L6,18 C4.89,18 4,17.1 4,16 L4.01,4.00001 C4.01,2.90001 4.89,2.00001 6,2.00001 L7,2.00001 L7,9.99999997e-06 L8.99999,9.99999997e-06 L8.99999,2.00001 L17,2.00001 L17,9.99999997e-06 L19,9.99999997e-06 L19,2.00001 L20,2.00001 L20,2.00001 Z M16.53,10.06 L12.09,14.5 L9.41,11.82 L10.47,10.76 L12.09,12.38 L15.47,9 L16.53,10.06 L16.53,10.06 Z M2,20 L16,20 L16,22 L2,22 C0.89,22 0,21.1 0,20 L0.01,8 L2,8 L2,20 L2,20 Z"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
     case 'comment':
     return (
       <svg viewBox="0 0 20 20" version="1.1" className="icon">

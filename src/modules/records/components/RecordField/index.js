@@ -84,7 +84,7 @@ class RecordField extends React.Component {
             <dd className="record-field-value">
               {field.value.map((fieldString, index) => (
                 <span className="record-field-value-item" key={index}>
-                  <FormatIcon format={fieldString} />{fieldString}
+                  <FormatIcon format={fieldString} /><b>{fieldString}</b>
                 </span>
               ))}
             </dd>
@@ -96,7 +96,7 @@ class RecordField extends React.Component {
             <dt className="record-field-name">{field.name}</dt>
             <dd className="record-field-value">
               <span className="record-field-value-item">
-                <FormatIcon format={field.value} />{field.value}
+                <FormatIcon format={field.value} /><b>{field.value}</b>
               </span>
             </dd>
           </div>

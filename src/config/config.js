@@ -942,11 +942,15 @@ const config = {
     },
     {
       icon: 'book-multiple-variant', // collections-bookmark
-      formats: ['Magazine', 'Journal', 'eJournal', 'Online Journal', 'Publication', 'Research Guide', 'Research Publication', 'Serial']
+      formats: ['Magazine', 'Journal', 'eJournal', 'Online Journal', 'Publication', 'Research Guide', 'Research Guides', 'Research Publication', 'Serial']
+    },
+    {
+      icon: 'calendar-multiple-check',
+      formats: ['Exhibits and Events']
     },
     {
       icon: 'document', // file-document-box
-      formats: ["Album", "Article", "Book Review", "Blog Post", "Case", "Catalog", "Conference Proceeding", "Course Reading", "Dissertation", "Exam", "Journal Article", "Magazine Article", "Manuscript", "Market Research", "Newspaper Article", "Pamphlet", "Paper", "Patent", "Personal Article", "Personal Narrative", "Poem", "Publication Article", "Reference", "Report", "Standard", "Student Thesis", "Technical Report", "Tool", "Trade Publication Article", "Transcript"]
+      formats: ["Album", "Article", "Book Review", "Blog Post", "Case", "Catalog", "Conference Proceeding", "Course Reading", "Dissertation", "Exam", "Journal Article", "Magazine Article", "Manuscript", "Market Research", "Newspaper Article", "Pamphlet", "Paper", "Patent", "Personal Article", "Personal Narrative", "Poem", "Publication Article", "Reference", "Report", "Standard", "Student Thesis", "Technical Report", "Tool", "Trade Publication Article", "Transcript", "Blogs and Blog Posts"]
     },
     {
       icon: 'newspaper',

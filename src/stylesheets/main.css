@@ -1123,6 +1123,9 @@ body {
   .record-title-link:hover {
     background: #E6F3FF; }
 
+.record-title-link + .icon {
+  margin-left: 0.5rem; }
+
 .record-field-list {
   margin-top: 1rem; }
   .record-field-list .record-field:not(:last-child) {
