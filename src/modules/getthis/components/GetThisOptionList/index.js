@@ -38,7 +38,7 @@ class GetThisOptions extends React.Component {
           </section>
         )
       } else if (status === 'Not logged in') {
-        const loginRoot = config.loginUrl[process.env.NODE_ENV] || config.loginUrl.development;
+        const loginRoot = config.loginUrl;
         const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
 
         return (
