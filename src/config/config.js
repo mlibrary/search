@@ -217,6 +217,7 @@ const config = {
         'circulating': {
           heading: 'Physical Holdings',
           summaryText: { uid: 'summary_holdings' },
+          publicNote: { uid: 'public_note' },
           showAllName: 'Holdings',
           groupBy: { uid: 'location' },
           infoUrl: { uid: 'info_link' },
