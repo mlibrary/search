@@ -72,12 +72,15 @@ class Holdings extends React.Component {
     return (
       <div className="holdings">
         {Object.keys(holdingsData).map(holdingGroupUid => {
-          const heading = holdingsData[holdingGroupUid].heading
-          const infoUrl = holdingsData[holdingGroupUid].infoUrl
-          const summaryText = holdingsData[holdingGroupUid].summaryText
-          const publicNote = holdingsData[holdingGroupUid].publicNote
-          const showAllName = holdingsData[holdingGroupUid].showAllName
-          const holdings = holdingsData[holdingGroupUid].holdings
+          const {
+            heading,
+            infoUrl,
+            summaryText,
+            publicNote,
+            showAllName,
+            holdings,
+            floor
+          } = holdingsData[holdingGroupUid]
           const headings = _.pluck(holdings[0].fields, 'heading')
           const showAll = _.contains(this.state.show, holdingGroupUid)
 
@@ -85,8 +88,9 @@ class Holdings extends React.Component {
             <div key={holdingGroupUid} className="holding-group">
               <div className="holding-group-heading-container">
                 <h3 className="holding-group-heading">{heading}</h3>
-                {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">View Location Info</a> )}
+                {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">About location</a> )}
               </div>
+              {floor && (<p className="no-margin text-grey">{floor}</p>)}
               {summaryText && ( <p className="font-small no-margin">Library has: {summaryText}</p> )}
               {publicNote && ( <p className="font-small no-margin">Note: {publicNote}</p> )}
               <table className="holding-table responsive-table">
