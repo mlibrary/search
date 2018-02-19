@@ -9,7 +9,6 @@ import {
 import _ from 'underscore'
 
 import {
-  setSearchQuery,
   setSearchQueryInput,
   searching
 } from '../../actions'
@@ -72,7 +71,7 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    const { match, location, query, queryInput, isAdvanced, datastores } = this.props
+    const { match, location, queryInput, isAdvanced, datastores } = this.props
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     if (this.props.query) {

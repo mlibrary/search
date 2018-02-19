@@ -1,6 +1,6 @@
 function getChildren(array, parent) {
 	return array.reduce((result, item) => {
-  	if (item.parents.indexOf(parent) != -1) {
+  	if (item.parents.indexOf(parent) !== -1) {
     	const children = getChildren(array, item.name)
 
       if (children.length) {
