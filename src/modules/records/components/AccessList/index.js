@@ -5,7 +5,7 @@ const AccessItem = ({ type, item }) => {
   const isFull = (type === 'full')
 
   return (
-    <li className={`access-item ${isFull ? 'access-item-full' : ''}`}>
+    <div className="access-item">
       {_.map(item, (field, index) => {
         if (field.isLink) {
           return (
@@ -17,7 +17,7 @@ const AccessItem = ({ type, item }) => {
           <span key={index} className="access-detail">{field.value}</span>
         )
       })}
-    </li>
+    </div>
   )
 }
 

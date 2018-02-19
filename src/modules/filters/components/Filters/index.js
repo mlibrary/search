@@ -300,23 +300,24 @@ const Filter = ({
           </button>
           {filter.open && (
             <div className="filter-list-container">
-              <ShowAllList
-                length={filterItems.length}
-                show={5}
-                name={`${filter.name} Filters`}
-                listClass={'filter-list'}>
-                {filterItems.map((filterItem, index) => (
-                  <FilterItem
-                    key={index}
-                    filter={filterItem}
-                    handleFilterItemClick={() => handleFilterItemClick({
-                      datastoreUid,
-                      filterUid: filter.uid,
-                      filterItemValue: filterItem.value
-                    })}
-                  />
-                ))}
-              </ShowAllList>
+              <ul className="filter-list">
+                <ShowAllList
+                  length={filterItems.length}
+                  show={5}
+                  name={`${filter.name} Filters`}>
+                    {filterItems.map((filterItem, index) => (
+                      <FilterItem
+                        key={index}
+                        filter={filterItem}
+                        handleFilterItemClick={() => handleFilterItemClick({
+                          datastoreUid,
+                          filterUid: filter.uid,
+                          filterItemValue: filterItem.value
+                        })}
+                      />
+                    ))}
+                </ShowAllList>
+              </ul>
             </div>
           )}
         </li>

@@ -8,6 +8,10 @@ import { getMultiSearchRecords } from '../../../pride'
 import RecordPreview from '../RecordPreview'
 import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder'
 
+import {
+  SpecialistsWrapper
+} from '../../../specialists'
+
 class BentoboxList extends React.Component {
   render() {
     const { allRecords, datastoreUid, search, searchQuery, institution } = this.props
@@ -15,35 +19,37 @@ class BentoboxList extends React.Component {
 
     return (
       <article className={`bentobox-list`} id="search-results">
-        {bentoboxListRecords.map(bentobox => {
-          if (!bentobox.records) {
-            return null
-          }
+        <SpecialistsWrapper>
+          {bentoboxListRecords.map(bentobox => {
+            if (!bentobox.records) {
+              return null
+            }
 
-          return (
-            <section key={bentobox.uid} className={`bentobox bentobox-${bentobox.uid}`}>
-              <div className="bentobox-inner-container">
-                <BentoHeading
-                  bentobox={bentobox}
-                  search={search}
-                  searchQuery={searchQuery}
-                />
-                <BentoResults
-                  search={search}
-                  bentobox={bentobox}
-                  searchQuery={searchQuery}
-                  institution={institution}
-                  datastoreUid={datastoreUid}
-                />
-                <BentoFooter
-                  bentobox={bentobox}
-                  search={search}
-                  searchQuery={searchQuery}
-                />
-              </div>
-            </section>
-          )
-        })}
+            return (
+              <section key={bentobox.uid} className={`bentobox bentobox-${bentobox.uid}`}>
+                <div className="bentobox-inner-container">
+                  <BentoHeading
+                    bentobox={bentobox}
+                    search={search}
+                    searchQuery={searchQuery}
+                  />
+                  <BentoResults
+                    search={search}
+                    bentobox={bentobox}
+                    searchQuery={searchQuery}
+                    institution={institution}
+                    datastoreUid={datastoreUid}
+                  />
+                  <BentoFooter
+                    bentobox={bentobox}
+                    search={search}
+                    searchQuery={searchQuery}
+                  />
+                </div>
+              </section>
+            )
+          })}
+        </SpecialistsWrapper>
       </article>
     )
   }
@@ -71,7 +77,7 @@ const BentoFooter = ({
   searchQuery
 }) => {
   const url = `/${bentobox.slug}${searchQuery}`
-  const footerText = `View All ${bentobox.name} Results`
+  const footerText = `View all ${bentobox.name} results`
 
   // No results
   if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {

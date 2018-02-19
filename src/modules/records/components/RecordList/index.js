@@ -9,6 +9,9 @@ import RecordPlaceholder from '../RecordPlaceholder';
 import {
   ResultsSummary,
 } from '../../../records';
+import {
+  SpecialistsWrapper
+} from '../../../specialists'
 
 class RecordListContainer extends React.Component {
   render() {
@@ -79,17 +82,19 @@ class RecordListContainer extends React.Component {
           <span aria-live="polite"><ResultsSummary /></span>
           <Sorts />
         </div>
-        <ul className="results-list results-list-border" id="search-results">
-          {activeRecords.map((record, index) =>
-            <Record
-              record={record}
-              datastoreUid={datastoreUid}
-              key={index}
-              type='medium'
-              searchQuery={searchQuery}
-              institution={institution}
-            />,
-          )}
+        <ul className="results-list results-list-border search-results" id="search-results">
+          <SpecialistsWrapper>
+            {activeRecords.map((record, index) =>
+              <Record
+                record={record}
+                datastoreUid={datastoreUid}
+                key={index}
+                type='medium'
+                searchQuery={searchQuery}
+                institution={institution}
+              />,
+            )}
+          </SpecialistsWrapper>
         </ul>
       </div>
     );
