@@ -9,7 +9,7 @@ import qs from 'qs'
 
 import {
   Icon,
-  ShowAllList,
+  ShowAllChildren,
   Checkbox,
   SkipToID
 } from '../../../core'
@@ -301,7 +301,7 @@ const Filter = ({
           {filter.open && (
             <div className="filter-list-container">
               <ul className="filter-list">
-                <ShowAllList
+                <ShowAllChildren
                   length={filterItems.length}
                   show={5}
                   name={`${filter.name} Filters`}>
@@ -316,7 +316,7 @@ const Filter = ({
                         })}
                       />
                     ))}
-                </ShowAllList>
+                </ShowAllChildren>
               </ul>
             </div>
           )}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-class ShowAllList extends React.Component {
+class ShowAllChildren extends React.Component {
   state = {
     show: false
   }
@@ -50,4 +50,4 @@ class ShowHideButton extends React.Component {
   }
 }
 
-export default ShowAllList
+export default ShowAllChildren

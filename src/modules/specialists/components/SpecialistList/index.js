@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { ShowAllList } from '../../../core'
+import { ShowAllChildren } from '../../../core'
 import Specialist from '../Specialist'
 
 
@@ -18,14 +18,14 @@ const SpecialistList = ({
         <h1 className="specialists__heading">Talk to a Library Specialist</h1>
 
         <section className="specialists__content">
-          <ShowAllList
+          <ShowAllChildren
             length={specialists.length}
             show={show}
             name={'specialists'}>
             {specialists.map((person, index) => (
               <Specialist key={index} person={person} />
             ))}
-          </ShowAllList>
+          </ShowAllChildren>
         </section>
       </div>
     </article>
