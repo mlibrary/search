@@ -21,7 +21,7 @@ class SpecialistsWrapper extends React.Component {
         {React.Children.map(children, (child, i) => (
           <React.Fragment>
             {i === position ? (
-              <SpecialistList />
+              <SpecialistList show={show} />
             ) : null}
             {child}
           </React.Fragment>

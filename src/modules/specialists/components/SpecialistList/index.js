@@ -6,8 +6,7 @@ import Specialist from '../Specialist'
 
 const SpecialistList = ({
   show,
-  specialists,
-  isBentobox
+  specialists
 }) => {
   if (!specialists || specialists.length === 0) {
     return null

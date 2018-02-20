@@ -83,7 +83,7 @@ class RecordListContainer extends React.Component {
           <Sorts />
         </div>
         <ul className="results-list results-list-border search-results" id="search-results">
-          <SpecialistsWrapper>
+          <SpecialistsWrapper position={3}>
             {activeRecords.map((record, index) =>
               <Record
                 record={record}

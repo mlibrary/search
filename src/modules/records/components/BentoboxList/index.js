@@ -19,7 +19,7 @@ class BentoboxList extends React.Component {
 
     return (
       <article className={`bentobox-list`} id="search-results">
-        <SpecialistsWrapper>
+        <SpecialistsWrapper show={2}>
           {bentoboxListRecords.map(bentobox => {
             if (!bentobox.records) {
               return null
