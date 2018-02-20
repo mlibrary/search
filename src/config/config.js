@@ -221,6 +221,7 @@ const config = {
           showAllName: 'Holdings',
           groupBy: { uid: 'location' },
           infoUrl: { uid: 'info_link' },
+          floor: { uid: 'floor' },
           fields: [
             {
               type: 'link',

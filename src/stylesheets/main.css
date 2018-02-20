@@ -200,6 +200,9 @@ sup {
 .text-small {
   font-size: 0.85rem; }
 
+.text-grey {
+  color: #6E6E6E; }
+
 form {
   box-sizing: border-box; }
 
