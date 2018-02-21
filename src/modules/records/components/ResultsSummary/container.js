@@ -16,7 +16,9 @@ class ResultsSummaryContainer extends React.Component {
 
     const displayTotalAvailable = numeral(totalAvailable).format(0,0)
     const resultsText = totalAvailable === 1 ? `result` : `results`
-    const showingRange = `${(page * 20 - 19)} to ${(page * 20)}`
+    const startRange = `${(page * 10 - 9)} `;
+    const endRange = totalAvailable < 10 ? `${totalAvailable}` : `${(page * 10)}`
+    const showingRange = `${startRange} to ${endRange}`
     const datastoreName = getDatastoreName(activeDatastoreUid);
 
     return {
