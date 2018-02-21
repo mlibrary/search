@@ -15,7 +15,9 @@ const SpecialistList = ({
   return (
     <article className="specialists">
       <div className="specialists__inner-container">
-        <h1 className="specialists__heading">Talk to a Library Specialist</h1>
+        <header>
+          <h1 className="specialists__heading">Talk to a Library Specialist</h1>
+        </header>
 
         <section className="specialists__content">
           <ShowAllChildren
