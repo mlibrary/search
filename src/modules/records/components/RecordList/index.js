@@ -24,6 +24,8 @@ class RecordListContainer extends React.Component {
       institution
     } = this.props;
 
+    const pageNumber = search.page[datastoreUid] || 1
+
     if (search.data[datastoreUid] && search.data[datastoreUid].totalAvailable === 0) {
       return (
         <div id="search-results">
@@ -82,20 +84,33 @@ class RecordListContainer extends React.Component {
           <span aria-live="polite"><ResultsSummary /></span>
           <Sorts />
         </div>
-        <ul className="results-list results-list-border search-results" id="search-results">
-          <SpecialistsWrapper position={3}>
-            {activeRecords.map((record, index) =>
-              <Record
-                record={record}
-                datastoreUid={datastoreUid}
-                key={index}
-                type='medium'
-                searchQuery={searchQuery}
-                institution={institution}
-              />,
-            )}
-          </SpecialistsWrapper>
-        </ul>
+        <div className="results-list results-list-border search-results" id="search-results">
+          {(pageNumber === 1) ? (
+            <SpecialistsWrapper position={3}>
+              {activeRecords.map((record, index) =>
+                <Record
+                  record={record}
+                  datastoreUid={datastoreUid}
+                  key={index}
+                  type='medium'
+                  searchQuery={searchQuery}
+                  institution={institution}/>
+              )}
+            </SpecialistsWrapper>
+          ) : (
+            <React.Fragment>
+              {activeRecords.map((record, index) =>
+                <Record
+                  record={record}
+                  datastoreUid={datastoreUid}
+                  key={index}
+                  type='medium'
+                  searchQuery={searchQuery}
+                  institution={institution}/>
+              )}
+            </React.Fragment>
+          )}
+        </div>
       </div>
     );
   }
