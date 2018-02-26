@@ -6,7 +6,7 @@ import {
   AccessItem,
 } from '../AccessList';
 import {
-  ShowAllList,
+  ShowAllChildren,
   TrimString,
   Icon
 } from '../../../core'
@@ -105,14 +105,14 @@ const Footer = ({
           {access.length > 0 && (
             <div className="access-container">
               <div className="access-list-container">
-                <ShowAllList
+                <ShowAllChildren
                   length={access.length}
                   show={1}
                   listClass={'access-list'}>
                     {access.map((item, index) => (
                       <AccessItem key={index} item={item} />
                     ))}
-                </ShowAllList>
+                </ShowAllChildren>
               </div>
             </div>
           )}

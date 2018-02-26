@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom'
 
 import {
-  ShowAllList,
+  ShowAllChildren,
   TrimString,
 } from '../../../core'
 import ShowAdditionalFieldList from '../ShowAdditionalFieldList';
@@ -106,14 +106,14 @@ class FullRecord extends React.Component {
             />
 
             {access.length > 0 && (
-              <ShowAllList
+              <ShowAllChildren
                 length={access.length}
                 show={1}
                 listClass={'access-list'}>
                 {access.map((item, key) => (
                   <AccessItem key={key} type='full' item={item} />
                 ))}
-              </ShowAllList>
+              </ShowAllChildren>
             )}
           </div>
           {holdings && (<Holdings holdings={holdings} />)}

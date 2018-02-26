@@ -9,6 +9,9 @@ import RecordPlaceholder from '../RecordPlaceholder';
 import {
   ResultsSummary,
 } from '../../../records';
+import {
+  SpecialistsWrapper
+} from '../../../specialists'
 
 class RecordListContainer extends React.Component {
   render() {
@@ -20,6 +23,8 @@ class RecordListContainer extends React.Component {
       searchQuery,
       institution
     } = this.props;
+
+    const pageNumber = search.page[datastoreUid] || 1
 
     if (search.data[datastoreUid] && search.data[datastoreUid].totalAvailable === 0) {
       return (
@@ -79,18 +84,33 @@ class RecordListContainer extends React.Component {
           <span aria-live="polite"><ResultsSummary /></span>
           <Sorts />
         </div>
-        <ul className="results-list results-list-border" id="search-results">
-          {activeRecords.map((record, index) =>
-            <Record
-              record={record}
-              datastoreUid={datastoreUid}
-              key={index}
-              type='medium'
-              searchQuery={searchQuery}
-              institution={institution}
-            />,
+        <div className="results-list results-list-border search-results" id="search-results">
+          {(pageNumber === 1) ? (
+            <SpecialistsWrapper position={3}>
+              {activeRecords.map((record, index) =>
+                <Record
+                  record={record}
+                  datastoreUid={datastoreUid}
+                  key={index}
+                  type='medium'
+                  searchQuery={searchQuery}
+                  institution={institution}/>
+              )}
+            </SpecialistsWrapper>
+          ) : (
+            <React.Fragment>
+              {activeRecords.map((record, index) =>
+                <Record
+                  record={record}
+                  datastoreUid={datastoreUid}
+                  key={index}
+                  type='medium'
+                  searchQuery={searchQuery}
+                  institution={institution}/>
+              )}
+            </React.Fragment>
           )}
-        </ul>
+        </div>
       </div>
     );
   }

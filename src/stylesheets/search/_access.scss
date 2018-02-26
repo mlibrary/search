@@ -21,52 +21,10 @@
   display: block;
 }
 
-.access-link {
-  /*
-  @media (min-width: $breakpoint-1) {
-    white-space: nowrap;
-  }
-  */
-}
-
-.access-item {
-  display: block;
-  /*
-  @media (min-width: $breakpoint-2) {
-    display: flex;
-    align-items: flex-start;
-  }
-  */
-  padding: 0;
-  margin: 0;
-  margin-bottom: 1rem;
-}
-
 .access-detail {
-  margin-right: 1.5rem;
+  margin-right: 1rem;
 
   &:empty {
     display: none;
-  }
-}
-
-// For positioning preview and medium record holdings
-.access-list-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.access-container {
-  .access-list-container:not(:last-child) {
-    margin-bottom: 1rem;
-    border-bottom: solid 1px $grey-5;
-    padding-bottom: 1rem;
-  }
-}
-
-.access-list-container {
-  .access-item:last-child {
-    margin-bottom: 0;
   }
 }

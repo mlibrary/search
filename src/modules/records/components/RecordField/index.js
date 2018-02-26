@@ -10,7 +10,7 @@ import {
 import {
   Icon,
   TrimString,
-  ShowAllList
+  ShowAllChildren
 } from '../../../core';
 import {
   RecordFieldValue,
@@ -154,7 +154,7 @@ class RecordField extends React.Component {
         <div className={uniqueFieldClassName}>
           <dt className="record-field-name">{field.name}</dt>
           <dd className="record-field-value">
-            <ShowAllList
+            <ShowAllChildren
               length={field.value.length}
               show={3}
               listClass={'record-field-value-list'}>
@@ -167,7 +167,7 @@ class RecordField extends React.Component {
                     institution={institution} />
                 </li>
               ))}
-            </ShowAllList>
+            </ShowAllChildren>
           </dd>
         </div>
       )

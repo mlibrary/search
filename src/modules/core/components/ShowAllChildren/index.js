@@ -1,6 +1,6 @@
 import React from 'react'
 
-class ShowAllList extends React.Component {
+class ShowAllChildren extends React.Component {
   state = {
     show: false
   }
@@ -22,22 +22,20 @@ class ShowAllList extends React.Component {
     const buttonText = `${this.state.show ? showFewerText : showAllText }`
 
     return (
-      <div className='show-all-list-container'>
-        <ul className={listClass}>
-          {this.props.children.map((child, index) => {
-            if (this.state.show || (show > index)) {
-              return child
-            }
+      <React.Fragment>
+        {this.props.children.map((child, index) => {
+          if (this.state.show || (show > index)) {
+            return child
+          }
 
-            return null
-          })}
-        </ul>
+          return null
+        })}
         {hasShowHideButton && (
           <ShowHideButton handleOnClick={this.handleShowToggleClick.bind(this)}>
             {buttonText}
           </ShowHideButton>
         )}
-      </div>
+      </React.Fragment>
     )
   }
 }
@@ -52,4 +50,4 @@ class ShowHideButton extends React.Component {
   }
 }
 
-export default ShowAllList
+export default ShowAllChildren

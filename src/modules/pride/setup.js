@@ -58,6 +58,10 @@ import {
   organizeByParents
 } from '../browse'
 
+import {
+  addSpecialists
+} from '../specialists'
+
 /*
   Pride Internal Configuration
 */
@@ -84,6 +88,10 @@ const handleSearchData = (data, datastoreUid) => {
       "fields": data.fields,
     },
     datastoreUid: datastoreUid
+  }
+
+  if (data.specialists) {
+    store.dispatch(addSpecialists(data.specialists))
   }
 
   store.dispatch(setSearchData(payload))

@@ -70,7 +70,7 @@ class DatastorePageContainer extends React.Component {
       location,
       isAdvanced
     } = this.props;
-    
+
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     if (activeDatastore === undefined) {
@@ -167,13 +167,15 @@ const Results = ({ searching, activeDatastore }) => {
   )
 }
 
-const MultisearchSearching = () => (
-  <div className="container container-large flex-container">
-    <div className="main-container">
-      <BentoboxList />
+const MultisearchSearching = () => {
+  return (
+    <div className="container container-large flex-container">
+      <div className="main-container">
+        <BentoboxList />
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 function mapStateToProps(state) {
   return {

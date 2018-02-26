@@ -3,7 +3,7 @@ import Main from './components/Main';
 import Button from './components/Button';
 import Loading from './components/Loading';
 import Icon from './components/Icon';
-import ShowAllList from './components/ShowAllList'
+import ShowAllChildren from './components/ShowAllChildren'
 import TrimString from './components/TrimString'
 import TrimLink from './components/TrimLink'
 import Multiselect from './components/Multiselect'
@@ -22,7 +22,7 @@ export {
   Button,
   Loading,
   Icon,
-  ShowAllList,
+  ShowAllChildren,
   TrimString,
   TrimLink,
   Multiselect,
