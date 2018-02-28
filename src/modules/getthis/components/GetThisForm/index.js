@@ -101,37 +101,18 @@ class GetThisForm extends React.Component {
         this.setState({ loading: false })
         this.setState({ response: response })
       }
-
       const item = getFieldValueByName('item')
       const location = getFieldValueByName('pickup_location')
       const date = getFieldValueByName('not_needed_after').replace(/-/g, '')
 
-      if (datastoreUid && recordId && item && location && date) {
-        this.setState({ loading: true })
-
-        placeHold({
-          datastoreUid,
-          recordId,
-          item,
-          location,
-          date,
-          callback
-        })
-      } else {
-        if (!location) {
-          this.setState({
-            response: {
-              status: "Pickup location is a required field."
-            }
-          })
-        } else {
-          this.setState({
-            response: {
-              status: "Something went wrong."
-            }
-          })
-        }
-      }
+      placeHold({
+        datastoreUid,
+        recordId,
+        item,
+        location,
+        date,
+        callback
+      })
     }
   }
 
