@@ -84,13 +84,12 @@ class GetThisForm extends React.Component {
 
   handleSubmit = (event) => {
     const { datastoreUid, recordId, form } = this.props;
-    const { loading } = this.state
+    const { loading, fields } = this.state
 
     // Submitted form is type ajax and not already loading.
     if (form.type === 'ajax' && !loading) {
       event.preventDefault()
 
-      const { fields } = this.state
       const getFieldValueByName = (name) => {
         const field = fields.filter(field => field.name === name)[0]
 
@@ -103,38 +102,65 @@ class GetThisForm extends React.Component {
         this.setState({ response: response })
       }
 
-      this.setState({ loading: true })
+      const item = getFieldValueByName('item')
+      const location = getFieldValueByName('pickup_location')
+      const date = getFieldValueByName('not_needed_after').replace(/-/g, '')
 
-      placeHold({
-        datastoreUid,
-        recordId,
-        item:     getFieldValueByName('item'),
-        location: getFieldValueByName('pickup_location'),
-        date:     getFieldValueByName('not_needed_after').replace(/-/g, ''),
-        callback
-      })
+      if (datastoreUid && recordId && item && location && date) {
+        this.setState({ loading: true })
+
+        placeHold({
+          datastoreUid,
+          recordId,
+          item,
+          location,
+          date,
+          callback
+        })
+      } else {
+        if (!location) {
+          this.setState({
+            response: {
+              status: "Pickup location is a required field."
+            }
+          })
+        } else {
+          this.setState({
+            response: {
+              status: "Something went wrong."
+            }
+          })
+        }
+      }
     }
   }
 
-  render() {
-    const { form } = this.props
-    const { fields, loading, response } = this.state
+  renderResponse = () => {
+    const { response } = this.state
 
     if (response) {
-      if (response.statis === 'Action Succeeded') {
+      if (response.status === 'Action Succeeded') {
         return (
           <div className="alert alert-success">
-            <p><b>Success!</b> You have requested this item.</p>
+            <p><b>Success!</b> This item has been requested. <a href="https://lib.umich.edu/my-account/holds-recalls" className="underline">View all your holds</a>.</p>
           </div>
         )
       } else {
         return (
           <div className="alert alert-warning">
-            <p><b>Error:</b> Something went wrong when requesting this item.</p>
+            <p><b>Error:</b> {response.status}</p>
           </div>
         )
       }
     }
+
+    return null
+  }
+
+  render() {
+    const { form } = this.props
+    const { fields, loading, response } = this.state
+    const showForm = !response || response.status !== 'Action Succeeded'
 
     if (!form) {
       return (
@@ -145,11 +171,17 @@ class GetThisForm extends React.Component {
     }
 
     return (
-      <form action={form.action} method={form.method} onSubmit={this.handleSubmit}>
-        {fields.map((field, key) => (
-          <Field field={field} key={key} handeFieldChange={this.handeFieldChange} loading={loading} />
-        ))}
-      </form>
+      <React.Fragment>
+        {this.renderResponse()}
+
+        {showForm && (
+          <form action={form.action} method={form.method} onSubmit={this.handleSubmit}>
+            {fields.map((field, key) => (
+              <Field field={field} key={key} handeFieldChange={this.handeFieldChange} loading={loading} />
+            ))}
+          </form>
+        )}
+      </React.Fragment>
     )
   }
 }
