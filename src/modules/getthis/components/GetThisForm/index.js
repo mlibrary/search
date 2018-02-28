@@ -105,6 +105,8 @@ class GetThisForm extends React.Component {
       const location = getFieldValueByName('pickup_location')
       const date = getFieldValueByName('not_needed_after').replace(/-/g, '')
 
+      this.setState({ loading: true })
+
       placeHold({
         datastoreUid,
         recordId,
