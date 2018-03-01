@@ -46,7 +46,7 @@ const Field = ({ field, handeFieldChange, loading }) => {
     return (
       <React.Fragment>
         <input className="button margin-right-1" id={name} type={type} name={name} value={value} disabled={loading}/>
-        {loading && (<span>Placing hold ...</span>)}
+        {loading && (<span role="alert">Placing hold ...</span>)}
       </React.Fragment>
     )
   }
@@ -124,15 +124,24 @@ class GetThisForm extends React.Component {
     if (response) {
       if (response.status === 'Action Succeeded') {
         return (
-          <div className="alert alert-success">
-            <p><b>Success!</b> This item has been requested. <a href="https://lib.umich.edu/my-account/holds-recalls" className="underline">View all your holds</a>.</p>
-          </div>
+          <article className="alert alert-success">
+            <h4>You have successfuly requested this item</h4>
+
+            <ul className="u-margin-bottom-1 margin-left-2">
+              <li>We will email you when it is available for pickup.</li>
+              <li>When it is available, we'll hold it for you for 7 days.</li>
+            </ul>
+
+            <a href="https://lib.umich.edu/my-account/holds-recalls" className="underline">View all your holds</a>
+          </article>
         )
       } else {
         return (
-          <div className="alert alert-warning">
-            <p><b>Error:</b> {response.status}</p>
-          </div>
+          <article className="alert alert-warning">
+            <h4>Could not request this item</h4>
+
+            <p className="u-margin-bottom-none"><b>Status:</b> {response.status}</p>
+          </article>
         )
       }
     }
@@ -147,7 +156,7 @@ class GetThisForm extends React.Component {
 
     if (!form) {
       return (
-        <div className="alert alert-warning">
+        <div className="alert alert-warning" role="alert">
           <p><b>Error:</b> Unable to fetch details.</p>
         </div>
       )
@@ -155,7 +164,9 @@ class GetThisForm extends React.Component {
 
     return (
       <React.Fragment>
+        <div role="alert">
         {this.renderResponse()}
+        </div>
 
         {showForm && (
           <form action={form.action} method={form.method} onSubmit={this.handleSubmit}>
