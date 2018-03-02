@@ -325,8 +325,11 @@ textarea {
   .button-secondary:hover {
     cursor: pointer; }
 
-.button-disabled:hover,
-.button-disabled:active {
+.button[disabled] {
+  opacity: 0.5; }
+
+.button[disabled]:hover,
+.button[disabled]:active {
   cursor: not-allowed; }
 
 .button-light {
@@ -2402,6 +2405,15 @@ input.get-this-field-input-year {
 
 .margin-right-2 {
   margin-right: 2rem; }
+
+.margin-right-1 {
+  margin-right: 1rem; }
+
+.margin-left-2 {
+  margin-left: 2rem; }
+
+.margin-left-1 {
+  margin-left: 1rem; }
 
 .margin-top-2 {
   margin-top: 2rem; }

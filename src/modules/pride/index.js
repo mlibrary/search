@@ -24,6 +24,10 @@ import {
   isDatastoreBrowseable
 } from './browse'
 
+import {
+  placeHold
+} from './getthis'
+
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper'
 
 export {
@@ -45,5 +49,6 @@ export {
   parseSearchQueryStringToBooleanFields,
   isFieldASearchLink,
   requestGetThis,
-  isDatastoreBrowseable
+  isDatastoreBrowseable,
+  placeHold
 }
