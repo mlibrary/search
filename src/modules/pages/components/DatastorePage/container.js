@@ -52,6 +52,10 @@ import {
   InstitutionSelect
 } from '../../../institution'
 
+import {
+  List
+} from '../../../lists'
+
 
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
@@ -115,6 +119,11 @@ class DatastorePageContainer extends React.Component {
               <Route path={match.url + `/record/:recordUid`} exact render={(props) => {
                 return (
                   <RecordFull />
+                )
+              }}/>
+              <Route path={match.url + `/list`} exact render={(props) => {
+                return (
+                  <List />
                 )
               }}/>
               <Route match={match.url} render={(props) => {

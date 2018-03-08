@@ -12,6 +12,9 @@ import {
 import {
   SpecialistsWrapper
 } from '../../../specialists'
+import {
+  GoToList
+} from '../../../lists'
 
 class RecordListContainer extends React.Component {
   render() {
@@ -21,7 +24,9 @@ class RecordListContainer extends React.Component {
       loadingRecords,
       search,
       searchQuery,
-      institution
+      institution,
+      list,
+      datastore
     } = this.props;
 
     const pageNumber = search.page[datastoreUid] || 1
@@ -58,6 +63,7 @@ class RecordListContainer extends React.Component {
             </div>
             <Sorts />
           </div>
+          <GoToList list={list} datastore={datastore} />
           <section className="results-list results-list-border">
             <RecordPlaceholder />
             <RecordPlaceholder />
@@ -84,6 +90,7 @@ class RecordListContainer extends React.Component {
           <span aria-live="polite"><ResultsSummary /></span>
           <Sorts />
         </div>
+        <GoToList list={list} datastore={datastore} />
         <div className="results-list results-list-border search-results" id="search-results">
           {(pageNumber === 1) ? (
             <SpecialistsWrapper position={3}>
@@ -94,7 +101,8 @@ class RecordListContainer extends React.Component {
                   key={index}
                   type='medium'
                   searchQuery={searchQuery}
-                  institution={institution}/>
+                  institution={institution}
+                  list={list}/>
               )}
             </SpecialistsWrapper>
           ) : (
@@ -106,7 +114,8 @@ class RecordListContainer extends React.Component {
                   key={index}
                   type='medium'
                   searchQuery={searchQuery}
-                  institution={institution}/>
+                  institution={institution}
+                  list={list}/>
               )}
             </React.Fragment>
           )}
@@ -121,9 +130,11 @@ function mapStateToProps(state) {
     activeRecords: _.values(state.records.records[state.datastores.active]),
     loadingRecords: state.records.loading[state.datastores.active],
     datastoreUid: state.datastores.active,
+    datastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
     search: state.search,
     searchQuery: state.router.location.search,
-    institution: state.institution
+    institution: state.institution,
+    list: state.lists[state.datastores.active],
   };
 }
 

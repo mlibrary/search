@@ -489,6 +489,16 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'arrow-left':
+    return (
+      <svg viewBox="0 0 16 16" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g>
+            <polygon points="16 7 16 9 3.98958 9 9.4948 14.5052 8.0806 15.9194 0.16116 8 8.0806 0.08058 9.4948 1.49479 3.98958 7"></polygon>
+          </g>
+        </g>
+      </svg>
+    )
     case 'arrow-right-drop-circle':
     return (
       <svg viewBox="0 0 20 20" version="1.1" className="icon">
@@ -577,6 +587,18 @@ const Icon = ({ name }) => {
           </g>
         </svg>
       )
+    case 'view-list':
+    return (
+      <svg viewBox="0 0 17 14" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(0.000000, -110.000000)" fill="#000000">
+            <g transform="translate(0.000000, 110.000000)">
+              <path d="M5,0 L5,4 L17,4 L17,0 L5,0 Z M5,14 L17,14 L17,10 L5,10 L5,14 Z M5,9 L17,9 L17,5 L5,5 L5,9 Z M0,4 L4,4 L4,0 L0,0 L0,4 Z M0,14 L4,14 L4,10 L0,10 L0,14 Z M0,9 L4,9 L4,5 L0,5 L0,9 L0,9 Z"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
     case 'message':
     return (
       <svg viewBox="0 0 20 20" version="1.1" className="icon">
@@ -602,6 +624,30 @@ const Icon = ({ name }) => {
               <circle id="Oval" cx="12.5" cy="3.5" r="3.5"></circle>
             </g>
           </g>
+        </g>
+      </svg>
+    )
+    case 'plus':
+    return (
+      <svg viewBox="0 0 14 15" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-75.000000, -225.000000)" fill="#000000">
+            <g transform="translate(74.000000, 225.000000)">
+              <polygon points="14.9994 8.998 8.9994 8.998 8.9994 14.998 6.9994 14.998 6.9994 8.998 0.99936 8.998 0.99936 6.998 6.9994 6.998 6.9994 0.99805 8.9994 0.99805 8.9994 6.998 14.9994 6.998"></polygon>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
+    case 'window-close':
+    return (
+      <svg viewBox="0 0 14 14" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-283.000000, -264.000000)" fill="#000000">
+            <g transform="translate(283.000000, 264.000000)">
+              <polygon points="8.4579 7.0001 13.9999 12.5433 14 14 12.5426 14.0002 7.0009 8.4573 1.45785 14.0004 -2.66453526e-14 14 -8e-05 12.5442 5.5439 7.0002 -8e-05 1.45765 -2.66453526e-14 -3.99999999e-05 1.45671 0.00021 7.0008 5.5431 12.5437 0.00021 14 -3.99999999e-05 13.9998 1.4583"></polygon>
+            </g>
+        </g>
         </g>
       </svg>
     )
