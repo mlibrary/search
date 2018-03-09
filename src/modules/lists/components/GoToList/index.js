@@ -32,7 +32,7 @@ class GoToList extends Component {
               <span><Icon name="view-list" /></span>
               <p className="lists-content"><span className="underline">Go to My {datastore.name} List</span> to take actions, such as email, citations, export, and favorite.</p>
             </div>
-              {list && listLength && (<p className="tag lists-count"><b>{list.length}</b> in list</p>) }
+              {list && listLength && (<p className="tag lists-count-tag"><b>{list.length}</b> in list</p>) }
           </Link>
         </section>
       </React.Fragment>
