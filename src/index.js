@@ -4,7 +4,6 @@ import {
   connect,
   Provider
 } from 'react-redux'
-
 import {
   Route,
   Switch,
@@ -78,7 +77,7 @@ const App = () => (
           <Route path="/" exact render={() => (
             <Redirect to={`/everything`} />
           )}/>
-        <Route path={`/:datastoreSlug`} render={(props) => {
+          <Route path={`/:datastoreSlug`} render={(props) => {
             const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
             const urlState = getStateFromURL({
               location: props.location
