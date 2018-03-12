@@ -6,12 +6,12 @@ const listsReducer = (state = {}, action) => {
       if (!state[action.payload.datastoreUid]) {
         return {
           ...state,
-          [action.payload.datastoreUid]: [].concat(action.payload.item)
+          [action.payload.datastoreUid]: [action.payload.item]
         }
       } else {
         return {
           ...state,
-          [action.payload.datastoreUid]: state[action.payload.datastoreUid].concat(action.payload.item)
+          [action.payload.datastoreUid]: [action.payload.item].concat(state[action.payload.datastoreUid])
         }
       }
     case actions.REMOVE_FROM_LIST:
