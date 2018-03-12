@@ -43,7 +43,7 @@ class List extends Component {
     if (!list || this.getListLength() === 0) {
       return (
         <section className="alert">
-          <p>Your list is empty. <Link class="underline" to={this.getSearchURI()}>Go back to search results</Link> to add to list.</p>
+          <p><b>This list is empty</b>. <Link className="underline" to={this.getSearchURI()}>Go back to search results</Link> to add to this list.</p>
         </section>
       )
 
@@ -78,7 +78,8 @@ class List extends Component {
 
     return (
       <section className="lists-section">
-        <h2 className="lists-actions-heading">Actions</h2>
+        <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions</h2>
+        <span className="text-small">Select what to do with this list.</span>
         <ul className="lists-actions-list">
           <li><button className="button-link underline lists-action-button">Email</button></li>
           <li><button className="button-link underline lists-action-button">SMS</button></li>

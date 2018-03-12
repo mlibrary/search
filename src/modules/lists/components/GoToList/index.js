@@ -20,18 +20,18 @@ class GoToList extends Component {
     const hasItems = list && list.length > 0 ? true : false
     const listLength = list ? list.length : 0
     const isCollapsedClasses = hasItems ? "lists-link-container" : "lists-link-container lists-link-container--collapsed"
-    const ariaMessage = hasItems ? `${listLength} item${plural} in your ${datastore.name} list.` : `No items in your ${datastore.name} list`
+    const ariaMessage = hasItems ? `${listLength} now in list.` : `List is now empty.`
 
     return (
       <React.Fragment>
-        <LiveMessage message={ariaMessage} aria-live="assertive" clearOnUnmount="true" />
+        <LiveMessage message={ariaMessage} aria-live="polite" />
         <section className={isCollapsedClasses}>
           <Link to={`/${datastore.slug}/list${location.search}`} className="lists-link">
             <div className="list-info">
               <span><Icon name="view-list" /></span>
-              <p className="lists-content"><span className="underline">Go to My {datastore.name} List</span> to take actions, such as email, citations, export, and favorite.</p>
+              <p className="lists-content"><span className="underline">Go to My {datastore.name} List</span> to select actions, such as email, citations, export, and favorite.</p>
             </div>
-              {list && listLength && (<p className="tag lists-count-tag"><b>{list.length}</b> in list</p>) }
+            {list && listLength && (<p className="tag lists-count-tag"><b>{list.length}</b> in list</p>) }
           </Link>
         </section>
       </React.Fragment>

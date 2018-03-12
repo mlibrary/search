@@ -11,15 +11,11 @@ import {
   SiteMessage,
   SkipToID
 } from '../../../core'
-import {
-  A11yAnnouncer
-} from '../../../a11y'
 
 class Main extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <A11yAnnouncer />
         <SkipToID id='search-box' name="search box" />
         <SiteMessage>
           <div className="container container-medium">
