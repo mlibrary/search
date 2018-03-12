@@ -16,6 +16,8 @@
 .lists-link {
   background: $main-6;
   padding: 1rem 2rem;
+  display: block;
+
   display: flex;
   justify-content: space-between;
 
@@ -43,8 +45,13 @@
   }
 }
 
+.lists-info {
+  display: inline-flex
+}
+
 .lists-count-tag {
   color: white;
+  white-space: nowrap;
 }
 
 .lists-header {
@@ -83,6 +90,7 @@
 
 .lists-actions-list {
   margin: -1rem;
+  margin-top: 0;
   padding: 0;
   list-style: none;
 

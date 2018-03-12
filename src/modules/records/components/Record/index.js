@@ -11,11 +11,9 @@ import {
   Icon
 } from '../../../core'
 import Holdings from '../Holdings';
-
 import {
   RecommendedResource
 }  from '../../../records'
-
 import {
   getDatastoreSlugByUid
 } from '../../../pride';
@@ -27,14 +25,11 @@ import {
   hasRecordFullView,
   getAccessField
 } from '../../utilities';
-
 import {
-  AddToListButton
-} from '../../../lists'
-
-import {
+  AddToListButton,
   isInList
 } from '../../../lists'
+
 
 const Header = ({
   record,

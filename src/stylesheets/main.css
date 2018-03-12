@@ -2419,6 +2419,7 @@ input.get-this-field-input-year {
 .lists-link {
   background: #F2F9FF;
   padding: 1rem 2rem;
+  display: block;
   display: flex;
   justify-content: space-between; }
   .lists-link .icon {
@@ -2435,8 +2436,12 @@ input.get-this-field-input-year {
   .lists-link .underline {
     color: #126DC1; }
 
+.lists-info {
+  display: inline-flex; }
+
 .lists-count-tag {
-  color: white; }
+  color: white;
+  white-space: nowrap; }
 
 .lists-header {
   display: flex;
@@ -2467,6 +2472,7 @@ input.get-this-field-input-year {
 
 .lists-actions-list {
   margin: -1rem;
+  margin-top: 0;
   padding: 0;
   list-style: none; }
   .lists-actions-list li {
@@ -2493,6 +2499,9 @@ input.get-this-field-input-year {
 .u-margin-bottom-1 {
   margin-bottom: 1rem; }
 
+.u-margin-right-1 {
+  margin-right: 1rem; }
+
 .margin-right-2 {
   margin-right: 2rem; }
 
@@ -2511,6 +2520,9 @@ input.get-this-field-input-year {
 .margin-y-half {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem; }
+
+.u-display-inline-block {
+  display: inline-block; }
 
 .underline {
   text-decoration: underline; }

@@ -3,6 +3,7 @@ import {
   withRouter,
   Link
 } from 'react-router-dom'
+import { LiveMessage } from 'react-aria-live';
 import {
   Icon
 } from '../../../core'
@@ -23,9 +24,7 @@ class GoToList extends Component {
 
     return (
       <React.Fragment>
-        <div aria-live="alert">
-          <p className="offpage">{ariaMessage}</p>
-        </div>
+        <LiveMessage message={ariaMessage} aria-live="assertive" clearOnUnmount="true" />
         <section className={isCollapsedClasses}>
           <Link to={`/${datastore.slug}/list${location.search}`} className="lists-link">
             <div className="list-info">
