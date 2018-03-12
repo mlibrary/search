@@ -2405,11 +2405,13 @@ input.get-this-field-input-year {
 .record--highlight {
   outline: solid 2px rgba(18, 109, 193, 0.6); }
 
-@media (min-width: 32rem) {
-  .lists-link-container {
-    position: sticky;
-    top: 2px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24); } }
+.lists-link-container {
+  outline: solid 2px rgba(18, 109, 193, 0.6); }
+  @media (min-width: 32rem) {
+    .lists-link-container {
+      position: sticky;
+      top: 2px;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24); } }
 
 .lists-link-container--collapsed {
   display: none; }
@@ -2418,8 +2420,7 @@ input.get-this-field-input-year {
   background: #F2F9FF;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
-  outline: solid 2px rgba(18, 109, 193, 0.6); }
+  justify-content: space-between; }
   .lists-link .icon {
     display: inline-block;
     margin-right: 1rem; }
