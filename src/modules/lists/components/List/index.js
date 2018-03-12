@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import { _ } from 'underscore';
 
 import {
@@ -12,6 +13,9 @@ import {
 import {
   Icon
 } from '../../../core'
+import {
+  removeAllFromList
+} from '../../actions'
 
 class List extends Component {
   getSearchURI = () => {
@@ -94,6 +98,18 @@ class List extends Component {
     )
   }
 
+  renderRemoveAllFromListButton = (list, datastore) => {
+    if (list && list.length > 0) {
+      const datastoreUid = datastore.uid;
+
+      return (
+        <button className="button-link underline lists-remove-all text-small" onClick={() => this.props.removeAllFromList({ datastoreUid })}>Remove all</button>
+      )
+    }
+
+    return null
+  }
+
   render() {
     const {
       match,
@@ -107,7 +123,10 @@ class List extends Component {
         <Link to={this.getSearchURI()} className="lists-back-to-search-link"><Icon name="arrow-left" /> <span className="underline">Back to search results</span></Link>
         <header className="lists-header">
           <h1 className="lists-heading">My {datastore.name} List</h1>
-          <p className="tag lists-count-tag"><b>{this.getListLength()}</b> in list</p>
+          <div className="lists-header-info">
+            {this.renderRemoveAllFromListButton(list, datastore)}
+            <p className="tag lists-count-tag"><b>{this.getListLength()}</b> in list</p>
+          </div>
         </header>
         {this.renderActions()}
         {this.renderList()}
@@ -124,4 +143,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(List));
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    removeAllFromList
+  }, dispatch)
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(List));

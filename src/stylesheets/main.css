@@ -2441,12 +2441,14 @@ input.get-this-field-input-year {
 
 .lists-count-tag {
   color: white;
-  white-space: nowrap; }
+  white-space: nowrap;
+  margin: 0; }
 
 .lists-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline; }
+  align-items: baseline;
+  margin-bottom: 1rem; }
 
 .lists-back-to-search-link {
   display: inline-flex;
@@ -2470,6 +2472,9 @@ input.get-this-field-input-year {
   font-size: 1rem;
   margin-bottom: 1rem; }
 
+.lists-heading {
+  margin-bottom: 0; }
+
 .lists-actions-list {
   margin: -1rem;
   margin-top: 0;
@@ -2483,6 +2488,13 @@ input.get-this-field-input-year {
 
 .lists-count-summary {
   color: #4E4E4E; }
+
+.lists-header-info {
+  display: inline-flex; }
+
+.lists-remove-all {
+  margin-right: 1rem;
+  color: #6E6E6E; }
 
 .u-break-word {
   word-wrap: break-word; }

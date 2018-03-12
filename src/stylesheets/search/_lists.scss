@@ -52,12 +52,15 @@
 .lists-count-tag {
   color: white;
   white-space: nowrap;
+  margin: 0;
 }
 
 .lists-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+
+  margin-bottom: 1rem;
 }
 
 .lists-back-to-search-link {
@@ -88,6 +91,10 @@
   margin-bottom: 1rem;
 }
 
+.lists-heading {
+  margin-bottom: 0;
+}
+
 .lists-actions-list {
   margin: -1rem;
   margin-top: 0;
@@ -104,4 +111,13 @@
 
 .lists-count-summary {
   color: $grey-2;
+}
+
+.lists-header-info {
+  display: inline-flex;
+}
+
+.lists-remove-all {
+  margin-right: 1rem;
+  color: $grey-3;
 }
