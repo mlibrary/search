@@ -50,7 +50,6 @@ class List extends Component {
           <p><b>This list is empty</b>. <Link className="underline" to={this.getSearchURI()}>Go back to search results</Link> to add to this list.</p>
         </section>
       )
-
     }
 
     return (
