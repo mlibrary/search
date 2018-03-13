@@ -1,5 +1,5 @@
 body {
-  background: $grey-7;
+  background: white;
 }
 
 .flex-container {
@@ -19,11 +19,6 @@ body {
   }
 }
 
-.main-container {
-  width: 100%;
-  margin-bottom: 2rem;
-}
-
 .grey-background {
   background: $grey-5;
 }
@@ -38,4 +33,9 @@ body {
   @media (max-width: $breakpoint-2) {
     padding: 1.5rem;
   }
+}
+
+.main-container {
+  background: $grey-7;
+  padding-bottom: 3rem;
 }

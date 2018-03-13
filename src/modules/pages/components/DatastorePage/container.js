@@ -84,67 +84,68 @@ class DatastorePageContainer extends React.Component {
     document.title = `${activeDatastore.name} · Library Search`
 
     return (
-      <Switch>
-        <Route path={`/:datastoreSlug/browse`} location={location} render={() => {
-          if (activeDatastore.uid === 'databases' || activeDatastore.uid === 'journals') {
-            return (
-              <BrowsePage />
-            )
-          }
+      <main className="main-container">
+        <Switch>
+          <Route path={`/:datastoreSlug/browse`} location={location} render={() => {
+            if (activeDatastore.uid === 'databases' || activeDatastore.uid === 'journals') {
+              return (
+                <BrowsePage />
+              )
+            }
 
-          return <NoMatch/>
-        }}/>
-        <Route path={`/:datastoreSlug/advanced`} location={location} render={() => {
-          if (isAdvanced) {
-            return (
-              <AdvancedSearch
-                handleBasicSearchQueryChange={this.handleChange}
-                searchQueryFromURL={location.search}
-              />
-            )
-          }
+            return <NoMatch/>
+          }}/>
+          <Route path={`/:datastoreSlug/advanced`} location={location} render={() => {
+            if (isAdvanced) {
+              return (
+                <AdvancedSearch
+                  handleBasicSearchQueryChange={this.handleChange}
+                  searchQueryFromURL={location.search}
+                />
+              )
+            }
 
-          return <NoMatch/>
-        }}/>
-        <Route path={`/:datastoreSlug`} location={location} render={() => (
-          <div>
-            <SearchBox />
-            <DatastoreNavigation />
-            <ConnectedSwitch>
-              <Route path={match.url + `/record/:recordUid/get-this/:barcode`} render={(props) => {
-                return (
-                  <GetThisPage />
-                )
-              }}/>
-              <Route path={match.url + `/record/:recordUid`} exact render={(props) => {
-                return (
-                  <RecordFull />
-                )
-              }}/>
-              <Route path={match.url + `/list`} exact render={(props) => {
-                return (
-                  <List />
-                )
-              }}/>
-              <Route match={match.url} render={(props) => {
-                return (
-                  <div>
-                    {!searching ? (
-                      <div className="container">
-                        <Landing activeDatastore={activeDatastore} />
-                      </div>
-                    ) : (
-                      <DatastoreInfo activeDatastore={activeDatastore} />
-                    )}
-                    <Results searching={searching} activeDatastore={activeDatastore} />
-                  </div>
-                )
-              }}/>
-            </ConnectedSwitch>
-          </div>
-        )}/>
-      </Switch>
-
+            return <NoMatch/>
+          }}/>
+          <Route path={`/:datastoreSlug`} location={location} render={() => (
+            <React.Fragment>
+              <SearchBox />
+              <DatastoreNavigation />
+              <ConnectedSwitch>
+                <Route path={match.url + `/record/:recordUid/get-this/:barcode`} render={(props) => {
+                  return (
+                    <GetThisPage />
+                  )
+                }}/>
+                <Route path={match.url + `/record/:recordUid`} exact render={(props) => {
+                  return (
+                    <RecordFull />
+                  )
+                }}/>
+                <Route path={match.url + `/list`} exact render={(props) => {
+                  return (
+                    <List />
+                  )
+                }}/>
+                <Route match={match.url} render={(props) => {
+                  return (
+                    <div>
+                      {!searching ? (
+                        <div className="container">
+                          <Landing activeDatastore={activeDatastore} />
+                        </div>
+                      ) : (
+                        <DatastoreInfo activeDatastore={activeDatastore} />
+                      )}
+                      <Results searching={searching} activeDatastore={activeDatastore} />
+                    </div>
+                  )
+                }}/>
+              </ConnectedSwitch>
+            </React.Fragment>
+          )}/>
+        </Switch>
+      </main>
     )
   }
 }
@@ -164,14 +165,12 @@ const Results = ({ searching, activeDatastore }) => {
         </div>
       ) : null }
 
-      <div className="main-container">
-        {searching ? (
-          <div>
-            <RecordList />
-            <Pagination />
-          </div>
-        ) : null }
-      </div>
+      {searching ? (
+        <div className="results-container">
+          <RecordList />
+          <Pagination />
+        </div>
+      ) : null }
     </div>
   )
 }
@@ -179,9 +178,7 @@ const Results = ({ searching, activeDatastore }) => {
 const MultisearchSearching = () => {
   return (
     <div className="container container-large flex-container">
-      <div className="main-container">
-        <BentoboxList />
-      </div>
+      <BentoboxList />
     </div>
   )
 }

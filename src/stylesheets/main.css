@@ -537,7 +537,6 @@ nav {
 .site-footer {
   background: #00274C;
   padding: 1.5rem 0;
-  margin-top: 3rem;
   color: white; }
   .site-footer a {
     color: white;
@@ -849,6 +848,9 @@ input.search-box-input {
 /*
   Multiple results container // aka Bento box
 */
+.results-container {
+  width: 100%; }
+
 .results-list {
   margin: 0;
   list-style: none; }
@@ -1069,7 +1071,7 @@ input.search-box-input {
   border-top: solid 1px #E5E5E5; }
 
 body {
-  background: #F2F2F2; }
+  background: white; }
 
 .flex-container {
   display: block; }
@@ -1084,10 +1086,6 @@ body {
     .side-container {
       width: 24rem; } }
 
-.main-container {
-  width: 100%;
-  margin-bottom: 2rem; }
-
 .grey-background {
   background: #E5E5E5; }
 
@@ -1100,6 +1098,10 @@ body {
   @media (max-width: 47rem) {
     .page {
       padding: 1.5rem; } }
+
+.main-container {
+  background: #F2F2F2;
+  padding-bottom: 3rem; }
 
 /*
   Record
@@ -1316,7 +1318,7 @@ body {
     padding: 0; }
     @media (min-width: 32rem) {
       .bentobox-list .specialists {
-        width: 20rem;
+        width: 19rem;
         margin-right: 2rem; } }
 
 .bentobox {
@@ -1325,7 +1327,7 @@ body {
   padding: 0; }
   @media (min-width: 32rem) {
     .bentobox {
-      width: 20rem;
+      width: 19rem;
       margin-right: 2rem; } }
   .bentobox .results-list {
     border-radius: 4px; }
