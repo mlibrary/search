@@ -2132,8 +2132,8 @@ input.date-range-input-text {
   padding: 0; }
 
 .browse-button {
-  width: 2.5rem;
-  height: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0.75rem 1rem;
   text-align: center;
   display: flex;
   justify-content: space-around;
@@ -2142,11 +2142,12 @@ input.date-range-input-text {
   border: none;
   color: #126DC1;
   font-size: 1.15rem;
-  font-weight: 600; }
+  font-weight: 600;
+  border-radius: 4px;
+  border: solid 1px transparent; }
   .browse-button:hover {
     background: #E6F3FF;
     border: solid 1px #CCE6FF;
-    border-radius: 4px;
     cursor: pointer; }
 
 .browse ul {

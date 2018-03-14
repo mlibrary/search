@@ -4,23 +4,18 @@ import qs from 'qs'
 import history from '../../../../history'
 
 class BrowseAtoZ extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   state = {
     startsWith: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
   }
 
-  handleClick(query) {
+  handleClick = ({ query, filter }) => {
     const {
       match
     } = this.props
 
     const queryString = qs.stringify({
-      query: 'title_starts_with:' + query,
+      query,
+      filter,
       sort: 'title_asc'
     }, {
       arrayFormat: 'repeat',
@@ -38,11 +33,19 @@ class BrowseAtoZ extends React.Component {
       <section className="browse">
         <h2 className="browse-heading">Titles A-Z</h2>
         <ul className="browse-list">
-        {this.state.startsWith.map((item, key) => (
-          <li className="browse-item" key={key}>
-            <button className="browse-button" onClick={() => this.handleClick(item)}>{item}</button>
-          </li>
-        ))}
+          {this.state.startsWith.map((character, key) => (
+            <li className="browse-item" key={key}>
+              <button className="browse-button" onClick={() => this.handleClick({
+                query: 'title_starts_with:' + character
+              })}>{character}</button>
+            </li>
+          ))}
+          <li className="browse-item"><button className="browse-button" onClick={() => this.handleClick({
+            filter: { 'initial_title': '0-9' }
+          })}>0-9</button></li>
+          <li className="browse-item"><button className="browse-button" onClick={() => this.handleClick({
+            filter: { 'initial_title': 'Other' }
+          })}>Other</button></li>
         </ul>
       </section>
     )
