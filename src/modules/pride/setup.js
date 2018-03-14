@@ -13,7 +13,7 @@ import {
 } from '../datastores'
 
 import {
-  addRecord,
+  addRecords,
   clearRecords,
   loadingRecords,
   addHoldings,
@@ -112,28 +112,19 @@ const handleSearchData = (data, datastoreUid) => {
   }
 }
 
-const handleHoldings = (datastoreUid, recordId, recordUid) => {
-  store.dispatch(loadingHoldings({
-    loading: true,
-    datastoreUid: datastoreUid,
-    recordId: recordId,
-  }))
-
-  return (holdingsData) => {
-    const transformedHoldings = transformHoldings({ datastoreUid, recordUid, holdings: holdingsData })
-
+const handleHoldings = ({ datastoreUid, records }) => {
+  const holdingsCallback = (dsUid, uid, data) => {
     store.dispatch(addHoldings({
-      datastoreUid: datastoreUid,
-      recordId: recordId,
-      holdingsData: transformedHoldings,
-    }))
-
-    store.dispatch(loadingHoldings({
-      loading: false,
-      datastoreUid: datastoreUid,
-      recordId: recordId,
+      datastoreUid: dsUid,
+      recordUid: uid,
+      holdings: transformHoldings({ datastoreUid: dsUid, recordUid: uid, holdings: data }),
     }))
   }
+
+  records.forEach(record => {
+    const prideRecord = Pride.requestRecord(datastoreUid, record.uid)
+    prideRecord.getHoldings((data) => holdingsCallback(datastoreUid, record.uid, data))
+  })
 }
 
 const hasHoldings = (datastore) => {
@@ -147,34 +138,43 @@ const hasHoldings = (datastore) => {
 }
 
 const setupObservers = (searchObj) => {
+  // TODO: Only listen to this overserver if new search is made.
   searchObj.resultsObservers.add(function(results) {
     store.dispatch(clearRecords(searchObj.uid));
 
-    const doesHaveHoldings = hasHoldings(searchObj.uid)
+    // Does results contain undefined records
+    if (!_.contains(results, undefined)) {
+      const recordHasHoldings = hasHoldings(searchObj.uid);
 
-    _.each(results, (record) => {
-      if (record !== undefined) {
-        record.renderFull((recordData) => {
-          const id = _.uniqueId();
+      // Build a list of records from Pride results
+      const records = results.reduce((accumulator, result) => {
+        result.renderFull((data) => {
+          const uid = getFieldValue(getField(data.fields, 'id'))[0]
 
-          store.dispatch(addRecord({
-            id: id,
-            datastore: searchObj.uid,
-            data: {
-              id: id,
-              ...recordData,
-              holdings: null
-            }
-          }));
+          accumulator = accumulator.concat({
+            uid,
+            ...data,
+            loadingHoldings: recordHasHoldings ? 'true' : undefined,
+            prideRecord: result
+          })
+        })
 
-          const recordUid = getFieldValue(getField(recordData.fields, 'id'))[0]
+        return accumulator
+      }, [])
 
-          if (doesHaveHoldings) {
-            record.getHoldings(handleHoldings(searchObj.uid, id, recordUid))
-          }
+      if (recordHasHoldings) {
+        handleHoldings({
+          records,
+          datastoreUid: searchObj.uid
         })
       }
-    });
+
+      // Add records to state and render them.
+      store.dispatch(addRecords({
+        datastoreUid: searchObj.uid,
+        records
+      }))
+    }
 
     handleSearchData(searchObj.getData(), searchObj.uid)
   })

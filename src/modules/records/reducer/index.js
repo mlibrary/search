@@ -1,13 +1,5 @@
 import * as actions from '../actions';
-
-const recordReducer = (state = {}, action) => {
-  switch (action.type) {
-    case actions.ADD_RECORD:
-      return action.payload.data;
-    default:
-      return state;
-  }
-};
+import { _ } from 'underscore'
 
 const recordsInitialState = {
   loading: false,
@@ -17,37 +9,35 @@ const recordsInitialState = {
 
 const recordsReducer = (state = recordsInitialState, action) => {
   switch (action.type) {
-    case actions.ADD_RECORD:
+    case actions.ADD_RECORDS:
       return {
         ...state,
         records: {
           ...state.records,
-          [action.payload.datastore]: {
-            ...state.records[action.payload.datastore],
-            [action.payload.id]: recordReducer(undefined, action)
-          }
+          [action.payload.datastoreUid]: action.payload.records
         }
       }
     case actions.ADD_HOLDINGS:
-      const { datastoreUid, recordId, holdingsData } = action.payload;
+      const { datastoreUid, recordUid, holdings } = action.payload;
+      const recordIndex = _.findIndex(state.records[datastoreUid], (item) => item.uid === recordUid)
 
-      if (holdingsData && state.records[datastoreUid] && state.records[datastoreUid][recordId]) {
-        return {
-          ...state,
+      if (recordIndex !== -1) { // contains this record
+        return Object.assign({}, state, {
           records: {
             ...state.records,
-            [datastoreUid]: {
-              ...state.records[datastoreUid],
-              [recordId]: {
-                ...state.records[datastoreUid][recordId],
-                holdings: holdingsData
-              }
-            }
+            [datastoreUid]: state.records[datastoreUid]
+              .slice(0, recordIndex)
+              .concat([{
+                ...state.records[datastoreUid][recordIndex],
+                holdings,
+                loadingHoldings: false
+              }])
+              .concat(state.records[datastoreUid].slice(recordIndex + 1))
           }
-        }
+        })
       }
 
-      return state;
+      return state
     case actions.CLEAR_RECORDS:
       return {
         ...state,
@@ -85,24 +75,6 @@ const recordsReducer = (state = recordsInitialState, action) => {
           [action.payload.datastoreUid]: action.payload.loading
         }
       })
-    case actions.LOADING_HOLDINGS:
-      if (!state.records[action.payload.datastoreUid] || !state.records[action.payload.datastoreUid][action.payload.recordId]) {
-        return state;
-      }
-
-      return {
-        ...state,
-        records: {
-          ...state.records,
-          [action.payload.datastoreUid]: {
-            ...state.records[action.payload.datastoreUid],
-            [action.payload.recordId]: {
-              ...state.records[action.payload.datastoreUid][action.payload.recordId],
-              loadingHoldings: action.payload.loading
-            }
-          }
-        }
-      }
     default:
       return state;
   }
