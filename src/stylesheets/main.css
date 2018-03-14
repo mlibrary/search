@@ -1308,7 +1308,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  justify-content: center; }
+  justify-content: center;
+  width: 100%; }
   @media (min-width: 32rem) {
     .bentobox-list {
       margin-right: -2rem; } }
