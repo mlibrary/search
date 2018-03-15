@@ -112,21 +112,6 @@ const handleSearchData = (data, datastoreUid) => {
   }
 }
 
-const handleHoldings = ({ datastoreUid, records }) => {
-  const holdingsCallback = (dsUid, uid, data) => {
-    store.dispatch(addHoldings({
-      datastoreUid: dsUid,
-      recordUid: uid,
-      holdings: transformHoldings({ datastoreUid: dsUid, recordUid: uid, holdings: data }),
-    }))
-  }
-
-  records.forEach(record => {
-    const prideRecord = Pride.requestRecord(datastoreUid, record.uid)
-    prideRecord.getHoldings((data) => holdingsCallback(datastoreUid, record.uid, data))
-  })
-}
-
 const hasHoldings = (datastore) => {
   const fieldsConfig = _.findWhere(config.fields, { datastore: datastore })
 
@@ -144,7 +129,7 @@ const setupObservers = (searchObj) => {
 
     // Does results contain undefined records
     if (!_.contains(results, undefined)) {
-      const recordHasHoldings = hasHoldings(searchObj.uid);
+      const recordsHaveHoldings = hasHoldings(searchObj.uid);
 
       // Build a list of records from Pride results
       const records = results.reduce((accumulator, result) => {
@@ -154,7 +139,7 @@ const setupObservers = (searchObj) => {
           accumulator = accumulator.concat({
             uid,
             ...data,
-            loadingHoldings: recordHasHoldings ? 'true' : undefined,
+            loadingHoldings: recordsHaveHoldings ? 'true' : undefined,
             prideRecord: result
           })
         })
@@ -162,18 +147,29 @@ const setupObservers = (searchObj) => {
         return accumulator
       }, [])
 
-      if (recordHasHoldings) {
-        handleHoldings({
-          records,
-          datastoreUid: searchObj.uid
-        })
-      }
-
       // Add records to state and render them.
       store.dispatch(addRecords({
         datastoreUid: searchObj.uid,
         records
       }))
+
+      if (recordsHaveHoldings) {
+        const holdingsCallback = (dsUid, uid, data) => {
+          store.dispatch(addHoldings({
+            datastoreUid: dsUid,
+            recordUid: uid,
+            holdings: transformHoldings({ datastoreUid: dsUid, recordUid: uid, holdings: data }),
+          }))
+        }
+
+        _.each(results, (result) => {
+          result.renderFull((data) => {
+            const uid = getFieldValue(getField(data.fields, 'id'))[0]
+
+            result.getHoldings((data) => holdingsCallback(searchObj.uid, uid, data))
+          })
+        })
+      }
     }
 
     handleSearchData(searchObj.getData(), searchObj.uid)
