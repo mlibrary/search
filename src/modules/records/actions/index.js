@@ -1,4 +1,4 @@
-export const ADD_RECORD = 'records/ADD_RECORD';
+export const ADD_RECORDS = 'records/ADD_RECORDS';
 export const CLEAR_RECORDS = 'records/CLEAR_RECORDS';
 export const CLEAR_RECORD = 'records/CLEAR_RECORD';
 export const SET_RECORD = 'records/SET_RECORD';
@@ -8,8 +8,8 @@ export const LOADING_HOLDINGS = 'records/LOADING_HOLDINGS';
 export const SET_RECORD_HOLDINGS = 'records/SET_RECORD_HOLDINGS';
 export const SET_RECORD_GET_THIS = 'records/SET_RECORD_GET_THIS';
 
-export function addRecord(payload) {
-  return { type: ADD_RECORD, payload };
+export function addRecords(payload) {
+  return { type: ADD_RECORDS, payload };
 }
 
 export function clearRecords(payload) {

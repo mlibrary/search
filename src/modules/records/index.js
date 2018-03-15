@@ -14,7 +14,7 @@ import Holdings from './components/Holdings';
 import RecommendedResource from './components/RecommendedResource';
 import recordsReducer from './reducer';
 import {
-  addRecord,
+  addRecords,
   clearRecords,
   setRecord,
   clearRecord,
@@ -31,7 +31,7 @@ export {
   Pagination,
   ResultsSummary,
   recordsReducer,
-  addRecord,
+  addRecords,
   Record,
   RecordFullFormats,
   RecordPlaceholder,
