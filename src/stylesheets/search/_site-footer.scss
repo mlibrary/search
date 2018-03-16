@@ -1,23 +1,14 @@
 .site-footer {
   /* keep it to the bottom */
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  background: white;
+  border-top: solid 2px $grey-5;
+  color: $grey-2;
 
   p {
     margin: 0;
   }
-}
 
-/* container styles because footers */
-#root {
-  min-height: 100vh; /* will cover the 100% of viewport */
-  overflow: hidden;
-  display: block;
-  position: relative;
-  padding-bottom: 8rem; /* height of your footer */
-
-  @media (max-width: $breakpoint-2) {
-    padding-bottom: 10rem;
+  a {
+    color: $grey-2;
   }
 }

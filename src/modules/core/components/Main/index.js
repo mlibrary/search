@@ -15,7 +15,7 @@ import {
 class Main extends React.Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <SkipToID id='search-box' name="search box" />
         <SiteMessage>
           <div className="container container-medium">
@@ -25,7 +25,7 @@ class Main extends React.Component {
         <Header />
         {this.props.children}
         <Footer />
-      </div>
+      </React.Fragment>
     )
   }
 }

@@ -411,7 +411,7 @@ nav {
 
 .alert {
   margin: 1rem 0;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   border: solid 2px #E5E5E5;
   background: #FAFAFA;
   border-radius: 4px; }
@@ -421,8 +421,8 @@ nav {
   border-color: #05A657; }
 
 .alert-info {
-  background: #FFEEDD;
-  border-color: #E77504; }
+  background: #E6F3FF;
+  border-color: #CCE6FF; }
 
 .alert-warning {
   background: #FFEEDD;
@@ -537,7 +537,6 @@ nav {
 .site-footer {
   background: #00274C;
   padding: 1.5rem 0;
-  margin-top: 3rem;
   color: white; }
   .site-footer a {
     color: white;
@@ -849,6 +848,9 @@ input.search-box-input {
 /*
   Multiple results container // aka Bento box
 */
+.results-container {
+  width: 100%; }
+
 .results-list {
   margin: 0;
   list-style: none; }
@@ -1069,7 +1071,7 @@ input.search-box-input {
   border-top: solid 1px #E5E5E5; }
 
 body {
-  background: #F2F2F2; }
+  background: white; }
 
 .flex-container {
   display: block; }
@@ -1084,10 +1086,6 @@ body {
     .side-container {
       width: 24rem; } }
 
-.main-container {
-  width: 100%;
-  margin-bottom: 2rem; }
-
 .grey-background {
   background: #E5E5E5; }
 
@@ -1100,6 +1098,10 @@ body {
   @media (max-width: 47rem) {
     .page {
       padding: 1.5rem; } }
+
+.main-container {
+  background: #F2F2F2;
+  padding-bottom: 3rem; }
 
 /*
   Record
@@ -1306,7 +1308,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  justify-content: center; }
+  justify-content: center;
+  width: 100%; }
   @media (min-width: 32rem) {
     .bentobox-list {
       margin-right: -2rem; } }
@@ -1316,7 +1319,7 @@ body {
     padding: 0; }
     @media (min-width: 32rem) {
       .bentobox-list .specialists {
-        width: 20rem;
+        width: 19rem;
         margin-right: 2rem; } }
 
 .bentobox {
@@ -1325,7 +1328,7 @@ body {
   padding: 0; }
   @media (min-width: 32rem) {
     .bentobox {
-      width: 20rem;
+      width: 19rem;
       margin-right: 2rem; } }
   .bentobox .results-list {
     border-radius: 4px; }
@@ -2010,24 +2013,13 @@ input.date-range-input-text {
 
 .site-footer {
   /* keep it to the bottom */
-  position: absolute;
-  bottom: 0;
-  width: 100%; }
+  background: white;
+  border-top: solid 2px #E5E5E5;
+  color: #4E4E4E; }
   .site-footer p {
     margin: 0; }
-
-/* container styles because footers */
-#root {
-  min-height: 100vh;
-  /* will cover the 100% of viewport */
-  overflow: hidden;
-  display: block;
-  position: relative;
-  padding-bottom: 8rem;
-  /* height of your footer */ }
-  @media (max-width: 47rem) {
-    #root {
-      padding-bottom: 10rem; } }
+  .site-footer a {
+    color: #4E4E4E; }
 
 .checkbox-label {
   display: flex;
@@ -2389,6 +2381,125 @@ input.get-this-field-input-year {
       text-decoration: underline;
       margin-left: -0.5rem; } }
 
+@media (min-width: 47rem) {
+  .record-medium-container {
+    display: flex;
+    justify-content: space-between; } }
+
+.record-actions-container {
+  display: inline-block;
+  white-space: nowrap;
+  margin-top: 1rem; }
+  @media (min-width: 47rem) {
+    .record-actions-container {
+      margin-top: 0;
+      margin-left: 2rem; } }
+  .record-actions-container .button-link {
+    color: #6E6E6E;
+    display: flex;
+    align-items: center; }
+    .record-actions-container .button-link > span {
+      font-size: 0.9rem;
+      text-decoration: underline; }
+    .record-actions-container .button-link .icon {
+      height: 0.9rem;
+      margin-right: 0.5rem;
+      margin-bottom: -0.05rem; }
+
+.record--highlight {
+  outline: solid 2px rgba(18, 109, 193, 0.6); }
+
+.lists-link-container {
+  outline: solid 2px rgba(18, 109, 193, 0.6); }
+  @media (min-width: 32rem) {
+    .lists-link-container {
+      position: sticky;
+      top: 2px;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24); } }
+
+.lists-link-container--collapsed {
+  display: none; }
+
+.lists-link {
+  background: #F2F9FF;
+  padding: 1rem 2rem;
+  display: block;
+  display: flex;
+  justify-content: space-between; }
+  .lists-link .icon {
+    display: inline-block;
+    margin-right: 1rem; }
+    .lists-link .icon g {
+      fill: #126DC1; }
+  .lists-link p {
+    display: inline-block;
+    margin: 0;
+    color: #333; }
+  .lists-link .lists-count-tag {
+    color: white; }
+  .lists-link .underline {
+    color: #126DC1; }
+
+.lists-info {
+  display: inline-flex; }
+
+.lists-count-tag {
+  color: white;
+  white-space: nowrap;
+  margin: 0; }
+
+.lists-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem; }
+
+.lists-back-to-search-link {
+  display: inline-flex;
+  align-items: center; }
+  .lists-back-to-search-link .icon {
+    margin-right: 0.5rem; }
+
+.lists-section {
+  background: #FAFAFA;
+  border-radius: 4px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem; }
+  @media (min-width: 32rem) {
+    .lists-section {
+      padding: 1rem 2rem; } }
+
+.lists-actions-heading {
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  margin-bottom: 1rem; }
+
+.lists-heading {
+  margin-bottom: 0; }
+
+.lists-actions-list {
+  margin: -1rem;
+  margin-top: 0;
+  padding: 0;
+  list-style: none; }
+  .lists-actions-list li {
+    display: inline-block;
+    margin: 0;
+    padding: 1rem;
+    color: #126DC1; }
+
+.lists-count-summary {
+  color: #4E4E4E; }
+
+.lists-header-info {
+  display: inline-flex; }
+
+.lists-remove-all {
+  margin-right: 1rem;
+  color: #6E6E6E; }
+
 .u-break-word {
   word-wrap: break-word; }
 
@@ -2403,6 +2514,9 @@ input.get-this-field-input-year {
 
 .u-margin-bottom-1 {
   margin-bottom: 1rem; }
+
+.u-margin-right-1 {
+  margin-right: 1rem; }
 
 .margin-right-2 {
   margin-right: 2rem; }
@@ -2422,6 +2536,9 @@ input.get-this-field-input-year {
 .margin-y-half {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem; }
+
+.u-display-inline-block {
+  display: inline-block; }
 
 .underline {
   text-decoration: underline; }

@@ -11,11 +11,9 @@ import {
   Icon
 } from '../../../core'
 import Holdings from '../Holdings';
-
 import {
   RecommendedResource
 }  from '../../../records'
-
 import {
   getDatastoreSlugByUid
 } from '../../../pride';
@@ -27,6 +25,11 @@ import {
   hasRecordFullView,
   getAccessField
 } from '../../utilities';
+import {
+  AddToListButton,
+  isInList
+} from '../../../lists'
+
 
 const Header = ({
   record,
@@ -88,7 +91,7 @@ const Header = ({
   )
 }
 
-const Footer = ({
+const Access = ({
   record,
   access,
   holdings
@@ -127,7 +130,7 @@ const Footer = ({
 
 class Record extends React.Component {
   render() {
-    const { record, datastoreUid, type, searchQuery, institution } = this.props
+    const { record, datastoreUid, type, searchQuery, institution, list } = this.props
     const displayFields = filterDisplayFields({
       fields: record.fields,
       type: type,
@@ -139,22 +142,28 @@ class Record extends React.Component {
     });
     const holdings = record.holdings
     const recordUidField = getField(record.fields, 'id');
+    const inList = isInList(list, record.id)
+    const recordClassName = inList ? 'record record--highlight' : 'record'
 
     if (recordUidField) {
-
       return (
-        <article className="record">
-          <div className="record-container">
-            <Header
-              record={record}
-              datastoreUid={datastoreUid}
-              searchQuery={searchQuery}
-            />
-            <FieldList fields={displayFields} datastoreUid={datastoreUid} institution={institution} />
+        <article className={recordClassName}>
+          <div className="record-container record-medium-container">
+            <div>
+              <Header
+                record={record}
+                datastoreUid={datastoreUid}
+                searchQuery={searchQuery}
+              />
+              <FieldList fields={displayFields} datastoreUid={datastoreUid} institution={institution} />
+            </div>
+            <div className="record-actions-container">
+              <AddToListButton item={record} />
+            </div>
           </div>
 
           {datastoreUid === 'website' ? null : (
-            <Footer
+            <Access
               record={record}
               access={access}
               holdings={holdings}
