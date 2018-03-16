@@ -18,6 +18,7 @@ import {
   loadingRecords,
   addHoldings,
   loadingHoldings,
+  setRecordHoldings
 } from '../records';
 
 import {
@@ -122,6 +123,11 @@ const hasHoldings = (datastore) => {
   return false
 }
 
+const getFullRecordUid = () => {
+  const record = store.getState().records.record
+  return record ? record.uid : undefined
+}
+
 const setupObservers = (searchObj) => {
   // TODO: Only listen to this overserver if new search is made.
   searchObj.resultsObservers.add(function(results) {
@@ -155,11 +161,22 @@ const setupObservers = (searchObj) => {
 
       if (recordsHaveHoldings) {
         const holdingsCallback = (dsUid, uid, data) => {
+          const holdings = transformHoldings({ datastoreUid: dsUid, recordUid: uid, holdings: data })
+          const fullRecordUid = getFullRecordUid()
+
           store.dispatch(addHoldings({
             datastoreUid: dsUid,
             recordUid: uid,
-            holdings: transformHoldings({ datastoreUid: dsUid, recordUid: uid, holdings: data }),
+            holdings,
           }))
+
+          // If the result holdings in the callback need
+          // to be used in the full record.
+          // A record from results is stored seperate from
+          // a full record.
+          if (uid === fullRecordUid) {
+            store.dispatch(setRecordHoldings(holdings))
+          }
         }
 
         _.each(results, (result) => {

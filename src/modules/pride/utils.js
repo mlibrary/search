@@ -313,30 +313,9 @@ const fetchRecordFromState = ({
   datastoreUid,
   recordUid
 }) => {
-  const state = store.getState() // global state
-  const records = state.records.records[datastoreUid]
-  let recordFromState = undefined
+  const state = store.getState()
 
-  if (records) { // records exist for this datastore
-    // Record ids are different from record uids.
-    // Ids are the internal ID for a record, where the uid
-    // is the record's identifier from it's external source.
-    const recordIds = Object.keys(records)
-
-    if (recordIds.length > 0) {
-
-      recordIds.forEach((id) => {
-        const record = records[id]
-        const recordId = getFieldValue(getField(record.fields, 'id'))[0]
-
-        if (recordId === recordUid) { // The record exists in state
-          recordFromState = record
-        }
-      })
-    }
-  }
-
-  return recordFromState
+  return _.findWhere(state.records.records[datastoreUid], { uid: recordUid })
 }
 
 const requestRecord = ({
@@ -352,7 +331,10 @@ const requestRecord = ({
     store.dispatch(setRecord(recordFromState));
   } else {
     const callback = (record) => {
-      store.dispatch(setRecord(record));
+      store.dispatch(setRecord({
+        uid: recordUid,
+        ...record
+      }));
     }
 
     const record = Pride.requestRecord(datastoreUid, recordUid, callback)
