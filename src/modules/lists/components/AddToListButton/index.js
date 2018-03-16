@@ -41,9 +41,8 @@ class AddToListButton extends Component {
   }
 
   render() {
-    return null // TEMP to turn this feature off.
-
-
+    return null
+    
     const { list, item } = this.props
     const inList = isInList(list, item.id)
 
