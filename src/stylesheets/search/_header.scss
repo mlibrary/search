@@ -7,7 +7,7 @@
 }
 
 .logo-block-m {
-  padding-right: 0;
+  padding-right: 0.5rem;
 }
 
 .logo-library {
@@ -18,4 +18,19 @@
 
 .logo-search {
   padding-left: 0.5rem;
+}
+
+.site-header-container {
+  position: relative;
+}
+
+.header-menu-small-screen-summary-button {
+  color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  &::-webkit-details-marker {
+    color: white;
+  }
 }

@@ -22,18 +22,24 @@
 .results-summary-container {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   background: white;
   background: $grey-6;
   border-radius: 4px;
 
-  @media (min-width: $breakpoint-2) {
+  & > * {
+    margin-top: 0.5rem;
+  }
+
+  @media (min-width: $breakpoint-1) {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem 2rem;
 
-    height: 3.5rem;
-    padding: 0 2rem;
+    & > * {
+      margin-top: 0;
+    }
   }
 }
 

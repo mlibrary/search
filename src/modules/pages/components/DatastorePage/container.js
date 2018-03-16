@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import MediaQuery from 'react-responsive';
 import { _ } from 'underscore'
 import {
   Route,
@@ -135,7 +136,9 @@ class DatastorePageContainer extends React.Component {
                           <Landing activeDatastore={activeDatastore} />
                         </div>
                       ) : (
-                        <DatastoreInfo activeDatastore={activeDatastore} />
+                        <MediaQuery minDeviceWidth={960}>
+                          <DatastoreInfo activeDatastore={activeDatastore} />
+                        </MediaQuery>
                       )}
                       <Results searching={searching} activeDatastore={activeDatastore} />
                     </div>
@@ -159,9 +162,29 @@ const Results = ({ searching, activeDatastore }) => {
     <div className="container container-medium flex-container">
       {!activeDatastore.isMultisearch ? (
         <div className="side-container">
-          {searching ? (<InstitutionSelect />) : null}
-          <Filters />
-          {searching ? (<BrowseInfo datastore={activeDatastore} />) : null}
+          <MediaQuery minDeviceWidth={960}>
+            {(matches) => {
+              if (matches) {
+                return (
+                  <React.Fragment>
+                    {searching ? (<InstitutionSelect />) : null}
+                    <Filters />
+                    {searching ? (<BrowseInfo datastore={activeDatastore} />) : null}
+                  </React.Fragment>
+                )
+              } else {
+                return (
+                  <details>
+                    <summary className="small-screen-filter-options-toggle">Refine your search options</summary>
+
+                    {searching ? (<InstitutionSelect />) : null}
+                    <Filters />
+                    {searching ? (<BrowseInfo datastore={activeDatastore} />) : null}
+                  </details>
+                )
+              }
+            }}
+          </MediaQuery>
         </div>
       ) : null }
 

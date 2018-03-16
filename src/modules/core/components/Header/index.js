@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-
+import MediaQuery from 'react-responsive';
 import mlibLogo from './mlib_logo.png';
 
 import {
@@ -29,25 +29,44 @@ class Header extends React.Component {
               </ul>
             </div>
 
-            <ul className="site-header-list">
-              <li>
-                <Link to="/how-to-use-search">How to Use Search</Link>
-              </li>
-              <li>
-                <a href="https://www.lib.umich.edu/get-research-help">Get Help</a>
-              </li>
-              <li>
-                <AskALibrarian />
-              </li>
-              <li>
-                <a href="https://www.lib.umich.edu/my-account/">My Account</a>
-              </li>
-            </ul>
+            <MediaQuery minDeviceWidth={800}>
+              {(matches) => {
+                if (matches) {
+                  return (
+                    <Menu />
+                  )
+                } else {
+                  return (
+                    <details className="header-menu-small-screen-details">
+                      <summary className="header-menu-small-screen-summary-button">Menu</summary>
+                      <Menu />
+                    </details>
+                  )
+                }
+              }}
+            </MediaQuery>
           </div>
         </div>
       </header>
     );
   }
 };
+
+const Menu = () => (
+  <ul className="site-header-list">
+    <li>
+      <Link to="/how-to-use-search">How to Use Search</Link>
+    </li>
+    <li>
+      <a href="https://www.lib.umich.edu/get-research-help">Get Help</a>
+    </li>
+    <li>
+      <AskALibrarian />
+    </li>
+    <li>
+      <a href="https://www.lib.umich.edu/my-account/">My Account</a>
+    </li>
+  </ul>
+)
 
 export default Header;

@@ -50,16 +50,9 @@ input.search-box-input {
   g {
     color: $main-3;
   }
-}
-
-.search-box-advanced-link-text {
-  margin-right: 0.5rem;
-  font-size: 0.9rem;
-  color: $main-3;
-  font-weight: 600;
 
   @media (max-width: $breakpoint-1) {
-    display: none;
+    font-size: 0.9rem;
   }
 }
 

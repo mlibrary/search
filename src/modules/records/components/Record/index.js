@@ -169,7 +169,6 @@ class Record extends React.Component {
               holdings={holdings}
             />
           )}
-
         </article>
       )
     }
