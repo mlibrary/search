@@ -2443,7 +2443,8 @@ input.get-this-field-input-year {
   padding: 1rem 2rem;
   display: block;
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  align-items: flex-start; }
   .lists-link .icon {
     display: inline-block;
     margin-right: 1rem; }
