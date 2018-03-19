@@ -101,9 +101,11 @@ class SearchBox extends React.Component {
             <SkipToID id="search-results" name="search results" />
 
             {isAdvanced && (
-              <Link to={`/${match.params.datastoreSlug}/advanced${location.search}`} className="search-box-advanced-link">
-                Advanced<span className="offpage">Search Options</span>
-              </Link>
+              <div className="search-box-advanced-link-container">
+                <Link to={`/${match.params.datastoreSlug}/advanced${location.search}`} className="search-box-advanced-link">
+                  Advanced<span className="offpage">Search Options</span>
+                </Link>
+              </div>
             )}
           </form>
         </div>

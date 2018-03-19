@@ -73,7 +73,8 @@ class DatastorePageContainer extends React.Component {
       datastores,
       match,
       location,
-      isAdvanced
+      isAdvanced,
+      activeFilterCount
     } = this.props;
 
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
@@ -140,7 +141,7 @@ class DatastorePageContainer extends React.Component {
                           <DatastoreInfo activeDatastore={activeDatastore} />
                         </MediaQuery>
                       )}
-                      <Results searching={searching} activeDatastore={activeDatastore} />
+                      <Results searching={searching} activeDatastore={activeDatastore} activeFilterCount={activeFilterCount} />
                     </div>
                   )
                 }}/>
@@ -153,7 +154,7 @@ class DatastorePageContainer extends React.Component {
   }
 }
 
-const Results = ({ searching, activeDatastore }) => {
+const Results = ({ searching, activeDatastore, activeFilterCount }) => {
   if (activeDatastore.isMultisearch && searching) {
     return <MultisearchSearching activeDatastore={activeDatastore}/>
   }
@@ -173,9 +174,12 @@ const Results = ({ searching, activeDatastore }) => {
                   </React.Fragment>
                 )
               } else {
+                const hasActiveFilters = activeFilterCount > 0
+                const summaryClassName = hasActiveFilters ? "small-screen-filter-summary small-screen-filter-summary--active-filters" : "small-screen-filter-summary"
+
                 return (
-                  <details>
-                    <summary className="small-screen-filter-options-toggle">Refine your search options</summary>
+                  <details className="small-screen-filter-details">
+                    <summary className={summaryClassName}>Filters {hasActiveFilters ? (`(${activeFilterCount})`) : null}</summary>
 
                     {searching ? (<InstitutionSelect />) : null}
                     <Filters />
@@ -207,11 +211,14 @@ const MultisearchSearching = () => {
 }
 
 function mapStateToProps(state) {
+  const activeFilters = state.filters.active[state.datastores.active]
+
   return {
     searching: state.search.searching,
     datastores: state.datastores,
     location: state.router.location,
-    isAdvanced: state.advanced[state.datastores.active] ? true : false
+    isAdvanced: state.advanced[state.datastores.active] ? true : false,
+    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0
   };
 }
 
