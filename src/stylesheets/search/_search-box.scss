@@ -11,6 +11,7 @@
 
 .search-box-form {
   display: flex;
+  flex-wrap: wrap;
   padding: 1rem;
 }
 
@@ -22,7 +23,8 @@
   box-shadow: inset 0 1px 4px rgba(0,0,0,0.1);
   border-radius: 4px;
   line-height: 1.4;
-  width: 100%;
+  flex: auto;
+
   background: white;
 }
 
@@ -37,20 +39,21 @@ input.search-box-input {
   box-shadow: none;
 }
 
-.search-box-advanced-link {
+.search-box-advanced-link-container {
   display: flex;
   padding: 0.5rem 1rem;
-  align-items: center;
   margin-right: -1rem;
 
-  svg {
-    width: 1rem;
+  @media (max-width: $breakpoint-1) {
+    justify-content: center;
+    margin-bottom: -0.75rem;
+    width: 100%;
+    padding: 0;
+    padding-top: 0.5rem;
   }
+}
 
-  g {
-    color: $main-3;
-  }
-
+.search-box-advanced-link {
   @media (max-width: $breakpoint-1) {
     font-size: 0.9rem;
   }

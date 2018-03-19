@@ -142,7 +142,7 @@ class Record extends React.Component {
     });
     const holdings = record.holdings
     const recordUidField = getField(record.fields, 'id');
-    const inList = isInList(list, record.id)
+    const inList = isInList(list, record.uid)
     const recordClassName = inList ? 'record record--highlight' : 'record'
 
     if (recordUidField) {

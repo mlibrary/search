@@ -17,7 +17,6 @@
 
 .advanced-input-remove-button {
   display: flex;
-  align-items: center;
   white-space: nowrap;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -25,12 +24,7 @@
   color: $grey-2;
   background: $grey-7;
   cursor: pointer;
-  margin-top: 0.5rem;
-
-  @media (min-width: $breakpoint-2) {
-    margin-left: 1rem;
-    margin-top: 0;
-  }
+  margin-left: 0.5rem;
 
   .icon {
     height: 1rem;
@@ -43,11 +37,8 @@
 }
 
 .advanced-heading {
-  font-size: 1.5rem;
-  margin: 1.5rem 0;
-  margin-bottom: 0.5rem;
+  margin: 1rem 0;
   font-weight: 600;
-  text-align: center;
 
   @media (max-width: $breakpoint-2) {
     margin: 0.5rem 0;
@@ -55,13 +46,10 @@
 }
 
 .advanced-input-container {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
   display: flex;
 
   @media (max-width: $breakpoint-2) {
     display: block;
-    margin: 1.5rem 0;
 
     .advanced-input {
       margin-top: 0.5rem;
@@ -85,7 +73,11 @@
 }
 
 .advanced-add-field-container {
-  text-align: center;
+  margin-top: 1.5rem;
+
+  @media (min-width: $breakpoint-1) {
+    text-align: center;
+  }
 }
 
 .advanced-field-select {
@@ -154,8 +146,25 @@
   line-height: 1.6;
 }
 
+.advanced-fields-container {
+  background: $grey-6;
+  padding: 1.5rem;
+  border-radius: 4px;
+}
+
+.advanced-input-remove-container {
+  display: flex;
+  width: 100%;
+}
+
 .advanced-field-container fieldset {
-  text-align: center;
-  margin-top: 0.5rem;
-  margin-bottom: 0;
+  margin: 1rem 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  @media (min-width: $breakpoint-1) {
+    text-align: center;
+  }
 }

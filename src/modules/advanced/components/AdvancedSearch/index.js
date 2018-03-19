@@ -251,24 +251,26 @@ class AdvancedSearch extends React.Component {
     return (
       <form onSubmit={this.handleSubmit} className="advanced-search-form">
         <div className="container container-narrow">
-          <div className="advanced-header">
-            <h1 className="advanced-heading">Advanced Search: {activeDatastore.name}</h1>
-            <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="advanced-to-basic-link">Back to Basic Search</Link>
+          <div className="advanced-header u-padding-top-1">
+            <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="lists-back-to-search-link"><Icon name="arrow-left" /> <span className="underline">Back to search</span></Link>
+            <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
           </div>
-          <div className="advanced-field-container">
-            {fieldedSearches.map((fieldedSearch, index) => (
-              <FieldInput
-                key={index}
-                fieldedSearchIndex={index}
-                fieldedSearch={fieldedSearch}
-                fields={fields}
-                handleFieldedSearchChange={this.handleFieldedSearchChange}
-                handleRemoveFieldedSearch={() => this.handleRemoveFieldedSearch({ removeIndex: index})}
-              />
-            ))}
-          </div>
-          <div className="advanced-add-field-container">
-            <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherFieldedSearch()}>Add another field</button>
+          <div className="advanced-fields-container">
+            <div className="advanced-field-container">
+              {fieldedSearches.map((fieldedSearch, index) => (
+                <FieldInput
+                  key={index}
+                  fieldedSearchIndex={index}
+                  fieldedSearch={fieldedSearch}
+                  fields={fields}
+                  handleFieldedSearchChange={this.handleFieldedSearchChange}
+                  handleRemoveFieldedSearch={() => this.handleRemoveFieldedSearch({ removeIndex: index})}
+                />
+              ))}
+            </div>
+            <div className="advanced-add-field-container">
+              <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherFieldedSearch()}>Add another field</button>
+            </div>
           </div>
         </div>
 
@@ -479,25 +481,27 @@ const FieldInput = ({
         fieldedSearchIndex={fieldedSearchIndex}
         handleOnFieldChange={handleFieldedSearchChange}
       />
-      <input
-        type="text"
-        className="advanced-input"
-        placeholder={`Search Term ${fieldedSearchIndex + 1}`}
-        value={fieldedSearch.query}
-        aria-label={`Search Term ${fieldedSearchIndex + 1}`}
-        onChange={(event) => handleFieldedSearchChange({
-          fieldedSearchIndex,
-          query: event.target.value
-        })}
-      />
-      {fieldedSearchIndex > 0 ? (
-        <button
-          className="advanced-input-remove-button"
-          type="button"
-          onClick={handleRemoveFieldedSearch}>
-            <Icon name="close"/><span className="offpage">Remove Field {fieldedSearchIndex + 1}</span>
-        </button>
-      ) : null}
+      <div className="advanced-input-remove-container">
+        <input
+          type="text"
+          className="advanced-input"
+          placeholder={`Search Term ${fieldedSearchIndex + 1}`}
+          value={fieldedSearch.query}
+          aria-label={`Search Term ${fieldedSearchIndex + 1}`}
+          onChange={(event) => handleFieldedSearchChange({
+            fieldedSearchIndex,
+            query: event.target.value
+          })}
+        />
+        {fieldedSearchIndex > 0 ? (
+          <button
+            className="advanced-input-remove-button"
+            type="button"
+            onClick={handleRemoveFieldedSearch}>
+              <Icon name="close"/><span className="offpage">Remove Field {fieldedSearchIndex + 1}</span>
+          </button>
+        ) : null}
+      </div>
     </div>
   </fieldset>
 )

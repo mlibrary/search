@@ -17,7 +17,7 @@ const listsReducer = (state = {}, action) => {
     case actions.REMOVE_FROM_LIST:
       return {
         ...state,
-        [action.payload.datastoreUid]: state[action.payload.datastoreUid].filter(item => item.id !== action.payload.item.id)
+        [action.payload.datastoreUid]: state[action.payload.datastoreUid].filter(item => item.uid !== action.payload.item.uid)
       }
     case actions.REMOVE_ALL_FROM_LIST:
       return {
