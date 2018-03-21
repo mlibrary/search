@@ -44,7 +44,7 @@
 }
 
 .logo-block-m {
-  padding-right: 1rem;
+  padding-right: 0.75rem;
   padding-left: 0;
 }
 
@@ -52,6 +52,7 @@
 .logo-search {
   font-size: 1.5rem;
   color: white;
+  padding-left: 0.75rem;
 }
 
 .logo-search a {
@@ -61,7 +62,7 @@
 .logo-library {
   border-right: solid 1.2px rgba(white, 0.7);
   border-left: solid 1.2px rgba(white, 0.7);
-  padding-right: 1rem;
+  padding-right: 0.75rem;
 
   a {
     color: rgba(white, 0.7);
