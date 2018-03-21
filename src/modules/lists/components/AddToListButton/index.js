@@ -11,16 +11,22 @@ import {
   isInList
 } from '../../../lists'
 
+import prejudice from '../../prejudice'
+
 class AddToListButton extends Component {
   handleClick = (inList, item) => {
+    const { datastoreUid } = this.props
     const payload = {
-      datastoreUid: this.props.datastoreUid,
+      datastoreUid,
       item
     }
+
     if (inList) {
       this.props.removeFromList(payload)
     } else {
       this.props.addToList(payload)
+      prejudice.addRecord({ datastoreUid, recordUid: item.uid })
+      console.log('list records', prejudice.listRecords())
     }
   }
 

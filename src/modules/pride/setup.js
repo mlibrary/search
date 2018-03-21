@@ -145,8 +145,7 @@ const setupObservers = (searchObj) => {
           accumulator = accumulator.concat({
             uid,
             ...data,
-            loadingHoldings: recordsHaveHoldings ? 'true' : undefined,
-            prideRecord: result
+            loadingHoldings: recordsHaveHoldings ? 'true' : undefined
           })
         })
 
