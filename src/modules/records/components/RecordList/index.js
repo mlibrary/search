@@ -35,9 +35,7 @@ class RecordListContainer extends React.Component {
       return (
         <div id="search-results">
           <div className="results-summary-container">
-            <div aria-live="polite">
-              <p className="no-margin"><b>No results</b> match your search.</p>
-            </div>
+            <h2 className="results-summary"><b>No results</b> match your search.</h2>
           </div>
 
           <div className="no-results-suggestions">
@@ -58,9 +56,7 @@ class RecordListContainer extends React.Component {
       return (
         <div id="search-results">
           <div className="results-summary-container">
-            <div aria-live="polite">
-              <p className="no-margin">Loading results...</p>
-            </div>
+            <h2 className="results-summary">Loading results...</h2>
             <Sorts />
           </div>
           <GoToList list={list} datastore={datastore} />
@@ -87,7 +83,7 @@ class RecordListContainer extends React.Component {
     return (
       <div>
         <div className="results-summary-container">
-          <span aria-live="polite"><ResultsSummary /></span>
+          <ResultsSummary />
           <Sorts />
         </div>
         <GoToList list={list} datastore={datastore} />

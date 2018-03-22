@@ -106,9 +106,14 @@ class Filters extends React.Component {
 
     if (queryString.length > 0) {
       history.push(`${match.url}?${queryString}`)
-      this.setState({ a11yMessage: 'Filter applied.' })
     } else {
       history.push(match.url)
+    }
+
+    if (isActive) {
+      this.props.setA11yMessage(`Filter removed: ${filterItemValue} `)
+    } else {
+      this.props.setA11yMessage(`Filter applied: ${filterItemValue} `)
     }
   }
   handleClearActiveFilters({ datastoreUid }) {
@@ -129,6 +134,8 @@ class Filters extends React.Component {
 
     const { history, match } = this.props
     const url = `${match.url}?${queryString}`
+
+    this.props.setA11yMessage('Active filters cleared.')
 
     history.push(url)
   }
@@ -288,7 +295,6 @@ const Filter = ({
           <button
             className="filter-group-toggle-show-button"
             aria-expanded={filter.open}
-            aria-label={`${filter.name} filter group`}
             onClick={() => handleFilterClick({
               datastoreUid: datastoreUid,
               filterUid: filter.uid
@@ -411,13 +417,6 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    setA11yMessage
-  }, dispatch)
-}
-
-
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Filters)
+  connect(mapStateToProps, { setA11yMessage })(Filters)
 );
