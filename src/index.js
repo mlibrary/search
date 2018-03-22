@@ -34,6 +34,9 @@ import history from './history'
 import {
   Main
 } from './modules/core'
+import {
+  A11yLiveMessage
+} from './modules/a11y'
 
 /*
  * Connected Switch: Quirk/Bugfix
@@ -69,41 +72,48 @@ class GoogleAnalytics extends React.Component {
   }
 }
 
-const App = () => (
-  <LiveAnnouncer>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Main>
-          <Route component={GoogleAnalytics} />
-          <ConnectedSwitch>
-            <Route path="/how-to-use-search" exact component={HelpContent}/>
-            <Route path="/feature-road-map" exact component={RoadMapPage}/>
-            <Route path="/" exact render={() => (
-              <Redirect to={`/everything`} />
-            )}/>
-            <Route path={`/:datastoreSlug`} render={(props) => {
-              const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-              const urlState = getStateFromURL({
-                location: props.location
-              })
+class App extends React.Component {
+  render() {
+    return (
+      <LiveAnnouncer>
+        <Provider store={store}>
+          <div>
+            <A11yLiveMessage />
+            <ConnectedRouter history={history}>
+              <Main>
+                <Route component={GoogleAnalytics} />
+                <ConnectedSwitch>
+                  <Route path="/how-to-use-search" exact component={HelpContent}/>
+                  <Route path="/feature-road-map" exact component={RoadMapPage}/>
+                  <Route path="/" exact render={() => (
+                    <Redirect to={`/everything`} />
+                  )}/>
+                  <Route path={`/:datastoreSlug`} render={(props) => {
+                    const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+                    const urlState = getStateFromURL({
+                      location: props.location
+                    })
 
-              return (
-                isDatastore && urlState ? (
-                  <URLSearchQueryWrapper>
-                    <DatastorePage {...props} />
-                  </URLSearchQueryWrapper>
-                ) : (
-                  <NoMatch />
-                )
-              )
-            }}/>
-            <Route component={NoMatch} />
-          </ConnectedSwitch>
-        </Main>
-      </ConnectedRouter>
-    </Provider>
-  </LiveAnnouncer>
-)
+                    return (
+                      isDatastore && urlState ? (
+                        <URLSearchQueryWrapper>
+                          <DatastorePage {...props} />
+                        </URLSearchQueryWrapper>
+                      ) : (
+                        <NoMatch />
+                      )
+                    )
+                  }}/>
+                  <Route component={NoMatch} />
+                </ConnectedSwitch>
+              </Main>
+            </ConnectedRouter>
+          </div>
+        </Provider>
+      </LiveAnnouncer>
+    )
+  }
+}
 
 const renderApp = () => {
   ReactDOM.render(

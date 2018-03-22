@@ -16,6 +16,9 @@ import {
 import {
   removeAllFromList
 } from '../../actions'
+import {
+  setA11yMessage
+} from '../../../a11y'
 
 class List extends Component {
   getSearchURI = () => {
@@ -33,6 +36,11 @@ class List extends Component {
     } = this.props
 
     return `${location.search}`
+  }
+
+  handleRemoveAllFromList = ({ datastoreUid }) => {
+    this.props.removeAllFromList({ datastoreUid })
+    this.props.setA11yMessage('Removed all items from list.')
   }
 
   renderList = () => {
@@ -102,7 +110,7 @@ class List extends Component {
       const datastoreUid = datastore.uid;
 
       return (
-        <button className="button-link underline lists-remove-all text-small" onClick={() => this.props.removeAllFromList({ datastoreUid })}>Remove all</button>
+        <button className="button-link underline lists-remove-all text-small" onClick={() => this.handleRemoveAllFromList({ datastoreUid })}>Remove all</button>
       )
     }
 
@@ -144,7 +152,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    removeAllFromList
+    removeAllFromList,
+    setA11yMessage
   }, dispatch)
 }
 

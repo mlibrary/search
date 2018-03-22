@@ -6,7 +6,7 @@ import {
   withRouter
 } from 'react-router-dom'
 import qs from 'qs'
-
+import { LiveMessage } from 'react-aria-live';
 import {
   Icon,
   ShowAllChildren,
@@ -103,6 +103,7 @@ class Filters extends React.Component {
 
     if (queryString.length > 0) {
       history.push(`${match.url}?${queryString}`)
+      this.setState({ a11yMessage: 'Filter applied.' })
     } else {
       history.push(match.url)
     }
