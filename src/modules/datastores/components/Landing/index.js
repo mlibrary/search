@@ -14,7 +14,7 @@ const Landing = ({ content, activeDatastore }) => {
       return (
         <div className="landing-container">
           <LandingIcons icons={['auto-fix']} />
-          <p className="landing-heading-text">Search <b>Everything</b> to see a broad sampling of results from across 'Library Search' and to explore specific areas and records in greater detail.</p>
+          <h1 className="landing-heading-text">Search <b>Everything</b> to see a broad sampling of results from across 'Library Search' and to explore specific areas and records in greater detail.</h1>
           <p>You will see results from the <Link to={`/catalog`}>Catalog</Link>, <Link to={`/articlesplus`}>Articles</Link>, <Link to={`/databases`}>Databases</Link>, <Link to={`/onlinejournals`}>Online Journals</Link>, and <Link to={`/librarywebsite`}>Library Website</Link> pages.</p>
           <p>Enter a search term in the search box to start your own Everything search.</p>
         </div>
@@ -24,7 +24,7 @@ const Landing = ({ content, activeDatastore }) => {
         <div>
           <div className="landing-container">
             <LandingIcons icons={['book-variant', 'document', 'arrow-right-drop-circle', 'image-multiple', 'music-note']} />
-            <p className="landing-heading-text">The <b>Catalog</b> is the definitive place for finding materials held by the U-M Library.</p>
+            <h1 className="landing-heading-text">The <b>Catalog</b> is the definitive place for finding materials held by the U-M Library.</h1>
             <p>Your results will include everything in our physical collection (books, audio, video, maps, musical scores, archival materials, and more), as well as materials available online such as electronic books, streaming audio and video, and online journals.</p>
           </div>
 
@@ -42,7 +42,7 @@ const Landing = ({ content, activeDatastore }) => {
       return (
         <div className="landing-container">
           <LandingIcons icons={['file-find', 'document', 'file']} />
-          <p className="landing-heading-text"><b>Articles</b> is a gateway to discovering a wide range of the library's resources.</p>
+          <h1 className="landing-heading-text"><b>Articles</b> is a gateway to discovering a wide range of the library's resources.</h1>
           <p>Your results will include scholarly journal articles, newspaper articles, book chapters, conference proceedings, and more. To focus your search on a specific subject area, try looking for databases.</p>
         </div>
       )
@@ -50,7 +50,7 @@ const Landing = ({ content, activeDatastore }) => {
       return (
         <div className="landing-container">
           <LandingIcons icons={['search', 'database', 'website']} />
-          <p className="landing-heading-text"><b>Databases</b> are library search engines focused on a specific subject or range of subjects. Some may highlight a particular format, while others will contain a variety of material types.</p>
+          <h1 className="landing-heading-text"><b>Databases</b> are library search engines focused on a specific subject or range of subjects. Some may highlight a particular format, while others will contain a variety of material types.</h1>
           <p>Your results will include databases the library subscribes to, databases of locally created materials, and databases available to anyone via open access.</p>
 
           <BrowseInfo datastore={activeDatastore} />
@@ -60,7 +60,7 @@ const Landing = ({ content, activeDatastore }) => {
       return (
         <div className="landing-container">
           <LandingIcons icons={['book-multiple-variant']} />
-          <p className="landing-heading-text"><b>Online Journals</b> are serial (repeating) publications the library subscribes to electronically. This includes not only journals, but also newspapers, trade publications, magazines, and more.</p>
+          <h1 className="landing-heading-text"><b>Online Journals</b> are serial (repeating) publications the library subscribes to electronically. This includes not only journals, but also newspapers, trade publications, magazines, and more.</h1>
           <p>Your results will include journals the library subscribes to, as well as some available to anyone via open access. You will see statements with any specifics about access and many journals will be available through multiple platforms. Be sure to check dates alongside each to see what you can access.</p>
 
           <BrowseInfo datastore={activeDatastore} />
@@ -70,7 +70,7 @@ const Landing = ({ content, activeDatastore }) => {
       return (
         <div className="landing-container">
           <LandingIcons icons={['calendar-clock', 'map-marker-radius', 'website']} />
-          <p className="landing-heading-text">Our <b>library website</b> is the place to learn about our services, spaces, and collections.</p>
+          <h1 className="landing-heading-text">Our <b>library website</b> is the place to learn about our services, spaces, and collections.</h1>
           <p>Your results will include website pages, research guides, library staff, events, exhibits, news, and more.</p>
         </div>
       )

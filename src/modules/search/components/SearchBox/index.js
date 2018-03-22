@@ -98,8 +98,6 @@ class SearchBox extends React.Component {
 
             <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
 
-            <SkipToID id="search-results" name="search results" />
-
             {isAdvanced && (
               <div className="search-box-advanced-link-container">
                 <Link to={`/${match.params.datastoreSlug}/advanced${location.search}`} className="search-box-advanced-link">

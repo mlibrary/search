@@ -41,6 +41,8 @@ class AddToListButton extends Component {
   }
 
   render() {
+    return null
+    
     const { list, item } = this.props
     const inList = isInList(list, item.uid)
 
