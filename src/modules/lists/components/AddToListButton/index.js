@@ -23,10 +23,10 @@ class AddToListButton extends Component {
 
     if (inList) {
       this.props.removeFromList(payload)
-      this.props.setA11yMessage('Removed from list.')
+      this.props.setA11yMessage('Record removed.')
     } else {
       this.props.addToList(payload)
-      this.props.setA11yMessage('Added to list.')
+      this.props.setA11yMessage('Record added.')
     }
   }
 

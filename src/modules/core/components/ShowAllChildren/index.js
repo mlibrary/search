@@ -1,4 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import {
+  setA11yMessage
+} from '../../../a11y'
 
 class ShowAllChildren extends React.Component {
   state = {
@@ -9,6 +13,9 @@ class ShowAllChildren extends React.Component {
     this.setState({
       show: !this.state.show
     })
+
+    const a11yMessage = this.state.show ? `Showing fewer` : `showing all ${this.props.length}`
+    this.props.setA11yMessage(`${a11yMessage} ${this.props.name}`)
   }
 
   render() {
@@ -31,7 +38,7 @@ class ShowAllChildren extends React.Component {
           return null
         })}
         {hasShowHideButton && (
-          <ShowHideButton handleOnClick={this.handleShowToggleClick.bind(this)}>
+          <ShowHideButton handleOnClick={this.handleShowToggleClick.bind(this)} show={this.state.show}>
             {buttonText}
           </ShowHideButton>
         )}
@@ -43,11 +50,11 @@ class ShowAllChildren extends React.Component {
 class ShowHideButton extends React.Component {
   render() {
     return (
-      <button onClick={() => this.props.handleOnClick()} className="button-link-light show-all-button">
+      <button onClick={() => this.props.handleOnClick()} className="button-link-light show-all-button" aria-expanded={this.props.show}>
         {this.props.children}
       </button>
     )
   }
 }
 
-export default ShowAllChildren
+export default connect(null, { setA11yMessage })(ShowAllChildren)

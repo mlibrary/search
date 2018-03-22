@@ -25,6 +25,9 @@ import {
   createActiveFilterObj,
   getSingleSelectedFilterValue
 } from '../../utilities'
+import {
+  setA11yMessage
+} from '../../../a11y'
 
 class Filters extends React.Component {
   constructor(props) {
@@ -408,6 +411,13 @@ function mapStateToProps(state) {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    setA11yMessage
+  }, dispatch)
+}
+
+
 export default withRouter(
-  connect(mapStateToProps)(Filters)
+  connect(mapStateToProps, mapDispatchToProps)(Filters)
 );
