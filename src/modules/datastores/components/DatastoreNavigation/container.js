@@ -35,13 +35,15 @@ class DatastoreNavigationContainer extends React.Component {
       datastores,
       search,
       activeFilters,
-      institution
+      institution,
+      history
     } = this.props;
 
     return <DatastoreNavigationPresenter
               datastores={datastores}
               search={search}
               activeFilters={activeFilters}
+              history={history}
               institution={institution} />;
   }
 };
