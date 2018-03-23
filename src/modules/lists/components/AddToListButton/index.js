@@ -10,6 +10,9 @@ import {
 import {
   isInList
 } from '../../../lists'
+import {
+  setA11yMessage
+} from '../../../a11y'
 
 class AddToListButton extends Component {
   handleClick = (inList, item) => {
@@ -17,10 +20,13 @@ class AddToListButton extends Component {
       datastoreUid: this.props.datastoreUid,
       item
     }
+
     if (inList) {
       this.props.removeFromList(payload)
+      this.props.setA11yMessage('Record removed.')
     } else {
       this.props.addToList(payload)
+      this.props.setA11yMessage('Record added.')
     }
   }
 
@@ -41,6 +47,8 @@ class AddToListButton extends Component {
   }
 
   render() {
+    return null // temp to disable
+    
     const { list, item } = this.props
     const inList = isInList(list, item.uid)
 
@@ -56,7 +64,8 @@ class AddToListButton extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     addToList,
-    removeFromList
+    removeFromList,
+    setA11yMessage,
   }, dispatch)
 }
 

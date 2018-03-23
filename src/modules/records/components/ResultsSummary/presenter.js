@@ -4,10 +4,11 @@ const ResultsSummary = ({
   showingRange,
   recordsTotal,
   recordsResultsText,
+  resultsFrom,
   resultsFor,
 }) => {
   return (
-    <span className="results-summary">{showingRange} of {recordsTotal} {recordsResultsText}</span>
+    <h2 className="results-summary" aria-live="polite">{showingRange} of {recordsTotal} {resultsFrom} {recordsResultsText}</h2>
   )
 }
 

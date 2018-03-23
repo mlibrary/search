@@ -4,7 +4,8 @@ import { _ } from 'underscore'
 import config from '../../config'
 import store from '../../store'
 import {
-  renderApp
+  renderApp,
+  renderPrideFailedToLoad
 } from '../../index'
 
 import {
@@ -502,6 +503,7 @@ const initializePride = () => {
       renderApp();
     },
     failure: () => {
+      renderPrideFailedToLoad();
       console.log("Pride failed to load.");
     },
   });

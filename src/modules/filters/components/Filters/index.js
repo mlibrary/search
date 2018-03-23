@@ -6,7 +6,7 @@ import {
   withRouter
 } from 'react-router-dom'
 import qs from 'qs'
-
+import { LiveMessage } from 'react-aria-live';
 import {
   Icon,
   ShowAllChildren,
@@ -25,6 +25,9 @@ import {
   createActiveFilterObj,
   getSingleSelectedFilterValue
 } from '../../utilities'
+import {
+  setA11yMessage
+} from '../../../a11y'
 
 class Filters extends React.Component {
   constructor(props) {
@@ -106,6 +109,12 @@ class Filters extends React.Component {
     } else {
       history.push(match.url)
     }
+
+    if (isActive) {
+      this.props.setA11yMessage(`Filter removed: ${filterItemValue} `)
+    } else {
+      this.props.setA11yMessage(`Filter applied: ${filterItemValue} `)
+    }
   }
   handleClearActiveFilters({ datastoreUid }) {
     let query = undefined
@@ -125,6 +134,8 @@ class Filters extends React.Component {
 
     const { history, match } = this.props
     const url = `${match.url}?${queryString}`
+
+    this.props.setA11yMessage('Active filters cleared.')
 
     history.push(url)
   }
@@ -173,7 +184,6 @@ const FilterList = ({
   if (filters.length > 0) {
     return (
       <div>
-        <SkipToID id="search-results" name="search results" />
         <h2 className="filters-heading">Filter your search</h2>
         <ul className="filter-group-list">
           {filters.map((filter, index) => (
@@ -285,7 +295,6 @@ const Filter = ({
           <button
             className="filter-group-toggle-show-button"
             aria-expanded={filter.open}
-            aria-label={`${filter.name} filter group`}
             onClick={() => handleFilterClick({
               datastoreUid: datastoreUid,
               filterUid: filter.uid
@@ -409,5 +418,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps)(Filters)
+  connect(mapStateToProps, { setA11yMessage })(Filters)
 );
