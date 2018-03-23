@@ -35,7 +35,7 @@ class RecordListContainer extends React.Component {
       return (
         <div id="search-results">
           <div className="results-summary-container">
-            <h2 className="results-summary"><b>No results</b> match your search.</h2>
+            <h2 className="results-summary" aria-live="polite"><b>No results</b> match your search.</h2>
           </div>
 
           <div className="no-results-suggestions">
@@ -56,7 +56,7 @@ class RecordListContainer extends React.Component {
       return (
         <div id="search-results">
           <div className="results-summary-container">
-            <h2 className="results-summary">Loading results...</h2>
+            <h2 className="results-summary" aria-live="polite">Loading results...</h2>
             <Sorts />
           </div>
           <GoToList list={list} datastore={datastore} />
