@@ -2544,6 +2544,10 @@ input.get-this-field-input-year {
   margin-right: 1rem;
   color: #6E6E6E; }
 
+.error-help-section .ask-a-librarian-button {
+  color: #0C5292;
+  text-decoration: underline; }
+
 .u-break-word {
   word-wrap: break-word; }
 

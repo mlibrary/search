@@ -37,6 +37,9 @@ import {
 import {
   A11yLiveMessage
 } from './modules/a11y'
+import {
+  AskALibrarian
+} from './modules/core'
 
 /*
  * Connected Switch: Quirk/Bugfix
@@ -122,8 +125,28 @@ const renderApp = () => {
   )
 }
 
+const ErrorMessage = () => (
+  <article className="container container-narrow">
+    <div className="alert alert-danger" aria-live="polite">
+      <p><b>Library Search is not available.</b> We will fix this issue as soon as we can.</p>
+    </div>
+
+    <section className="error-help-section">
+      <AskALibrarian />
+    </section>
+  </article>
+)
+
+const renderPrideFailedToLoad = () => {
+  ReactDOM.render(
+    <ErrorMessage />,
+    document.getElementById('root')
+  )
+}
+
 initializePride()
 
 export {
-  renderApp
+  renderApp,
+  renderPrideFailedToLoad
 }
