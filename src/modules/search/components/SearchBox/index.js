@@ -85,21 +85,20 @@ class SearchBox extends React.Component {
         <div className="search-box-container">
           <form className="search-box-form" onSubmit={this.handleSubmit} role="search" id="search-box">
             <div className="search-box">
-              <label htmlFor="search-query" className="offpage">Search query</label>
               <input
                 id="search-query"
                 className="search-box-input"
-                type="text"
+                type="search"
+                aria-label="search text"
                 value={queryInput}
                 autoComplete="off"
                 onChange={event => this.handleChange(event.target.value)}
               />
+              <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
             </div>
 
-            <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
-
             {isAdvanced && (
-              <div className="search-box-advanced-link-container">
+              <div className="search-box-advanced">
                 <Link to={`/${match.params.datastoreSlug}/advanced${location.search}`} className="search-box-advanced-link">
                   Advanced<span className="offpage">Search Options</span>
                 </Link>
