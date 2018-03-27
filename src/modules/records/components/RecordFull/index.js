@@ -26,11 +26,12 @@ import {
   FullRecordPlaceholder,
   RecommendedResource
 } from '../../../records'
-
 import {
   requestRecord
 } from '../../../pride';
-
+import {
+  setDocumentTitle
+} from '../../../a11y'
 
 class FullRecord extends React.Component {
   componentWillMount() {
@@ -38,6 +39,16 @@ class FullRecord extends React.Component {
     const { datastoreUid } = this.props
 
     requestRecord({ recordUid, datastoreUid })
+  }
+
+  componentDidUpdate() {
+    const { record, datastoreUid, datastores } = this.props;
+
+    if (record) {
+      const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+      // Set page title
+      setDocumentTitle([record.names, 'Record', activeDatastore.name])
+    }
   }
 
   render() {
@@ -77,9 +88,6 @@ class FullRecord extends React.Component {
     });
 
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
-
-    // Set page title
-    document.title = `${record.names} · ${activeDatastore.name} record · Library Search`
 
     return (
       <div className="container container-narrow">

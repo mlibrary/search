@@ -1,4 +1,7 @@
 import React from 'react'
+import {
+  setDocumentTitle
+} from '../../../a11y'
 
 const marginBottomNone = { margin: 0 }
 const marginBottom = {
@@ -8,7 +11,7 @@ const marginBottom = {
 
 class RoadMapPage extends React.Component {
   componentDidMount() {
-    document.title = `Feature Road Map · Library Search`
+    setDocumentTitle(['Feature Road Map'])
   }
 
   render() {

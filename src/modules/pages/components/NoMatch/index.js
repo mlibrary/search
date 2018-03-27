@@ -3,9 +3,13 @@ import React from 'react';
 import {
   Link
 } from 'react-router-dom'
+import {
+  setDocumentTitle
+} from '../../../a11y'
 
 const NoMatch = function NoMatch() {
-  document.title = '404 · Library Search'
+  setDocumentTitle(['404'])
+
   return (
     <div className="container container-narrow">
       <div className="margin-top-2">

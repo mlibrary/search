@@ -71,7 +71,7 @@ class DatastoreInfoContainer extends React.Component {
 
     return (
       <div className="container container-narrow">
-        <div className="datastore-info-container">
+        <div className="datastore-info-container" aria-live="polite">
           <DatastoreInfo activeDatastore={activeDatastore} />
           <button className="datastore-info-hide" onClick={(e) => this.handleHideClick(e)}>Hide</button>
         </div>

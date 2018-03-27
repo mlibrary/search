@@ -25,7 +25,7 @@ const DatastoreNavigationPresenter = ({
     <div className="datastore-list-container datastore-scroll-container">
       <div className="datastore-scroll-gradient"></div>
       <div className="datastore-scroll-x">
-        <ul className="datastore-list" aria-role="nav">
+        <ul className="datastore-list" role="navigation">
           {datastores.datastores.map(ds => (
             <DatastoreNavigationItem
               key={ds.uid}

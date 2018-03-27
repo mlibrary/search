@@ -57,7 +57,6 @@ import {
   List
 } from '../../../lists'
 
-
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class DatastorePageContainer extends React.Component {
@@ -82,8 +81,6 @@ class DatastorePageContainer extends React.Component {
     if (activeDatastore === undefined) {
       return null // LOADING TODO: Fade IN?
     }
-
-    document.title = `${activeDatastore.name} · Library Search`
 
     return (
       <main className="main-container">

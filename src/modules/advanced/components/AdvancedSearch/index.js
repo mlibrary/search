@@ -29,7 +29,8 @@ import {
   setAdvancedFilter,
 } from '../../../advanced'
 import {
-  setA11yMessage
+  setA11yMessage,
+  setDocumentTitle
 } from '../../../a11y'
 
 
@@ -47,7 +48,7 @@ class AdvancedSearch extends React.Component {
     const { datastores } = this.props
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
-    document.title = `Advanced Search · ${activeDatastore.name} · Library Search`
+    setDocumentTitle([`${activeDatastore.name} Advanced Search`])
   }
 
   handleAddAnotherFieldedSearch() {

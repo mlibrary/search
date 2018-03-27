@@ -1,8 +1,12 @@
 import React from 'react'
 
+import {
+  setDocumentTitle
+} from '../../../a11y'
+
 class HelpContent extends React.Component {
   componentDidMount() {
-    document.title = `How to Use Search · Library Search`
+    setDocumentTitle(['How to Use Search'])
   }
 
   render() {
