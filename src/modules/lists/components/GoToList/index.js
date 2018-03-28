@@ -20,11 +20,9 @@ class GoToList extends Component {
     const hasItems = list && list.length > 0 ? true : false
     const listLength = list ? list.length : 0
     const isCollapsedClasses = hasItems ? "lists-link-container" : "lists-link-container lists-link-container--collapsed"
-    const ariaMessage = hasItems ? `${listLength} in list.` : `List is empty.`
 
     return (
       <React.Fragment>
-        <LiveMessage message={ariaMessage} aria-live="polite" />
         <section className={isCollapsedClasses}>
           <Link to={`/${datastore.slug}/list${location.search}`} className="lists-link">
             <div className="list-info">

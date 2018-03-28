@@ -16,6 +16,10 @@ import {
   Icon,
   SkipToID
 } from '../../../core';
+import {
+  setDocumentTitle
+} from '../../../a11y'
+
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -70,40 +74,42 @@ class SearchBox extends React.Component {
     }
   }
 
-  render() {
-    const { match, location, queryInput, isAdvanced, datastores } = this.props
-    const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+  componentDidUpdate() {
+    const { activeDatastore } = this.props
 
     if (this.props.query) {
-      document.title = `${this.props.query} · ${activeDatastore.name} · Library Search`
+      setDocumentTitle([this.props.query, activeDatastore.name])
     } else {
-      document.title = `${activeDatastore.name} · Library Search`
+      setDocumentTitle([activeDatastore.name])
     }
+  }
+
+  render() {
+    const { match, location, queryInput, isAdvanced, datastores, activeDatastore } = this.props
 
     return (
       <div className="search-box-container-full">
         <div className="search-box-container">
           <form className="search-box-form" onSubmit={this.handleSubmit} role="search" id="search-box">
             <div className="search-box">
-              <label htmlFor="search-query" className="offpage">Search query</label>
               <input
                 id="search-query"
                 className="search-box-input"
-                type="text"
+                type="search"
+                aria-label="search text"
                 value={queryInput}
                 autoComplete="off"
                 onChange={event => this.handleChange(event.target.value)}
               />
+              <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
             </div>
 
-            <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
-
-            <SkipToID id="search-results" name="search results" />
-
             {isAdvanced && (
-              <div className="search-box-advanced-link-container">
+              <div className="search-box-advanced">
                 <Link to={`/${match.params.datastoreSlug}/advanced${location.search}`} className="search-box-advanced-link">
-                  Advanced<span className="offpage">Search Options</span>
+                  <span className="offpage">{activeDatastore.name}</span>
+                  <span>Advanced</span>
+                  <span className="offpage">Search</span>
                 </Link>
               </div>
             )}
@@ -120,7 +126,7 @@ function mapStateToProps(state) {
     query: state.search.query,
     queryInput: state.search.queryInput,
     activeFilters: state.filters.active[state.datastores.active],
-    activeDatastoreUid: state.datastores.active,
+    activeDatastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
     location: state.router.location,
     isAdvanced: state.advanced[state.datastores.active] ? true : false,
     institution: state.institution,

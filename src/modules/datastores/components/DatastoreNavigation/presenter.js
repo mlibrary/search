@@ -1,7 +1,4 @@
 import React from 'react'
-import {
-  NavLink
-} from 'react-router-dom'
 
 import {
   Icon
@@ -21,13 +18,14 @@ const DatastoreNavigationPresenter = ({
   datastores,
   search,
   activeFilters,
-  institution
+  institution,
+  history
 }) => {
   return (
     <div className="datastore-list-container datastore-scroll-container">
       <div className="datastore-scroll-gradient"></div>
       <div className="datastore-scroll-x">
-        <ul className="datastore-list">
+        <ul className="datastore-list" role="navigation">
           {datastores.datastores.map(ds => (
             <DatastoreNavigationItem
               key={ds.uid}
@@ -36,6 +34,7 @@ const DatastoreNavigationPresenter = ({
               search={search}
               activeFilters={activeFilters}
               institution={institution}
+              history={history}
             />
           ))}
         </ul>
@@ -49,13 +48,12 @@ const DatastoreNavigationItem = ({
   datastores,
   search,
   activeFilters,
-  institution
+  institution,
+  history
 }) => {
   const page = search.page[datastore.uid] === 1 ? undefined : search.page[datastore.uid]
-
   // We only want to use library if it is Mirlyn aka the catalog
   const library = datastore.uid === 'mirlyn' ? institution.active : undefined
-
   const queryString = stringifySearchQueryForURL({
     query: search.query,
     filter: activeFilters[datastore.uid],
@@ -72,21 +70,23 @@ const DatastoreNavigationItem = ({
     url = `/${datastore.slug}`
   }
 
+  const active = isActive({
+    uid: datastore.uid,
+    activeUid: datastores.active
+  })
+  const activeClassName = active ? 'datastore-button--active' : ''
+  const classNames = `datastore-button ${activeClassName}`
   return (
     <li className="datastore-item" key={datastore.uid}>
-      <NavLink
-        to={url}
-        className="datastore-item-link"
-        activeClassName="datastore-item-active"
-        isActive={() => isActive({
-          uid: datastore.uid,
-          activeUid: datastores.active
-        })}>
-        <div className="datastore-item-content-wrap">
-          {datastore.isMultisearch && <Icon name="multi-result" />}
-          {datastore.name}
-        </div>
-      </NavLink>
+      <button
+        onClick={() => history.push(url)}
+        aria-pressed={active}
+        className={classNames}>
+          <React.Fragment>
+            {datastore.isMultisearch && <Icon name="multi-result" />}
+            {datastore.name}
+          </React.Fragment>
+      </button>
     </li>
   )
 }

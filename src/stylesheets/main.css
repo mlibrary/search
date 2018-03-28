@@ -222,7 +222,10 @@ textarea {
   color: #333; }
 
 input[type="text"],
+input[type="search"],
 input[type="date"] {
+  margin: 0;
+  padding: 0;
   font-size: 1rem;
   border: solid 1px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);
@@ -231,6 +234,11 @@ input[type="date"] {
   line-height: 1.4;
   width: 100%; }
 
+input[type="search"] {
+  -webkit-appearance: textfield; }
+
+input[type="search"]:disabled,
+input[type="search"]:read-only,
 input[type="text"]:disabled,
 input[type="text"]:read-only {
   background: #FAFAFA;
@@ -744,46 +752,32 @@ nav {
   margin: 0 auto; }
 
 .search-box-form {
+  padding: 1rem;
   display: flex;
-  flex-wrap: wrap;
-  padding: 1rem; }
+  align-items: center; }
+  @media (max-width: 32rem) {
+    .search-box-form {
+      display: block; } }
 
 .search-box {
   display: flex;
-  align-items: center;
-  font-size: 1rem;
-  border: solid 1px rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  line-height: 1.4;
-  flex: auto;
-  background: white; }
+  width: 100%; }
 
-input.search-box-input {
-  border: 1px solid rgba(18, 109, 193, 0.4);
-  height: 100%;
-  background: transparent;
-  /*
-    Undo input style
-  */
-  border: none;
-  box-shadow: none; }
-
-.search-box-advanced-link-container {
-  display: flex;
-  padding: 0.5rem 1rem;
-  margin-right: -1rem; }
+.search-box-advanced {
+  text-align: center; }
   @media (max-width: 32rem) {
-    .search-box-advanced-link-container {
-      justify-content: center;
+    .search-box-advanced {
       margin-bottom: -0.75rem;
-      width: 100%;
-      padding: 0;
-      padding-top: 0.5rem; } }
+      margin-top: 0.25rem; } }
 
-@media (max-width: 32rem) {
-  .search-box-advanced-link {
-    font-size: 0.9rem; } }
+.search-box-advanced-link {
+  margin-left: 1rem;
+  display: inline-block; }
+  @media (max-width: 32rem) {
+    .search-box-advanced-link {
+      font-size: 0.9rem;
+      flex: 0 1 100%;
+      margin: 0; } }
 
 .search-box-button {
   margin-left: 1rem;
@@ -810,7 +804,8 @@ input.search-box-input {
 
 .datastore-list {
   display: inline-flex;
-  margin: 0 0.5rem; }
+  margin: 0 0.5rem;
+  margin: 0 3px; }
 
 .datastore-scroll-x {
   white-space: nowrap;
@@ -832,26 +827,29 @@ input.search-box-input {
   padding: 0;
   margin: 0; }
 
-.datastore-item-link {
+.datastore-button {
   display: inline-block;
   color: #4E4E4E;
   padding: 0.5rem 1rem;
+  margin: 2px;
   padding-top: 0.6rem;
   margin: 0;
   cursor: pointer;
-  border-bottom: solid 2.5px transparent; }
+  border: none;
+  border-bottom: solid 2.5px transparent;
+  background: transparent; }
 
-.datastore-item-active {
+.datastore-button--active {
   border-bottom: solid 2px #126DC1;
   color: #126DC1; }
 
-.datastore-item-link:not(.datastore-item-active) svg g {
+.datastore-button:not(.datastore-button--active) svg g {
   fill: #CCC; }
 
-.datastore-item-content-wrap {
+.datastore-button {
   display: flex;
   align-items: center; }
-  .datastore-item-content-wrap .icon {
+  .datastore-button .icon {
     margin-right: 0.5rem; }
 
 /*
@@ -916,6 +914,11 @@ input.search-box-input {
     .pagination-container .results-summary {
       padding: 0;
       display: block; } }
+
+.results-summary {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0; }
 
 .records-summary {
   padding: 0 1rem; }
@@ -1746,7 +1749,10 @@ body {
     padding-bottom: 1.5rem;
     border-bottom: solid 4px #CCC;
     margin-top: 0;
-    color: #4E4E4E; }
+    color: #4E4E4E;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.6; }
     .landing-container .landing-heading-text b {
       color: #333; }
   .landing-container p:not(.landing-heading-text) {
@@ -1781,11 +1787,12 @@ body {
   margin-bottom: 0.5rem;
   border-radius: 4px;
   justify-content: space-between; }
-  .datastore-info-container p {
+  .datastore-info-container h1 {
     font-size: 0.88rem;
     margin: 0;
     line-height: 1.7;
-    color: #4E4E4E; }
+    color: #4E4E4E;
+    font-weight: 400; }
 
 .datastore-info {
   padding-right: 1rem; }
@@ -2534,6 +2541,20 @@ input.get-this-field-input-year {
 .lists-remove-all {
   margin-right: 1rem;
   color: #6E6E6E; }
+
+.error-help-section .ask-a-librarian-button {
+  display: inline-block;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  background: #126DC1;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  border-bottom: 3px solid #0C5292;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: inherit; }
 
 .u-break-word {
   word-wrap: break-word; }

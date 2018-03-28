@@ -28,6 +28,11 @@ import {
   setFieldedSearch,
   setAdvancedFilter,
 } from '../../../advanced'
+import {
+  setA11yMessage,
+  setDocumentTitle
+} from '../../../a11y'
+
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
@@ -43,13 +48,15 @@ class AdvancedSearch extends React.Component {
     const { datastores } = this.props
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
-    document.title = `Advanced Search · ${activeDatastore.name} · Library Search`
+    setDocumentTitle([`${activeDatastore.name} Advanced Search`])
   }
 
   handleAddAnotherFieldedSearch() {
     this.props.addFieldedSearch({
       datastoreUid: this.props.datastores.active
     })
+
+    this.props.setA11yMessage('Fielded search added.')
   }
 
   handleRemoveFieldedSearch({ removeIndex }) {
@@ -57,6 +64,8 @@ class AdvancedSearch extends React.Component {
       datastoreUid: this.props.datastores.active,
       removeIndex
     })
+
+    this.props.setA11yMessage('Fielded search removed.')
   }
 
   handleSubmit(event) {
@@ -697,7 +706,8 @@ function mapDispatchToProps(dispatch) {
     addFieldedSearch,
     removeFieldedSearch,
     setFieldedSearch,
-    setAdvancedFilter
+    setAdvancedFilter,
+    setA11yMessage
   }, dispatch)
 }
 

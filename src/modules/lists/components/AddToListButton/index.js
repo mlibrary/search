@@ -10,6 +10,9 @@ import {
 import {
   isInList
 } from '../../../lists'
+import {
+  setA11yMessage
+} from '../../../a11y'
 
 import prejudice from '../../prejudice'
 
@@ -64,7 +67,8 @@ class AddToListButton extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     addToList,
-    removeFromList
+    removeFromList,
+    setA11yMessage,
   }, dispatch)
 }
 
