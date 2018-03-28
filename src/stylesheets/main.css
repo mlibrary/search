@@ -1758,6 +1758,8 @@ body {
   .landing-container p:not(.landing-heading-text) {
     color: #6E6E6E;
     padding-top: 1rem; }
+  .landing-container a {
+    text-decoration: underline; }
 
 .landing-icons {
   margin-bottom: 2rem;

@@ -18,7 +18,7 @@
     font-size: 1.25rem;
     font-weight: 400;
     line-height: 1.6;
-    
+
     b {
       color: $grey-1;
     }
@@ -29,6 +29,9 @@
     padding-top: 1rem;
   }
 
+  a {
+    text-decoration: underline;
+  }
 }
 
 .landing-icons {
