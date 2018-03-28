@@ -4,10 +4,6 @@ import { bindActionCreators } from 'redux'
 
 import { Icon } from '../../../core'
 import {
-  addToList,
-  removeFromList
-} from '../../actions'
-import {
   isInList
 } from '../../../lists'
 import {
@@ -25,10 +21,8 @@ class AddToListButton extends Component {
     }
 
     if (inList) {
-      this.props.removeFromList(payload)
       prejudice.removeRecord(item)
     } else {
-      this.props.addToList(payload)
       prejudice.addRecord(item)
     }
   }
@@ -62,14 +56,6 @@ class AddToListButton extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    addToList,
-    removeFromList,
-    setA11yMessage,
-  }, dispatch)
-}
-
 function mapStateToProps(state) {
   return {
     datastoreUid: state.datastores.active,
@@ -77,4 +63,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddToListButton)
+export default connect(mapStateToProps, { setA11yMessage })(AddToListButton)

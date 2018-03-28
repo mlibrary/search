@@ -14,9 +14,6 @@ import {
   Icon
 } from '../../../core'
 import {
-  removeAllFromList
-} from '../../actions'
-import {
   setA11yMessage
 } from '../../../a11y'
 
@@ -150,11 +147,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    removeAllFromList,
-    setA11yMessage
-  }, dispatch)
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(List));
+export default withRouter(connect(mapStateToProps, { setA11yMessage })(List));

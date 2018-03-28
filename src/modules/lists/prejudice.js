@@ -1,6 +1,11 @@
 import Prejudice from 'prejudice'
 import { Pride } from 'pride'
 import config from '../../config'
+import store from './../../store'
+import _ from 'underscore'
+import {
+  addList
+} from './actions'
 
 const prejudice = new Prejudice({
   recordEngine: Pride,
@@ -8,16 +13,12 @@ const prejudice = new Prejudice({
   actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development
 })
 
-prejudice.registerRecordEngine(Pride);
-prejudice.registerDatastore('mirlyn', 'https://search-staging.www.lib.umich.edu/catalog/record');
-prejudice.addObserver(console.log)
-
 const addRecord = (record) => {
   prejudice.addRecord(record)
 }
 
 const removeRecord = (record) => {
-  prejudice.addRecord(record)
+  prejudice.removeRecord(record)
 }
 
 const listRecords = () => {
@@ -27,6 +28,16 @@ const listRecords = () => {
 const clearRecords = () => {
   prejudice.clearRecords()
 }
+
+const observer = (records) => {
+  console.log('observer', records)
+
+  store.dispatch(addList(records))
+}
+
+prejudice.addObserver(observer)
+
+//clearRecords()
 
 export default {
   addRecord,
