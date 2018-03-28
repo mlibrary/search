@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive';
-import mlibLogo from './mlib_logo.png';
+import umichBlockM from './umich_block_m.png';
 
 import {
   AskALibrarian
@@ -17,13 +17,13 @@ class Header extends React.Component {
               <ul className="logo-item-list">
                 <li className="logo-block-m">
                   <a href="http://lib.umich.edu" className="logo-link">
-                    <img src={mlibLogo} alt="Go to the University of Michigan Library homepage" />
+                    <img src={umichBlockM} alt="Go to the University of Michigan Library homepage" />
                   </a>
                 </li>
-                <li className="logo-library"><Link to="/">Search</Link></li>
+                <li className="logo-library"><Link to="/">Library</Link></li>
                 <li className="logo-search">
                   <span>
-                    <Link to="/">Mirlyn</Link>
+                    <Link to="/">Search</Link>
                   </span>
                 </li>
               </ul>
