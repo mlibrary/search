@@ -1,21 +1,29 @@
 import Prejudice from 'prejudice'
 import { Pride } from 'pride'
+import config from '../../config'
 
-const prejudice = new Prejudice()
+const prejudice = new Prejudice({
+  recordEngine: Pride,
+  datastores: config.datastores.list,
+  actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development
+})
 
-const addRecord = ({ datastoreUid, recordUid }) => {
-  prejudice.addRecord({ datastoreUid, recordUid })
+prejudice.registerRecordEngine(Pride);
+prejudice.registerDatastore('mirlyn', 'https://search-staging.www.lib.umich.edu/catalog/record');
+
+const addRecord = (record) => {
+  prejudice.addRecord(record)
 }
 
-const removeRecord = ({ datastoreUid, recordUid }) => {
-  prejudice.removeRecord({ datastoreUid, recordUid })
+const removeRecord = (record) => {
+  prejudice.addRecord(record)
 }
 
-const listRecords = (datastoreUid, recordUid) => {
+const listRecords = () => {
   return prejudice.listRecords()
 }
 
-const clearRecords = ({ datastoreUid }) => {
+const clearRecords = () => {
   prejudice.clearRecords()
 }
 

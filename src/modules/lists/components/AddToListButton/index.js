@@ -26,10 +26,12 @@ class AddToListButton extends Component {
 
     if (inList) {
       this.props.removeFromList(payload)
-      prejudice.removeRecord({ datastoreUid, recordUid: item.uid })
+      //prejudice.removeRecord(datastoreUid, item.uid)
+      prejudice.removeRecord(item)
     } else {
       this.props.addToList(payload)
-      prejudice.addRecord({ datastoreUid, recordUid: item.uid })
+      prejudice.addRecord(item)
+      //prejudice.addRecord(datastoreUid, item.uid)
     }
 
     console.log(prejudice.listRecords())
