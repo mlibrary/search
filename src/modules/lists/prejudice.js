@@ -10,6 +10,7 @@ const prejudice = new Prejudice({
 
 prejudice.registerRecordEngine(Pride);
 prejudice.registerDatastore('mirlyn', 'https://search-staging.www.lib.umich.edu/catalog/record');
+prejudice.addObserver(console.log)
 
 const addRecord = (record) => {
   prejudice.addRecord(record)
