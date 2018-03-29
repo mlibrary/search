@@ -13,6 +13,19 @@ import {
 import prejudice from '../../prejudice'
 
 class AddToListButton extends Component {
+  state = {
+    waitingToBeAddedToList: false
+  }
+
+  componentDidUpdate() {
+    const { list, item } = this.props
+    const inList = isInList(list, item.uid)
+
+    if (inList && this.state.waitingToBeAddedToList) {
+      this.setState({ waitingToBeAddedToList: false })
+    }
+  }
+
   handleClick = (inList, item) => {
     const { datastoreUid } = this.props
     const payload = {
@@ -20,10 +33,13 @@ class AddToListButton extends Component {
       item
     }
 
-    if (inList) {
-      prejudice.removeRecord(item)
-    } else {
-      prejudice.addRecord(item)
+    if (!this.state.waitingToBeAddedToList) {
+      if (inList) {
+        prejudice.removeRecord(item)
+      } else {
+        this.setState({ waitingToBeAddedToList: true })
+        prejudice.addRecord(item)
+      }
     }
   }
 
@@ -32,6 +48,12 @@ class AddToListButton extends Component {
       return (
         <React.Fragment>
           <Icon name="window-close" /><span>Remove from list</span>
+        </React.Fragment>
+      )
+    } else if (this.state.waitingToBeAddedToList) {
+      return (
+        <React.Fragment>
+          <span>Adding...</span>
         </React.Fragment>
       )
     } else {

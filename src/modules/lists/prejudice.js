@@ -29,17 +29,22 @@ const clearRecords = () => {
   prejudice.clearRecords()
 }
 
-const observer = (records) => {
-  console.log('observer', records)
+const addRecordsToList = (records) => {
+  store.dispatch(addList(_.groupBy(listRecords(), 'datastore')))
+}
 
-  store.dispatch(addList(records))
+const observer = (records) => {
+  addRecordsToList(records)
+}
+
+const initialize = () => {
+  addRecordsToList(listRecords())
 }
 
 prejudice.addObserver(observer)
 
-//clearRecords()
-
 export default {
+  initialize,
   addRecord,
   removeRecord,
   listRecords,

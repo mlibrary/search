@@ -16,6 +16,7 @@ import {
 import {
   setA11yMessage
 } from '../../../a11y'
+import prejudice from '../../prejudice'
 
 class List extends Component {
   getSearchURI = () => {
@@ -36,7 +37,7 @@ class List extends Component {
   }
 
   handleRemoveAllFromList = ({ datastoreUid }) => {
-    this.props.removeAllFromList({ datastoreUid })
+    prejudice.clearRecords(datastoreUid)
     this.props.setA11yMessage('Removed all items from list.')
   }
 
@@ -89,14 +90,9 @@ class List extends Component {
         <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions</h2>
         <span className="text-small">Select what to do with this list.</span>
         <ul className="lists-actions-list">
-          <li><button className="button-link underline lists-action-button">Email</button></li>
-          <li><button className="button-link underline lists-action-button">SMS</button></li>
-          <li><button className="button-link underline lists-action-button">Print</button></li>
-          <li><button className="button-link underline lists-action-button">Citation</button></li>
-          <li><button className="button-link underline lists-action-button">Refworks</button></li>
+          <li><button className="button-link underline lists-action-button" onClick={this.handleEmailClick}>Email</button></li>
+          <li><button className="button-link underline lists-action-button">Text</button></li>
           <li><button className="button-link underline lists-action-button">Export RIS</button></li>
-          <li><button className="button-link underline lists-action-button">Endnote</button></li>
-          <li><button className="button-link underline lists-action-button">Favorite</button></li>
         </ul>
       </section>
     )
@@ -112,6 +108,10 @@ class List extends Component {
     }
 
     return null
+  }
+
+  handleEmailClick = () => {
+    console.log('handle email click')
   }
 
   render() {
