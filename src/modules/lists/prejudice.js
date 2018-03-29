@@ -25,8 +25,8 @@ const listRecords = () => {
   return prejudice.listRecords()
 }
 
-const clearRecords = () => {
-  prejudice.clearRecords()
+const clearRecords = (datastoreUid) => {
+  prejudice.clearRecords(datastoreUid)
 }
 
 const addRecordsToList = (records) => {

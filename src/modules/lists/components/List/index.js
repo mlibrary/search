@@ -17,6 +17,7 @@ import {
   setA11yMessage
 } from '../../../a11y'
 import prejudice from '../../prejudice'
+import ActionsList from '../ActionsList'
 
 class List extends Component {
   getSearchURI = () => {
@@ -78,26 +79,6 @@ class List extends Component {
     return list ? list.length : 0;
   }
 
-  renderActions = () => {
-    const {
-      list,
-      datastore
-    } = this.props
-    const plural = list && this.getListLength() === 1 ? '' : 's'
-
-    return (
-      <section className="lists-section">
-        <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions</h2>
-        <span className="text-small">Select what to do with this list.</span>
-        <ul className="lists-actions-list">
-          <li><button className="button-link underline lists-action-button" onClick={this.handleEmailClick}>Email</button></li>
-          <li><button className="button-link underline lists-action-button">Text</button></li>
-          <li><button className="button-link underline lists-action-button">Export RIS</button></li>
-        </ul>
-      </section>
-    )
-  }
-
   renderRemoveAllFromListButton = (list, datastore) => {
     if (list && list.length > 0) {
       const datastoreUid = datastore.uid;
@@ -108,10 +89,6 @@ class List extends Component {
     }
 
     return null
-  }
-
-  handleEmailClick = () => {
-    console.log('handle email click')
   }
 
   render() {
@@ -132,7 +109,11 @@ class List extends Component {
             <p className="tag lists-count-tag"><b>{this.getListLength()}</b> in list</p>
           </div>
         </header>
-        {this.renderActions()}
+        <section className="lists-section">
+          <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions</h2>
+          <span className="text-small">Select what to do with this list.</span>
+          <ActionsList {...this.props} listLength={this.getListLength()} />
+        </section>
         {this.renderList()}
       </article>
     )
