@@ -97,15 +97,15 @@
 }
 
 .lists-actions-list {
-  margin: -1rem;
-  margin-top: 0;
+  margin: 0;
+  margin-top: 1rem;
   padding: 0;
   list-style: none;
 
   li {
     display: inline-block;
     margin: 0;
-    padding: 1rem;
+    padding: 0;
     color: $main-3;
   }
 }
@@ -121,4 +121,36 @@
 .lists-remove-all {
   margin-right: 1rem;
   color: $grey-3;
+}
+
+.lists-action-button {
+  border: none;
+  padding: 0.5rem 1rem;
+  border: solid 1px transparent;
+  border-radius: 4px;
+  text-decoration: underline;
+}
+
+.lists-action-button--active {
+  border-color: $main-4;
+  background: $main-5;
+}
+
+.lists-action-email-form {
+  display: flex;
+  margin-top: 1rem;
+  max-width: 32rem;
+  align-items: flex-end;
+
+  .button {
+    margin-left: 1rem;
+  }
+}
+
+.lists-action-field-container {
+  width: 100%;
+}
+
+.lists-action {
+  padding: 1rem 0;
 }

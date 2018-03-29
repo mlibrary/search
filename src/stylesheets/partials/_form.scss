@@ -22,6 +22,7 @@ textarea, {
 
 input[type="text"],
 input[type="search"],
+input[type="email"],
 input[type="date"] {
   margin: 0;
   padding: 0;
@@ -103,15 +104,6 @@ textarea {
   display: block;
   padding-bottom: 0.15rem;
   line-height: 1.4;
-}
-
-.form-control {
-  padding: 0.15rem 0.25rem;
-  border: solid 2px black;
-  width: 100%;
-  font-size: 1rem;
-  line-height: inherit;
-  max-width: 24em;
 }
 
 .form-group {

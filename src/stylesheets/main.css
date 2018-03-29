@@ -223,6 +223,7 @@ textarea {
 
 input[type="text"],
 input[type="search"],
+input[type="email"],
 input[type="date"] {
   margin: 0;
   padding: 0;
@@ -286,14 +287,6 @@ textarea {
   display: block;
   padding-bottom: 0.15rem;
   line-height: 1.4; }
-
-.form-control {
-  padding: 0.15rem 0.25rem;
-  border: solid 2px black;
-  width: 100%;
-  font-size: 1rem;
-  line-height: inherit;
-  max-width: 24em; }
 
 .form-group {
   margin-bottom: 1.5rem; }
@@ -2509,14 +2502,14 @@ input.get-this-field-input-year {
   margin-bottom: 0; }
 
 .lists-actions-list {
-  margin: -1rem;
-  margin-top: 0;
+  margin: 0;
+  margin-top: 1rem;
   padding: 0;
   list-style: none; }
   .lists-actions-list li {
     display: inline-block;
     margin: 0;
-    padding: 1rem;
+    padding: 0;
     color: #126DC1; }
 
 .lists-count-summary {
@@ -2528,6 +2521,31 @@ input.get-this-field-input-year {
 .lists-remove-all {
   margin-right: 1rem;
   color: #6E6E6E; }
+
+.lists-action-button {
+  border: none;
+  padding: 0.5rem 1rem;
+  border: solid 1px transparent;
+  border-radius: 4px;
+  text-decoration: underline; }
+
+.lists-action-button--active {
+  border-color: #CCE6FF;
+  background: #E6F3FF; }
+
+.lists-action-email-form {
+  display: flex;
+  margin-top: 1rem;
+  max-width: 32rem;
+  align-items: flex-end; }
+  .lists-action-email-form .button {
+    margin-left: 1rem; }
+
+.lists-action-field-container {
+  width: 100%; }
+
+.lists-action {
+  padding: 1rem 0; }
 
 .error-help-section .ask-a-librarian-button {
   display: inline-block;

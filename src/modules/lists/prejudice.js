@@ -48,5 +48,6 @@ export default {
   addRecord,
   removeRecord,
   listRecords,
-  clearRecords
+  clearRecords,
+  instance: prejudice
 }
