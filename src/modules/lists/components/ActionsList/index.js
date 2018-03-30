@@ -5,6 +5,7 @@ import {
 import prejudice from '../../prejudice'
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
+import FileAction from '../FileAction'
 
 
 class ActionsList extends Component {
@@ -17,31 +18,27 @@ class ActionsList extends Component {
       {
         uid: 'text',
         name: 'Text'
+      },
+      {
+        uid: 'file',
+        name: 'Export RIS'
       }
-    ],
-    active: ''
-  }
-
-  resetActive = () => {
-    this.setState({ active: '' })
+    ]
   }
 
   handleClick = (type) => {
+    console.log('props', this.props)
+    const {
+      active,
+      setActive
+    } = this.props
     // Set the active Action to what was just clicked.
     // If it is already active, then deselect it making
     // no action active.
-    if (this.state.active === type) {
-      this.setState({ active: undefined })
+    if (active === type) {
+      setActive(undefined)
     } else {
-      this.setState({ active: type })
-    }
-
-    switch (type) {
-      case 'email':
-        console.log('email')
-        break;
-      default:
-        break;
+      setActive(type)
     }
   }
 
@@ -49,16 +46,16 @@ class ActionsList extends Component {
     const {
       list,
       datastore,
-      listLength
+      listLength,
+      active
     } = this.props
-    const active = this.state.active
     const plural = list && listLength === 1 ? '' : 's'
 
     return (
       <React.Fragment>
         <ul className="lists-actions-list">
           {this.state.actions.map(action => {
-            const isActive = action.uid === this.state.active
+            const isActive = action.uid === active
             const activeClassName = isActive ? 'lists-action-button--active' : ''
             return (
               <li key={action.uid}>
@@ -67,8 +64,9 @@ class ActionsList extends Component {
             )
           })}
         </ul>
-        {active === 'email' && (<EmailAction {...this.props} resetActive={this.resetActive} />)}
-        {active === 'text' && (<TextAction {...this.props} resetActive={this.resetActive} />)}
+        {active === 'email' && (<EmailAction {...this.props} />)}
+        {active === 'text' && (<TextAction {...this.props} />)}
+        {active === 'file' && (<FileAction {...this.props} />)}
       </React.Fragment>
     )
   }

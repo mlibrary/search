@@ -25,7 +25,7 @@ class EmailAction extends Component {
   }
 
   handleCloseStatus = () => {
-    this.props.resetActive()
+    this.props.setActive('')
     this.setState({ status: undefined, sent: false })
   }
 
@@ -56,13 +56,15 @@ class EmailAction extends Component {
 
     if (!status) {
       return (
-        <form className="lists-action-form" onSubmit={this.handleSubmit}>
-          <div className="lists-action-field-container">
-            <label for="phoneNumber">Phone number</label>
-            <input id="phoneNumber" type="tel" required value={this.state.text} placeholder="000-000-0000" onChange={this.handleChange}/>
-          </div>
-          <input type="submit" value="Send" className="button" />
-        </form>
+        <React.Fragment>
+          <form className="lists-action-form" onSubmit={this.handleSubmit}>
+            <div className="lists-action-field-container">
+              <label htmlFor="phoneNumber">Phone number</label>
+              <input id="phoneNumber" type="tel" required value={this.state.text} placeholder="000-000-0000" onChange={this.handleChange}/>
+            </div>
+            <input type="submit" value="Send text" className="button" />
+          </form>
+        </React.Fragment>
       )
     }
 
@@ -70,6 +72,12 @@ class EmailAction extends Component {
   }
 
   render() {
+    const { listLength } = this.props
+
+    if (listLength === 0) {
+      return null
+    }
+
     return (
       <section className="lists-action">
         {this.renderStatus()}

@@ -417,7 +417,7 @@ nav {
 
 .alert {
   margin: 1rem 0;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   border: solid 1px #E5E5E5;
   background: #FAFAFA;
   border-radius: 4px; }
@@ -2494,10 +2494,7 @@ input.get-this-field-input-year {
   background: #FAFAFA;
   border-radius: 4px;
   padding: 1rem 1.5rem;
-  margin-bottom: 1.5rem; }
-  @media (min-width: 32rem) {
-    .lists-section {
-      padding: 1rem 2rem; } }
+  margin-bottom: 1rem; }
 
 .lists-actions-heading {
   font-weight: 600;
@@ -2544,7 +2541,7 @@ input.get-this-field-input-year {
 .lists-action-form {
   display: flex;
   margin-top: 1rem;
-  max-width: 32rem;
+  max-width: 24rem;
   align-items: flex-end; }
   .lists-action-form .button {
     margin-left: 1rem; }
@@ -2553,7 +2550,12 @@ input.get-this-field-input-year {
   width: 100%; }
 
 .lists-action {
-  padding: 1rem 0; }
+  padding: 0;
+  margin-bottom: 0.5rem; }
+
+.list-action-heading {
+  font-size: 1rem;
+  font-weight: 400; }
 
 .lists-action-alert {
   display: flex;
