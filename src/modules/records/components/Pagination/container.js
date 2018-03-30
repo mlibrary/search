@@ -61,8 +61,6 @@ class PaginationContainer extends React.Component {
     return undefined
   }
   scrollToTop() {
-    console.log('scroll to top')
-
     if (window) {
       window.scrollTo(0, 0)
     }

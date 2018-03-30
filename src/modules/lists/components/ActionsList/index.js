@@ -27,7 +27,6 @@ class ActionsList extends Component {
   }
 
   handleClick = (type) => {
-    console.log('props', this.props)
     const {
       active,
       setActive
