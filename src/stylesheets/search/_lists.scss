@@ -138,8 +138,8 @@
   max-width: 24rem;
   align-items: flex-end;
 
-  .button {
-    margin-left: 1rem;
+  & > * {
+    margin-right: 1rem;
   }
 }
 

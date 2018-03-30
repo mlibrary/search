@@ -2543,8 +2543,8 @@ input.get-this-field-input-year {
   margin-top: 1rem;
   max-width: 24rem;
   align-items: flex-end; }
-  .lists-action-form .button {
-    margin-left: 1rem; }
+  .lists-action-form > * {
+    margin-right: 1rem; }
 
 .lists-action-field-container {
   width: 100%; }
