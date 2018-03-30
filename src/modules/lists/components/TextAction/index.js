@@ -4,13 +4,13 @@ import prejudice from '../../prejudice'
 
 class EmailAction extends Component {
   state = {
-    email: '',
+    text: '',
     sent: false,
     status: undefined
   }
 
   handleChange = (event) => {
-    this.setState({ email: event.target.value })
+    this.setState({ text: event.target.value })
   }
 
   handleSubmitCallback = (data) => {
@@ -21,7 +21,7 @@ class EmailAction extends Component {
     event.preventDefault();
 
     this.setState({ sent: true })
-    prejudice.instance.act('email', this.props.datastore.uid, this.state.email, this.handleSubmitCallback)
+    prejudice.instance.act('text', this.props.datastore.uid, this.state.text, this.handleSubmitCallback)
   }
 
   handleCloseStatus = () => {
@@ -39,7 +39,7 @@ class EmailAction extends Component {
     if (status === 'Success') {
       return (
         <div className="alert alert-success lists-action-alert">
-          <p>Email successfully sent to {this.state.email}</p>
+          <p>Text successfully sent to {this.state.text}</p>
           <button className="button-link underline green-text" onClick={this.handleCloseStatus}>Close</button>
         </div>
       )
@@ -58,8 +58,8 @@ class EmailAction extends Component {
       return (
         <form className="lists-action-form" onSubmit={this.handleSubmit}>
           <div className="lists-action-field-container">
-            <label for="emailAddress">Email address</label>
-            <input id="emailAddress" type="email" required placeholder="uniqname@umich.edu" value={this.state.email} onChange={this.handleChange}/>
+            <label for="phoneNumber">Phone number</label>
+            <input id="phoneNumber" type="tel" required value={this.state.text} placeholder="000-000-0000" onChange={this.handleChange}/>
           </div>
           <input type="submit" value="Send" className="button" />
         </form>

@@ -224,6 +224,7 @@ textarea {
 input[type="text"],
 input[type="search"],
 input[type="email"],
+input[type="tel"],
 input[type="date"] {
   margin: 0;
   padding: 0;
@@ -240,6 +241,10 @@ input[type="search"] {
 
 input[type="search"]:disabled,
 input[type="search"]:read-only,
+input[type="email"]:disabled,
+input[type="email"]:read-only,
+input[type="tel"]:disabled,
+input[type="tel"]:read-only,
 input[type="text"]:disabled,
 input[type="text"]:read-only {
   background: #FAFAFA;
@@ -412,8 +417,8 @@ nav {
 
 .alert {
   margin: 1rem 0;
-  padding: 1rem 1.5rem;
-  border: solid 2px #E5E5E5;
+  padding: 0.5rem 1rem;
+  border: solid 1px #E5E5E5;
   background: #FAFAFA;
   border-radius: 4px; }
 
@@ -592,6 +597,9 @@ nav {
 .flex-center {
   display: flex;
   align-items: center; }
+
+.green-text {
+  color: #057C42; }
 
 .tag {
   vertical-align: top;
@@ -2530,15 +2538,15 @@ input.get-this-field-input-year {
   text-decoration: underline; }
 
 .lists-action-button--active {
-  border-color: #CCE6FF;
+  border-color: #126DC1;
   background: #E6F3FF; }
 
-.lists-action-email-form {
+.lists-action-form {
   display: flex;
   margin-top: 1rem;
   max-width: 32rem;
   align-items: flex-end; }
-  .lists-action-email-form .button {
+  .lists-action-form .button {
     margin-left: 1rem; }
 
 .lists-action-field-container {
@@ -2546,6 +2554,11 @@ input.get-this-field-input-year {
 
 .lists-action {
   padding: 1rem 0; }
+
+.lists-action-alert {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0; }
 
 .error-help-section .ask-a-librarian-button {
   display: inline-block;

@@ -4,6 +4,7 @@ import {
 } from '../../../core'
 import prejudice from '../../prejudice'
 import EmailAction from '../EmailAction'
+import TextAction from '../TextAction'
 
 
 class ActionsList extends Component {
@@ -19,6 +20,10 @@ class ActionsList extends Component {
       }
     ],
     active: ''
+  }
+
+  resetActive = () => {
+    this.setState({ active: '' })
   }
 
   handleClick = (type) => {
@@ -62,7 +67,8 @@ class ActionsList extends Component {
             )
           })}
         </ul>
-        {active === 'email' && (<EmailAction />)}
+        {active === 'email' && (<EmailAction {...this.props} resetActive={this.resetActive} />)}
+        {active === 'text' && (<TextAction {...this.props} resetActive={this.resetActive} />)}
       </React.Fragment>
     )
   }

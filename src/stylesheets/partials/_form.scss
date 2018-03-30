@@ -23,6 +23,7 @@ textarea, {
 input[type="text"],
 input[type="search"],
 input[type="email"],
+input[type="tel"],
 input[type="date"] {
   margin: 0;
   padding: 0;
@@ -41,6 +42,10 @@ input[type="search"] {
 
 input[type="search"]:disabled,
 input[type="search"]:read-only,
+input[type="email"]:disabled,
+input[type="email"]:read-only,
+input[type="tel"]:disabled,
+input[type="tel"]:read-only,
 input[type="text"]:disabled,
 input[type="text"]:read-only {
   background: $grey-6;

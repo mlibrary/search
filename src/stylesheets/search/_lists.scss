@@ -132,11 +132,11 @@
 }
 
 .lists-action-button--active {
-  border-color: $main-4;
+  border-color: $main-3;
   background: $main-5;
 }
 
-.lists-action-email-form {
+.lists-action-form {
   display: flex;
   margin-top: 1rem;
   max-width: 32rem;
@@ -153,4 +153,10 @@
 
 .lists-action {
   padding: 1rem 0;
+}
+
+.lists-action-alert {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0;
 }
