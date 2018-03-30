@@ -14,6 +14,7 @@ const prejudice = new Prejudice({
 })
 
 const addRecord = (record) => {
+  console.log('add record', record)
   prejudice.addRecord(record)
 }
 
