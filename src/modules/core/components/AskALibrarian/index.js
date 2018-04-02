@@ -47,7 +47,7 @@ class AskALibrarian extends React.Component {
       const chatWidgetClasses = `chat-widget ${openClass}`
 
       return (
-        <Responsive maxWidth={700}>
+        <Responsive maxWidth={1025}>
           {(matches) => {
             if (matches) {
               return (
