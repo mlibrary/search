@@ -1,10 +1,17 @@
 import React from 'react'
 import axios from 'axios'
+import Responsive from 'react-responsive';
 
 import { Icon } from '../../../core'
 
 class AskALibrarian extends React.Component {
-  state = {}
+  state = {
+    open: false
+  }
+
+  handleClick = () => {
+    this.setState({ open: !this.state.open })
+  }
 
   handleClick() {
     window.open(
@@ -16,8 +23,6 @@ class AskALibrarian extends React.Component {
 
   componentDidMount() {
     const presenceUrl = 'https://libraryh3lp-com.proxy.lib.umich.edu/presence/jid/umlibraryaskalibrarian/chat.libraryh3lp.com/text'
-
-    // TODO: Get status of chat service and set online state as 'online' or 'offline'
 
     axios.get(presenceUrl)
       .then((response) => {
@@ -36,27 +41,40 @@ class AskALibrarian extends React.Component {
       })
   }
 
-  renderStatusIcon() {
-    const { status } = this.state
-
-    switch (status) {
-      case 'online':
-        return <span className="ask-a-librarian-online"><Icon name="comment" /></span>
-      case 'offline':
-        return <Icon name="comment-remove-outline" />
-      default:
-        return <Icon name="comment-outline" />
-    }
-  }
-
   render() {
-    return (
-      <button
-        className="ask-a-librarian-button"
-        aria-label="Open a new window to the Ask a Librarian service."
-        onClick={this.handleClick}
-      >{this.renderStatusIcon()}Ask a Librarian</button>
-    )
+    if (this.state.status === 'online') {
+      const openClass = this.state.open ? "chat-widget--opened" : ""
+      const chatWidgetClasses = `chat-widget ${openClass}`
+
+      return (
+        <Responsive maxWidth={700}>
+          {(matches) => {
+            if (matches) {
+              return (
+                <button
+                  className="chat-widget-button chat-widget-button--small-screens"
+                  onClick={this.handleSmallScreenClick}
+                  role="link"
+                ><Icon name="comment" /><span>Ask a Librarian</span> </button>
+              )
+            } else {
+              return (
+                <div className={chatWidgetClasses}>
+                  <button
+                    className="chat-widget-button"
+                    onClick={this.handleClick}
+                  ><Icon name="comment" /><span>Ask a Librarian</span> </button>
+
+                  <iframe src="https://libraryh3lp.com/chat/umlibraryaskalibrarian@chat.libraryh3lp.com?skin=27279" className="chat-widget-iframe"></iframe>
+                </div>
+              )
+            }
+          }}
+        </Responsive>
+      )
+    }
+
+    return null
   }
 }
 

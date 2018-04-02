@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive';
 import umichBlockM from './umich_block_m.png';
 
-import {
-  AskALibrarian
-} from '../../../core'
-
 class Header extends React.Component {
   render() {
     return  (
@@ -59,9 +55,6 @@ const Menu = () => (
     </li>
     <li>
       <a href="https://www.lib.umich.edu/get-research-help">Get Help</a>
-    </li>
-    <li>
-      <AskALibrarian />
     </li>
     <li>
       <a href="https://www.lib.umich.edu/my-account/">My Account</a>
