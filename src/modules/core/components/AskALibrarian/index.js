@@ -13,7 +13,7 @@ class AskALibrarian extends React.Component {
     this.setState({ open: !this.state.open })
   }
 
-  handleClick() {
+  handleSmallScreenClick = () => {
     window.open(
       "https://libraryh3lp.com/chat/umlibraryaskalibrarian@chat.libraryh3lp.com?skin=27279",
       "_blank",
