@@ -631,12 +631,12 @@ const config = {
         open: true,
       },
       {
-        uid: 'database_type',
+        uid: 'type',
         open: true,
       },
       {
         uid: 'access',
-        open: true,
+        open: false,
       },
     ],
     'journals': [
