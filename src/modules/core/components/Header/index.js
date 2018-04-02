@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import MediaQuery from 'react-responsive';
+import Responsive from 'react-responsive';
 import umichBlockM from './umich_block_m.png';
 
 class Header extends React.Component {
@@ -25,7 +25,7 @@ class Header extends React.Component {
               </ul>
             </div>
 
-            <MediaQuery minDeviceWidth={800}>
+            <Responsive minDeviceWidth={800}>
               {(matches) => {
                 if (matches) {
                   return (
@@ -40,7 +40,7 @@ class Header extends React.Component {
                   )
                 }
               }}
-            </MediaQuery>
+            </Responsive>
           </div>
         </div>
       </header>

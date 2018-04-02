@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import MediaQuery from 'react-responsive';
+import Responsive from 'react-responsive';
 import { _ } from 'underscore'
 import {
   Route,
@@ -134,9 +134,9 @@ class DatastorePageContainer extends React.Component {
                           <Landing activeDatastore={activeDatastore} />
                         </div>
                       ) : (
-                        <MediaQuery minDeviceWidth={960}>
+                        <Responsive minDeviceWidth={960}>
                           <DatastoreInfo activeDatastore={activeDatastore} />
-                        </MediaQuery>
+                        </Responsive>
                       )}
                       <Results searching={searching} activeDatastore={activeDatastore} activeFilterCount={activeFilterCount} />
                     </div>
@@ -160,7 +160,7 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
     <div className="container container-medium flex-container">
       {!activeDatastore.isMultisearch ? (
         <div className="side-container">
-          <MediaQuery minDeviceWidth={960}>
+          <Responsive minDeviceWidth={960}>
             {(matches) => {
               if (matches) {
                 return (
@@ -185,7 +185,7 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
                 )
               }
             }}
-          </MediaQuery>
+          </Responsive>
         </div>
       ) : null }
 
