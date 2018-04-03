@@ -26,9 +26,17 @@
 }
 
 .feedback-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  @media (min-width: $breakpoint-3) {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  margin-bottom: 1rem;
 }
 
 .feedback-close-button {

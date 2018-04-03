@@ -459,11 +459,10 @@ nav {
   padding-top: 1rem;
   padding-bottom: 1rem; }
 
-@media (min-width: 50rem) {
-  .site-header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; } }
+.site-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
 
 .logo-item-list {
   margin: 0;
@@ -521,25 +520,8 @@ nav {
   .logo-block-m {
     padding-right: 0.8rem; } }
 
-.site-header-list {
-  margin: 0;
-  padding: 0;
-  list-style: none; }
-  @media (max-width: 50rem) {
-    .site-header-list {
-      margin-top: 1rem;
-      display: block; } }
-  .site-header-list li {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    margin-left: 2rem; }
-    @media (max-width: 50rem) {
-      .site-header-list li {
-        display: block;
-        margin-left: 0; } }
-    .site-header-list li a {
-      color: white; }
+.site-header-link {
+  color: white; }
 
 .site-footer {
   background: #00274C;
@@ -548,6 +530,17 @@ nav {
   .site-footer a {
     color: white;
     text-decoration: underline; }
+
+.site-footer-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  .site-footer-nav-list li {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 1rem;
+    display: inline-block;
+    margin-right: 1.5rem; }
 
 .callout {
   background: #F2F9FF;
@@ -1831,9 +1824,14 @@ body {
   margin-right: 4rem; }
 
 .feedback-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline; }
+  margin-bottom: 1rem; }
+  @media (min-width: 60rem) {
+    .feedback-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline; } }
+  .feedback-options p {
+    margin: 0; }
 
 .feedback-close-button {
   position: absolute;
@@ -2056,7 +2054,7 @@ input.date-range-input-text {
 
 .chat-widget-button {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   width: 100%;
   background: #fff;

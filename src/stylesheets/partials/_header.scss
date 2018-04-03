@@ -5,11 +5,9 @@
 }
 
 .site-header-container {
-  @media (min-width: $breakpoint-2) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo-item-list {
@@ -88,29 +86,6 @@
   }
 }
 
-.site-header-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  @media (max-width: $breakpoint-2) {
-    margin-top: 1rem;
-    display: block;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    margin-left: 2rem;
-
-    @media (max-width: $breakpoint-2) {
-      display: block;
-      margin-left: 0;
-    }
-
-    a {
-      color: white;
-    }
-  }
+.site-header-link {
+  color: white;
 }

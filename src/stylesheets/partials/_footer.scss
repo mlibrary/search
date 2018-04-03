@@ -8,3 +8,17 @@
     text-decoration: underline;
   }
 }
+
+.site-footer-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 1rem;
+    display: inline-block;
+    margin-right: 1.5rem;
+  }
+}

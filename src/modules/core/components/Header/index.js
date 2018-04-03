@@ -12,11 +12,11 @@ class Header extends React.Component {
             <div className="site-heading">
               <ul className="logo-item-list">
                 <li className="logo-block-m">
-                  <a href="http://lib.umich.edu" className="logo-link">
+                  <a href="http://umich.edu" className="logo-link">
                     <img src={umichBlockM} alt="Go to the University of Michigan Library homepage" />
                   </a>
                 </li>
-                <li className="logo-library"><Link to="/">Library</Link></li>
+                <li className="logo-library"><a href="http://lib.umich.edu">Library</a></li>
                 <li className="logo-search">
                   <span>
                     <Link to="/">Search</Link>
@@ -25,41 +25,12 @@ class Header extends React.Component {
               </ul>
             </div>
 
-            <Responsive minDeviceWidth={800}>
-              {(matches) => {
-                if (matches) {
-                  return (
-                    <Menu />
-                  )
-                } else {
-                  return (
-                    <details className="header-menu-small-screen-details">
-                      <summary className="header-menu-small-screen-summary-button">Menu</summary>
-                      <Menu />
-                    </details>
-                  )
-                }
-              }}
-            </Responsive>
+            <a href="https://www.lib.umich.edu/my-account/" className="site-header-link">My Account</a>
           </div>
         </div>
       </header>
     );
   }
 };
-
-const Menu = () => (
-  <ul className="site-header-list">
-    <li>
-      <Link to="/how-to-use-search">How to Use Search</Link>
-    </li>
-    <li>
-      <a href="https://www.lib.umich.edu/get-research-help">Get Help</a>
-    </li>
-    <li>
-      <a href="https://www.lib.umich.edu/my-account/">My Account</a>
-    </li>
-  </ul>
-)
 
 export default Header;
