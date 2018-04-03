@@ -2034,6 +2034,7 @@ input.date-range-input-text {
 .chat-widget-button {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   background: #fff;
   border: 0;

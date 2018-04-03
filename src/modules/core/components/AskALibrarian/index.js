@@ -41,6 +41,10 @@ class AskALibrarian extends React.Component {
       })
   }
 
+  getButtonText = () => {
+    return this.state.open ? 'Close' : 'Open'
+  }
+
   render() {
     if (this.state.status === 'online') {
       const openClass = this.state.open ? "chat-widget--opened" : ""
@@ -63,7 +67,7 @@ class AskALibrarian extends React.Component {
                   <button
                     className="chat-widget-button"
                     onClick={this.handleClick}
-                  ><Icon name="comment" /><span>Ask a Librarian</span> </button>
+                  ><span><Icon name="comment" /><span>Ask a Librarian</span></span><span className="underline">{this.getButtonText()}</span></button>
 
                   <iframe src="https://libraryh3lp.com/chat/umlibraryaskalibrarian@chat.libraryh3lp.com?skin=27279" className="chat-widget-iframe"></iframe>
                 </div>
