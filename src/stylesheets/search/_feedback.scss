@@ -1,9 +1,10 @@
-.feedback-widget {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.9rem;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1;
+.feedback-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 3rem;
+}
+
+.feedback-link {
+  margin-right: 0.25rem;
 }

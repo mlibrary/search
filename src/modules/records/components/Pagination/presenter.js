@@ -6,6 +6,11 @@ const Pagination = ({
   nextPageURL,
   scrollToTop
 }) => {
+
+  if (!prevPageURL && !nextPageURL) {
+    return null
+  }
+
   return (
     <div className="pagination-container">
       <span>

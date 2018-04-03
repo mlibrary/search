@@ -44,7 +44,7 @@ class EmailAction extends Component {
         </div>
       )
     } else {
-      <div className="alert lists-action-alert">
+      <div className="alert alert-warning lists-action-alert">
         <p><b>Status:</b> {this.state.status}</p>
         <button className="button-link underline" onClick={this.handleCloseStatus}>Close</button>
       </div>

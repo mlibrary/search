@@ -1118,9 +1118,8 @@ body {
     .page {
       padding: 1.5rem; } }
 
-.main-container {
-  background: #F2F2F2;
-  padding-bottom: 3rem; }
+.site-wrapper {
+  background: #F2F2F2; }
 
 /*
   Record
@@ -1809,14 +1808,14 @@ body {
   font-size: 0.85rem;
   border-radius: 0; }
 
-.feedback-widget {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.9rem;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1; }
+.feedback-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 3rem; }
+
+.feedback-link {
+  margin-right: 0.25rem; }
 
 .advanced-search-form {
   margin-bottom: 2rem; }

@@ -80,7 +80,7 @@ class App extends React.Component {
     return (
       <LiveAnnouncer>
         <Provider store={store}>
-          <div>
+          <div className="site-wrapper">
             <A11yLiveMessage />
             <ConnectedRouter history={history}>
               <Main>

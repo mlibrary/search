@@ -34,6 +34,7 @@ class PaginationContainer extends React.Component {
 
     return undefined
   }
+
   nextPageURL() {
     const { search, filters, activeDatastoreUid, history, institution } = this.props
     const query = search.query
@@ -42,7 +43,7 @@ class PaginationContainer extends React.Component {
     const sort = search.sort[activeDatastoreUid]
     const library = activeDatastoreUid === 'mirlyn' ? institution.active : undefined
 
-    if (data && data.totalPages && (data.page >= data.totalPages)) {
+    if ((data.totalPages === 0) || (data.page === data.totalPages)) {
       return undefined
     }
 
@@ -60,11 +61,13 @@ class PaginationContainer extends React.Component {
 
     return undefined
   }
+
   scrollToTop() {
     if (window) {
       window.scrollTo(0, 0)
     }
   }
+
   render() {
     const { records } = this.props;
 
