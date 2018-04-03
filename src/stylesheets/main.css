@@ -1809,13 +1809,37 @@ body {
   border-radius: 0; }
 
 .feedback-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
   margin-top: 3rem; }
 
 .feedback-link {
   margin-right: 0.25rem; }
+
+.feedback-form {
+  position: relative;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem; }
+
+.feedback-form-fieldset {
+  max-width: 32rem; }
+
+.feedback-heading {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-right: 4rem; }
+
+.feedback-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline; }
+
+.feedback-close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  text-decoration: underline; }
 
 .advanced-search-form {
   margin-bottom: 2rem; }
@@ -2086,7 +2110,8 @@ input.date-range-input-text {
   /* keep it to the bottom */
   background: white;
   border-top: solid 2px #E5E5E5;
-  color: #4E4E4E; }
+  color: #4E4E4E;
+  padding-bottom: 5rem; }
   .site-footer p {
     margin: 0; }
   .site-footer a {

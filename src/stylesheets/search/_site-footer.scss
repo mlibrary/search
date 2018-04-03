@@ -11,4 +11,7 @@
   a {
     color: $grey-2;
   }
+
+  // enough room for opened chat widget to not cover footer content.
+  padding-bottom: 5rem;
 }
