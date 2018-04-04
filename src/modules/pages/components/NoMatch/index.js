@@ -12,8 +12,8 @@ const NoMatch = function NoMatch() {
 
   return (
     <div className="container container-narrow">
-      <div className="margin-top-2">
-        <h1>Are you lost?</h1>
+      <div className="page-not-found-container">
+        <h1>Page not found - 404</h1>
         <p>What you're looking for isn't here.</p>
 
         <Link to="/" className="button">Go back home</Link>
