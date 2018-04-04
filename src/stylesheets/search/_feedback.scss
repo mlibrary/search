@@ -1,5 +1,6 @@
 .feedback-container {
-  margin-top: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .feedback-link {
@@ -35,13 +36,15 @@
   p {
     margin: 0;
   }
-
-  margin-bottom: 1rem;
 }
 
 .feedback-close-button {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  text-decoration: underline;
+}
+
+.feedback-qualtrics-link {
   text-decoration: underline;
 }

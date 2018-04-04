@@ -56,12 +56,17 @@ class Feedback extends React.Component {
     }
   }
 
+  renderQualtricsLink = () => {
+    return (
+      <a href="https://survey.az1.qualtrics.com/jfe/form/SV_diE1hL5tUmWT0VL" className="feedback-qualtrics-link">Give feedback about this page</a>
+    )
+  }
+
   render() {
 
     return (
       <div className="container container-narrow feedback-container">
-        {this.renderFeedbackOptions()}
-        {this.renderFeedbackForm()}
+        {this.renderQualtricsLink()}
       </div>
     )
   }
