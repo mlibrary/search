@@ -24,7 +24,7 @@ const Footer = () => {
           </li>
         </ul>
 
-        <p>©2017 Regents of the University of Michigan. For details and exceptions, see the <a href="https://www.lib.umich.edu/library-administration/library-copyright-statement">Copyright Policy</a>.</p>
+        <p>©2018 Regents of the University of Michigan. For details and exceptions, see the <a href="https://www.lib.umich.edu/library-administration/library-copyright-statement">Copyright Policy</a>.</p>
       </div>
     </footer>
   )
