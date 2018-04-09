@@ -58,7 +58,7 @@ class Feedback extends React.Component {
 
   renderQualtricsLink = () => {
     return (
-      <a href="https://survey.az1.qualtrics.com/jfe/form/SV_diE1hL5tUmWT0VL" className="feedback-qualtrics-link">Give feedback about this page</a>
+      <a href="https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf" className="feedback-qualtrics-link">Give feedback about this page</a>
     )
   }
 
