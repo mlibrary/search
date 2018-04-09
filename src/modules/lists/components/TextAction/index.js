@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import prejudice from '../../prejudice'
+import config from '../../../../config'
 
 
 class EmailAction extends Component {
@@ -42,6 +43,13 @@ class EmailAction extends Component {
           <p>Text successfully sent to {this.state.text}</p>
           <button className="button-link underline green-text" onClick={this.handleCloseStatus}>Close</button>
         </div>
+      )
+    } else if (status === 'Not logged in') {
+      const loginRoot = config.loginUrl;
+      const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
+
+      return (
+        <a href={loginUrl} className="button u-margin-top-1"><b>Log in</b> to send text</a>
       )
     } else {
       <div className="alert alert-warning lists-action-alert">
