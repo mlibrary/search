@@ -14,9 +14,8 @@ class FileAction extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
     this.setState({ sent: true })
-    prejudice.instance.act('file', this.props.datastore.uid, 'export-ris', this.handleSubmitCallback)
+    this.props.prejudice.act('file', this.props.datastore.uid, 'export-ris', this.handleSubmitCallback)
   }
 
   handleCloseStatus = () => {

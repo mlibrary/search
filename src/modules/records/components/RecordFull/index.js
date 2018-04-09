@@ -32,13 +32,30 @@ import {
 import {
   setDocumentTitle
 } from '../../../a11y'
+import {
+  ActionsList,
+  prejudice
+} from '../../../lists'
+
+let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
 
 class FullRecord extends React.Component {
+  state = {
+    activeAction: ''
+  }
+
+  setActiveAction = (activeAction) => {
+    this.setState({ activeAction })
+  }
+
   componentWillMount() {
     const { recordUid } = this.props.match.params
     const { datastoreUid } = this.props
 
     requestRecord({ recordUid, datastoreUid })
+    prejudiceInstance = prejudice.createVariableStorageDriverInstance()
+    prejudiceInstance.clearRecords()
+    prejudiceInstance.addRecord({ recordUid, datastoreUid })
   }
 
   componentDidUpdate() {
@@ -49,6 +66,21 @@ class FullRecord extends React.Component {
       // Set page title
       setDocumentTitle([record.names, 'Record', activeDatastore.name])
     }
+  }
+
+  renderActions = () => {
+    const { recordUid } = this.props.match.params
+    const { datastoreUid, datastore } = this.props
+
+    return (
+      <details className="lists-section u-margin-top-1">
+        <summary>
+          <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions</h2>
+          <span className="text-small">Select what to do with this record.</span>
+        </summary>
+        <ActionsList setActive={this.setActiveAction} active={this.state.activeAction} record={{ recordUid, datastoreUid }} prejudice={prejudiceInstance} datastore={datastore} />
+      </details>
+    )
   }
 
   render() {
@@ -91,6 +123,7 @@ class FullRecord extends React.Component {
 
     return (
       <div className="container container-narrow">
+        {this.renderActions()}
         <div className="full-record-container">
           <RecordFullFormats
             fields={record.fields}
@@ -135,6 +168,7 @@ class FullRecord extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    datastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
     record: state.records.record,
     datastoreUid: state.datastores.active,
     datastores: state.datastores,

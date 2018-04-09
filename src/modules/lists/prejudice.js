@@ -41,6 +41,17 @@ const initialize = () => {
   addRecordsToList(listRecords())
 }
 
+const createVariableStorageDriverInstance = () => {
+  const inst = new Prejudice({
+    recordEngine: Pride,
+    datastores: config.datastores.list,
+    recordStorage: Prejudice.VariableStorageDriver,
+    actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development
+  })
+
+  return inst
+}
+
 prejudice.addObserver(observer)
 
 export default {
@@ -49,5 +60,6 @@ export default {
   removeRecord,
   listRecords,
   clearRecords,
+  createVariableStorageDriverInstance,
   instance: prejudice
 }

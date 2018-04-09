@@ -21,7 +21,7 @@ class EmailAction extends Component {
     event.preventDefault();
 
     this.setState({ sent: true })
-    prejudice.instance.act('email', this.props.datastore.uid, this.state.email, this.handleSubmitCallback)
+    this.props.prejudice.act('email', this.props.datastore.uid, this.state.email, this.handleSubmitCallback)
   }
 
   handleCloseStatus = () => {

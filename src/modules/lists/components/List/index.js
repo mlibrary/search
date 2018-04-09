@@ -123,7 +123,7 @@ class List extends Component {
         <section className="lists-section">
           <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions</h2>
           <span className="text-small">Select what to do with this list.</span>
-          <ActionsList {...this.props} listLength={this.getListLength()} setActive={this.setActive} active={this.state.active} />
+          <ActionsList {...this.props} listLength={this.getListLength()} setActive={this.setActive} active={this.state.active} prejudice={prejudice.instance} />
         </section>
         {this.renderList()}
       </article>
