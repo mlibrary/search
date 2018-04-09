@@ -1,5 +1,24 @@
-body {
-  background: white;
+body,
+html {
+  height: 100%;
+  position: relative;
+  background: $grey-7;
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  padding-bottom: 20rem;
+
+  @media (min-width: $breakpoint-1) {
+    padding-bottom: 18rem;
+  }
+
+  @media (min-width: $breakpoint-3) {
+    padding-bottom: 12rem;
+  }
 }
 
 .flex-container {

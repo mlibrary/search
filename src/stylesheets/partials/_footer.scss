@@ -18,7 +18,10 @@
     padding: 0;
     margin: 0;
     margin-bottom: 1rem;
-    display: inline-block;
-    margin-right: 1.5rem;
+
+    @media (min-width: $breakpoint-3) {
+      display: inline-block;
+      margin-right: 1.5rem;
+    }
   }
 }

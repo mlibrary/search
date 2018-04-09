@@ -538,9 +538,11 @@ nav {
   .site-footer-nav-list li {
     padding: 0;
     margin: 0;
-    margin-bottom: 1rem;
-    display: inline-block;
-    margin-right: 1.5rem; }
+    margin-bottom: 1rem; }
+    @media (min-width: 60rem) {
+      .site-footer-nav-list li {
+        display: inline-block;
+        margin-right: 1.5rem; } }
 
 .callout {
   background: #F2F9FF;
@@ -1082,8 +1084,24 @@ nav {
 .filter-group-multiselect {
   border-top: solid 1px #E5E5E5; }
 
-body {
-  background: white; }
+body,
+html {
+  height: 100%;
+  position: relative;
+  background: #F2F2F2; }
+
+#root {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  padding-bottom: 20rem; }
+  @media (min-width: 32rem) {
+    #root {
+      padding-bottom: 18rem; } }
+  @media (min-width: 60rem) {
+    #root {
+      padding-bottom: 12rem; } }
 
 .flex-container {
   display: block; }
@@ -2121,15 +2139,17 @@ input.date-range-input-text {
   margin-bottom: 0.5rem; }
 
 .site-footer {
-  /* keep it to the bottom */
-  background: white;
-  border-top: solid 2px #E5E5E5;
-  color: #4E4E4E;
-  padding-bottom: 5rem; }
+  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%; }
   .site-footer p {
     margin: 0; }
   .site-footer a {
-    color: #4E4E4E; }
+    color: white; }
+  @media (min-width: 60rem) {
+    .site-footer {
+      padding-bottom: 4rem; } }
 
 .checkbox-label {
   display: flex;
