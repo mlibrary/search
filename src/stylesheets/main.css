@@ -1220,6 +1220,11 @@ body {
     margin: 0;
     color: #126DC1; }
 
+@media (min-width: 50rem) {
+  .full-record-title-and-actions-container {
+    display: flex;
+    justify-content: space-between; } }
+
 .full-record-format {
   color: #0C5292;
   margin-right: 1rem;

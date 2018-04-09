@@ -147,6 +147,13 @@
   }
 }
 
+.full-record-title-and-actions-container {
+  @media (min-width: $breakpoint-2) {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
 .full-record-format {
   color: $main-2;
   margin-right: 1rem;

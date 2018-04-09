@@ -36,6 +36,10 @@ import {
   ActionsList,
   prejudice
 } from '../../../lists'
+import {
+  AddToListButton,
+  isInList
+} from '../../../lists'
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
 
@@ -84,7 +88,7 @@ class FullRecord extends React.Component {
   }
 
   render() {
-    const { record, institution, datastoreUid, datastores } = this.props;
+    const { record, institution, datastoreUid, datastores, list } = this.props;
     const { recordUid } = this.props.match.params
 
     if (!record) {
@@ -105,39 +109,46 @@ class FullRecord extends React.Component {
         </div>
       )
     }
-
     const access = filterAccessFields({
       fields: record.fields,
       type: 'access',
       datastore: datastoreUid,
     });
-
     const holdings = record.holdings
-
     const displayFields = getFullRecordDisplayFields({
       fields: record.fields,
       datastore: datastoreUid
     });
-
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+
+    // For adding a blue border when added to list.
+    const inList = isInList(list, record.uid)
+    const recordClassName = inList ? 'full-record-container record--highlight' : 'full-record-container'
+
 
     return (
       <div className="container container-narrow">
         {this.renderActions()}
-        <div className="full-record-container">
+        <div className={recordClassName}>
           <RecordFullFormats
             fields={record.fields}
             datastoreUid={datastoreUid}
           />
           <div className="record-container">
-            <h1 className="full-record-title">
-              {[].concat(record.names).map((title, index) => (
-                <span key={index}>
-                  <TrimString string={title} />
-                </span>
-              ))}
-              <RecommendedResource record={record} />
-            </h1>
+            <div className="full-record-title-and-actions-container">
+              <h1 className="full-record-title">
+                {[].concat(record.names).map((title, index) => (
+                  <span key={index}>
+                    <TrimString string={title} />
+                  </span>
+                ))}
+                <RecommendedResource record={record} />
+              </h1>
+
+              <div className="record-actions-container">
+                <AddToListButton item={record} />
+              </div>
+            </div>
 
             <h3 className="full-record__record-info">Record Info</h3>
             <ShowAdditionalFieldList
@@ -172,7 +183,8 @@ function mapStateToProps(state) {
     record: state.records.record,
     datastoreUid: state.datastores.active,
     datastores: state.datastores,
-    institution: state.institution
+    institution: state.institution,
+    list: state.lists[state.datastores.active],
   }
 }
 
