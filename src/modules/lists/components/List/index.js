@@ -57,7 +57,8 @@ class List extends Component {
       match,
       list,
       datastore,
-      institution
+      institution,
+      searchQuery
     } = this.props
 
     if (!list || this.getListLength() === 0) {
@@ -76,6 +77,7 @@ class List extends Component {
             datastoreUid={datastore.uid}
             key={index}
             institution={institution}
+            searchQuery={searchQuery}
             type='medium'
             list={list} />
         )}
@@ -134,6 +136,7 @@ function mapStateToProps(state) {
     datastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
     list: state.lists[state.datastores.active],
     institution: state.institution,
+    searchQuery: state.router.location.search,
   };
 }
 
