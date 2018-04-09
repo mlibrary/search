@@ -332,7 +332,7 @@ const requestRecord = ({
       }));
     }
     const record = Pride.requestRecord(datastoreUid, recordUid, callback)
-    
+
     // We only want to send holdings requests for
     // record types that have holdings (e.g. the catalog)
     if (datastoreRecordsHaveHoldings(datastoreUid)) {

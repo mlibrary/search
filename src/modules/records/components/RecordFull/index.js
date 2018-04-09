@@ -34,12 +34,13 @@ import {
 } from '../../../a11y'
 import {
   ActionsList,
-  prejudice
-} from '../../../lists'
-import {
+  prejudice,
   AddToListButton,
   isInList
 } from '../../../lists'
+import {
+  NoMatch
+} from '../../../pages'
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
 
@@ -97,6 +98,10 @@ class FullRecord extends React.Component {
           <FullRecordPlaceholder />
         </div>
       )
+    }
+
+    if (record.status === 404) {
+      return <NoMatch />
     }
 
     // Check if the record in state matches the record ID in the URL
