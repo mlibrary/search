@@ -464,6 +464,21 @@ const setupDefaultInstitution = () => {
   store.dispatch(setDefaultInstitution(Pride.Settings.default_institution))
 }
 
+const compareFacetName = (a, b) => {
+  // Use toUpperCase() to ignore character casing
+  const nameA = a.name.toUpperCase();
+  const nameB = b.name.toUpperCase();
+
+  let comparison = 0;
+  if (nameA > nameB) {
+    comparison = 1;
+  } else if (nameA < nameB) {
+    comparison = -1;
+  }
+
+  return comparison;
+}
+
 const setupBrowse = () => {
   /*
     To setup browse
@@ -477,7 +492,7 @@ const setupBrowse = () => {
   ['databases', 'journals'].forEach(datastoreUid => {
     const facets = Pride.AllDatastores.get(datastoreUid).get('facets')
     const facet = _.findWhere(facets, { uid: 'academic_discipline' })
-    const filters = organizeByParents(facet.values)
+    const filters = organizeByParents(facet.values.sort(compareFacetName))
 
     store.dispatch(addBrowseFilter({
       datastoreUid,
