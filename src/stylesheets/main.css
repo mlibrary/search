@@ -1084,24 +1084,8 @@ nav {
 .filter-group-multiselect {
   border-top: solid 1px #E5E5E5; }
 
-body,
-html {
-  height: 100%;
-  position: relative;
-  background: #F2F2F2; }
-
-#root {
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
-  display: block;
-  padding-bottom: 20rem; }
-  @media (min-width: 32rem) {
-    #root {
-      padding-bottom: 18rem; } }
-  @media (min-width: 60rem) {
-    #root {
-      padding-bottom: 12rem; } }
+body {
+  background: white; }
 
 .flex-container {
   display: block; }
@@ -2139,17 +2123,15 @@ input.date-range-input-text {
   margin-bottom: 0.5rem; }
 
 .site-footer {
-  color: white;
-  position: absolute;
-  bottom: 0;
-  width: 100%; }
+  /* keep it to the bottom */
+  background: white;
+  border-top: solid 2px #E5E5E5;
+  color: #4E4E4E;
+  padding-bottom: 5rem; }
   .site-footer p {
     margin: 0; }
   .site-footer a {
-    color: white; }
-  @media (min-width: 60rem) {
-    .site-footer {
-      padding-bottom: 4rem; } }
+    color: #4E4E4E; }
 
 .checkbox-label {
   display: flex;

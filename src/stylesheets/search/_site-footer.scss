@@ -1,20 +1,17 @@
 .site-footer {
-  color: white;
+  /* keep it to the bottom */
+  background: white;
+  border-top: solid 2px $grey-5;
+  color: $grey-2;
 
   p {
     margin: 0;
   }
 
   a {
-    color: white;
+    color: $grey-2;
   }
 
-  @media (min-width: $breakpoint-3) {
-    // enough room for opened chat widget to not cover footer content.
-    padding-bottom: 4rem;
-  }
-
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  // enough room for opened chat widget to not cover footer content.
+  padding-bottom: 5rem;
 }
