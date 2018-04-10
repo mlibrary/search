@@ -16,7 +16,7 @@ class Header extends React.Component {
                     <img src={umichBlockM} alt="Go to the University of Michigan Library homepage" />
                   </a>
                 </li>
-                <li className="logo-library"><a href="http://lib.umich.edu">Library</a></li>
+                <li className="logo-library"><a href="https://www.lib.umich.edu">Library</a></li>
                 <li className="logo-search">
                   <span>
                     <Link to="/">Search</Link>
