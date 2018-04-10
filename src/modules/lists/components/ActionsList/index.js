@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Icon
 } from '../../../core'
-import prejudice from '../../prejudice'
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
@@ -13,15 +12,18 @@ class ActionsList extends Component {
     actions: [
       {
         uid: 'email',
-        name: 'Email'
+        name: 'Email',
+        icon: 'email'
       },
       {
         uid: 'text',
-        name: 'Text'
+        name: 'Text',
+        icon: 'message'
       },
       {
         uid: 'file',
-        name: 'Export RIS'
+        name: 'Export RIS',
+        icon: 'file'
       }
     ]
   }
@@ -43,12 +45,8 @@ class ActionsList extends Component {
 
   render() {
     const {
-      list,
-      datastore,
-      listLength,
       active
     } = this.props
-    const plural = list && listLength === 1 ? '' : 's'
 
     return (
       <React.Fragment>
@@ -58,7 +56,7 @@ class ActionsList extends Component {
             const activeClassName = isActive ? 'lists-action-button--active' : ''
             return (
               <li key={action.uid}>
-                <button className={`button-link lists-action-button ${activeClassName}`} onClick={() => this.handleClick(action.uid)} aria-pressed={isActive}>{action.name}</button>
+                <button className={`button-link lists-action-button ${activeClassName}`} onClick={() => this.handleClick(action.uid)} aria-pressed={isActive}><Icon name={action.icon} />{action.name}</button>
               </li>
             )
           })}

@@ -18,7 +18,6 @@ import {
   clearRecords,
   loadingRecords,
   addHoldings,
-  loadingHoldings,
   setRecordHoldings
 } from '../records';
 

@@ -13,8 +13,7 @@ import {
   searching
 } from '../../actions'
 import {
-  Icon,
-  SkipToID
+  Icon
 } from '../../../core';
 import {
   setDocumentTitle

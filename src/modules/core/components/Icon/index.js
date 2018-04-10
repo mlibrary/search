@@ -104,6 +104,18 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'email':
+    return (
+      <svg viewBox="0 0 20 16" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-213.000000, -76.000000)" fill="#000000">
+            <g transform="translate(212.000000, 75.000000)">
+              <path d="M18.9994,4.99807 L10.9994,9.9981 L2.9994,4.99807 L2.9994,2.99807 L10.9994,7.9981 L18.9994,2.99807 L18.9994,4.99807 Z M18.9994,0.99807 L2.9994,0.99807 C1.8944,0.99807 1.00939,1.89306 1.00939,2.99807 L0.9994,14.9981 C0.9994,16.1021 1.8944,16.9981 2.9994,16.9981 L18.9994,16.9981 C20.1034,16.9981 20.9994,16.1021 20.9994,14.9981 L20.9994,2.99807 C20.9994,1.89306 20.1034,0.99807 18.9994,0.99807 L18.9994,0.99807 Z"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
     case 'newspaper':
     return (
       <svg viewBox="0 0 20 18" version="1.1" className="icon">
@@ -203,7 +215,7 @@ const Icon = ({ name }) => {
     case 'forum':
     return (
       <svg viewBox="0 0 20 20" version="1.1" className="icon">
-        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
           <g transform="translate(-72.000000, -75.000000)" fill="#000000">
             <g transform="translate(72.000000, 75.000000)">
               <path d="M15,10 L15,1 C15,0.45 14.55,0 14,0 L1,0 C0.45,0 0,0.45 0,1 L0,15 L4,11 L14,11 C14.55,11 15,10.55 15,10 L15,10 Z M19,4 L17,4 L17,13 L4,13 L4,15 C4,15.55 4.45,16 5,16 L16,16 L20,20 L20,5 C20,4.45 19.55,4 19,4 L19,4 Z"></path>
@@ -602,7 +614,7 @@ const Icon = ({ name }) => {
     case 'message':
     return (
       <svg viewBox="0 0 20 20" version="1.1" className="icon">
-        <g stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g transform="translate(-223.000000, -113.000000)" fill="#000000">
             <g transform="translate(222.000000, 112.000000)">
               <path d="M18.9994,0.99807 L2.99938,0.99807 C1.89539,0.99807 1.01038,1.89306 1.01038,2.99807 L0.99938,20.9981 L4.99938,16.9981 L18.9994,16.9981 C20.1029,16.9981 20.9994,16.1021 20.9994,14.9981 L20.9994,2.99807 C20.9994,1.89306 20.1029,0.99807 18.9994,0.99807 L18.9994,0.99807 Z"></path>

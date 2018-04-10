@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import prejudice from '../../prejudice'
-import config from '../../../../config'
-
 
 class FileAction extends Component {
   state = {
@@ -30,10 +27,12 @@ class FileAction extends Component {
     if (!status) {
       return null
     } else {
-      <div className="alert alert-warning lists-action-alert">
-        <p><b>Status:</b> {this.state.status}</p>
-        <button className="button-link underline" onClick={this.handleCloseStatus}>Close</button>
-      </div>
+      return (
+        <div className="alert alert-warning lists-action-alert">
+          <p><b>Status:</b> {this.state.status}</p>
+          <button className="button-link underline" onClick={this.handleCloseStatus}>Close</button>
+        </div>
+      )
     }
   }
 

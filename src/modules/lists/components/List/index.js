@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 import { _ } from 'underscore';
 
 import {
@@ -30,8 +29,7 @@ class List extends Component {
 
   getSearchURI = () => {
     const {
-      location,
-      match,
+      match
     } = this.props
 
     return `${match.url.replace(/([\/]list[\/]?)/g, "")}${this.getSearch()}`
@@ -53,8 +51,6 @@ class List extends Component {
 
   renderList = () => {
     const {
-      location,
-      match,
       list,
       datastore,
       institution,
@@ -104,8 +100,6 @@ class List extends Component {
 
   render() {
     const {
-      match,
-      location,
       list,
       datastore
     } = this.props

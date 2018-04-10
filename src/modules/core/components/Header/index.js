@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import Responsive from 'react-responsive';
 import umichBlockM from './umich_block_m.png';
 
 class Header extends React.Component {

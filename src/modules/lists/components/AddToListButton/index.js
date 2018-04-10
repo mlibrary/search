@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import { Icon } from '../../../core'
 import {
@@ -27,12 +26,6 @@ class AddToListButton extends Component {
   }
 
   handleClick = (inList, item) => {
-    const { datastoreUid } = this.props
-    const payload = {
-      datastoreUid,
-      item
-    }
-
     if (!this.state.waitingToBeAddedToList) {
       if (inList) {
         prejudice.removeRecord(item)

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import prejudice from '../../prejudice'
 import config from '../../../../config'
 
 

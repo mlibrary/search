@@ -21,7 +21,6 @@ class ShowAllChildren extends React.Component {
   render() {
     const length = this.props.length || 0
     const show = this.props.show || 1
-    const listClass = this.props.listClass || ''
     const hasShowHideButton = length > show
     const name = this.props.name || undefined
     const showFewerText = this.props.showFewerText || `Show fewer ${name ? name : ''}`

@@ -9,8 +9,7 @@ import Footer from '../Footer/'
 import '../../../../stylesheets/main.css';
 
 import {
-  SiteMessage,
-  SkipToID
+  SiteMessage
 } from '../../../core'
 
 class Main extends React.Component {
