@@ -1309,8 +1309,7 @@ body {
 .full-record__description {
   font-size: 1.2rem;
   margin-top: 0;
-  margin-bottom: 1.5rem;
-  max-width: 38rem; }
+  margin-bottom: 1.5rem; }
 
 .record-person__header-has-picture {
   display: flex;
