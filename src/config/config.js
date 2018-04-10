@@ -353,7 +353,6 @@ const config = {
         standard: [
           'author',
           'publication_date',
-          'abstract',
           'volume',
           'issue',
           'publication_title',
@@ -371,7 +370,8 @@ const config = {
           'doi',
           'subject',
           'language',
-        ]
+        ],
+        description: 'abstract'
       },
       searches: [
         {
@@ -411,13 +411,11 @@ const config = {
       full: {
         standard: [
           'type',
-          'description',
           'access_icon',
           'new',
           'trial',
           'outage',
           'alt_title',
-          'type',
           'coverage',
           'mobile_available',
           'mobile_url',
@@ -426,6 +424,7 @@ const config = {
           'platform',
           'academic_discipline'
         ],
+        description: 'description',
       },
       access: {
         link: 'permalink',

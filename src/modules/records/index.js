@@ -12,6 +12,7 @@ import ViewMARC from './components/ViewMARC';
 import Bookplate from './components/Bookplate';
 import Holdings from './components/Holdings';
 import RecommendedResource from './components/RecommendedResource';
+import RecordDescription from './components/RecordDescription';
 import recordsReducer from './reducer';
 import {
   addRecords,
@@ -49,5 +50,6 @@ export {
   ViewMARC,
   Bookplate,
   Holdings,
-  RecommendedResource
+  RecommendedResource,
+  RecordDescription
 };

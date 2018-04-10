@@ -28,3 +28,29 @@
     display: none;
   }
 }
+
+@media (min-width: $breakpoint-2) {
+  .access-item {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .access-link {
+    white-space: nowrap;
+  }
+}
+
+.full-record__access-container {
+  margin-bottom: 2rem;
+
+  .access-item {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.full-record__access-heading {
+  font-size: 1rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  padding: 0;
+}

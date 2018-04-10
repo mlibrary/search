@@ -24,7 +24,8 @@ import {
   Holdings,
   RecordFullFormats,
   FullRecordPlaceholder,
-  RecommendedResource
+  RecommendedResource,
+  RecordDescription
 } from '../../../records'
 import {
   requestRecord
@@ -155,23 +156,28 @@ class FullRecord extends React.Component {
               </div>
             </div>
 
+            <RecordDescription record={record} />
+
+            {access.length > 0 && (
+              <div className="full-record__access-container">
+                <h3 className="full-record__access-heading">Access</h3>
+                <ShowAllChildren
+                  length={access.length}
+                  show={1}
+                  listClass={'access-list'}>
+                  {access.map((item, key) => (
+                    <AccessItem key={key} type='full' item={item} />
+                  ))}
+                </ShowAllChildren>
+              </div>
+            )}
+
             <h3 className="full-record__record-info">Record Info</h3>
             <ShowAdditionalFieldList
               fields={displayFields}
               datastoreUid={datastoreUid}
               institution={institution}
             />
-
-            {access.length > 0 && (
-              <ShowAllChildren
-                length={access.length}
-                show={1}
-                listClass={'access-list'}>
-                {access.map((item, key) => (
-                  <AccessItem key={key} type='full' item={item} />
-                ))}
-              </ShowAllChildren>
-            )}
           </div>
           {holdings && (<Holdings holdings={holdings} />)}
         </div>

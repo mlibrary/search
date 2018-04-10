@@ -1152,9 +1152,7 @@ body {
   margin-left: 0.5rem; }
 
 .record-field-list {
-  margin-top: 1rem; }
-  .record-field-list .record-field:not(:last-child) {
-    margin-bottom: 0.5rem; }
+  margin-top: 0.5rem; }
   @media (min-width: 50rem) {
     .record-field-list {
       display: table;
@@ -1204,13 +1202,18 @@ body {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24); }
   .full-record-container .record-field-list {
     margin-bottom: 1rem; }
-  @media (min-width: 50rem) {
-    .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
-      padding: 0.5rem 1rem; }
-    .full-record-container .record-field-list .record-field:nth-child(even) {
-      background: #FAFAFA; }
-    .full-record-container .record-field-list .record-field:nth-child(odd) {
-      background: #F2F2F2; } }
+  .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
+    padding: 0.5rem 1rem; }
+    @media (max-width: 50rem) {
+      .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
+        padding: 0; } }
+  @media (max-width: 50rem) {
+    .full-record-container .record-field-list .record-field {
+      padding: 0.5rem 1rem; } }
+  .full-record-container .record-field-list .record-field:nth-child(even) {
+    background: #FAFAFA; }
+  .full-record-container .record-field-list .record-field:nth-child(odd) {
+    background: #F2F2F2; }
 
 .full-record-header {
   display: flex;
@@ -1240,16 +1243,15 @@ body {
 .full-record-title {
   font-size: 1.4rem;
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: 400; }
   @media (min-width: 32rem) {
     .full-record-title {
-      font-size: 2rem;
-      margin-bottom: 2rem; } }
+      font-size: 2rem; } }
 
 .full-record__record-info {
   font-size: 1rem;
-  margin-bottom: 0; }
+  margin: 0; }
 
 /*
   Record special fields
@@ -1303,6 +1305,12 @@ body {
   .record-field-uid-format .record-field-name {
     padding-bottom: 0.5rem;
     margin-right: 0.5rem; } }
+
+.full-record__description {
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  max-width: 38rem; }
 
 .record-person__header-has-picture {
   display: flex;
@@ -1593,6 +1601,24 @@ body {
   margin-right: 1rem; }
   .access-detail:empty {
     display: none; }
+
+@media (min-width: 50rem) {
+  .access-item {
+    display: flex;
+    align-items: flex-start; }
+  .access-link {
+    white-space: nowrap; } }
+
+.full-record__access-container {
+  margin-bottom: 2rem; }
+  .full-record__access-container .access-item {
+    margin-bottom: 0.5rem; }
+
+.full-record__access-heading {
+  font-size: 1rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  padding: 0; }
 
 @-webkit-keyframes placeHolderShimmer {
   0% {
@@ -2493,19 +2519,22 @@ input.get-this-field-input-year {
       text-decoration: underline;
       margin-left: -0.5rem; } }
 
-@media (min-width: 50rem) {
+.record-medium-container .record-actions-container {
+  margin-top: 1rem;
+  margin-bottom: 0; }
+
+@media (min-width: 32rem) {
   .record-medium-container {
     display: flex;
-    justify-content: space-between; } }
+    justify-content: space-between; }
+    .record-medium-container .record-actions-container {
+      margin-top: 0; } }
 
 .record-actions-container {
   display: inline-block;
   white-space: nowrap;
-  margin-top: 1rem; }
-  @media (min-width: 50rem) {
-    .record-actions-container {
-      margin-top: 0;
-      margin-left: 2rem; } }
+  margin-top: 0;
+  margin-bottom: 1rem; }
   .record-actions-container .button-link {
     color: #6E6E6E;
     display: flex;
