@@ -417,7 +417,6 @@ const config = {
           'trial',
           'outage',
           'alt_title',
-          'type',
           'coverage',
           'mobile_available',
           'mobile_url',

@@ -43,10 +43,6 @@
 .record-field-list {
   margin-top: 1rem;
 
-  .record-field:not(:last-child) {
-    margin-bottom: 0.5rem;
-  }
-
   @media (min-width: $breakpoint-2) {
     display: table;
     width: 100%;
@@ -117,19 +113,25 @@
     margin-bottom: 1rem;
   }
 
-  @media (min-width: $breakpoint-2) {
-    .record-field-list {
-      .record-field {
-        dt, dd {
-          padding: 0.5rem 1rem;
+  .record-field-list {
+    .record-field {
+      dt, dd {
+        padding: 0.5rem 1rem;
+
+        @media (max-width: $breakpoint-2) {
+          padding: 0;
         }
       }
-      .record-field:nth-child(even) {
-        background: $grey-6;
+
+      @media (max-width: $breakpoint-2) {
+        padding: 0.5rem 1rem;
       }
-      .record-field:nth-child(odd) {
-        background: $grey-7;
-      }
+    }
+    .record-field:nth-child(even) {
+      background: $grey-6;
+    }
+    .record-field:nth-child(odd) {
+      background: $grey-7;
     }
   }
 }

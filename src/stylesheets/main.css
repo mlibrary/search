@@ -1153,8 +1153,6 @@ body {
 
 .record-field-list {
   margin-top: 1rem; }
-  .record-field-list .record-field:not(:last-child) {
-    margin-bottom: 0.5rem; }
   @media (min-width: 50rem) {
     .record-field-list {
       display: table;
@@ -1204,13 +1202,18 @@ body {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24); }
   .full-record-container .record-field-list {
     margin-bottom: 1rem; }
-  @media (min-width: 50rem) {
-    .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
-      padding: 0.5rem 1rem; }
-    .full-record-container .record-field-list .record-field:nth-child(even) {
-      background: #FAFAFA; }
-    .full-record-container .record-field-list .record-field:nth-child(odd) {
-      background: #F2F2F2; } }
+  .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
+    padding: 0.5rem 1rem; }
+    @media (max-width: 50rem) {
+      .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
+        padding: 0; } }
+  @media (max-width: 50rem) {
+    .full-record-container .record-field-list .record-field {
+      padding: 0.5rem 1rem; } }
+  .full-record-container .record-field-list .record-field:nth-child(even) {
+    background: #FAFAFA; }
+  .full-record-container .record-field-list .record-field:nth-child(odd) {
+    background: #F2F2F2; }
 
 .full-record-header {
   display: flex;
