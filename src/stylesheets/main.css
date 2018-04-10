@@ -2519,19 +2519,22 @@ input.get-this-field-input-year {
       text-decoration: underline;
       margin-left: -0.5rem; } }
 
-@media (min-width: 50rem) {
+.record-medium-container .record-actions-container {
+  margin-top: 1rem;
+  margin-bottom: 0; }
+
+@media (min-width: 32rem) {
   .record-medium-container {
     display: flex;
-    justify-content: space-between; } }
+    justify-content: space-between; }
+    .record-medium-container .record-actions-container {
+      margin-top: 0; } }
 
 .record-actions-container {
   display: inline-block;
   white-space: nowrap;
-  margin-top: 1rem; }
-  @media (min-width: 50rem) {
-    .record-actions-container {
-      margin-top: 0;
-      margin-left: 2rem; } }
+  margin-top: 0;
+  margin-bottom: 1rem; }
   .record-actions-container .button-link {
     color: #6E6E6E;
     display: flex;

@@ -1,20 +1,24 @@
-@media (min-width: $breakpoint-2) {
-  .record-medium-container {
+.record-medium-container {
+  .record-actions-container {
+    margin-top: 1rem;
+    margin-bottom: 0;
+  }
+
+  @media (min-width: $breakpoint-1) {
     display: flex;
     justify-content: space-between;
+
+    .record-actions-container {
+      margin-top: 0;
+    }
   }
 }
 
 .record-actions-container {
   display: inline-block;
   white-space: nowrap;
-  margin-top: 1rem;
-
-
-  @media (min-width: $breakpoint-2) {
-    margin-top: 0;
-    margin-left: 2rem;
-  }
+  margin-top: 0;
+  margin-bottom: 1rem;
 
   .button-link {
     color: $grey-3;
