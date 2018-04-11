@@ -118,7 +118,7 @@ class RecordField extends React.Component {
           <dd className="record-field-value">
             <span className="record-field-value-item">
               {field.value.map((group, groupKey) => (
-                <li className="record-field-value-item record-field-value-list-item" key={groupKey}>
+                <div className="record-field-value-item record-field-value-list-item" key={groupKey}>
                   {group.split(' | ').map((string, stringKey) => (
                     <span key={stringKey}>
                       <RecordFieldValue
@@ -129,7 +129,7 @@ class RecordField extends React.Component {
                         institution={institution} />
                     </span>
                   )).map((item, index) => [index > 0 && (<Icon name='chevron-right'/>), item])}
-                </li>
+                </div>
               ))}
             </span>
           </dd>
@@ -159,13 +159,13 @@ class RecordField extends React.Component {
               show={3}
               listClass={'record-field-value-list'}>
               {field.value.map((value, index) => (
-                <li className="record-field-value-item record-field-value-list-item" key={index}>
+                <span className="record-field-value-item record-field-value-list-item" key={index}>
                   <RecordFieldValue
                     field={field}
                     value={value}
                     datastoreUid={datastoreUid}
                     institution={institution} />
-                </li>
+                </span>
               ))}
             </ShowAllChildren>
           </dd>

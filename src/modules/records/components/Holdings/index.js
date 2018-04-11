@@ -70,7 +70,8 @@ class Holdings extends React.Component {
     const holdingsData = this.props.holdings
 
     return (
-      <div className="holdings">
+      <article className="holdings">
+        <h2 className="offpage">Holdings</h2>
         {Object.keys(holdingsData).map(holdingGroupUid => {
           const {
             heading,
@@ -85,7 +86,7 @@ class Holdings extends React.Component {
           const showAll = _.contains(this.state.show, holdingGroupUid)
 
           return (
-            <div key={holdingGroupUid} className="holding-group">
+            <section key={holdingGroupUid} className="holding-group">
               <div className="holding-group-heading-container">
                 <h3 className="holding-group-heading">{heading}</h3>
                 {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">About location</a> )}
@@ -131,10 +132,10 @@ class Holdings extends React.Component {
                   {showAll ? ('Show Fewer') : (`Show All ${holdings.length}`)} {showAllName}
                 </button>
               )}
-            </div>
+            </section>
           )
         })}
-      </div>
+      </article>
     )
   }
 }

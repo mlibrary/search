@@ -7,7 +7,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" role="contentinfo">
       <div className="container container-narrow">
         <ul className="site-footer-nav-list">
           <li>

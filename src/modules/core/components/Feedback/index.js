@@ -65,9 +65,9 @@ class Feedback extends React.Component {
   render() {
 
     return (
-      <div className="container container-narrow feedback-container">
+      <aside className="container container-narrow feedback-container">
         {this.renderQualtricsLink()}
-      </div>
+      </aside>
     )
   }
 }

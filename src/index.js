@@ -35,9 +35,6 @@ import {
   Main
 } from './modules/core'
 import {
-  A11yLiveMessage
-} from './modules/a11y'
-import {
   AskALibrarian
 } from './modules/core'
 
@@ -81,7 +78,6 @@ class App extends React.Component {
       <LiveAnnouncer>
         <Provider store={store}>
           <div className="site-wrapper">
-            <A11yLiveMessage />
             <ConnectedRouter history={history}>
               <Main>
                 <Route component={GoogleAnalytics} />

@@ -903,10 +903,6 @@ const config = {
         {
           uid: 'academic_discipline',
           type: 'multiple_select',
-        },
-        {
-          uid: 'language',
-          type: 'multiple_select',
         }
       ]
     },

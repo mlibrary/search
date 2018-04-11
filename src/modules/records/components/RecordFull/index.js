@@ -160,7 +160,7 @@ class FullRecord extends React.Component {
 
             {access.length > 0 && (
               <div className="full-record__access-container">
-                <h3 className="full-record__access-heading">Access</h3>
+                <h2 className="full-record__access-heading">Access</h2>
                 <ShowAllChildren
                   length={access.length}
                   show={1}
@@ -172,7 +172,7 @@ class FullRecord extends React.Component {
               </div>
             )}
 
-            <h3 className="full-record__record-info">Record Info</h3>
+            <h2 className="full-record__record-info">Record Info</h2>
             <ShowAdditionalFieldList
               fields={displayFields}
               datastoreUid={datastoreUid}

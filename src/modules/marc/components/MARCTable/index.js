@@ -74,7 +74,7 @@ class MARCTable extends React.Component {
 
     return (
       <div>
-        <h3 className="marc__heading">MARC Data</h3>
+        <h2 className="marc__heading">MARC Data</h2>
         <table className="marc__table">
           <tbody>
             <Leader marc={marc} />

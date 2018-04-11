@@ -72,12 +72,16 @@ class DateRangeInput extends React.Component {
     const { beginQuery } = this.state
 
     return (
-      <input
-        className="date-range-input-text"
-        type="text"
-        value={beginQuery}
-        onChange={(e) => this.handleBeginQueryChange(e.target.value)}>
-      </input>
+      <React.Fragment>
+        <input
+          className="date-range-input-text"
+          placeholder="Start date"
+          aria-label="Start date"
+          type="text"
+          value={beginQuery}
+          onChange={(e) => this.handleBeginQueryChange(e.target.value)}>
+        </input>
+      </React.Fragment>
     )
   }
 
@@ -88,6 +92,8 @@ class DateRangeInput extends React.Component {
       <input
         className="date-range-input-text"
         type="text"
+        aria-label="End date"
+        placeholder="End date"
         value={endQuery}
         onChange={(e) => this.handleEndQueryChange(e.target.value)}>
       </input>
