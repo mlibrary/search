@@ -50,6 +50,21 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'procite':
+    return (
+      <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-28.000000, -11.000000)">
+            <g transform="translate(28.000000, 11.000000)">
+              <path d="M9.00001,7 L9.00001,1.5 L14.50001,7 L9.00001,7 Z M2,0 C0.89499,0 0.01001,0.89599 0.01001,2 L0,18.00003 C0,19.10403 0.88599,20.00003 1.98999,20.00003 L14.00001,20.00003 C15.10401,20.00003 16.00001,19.10403 16.00001,18.00003 L16.00001,6 L10.00001,0 L2,0 L2,0 Z"></path>
+              <text fontFamily="OpenSans, Open Sans" fontSize="11" fontWeight="normal" fill="#FFFFFF">
+                <tspan x="3" y="17">P</tspan>
+              </text>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
     case 'calendar-multiple-check':
     return (
       <svg viewBox="0 0 22 22" version="1.1" className="icon">
@@ -111,6 +126,23 @@ const Icon = ({ name }) => {
           <g transform="translate(-213.000000, -76.000000)" fill="#000000">
             <g transform="translate(212.000000, 75.000000)">
               <path d="M18.9994,4.99807 L10.9994,9.9981 L2.9994,4.99807 L2.9994,2.99807 L10.9994,7.9981 L18.9994,2.99807 L18.9994,4.99807 Z M18.9994,0.99807 L2.9994,0.99807 C1.8944,0.99807 1.00939,1.89306 1.00939,2.99807 L0.9994,14.9981 C0.9994,16.1021 1.8944,16.9981 2.9994,16.9981 L18.9994,16.9981 C20.1034,16.9981 20.9994,16.1021 20.9994,14.9981 L20.9994,2.99807 C20.9994,1.89306 20.1034,0.99807 18.9994,0.99807 L18.9994,0.99807 Z"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
+    case 'endnote':
+    return (
+      <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-28.000000, -11.000000)">
+            <g transform="translate(28.000000, 11.000000)">
+              <g>
+                <path d="M9.00001,7 L9.00001,1.5 L14.50001,7 L9.00001,7 Z M2,0 C0.89499,0 0.01001,0.89599 0.01001,2 L0,18.00003 C0,19.10403 0.88599,20.00003 1.98999,20.00003 L14.00001,20.00003 C15.10401,20.00003 16.00001,19.10403 16.00001,18.00003 L16.00001,6 L10.00001,0 L2,0 L2,0 Z"></path>
+                <text fontFamily="OpenSans, Open Sans" fontSize="11" fontWeight="normal" fill="#FFFFFF">
+                  <tspan x="3" y="17">E</tspan>
+                </text>
+              </g>
             </g>
           </g>
         </g>
@@ -623,6 +655,18 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'text-message':
+    return (
+      <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-22.000000, -11.000000)" fill="#6E6E6E">
+            <g transform="translate(22.000000, 11.000000)">
+              <path d="M17.9975,0.0025 L1.99625,0.0025 C0.8975,0.0025 0.00875,0.9 0.00875,1.99875 L0,20.0025 L3.99875,15.9975 L17.9975,15.9975 C19.0962,15.9975 20,15.1 20,14.0012 L20,1.99875 C20,0.9 19.0962,0.0025 17.9975,0.0025 L17.9975,0.0025 Z M3.99875,6.99875 L15.995,6.99875 L15.995,9.0012 L3.99875,9.0012 L3.99875,6.99875 Z M11.9962,11.9987 L3.99875,11.9987 L3.99875,10.0025 L11.9962,10.0025 L11.9962,11.9987 Z M15.995,5.9975 L3.99875,5.9975 L3.99875,4.00125 L15.995,4.00125 L15.995,5.9975 Z"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
     case 'motion-picture':
     return (
       <svg viewBox="0 0 21 20" version="1.1" className="icon">
@@ -634,6 +678,18 @@ const Icon = ({ name }) => {
               </g>
               <circle id="Oval" cx="3.5" cy="3.5" r="3.5"></circle>
               <circle id="Oval" cx="12.5" cy="3.5" r="3.5"></circle>
+            </g>
+          </g>
+        </g>
+      </svg>
+    )
+    case 'export-ris':
+    return (
+      <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-32.000000, -11.000000)" fill="#6E6E6E">
+            <g transform="translate(0.000000, 11.000000)">
+              <path d="M34.0025,0 C32.89375,0 32.01,0.8975 32.01,2.00125 L32,18.0025 C32,19.1062 32.88875,20 33.9925,20 L45.99875,20 C47.10245,20 48.00125,19.1062 48.00125,18.0025 L48.00125,6 L41.99995,0 M40.99875,1.49835 L46.50245,7.00125 L40.99875,7.00125 M36.9325,10.2237 L44.00245,10.2237 L44.00245,17.295 L41.87875,15.175 L39.05125,18.0025 L36.22375,15.175 L39.05125,12.3488"></path>
             </g>
           </g>
         </g>
@@ -660,6 +716,21 @@ const Icon = ({ name }) => {
               <polygon points="8.4579 7.0001 13.9999 12.5433 14 14 12.5426 14.0002 7.0009 8.4573 1.45785 14.0004 -2.66453526e-14 14 -8e-05 12.5442 5.5439 7.0002 -8e-05 1.45765 -2.66453526e-14 -3.99999999e-05 1.45671 0.00021 7.0008 5.5431 12.5437 0.00021 14 -3.99999999e-05 13.9998 1.4583"></polygon>
             </g>
         </g>
+        </g>
+      </svg>
+    )
+    case 'zotero':
+    return (
+      <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-28.000000, -11.000000)">
+            <g transform="translate(28.000000, 11.000000)">
+              <path d="M9.00001,7 L9.00001,1.5 L14.50001,7 L9.00001,7 Z M2,0 C0.89499,0 0.01001,0.89599 0.01001,2 L0,18.00003 C0,19.10403 0.88599,20.00003 1.98999,20.00003 L14.00001,20.00003 C15.10401,20.00003 16.00001,19.10403 16.00001,18.00003 L16.00001,6 L10.00001,0 L2,0 L2,0 Z"></path>
+              <text fontFamily="OpenSans, Open Sans" fontSize="11" fontWeight="normal" fill="#FFFFFF">
+                <tspan x="3" y="17">Z</tspan>
+              </text>
+            </g>
+          </g>
         </g>
       </svg>
     )

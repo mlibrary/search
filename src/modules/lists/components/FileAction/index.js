@@ -6,6 +6,10 @@ class FileAction extends Component {
     status: undefined
   }
 
+  componentWillUnmount() {
+    this.setState({status: undefined})
+  }
+
   handleSubmitCallback = (data) => {
     this.setState({ status: data.status })
   }
@@ -24,8 +28,18 @@ class FileAction extends Component {
   renderStatus = () => {
     const { status } = this.state
 
+
     if (!status) {
       return null
+    }
+
+    if (status === 'Success') {
+      return (
+        <div className="alert alert-success lists-action-alert">
+          <p>Download successful.</p>
+          <button className="button-link underline green-text" onClick={this.handleCloseStatus}>Close</button>
+        </div>
+      )
     } else {
       return (
         <div className="alert alert-warning lists-action-alert">
@@ -42,7 +56,7 @@ class FileAction extends Component {
     if (!status) {
       return (
         <form className="lists-action-form" onSubmit={this.handleSubmit}>
-          <input type="submit" value="Export RIS" className="button" />
+          <input type="submit" value="Download" className="button" />
         </form>
       )
     }

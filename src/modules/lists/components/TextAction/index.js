@@ -14,6 +14,8 @@ class EmailAction extends Component {
   }
 
   handleSubmitCallback = (data) => {
+    console.log('data', data)
+
     this.setState({ status: data.status })
   }
 
