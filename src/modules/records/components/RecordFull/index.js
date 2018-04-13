@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
 import {
-  withRouter
+  withRouter,
+  Link
 } from 'react-router-dom'
 
 import {
@@ -65,7 +66,17 @@ class FullRecord extends React.Component {
   }
 
   componentDidUpdate() {
-    const { record, datastoreUid, datastores } = this.props;
+    const {
+      record,
+      datastoreUid,
+      datastores
+    } = this.props;
+    const { recordUid } = this.props.match.params
+
+    // If the record isn't in state
+    if (record && record.uid !== recordUid) {
+      requestRecord({ recordUid, datastoreUid })
+    }
 
     if (record) {
       const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
@@ -87,6 +98,25 @@ class FullRecord extends React.Component {
         <ActionsList setActive={this.setActiveAction} active={this.state.activeAction} record={{ recordUid, datastoreUid }} prejudice={prejudiceInstance} datastore={datastore} />
       </details>
     )
+  }
+
+  renderLinkedTitles = (direction, heading) => {
+    const { linkedTitles } = this.props.record
+
+    if (!linkedTitles || !linkedTitles[direction]) {
+      return null
+    }
+
+    if (linkedTitles[direction].length > 0) {
+      return (
+        <section className="linked-titles__section">
+          <h3 className="linked-titles__heading">{heading}</h3>
+          {linkedTitles[direction].map((title, index) => (
+            <Link key={index} to={title.url} className="underline">{title.label}</Link>
+          ))}
+        </section>
+      )
+    }
   }
 
   render() {
@@ -179,6 +209,8 @@ class FullRecord extends React.Component {
               institution={institution}
             />
           </div>
+          {this.renderLinkedTitles('up', 'Included in')}
+          {this.renderLinkedTitles('down', 'Bound with')}
           {holdings && (<Holdings holdings={holdings} />)}
         </div>
 

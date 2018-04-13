@@ -75,6 +75,13 @@ const recordsReducer = (state = recordsInitialState, action) => {
           [action.payload.datastoreUid]: action.payload.loading
         }
       })
+    case actions.ADD_RECORD_LINKED_TITLES:
+      return Object.assign({}, state, {
+        record: {
+          ...state.record,
+          linkedTitles: action.payload
+        }
+      })
     default:
       return state;
   }

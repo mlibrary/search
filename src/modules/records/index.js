@@ -23,7 +23,8 @@ import {
   addHoldings,
   loadingHoldings,
   setRecordHoldings,
-  setRecordGetThis
+  setRecordGetThis,
+  addRecordLinkedTitles
 } from './actions';
 
 export {
@@ -37,6 +38,7 @@ export {
   RecordFullFormats,
   RecordPlaceholder,
   FullRecordPlaceholder,
+  addRecordLinkedTitles,
   clearRecords,
   setRecord,
   clearRecord,

@@ -7,10 +7,13 @@ import { Validator } from 'jsonschema';
 import store from '../../store'
 import config from '../../config';
 
+import getLinkedTitles from './getLinkedTitles'
+
 import {
   setRecord,
   setRecordHoldings,
-  setRecordGetThis
+  setRecordGetThis,
+  addRecordLinkedTitles
 } from '../records';
 
 const isSlugADatastore = (slug) => {
@@ -337,6 +340,7 @@ const requestRecord = ({
     // record types that have holdings (e.g. the catalog)
     if (datastoreRecordsHaveHoldings(datastoreUid)) {
       record.getHoldings((holdings) => {
+        store.dispatch(addRecordLinkedTitles(getLinkedTitles(holdings)))
         store.dispatch(setRecordHoldings(transformHoldings({ datastoreUid, holdings, recordUid })))
       })
     }
