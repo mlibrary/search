@@ -7,7 +7,6 @@ export const ADD_HOLDINGS = 'records/ADD_HOLDINGS';
 export const LOADING_HOLDINGS = 'records/LOADING_HOLDINGS';
 export const SET_RECORD_HOLDINGS = 'records/SET_RECORD_HOLDINGS';
 export const SET_RECORD_GET_THIS = 'records/SET_RECORD_GET_THIS';
-export const ADD_RECORD_LINKED_TITLES = 'records/ADD_RECORD_LINKED_TITLES';
 
 export function addRecords(payload) {
   return { type: ADD_RECORDS, payload };
@@ -43,8 +42,4 @@ export function setRecordHoldings(payload) {
 
 export function setRecordGetThis(payload) {
   return { type: SET_RECORD_GET_THIS, payload };
-}
-
-export function addRecordLinkedTitles(payload) {
-  return { type: ADD_RECORD_LINKED_TITLES, payload };
 }

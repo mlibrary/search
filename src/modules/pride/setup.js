@@ -64,8 +64,6 @@ import {
   addSpecialists
 } from '../specialists'
 
-import getLinkedTitles from './getLinkedTitles'
-
 import prejudice from '../lists/prejudice'
 
 /*
@@ -179,7 +177,6 @@ const setupObservers = (searchObj) => {
           // A record from results is stored seperate from
           // a full record.
           if (uid === fullRecordUid) {
-            store.dispatch(addRecordLinkedTitles(getLinkedTitles(data)))
             store.dispatch(setRecordHoldings(holdings))
           }
         }

@@ -100,25 +100,6 @@ class FullRecord extends React.Component {
     )
   }
 
-  renderLinkedTitles = (direction, heading) => {
-    const { linkedTitles } = this.props.record
-
-    if (!linkedTitles || !linkedTitles[direction]) {
-      return null
-    }
-
-    if (linkedTitles[direction].length > 0) {
-      return (
-        <section className="linked-titles__section">
-          <h3 className="linked-titles__heading">{heading}</h3>
-          {linkedTitles[direction].map((title, index) => (
-            <Link key={index} to={title.url} className="underline">{title.label}</Link>
-          ))}
-        </section>
-      )
-    }
-  }
-
   render() {
     const { record, institution, datastoreUid, datastores, list } = this.props;
     const { recordUid } = this.props.match.params
@@ -209,8 +190,6 @@ class FullRecord extends React.Component {
               institution={institution}
             />
           </div>
-          {this.renderLinkedTitles('up', 'Included in')}
-          {this.renderLinkedTitles('down', 'Bound with')}
           {holdings && (<Holdings holdings={holdings} />)}
         </div>
 

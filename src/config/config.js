@@ -329,6 +329,28 @@ const config = {
               heading: 'Call Number',
             },
           ]
+        },
+        'downlink': {
+          heading: 'Bound with',
+          fields: [
+            {
+              type: 'link',
+              heading: 'Record link',
+              value: { uid: 'label' },
+              link: { uid: 'id' }
+            }
+          ]
+        },
+        'uplink': {
+          heading: 'Included in',
+          fields: [
+            {
+              type: 'link',
+              heading: 'Record link',
+              value: { uid: 'label' },
+              link: { uid: 'id' }
+            }
+          ]
         }
       }
     },
