@@ -434,7 +434,7 @@ const config = {
       full: {
         standard: [
           'type',
-          'access_icon',
+          'smfield_access_type',
           'new',
           'trial',
           'permalink',
@@ -654,12 +654,12 @@ const config = {
         open: true,
       },
       {
-        uid: 'type',
+        uid: 'smfield_access_type',
         open: true,
       },
       {
-        uid: 'access',
-        open: false,
+        uid: 'type',
+        open: true,
       },
     ],
     'journals': [
