@@ -84,9 +84,10 @@ class Holdings extends React.Component {
           } = holdingsData[holdingGroupUid]
           const headings = _.pluck(holdings[0].fields, 'heading')
           const showAll = _.contains(this.state.show, holdingGroupUid)
+          const holdingGroupClassNames = `holding-group holding-group--${holdingGroupUid}`
 
           return (
-            <section key={holdingGroupUid} className="holding-group">
+            <section key={holdingGroupUid} className={holdingGroupClassNames}>
               <div className="holding-group-heading-container">
                 <h3 className="holding-group-heading">{heading}</h3>
                 {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">About location</a> )}

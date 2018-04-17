@@ -1578,6 +1578,10 @@ body {
 .holding-status-checked-out {
   color: #AA5600; }
 
+.holding-group--downlink .holding-link,
+.holding-group--uplink .holding-link {
+  white-space: normal; }
+
 .access-container {
   background: #FAFAFA;
   padding: 1rem 1.5rem;

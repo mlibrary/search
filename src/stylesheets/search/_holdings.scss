@@ -207,3 +207,10 @@
 .holding-status-checked-out {
   color: $orange-1;
 }
+
+.holding-group--downlink,
+.holding-group--uplink {
+  .holding-link {
+    white-space: normal;
+  }
+}
