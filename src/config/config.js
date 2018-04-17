@@ -510,20 +510,13 @@ const config = {
     {
       datastore: 'website',
       medium: [
-        // All Types
         'page_type',
         'date',
-
-        // Website
         'brief_description',
-
-        // Research Guides
         'section_title',
         'section_description',
         'author',
         'academic_discipline',
-
-        // People
         'name',
         'email',
         'picture',
