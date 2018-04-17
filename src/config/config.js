@@ -908,7 +908,7 @@ const config = {
           type: 'multiple_select',
         },
         {
-          uid: 'access',
+          uid: 'smfield_access_type',
           type: 'multiple_select',
         }
       ]
