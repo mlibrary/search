@@ -509,14 +509,10 @@ const config = {
     },
     {
       datastore: 'website',
-      preview: [
-        // People
-        'job_title',
-        'email',
-      ],
       medium: [
         // All Types
         'page_type',
+        'date',
 
         // Website
         'brief_description',
