@@ -35,10 +35,10 @@ class ActionsList extends Component {
         icon: 'endnote'
       },
       {
-        uid: 'procite',
+        uid: 'refworks',
         action: 'file',
-        name: 'Procite',
-        icon: 'procite'
+        name: 'RefWorks',
+        icon: 'export-ris'
       },
       {
         uid: 'zotero',
