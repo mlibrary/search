@@ -29,16 +29,16 @@ class ActionsList extends Component {
         icon: 'export-ris'
       },
       {
+        uid: 'refworks',
+        action: 'file',
+        name: 'RefWorks',
+        icon: 'file'
+      },
+      {
         uid: 'endnote',
         action: 'file',
         name: 'Endnote',
         icon: 'endnote'
-      },
-      {
-        uid: 'refworks',
-        action: 'file',
-        name: 'RefWorks',
-        icon: 'export-ris'
       },
       {
         uid: 'zotero',

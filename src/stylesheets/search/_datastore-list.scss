@@ -9,9 +9,8 @@
 }
 
 .datastore-list {
-  display: inline-flex;
-  margin: 0 0.5rem;
-  margin: 0 3px;
+  margin: 0;
+  display: inline;
 }
 
 .datastore-scroll-x {
@@ -35,6 +34,7 @@
   display: inline-block;
   padding: 0;
   margin: 0;
+  vertical-align: bottom;
 }
 
 .datastore-button {
