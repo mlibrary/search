@@ -2,4 +2,9 @@
   margin-top: 1rem;
   font-size: 0.85rem;
   border-radius: 0;
+  border: none;
+}
+
+.show-all-button__text {
+  border-bottom: solid 1px $grey-4;
 }

@@ -38,7 +38,7 @@ class ShowAllChildren extends React.Component {
         })}
         {hasShowHideButton && (
           <ShowHideButton handleOnClick={this.handleShowToggleClick.bind(this)} show={this.state.show}>
-            {buttonText}
+            <span className="show-all-button__text">{buttonText}</span>
           </ShowHideButton>
         )}
       </React.Fragment>
