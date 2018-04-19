@@ -23,16 +23,16 @@ class ActionsList extends Component {
         icon: 'text-message'
       },
       {
-        uid: 'file',
-        action: 'file',
-        name: 'Export RIS',
-        icon: 'export-ris'
-      },
-      {
         uid: 'refworks',
         action: 'file',
         name: 'RefWorks',
         icon: 'file'
+      },
+      {
+        uid: 'zotero',
+        action: 'file',
+        name: 'Zotero',
+        icon: 'zotero'
       },
       {
         uid: 'endnote',
@@ -41,11 +41,11 @@ class ActionsList extends Component {
         icon: 'endnote'
       },
       {
-        uid: 'zotero',
+        uid: 'ris',
         action: 'file',
-        name: 'Zotero',
-        icon: 'zotero'
-      }
+        name: 'Export RIS',
+        icon: 'export-ris'
+      },
     ]
   }
 
