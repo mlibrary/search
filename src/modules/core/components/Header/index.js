@@ -15,7 +15,7 @@ class Header extends React.Component {
         <A11yLiveMessage />
         <SiteMessage>
           <div className="container container-medium">
-            <p><span className="beta-tag tag">Beta</span>This is new Search. Learn about our <Link to="/feature-road-map">feature road map</Link> and help us make improvements by <a href="https://umich.qualtrics.com/jfe/form/SV_9SH992ZSrUoTeIJ">providing feedback</a>.</p>
+            <p>We are dedicated to making Search as usable and accessible as possible for all users. If you are having trouble using this, <a href="https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf">please let us know</a>. We will support access to <a href="">Mirlyn</a>, <a href="">ArticlesPlus</a>, and <a href="">Search Tools</a> until <b>July 30, 2018</b>. Learn about our <Link to="/feature-road-map">feature road map</Link>.</p>
           </div>
         </SiteMessage>
         <div className="site-header">

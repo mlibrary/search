@@ -27,7 +27,7 @@ body {
   background: white;
   border-radius: 4px;
   padding: 2rem;
-  margin: 1rem;
+  margin: 1rem 0;
   @include box-shadow();
 
   @media (max-width: $breakpoint-2) {
