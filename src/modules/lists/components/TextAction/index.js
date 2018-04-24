@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import config from '../../../../config'
-
+import ActionError from '../ActionError'
 
 class EmailAction extends Component {
   state = {
@@ -14,6 +13,7 @@ class EmailAction extends Component {
   }
 
   handleSubmitCallback = (data) => {
+
     console.log('data', data)
 
     this.setState({ status: data.status })
@@ -31,35 +31,6 @@ class EmailAction extends Component {
     this.setState({ status: undefined, sent: false })
   }
 
-  renderStatus = () => {
-    const { status } = this.state
-
-    if (!status) {
-      return null
-    }
-
-    if (status === 'Success') {
-      return (
-        <div className="alert alert-success lists-action-alert">
-          <p>Text successfully sent to {this.state.text}</p>
-          <button className="button-link underline green-text" onClick={this.handleCloseStatus}>Close</button>
-        </div>
-      )
-    } else if (status === 'Not logged in') {
-      const loginRoot = config.loginUrl;
-      const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
-
-      return (
-        <a href={loginUrl} className="button u-margin-top-1"><b>Log in</b> to send text</a>
-      )
-    } else {
-      <div className="alert alert-warning lists-action-alert">
-        <p><b>Status:</b> {this.state.status}</p>
-        <button className="button-link underline" onClick={this.handleCloseStatus}>Close</button>
-      </div>
-    }
-  }
-
   renderForm = () => {
     const { status } = this.state
 
@@ -69,7 +40,7 @@ class EmailAction extends Component {
           <form className="lists-action-form" onSubmit={this.handleSubmit}>
             <div className="lists-action-field-container">
               <label htmlFor="phoneNumber">Phone number</label>
-              <input id="phoneNumber" type="tel" required value={this.state.text} placeholder="000-000-0000" onChange={this.handleChange}/>
+              <input id="phoneNumber" type="tel" required value={this.state.text} onChange={this.handleChange}/>
             </div>
             <input type="submit" value="Send text" className="button" />
           </form>
@@ -89,7 +60,7 @@ class EmailAction extends Component {
 
     return (
       <section className="lists-action">
-        {this.renderStatus()}
+        <ActionError status={this.state.status} handleCloseStatus={this.handleCloseStatus} />
         {this.renderForm()}
       </section>
     )

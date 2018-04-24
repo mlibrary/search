@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import config from '../../../../config'
+import ActionError from '../ActionError'
 
 class EmailAction extends Component {
   state = {
@@ -26,35 +26,6 @@ class EmailAction extends Component {
   handleCloseStatus = () => {
     this.props.setActive('')
     this.setState({ status: undefined, sent: false })
-  }
-
-  renderStatus = () => {
-    const { status } = this.state
-
-    if (!status) {
-      return null
-    }
-
-    if (status === 'Success') {
-      return (
-        <div className="alert alert-success lists-action-alert">
-          <p>Email successfully sent to {this.state.email}</p>
-          <button className="button-link underline green-text" onClick={this.handleCloseStatus}>Close</button>
-        </div>
-      )
-    } else if (status === 'Not logged in') {
-      const loginRoot = config.loginUrl;
-      const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
-
-      return (
-        <a href={loginUrl} className="button u-margin-top-1"><b>Log in</b> to send email</a>
-      )
-    } else {
-      <div className="alert alert-warning lists-action-alert">
-        <p><b>Status:</b> {this.state.status}</p>
-        <button className="button-link underline" onClick={this.handleCloseStatus}>Close</button>
-      </div>
-    }
   }
 
   renderForm = () => {
@@ -84,7 +55,7 @@ class EmailAction extends Component {
 
     return (
       <section className="lists-action">
-        {this.renderStatus()}
+        <ActionError status={this.state.status} handleCloseStatus={this.handleCloseStatus} />
         {this.renderForm()}
       </section>
     )
