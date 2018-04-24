@@ -434,7 +434,7 @@ const config = {
       full: {
         standard: [
           'type',
-          'smfield_access_type',
+          'access_type',
           'new',
           'trial',
           'permalink',
@@ -643,7 +643,7 @@ const config = {
         open: true,
       },
       {
-        uid: 'smfield_access_type',
+        uid: 'access_type',
         open: true,
       },
       {
@@ -897,7 +897,7 @@ const config = {
           type: 'multiple_select',
         },
         {
-          uid: 'smfield_access_type',
+          uid: 'access_type',
           type: 'multiple_select',
         }
       ]
