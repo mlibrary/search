@@ -15,7 +15,7 @@ class Header extends React.Component {
         <A11yLiveMessage />
         <SiteMessage>
           <div className="container container-medium">
-            <p>We are dedicated to making Search as usable and accessible as possible for all users. If you are having trouble using this site, <a href="https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf">please let us know</a>. We will support access to <a href="">Mirlyn</a>, <a href="">ArticlesPlus</a>, <a href="">Search Tools</a>, and <a href="https://www.lib.umich.edu/">MLibrary Search</a> until <b>July 30, 2018</b>. Learn about our <Link to="/feature-road-map">feature road map</Link>.</p>
+            <p>We are dedicated to making Search as usable and accessible as possible for all users. If you are having trouble using this site, <a href="https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf">please let us know</a>. We will support access to <a href="http://mirlyn.lib.umich.edu/">Mirlyn</a>, <a href="https://www.lib.umich.edu/articles/search">ArticlesPlus</a>, <a href="https://www.lib.umich.edu/searchtools">Search Tools</a>, and <a href="https://www.lib.umich.edu/">MLibrary Search</a> until <b>July 30, 2018</b>. Learn about our <Link to="/feature-road-map">feature road map</Link>.</p>
           </div>
         </SiteMessage>
         <div className="site-header">
