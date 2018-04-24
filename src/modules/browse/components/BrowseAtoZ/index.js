@@ -41,10 +41,10 @@ class BrowseAtoZ extends React.Component {
             </li>
           ))}
           <li className="browse-item"><button className="browse-button" onClick={() => this.handleClick({
-            filter: { 'initial_title': '0-9' }
+            filter: { 'title_initial': '0-9' }
           })}>0-9</button></li>
           <li className="browse-item"><button className="browse-button" onClick={() => this.handleClick({
-            filter: { 'initial_title': 'Other' }
+            filter: { 'title_initial': 'Other' }
           })}>Other</button></li>
         </ul>
       </section>
