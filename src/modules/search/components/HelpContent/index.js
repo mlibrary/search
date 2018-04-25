@@ -130,7 +130,7 @@ class HelpContent extends React.Component {
           <section>
             <h2>How do I get more help?</h2>
 
-            <p>You can contact <a className="underline" href="https://www.lib.umich.edu/get-research-help">Get Research Help</a> by email, Ask a Librarian chat, or phone.</p>
+            <p>Contact <a className="underline" href="https://www.lib.umich.edu/ask-librarian">Ask a Librarian</a> for chat, email, or phone assistance. See <a className="underline" href="https://www.lib.umich.edu/get-research-help">Get Research Help</a> for additional resources.</p>
           </section>
         </article>
       </div>

@@ -73,7 +73,7 @@ class MARCTable extends React.Component {
     const { marc } = this.props;
 
     return (
-      <div>
+      <div className="marc__container">
         <h2 className="marc__heading">MARC Data</h2>
         <table className="marc__table">
           <tbody>
