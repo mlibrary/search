@@ -97,7 +97,7 @@
 
 .lists-actions-list {
   margin: 0;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   padding: 0;
   list-style: none;
 
@@ -156,7 +156,8 @@
 .lists-action-form {
   display: flex;
   margin-top: 1rem;
-  max-width: 24rem;
+  max-width: 100%;
+  width: 24rem;
   align-items: flex-end;
 
   & > * {
@@ -182,10 +183,14 @@
   margin-top: 1rem;
   order: 1;
 
-  .lists-actions-list {
-    text-align: center;
-    margin: 0;
+  .lists-action {
+    margin-top: 0.5rem;
   }
+}
+
+.lists-actions__heading-tag {
+  font-weight: 400;
+  margin-left: 1rem;
 }
 
 .full-record__actions-heading {
