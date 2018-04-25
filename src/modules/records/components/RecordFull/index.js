@@ -90,6 +90,12 @@ class FullRecord extends React.Component {
     const { datastoreUid, datastore } = this.props
 
     return (
+      <div className="full-record__actions-container">
+        <ActionsList setActive={this.setActiveAction} active={this.state.activeAction} record={{ recordUid, datastoreUid }} prejudice={prejudiceInstance} datastore={datastore} />
+      </div>
+    )
+
+    return (
       <details className="lists-section u-margin-top-1">
         <summary>
           <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions</h2>
@@ -144,8 +150,7 @@ class FullRecord extends React.Component {
 
 
     return (
-      <div className="container container-narrow">
-        {this.renderActions()}
+      <div className="container container-narrow full-record-page-container">
         <div className={recordClassName}>
           <RecordFullFormats
             fields={record.fields}
@@ -192,7 +197,7 @@ class FullRecord extends React.Component {
           </div>
           {holdings && (<Holdings holdings={holdings} />)}
         </div>
-
+        {this.renderActions()}
         {datastoreUid === 'mirlyn' && <ViewMARC record={record} />}
       </div>
     )

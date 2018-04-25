@@ -1196,10 +1196,11 @@ body {
 */
 .full-record-container {
   margin-top: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   background: white;
   border-radius: 4px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24); }
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+  order: 2; }
   .full-record-container .record-field-list {
     margin-bottom: 1rem; }
   .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
@@ -1310,6 +1311,11 @@ body {
   font-size: 1.2rem;
   margin-top: 0;
   margin-bottom: 1.5rem; }
+
+@media (min-width: 50rem) {
+  .full-record-page-container {
+    display: flex;
+    flex-direction: column; } }
 
 .record-person__header-has-picture {
   display: flex;
@@ -2144,8 +2150,9 @@ input.date-range-input-text {
 
 .marc-link-container {
   text-align: center;
-  margin-top: -1.5rem;
-  margin-bottom: 2rem; }
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  order: 3; }
 
 .bookplate-image {
   width: 100%;
@@ -2686,9 +2693,23 @@ input.get-this-field-input-year {
   margin-bottom: 0.5rem;
   margin-top: 1.5em; }
 
-.list-action-heading {
+.full-record__actions-container {
+  background: #FAFAFA;
+  border-radius: 4px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 0;
+  margin-top: 1rem;
+  order: 1; }
+  .full-record__actions-container .lists-actions-list {
+    text-align: center;
+    margin: 0; }
+
+.full-record__actions-heading {
   font-size: 1rem;
-  font-weight: 400; }
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  text-align: center; }
 
 .lists-action-alert {
   display: flex;
