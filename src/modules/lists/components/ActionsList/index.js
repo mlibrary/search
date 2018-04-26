@@ -75,9 +75,9 @@ class ActionsList extends Component {
 
     return (
       <React.Fragment>
-        {active.action === 'email' && (<EmailAction {...this.props} />)}
-        {active.action === 'text' && (<TextAction {...this.props} />)}
-        {active.action === 'file' && (<FileAction {...this.props} />)}
+        {active.action === 'email' && (<EmailAction action={active} {...this.props} />)}
+        {active.action === 'text' && (<TextAction action={active} {...this.props} />)}
+        {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
       </React.Fragment>
     )
   }

@@ -2693,9 +2693,7 @@ input.get-this-field-input-year {
   width: 100%; }
 
 .lists-action {
-  padding: 0;
-  margin-bottom: 0.5rem;
-  margin-top: 1.5em; }
+  padding: 0; }
 
 .full-record__actions-container {
   background: #FAFAFA;

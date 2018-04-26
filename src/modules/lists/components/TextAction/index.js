@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ActionError from '../ActionError'
 
-class EmailAction extends Component {
+class TextAction extends Component {
   state = {
     text: '',
     sent: false,
@@ -13,10 +13,7 @@ class EmailAction extends Component {
   }
 
   handleSubmitCallback = (data) => {
-
-    console.log('data', data)
-
-    this.setState({ status: data.status })
+    this.setState({ status: data })
   }
 
   handleSubmit = (event) => {
@@ -40,7 +37,7 @@ class EmailAction extends Component {
           <form className="lists-action-form" onSubmit={this.handleSubmit}>
             <div className="lists-action-field-container">
               <label htmlFor="phoneNumber">Phone number</label>
-              <input id="phoneNumber" type="tel" required value={this.state.text} onChange={this.handleChange}/>
+              <input id="phoneNumber" type="tel" placeholder="000-123-5555" required value={this.state.text} onChange={this.handleChange}/>
             </div>
             <input type="submit" value="Send text" className="button" />
           </form>
@@ -52,7 +49,7 @@ class EmailAction extends Component {
   }
 
   render() {
-    const { listLength } = this.props
+    const { listLength, action } = this.props
 
     if (listLength === 0) {
       return null
@@ -60,11 +57,11 @@ class EmailAction extends Component {
 
     return (
       <section className="lists-action">
-        <ActionError status={this.state.status} handleCloseStatus={this.handleCloseStatus} />
+        <ActionError status={this.state.status} action={action} handleCloseStatus={this.handleCloseStatus} />
         {this.renderForm()}
       </section>
     )
   }
 }
 
-export default EmailAction
+export default TextAction

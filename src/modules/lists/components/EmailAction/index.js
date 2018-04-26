@@ -13,7 +13,7 @@ class EmailAction extends Component {
   }
 
   handleSubmitCallback = (data) => {
-    this.setState({ status: data.status })
+    this.setState({ status: data })
   }
 
   handleSubmit = (event) => {
@@ -47,7 +47,7 @@ class EmailAction extends Component {
   }
 
   render() {
-    const { listLength } = this.props
+    const { listLength, action } = this.props
 
     if (listLength === 0) {
       return null
@@ -55,7 +55,7 @@ class EmailAction extends Component {
 
     return (
       <section className="lists-action">
-        <ActionError status={this.state.status} handleCloseStatus={this.handleCloseStatus} />
+        <ActionError status={this.state.status} action={action} handleCloseStatus={this.handleCloseStatus} />
         {this.renderForm()}
       </section>
     )
