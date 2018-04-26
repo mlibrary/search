@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import config from '../../../../config'
 
 
 const StatusMessage = ({ status, message, children, handleCloseStatus}) => {
@@ -39,13 +38,6 @@ class ActionError extends Component {
           <StatusMessage status={status} handleCloseStatus={handleCloseStatus}>
             Please enter a valid 10-digit phone number (e.g. 000-123-5555)
           </StatusMessage>
-        )
-      case 'action.response.authentication.required':
-        const loginRoot = config.loginUrl;
-        const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
-
-        return (
-          <a href={loginUrl} className="button u-margin-top-1"><b>Log in</b> to continue</a>
         )
       default:
         return (

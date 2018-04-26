@@ -130,7 +130,7 @@ function mapStateToProps(state) {
     datastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
     list: state.lists[state.datastores.active],
     institution: state.institution,
-    searchQuery: state.router.location.search,
+    searchQuery: state.router.location.search
   };
 }
 

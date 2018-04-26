@@ -19,6 +19,7 @@ import { browseReducer } from './modules/browse'
 import { specialistsReducer } from './modules/specialists'
 import { listsReducer } from './modules/lists'
 import { a11yReducer } from './modules/a11y'
+import { profileReducer } from './modules/profile'
 
 import history from './history'
 
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   specialists: specialistsReducer,
   lists: listsReducer,
   a11y: a11yReducer,
+  profile: profileReducer
 })
 
 const middleware = [routerMiddleware(history)]

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ActionError from '../ActionError'
 
 class TextAction extends Component {
@@ -6,6 +7,14 @@ class TextAction extends Component {
     text: '',
     sent: false,
     status: undefined
+  }
+
+  componentDidMount() {
+    const { profile } = this.props
+
+    if (profile.text) {
+      this.setState({ text: profile.text })
+    }
   }
 
   handleChange = (event) => {
@@ -31,7 +40,7 @@ class TextAction extends Component {
   renderForm = () => {
     const { status } = this.state
 
-    if (!status) {
+    if (!status || status.status_code !== 'action.response.success') {
       return (
         <React.Fragment>
           <form className="lists-action-form" onSubmit={this.handleSubmit}>
@@ -64,4 +73,10 @@ class TextAction extends Component {
   }
 }
 
-export default TextAction
+function mapStateToProps(state) {
+  return {
+    profile: state.profile,
+  };
+}
+
+export default connect(mapStateToProps)(TextAction);

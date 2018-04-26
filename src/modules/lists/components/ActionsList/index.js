@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   Icon
 } from '../../../core'
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
+import { AuthenticationRequired } from '../../../profile'
 
 class ActionsList extends Component {
   state = {
@@ -74,8 +76,10 @@ class ActionsList extends Component {
 
     return (
       <React.Fragment>
-        {active.action === 'email' && (<EmailAction action={active} {...this.props} />)}
-        {active.action === 'text' && (<TextAction action={active} {...this.props} />)}
+        <AuthenticationRequired>
+          {active.action === 'email' && (<EmailAction action={active} {...this.props} />)}
+          {active.action === 'text' && (<TextAction action={active} {...this.props} />)}
+        </AuthenticationRequired>
         {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
       </React.Fragment>
     )
@@ -107,4 +111,10 @@ class ActionsList extends Component {
   }
 }
 
-export default ActionsList
+function mapStateToProps(state) {
+  return {
+    profile: state.profile,
+  };
+}
+
+export default connect(mapStateToProps)(ActionsList);

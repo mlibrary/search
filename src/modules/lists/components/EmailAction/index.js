@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ActionError from '../ActionError'
 
 class EmailAction extends Component {
@@ -6,6 +7,14 @@ class EmailAction extends Component {
     email: '',
     sent: false,
     status: undefined
+  }
+
+  componentDidMount() {
+    const { email } = this.props.profile
+
+    if (email) {
+      this.setState({ email })
+    }
   }
 
   handleChange = (event) => {
@@ -31,7 +40,7 @@ class EmailAction extends Component {
   renderForm = () => {
     const { status } = this.state
 
-    if (!status) {
+    if (!status || status.status_code !== 'action.response.success') {
       return (
         <form className="lists-action-form" onSubmit={this.handleSubmit}>
           <div className="lists-action-field-container">
@@ -62,4 +71,10 @@ class EmailAction extends Component {
   }
 }
 
-export default EmailAction
+function mapStateToProps(state) {
+  return {
+    profile: state.profile,
+  };
+}
+
+export default connect(mapStateToProps)(EmailAction);
