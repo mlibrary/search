@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import config from '../../../../config'
 
 const StatusMessage = ({ status, message, children, handleCloseStatus}) => {
-  const alertStatus = status.status_code === 'action.response.success' ? 'alert-success' : 'alert-warning'
+  const alertStatus = status.status_code === 'action.response.success' ? 'alert-success' : 'alert-error'
 
   return (
     <div className={`alert lists-action-alert ${alertStatus}`}>
