@@ -6,7 +6,6 @@ import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
 
-
 class ActionsList extends Component {
   state = {
     actions: [

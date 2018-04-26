@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import config from '../../../../config'
 
+
 const StatusMessage = ({ status, message, children, handleCloseStatus}) => {
   const alertStatus = status.status_code === 'action.response.success' ? 'alert-success' : 'alert-error'
 
@@ -24,7 +25,7 @@ class ActionError extends Component {
       case 'action.response.success':
         return (
           <StatusMessage status={status} handleCloseStatus={handleCloseStatus}>
-            {action.name} successfuly sent.
+            {action.name} successfully sent.
           </StatusMessage>
         )
       case 'action.response.invalid.email':
