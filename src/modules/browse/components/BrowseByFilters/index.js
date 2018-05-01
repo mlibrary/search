@@ -96,7 +96,8 @@ class BrowseByFilters extends React.Component {
     } = this.props
 
     const queryString = qs.stringify({
-      filter: { [filterUid]: value }
+      filter: { [filterUid]: value },
+      sort: 'title_asc'
     }, {
       arrayFormat: 'repeat',
       encodeValuesOnly: true,
