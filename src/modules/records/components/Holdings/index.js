@@ -51,7 +51,7 @@ const FieldValue = ({ field }) => {
 
 const Heading = ({level, children, className}) => {
   const Tag = level ? `h${level}` : `p`
-  
+
   return (
     <Tag className={className}>{children}</Tag>
   )
@@ -138,6 +138,7 @@ class Holdings extends React.Component {
               {holdings.length > 1 && (
                 <button
                   className="button-light holdings-show-all-button"
+                  aria-expanded={showAll}
                   onClick={() => this.handleShowAllClick(holdingGroupUid)}>
                   {showAll ? ('Show Fewer') : (`Show All ${holdings.length}`)} {showAllName}
                 </button>
