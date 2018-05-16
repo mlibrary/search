@@ -73,16 +73,6 @@ class SearchBox extends React.Component {
     }
   }
 
-  componentDidUpdate() {
-    const { activeDatastore } = this.props
-
-    if (this.props.query) {
-      setDocumentTitle([this.props.query, activeDatastore.name])
-    } else {
-      setDocumentTitle([activeDatastore.name])
-    }
-  }
-
   render() {
     const { match, location, queryInput, isAdvanced, datastores, activeDatastore } = this.props
 

@@ -2,7 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import _ from 'underscore'
-
+import {
+  setDocumentTitle
+} from '../../../a11y'
 import {
   BrowseAtoZ,
   BrowseByFilters
@@ -15,6 +17,8 @@ class BrowsePage extends React.Component {
       datastore,
       browse
     } = this.props;
+
+    setDocumentTitle(['Browse', datastore.name])
 
     return (
       <div className="container container-narrow">

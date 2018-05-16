@@ -57,6 +57,10 @@ import {
   List
 } from '../../../lists'
 
+import {
+  setDocumentTitle
+} from '../../../a11y'
+
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class DatastorePageContainer extends React.Component {
@@ -73,7 +77,8 @@ class DatastorePageContainer extends React.Component {
       match,
       location,
       isAdvanced,
-      activeFilterCount
+      activeFilterCount,
+      query
     } = this.props;
 
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
@@ -126,7 +131,13 @@ class DatastorePageContainer extends React.Component {
                     <List />
                   )
                 }}/>
-                <Route match={match.url} render={(props) => {
+                <Route match={match.url} render={() => {
+                  if (query) {
+                    setDocumentTitle([query, activeDatastore.name])
+                  } else {
+                    setDocumentTitle([activeDatastore.name])
+                  }
+
                   return (
                     <div>
                       {!searching ? (
@@ -212,6 +223,7 @@ function mapStateToProps(state) {
 
   return {
     searching: state.search.searching,
+    query: state.search.query,
     datastores: state.datastores,
     location: state.router.location,
     isAdvanced: state.advanced[state.datastores.active] ? true : false,
