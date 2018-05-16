@@ -177,7 +177,7 @@ const config = {
             {
               type: 'button-link',
               heading: 'Link',
-              value: 'Available online',
+              value: { uid: 'link_text' },
               link: { uid: 'href' },
             },
             {

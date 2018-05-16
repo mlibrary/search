@@ -65,6 +65,7 @@ import {
 } from '../specialists'
 
 import prejudice from '../lists/prejudice'
+import { setupProfile } from '../profile'
 
 /*
   Pride Internal Configuration
@@ -516,8 +517,9 @@ const initializePride = () => {
       setupAdvancedSearch()
       setupDefaultInstitution()
       setupBrowse()
-      renderApp();
+      renderApp()
       prejudice.initialize()
+      setupProfile()
     },
     failure: () => {
       renderPrideFailedToLoad();

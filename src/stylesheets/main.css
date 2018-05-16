@@ -434,7 +434,7 @@ nav {
   background: #FFEEDD;
   border-color: #E77504; }
 
-.alert-danger {
+.alert-error {
   background: #FFEAE7;
   border-color: #ED5D47; }
 
@@ -1138,7 +1138,9 @@ body {
   font-weight: 600;
   font-size: 1.25rem;
   text-decoration: none;
-  margin: 0; }
+  margin: 0;
+  margin-right: 1rem;
+  margin-bottom: 1rem; }
   .record-title .icon {
     width: 0.85rem;
     color: #6E6E6E; }
@@ -1279,16 +1281,6 @@ body {
   width: 0.75rem;
   height: 0.65rem;
   margin: 0 0.25rem; }
-
-.record-field-value .show-all-list-container .show-all-button {
-  display: block;
-  margin: 0.25rem 0;
-  font-size: 0.85rem;
-  border: none;
-  color: #4E4E4E;
-  border: solid 1px #CCC;
-  border-radius: 3px;
-  padding: 0 0.4rem; }
 
 .record-field-value-link {
   text-decoration: underline; }
@@ -1843,7 +1835,6 @@ body {
     fill: currentColor; }
 
 .show-all-button {
-  margin-top: 1rem;
   font-size: 0.85rem;
   border-radius: 0;
   border: none; }
@@ -2693,9 +2684,7 @@ input.get-this-field-input-year {
   width: 100%; }
 
 .lists-action {
-  padding: 0;
-  margin-bottom: 0.5rem;
-  margin-top: 1.5em; }
+  padding: 0; }
 
 .full-record__actions-container {
   background: #FAFAFA;

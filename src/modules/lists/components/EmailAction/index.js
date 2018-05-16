@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ActionError from '../ActionError'
 
 class EmailAction extends Component {
@@ -8,12 +9,20 @@ class EmailAction extends Component {
     status: undefined
   }
 
+  componentDidMount() {
+    const { email } = this.props.profile
+
+    if (email) {
+      this.setState({ email })
+    }
+  }
+
   handleChange = (event) => {
     this.setState({ email: event.target.value })
   }
 
   handleSubmitCallback = (data) => {
-    this.setState({ status: data.status })
+    this.setState({ status: data })
   }
 
   handleSubmit = (event) => {
@@ -31,7 +40,7 @@ class EmailAction extends Component {
   renderForm = () => {
     const { status } = this.state
 
-    if (!status) {
+    if (!status || status.status_code !== 'action.response.success') {
       return (
         <form className="lists-action-form" onSubmit={this.handleSubmit}>
           <div className="lists-action-field-container">
@@ -47,7 +56,7 @@ class EmailAction extends Component {
   }
 
   render() {
-    const { listLength } = this.props
+    const { listLength, action } = this.props
 
     if (listLength === 0) {
       return null
@@ -55,11 +64,17 @@ class EmailAction extends Component {
 
     return (
       <section className="lists-action">
-        <ActionError status={this.state.status} handleCloseStatus={this.handleCloseStatus} />
+        <ActionError status={this.state.status} action={action} handleCloseStatus={this.handleCloseStatus} />
         {this.renderForm()}
       </section>
     )
   }
 }
 
-export default EmailAction
+function mapStateToProps(state) {
+  return {
+    profile: state.profile,
+  };
+}
+
+export default connect(mapStateToProps)(EmailAction);

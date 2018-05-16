@@ -1,7 +1,7 @@
 import React from 'react';
 
 const isRecommended = (record) => {
-  return record.fields.filter(item => item.uid === 'recommended').length
+  return record.fields.filter(item => item.uid === 'highly_recommended').length
 }
 
 const RecommendedResource = ({ record }) => {

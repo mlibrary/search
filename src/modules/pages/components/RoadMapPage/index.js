@@ -36,7 +36,7 @@ class RoadMapPage extends React.Component {
           </section>
 
           <section>
-            <h2>Feedbacked Wanted</h2>
+            <h2>Feedback Wanted</h2>
 
             <p>We want and appreciate your feedback on our new search interface. When you see something you wish were different -- or like -- let us know through the feedback link below or by contacting us through one of the email addresses below.</p>
 
