@@ -69,7 +69,7 @@ class AskALibrarian extends React.Component {
                     onClick={this.handleClick}
                   ><span><Icon name="comment" /><span>Ask a Librarian</span></span><span className="underline">{this.getButtonText()}</span></button>
 
-                  <iframe src="https://libraryh3lp.com/chat/umlibraryaskalibrarian@chat.libraryh3lp.com?skin=27279" className="chat-widget-iframe" title="Ask a Librarian chat service"></iframe>
+                <iframe hidden={!this.state.open} src="https://libraryh3lp.com/chat/umlibraryaskalibrarian@chat.libraryh3lp.com?skin=27279" className="chat-widget-iframe" title="Ask a Librarian chat service"></iframe>
                 </div>
               )
             }
