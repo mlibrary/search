@@ -13,24 +13,27 @@ const SpecialistList = ({
   }
 
   return (
-    <article className="specialists">
-      <div className="specialists__inner-container">
-        <header>
-          <h1 className="specialists__heading">Talk to a Library Specialist</h1>
-        </header>
+    <React.Fragment>
+      <article className="specialists">
+        <div className="specialists__inner-container">
+          <header>
+            <h2 className="specialists__heading">Talk to a Library Specialist</h2>
+          </header>
 
-        <section className="specialists__content">
-          <ShowAllChildren
-            length={specialists.length}
-            show={show}
-            name={'specialists'}>
-            {specialists.map((person, index) => (
-              <Specialist key={index} person={person} />
-            ))}
-          </ShowAllChildren>
-        </section>
-      </div>
-    </article>
+          <section className="specialists__content">
+            <ShowAllChildren
+              length={specialists.length}
+              show={show}
+              name={'specialists'}>
+              {specialists.map((person, index) => (
+                <Specialist key={index} person={person} />
+              ))}
+            </ShowAllChildren>
+          </section>
+        </div>
+      </article>
+      <h2 className="offpage">Results continued</h2>
+    </React.Fragment>
   )
 }
 

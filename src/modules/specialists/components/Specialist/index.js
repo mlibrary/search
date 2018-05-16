@@ -8,7 +8,7 @@ const Specialist = ({ person }) => (
     </div>
     <div>
       <header>
-        <h2 className="specialist__heading"><a href={person.url} className="specialist__url">{person.name}</a><Icon name="launch" /></h2>
+        <h3 className="specialist__heading"><a href={person.url} className="specialist__url">{person.name}</a><Icon name="launch" /></h3>
       </header>
       <section>
         <p className="specialist__job-title">{person.job_title}</p>

@@ -49,6 +49,14 @@ const FieldValue = ({ field }) => {
   }
 }
 
+const Heading = ({level, children, className}) => {
+  const Tag = level ? `h${level}` : `p`
+  
+  return (
+    <Tag className={className}>{children}</Tag>
+  )
+}
+
 class Holdings extends React.Component {
   state = {
     show: []
@@ -68,10 +76,11 @@ class Holdings extends React.Component {
 
   render() {
     const holdingsData = this.props.holdings
+    const headingLevel = this.props.headingLevel ? this.props.headingLevel : 2
 
     return (
       <article className="holdings">
-        <h2 className="offpage">Holdings</h2>
+        <Heading className="offpage" level={headingLevel}>Holdings</Heading>
         {Object.keys(holdingsData).map(holdingGroupUid => {
           const {
             heading,
@@ -89,7 +98,7 @@ class Holdings extends React.Component {
           return (
             <section key={holdingGroupUid} className={holdingGroupClassNames}>
               <div className="holding-group-heading-container">
-                <h3 className="holding-group-heading">{heading}</h3>
+                <Heading className="holding-group-heading" level={headingLevel + 1}>{heading}</Heading>
                 {infoUrl && ( <a href={infoUrl} className="holding-group-info-link">About location</a> )}
               </div>
               {floor && (<p className="no-margin text-grey">{floor}</p>)}

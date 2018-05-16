@@ -34,7 +34,7 @@ const Landing = ({ content, activeDatastore }) => {
 
           <div className="container container-narrow">
             <div className="institution-select-landing-container">
-              <h3 className="institution-select-landing-heading"> To find materials closest to you, please choose a library</h3>
+              <h2 className="institution-select-landing-heading"> To find materials closest to you, please choose a library</h2>
               <InstitutionSelect type="switch" />
             </div>
             <p className="landing-extra-info"><a href="http://mirlyn-classic.lib.umich.edu/">Mirlyn Classic Catalog</a></p>

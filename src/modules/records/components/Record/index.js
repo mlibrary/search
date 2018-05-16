@@ -120,7 +120,7 @@ const Access = ({
             </div>
           )}
           {holdings && (
-            <div className="holdings-condensed"><Holdings holdings={holdings} /></div>
+            <div className="holdings-condensed"><Holdings holdings={holdings} headingLevel={4}/></div>
           )}
         </div>
       )}
