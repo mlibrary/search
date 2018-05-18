@@ -31,6 +31,9 @@ import {
 import {
   setActiveInstitution
 } from '../../../institution'
+import {
+  setA11yMessage
+} from '../../../a11y'
 
 class URLSearchQueryWrapper extends React.Component {
   constructor(props) {
@@ -138,6 +141,8 @@ class URLSearchQueryWrapper extends React.Component {
         }
 
         if (shouldRunSearch) {
+          this.props.setA11yMessage(`Search modified.`)
+
           runSearch()
         }
 
@@ -215,6 +220,7 @@ function mapDispatchToProps(dispatch) {
     setPage,
     setSort,
     setActiveInstitution,
+    setA11yMessage
   }, dispatch)
 }
 

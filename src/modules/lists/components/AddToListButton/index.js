@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { _ } from 'underscore';
 
 import { Icon } from '../../../core'
 import {
@@ -33,6 +34,8 @@ class AddToListButton extends Component {
         this.setState({ waitingToBeAddedToList: true })
         prejudice.addRecord(item)
       }
+
+      this.props.setA11yMessage(`My ${this.props.datastore.name} List updated.`)
     }
   }
 
@@ -73,7 +76,7 @@ class AddToListButton extends Component {
 
 function mapStateToProps(state) {
   return {
-    datastoreUid: state.datastores.active,
+    datastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
     list: state.lists[state.datastores.active],
   };
 }

@@ -1,13 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {
-  LiveMessage
-} from 'react-aria-live';
 
 class A11yLiveMessage extends Component {
+  state = {
+    currentA11yMessage: ''
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.a11yMessage) {
+      // Delay the message slightly to allow for the transition.
+      setTimeout(() => {this.setState({
+        currentA11yMessage: nextProps.a11yMessage
+      })}, 50);
+      // Clear the message.
+      setTimeout(() => {this.setState({
+        currentA11yMessage: ''
+      })}, 500)
+    }
+  }
+
   render() {
+    const { currentA11yMessage } = this.state
     return (
-      <LiveMessage message={this.props.a11yMessage} aria-live="assertive" />
+      <div role="status" aria-atomic="true" aria-live="polite" className="">
+        {currentA11yMessage ? <span>{currentA11yMessage}</span> : ''}
+      </div>
     )
   }
 }

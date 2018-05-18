@@ -6,7 +6,6 @@ import {
   withRouter
 } from 'react-router-dom'
 import qs from 'qs'
-import { LiveMessage } from 'react-aria-live';
 import {
   Icon,
   ShowAllChildren,
@@ -25,9 +24,6 @@ import {
   createActiveFilterObj,
   getSingleSelectedFilterValue
 } from '../../utilities'
-import {
-  setA11yMessage
-} from '../../../a11y'
 
 class Filters extends React.Component {
   constructor(props) {
@@ -108,12 +104,6 @@ class Filters extends React.Component {
       history.push(`${match.url}?${queryString}`)
     } else {
       history.push(match.url)
-    }
-
-    if (isActive) {
-      this.props.setA11yMessage(`Filter removed: ${filterItemValue} `)
-    } else {
-      this.props.setA11yMessage(`Filter applied: ${filterItemValue} `)
     }
   }
   handleClearActiveFilters({ datastoreUid }) {
@@ -424,5 +414,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { setA11yMessage })(Filters)
+  connect(mapStateToProps)(Filters)
 );
