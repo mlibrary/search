@@ -436,6 +436,7 @@ const AdvancedFilter = ({
       return (
         <Multiselect
           options={options}
+          filterGroupUid={advancedFilter.uid}
           handleSelection={(index, option) => handleAdvancedFilterChange({
             filterType: advancedFilter.type,
             filterGroupUid: advancedFilter.uid,

@@ -62,7 +62,7 @@ class Multiselect extends React.Component {
   }
 
   render() {
-    const { options } = this.props
+    const { options, filterGroupUid } = this.props
     const { filterQuery, showOnlySelectedOptions } = this.state
 
     if (!options || options.length === 0) {
@@ -77,28 +77,33 @@ class Multiselect extends React.Component {
           type="text"
           className="multiselect-search"
           aria-label="Filter options"
+          aria-describedby={filterGroupUid}
           placeholder="Filter"
           value={filterQuery}
           onChange={(event) => this.handleFilterQueryChange(event.target.value)}
         >
         </input>
+        <p id={filterGroupUid} className="offscreen">Below this edit box is a list of check oxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
         <fieldset className="multiselect-options">
-          {options.map((option, index) => {
-            if (this.isOptionFiltered(option)) {
+          <ul className="multiselect-options-list">
+            {options.map((option, index) => {
+              if (this.isOptionFiltered(option) && !showOnlySelectedOptions) {
+                return null
+              }
+
+              if (!showOnlySelectedOptions || (showOnlySelectedOptions && option.checked)) {
+                return (
+                  <li className="multiselect-options-list-item" key={index}>
+                    <MultiselectOption
+                      handleClick={() => this.handleOptionSelection(option, index)}
+                      option={option} />
+                  </li>
+                )
+              }
+
               return null
-            }
-
-            if (!showOnlySelectedOptions || (showOnlySelectedOptions && option.checked)) {
-              return (
-                <MultiselectOption
-                  handleClick={() => this.handleOptionSelection(option, index)}
-                  option={option}
-                  key={index} />
-              )
-            }
-
-            return null
-          })}
+            })}
+          </ul>
         </fieldset>
         {selectedOptions.length > 0 ? (
           <button
