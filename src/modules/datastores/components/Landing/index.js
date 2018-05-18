@@ -8,9 +8,6 @@ import { BrowseInfo } from '../../../browse';
 import {
   InstitutionSelect
 } from '../../../institution'
-import {
-  setA11yMessage
-} from '../../../a11y'
 
 const Landing = ({ content, activeDatastore }) => {
   switch (activeDatastore.uid) {
@@ -99,4 +96,4 @@ const LandingIcons = ({ icons }) => {
   )
 }
 
-export default connect(null, { setA11yMessage })(Landing);
+export default connect(null)(Landing);

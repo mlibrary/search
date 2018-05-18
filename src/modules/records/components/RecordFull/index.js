@@ -82,7 +82,7 @@ class FullRecord extends React.Component {
       const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
       // Set page title
 
-      setDocumentTitle([record.names.join().slice(0, 120), 'Record', activeDatastore.name])
+      setDocumentTitle([[].concat(record.names).join().slice(0, 120), 'Record', activeDatastore.name])
     }
   }
 
