@@ -15,9 +15,6 @@ import {
 import {
   Icon
 } from '../../../core';
-import {
-  setDocumentTitle
-} from '../../../a11y'
 
 
 class SearchBox extends React.Component {
@@ -74,7 +71,7 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    const { match, location, queryInput, isAdvanced, datastores, activeDatastore } = this.props
+    const { match, location, queryInput, isAdvanced, activeDatastore } = this.props
 
     return (
       <div className="search-box-container-full">

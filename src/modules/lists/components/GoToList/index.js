@@ -3,7 +3,6 @@ import {
   withRouter,
   Link
 } from 'react-router-dom'
-import { LiveMessage } from 'react-aria-live';
 import {
   Icon
 } from '../../../core'
@@ -16,7 +15,6 @@ class GoToList extends Component {
       list,
       datastore
     } = this.props
-    const plural = list && list.length > 1 ? `s` : ''
     const hasItems = list && list.length > 0 ? true : false
     const listLength = list ? list.length : 0
     const cn = hasItems ? "lists-link-container" : "lists-link-container offpage"

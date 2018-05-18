@@ -18,8 +18,7 @@ import {
   clearRecords,
   loadingRecords,
   addHoldings,
-  setRecordHoldings,
-  addRecordLinkedTitles
+  setRecordHoldings
 } from '../records';
 
 import {

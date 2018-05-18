@@ -5,9 +5,6 @@ import {
   getFieldValue
 } from '../../utilities';
 import config from '../../../../config'
-import {
-  TrimString
-} from '../../../core'
 
 
 function createMarkup(markup_string) {

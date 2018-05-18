@@ -2,8 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
 import {
-  withRouter,
-  Link
+  withRouter
 } from 'react-router-dom'
 
 import {
@@ -99,7 +98,7 @@ class FullRecord extends React.Component {
   }
 
   render() {
-    const { record, institution, datastoreUid, datastores, list } = this.props;
+    const { record, institution, datastoreUid, list } = this.props;
     const { recordUid } = this.props.match.params
 
     if (!record) {
@@ -134,7 +133,6 @@ class FullRecord extends React.Component {
       fields: record.fields,
       datastore: datastoreUid
     });
-    const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     // For adding a blue border when added to list.
     const inList = isInList(list, record.uid)

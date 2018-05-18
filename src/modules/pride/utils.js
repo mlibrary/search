@@ -10,8 +10,7 @@ import config from '../../config';
 import {
   setRecord,
   setRecordHoldings,
-  setRecordGetThis,
-  addRecordLinkedTitles
+  setRecordGetThis
 } from '../records';
 
 const isSlugADatastore = (slug) => {

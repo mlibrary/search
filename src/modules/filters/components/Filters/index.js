@@ -10,7 +10,6 @@ import {
   Icon,
   ShowAllChildren,
   Checkbox,
-  SkipToID
 } from '../../../core'
 import {
   getDisplayFilters,
