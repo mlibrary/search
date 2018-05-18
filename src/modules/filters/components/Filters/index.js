@@ -364,42 +364,48 @@ const ActiveFilters = ({
   handleFilterItemClick,
   handleClearActiveFilters
 }) => {
-  if (activeFilters.length > 0) {
-    return (
-      <div className="active-filters-container">
-        <h2 className="active-filters-heading">Current Filters</h2>
-        <ul className="active-filters-list">
-          {activeFilters.map((activeFilter, index) => (
-            <li key={index} className="active-filter-item">
-              <button
-                className="active-filter-button"
-                onClick={
-                  () => handleFilterItemClick({
-                    datastoreUid: datastoreUid,
-                    filterUid: activeFilter.uid,
-                    filterItemValue: activeFilter.value,
-                  })
-                }>
-                <span className="flex-space-between flex-center">
-                  <span className="active-filter-button-text">
-                    {activeFilter.name}: {activeFilter.value}
-                  </span>
-                  <Icon name="close" /><span className="offpage">Remove</span>
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div className="clear-active-filters-container">
-          <button className="button-link-light" onClick={
-             () => handleClearActiveFilters({ datastoreUid })
-          }>Clear filters</button>
-        </div>
-      </div>
-    )
-  }
+  const isHidden = activeFilters.length > 0 ? '' : 'offpage'
+  const cn = `active-filters-container ${isHidden}`
 
-  return null
+  return (
+    <div className={cn}>
+      <h2 className="active-filters-heading">Current Filters</h2>
+
+      {activeFilters.length > 0 ? (
+        <React.Fragment>
+          <ul className="active-filters-list">
+            {activeFilters.map((activeFilter, index) => (
+              <li key={index} className="active-filter-item">
+                <button
+                  className="active-filter-button"
+                  onClick={
+                    () => handleFilterItemClick({
+                      datastoreUid: datastoreUid,
+                      filterUid: activeFilter.uid,
+                      filterItemValue: activeFilter.value,
+                    })
+                  }>
+                  <span className="flex-space-between flex-center">
+                    <span className="active-filter-button-text">
+                      {activeFilter.name}: {activeFilter.value}
+                    </span>
+                    <Icon name="close" /><span className="offpage">Remove</span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="clear-active-filters-container">
+            <button className="button-link-light" onClick={
+               () => handleClearActiveFilters({ datastoreUid })
+            }>Clear filters</button>
+          </div>
+        </React.Fragment>
+      ) : (
+        <p>You have no filters applied.</p>
+      )}
+    </div>
+  )
 }
 
 function mapStateToProps(state) {
