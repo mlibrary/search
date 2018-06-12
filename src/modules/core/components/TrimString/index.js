@@ -41,14 +41,20 @@ class TrimString extends React.Component {
       )
     }
 
+    console.log('expandable', this.props)
+
     return (
       <span>
         <span className="trim-string-text">{displayString}</span>
-        <button
-          onClick={() => this.handleShowToggleClick()}
-          className="trim-string-button">
-            {this.state.show ? 'Show less' : 'Show more'}
-        </button>
+        {this.props.expandable === false ? (
+          null
+        ) : (
+          <button
+            onClick={() => this.handleShowToggleClick()}
+            className="trim-string-button">
+              {this.state.show ? 'Show less' : 'Show more'}
+          </button>
+        )}
       </span>
     )
   }
