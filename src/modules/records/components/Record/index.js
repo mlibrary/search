@@ -67,7 +67,7 @@ const Header = ({
         >
           {[].concat(record.names).map((title, index) => (
             <span key={index}>
-              <TrimString string={title} expandable={false} />
+              <TrimString string={title} />
             </span>
           ))}
         </Link>
@@ -79,7 +79,7 @@ const Header = ({
           >
             {[].concat(record.names).map((title, index) => (
               <span key={index}>
-                <TrimString string={title} expandable={false} />
+                <TrimString string={title} />
               </span>
             ))}
           </a>

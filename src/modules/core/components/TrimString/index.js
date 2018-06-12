@@ -46,9 +46,7 @@ class TrimString extends React.Component {
     return (
       <span>
         <span className="trim-string-text">{displayString}</span>
-        {this.props.expandable === false ? (
-          null
-        ) : (
+        {this.props.expandable && (
           <button
             onClick={() => this.handleShowToggleClick()}
             className="trim-string-button">

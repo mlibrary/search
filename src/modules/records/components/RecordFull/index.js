@@ -151,7 +151,7 @@ class FullRecord extends React.Component {
               <h1 className="full-record-title">
                 {[].concat(record.names).map((title, index) => (
                   <span key={index}>
-                    <TrimString string={title} />
+                    <TrimString string={title} expandable={true} />
                   </span>
                 ))}
                 <RecommendedResource record={record} />
