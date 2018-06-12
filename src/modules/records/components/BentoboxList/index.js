@@ -97,14 +97,14 @@ const BentoFooter = ({
 }
 
 const BentoboxNoResults = ({ bentobox }) => {
-  const hasBrowse = (bentobox.uid === 'databases' || bentobox.uid === 'onlinejournals') ? true : false
+  const hasBrowse = (bentobox.uid === 'databases' || bentobox.uid === 'journals') ? true : false
 
   return (
     <div className="bentobox-no-results">
       <p className="no-margin"><b>No results</b> match your search.</p>
 
       {hasBrowse && (
-        <p className="u-margin-bottom-none">Try our <Link className="underline" to={`/${bentobox.slug}/browse`}>Browse {bentobox.name} page</Link> to view all databases by titles alphabetically or by academic discipline.</p>
+        <p className="u-margin-bottom-none">Try our <Link className="underline" to={`/${bentobox.slug}/browse`}>Browse {bentobox.name} page</Link> to view all titles alphabetically or by academic discipline.</p>
       )}
     </div>
   )
