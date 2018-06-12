@@ -41,8 +41,6 @@ class TrimString extends React.Component {
       )
     }
 
-    console.log('expandable', this.props)
-
     return (
       <span>
         <span className="trim-string-text">{displayString}</span>
