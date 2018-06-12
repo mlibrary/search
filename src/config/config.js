@@ -173,6 +173,7 @@ const config = {
         'online': {
           heading: 'Online Resources',
           showAllName: 'Online Resources',
+          publicNote: { uid: 'public_note' },
           fields: [
             {
               type: 'button-link',
@@ -195,6 +196,7 @@ const config = {
         'hathitrust': {
           heading: 'HathiTrust Digital Library',
           showAllName: 'HathiTrust Sources',
+          publicNote: { uid: 'public_note' },
           fields: [
             {
               type: 'button-link',
@@ -249,6 +251,7 @@ const config = {
         'other': {
           heading: 'Other Holdings',
           showAllName: 'Holdings',
+          publicNote: { uid: 'public_note' },
           groupBy: { uid: 'location' },
           fields: [
             {
@@ -277,6 +280,7 @@ const config = {
         'media': {
           heading: 'Media Holdings',
           showAllName: 'Holdings',
+          publicNote: { uid: 'public_note' },
           groupBy: { uid: 'location' },
           fields: [
             {
@@ -305,6 +309,7 @@ const config = {
         'special': {
           heading: 'Reading Room Use Only',
           showAllName: 'Special Holdings',
+          publicNote: { uid: 'public_note' },
           groupBy: { uid: 'location' },
           fields: [
             {
