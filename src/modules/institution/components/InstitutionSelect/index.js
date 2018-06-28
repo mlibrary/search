@@ -82,7 +82,7 @@ class InstitutionSelect extends React.Component {
     } else {
       return (
         <fieldset className="institution-select-container">
-          <label className="institution-select-label"><span className="institution-select-label-text">Library</span>
+          <label className="institution-select-label"><span className="institution-select-label-text">Scope</span>
             <select
               className="dropdown"
               value={active ? active : defaultInstitution}
