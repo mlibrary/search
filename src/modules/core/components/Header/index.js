@@ -1,12 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import umichBlockM from './umich_block_m.png';
+import { connect } from 'react-redux';
 import {
   SiteMessage
 } from '../../../core'
+import config from '../../../../config'
 
 class Header extends React.Component {
   render() {
+    const loginRoot = config.loginUrl;
+    const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
+    const logoutUrl = 'https://weblogin.umich.edu/cgi-bin/logout?' + document.location
+    const loginText = this.props.isAuthenticated ? 'Log out' : 'Log in'
+    const loginHref = this.props.isAuthenticated ? logoutUrl : loginUrl
+
     return  (
       <header role="banner">
         <SiteMessage>
@@ -33,7 +41,14 @@ class Header extends React.Component {
                 </ul>
               </div>
 
-              <a href="https://www.lib.umich.edu/my-account/" className="site-header-link">My Account</a>
+              <ul className="site-header-nav">
+                <li>
+                  <a href={loginHref} className="site-header-link">{loginText}</a>
+                </li>
+                <li>
+                  <a href="https://www.lib.umich.edu/my-account/" className="site-header-link">My Account</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -42,4 +57,10 @@ class Header extends React.Component {
   }
 };
 
-export default Header;
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.profile.status === 'Logged in'
+  };
+}
+
+export default connect(mapStateToProps)(Header);

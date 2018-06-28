@@ -459,10 +459,11 @@ nav {
   padding-top: 1rem;
   padding-bottom: 1rem; }
 
-.site-header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; }
+@media (min-width: 32rem) {
+  .site-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; } }
 
 .logo-item-list {
   margin: 0;
@@ -522,6 +523,25 @@ nav {
 
 .site-header-link {
   color: white; }
+
+.site-header-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 1rem; }
+  @media (min-width: 32rem) {
+    .site-header-nav {
+      margin: 0; } }
+  .site-header-nav li {
+    margin: 0;
+    padding: 0; }
+    @media (min-width: 32rem) {
+      .site-header-nav li {
+        display: inline-block; } }
+    .site-header-nav li:not(:last-child) {
+      margin-right: 1rem; }
+  .site-header-nav a:hover {
+    text-decoration: underline; }
 
 .site-footer {
   background: #00274C;
@@ -676,17 +696,6 @@ nav {
   outline: 3px solid rgba(255, 203, 5, 0.9);
   outline-offset: 0;
   transition: outline 0.05s ease-out; }
-
-.site-header-container {
-  position: relative; }
-
-.header-menu-small-screen-summary-button {
-  color: white;
-  position: absolute;
-  top: 0;
-  right: 0; }
-  .header-menu-small-screen-summary-button::-webkit-details-marker {
-    color: white; }
 
 .dropdown,
 .dropdown-multiple {
