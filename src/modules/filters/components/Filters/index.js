@@ -124,8 +124,6 @@ class Filters extends React.Component {
     const { history, match } = this.props
     const url = `${match.url}?${queryString}`
 
-    this.props.setA11yMessage('Active filters cleared.')
-
     history.push(url)
   }
   render() {
