@@ -74,7 +74,7 @@ const Header = ({
             <Icon name="launch" />
           </span>
         )}
-        {publishedDate && (
+        {(publishedDate && (datastoreUid !== 'website')) && (
           <span className="record-preview-published-date">{publishedDate}</span>
         )}
         <RecommendedResource record={record} />

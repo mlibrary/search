@@ -516,7 +516,6 @@ const config = {
       datastore: 'website',
       medium: [
         'page_type',
-        'date',
         'brief_description',
         'section_title',
         'section_description',
