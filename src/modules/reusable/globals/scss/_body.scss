@@ -1,0 +1,19 @@
+@import 'mixins';
+@import 'vars';
+@import 'typography';
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700');
+
+html {
+  @include reset;
+  @include font-family;
+  font-size: $base-font-size;
+  @media (min-width: $small-screens) {
+    font-size: $large-screen-font-size;
+  }
+  line-height: 1.5;
+  color: $text-color;
+}
+
+a {
+  color: $color__blue-3;
+}

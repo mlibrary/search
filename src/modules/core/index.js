@@ -1,4 +1,4 @@
-import Header from './components/Header';
+import SearchHeader from './components/SearchHeader';
 import Main from './components/Main';
 import Button from './components/Button';
 import Loading from './components/Loading';
@@ -16,7 +16,7 @@ import SiteMessage from './components/SiteMessage'
 import DetailsList from './components/DetailsList'
 
 export {
-  Header,
+  SearchHeader,
   Main,
   Button,
   Loading,

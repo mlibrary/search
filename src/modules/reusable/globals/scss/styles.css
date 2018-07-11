@@ -1,0 +1,212 @@
+/*
+  U-M Brand colors
+*/
+/*
+  Greys
+*/
+/*
+  Blues
+*/
+/*
+  Greens
+*/
+/*
+  Oranges
+*/
+/*
+  Reds
+*/
+/*
+  Teals
+*/
+/*
+  Purple
+*/
+/*
+  U-M Brand colors
+*/
+/*
+  Greys
+*/
+/*
+  Blues
+*/
+/*
+  Greens
+*/
+/*
+  Oranges
+*/
+/*
+  Reds
+*/
+/*
+  Teals
+*/
+/*
+  Purple
+*/
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700");
+html {
+  /* HTML5 display-role reset for older browsers */
+  /* Reset `button` and button-style `input` default styles */
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #262626; }
+  html html,
+  html body,
+  html div,
+  html span,
+  html applet,
+  html object,
+  html iframe,
+  html h1,
+  html h2,
+  html h3,
+  html h4,
+  html h5,
+  html h6,
+  html p,
+  html blockquote,
+  html pre,
+  html a,
+  html abbr,
+  html acronym,
+  html address,
+  html big,
+  html cite,
+  html code,
+  html del,
+  html dfn,
+  html em,
+  html img,
+  html ins,
+  html kbd,
+  html q,
+  html s,
+  html samp,
+  html small,
+  html strike,
+  html strong,
+  html sub,
+  html sup,
+  html tt,
+  html var,
+  html b,
+  html u,
+  html i,
+  html center,
+  html dl,
+  html dt,
+  html dd,
+  html ol,
+  html ul,
+  html li,
+  html fieldset,
+  html form,
+  html label,
+  html legend,
+  html table,
+  html caption,
+  html tbody,
+  html tfoot,
+  html thead,
+  html tr,
+  html th,
+  html td,
+  html article,
+  html aside,
+  html canvas,
+  html details,
+  html embed,
+  html figure,
+  html figcaption,
+  html footer,
+  html header,
+  html hgroup,
+  html menu,
+  html nav,
+  html output,
+  html ruby,
+  html section,
+  html summary,
+  html time,
+  html mark,
+  html audio,
+  html video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline; }
+  html button,
+  html input[type='button'],
+  html input[type='submit'],
+  html input[type='reset'],
+  html input[type='file'] {
+    border-radius: 0; }
+  html input[type='text']::-ms-clear {
+    display: none; }
+  html article,
+  html aside,
+  html details,
+  html figcaption,
+  html figure,
+  html footer,
+  html header,
+  html hgroup,
+  html menu,
+  html nav,
+  html section {
+    display: block; }
+  html sup {
+    vertical-align: super; }
+  html sub {
+    vertical-align: sub; }
+  html ol,
+  html ul {
+    list-style: none; }
+  html blockquote,
+  html q {
+    quotes: none; }
+  html blockquote:before,
+  html blockquote:after,
+  html q:before,
+  html q:after {
+    content: '';
+    content: none; }
+  html table {
+    border-collapse: collapse;
+    border-spacing: 0; }
+  html * {
+    box-sizing: border-box; }
+  html input[type="submit"],
+  html input[type="reset"],
+  html input[type="button"],
+  html button {
+    background: none;
+    border: 0;
+    color: inherit;
+    /* cursor: default; */
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
+    -webkit-appearance: button;
+    /* for input */
+    -webkit-user-select: none;
+    /* for button */
+    -moz-user-select: none;
+    -ms-user-select: none; }
+  html input::-moz-focus-inner,
+  html button::-moz-focus-inner {
+    border: 0;
+    padding: 0; }
+  @media (min-width: 42rem) {
+    html {
+      font-size: 18px; } }
+
+a {
+  color: #126DC1; }

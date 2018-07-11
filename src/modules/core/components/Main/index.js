@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Header from '../Header/'
+import SearchHeader from '../SearchHeader/'
 import Feedback from '../Feedback/'
 import Footer from '../Footer/'
 
@@ -10,7 +10,7 @@ class Main extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Header />
+        <SearchHeader />
         {this.props.children}
         <Feedback />
         <Footer />

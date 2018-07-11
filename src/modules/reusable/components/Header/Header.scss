@@ -1,0 +1,74 @@
+@import '../../globals/scss/vars.scss';
+
+.header {
+  display: block;
+  background: #00274C;
+  padding: 1rem 0;
+}
+
+.header__inner {
+  @media screen and (min-width: $small-screens) {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 74rem;
+}
+
+.logo {
+  font-size: 1.4rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.logo__umich-library-link {
+  display: inline-block;
+}
+
+.logo__image {
+  display: inherit;
+  width: 10rem;
+  max-width: 100%;
+  min-width: 9rem;
+}
+
+.logo__site-name-link {
+  margin-left: 1rem;
+  color: white;
+  text-decoration: none;
+}
+
+.header__nav {
+  margin-top: 0.5rem;
+
+  @media screen and (min-width: $small-screens) {
+    margin: 0;
+  }
+}
+
+.header__nav-list,
+.header__nav-list-item {
+  margin: 0;
+  padding: 0;
+}
+
+.header__nav-list-item {
+  display: block;
+
+  @media screen and (min-width: $small-screens) {
+    display: inline-block;
+  }
+
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
