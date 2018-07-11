@@ -2,6 +2,7 @@ import React from 'react';
 
 const UMichLibraryLogo = ({ className }) => (
   <svg viewBox="0 0 954 144" className={className}>
+    <title lang="en">University of Michigan Library</title>
     <defs>
       <polygon id="path-1" points="0 143.94 0 0 953.942 0 953.942 143.94" />
     </defs>
