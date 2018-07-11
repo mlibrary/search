@@ -29,6 +29,12 @@ Enter the stylesheets directory and run Gulp. See [Falafel repo](https://github.
 $ gulp
 ```
 
+For reusable components that import their CSS directly
+
+```sh
+$ npm run watch-css
+```
+
 ## Building for Production
 
 ```sh
