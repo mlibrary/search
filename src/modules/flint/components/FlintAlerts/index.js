@@ -6,11 +6,11 @@ import { UserIsFlintAffiliated } from '../../../flint'
 
 class FlintAlerts extends React.Component {  
   getClosedStatus = () => {
-    return sessionStorage.getItem(`flint-alert-for-${this.props.datastore}-closed`) === "true"
+    return localStorage.getItem(`flint-alert-for-${this.props.datastore}-closed`) === "true"
   }
 
   handleCloseButtonClick = () => {
-    sessionStorage.setItem(`flint-alert-for-${this.props.datastore}-closed`, true)
+    localStorage.setItem(`flint-alert-for-${this.props.datastore}-closed`, true)
   }
 
   render() {
