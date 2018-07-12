@@ -3,12 +3,6 @@ import { Alert } from '../../../reusable'
 import { connect } from 'react-redux';
 import { UserIsFlintAffiliated } from '../../../flint'
 
-const messages = {
-  'articlesplus': '',
-  'databases': '',
-  'journals': '',
-  'library website': ''
-}
 
 class FlintAlerts extends React.Component {  
   getClosedStatus = () => {
