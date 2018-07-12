@@ -23,13 +23,12 @@
   Purple
 */
 .btn {
-  cursor: pointer;
-  text-decoration: none;
-  line-height: normal;
-  text-align: left;
+  margin: 0;
+  padding: 0;
   border: none;
-  background: none;
-  color: inherit; }
+  font: inherit;
+  color: inherit;
+  background: none; }
   .btn[disabled] {
     opacity: 0.6;
     cursor: not-allowed; }

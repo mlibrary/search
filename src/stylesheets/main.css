@@ -415,29 +415,6 @@ nav {
     margin-left: 0.5rem;
     margin-right: 0.5rem; }
 
-.alert {
-  margin: 1rem 0;
-  padding: 0.75rem 1.5rem;
-  border: solid 1px #E5E5E5;
-  background: #FAFAFA;
-  border-radius: 4px; }
-
-.alert-success {
-  background: #E2F4EB;
-  border-color: #05A657; }
-
-.alert-informational {
-  background: #E6F3FF;
-  border-color: #CCE6FF; }
-
-.alert-warning {
-  background: #FFEEDD;
-  border-color: #E77504; }
-
-.alert-error {
-  background: #FFEAE7;
-  border-color: #ED5D47; }
-
 .site-message {
   background: #FAFAFA;
   border-bottom: solid 2px #CCC;
@@ -1723,7 +1700,7 @@ body {
   border-radius: 4px;
   justify-content: space-between; }
   .datastore-info-container h1 {
-    font-size: 0.88rem;
+    font-size: 0.875rem;
     margin: 0;
     line-height: 1.7;
     color: #4E4E4E;
@@ -1738,7 +1715,7 @@ body {
   background: none;
   cursor: pointer;
   text-decoration: underline;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   line-height: 1.7;
   color: #4E4E4E;
   font-weight: 600; }
