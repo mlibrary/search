@@ -12,7 +12,7 @@
   border-color: $green-2;
 }
 
-.alert-info {
+.alert-informational {
   background: $main-5;
   border-color: $main-4;
 }
@@ -25,8 +25,4 @@
 .alert-error {
   background: $red-3;
   border-color: $red-2;
-}
-
-.alert *:first-child {
-  margin: 0;
 }
