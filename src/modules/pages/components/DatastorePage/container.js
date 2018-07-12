@@ -61,6 +61,10 @@ import {
   setDocumentTitle
 } from '../../../a11y'
 
+import {
+  FlintAlerts
+} from '../../../flint'
+
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class DatastorePageContainer extends React.Component {
@@ -115,6 +119,7 @@ class DatastorePageContainer extends React.Component {
             <React.Fragment>
               <SearchBox />
               <DatastoreNavigation />
+              <FlintAlerts />
               <ConnectedSwitch>
                 <Route path={match.url + `/record/:recordUid/get-this/:barcode`} render={(props) => {
                   return (
