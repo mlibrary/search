@@ -50,7 +50,8 @@ import {
 } from '../../../pride'
 
 import {
-  InstitutionSelect
+  InstitutionSelect,
+  InstitutionWrapper
 } from '../../../institution'
 
 import {
@@ -139,7 +140,7 @@ class DatastorePageContainer extends React.Component {
                   }
 
                   return (
-                    <div>
+                    <InstitutionWrapper>
                       {!searching ? (
                         <div className="container">
                           <Landing activeDatastore={activeDatastore} />
@@ -150,7 +151,7 @@ class DatastorePageContainer extends React.Component {
                         </Responsive>
                       )}
                       <Results searching={searching} activeDatastore={activeDatastore} activeFilterCount={activeFilterCount} />
-                    </div>
+                    </InstitutionWrapper>
                   )
                 }}/>
               </ConnectedSwitch>
