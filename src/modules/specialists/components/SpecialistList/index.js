@@ -2,8 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { ShowAllChildren } from '../../../core'
 import Specialist from '../Specialist'
-import { UserIsNotFlintAffiliated } from '../../../profile'
-import { _ } from 'underscore'
 
 
 const SpecialistList = ({
@@ -16,7 +14,7 @@ const SpecialistList = ({
   }
 
   return (
-    <UserIsNotFlintAffiliated>
+    <React.Fragment>
       <article className="specialists">
         <div className="specialists__inner-container">
           <header>
@@ -36,13 +34,12 @@ const SpecialistList = ({
         </div>
       </article>
       <h2 className="offpage">Results continued</h2>
-    </UserIsNotFlintAffiliated>
+    </React.Fragment>
   )
 }
 
 function mapStateToProps(state) {
   return {
-    loadingUserData: _.isEmpty(state.profile),
     specialists: state.specialists
   };
 }
