@@ -15,14 +15,6 @@ import {
 
 class InstitutionSelect extends React.Component {
 
-  // TODO
-  /*
-  2. On selected option, handle URL change.
-    2a. Watch URL elsewhere to change redux state on change.
-      2a-1. What if the URL value is not an available option.
-  3. Translate
-  */
-
   handleChange(event) {
     const {
       searchQuery,
@@ -32,19 +24,10 @@ class InstitutionSelect extends React.Component {
       institution
     } = this.props
 
-    let library = undefined
-
-    // If the library selected is the default, then just send undefined.
-    if (institution.defaultInstitution === event.target.value) {
-      this.props.setActiveInstitution(event.target.value)
-    } else {
-      library = event.target.value
-    }
-
     const queryString = stringifySearchQueryForURL({
       query: searchQuery,
       filter: activeFilters,
-      library
+      library: event.target.value
     })
 
     history.push(`/${activeDatastore.slug}?${queryString}`)
@@ -82,7 +65,7 @@ class InstitutionSelect extends React.Component {
     } else {
       return (
         <fieldset className="institution-select-container">
-          <label className="institution-select-label"><span className="institution-select-label-text">Scope</span>
+          <label className="institution-select-label"><span className="institution-select-label-text">Library Scope</span>
             <select
               className="dropdown"
               value={active ? active : defaultInstitution}

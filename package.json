@@ -7,16 +7,15 @@
     "gulp-sass": "^3.2.1",
     "react-addons-perf": "^15.4.2",
     "react-addons-test-utils": "^15.5.1",
-    "react-scripts": "1.0.17"
+    "react-scripts": "1.0.17",
+    "node-sass-chokidar": "^1.3.0"
   },
   "dependencies": {
     "axios": "^0.16.2",
     "classnames": "^2.2.6",
     "deepcopy": "^0.6.3",
-    "focus-trap-react": "^3.1.2",
     "history": "^4.6.1",
     "jsonschema": "^1.2.4",
-    "node-sass-chokidar": "^1.3.0",
     "numeral": "^2.0.4",
     "object-path": "^0.11.4",
     "prejudice": "git://github.com/mlibrary/prejudice.git",
