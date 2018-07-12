@@ -36,8 +36,8 @@
 .alert-inner {
   display: flex;
   justify-content: center;
-  max-width: 52rem;
-  margin: 0 auto; }
+  margin: 0 auto;
+  align-items: baseline; }
 
 .alert-informational {
   color: #0C5292;
