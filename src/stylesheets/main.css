@@ -426,7 +426,7 @@ nav {
   background: #E2F4EB;
   border-color: #05A657; }
 
-.alert-info {
+.alert-informational {
   background: #E6F3FF;
   border-color: #CCE6FF; }
 
@@ -437,9 +437,6 @@ nav {
 .alert-error {
   background: #FFEAE7;
   border-color: #ED5D47; }
-
-.alert *:first-child {
-  margin: 0; }
 
 .site-message {
   background: #FAFAFA;
