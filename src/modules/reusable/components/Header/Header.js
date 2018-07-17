@@ -32,8 +32,8 @@ const Header = ({
     <header className="header">
       <div className="header__inner">
         <div className="logo">
-          <a href="/" className="logo__blockm"><UMichBlockM className="logo__svg" /></a>
-          <a href="/" className="logo__library"><UMichLibrary className="logo__svg" /></a>
+          <a href="https://umich.edu/" className="logo__blockm"><UMichBlockM className="logo__svg" /></a>
+          <a href="https://www.lib.umich.edu/" className="logo__library"><UMichLibrary className="logo__svg" /></a>
           <a href="/" className="logo__site-name-link">{name}</a>
         </div>
 
