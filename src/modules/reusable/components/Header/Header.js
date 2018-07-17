@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Header.css'
 
-import UMichLibraryLogo from './UMichLibraryLogo'
+import UMichBlockM from './UMichBlockM'
+import UMichLibrary from './UMichLibrary'
 
 const NavItem = ({
   item,
@@ -31,7 +32,9 @@ const Header = ({
     <header className="header">
       <div className="header__inner">
         <div className="logo">
-          <a href="https://www.lib.umich.edu/" className="logo__umich-library-link"><UMichLibraryLogo className="logo__image" /></a><a href="/" className="logo__site-name-link">{name}</a>
+          <a href="/" className="logo__blockm"><UMichBlockM className="logo__svg" /></a>
+          <a href="/" className="logo__library"><UMichLibrary className="logo__svg" /></a>
+          <a href="/" className="logo__site-name-link">{name}</a>
         </div>
 
         {nav.length && (

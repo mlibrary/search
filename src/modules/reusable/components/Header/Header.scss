@@ -10,6 +10,7 @@
   @media screen and (min-width: $small-screens) {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   margin: 0 auto;
@@ -25,19 +26,22 @@
   margin-right: 1rem;
 }
 
-.logo__umich-library-link {
-  display: inline-block;
+.logo__blockm {
 }
 
-.logo__image {
+.logo__library {
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: solid 1px white;
+}
+
+.logo__svg {
   display: inherit;
-  width: 10rem;
-  max-width: 100%;
-  min-width: 9rem;
+  height: 1.7rem;
 }
 
 .logo__site-name-link {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   color: white;
   text-decoration: none;
 }

@@ -34,7 +34,8 @@
   @media screen and (min-width: 42rem) {
     .header__inner {
       display: flex;
-      justify-content: space-between; } }
+      justify-content: space-between;
+      align-items: center; } }
 
 .logo {
   font-size: 1.4rem;
@@ -43,17 +44,17 @@
   align-items: center;
   margin-right: 1rem; }
 
-.logo__umich-library-link {
-  display: inline-block; }
+.logo__library {
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: solid 1px white; }
 
-.logo__image {
+.logo__svg {
   display: inherit;
-  width: 10rem;
-  max-width: 100%;
-  min-width: 9rem; }
+  height: 1.7rem; }
 
 .logo__site-name-link {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   color: white;
   text-decoration: none; }
 
