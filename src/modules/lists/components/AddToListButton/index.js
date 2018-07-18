@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { _ } from 'underscore';
-
+import { Button } from '../../../reusable'
 import { Icon } from '../../../core'
 import {
   isInList
@@ -66,10 +66,11 @@ class AddToListButton extends Component {
     const inList = isInList(list, item.uid)
 
     return (
-      <button
-        className="button-link"
+      <Button
+        kind="tertiary"
+        small
         onClick={() => this.handleClick(inList, item)}
-      >{this.renderButtonContent(inList)}</button>
+      >{this.renderButtonContent(inList)}</Button>
     )
   }
 }

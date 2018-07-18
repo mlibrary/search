@@ -2434,7 +2434,7 @@ input.get-this-field-input-year {
       text-decoration: underline;
       margin-left: -0.5rem; } }
 
-.record-medium-container .record-actions-container {
+.record-medium-container .record-actions {
   margin-top: 1rem;
   margin-bottom: 0; }
 
@@ -2442,25 +2442,23 @@ input.get-this-field-input-year {
   .record-medium-container {
     display: flex;
     justify-content: space-between; }
-    .record-medium-container .record-actions-container {
+    .record-medium-container .record-actions {
       margin-top: 0; } }
 
-.record-actions-container {
-  display: inline-block;
+.record-actions {
+  list-style: none;
   white-space: nowrap;
-  margin-top: 0;
+  margin: 0;
+  padding: 0;
   margin-bottom: 1rem; }
-  .record-actions-container .button-link {
-    color: #6E6E6E;
-    display: flex;
-    align-items: center; }
-    .record-actions-container .button-link > span {
-      font-size: 0.9rem;
-      text-decoration: underline; }
-    .record-actions-container .button-link .icon {
-      height: 0.9rem;
-      margin-right: 0.5rem;
-      margin-bottom: -0.05rem; }
+  .record-actions li {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0.25rem; }
+  .record-actions .icon {
+    margin-right: 0.5rem;
+    margin-bottom: -2px;
+    fill: currentColor; }
 
 .record--highlight {
   outline: solid 2px rgba(18, 109, 193, 0.6); }
@@ -2632,6 +2630,9 @@ input.get-this-field-input-year {
   cursor: pointer;
   text-decoration: none;
   line-height: inherit; }
+
+.favorite-button .icon {
+  margin-right: 0.5rem; }
 
 .u-break-word {
   word-wrap: break-word; }

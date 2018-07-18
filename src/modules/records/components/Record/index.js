@@ -29,7 +29,9 @@ import {
   AddToListButton,
   isInList
 } from '../../../lists'
-
+import {
+  FavoriteButton
+} from '../../../favorites'
 
 const Header = ({
   record,
@@ -157,9 +159,10 @@ class Record extends React.Component {
               />
               <FieldList fields={displayFields} datastoreUid={datastoreUid} institution={institution} />
             </div>
-            <div className="record-actions-container">
-              <AddToListButton item={record} />
-            </div>
+            <ul className="record-actions">
+              <li><FavoriteButton /></li>
+              <li><AddToListButton item={record} /></li>
+            </ul>
           </div>
 
           {datastoreUid === 'website' ? null : (
