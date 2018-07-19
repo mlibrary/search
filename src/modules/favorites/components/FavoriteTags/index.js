@@ -63,9 +63,10 @@ class FavoriteTags extends React.Component {
 
         <Modal isOpen={this.state.modalIsOpen}>
           <h2 className="add-tags-heading">Add Tags</h2>
-          <p>Tagging helps organize your saved items by keyword, project, or course.</p>
-          <fieldset>
-            <input type="text" />
+          <fieldset className="add-tags-fieldset">
+            <label htmlFor="tag-input">Tag for this record</label>
+            <input id="tag-input" type="text" />
+            <p>Tagging helps organize your saved items by keyword, project, or course.</p>
           </fieldset>
           <Button className="favorites-add-tag-button">Add Tag</Button>
           <Button kind="tertiary" onClick={() => this.setState({ modalIsOpen: false })}>Cancel</Button>

@@ -2663,6 +2663,9 @@ input.get-this-field-input-year {
 .add-tags-heading {
   margin-top: 0; }
 
+.add-tags-fieldset {
+  margin-bottom: 2rem; }
+
 .favorites-add-tag-button {
   margin-right: 1rem; }
 
