@@ -10,12 +10,12 @@ const StarSolid = () => (
 )
 
 const FavoriteButton = ({
-  isFavorited,
+  favorited,
   handleClick
 }) => {
   return (
-    <Button kind="tertiary" small className="favorite-button" onClick={() => handleClick}>
-      {isFavorited ? (
+    <Button kind="tertiary" small className="favorite-button" onClick={() => handleClick()}>
+      {favorited ? (
         <React.Fragment><StarSolid />Remove Favorite</React.Fragment>
       ) : (
         <React.Fragment><StarOutline />Save to Favorites</React.Fragment>
