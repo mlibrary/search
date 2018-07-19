@@ -1,12 +1,16 @@
 import React from 'react'
 import {
   Button,
-  Tag
+  Tag,
+  Modal
 } from '../../../reusable'
 import { Icon } from '../../../core'
 
-
 class FavoriteTags extends React.Component {
+  state = {
+    modalIsOpen: false
+  }
+
   handleRemove = (tag) => {
     /*
       TODO:
@@ -23,6 +27,7 @@ class FavoriteTags extends React.Component {
         - Open modal to add tag.
     */
 
+    this.setState({ modalIsOpen: true })
     console.log('handleAdd')
   }
 
@@ -55,6 +60,16 @@ class FavoriteTags extends React.Component {
         </ul>
 
         <Button kind="tertiary" small onClick={this.handleAdd} className="favorites-add-tag"><Icon name="plus" />Add Tag</Button>
+
+        <Modal isOpen={this.state.modalIsOpen}>
+          <h2 className="add-tags-heading">Add Tags</h2>
+          <p>Tagging helps organize your saved items by keyword, project, or course.</p>
+          <fieldset>
+            <input type="text" />
+          </fieldset>
+          <Button className="favorites-add-tag-button">Add Tag</Button>
+          <Button kind="tertiary" onClick={() => this.setState({ modalIsOpen: false })}>Cancel</Button>
+        </Modal>
       </div>
     )
   }

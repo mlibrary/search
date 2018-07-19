@@ -2650,6 +2650,22 @@ input.get-this-field-input-year {
   margin-bottom: -2px;
   margin-right: 0.25rem; }
 
+.favorite__add-tag-modal {
+  max-width: 36rem;
+  margin: 0 auto;
+  margin-top: 20vh;
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+  padding: 1rem;
+  border: solid 1px #CCC; }
+
+.add-tags-heading {
+  margin-top: 0; }
+
+.favorites-add-tag-button {
+  margin-right: 1rem; }
+
 .u-break-word {
   word-wrap: break-word; }
 
