@@ -36,7 +36,7 @@ const FieldValue = ({ field }) => {
       }
 
       return (
-        <span><a className="holding-button button" href={field.link}>{field.value}</a></span>
+        <span><a className="holding-link" href={field.link}>{field.value}</a></span>
       )
     default:
       if (field.heading === 'Status') {
