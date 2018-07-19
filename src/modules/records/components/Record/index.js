@@ -30,7 +30,8 @@ import {
   isInList
 } from '../../../lists'
 import {
-  FavoriteRecord
+  FavoriteRecord,
+  FavoriteTags
 } from '../../../favorites'
 
 const Header = ({
@@ -157,6 +158,7 @@ class Record extends React.Component {
                 datastoreUid={datastoreUid}
                 searchQuery={searchQuery}
               />
+              <FavoriteTags record={record} datastore={datastoreUid} />
               <FieldList fields={displayFields} datastoreUid={datastoreUid} institution={institution} />
             </div>
             <ul className="record-actions">

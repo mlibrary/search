@@ -501,14 +501,6 @@ nav {
 .green-text {
   color: #057C42; }
 
-.tag {
-  vertical-align: top;
-  background: #1060aa;
-  padding: 0 0.25rem;
-  border-radius: 2px;
-  margin-right: 0.5rem;
-  color: white; }
-
 .focus-outline-white {
   outline-color: white; }
 
@@ -2633,6 +2625,30 @@ input.get-this-field-input-year {
 
 .favorite-button .icon {
   margin-right: 0.5rem; }
+
+.favorite-tags-container {
+  margin-bottom: 0.75rem; }
+
+.favorite-tags-label {
+  margin-right: 0.5rem;
+  font-weight: 600; }
+
+.favorite-tags {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  .favorite-tags li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem; }
+
+.favorites-add-tag svg {
+  width: 0.6rem;
+  margin-bottom: -2px;
+  margin-right: 0.25rem; }
 
 .u-break-word {
   word-wrap: break-word; }

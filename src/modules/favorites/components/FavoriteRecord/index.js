@@ -22,13 +22,12 @@ class FavoriteRecord extends React.Component {
       intent: 'favorite',
       datastore,
       record,
+      value: undefined, // No value (aka new tag value) when favoriting.
       callback
     })
   }
 
   render() {
-    const { record, datastore } = this.props
-
     // TODO: Check favorited based on state conditions.
     return (
       <FavoriteButton favorited={false} handleClick={this.handleClick} />

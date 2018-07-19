@@ -4,3 +4,35 @@
     margin-right: 0.5rem;
   }
 }
+
+.favorite-tags-container {
+  margin-bottom: 0.75rem;
+}
+
+.favorite-tags-label {
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+
+.favorite-tags {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.favorites-add-tag {
+  svg {
+    width: 0.6rem;
+    margin-bottom: -2px;
+    margin-right: 0.25rem;
+  }
+}
