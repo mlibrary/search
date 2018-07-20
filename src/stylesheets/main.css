@@ -2651,23 +2651,57 @@ input.get-this-field-input-year {
   margin-right: 0.25rem; }
 
 .favorite__add-tag-modal {
-  max-width: 36rem;
-  margin: 0 auto;
-  margin-top: 20vh;
   border-radius: 4px;
   background: white;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
   padding: 1rem;
   border: solid 1px #CCC; }
 
-.add-tags-heading {
-  margin-top: 0; }
+.add-tag-heading {
+  display: block;
+  margin-top: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem; }
 
-.add-tags-fieldset {
-  margin-bottom: 2rem; }
+.add-tag-fieldset {
+  margin: 0;
+  margin-bottom: 1.5rem; }
+  .add-tag-fieldset label {
+    margin-bottom: 0.25rem; }
 
 .favorites-add-tag-button {
   margin-right: 1rem; }
+
+.react-autosuggest__container {
+  position: relative; }
+
+.react-autosuggest__suggestions-container--open {
+  position: absolute;
+  left: 0;
+  width: 100%; }
+
+.react-autosuggest__suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: white;
+  border: solid 1px #6E6E6E;
+  border-radius: 0 0 4px 4px;
+  padding: 0.25rem 0;
+  max-height: 32rem;
+  overflow-y: scroll; }
+
+.react-autosuggest__suggestion {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  padding: 0.25rem 0.75rem; }
+  .react-autosuggest__suggestion:hover {
+    text-decoration: underline; }
+
+.react-autosuggest__suggestion--highlighted {
+  text-decoration: underline; }
 
 .u-break-word {
   word-wrap: break-word; }

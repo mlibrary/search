@@ -38,10 +38,6 @@
 }
 
 .favorite__add-tag-modal {
-  max-width: 36rem;
-  margin: 0 auto;
-  margin-top: 20vh;
-
   border-radius: 4px;
   background: white;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
@@ -49,12 +45,21 @@
   border: solid 1px $grey-4;
 }
 
-.add-tags-heading {
+.add-tag-heading {
+  display: block;
   margin-top: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
 }
 
-.add-tags-fieldset {
-  margin-bottom: 2rem;
+.add-tag-fieldset {
+  margin: 0;
+  margin-bottom: 1.5rem;
+
+  label {
+    margin-bottom: 0.25rem;
+  }
 }
 
 .favorites-add-tag-button {

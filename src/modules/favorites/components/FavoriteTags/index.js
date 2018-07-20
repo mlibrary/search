@@ -5,6 +5,7 @@ import {
   Modal
 } from '../../../reusable'
 import { Icon } from '../../../core'
+import { FavoriteInputTag } from '../../../favorites';
 
 class FavoriteTags extends React.Component {
   state = {
@@ -21,12 +22,11 @@ class FavoriteTags extends React.Component {
     console.log('handleRemove', tag)
   }
 
-  handleAdd = () => {
-    /*
-      TODO:
-        - Open modal to add tag.
-    */
+  handleCloseModal = () => {
+    this.setState({ modalIsOpen: false })
+  }
 
+  handleAdd = () => {
     this.setState({ modalIsOpen: true })
     console.log('handleAdd')
   }
@@ -35,9 +35,9 @@ class FavoriteTags extends React.Component {
     const { record, datastore } = this.props
     /*
       TODO:
-        - Check if the record is favorited. If not, render null.
-        - Get tags from Prejudice and store them in state.
-        - Get record tags from state.
+        - Check if the record is favorited. If not, render null. favorited
+          record state will be on the record data from Pride.
+        - Check if Record has tags. The Tags will be on the records from Pride.
     */
 
     const tags = [
@@ -50,6 +50,15 @@ class FavoriteTags extends React.Component {
       return null
     }
 
+    /*
+      TODO:
+        - To improve semantic relationships and accessibility, consider
+          adding aria described by attribute to existing tags.
+          It might be best to describe the SVG close button with the
+          tag text.
+        - Or add aria-label to the button and describe it
+          as "Remove tag for [tag name]"
+    */
     return (
       <div className="favorite-tags-container">
         <span className="favorite-tags-label">My Tags:</span>
@@ -61,15 +70,13 @@ class FavoriteTags extends React.Component {
 
         <Button kind="tertiary" small onClick={this.handleAdd} className="favorites-add-tag"><Icon name="plus" />Add Tag</Button>
 
-        <Modal isOpen={this.state.modalIsOpen}>
-          <h2 className="add-tags-heading">Add Tags</h2>
-          <fieldset className="add-tags-fieldset">
-            <label htmlFor="tag-input">Tag for this record</label>
-            <input id="tag-input" type="text" />
-            <p>Tagging helps organize your saved items by keyword, project, or course.</p>
+        <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.handleCloseModal}>
+          <fieldset className="add-tag-fieldset">
+            <label htmlFor="add-tag-input"><span className="add-tag-heading">Add Tag</span>To organize your saved items by keyword, project, or course.</label>
+            <FavoriteInputTag htmlId="add-input-tag" tags={tags} />
           </fieldset>
           <Button className="favorites-add-tag-button">Add Tag</Button>
-          <Button kind="tertiary" onClick={() => this.setState({ modalIsOpen: false })}>Cancel</Button>
+          <Button kind="tertiary" onClick={this.handleCloseModal}>Cancel</Button>
         </Modal>
       </div>
     )

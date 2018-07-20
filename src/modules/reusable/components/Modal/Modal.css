@@ -31,13 +31,16 @@
     .Modal__Content {
       max-height: calc(100% - 100px);
       position: fixed;
-      top: 33%;
+      top: 14vh;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, 0);
       width: 100%;
       max-width: 34rem;
       box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
       padding: 2rem; } }
+  @media screen and (max-height: 42rem) {
+    .Modal__Content {
+      top: 0; } }
 
 .Modal__Overlay {
   position: fixed;
