@@ -2493,7 +2493,10 @@ input.get-this-field-input-year {
 .lists-count-tag {
   color: white;
   white-space: nowrap;
-  margin: 0; }
+  margin: 0;
+  background: #0C5292;
+  padding: 0 0.2rem;
+  border-radius: 4px; }
 
 .lists-header {
   display: flex;
