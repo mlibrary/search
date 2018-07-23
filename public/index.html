@@ -29,22 +29,18 @@
           }
         }
 
-        .loading {
-          background: linear-gradient(to left, #131D33, #FFFFFF, #FFFFFF);
+        .loading__bar {
+          background: linear-gradient(to left, #131D33, #F5F5F5, #F5F5F5);
           -webkit-animation-fill-mode: forwards;
           -webkit-animation-iteration-count: infinite;
           -webkit-animation-name: placeHolderShimmer;
           -webkit-animation-timing-function: linear;
-          -webkit-animation-duration: 8s;
+          -webkit-animation-duration: 20s;
           vertical-align: middle;
           height: 0.6rem;
           margin-top: 0;
           margin-bottom: 1rem;
-        }
-
-        .loading {
           position: absolute;
-          top: 0;
           left: 0;
           right: 0;
           height: 4px;
@@ -81,14 +77,11 @@
 
         .fade-in {
           opacity: 0;
-          /* make things invisible upon start */
           -webkit-animation: fadeIn ease-in 1;
-          /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
           -moz-animation: fadeIn ease-in 1;
           animation: fadeIn ease-in 1;
 
           -webkit-animation-fill-mode: forwards;
-          /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
           -moz-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
 
@@ -99,23 +92,31 @@
 
         .loading__u-m-library-logo {
           width: 16rem;
-          height 3rem;
+          height: auto;
+          margin-bottom: 1rem;
           max-width: 100%;
         }
 
         .loading__container {
           position: fixed;
-          top: 33%;
+          top: 50%;
           left: 50%;
-          /* bring your own prefixes */
           transform: translate(-50%, -50%);
+        }
+
+        .loading__text {
+           margin-top: 16px;
+           font-family: 'Open Sans', Arial;
+            color: #131D33;
+            opacity: 0.75;
+           text-align: center;
+           font-size: 14px;
         }
       </style>
       <div class="fade-in">
-        <div class="loading"></div>
         <div class="loading__container">
           <svg tab-index="1" class="loading__u-m-library-logo" width="954px" height="144px" viewBox="0 0 954 144" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <title>Loading University of Michigan Library Search ...</title>
+            <title>University of Michigan Library</title>
             <defs>
               <polygon id="path-1" points="0 143.94 0 0 953.942 0 953.942 143.94"></polygon>
             </defs>
@@ -138,10 +139,16 @@
                 id="Fill-8" fill="#131D33" mask="url(#mask-2)"></path>
                 <polyline id="Fill-9" fill="#131D33" mask="url(#mask-2)" points="935.419 0.202 953.942 0.202 914.701 89.231 914.701 144 896.374 144 896.374 89.231 857.737 0.202 878.249 0.202 906.336 69.709 935.419 0.202"></polyline>
                 <polygon id="Fill-10" fill="#131D33" mask="url(#mask-2)" points="239.538 143.94 245.538 143.94 245.538 0 239.538 0"></polygon>
+              
               </g>
             </g>
           </svg>
+
+          <div class="loading__bar"></div>
+
+          <p class="loading__text" tab-index="1">Loading Search ...</p>
         </div>
+      </div>
     </div>
   </body>
 
