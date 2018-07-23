@@ -33,7 +33,7 @@ class FlintAlerts extends React.Component {
             <Alert
               type="warning"
               onCloseButtonClick={this.handleCloseButtonClick}
-              >We noticed you are affiliated with U-M Flint. For the best results use <a href={url}>Thompson Library’s Summon</a> to search for articles.</Alert>
+              >U-M Flint users: You may not be able to access U-M Ann Arbor resources. For the best results use <a href={url}>Thompson Library’s Summon</a> to search for articles.</Alert>
           </UserIsFlintAffiliated>
         )
       case 'databases':
