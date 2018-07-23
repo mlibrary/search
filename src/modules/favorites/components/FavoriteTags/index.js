@@ -26,9 +26,13 @@ class FavoriteTags extends React.Component {
     this.setState({ modalIsOpen: false })
   }
 
-  handleAdd = () => {
+  handleOpenModal = () => {
     this.setState({ modalIsOpen: true })
-    console.log('handleAdd')
+  }
+  
+  handleSubmit = (event) => {
+    event.preventDefault()
+    console.log('handleSubmit', event)
   }
 
   render() {
@@ -68,15 +72,17 @@ class FavoriteTags extends React.Component {
         ))}
         </ul>
 
-        <Button kind="tertiary" small onClick={this.handleAdd} className="favorites-add-tag"><Icon name="plus" />Add Tag</Button>
+        <Button kind="tertiary" small onClick={this.handleOpenModal} className="favorites-add-tag"><Icon name="plus" />Add Tag</Button>
 
         <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.handleCloseModal}>
-          <fieldset className="add-tag-fieldset">
-            <label htmlFor="add-tag-input"><span className="add-tag-heading">Add Tag</span>To organize your saved items by keyword, project, or course.</label>
-            <FavoriteInputTag htmlId="add-input-tag" tags={tags} />
-          </fieldset>
-          <Button className="favorites-add-tag-button">Add Tag</Button>
-          <Button kind="tertiary" onClick={this.handleCloseModal}>Cancel</Button>
+          <form onSubmit={this.handleSubmit}>
+            <fieldset className="add-tag-fieldset">
+              <label htmlFor="add-tag-input"><span className="add-tag-heading">Add Tag</span>To organize your saved items by keyword, project, or course.</label>
+              <FavoriteInputTag htmlId="add-input-tag" tags={tags} />
+            </fieldset>
+            <Button className="favorites-add-tag-button" type="submit">Add Tag</Button>
+            <Button kind="tertiary" onClick={this.handleCloseModal}>Cancel</Button>
+          </form>
         </Modal>
       </div>
     )
