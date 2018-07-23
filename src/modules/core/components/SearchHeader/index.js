@@ -38,7 +38,9 @@ class SearchHeader extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    isAuthenticated: state.profile.status === 'Logged in'
+    isAuthenticated: state.profile.status === 'Logged in',
+    datastore: state.datastores.active,
+    search: state.search
   };
 }
 
