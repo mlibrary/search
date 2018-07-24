@@ -1,36 +1,41 @@
 import React from 'react'
 import { FavoriteButton } from '../../../favorites'
-import favorite from '../../utils'
+import favorite from '../../favorite'
 
 class FavoriteRecord extends React.Component {
+  state = {
+    favoriting: false
+  }
+
   handleClick = () => {
     const { record, datastore } = this.props
 
     const callback = (msg) => {
-      /*
-        TODO:
-          - Set loading/favoriting state
-          - Catch callback.
-            - If successful, change state to favorited.
-            - If failure, send feedback it failed. Turn off loading state.
-      */
-
-      console.log('FavoriteRecord callback', msg) // TEMP
+      if (msg.status_code === 'action.response.success') {
+        this.setState({ 'favoriting': false })
+      }
     }
 
-    favorite({
-      intent: 'favorite',
-      datastore,
-      record,
-      value: undefined, // No value (aka new tag value) when favoriting.
-      callback
-    })
+    // Only favorite if not already trying to favorite.
+    if (!this.state.favoriting) {
+      favorite({
+        intent: 'favorite',
+        datastore,
+        record,
+        value: undefined, // No value (aka new tag value) when favoriting.
+        callback
+      })
+    }
+
+    this.setState({ 'favoriting': true })
   }
 
   render() {
-    // TODO: Check favorited based on state conditions.
+    // TODO: This attribute doesn't exist yet. Update attribute name if necessary.
+    const favorited = this.props.record.favorited ? true : false
+
     return (
-      <FavoriteButton favorited={false} handleClick={this.handleClick} />
+      <FavoriteButton favorited={favorited} handleClick={this.handleClick} />
     )
   }
 }

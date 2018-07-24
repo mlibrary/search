@@ -12,23 +12,39 @@ class FavoriteTags extends React.Component {
     modalIsOpen: false
   }
 
-  handleRemove = (tag) => {
+  handleRemoveTag = (tag) => {
     /*
       TODO:
         - Tell Prejudice to remove tag.
         - Removing the tag from state.
     */
 
-    console.log('handleRemove', tag)
+    console.log('handleRemoveTag', tag)
+  }
+
+  handleAddTag = (tag) => {
+    /*
+      TODO:
+        - Tell Prejudice to add tag.
+    */
+
+    console.log('handleAddTag', tag)
   }
 
   handleCloseModal = () => {
     this.setState({ modalIsOpen: false })
   }
 
-  handleAdd = () => {
+  handleOpenModal = () => {
     this.setState({ modalIsOpen: true })
-    console.log('handleAdd')
+    console.log('handleOpenModal')
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.handleCloseModal()
+
+    console.log('handleSubmit', event)
   }
 
   render() {
@@ -64,19 +80,21 @@ class FavoriteTags extends React.Component {
         <span className="favorite-tags-label">My Tags:</span>
         <ul className="favorite-tags">
         {tags.map((tag, i) => (
-          <li key={i}><Tag onRemove={() => this.handleRemove(tag)}>{tag}</Tag></li>
+          <li key={i}><Tag onRemove={() => this.handleRemoveTag(tag)}>{tag}</Tag></li>
         ))}
         </ul>
 
-        <Button kind="tertiary" small onClick={this.handleAdd} className="favorites-add-tag"><Icon name="plus" />Add Tag</Button>
+        <Button kind="tertiary" small onClick={this.handleOpenModal} className="favorites-add-tag"><Icon name="plus" />Add Tag</Button>
 
         <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.handleCloseModal}>
-          <fieldset className="add-tag-fieldset">
-            <label htmlFor="add-tag-input"><span className="add-tag-heading">Add Tag</span>To organize your saved items by keyword, project, or course.</label>
-            <FavoriteInputTag htmlId="add-input-tag" tags={tags} />
-          </fieldset>
-          <Button className="favorites-add-tag-button">Add Tag</Button>
-          <Button kind="tertiary" onClick={this.handleCloseModal}>Cancel</Button>
+          <form onSubmit={this.handleSubmit}>
+            <fieldset className="add-tag-fieldset">
+              <label htmlFor="add-tag-input"><span className="add-tag-heading">Add Tag</span>To organize your saved items by keyword, project, or course.</label>
+              <FavoriteInputTag htmlId="add-input-tag" tags={tags} />
+            </fieldset>
+            <Button className="favorites-add-tag-button" type="submit">Add Tag</Button>
+            <Button kind="tertiary" onClick={this.handleCloseModal}>Cancel</Button>
+          </form>
         </Modal>
       </div>
     )
