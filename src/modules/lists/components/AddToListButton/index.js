@@ -49,7 +49,7 @@ class AddToListButton extends Component {
     } else if (this.state.waitingToBeAddedToList) {
       return (
         <React.Fragment>
-          <span>Adding...</span>
+          <Icon name="plus" /><span>Adding ...</span>
         </React.Fragment>
       )
     } else {

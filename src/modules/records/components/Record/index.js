@@ -162,8 +162,8 @@ class Record extends React.Component {
               <FieldList fields={displayFields} datastoreUid={datastoreUid} institution={institution} />
             </div>
             <ul className="record-actions">
-              <li><FavoriteRecord record={record} datastore={datastoreUid} /></li>
-              <li><AddToListButton item={record} /></li>
+              <li className="record-actions-favorites"><FavoriteRecord record={record} datastore={datastoreUid} /></li>
+              <li className="record-actions-lists"><AddToListButton item={record} /></li>
             </ul>
           </div>
 

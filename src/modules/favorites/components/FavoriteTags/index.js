@@ -80,7 +80,7 @@ class FavoriteTags extends React.Component {
       'Zoology'
     ]
 
-    if (!tags) {
+    if (!tags || tags.length === 0) {
       return null
     }
 
