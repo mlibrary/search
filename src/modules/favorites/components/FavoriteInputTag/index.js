@@ -4,7 +4,6 @@ import Autosuggest from 'react-autosuggest';
 
 class FavoriteInputTag extends React.Component {
   state = {
-    value: '',
     suggestions: []
   }
 
@@ -28,12 +27,6 @@ class FavoriteInputTag extends React.Component {
     return suggestion
   }
 
-  onChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue
-    })
-  }
-
   // Autosuggest will call this function every time you need to update suggestions.
   onSuggestionsFetchRequested = ({ value }) => {
     this.setState({
@@ -55,15 +48,15 @@ class FavoriteInputTag extends React.Component {
   }
 
   render() {
-    const { htmlId } = this.props
-    const { value, suggestions } = this.state
+    const { htmlId, onChange, value, name } = this.props
+    const { suggestions } = this.state
 
-    // Autosuggest will pass through all these props to the input.
     const inputProps = {
-      onChange: this.onChange,
-      value: value,
+      onChange,
+      value,
       id: htmlId,
-      type: 'search'
+      type: 'search',
+      name
     };
 
     return (

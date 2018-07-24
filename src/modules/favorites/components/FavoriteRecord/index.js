@@ -11,9 +11,14 @@ class FavoriteRecord extends React.Component {
     const { record, datastore } = this.props
 
     const callback = (msg) => {
-      if (msg.status_code === 'action.response.success') {
+      /*
+        TODO:
+          - Send feedback alert about not successfully favoriting.
+      */
+
+      setTimeout(() => {
         this.setState({ 'favoriting': false })
-      }
+      }, 1000)
     }
 
     // Only favorite if not already trying to favorite.
@@ -28,6 +33,12 @@ class FavoriteRecord extends React.Component {
     }
 
     this.setState({ 'favoriting': true })
+  }
+
+  favoriting = (favoriting) => {
+    setTimeout(() => {
+      this.setState({ favoriting })
+    }, 1000)
   }
 
   render() {

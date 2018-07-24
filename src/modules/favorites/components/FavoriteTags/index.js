@@ -6,29 +6,12 @@ import {
 } from '../../../reusable'
 import { Icon } from '../../../core'
 import { FavoriteInputTag } from '../../../favorites';
+import favorite from '../../favorite'
 
 class FavoriteTags extends React.Component {
   state = {
-    modalIsOpen: false
-  }
-
-  handleRemoveTag = (tag) => {
-    /*
-      TODO:
-        - Tell Prejudice to remove tag.
-        - Removing the tag from state.
-    */
-
-    console.log('handleRemoveTag', tag)
-  }
-
-  handleAddTag = (tag) => {
-    /*
-      TODO:
-        - Tell Prejudice to add tag.
-    */
-
-    console.log('handleAddTag', tag)
+    modalIsOpen: false,
+    tag: ""
   }
 
   handleCloseModal = () => {
@@ -37,25 +20,54 @@ class FavoriteTags extends React.Component {
 
   handleOpenModal = () => {
     this.setState({ modalIsOpen: true })
-    console.log('handleOpenModal')
   }
+
+  handleRemoveTag = (tag) => {
+    this.handleTag(tag, 'untag')
+  }
+
+  handleAddTag = (tag) => {
+    this.handleTag(tag, 'tag')
+  }
+
+  handleTag = (tag, intent) => {
+    const { record, datastore } = this.props
+    const callback = (msg) => {
+      /*
+        TODO:
+          - Handle what to do if favoriting fails.
+      */
+    }
+
+    favorite({
+      intent,
+      datastore,
+      record,
+      value: tag,
+      callback
+    })
+  }
+
+  handleInputChage = (event, { newValue }) => {
+    this.setState({
+      tag: newValue
+    });
+  };
 
   handleSubmit = (event) => {
     event.preventDefault()
     this.handleCloseModal()
 
-    console.log('handleSubmit', event)
+    this.handleAddTag(this.state.tag)
   }
 
   render() {
     const { record, datastore } = this.props
     /*
       TODO:
-        - Check if the record is favorited. If not, render null. favorited
-          record state will be on the record data from Pride.
         - Check if Record has tags. The Tags will be on the records from Pride.
     */
-
+    //const { tags } = records.favorite_tags
     const tags = [
       'Ethnography',
       'Midterm Project',
@@ -79,18 +91,23 @@ class FavoriteTags extends React.Component {
       <div className="favorite-tags-container">
         <span className="favorite-tags-label">My Tags:</span>
         <ul className="favorite-tags">
-        {tags.map((tag, i) => (
-          <li key={i}><Tag onRemove={() => this.handleRemoveTag(tag)}>{tag}</Tag></li>
-        ))}
+          {tags.map((tag, i) => (
+            <li key={i}><Tag onRemove={() => this.handleTag(tag, 'untag')}>{tag}</Tag></li>
+          ))}
+          <li><Button kind="tertiary" small onClick={this.handleOpenModal} className="favorites-add-tag"><Icon name="plus" />Add Tag</Button></li>
         </ul>
-
-        <Button kind="tertiary" small onClick={this.handleOpenModal} className="favorites-add-tag"><Icon name="plus" />Add Tag</Button>
 
         <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.handleCloseModal}>
           <form onSubmit={this.handleSubmit}>
             <fieldset className="add-tag-fieldset">
               <label htmlFor="add-tag-input"><span className="add-tag-heading">Add Tag</span>To organize your saved items by keyword, project, or course.</label>
-              <FavoriteInputTag htmlId="add-input-tag" tags={tags} />
+              <FavoriteInputTag
+                htmlId="add-input-tag"
+                tags={tags}
+                onChange={this.handleInputChage}
+                name="tag"
+                value={this.state.tag}
+              />
             </fieldset>
             <Button className="favorites-add-tag-button" type="submit">Add Tag</Button>
             <Button kind="tertiary" onClick={this.handleCloseModal}>Cancel</Button>
