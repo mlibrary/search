@@ -68,11 +68,17 @@ class FavoriteTags extends React.Component {
         - Check if Record has tags. The Tags will be on the records from Pride.
     */
     //const { tags } = record.favorite_tags
+    //const { suggestions } = record.favorite_recommended_tags
     const tags = [
       'Ethnography',
       'Midterm Project',
       'Thesis'
     ] // TEMP placeholder to be an example.
+    const suggestions = [
+      'Parrots',
+      'Birds',
+      'Zoology'
+    ]
 
     if (!tags) {
       return null
@@ -103,7 +109,7 @@ class FavoriteTags extends React.Component {
               <label htmlFor="add-tag-input"><span className="add-tag-heading">Add Tag</span>To organize your saved items by keyword, project, or course.</label>
               <FavoriteInputTag
                 htmlId="add-input-tag"
-                tags={tags}
+                suggestions={suggestions}
                 onChange={this.handleInputChage}
                 name="tag"
                 value={this.state.tag}

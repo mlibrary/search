@@ -9,12 +9,12 @@ class FavoriteInputTag extends React.Component {
 
   // Teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = (value) => {
-    const { tags } = this.props
+    const { suggestions } = this.props
 
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
-    return inputLength === 0 ? tags : tags.filter(tag => {
+    return inputLength === 0 ? suggestions : suggestions.filter(tag => {
       if (tag.toLowerCase() === inputValue) {
         return false
       }
