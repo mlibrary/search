@@ -67,7 +67,7 @@ class FavoriteTags extends React.Component {
       TODO:
         - Check if Record has tags. The Tags will be on the records from Pride.
     */
-    //const { tags } = records.favorite_tags
+    //const { tags } = record.favorite_tags
     const tags = [
       'Ethnography',
       'Midterm Project',
