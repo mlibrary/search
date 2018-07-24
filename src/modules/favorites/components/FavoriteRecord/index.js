@@ -31,8 +31,15 @@ class FavoriteRecord extends React.Component {
   }
 
   render() {
-    // TODO: This attribute doesn't exist yet. Update attribute name if necessary.
-    const favorited = this.props.record.favorited ? true : false
+    const { favoriting } = this.state
+    const { record } = this.props
+
+    /*
+      Record favorited attribute doesn't exist yet. Update attribute name if
+      necessary. We will show favorited when favoriting and assume it will go
+      well to give instant feedback to user.
+    */
+    const favorited = record.favorited || favoriting ? true : false
 
     return (
       <FavoriteButton favorited={favorited} handleClick={this.handleClick} />
