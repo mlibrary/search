@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   Icon
 } from '../../../core'
+import _ from 'underscore'
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
@@ -110,6 +111,21 @@ class ActionsList extends Component {
     }
   }
 
+  renderAction = (action) => {
+    const isActive = action.uid === this.state.activeUid
+    const activeClassName = isActive ? 'lists-action-button--active' : ''
+
+    if (_.contains(this.props.hideActions, action.uid)) {
+      return null
+    }
+
+    return (
+      <li key={action.uid}>
+        <button className={`button-link lists-action-button ${activeClassName}`} onClick={() => this.handleClick(action)} aria-pressed={isActive}><Icon name={action.icon} />{action.name}</button>
+      </li>
+    )
+  }
+
   render() {
     const {
       active
@@ -121,13 +137,7 @@ class ActionsList extends Component {
       <React.Fragment>
         <ul className="lists-actions-list">
           {this.state.actions.map(action => {
-            const isActive = action.uid === activeUid
-            const activeClassName = isActive ? 'lists-action-button--active' : ''
-            return (
-              <li key={action.uid}>
-                <button className={`button-link lists-action-button ${activeClassName}`} onClick={() => this.handleClick(action)} aria-pressed={isActive}><Icon name={action.icon} />{action.name}</button>
-              </li>
-            )
+            return this.renderAction(action)
           })}
         </ul>
         <Login render={login => (

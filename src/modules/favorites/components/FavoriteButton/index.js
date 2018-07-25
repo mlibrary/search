@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '../../../reusable'
-import StarOutlineIcon from '../StarOutlineIcon'
+import { Icon } from '../../../core'
 
 const StarSolidIcon = () => (
   <svg className="favorite-icon" width="20px" height="19px" viewBox="0 0 20 19" >
@@ -21,7 +21,7 @@ const FavoriteButton = ({
       {favorited ? (
         <React.Fragment><StarSolidIcon />Remove Favorite</React.Fragment>
       ) : (
-        <React.Fragment><StarOutlineIcon />Save to Favorites</React.Fragment>
+        <React.Fragment><Icon name="star" />Save to Favorites</React.Fragment>
       )}
     </Button>
   )
