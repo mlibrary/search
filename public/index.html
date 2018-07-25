@@ -19,6 +19,136 @@
   </head>
   <body class="site-min-width">
     <div id="root">
+      <style>
+        @-webkit-keyframes placeHolderShimmer {
+          0% {
+            background-position: -100vw 0;
+          }
+          100% {
+            background-position: 100vw 0;
+          }
+        }
+
+        .loading__bar {
+          background: linear-gradient(to left, #131D33, #F5F5F5, #F5F5F5);
+          -webkit-animation-fill-mode: forwards;
+          -webkit-animation-iteration-count: infinite;
+          -webkit-animation-name: placeHolderShimmer;
+          -webkit-animation-timing-function: linear;
+          -webkit-animation-duration: 20s;
+          vertical-align: middle;
+          height: 0.6rem;
+          margin-top: 0;
+          margin-bottom: 1rem;
+          position: absolute;
+          left: 0;
+          right: 0;
+          height: 4px;
+        }
+
+        /* make keyframes that tell the start state and the end state of our object */
+
+        @-webkit-keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @-moz-keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        .fade-in {
+          opacity: 0;
+          -webkit-animation: fadeIn ease-in 1;
+          -moz-animation: fadeIn ease-in 1;
+          animation: fadeIn ease-in 1;
+
+          -webkit-animation-fill-mode: forwards;
+          -moz-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+
+          -webkit-animation-duration: 0.4s;
+          -moz-animation-duration: 0.4s;
+          animation-duration: 0.4s;
+        }
+
+        .loading__u-m-library-logo {
+          width: 16rem;
+          height: auto;
+          margin-bottom: 1rem;
+          max-width: 100%;
+        }
+
+        .loading__container {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        .loading__text {
+           margin-top: 16px;
+           font-family: 'Open Sans', Arial;
+            color: #131D33;
+            opacity: 0.75;
+           text-align: center;
+           font-size: 14px;
+        }
+      </style>
+      <div class="fade-in">
+        <div class="loading__container">
+          <svg tab-index="1" class="loading__u-m-library-logo" width="954px" height="144px" viewBox="0 0 954 144" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>University of Michigan Library</title>
+            <defs>
+              <polygon id="path-1" points="0 143.94 0 0 953.942 0 953.942 143.94"></polygon>
+            </defs>
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="U-M-Library-signature---no-U-M">
+                <mask id="mask-2" fill="white">
+                  <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-2"></g>
+                <polyline id="Fill-1" fill="#EBBF28" mask="url(#mask-2)" points="100.595 118.772 59.392 62.459 59.392 103.42 75.776 103.42 75.776 143.871 0 143.871 0 103.42 15.354 103.42 15.354 40.443 0 40.443 0 0 59.525 0 100.595 56.719 141.665 0 201.176 0 201.176 40.443 185.813 40.443 185.813 103.42 201.176 103.42 201.176 143.871 125.41 143.871 125.41 103.42 141.781 103.42 141.781 62.459 100.595 118.772"></polyline>
+                <polyline id="Fill-3" fill="#131D33" mask="url(#mask-2)" points="281.497 144 281.497 0.202 299.817 0.202 299.817 128.067 352.598 128.067 352.598 144 281.497 144"></polyline>
+                <polygon id="Fill-4" fill="#131D33" mask="url(#mask-2)" points="374.194 143.94 392.511 143.94 392.511 0.202 374.194 0.202"></polygon>
+                <path d="M436.948,128.067 L462.84,128.067 C482.357,128.067 489.334,114.123 489.334,103.573 C489.334,80.665 475.187,76.682 456.472,76.682 L436.948,76.682 L436.948,128.067 Z M436.948,60.747 L463.64,60.747 C477.974,60.547 484.954,51.788 484.954,37.845 C484.954,25.896 478.174,16.135 462.84,16.135 L436.948,16.135 L436.948,60.747 Z M418.625,144 L418.625,0.202 L465.433,0.202 C485.349,0.202 492.119,6.972 497.495,14.942 C502.481,22.71 503.275,31.276 503.275,34.059 C503.275,51.984 497.102,63.939 478.576,68.117 L478.576,69.117 C499.096,71.507 508.054,83.854 508.054,103.573 C508.054,140.417 481.165,144 464.833,144 L418.625,144 L418.625,144 Z"
+                id="Fill-5" fill="#131D33" mask="url(#mask-2)"></path>
+                <path d="M546.109,61.943 L573.603,61.943 C586.751,61.943 593.124,50.591 593.124,38.04 C593.124,27.686 587.932,16.135 573.795,16.135 L546.109,16.135 L546.109,61.943 Z M546.109,77.878 L546.109,144 L527.791,144 L527.791,0.202 L577.386,0.202 C602.88,0.202 611.835,18.131 611.835,36.053 C611.835,52.981 602.476,65.927 585.543,68.916 L585.543,69.312 C602.069,71.902 608.042,77.478 609.048,106.354 C609.25,112.529 611.237,135.036 614.036,144 L594.916,144 C589.73,134.042 590.921,115.323 589.33,96.201 C587.932,78.676 573.795,77.878 567.63,77.878 L546.109,77.878 L546.109,77.878 Z"
+                id="Fill-6" fill="#131D33" mask="url(#mask-2)"></path>
+                <path d="M687.232,17.125 L686.832,17.125 L664.325,93.811 L710.349,93.811 L687.232,17.125 Z M676.072,0.202 L699.379,0.202 L746.19,144 L725.673,144 L715.322,109.738 L659.755,109.738 L648.995,144 L630.476,144 L676.072,0.202 L676.072,0.202 Z"
+                id="Fill-7" fill="#131D33" mask="url(#mask-2)"></path>
+                <path d="M782.298,61.943 L809.782,61.943 C822.923,61.943 829.292,50.591 829.292,38.04 C829.292,27.686 824.118,16.135 809.979,16.135 L782.298,16.135 L782.298,61.943 Z M782.298,77.878 L782.298,144 L763.965,144 L763.965,0.202 L813.56,0.202 C839.048,0.202 848.019,18.131 848.019,36.053 C848.019,52.981 838.657,65.927 821.725,68.916 L821.725,69.312 C838.255,71.902 844.229,77.478 845.222,106.354 C845.436,112.529 847.423,135.036 850.204,144 L831.082,144 C825.91,134.042 827.11,115.323 825.513,96.201 C824.118,78.676 809.979,77.878 803.806,77.878 L782.298,77.878 L782.298,77.878 Z"
+                id="Fill-8" fill="#131D33" mask="url(#mask-2)"></path>
+                <polyline id="Fill-9" fill="#131D33" mask="url(#mask-2)" points="935.419 0.202 953.942 0.202 914.701 89.231 914.701 144 896.374 144 896.374 89.231 857.737 0.202 878.249 0.202 906.336 69.709 935.419 0.202"></polyline>
+                <polygon id="Fill-10" fill="#131D33" mask="url(#mask-2)" points="239.538 143.94 245.538 143.94 245.538 0 239.538 0"></polygon>
+
+              </g>
+            </g>
+          </svg>
+
+          <div class="loading__bar"></div>
+
+          <p class="loading__text" tab-index="1">Loading Search ...</p>
+        </div>
+      </div>
     </div>
   </body>
 

@@ -16,7 +16,7 @@ const GetThisFAQ = () => (
       <li className="u-margin-top-none"><b>Interlibrary Loans</b> are delivered to your departmental mailbox or designated delivery site.</li>
     </ul>
 
-    <a href="http://guides.lib.umich.edu/c.php?g=283092&p=1886080" className="underline">More about Get This options</a>
+    <a href="https://www.lib.umich.edu/borrowing-and-circulation/get" className="underline">More about Get This options</a>
   </section>
 )
 

@@ -18,7 +18,7 @@ class SearchHeader extends React.Component {
       <div role="banner">
         <SiteMessage>
           <div className="container container-medium">
-            <p>We are dedicated to making Search as usable and accessible as possible for all users. If you are having trouble using this site, <a href="https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf">please let us know</a>. We will support access to <a href="http://mirlyn.lib.umich.edu/">Mirlyn</a>, <a href="https://www.lib.umich.edu/articles/search">ArticlesPlus</a>, <a href="https://www.lib.umich.edu/searchtools">Search Tools</a>, and <a href="https://www.lib.umich.edu/">MLibrary Search</a> until <b>July 30, 2018</b>. Learn about our <Link to="/feature-road-map">feature road map</Link>.</p>
+            <p>U-M Library Search launched in July 2018. <a href="https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf">Please let us know if you have feedback</a>.</p>
           </div>
         </SiteMessage>
 
@@ -38,7 +38,9 @@ class SearchHeader extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    isAuthenticated: state.profile.status === 'Logged in'
+    isAuthenticated: state.profile.status === 'Logged in',
+    datastore: state.datastores.active,
+    search: state.search
   };
 }
 

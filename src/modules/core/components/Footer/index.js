@@ -23,6 +23,9 @@ const Footer = () => {
             <a href="https://www.lib.umich.edu/get-research-help">Get Research Help</a>
           </li>
           <li>
+            <a href="https://ill.lib.umich.edu/">Document Delivery (<abbr title="Interlibrary Loan">I.L.L</abbr>)</a>
+          </li>
+          <li>
             <AskALibrarian />
           </li>
         </ul>

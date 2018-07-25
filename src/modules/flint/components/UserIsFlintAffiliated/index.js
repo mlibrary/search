@@ -15,7 +15,7 @@ const UserIsFlintAffiliated = ({
 
 function mapStateToProps(state) {
   return {
-    isFlintAffiliated: _.contains(state.profile.institutions, 'Flint')
+    isFlintAffiliated: _.contains(state.profile.institutions, 'Ann Arbor')
   };
 }
 

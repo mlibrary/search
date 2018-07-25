@@ -591,7 +591,7 @@ const config = {
         uid: 'region'
       },
       {
-        uid: 'location'
+        uid: 'building'
       },
       {
         uid: 'author'

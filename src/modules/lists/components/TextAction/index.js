@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ActionError from '../ActionError'
+import ActionStatusMessage from '../ActionStatusMessage'
 
 class TextAction extends Component {
   state = {
@@ -66,7 +66,7 @@ class TextAction extends Component {
 
     return (
       <section className="lists-action">
-        <ActionError status={this.state.status} action={action} handleCloseStatus={this.handleCloseStatus} />
+        <ActionStatusMessage status={this.state.status} action={action} handleCloseStatus={this.handleCloseStatus} />
         {this.renderForm()}
       </section>
     )

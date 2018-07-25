@@ -1,17 +1,8 @@
 import React from 'react'
 import { Button } from '../../../reusable'
+import StarOutlineIcon from '../StarOutlineIcon'
 
-const StarOutline = () => (
-  <svg className="favorite-icon" width="20px" height="19px" viewBox="0 0 20 19">
-    <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-      <g fill="#6E6E6E">
-        <path d="M10,13.39603 L6.237,15.66603 L7.232,11.38503 L3.91,8.50703 L8.29,8.13103 L10,4.095 L11.71,8.13103 L16.09,8.50703 L12.768,11.38503 L13.763,15.66603 L10,13.39603 Z M12.809,6.62699 L10,0 L7.191,6.62699 L0,7.244 L5.455,11.97103 L3.82,19.00003 L10,15.27203 L16.18,19.00003 L14.545,11.97103 L20,7.244 L12.809,6.62699 Z"></path>
-      </g>
-    </g>
-  </svg>
-)
-
-const StarSolid = () => (
+const StarSolidIcon = () => (
   <svg className="favorite-icon" width="20px" height="19px" viewBox="0 0 20 19" >
     <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g fill="#FFCB05" stroke="#D8AB00" strokeWidth="2">
@@ -28,9 +19,9 @@ const FavoriteButton = ({
   return (
     <Button kind="tertiary" small className="favorite-button" onClick={() => handleClick()}>
       {favorited ? (
-        <React.Fragment><StarSolid />Remove Favorite</React.Fragment>
+        <React.Fragment><StarSolidIcon />Remove Favorite</React.Fragment>
       ) : (
-        <React.Fragment><StarOutline />Save to Favorites</React.Fragment>
+        <React.Fragment><StarOutlineIcon />Save to Favorites</React.Fragment>
       )}
     </Button>
   )

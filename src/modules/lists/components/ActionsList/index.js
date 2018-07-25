@@ -6,7 +6,9 @@ import {
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
-import { AuthenticationRequired } from '../../../profile'
+import FavoriteAction from '../FavoriteAction'
+import { Login } from '../../../profile'
+import { Button } from '../../../reusable'
 
 class ActionsList extends Component {
   state = {
@@ -47,6 +49,12 @@ class ActionsList extends Component {
         name: 'Export RIS',
         icon: 'export-ris'
       },
+      {
+        uid: 'favorite',
+        action: 'favorite',
+        name: 'Favorite',
+        icon: 'star'
+      }
     ]
   }
 
@@ -65,7 +73,7 @@ class ActionsList extends Component {
     }
   }
 
-  renderActionDetails = () => {
+  renderActionDetails = (login) => {
     const {
       active
     } = this.props
@@ -74,15 +82,32 @@ class ActionsList extends Component {
       return null
     }
 
-    return (
-      <React.Fragment>
-        <AuthenticationRequired>
-          {active.action === 'email' && (<EmailAction action={active} {...this.props} />)}
-          {active.action === 'text' && (<TextAction action={active} {...this.props} />)}
-        </AuthenticationRequired>
-        {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
-      </React.Fragment>
-    )
+    switch (active.action) {
+      case 'email':
+      case 'text':
+      case 'favorite':
+        if (login.authenticated) {
+          return (
+            <React.Fragment>
+              {active.action === 'email' && (<EmailAction action={active} {...this.props} />)}
+              {active.action === 'text' && (<TextAction action={active} {...this.props} />)}
+              {active.action === 'favorite' && (<FavoriteAction action={active}  {...this.props} />)}
+            </React.Fragment>
+          )
+        } else {
+          return (
+            <Button href={login.href} className="u-margin-top-1"><b>Log in</b> to continue</Button>
+          )
+        }
+      case 'file':
+        return (
+          <React.Fragment>
+            {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
+          </React.Fragment>
+        )
+      default:
+        return null
+    }
   }
 
   render() {
@@ -105,7 +130,9 @@ class ActionsList extends Component {
             )
           })}
         </ul>
-        {this.renderActionDetails()}
+        <Login render={login => (
+          <React.Fragment>{this.renderActionDetails(login)}</React.Fragment>
+        )} />
       </React.Fragment>
     )
   }
