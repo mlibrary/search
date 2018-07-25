@@ -27,7 +27,7 @@ class ActionStatusMessage extends Component {
         if (action.uid === 'favorite') {
           return (
             <Alert type='success' onCloseButtonClick={handleCloseStatus} className="u-margin-top-1">
-              {action.name} successfully added.
+              Item(s) successfully favorited.
             </Alert>
           )
         }
