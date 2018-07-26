@@ -37,7 +37,8 @@ import {
   ActionsList,
   prejudice,
   AddToListButton,
-  isInList
+  isInList,
+  GoToList
 } from '../../../lists'
 import {
   NoMatch
@@ -45,7 +46,6 @@ import {
 import {
   FavoriteButton
 } from '../../../favorites'
-
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
 
@@ -102,7 +102,7 @@ class FullRecord extends React.Component {
   }
 
   render() {
-    const { record, institution, datastoreUid, list } = this.props;
+    const { record, institution, datastoreUid, list, datastore } = this.props;
     const { recordUid } = this.props.match.params
 
     if (!record) {
@@ -123,6 +123,7 @@ class FullRecord extends React.Component {
     if (recordUidValue !== recordUid) {
       return (
         <div className="container container-narrow">
+          <GoToList list={list} datastore={datastore} />
           <FullRecordPlaceholder />
         </div>
       )
@@ -145,6 +146,7 @@ class FullRecord extends React.Component {
 
     return (
       <div className="container container-narrow full-record-page-container">
+        <GoToList list={list} datastore={datastore} />
         <div className={recordClassName}>
           <RecordFullFormats
             fields={record.fields}
