@@ -20,6 +20,7 @@
   margin: 0;
   padding: 0;
   margin-bottom: 1rem;
+  min-width: 11rem;
 
   li {
     margin: 0;
@@ -28,9 +29,10 @@
   }
 
   .icon {
-    margin-right: 0.5rem;
+    margin-right: 0.25rem;
     margin-bottom: -2px;
     fill: currentColor;
+    width: 1.2rem;
   }
 }
 

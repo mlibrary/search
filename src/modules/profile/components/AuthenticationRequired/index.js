@@ -9,6 +9,12 @@ class AuthenticationRequired extends Component {
       return this.props.children
     }
 
+    console.log('children', this.props.children)
+
+    if (!this.props.children) {
+      return null
+    }
+
     const loginRoot = config.loginUrl;
     const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
 

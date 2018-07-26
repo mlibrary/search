@@ -2442,15 +2442,17 @@ input.get-this-field-input-year {
   white-space: nowrap;
   margin: 0;
   padding: 0;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  min-width: 11rem; }
   .record-actions li {
     margin: 0;
     padding: 0;
     margin-bottom: 0.25rem; }
   .record-actions .icon {
-    margin-right: 0.5rem;
+    margin-right: 0.25rem;
     margin-bottom: -2px;
-    fill: currentColor; }
+    fill: currentColor;
+    width: 1.2rem; }
 
 .record--highlight {
   outline: solid 2px rgba(18, 109, 193, 0.6); }
@@ -2610,7 +2612,10 @@ input.get-this-field-input-year {
 .lists-action-alert {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  margin-top: 1rem; }
+  .lists-action-alert p {
+    margin: 0; }
 
 .error-help-section .ask-a-librarian-button {
   display: inline-block;
@@ -2626,8 +2631,14 @@ input.get-this-field-input-year {
   text-decoration: none;
   line-height: inherit; }
 
-.favorite-button .icon {
+.favorites-authentication-button {
   margin-right: 0.5rem; }
+
+.favorite-icon {
+  margin-right: 0.25rem;
+  margin-bottom: -2px;
+  width: 1.2rem;
+  height: auto; }
 
 .favorite-tags-container {
   margin-bottom: 0.75rem; }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Alert } from '../../../reusable';
 
 const StatusMessage = ({ status, message, children, handleCloseStatus}) => {
   const alertStatus = status.status_code === 'action.response.success' ? 'alert-success' : 'alert-error'
@@ -12,7 +12,7 @@ const StatusMessage = ({ status, message, children, handleCloseStatus}) => {
   )
 }
 
-class ActionError extends Component {
+class ActionStatusMessage extends Component {
   render() {
     const { status, action, handleCloseStatus } = this.props
 
@@ -20,33 +20,42 @@ class ActionError extends Component {
       return null
     }
 
+    const alertStatus = status.status_code === 'action.response.success' ? 'alert-success' : 'alert-error'
+
     switch (status.status_code) {
       case 'action.response.success':
+        if (action.uid === 'favorite') {
+          return (
+            <Alert type='success' onCloseButtonClick={handleCloseStatus} className="u-margin-top-1">
+              Item(s) successfully favorited.
+            </Alert>
+          )
+        }
         return (
-          <StatusMessage status={status} handleCloseStatus={handleCloseStatus}>
+          <Alert type='success' onCloseButtonClick={handleCloseStatus} className="u-margin-top-1">
             {action.name} successfully sent.
-          </StatusMessage>
+          </Alert>
         )
       case 'action.response.invalid.email':
         return (
-          <StatusMessage status={status} handleCloseStatus={handleCloseStatus}>
+          <Alert type='error' onCloseButtonClick={handleCloseStatus} className="u-margin-top-1">
             Please enter a valid email address (e.g. uniqname@umich.edu)
-          </StatusMessage>
+          </Alert>
         )
       case 'action.response.invalid.number':
         return (
-          <StatusMessage status={status} handleCloseStatus={handleCloseStatus}>
+          <Alert type='error' onCloseButtonClick={handleCloseStatus} className="u-margin-top-1">
             Please enter a valid 10-digit phone number (e.g. 000-123-5555)
-          </StatusMessage>
+          </Alert>
         )
       default:
         return (
-          <StatusMessage status={status} handleCloseStatus={handleCloseStatus}>
+          <Alert type='warning' onCloseButtonClick={handleCloseStatus} className="u-margin-top-1">
             We're sorry. Something went wrong. Please use <a className="underline" href="https://www.lib.umich.edu/ask-librarian">Ask a Librarian</a> for help.
-          </StatusMessage>
+          </Alert>
         )
     }
   }
 }
 
-export default ActionError
+export default ActionStatusMessage

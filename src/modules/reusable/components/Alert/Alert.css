@@ -35,29 +35,36 @@
 
 .alert-inner {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin: 0 auto;
   align-items: baseline; }
 
-.alert-informational {
+.alert--informational {
   color: #0C5292;
   background: #F2F9FF;
   border-color: #CCE6FF; }
 
-.alert-warning {
+.alert--warning {
   color: #AA5600;
   background: #FFEEDD;
   border-color: #E77504; }
 
-.alert-error {
+.alert--error {
   color: #C53B26;
   background: #FFEAE7;
   border-color: #C53B26; }
 
+.alert--success {
+  color: #057C42;
+  background: #E2F4EB;
+  border-color: #05A657; }
+
 .alert-message {
   padding: 0;
   margin: 0;
-  margin-right: 1rem;
+  margin-right: 1rem; }
+
+.alert--small {
   font-size: 0.875rem; }
 
 .alert-dismiss-button {

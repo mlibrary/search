@@ -4,18 +4,17 @@ import Autosuggest from 'react-autosuggest';
 
 class FavoriteInputTag extends React.Component {
   state = {
-    value: '',
     suggestions: []
   }
 
   // Teach Autosuggest how to calculate suggestions for any given input value.
   getSuggestions = (value) => {
-    const { tags } = this.props
+    const { suggestions } = this.props
 
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
-    return inputLength === 0 ? tags : tags.filter(tag => {
+    return inputLength === 0 ? suggestions : suggestions.filter(tag => {
       if (tag.toLowerCase() === inputValue) {
         return false
       }
@@ -26,12 +25,6 @@ class FavoriteInputTag extends React.Component {
 
   getSuggestionValue = (suggestion) => {
     return suggestion
-  }
-
-  onChange = (event, { newValue }) => {
-    this.setState({
-      value: newValue
-    })
   }
 
   // Autosuggest will call this function every time you need to update suggestions.
@@ -55,15 +48,15 @@ class FavoriteInputTag extends React.Component {
   }
 
   render() {
-    const { htmlId } = this.props
-    const { value, suggestions } = this.state
+    const { htmlId, onChange, value, name } = this.props
+    const { suggestions } = this.state
 
-    // Autosuggest will pass through all these props to the input.
     const inputProps = {
-      onChange: this.onChange,
-      value: value,
+      onChange,
+      value,
       id: htmlId,
-      type: 'search'
+      type: 'search',
+      name
     };
 
     return (
