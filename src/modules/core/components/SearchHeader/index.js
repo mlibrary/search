@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
-import umichBlockM from './umich_block_m.png';
 import { connect } from 'react-redux';
 import { SiteMessage } from '../../../core'
 import { Header } from '../../../reusable'

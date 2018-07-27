@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { UserIsFlintAffiliated } from '../../../flint'
 
 
-class FlintAlerts extends React.Component {  
+class FlintAlerts extends React.Component {
   getClosedStatus = () => {
     return localStorage.getItem(`flint-alert-for-${this.props.datastore}-closed`) === "true"
   }
@@ -15,11 +15,11 @@ class FlintAlerts extends React.Component {
 
   render() {
     const { query } = this.props
-    
+
     if (this.getClosedStatus()) {
       return null
     }
-    
+
     switch (this.props.datastore) {
       case 'articlesplus':
         let url = 'https://umflint.summon.serialssolutions.com/#!/'
@@ -27,7 +27,7 @@ class FlintAlerts extends React.Component {
         if (query) {
           url = `https://umflint.summon.serialssolutions.com/#!/search?ho=t&l=en&q=${encodeURIComponent(query)}`
         }
-        
+
         return (
           <UserIsFlintAffiliated>
             <Alert
@@ -63,9 +63,9 @@ class FlintAlerts extends React.Component {
               >We noticed you are affiliated with U-M Flint. For the best results use the <a href="https://libguides.umflint.edu/library">Thompson Library website </a>.</Alert>
           </UserIsFlintAffiliated>
         )
+      default:
+        return null
     }
-
-    return null
   }
 }
 

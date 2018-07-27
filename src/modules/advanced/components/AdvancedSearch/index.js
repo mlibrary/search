@@ -396,7 +396,6 @@ const AdvancedFilter = ({
   advancedFilter,
   handleAdvancedFilterChange
 }) => {
-
   switch (advancedFilter.type) {
     case 'scope_down':
       return (

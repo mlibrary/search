@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import qs from 'qs'
 import { stringifySearchQueryForURL } from '../../../pride'
 import {
   withRouter
@@ -14,15 +13,15 @@ import {
 class InstitutionWrapper extends React.Component {
   pushLibraryScopeToURL = () => {
     const { datastore, institution } = this.props
-    
-    if (datastore === 'mirlyn' && !institution.active) {      
+
+    if (datastore === 'mirlyn' && !institution.active) {
       const {
         match,
         history,
         search,
         activeFilters
       } = this.props
-      
+
       const library = datastore.uid === 'mirlyn' ? institution.active : institution.defaultInstitution
       const page = search.page[datastore.uid] === 1 ? undefined : search.page[datastore.uid]
       const queryString = stringifySearchQueryForURL({
@@ -32,20 +31,20 @@ class InstitutionWrapper extends React.Component {
         sort: search.sort[datastore.uid],
         library,
       })
-      
+
       const url = `/${match.params.datastoreSlug}?${queryString}`
       history.push(url)
     }
   }
-  
+
   componentDidMount() {
     this.pushLibraryScopeToURL()
   }
-  
+
   componentDidUpdate() {
     this.pushLibraryScopeToURL()
   }
-  
+
   render() {
     return this.props.children
   }

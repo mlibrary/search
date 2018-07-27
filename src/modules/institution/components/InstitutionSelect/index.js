@@ -20,8 +20,7 @@ class InstitutionSelect extends React.Component {
       searchQuery,
       activeFilters,
       activeDatastore,
-      history,
-      institution
+      history
     } = this.props
 
     const queryString = stringifySearchQueryForURL({
