@@ -99,27 +99,19 @@ class AdvancedSearch extends React.Component {
       hasActiveFilters = true
     }
 
-    // Library filter
-    // If the catalog and advanced search narrow search to was used to change the institution.
-    let library = undefined
     let filter = activeFilters
-
-    if (activeFilters && datastores.active === 'mirlyn') {
-      library = activeFilters['institution'] ? activeFilters['institution'] : institution.active
-      delete activeFilters['institution']
-    }
 
     // Submit search if query or filters are active
     if ((query.length > 0) || hasActiveFilters ){
       const { history } = this.props
-
+      const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+      const library = activeDatastore.uid === 'mirlyn' ? institution.active : undefined
       const queryString = stringifySearchQueryForURL({
         query,
         filter,
         library
       })
 
-      const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
       const url = `/${activeDatastore.slug}?${queryString}`
       history.push(url)
     }
