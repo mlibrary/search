@@ -50,8 +50,11 @@ class RecordFieldValue extends React.Component {
     if (searchField) {
       const datastoreSlug = getDatastoreSlugByUid(datastoreUid)
       let queryString = ''
+      let library = undefined
 
-      const library = datastoreUid === 'mirlyn' ? institution.active : undefined
+      if (datastoreUid === 'mirlyn') {
+        library = institution.active ? institution.active : institution.defaultInstitution
+      }
 
       switch (searchField.type) {
         case 'fielded':
