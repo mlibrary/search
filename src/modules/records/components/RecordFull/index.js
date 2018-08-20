@@ -2,8 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
 import {
-  withRouter
+  withRouter,
+  Link
 } from 'react-router-dom'
+import { Breadcrumb } from '../../../reusable'
 
 import {
   ShowAllChildren,
@@ -44,6 +46,24 @@ import {
 } from '../../../pages'
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
+
+
+class FullRecordBreadcrumbs extends React.Component {
+  render() {
+    const { datastore } = this.props
+    return (
+      <div className="u-margin-top-1">
+        <Breadcrumb
+          items={[
+            { text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
+            { text: 'Record' }
+          ]}
+          renderAnchor={(item) => (<Link to={item.to}>{item.text}</Link>)}
+        />
+      </div>
+    )
+  }
+}
 
 class FullRecord extends React.Component {
   state = {
@@ -98,12 +118,13 @@ class FullRecord extends React.Component {
   }
 
   render() {
-    const { record, institution, datastoreUid, list } = this.props;
+    const { record, institution, datastoreUid, list, datastore } = this.props;
     const { recordUid } = this.props.match.params
 
     if (!record) {
       return (
         <div className="container container-narrow">
+          <FullRecordBreadcrumbs datastore={datastore} />
           <FullRecordPlaceholder />
         </div>
       )
@@ -141,6 +162,7 @@ class FullRecord extends React.Component {
 
     return (
       <div className="container container-narrow full-record-page-container">
+        <FullRecordBreadcrumbs datastore={datastore} />
         <div className={recordClassName}>
           <RecordFullFormats
             fields={record.fields}

@@ -20,7 +20,7 @@ const FieldValue = ({ field }) => {
   switch (field.type) {
     case 'get-this':
       return (
-        <span><Link className="holding-link" to={field.link}>{field.value}</Link></span>
+        <span><Link className="holding-link" to={`${field.link}${document.location.search}`}>{field.value}</Link></span>
       )
     case 'link':
       if (!field.link) {
