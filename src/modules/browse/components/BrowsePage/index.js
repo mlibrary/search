@@ -9,6 +9,9 @@ import {
   BrowseAtoZ,
   BrowseByFilters
 } from '../../../browse'
+import {
+  Breadcrumb
+} from '../../../reusable'
 
 
 class BrowsePage extends React.Component {
@@ -21,12 +24,14 @@ class BrowsePage extends React.Component {
     setDocumentTitle(['Browse', datastore.name])
 
     return (
-      <div className="container container-narrow">
-        <ol className="breadcrumbs">
-          <li><Link to="/" className="underline">Search</Link></li>
-          <li><Link to={`/${datastore.slug}`} className="underline">{datastore.name}</Link></li>
-          <li>Browse</li>
-        </ol>
+      <div className="container container-narrow u-margin-top-1">
+        <Breadcrumb
+          items={[
+            {text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
+            {text: 'Browse' }
+          ]}
+          renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
+        />
 
         <h1>Browse {datastore.name}</h1>
         <p>When you're stuck looking for specific {datastore.name.toLowerCase()} or just want to see what's out there, the browse page makes finding the right {datastore.name.toLowerCase()} easy. Browse all {datastore.name.toLowerCase()} titles alphabetically or by academic discipline.</p>
