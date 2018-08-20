@@ -75,6 +75,7 @@ const config = {
           'published_brief',
           'contributors',
           'created',
+          'language',
           'distributed',
           'manufactured',
           'edition',
