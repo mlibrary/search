@@ -87,6 +87,7 @@ class SearchBox extends React.Component {
                 type="search"
                 aria-label="search text"
                 value={queryInput}
+                spellcheck="false"
                 onChange={event => this.handleChange(event.target.value)}
               />
               <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
