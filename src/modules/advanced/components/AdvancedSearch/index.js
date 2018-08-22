@@ -259,7 +259,7 @@ class AdvancedSearch extends React.Component {
           <div className="u-margin-top-1">
             <Breadcrumb
               items={[
-                {text: 'Catalog', to: `/${activeDatastore.slug}${document.location.search}` },
+                {text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${document.location.search}` },
                 {text: 'Advanced Search' }
               ]}
               renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
