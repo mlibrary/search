@@ -14,7 +14,6 @@ class FavoriteAction extends Component {
   }
 
   handleSubmitCallback = (data) => {
-    console.log('FavoriteAction.handleSubmitCallback data', data)
     this.setState({ status: data })
   }
 

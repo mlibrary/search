@@ -39,13 +39,17 @@ class FavoriteTags extends React.Component {
       */
     }
 
-    favorite({
+    const data = {
       intent,
       datastore,
       record,
-      value: tag,
+      value: [].concat(tag),
       callback
-    })
+    }
+
+    console.log('tag', data)
+
+    favorite(data)
   }
 
   handleInputChage = (event, { newValue }) => {

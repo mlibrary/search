@@ -32,13 +32,15 @@ class FavoriteRecord extends React.Component {
 
       // Only favorite if not already trying to favorite.
       if (!this.state.favoriting) {
-        favorite({
+        const data = {
           intent: 'favorite',
           datastore,
-          record,
+          record: record,
           value: undefined, // No value (aka new tag value) when favoriting.
           callback
-        })
+        }
+
+        favorite(data) // Favorite this record with the API/Prejudice.
       }
 
       this.setState({ 'favoriting': true })

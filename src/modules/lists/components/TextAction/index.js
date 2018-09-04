@@ -29,7 +29,12 @@ class TextAction extends Component {
     event.preventDefault();
 
     this.setState({ sent: true })
-    this.props.prejudice.act('text', this.props.datastore.uid, this.state.text, this.handleSubmitCallback)
+    this.props.prejudice.act(
+      'text',
+      this.props.datastore.uid,
+      this.state.text,
+      this.handleSubmitCallback
+    )
   }
 
   handleCloseStatus = () => {
