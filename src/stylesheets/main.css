@@ -1195,6 +1195,9 @@ body {
     display: flex;
     flex-direction: column; } }
 
+.full-record-page-container .lists-link-container {
+  margin-top: 1rem; }
+
 .record-person__header-has-picture {
   display: flex;
   align-items: center; }
