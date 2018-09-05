@@ -33,7 +33,7 @@ class BrowsePage extends React.Component {
           renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
         />
 
-        <h1>Browse {datastore.name}</h1>
+        <h1>Browse all {datastore.name}</h1>
         <p>When you're stuck looking for specific {datastore.name.toLowerCase()} or just want to see what's out there, the browse page makes finding the right {datastore.name.toLowerCase()} easy. Browse all {datastore.name.toLowerCase()} titles alphabetically or by academic discipline.</p>
         <BrowseAtoZ />
 

@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 import {
   setDocumentTitle
 } from '../../../a11y'
+import {
+  Breadcrumb
+} from '../../../reusable'
+
 
 class HelpContent extends React.Component {
   componentDidMount() {
@@ -11,15 +15,18 @@ class HelpContent extends React.Component {
 
   render() {
     return (
-      <div className="container container-narrow">
+      <div className="container container-narrow">        
         <article className="page">
           <h1 style={{ marginTop: 0 }}>How to Use Search</h1>
 
           <section>
             <h2>What is this new search tool?</h2>
-            <p>U-M Library Search is a new search interface that consolidates multiple existing search interfaces from the library’s website in one place: the "MLibrary" search, <a className="underline" href="https://mirlyn.lib.umich.edu/">Mirlyn</a>, <a className="underline" href="https://www.lib.umich.edu/searchtools#articlesplus/search">ArticlesPlus</a>, <a className="underline" href="https://www.lib.umich.edu/searchtools#databases/search">Search Tools Databases</a>, and <a className="underline" href="https://www.lib.umich.edu/searchtools#journals/search">Search Tools Journals</a>. The U-M Library Search interface will replace the old interfaces on July 30, 2018. Until then, the old ones will continue to be available.</p>
-
-            <p>The starting point is the Everything search, which shows a small number of results from each of the other categories (Library Catalog Search, Library Articles Search, Library Databases Search, Library Journals Search, and Library Website Search). You can switch to see a specific category of results by clicking the category name below the search box either before you start your search or once results display.</p>
+            <p>
+              U-M Library Search is a new search interface that consolidates multiple older search interfaces from the library’s website in one place: the “MLibrary” search, Mirlyn, ArticlesPlus, Search Tools Databases, and Search Tools Journals. The U-M Library Search interface replaced the old interfaces on July 30, 2018.
+            </p>
+            <p>
+              The starting point is the Everything search, which shows a small number of results from each of the other categories (Library Catalog Search, Library Articles Search, Library Databases Search, Library Journals Search, and Library Website Search). You can switch to see a specific category of results by clicking the category name below the search box either before you start your search or once results display.
+            </p>
           </section>
 
           <section>
@@ -34,15 +41,15 @@ class HelpContent extends React.Component {
                   <th>Explained</th>
                 </tr>
                 <tr>
-                  <td><a className="underline" href="/everything?query=victors">victors</a></td>
+                  <td><Link className="underline" to="/everything?query=victors">victors</Link></td>
                   <td>Will search for items with the words <i>victors</i> in the item.</td>
                 </tr>
                 <tr>
-                  <td><a className="underline" href="/everything?query=victors valiant">victors valiant</a></td>
+                  <td><Link className="underline" to="/everything?query=victors valiant">victors valiant</Link></td>
                   <td>Will search for items with both the words victors and valiant in the item.</td>
                 </tr>
                 <tr>
-                  <td><a className="underline" href='/everything?query="victors valiant"'>"victors valiant"</a></td>
+                  <td><Link className="underline" to='/everything?query="victors valiant"'>"victors valiant"</Link></td>
                   <td>Will search for items with the exact phrase victors valiant in the item.</td>
                 </tr>
               </tbody>
@@ -56,16 +63,24 @@ class HelpContent extends React.Component {
                   <th>Explained</th>
                 </tr>
                 <tr>
-                  <td><a className="underline" href="/everything?query=victors OR valiant">victors OR valiant</a></td>
+                  <td><Link className="underline" to="/everything?query=victors OR valiant">victors OR valiant</Link></td>
                   <td>Will search for items with the words <i>victors</i> or <i>valiant</i> in the item.</td>
                 </tr>
                 <tr>
-                  <td><a className="underline" href="/everything?query=victors AND valiant">victors AND valiant</a></td>
+                  <td><Link className="underline" to="/everything?query=victors AND valiant">victors AND valiant</Link></td>
                   <td>Will search for items with both the <i>victors</i> and <i>valiant</i> in the item.</td>
                 </tr>
                 <tr>
-                  <td><a className="underline" href='/everything?query="victors valiant" OR "conqu`ruing heroes"'>"victors valiant" OR "conqu`ring heroes"</a></td>
+                  <td><Link className="underline" to='/everything?query="victors valiant" OR "conqu`ruing heroes"'>"victors valiant" OR "conqu`ring heroes"</Link></td>
                   <td>Will search for items with one or both of <i>victors valiant</i> or <i>conqu’ring heroes</i> in the item.</td>
+                </tr>
+                <tr>
+                  <td><Link className="underline" to='/everything?query=%2B"victors valiant" %2Dheroes'>+"victors valiant" -heroes</Link></td>
+                  <td>Will display items that must have the phrase <i>victors valiant</i> and must not have <i>heroes</i></td>
+                </tr>
+                <tr>
+                  <td><Link className="underline" to='/everything?query=football 	%2BWolverines %2DBuckeyes'>football +Wolverines -Buckeyes</Link></td>
+                  <td>Will display items that may have the word <i>football</i>, must have the word <i>Wolverines</i>, and must not have the word <i>Buckeyes</i></td>
                 </tr>
               </tbody>
             </table>
@@ -78,7 +93,7 @@ class HelpContent extends React.Component {
                   <th>Explained</th>
                 </tr>
                 <tr>
-                  <td><a className="underline" href="/everything?query=*">*</a></td>
+                  <td><Link className="underline" to="/everything?query=*">*</Link></td>
                   <td>An asterisk will retrieve all items, which you can then filter.</td>
                 </tr>
               </tbody>
@@ -103,7 +118,9 @@ class HelpContent extends React.Component {
 
           <section>
             <h2>How do I email, text, or export records?</h2>
-            <p>When you do a search in Catalog, Articles, Databases, Journals, or Library Website, you can add one or more search results to a temporary list by clicking “Add to list”. Once you have added at least one item to the list, a “Go to my list” link will appear at the top of the results. Click that to see the export options:</p>
+            <p>When you do a search in Catalog, Articles, Databases, Journals, or Library Website, you can add one or more search results to a temporary list by clicking “Add to list”. <b>Your list is erased when you close your browser</b>. Later this summer, you will be able to use Favorites to save items in your library account.</p>
+
+            <p>Once you have added at least one item to the list, a “Go to my list” link will appear at the top of the results. Click that to see the export options:</p>
 
             <ul>
               <li><b>Email</b> will let logged-in users email the list of items to yourself or someone else</li>
@@ -116,7 +133,7 @@ class HelpContent extends React.Component {
 
             <p>When you are viewing a single item’s full details (after you have clicked an item title in any search result), you have access to the same list of export options.</p>
 
-            <p><b>Lists are kept separately for each search category</b> -- catalog items are in your Catalog list, articles are in your Articles list, etc. <b>Your list is erased when you close your browser</b>. Later this summer, you will be able to use Favorites to save items in your library account.</p>
+            <p><b>Lists are kept separately for each search category</b> -- catalog items are in your Catalog list, articles are in your Articles list, etc.</p>
           </section>
 
           <section>
