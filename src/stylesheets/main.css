@@ -725,9 +725,6 @@ nav {
   margin: 0;
   list-style: none; }
 
-.results-list-border > .record {
-  border-bottom: solid 1px #CCC; }
-
 /*
   Search Summary // Records List Bar
 */
@@ -1006,9 +1003,11 @@ body {
   Record
 */
 .record {
-  margin: 0.75rem 0;
+  margin: 1rem 0;
   padding: 0;
-  background: white; }
+  background: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 4px; }
 
 .record-container {
   padding: 1.5rem; }
@@ -1467,7 +1466,8 @@ body {
   padding: 1rem 1.5rem;
   margin-top: -0.5rem;
   align-items: center;
-  border-top: solid 1px #F2F2F2; }
+  border-top: solid 1px #F2F2F2;
+  border-radius: 0 0 4px 4px; }
   @media (min-width: 32rem) {
     .access-container {
       padding: 1rem 2rem; } }
@@ -2347,7 +2347,8 @@ input.get-this-field-input-year {
 
 .specialists__inner-container {
   border-radius: 4px;
-  background: white; }
+  background: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24); }
   .specialists__inner-container .show-all-button {
     display: block;
     width: 100%;
@@ -2370,8 +2371,9 @@ input.get-this-field-input-year {
 .specialist {
   display: flex;
   margin: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: solid 1px #E5E5E5; }
+  padding-bottom: 1rem; }
+  .specialist:not(:last-child) {
+    border-bottom: solid 1px #E5E5E5; }
   .specialist:last-of-type {
     margin-bottom: 0; }
 

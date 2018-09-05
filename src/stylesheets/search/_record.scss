@@ -3,9 +3,11 @@
 */
 
 .record {
-  margin: 0.75rem 0;
+  margin: 1rem 0;
   padding: 0;
   background: white;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
+  border-radius: 4px;
 }
 
 .record-container {
