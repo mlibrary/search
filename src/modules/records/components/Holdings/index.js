@@ -137,10 +137,10 @@ class Holdings extends React.Component {
 
               {holdings.length > 1 && (
                 <button
-                  className="button-light holdings-show-all-button"
+                  className="holdings-show-all-button"
                   aria-expanded={showAll}
                   onClick={() => this.handleShowAllClick(holdingGroupUid)}>
-                  {showAll ? ('Show Fewer') : (`Show All ${holdings.length}`)} {showAllName}
+                  {showAll ? ('Show fewer') : (`Show all ${holdings.length}`)} {showAllName}
                 </button>
               )}
             </section>

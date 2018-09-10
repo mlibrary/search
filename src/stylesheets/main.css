@@ -1396,15 +1396,22 @@ body {
   border: none;
   text-decoration: underline; }
 
-.holdings-show-all-button {
-  border: none;
-  padding: 0;
-  color: #6E6E6E;
-  border-bottom: solid 1px #CCC;
-  border-radius: 0;
-  margin-top: 0; }
-  .holdings-show-all-button:hover {
-    border-color: #6E6E6E; }
+.holdings-show-all-button,
+.access-list-container .show-all-button {
+  background: transparent;
+  border: 1px solid #6E6E6E;
+  color: #4E4E4E;
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  border-radius: 4px;
+  text-decoration: none; }
+  .holdings-show-all-button .show-all-button__text,
+  .access-list-container .show-all-button .show-all-button__text {
+    border: none; }
+  .holdings-show-all-button:hover,
+  .access-list-container .show-all-button:hover {
+    cursor: pointer;
+    border-color: #4E4E4E; }
 
 .bentobox .holdings {
   padding: 1rem 1.5rem; }
