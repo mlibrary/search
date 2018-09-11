@@ -22,7 +22,8 @@ import {
 import {
   DatastoreNavigation,
   DatastoreInfo,
-  Landing
+  Landing,
+  ArticleAlerts
 } from '../../../datastores'
 
 import {
@@ -66,6 +67,7 @@ import {
   FlintAlerts
 } from '../../../flint'
 
+
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class DatastorePageContainer extends React.Component {
@@ -101,7 +103,7 @@ class DatastorePageContainer extends React.Component {
     } = this.props;
 
     if (activeDatastore === undefined) {
-      return null // LOADING TODO: Fade IN?
+      return null
     }
 
     return (
@@ -133,6 +135,7 @@ class DatastorePageContainer extends React.Component {
               <SearchBox />
               <DatastoreNavigation />
               <FlintAlerts />
+              <ArticleAlerts />
               <ConnectedSwitch>
                 <Route path={match.url + `/record/:recordUid/get-this/:barcode`} render={(props) => {
                   return (
