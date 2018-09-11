@@ -2,7 +2,6 @@ import React from 'react';
 import { Alert, Button } from '../../../reusable'
 import { connect } from 'react-redux';
 import config from '../../../../config'
-//import { UserIsFlintAffiliated } from '../../../flint'
 
 class ArticleAlerts extends React.Component {
   state = {
@@ -13,7 +12,7 @@ class ArticleAlerts extends React.Component {
     const { profile, datastore } = this.props
 
     /*
-      Librarians wanted this message for users that are:
+      Librarians wanted this Articles message for users that are:
         A) Not logged in and
         B) not on a U-M Ann Arbor or U-M Flint IP address.
     */
