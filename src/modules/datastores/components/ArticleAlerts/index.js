@@ -25,7 +25,7 @@ class ArticleAlerts extends React.Component {
 
           return (
             <Alert type="warning" closed={this.state.closed}>
-              <span><a href={loginUrl}><b>Log in</b></a> to view complete search results and to save and request items. <Button kind="tertiary" onClick={() => this.setState({ closed: true })}>Hide</Button></span>
+              <span><a href={loginUrl}><b>Log in</b></a> to view complete results based on your U-M affiliation. <Button kind="tertiary" onClick={() => this.setState({ closed: true })}><b>Hide</b></Button></span>
             </Alert>
           )
         }
