@@ -17,9 +17,10 @@
 
 .alert-inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0 auto;
   align-items: baseline;
+  font-size: 0.875rem;
 }
 
 .alert--informational {
@@ -38,22 +39,6 @@
   color: $color__red-1;
   background: $color__red-3;
   border-color: $color__red-1;
-}
-
-.alert--success {
-  color: $color__green-1;
-  background: $color__green-3;
-  border-color: $color__green-2;
-}
-
-.alert-message {
-  padding: 0;
-  margin: 0;
-  margin-right: 1rem;
-}
-
-.alert--small {
-  font-size: 0.875rem;
 }
 
 .alert-dismiss-button {
