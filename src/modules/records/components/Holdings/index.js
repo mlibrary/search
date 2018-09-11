@@ -20,7 +20,7 @@ const FieldValue = ({ field }) => {
   switch (field.type) {
     case 'get-this':
       return (
-        <span><Link className="holding-link" to={field.link}>{field.value}</Link></span>
+        <span><Link className="holding-link" to={`${field.link}${document.location.search}`}>{field.value}</Link></span>
       )
     case 'link':
       if (!field.link) {
@@ -137,10 +137,10 @@ class Holdings extends React.Component {
 
               {holdings.length > 1 && (
                 <button
-                  className="button-light holdings-show-all-button"
+                  className="holdings-show-all-button"
                   aria-expanded={showAll}
                   onClick={() => this.handleShowAllClick(holdingGroupUid)}>
-                  {showAll ? ('Show Fewer') : (`Show All ${holdings.length}`)} {showAllName}
+                  {showAll ? ('Show fewer') : (`Show all ${holdings.length}`)} {showAllName}
                 </button>
               )}
             </section>

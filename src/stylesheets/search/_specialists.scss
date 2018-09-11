@@ -1,10 +1,10 @@
 .specialists {
-
 }
 
 .specialists__inner-container {
   border-radius: 4px;
   background: white;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
 
   .show-all-button {
     display: block;
@@ -35,7 +35,10 @@
   display: flex;
   margin: 1rem;
   padding-bottom: 1rem;
-  border-bottom: solid 1px $grey-5;
+
+  &:not(:last-child) {
+    border-bottom: solid 1px $grey-5;
+  }
 
   &:last-of-type {
     margin-bottom: 0;

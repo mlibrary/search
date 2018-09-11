@@ -47,15 +47,18 @@ class SearchBox extends React.Component {
       queryInput,
       activeFilters,
       institution,
-      sort
+      sort,
+      activeDatastore
     } = this.props
+
+    const library = activeDatastore.uid === 'mirlyn' ? institution.active : undefined
 
     // Query is not empty
     if (queryInput.length > 0) {
       const queryString = qs.stringify({
         query: queryInput,
         filter: activeFilters,
-        library: institution.active,
+        library,
         sort
       }, {
         arrayFormat: 'repeat',
@@ -84,6 +87,7 @@ class SearchBox extends React.Component {
                 type="search"
                 aria-label="search text"
                 value={queryInput}
+                spellCheck="false"
                 onChange={event => this.handleChange(event.target.value)}
               />
               <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>

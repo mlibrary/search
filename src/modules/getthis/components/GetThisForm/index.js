@@ -125,7 +125,7 @@ class GetThisForm extends React.Component {
       if (response.status === 'Action Succeeded') {
         return (
           <article className="alert alert-success">
-            <h4>You have successfuly requested this item</h4>
+            <h4>You have successfully requested this item</h4>
 
             <ul className="u-margin-bottom-1 margin-left-2">
               <li>We will email you when it is available for pickup.</li>

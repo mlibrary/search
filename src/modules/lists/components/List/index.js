@@ -13,6 +13,9 @@ import {
   Icon
 } from '../../../core'
 import {
+  Breadcrumb
+} from '../../../reusable'
+import {
   setA11yMessage
 } from '../../../a11y'
 import prejudice from '../../prejudice'
@@ -25,22 +28,6 @@ class List extends Component {
 
   setActive = (active) => {
     this.setState({ active })
-  }
-
-  getSearchURI = () => {
-    const {
-      match
-    } = this.props
-
-    return `${match.url.replace(/([\/]list[\/]?)/g, "")}${this.getSearch()}`
-  }
-
-  getSearch = () => {
-    const {
-      location
-    } = this.props
-
-    return `${location.search}`
   }
 
   handleRemoveAllFromList = ({ datastoreUid }) => {
@@ -60,7 +47,7 @@ class List extends Component {
     if (!list || this.getListLength() === 0) {
       return (
         <section className="alert">
-          <p><b>This list is empty</b>. <Link className="underline" to={this.getSearchURI()}>Go back to search results</Link> to add to this list.</p>
+          <p><b>This list is empty</b>. <Link className="underline" to={`/${datastore.slug}${document.location.search}`}>Go back to {datastore.name}</Link> to add to this list.</p>
         </section>
       )
     }
@@ -106,7 +93,14 @@ class List extends Component {
 
     return (
       <article className="container container-narrow u-margin-top-1">
-        <Link to={this.getSearchURI()} className="lists-back-to-search-link"><Icon name="arrow-left" /> <span className="underline">Back to search results</span></Link>
+        <Breadcrumb
+          items={[
+            {text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
+            {text: `My ${datastore.name} List` }
+          ]}
+          renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
+        />
+
         <header className="lists-header">
           <h1 className="lists-heading">My {datastore.name} List</h1>
           <div className="lists-header-info">

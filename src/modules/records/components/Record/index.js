@@ -97,8 +97,11 @@ const Header = ({
 const Access = ({
   record,
   access,
-  holdings
+  holdings,
+  datastoreUid
 }) => {
+  const name = datastoreUid === "journals" ? "online journals" : null
+
   return (
     <div>
       {record.loadingHoldings ? (
@@ -114,6 +117,7 @@ const Access = ({
                 <ShowAllChildren
                   length={access.length}
                   show={1}
+                  name={name}
                   listClass={'access-list'}>
                     {access.map((item, index) => (
                       <AccessItem key={index} item={item} />
@@ -172,6 +176,7 @@ class Record extends React.Component {
               record={record}
               access={access}
               holdings={holdings}
+              datastoreUid={datastoreUid}
             />
           )}
         </article>

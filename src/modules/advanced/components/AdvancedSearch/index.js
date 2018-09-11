@@ -19,6 +19,10 @@ import {
 } from '../../../core'
 
 import {
+  Breadcrumb
+} from '../../../reusable'
+
+import {
   stringifySearchQueryForURL,
 } from '../../../pride'
 
@@ -99,27 +103,19 @@ class AdvancedSearch extends React.Component {
       hasActiveFilters = true
     }
 
-    // Library filter
-    // If the catalog and advanced search narrow search to was used to change the institution.
-    let library = undefined
     let filter = activeFilters
-
-    if (activeFilters && datastores.active === 'mirlyn') {
-      library = activeFilters['institution'] ? activeFilters['institution'] : institution.active
-      delete activeFilters['institution']
-    }
 
     // Submit search if query or filters are active
     if ((query.length > 0) || hasActiveFilters ){
       const { history } = this.props
-
+      const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+      const library = activeDatastore.uid === 'mirlyn' ? institution.active : undefined
       const queryString = stringifySearchQueryForURL({
         query,
         filter,
         library
       })
 
-      const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
       const url = `/${activeDatastore.slug}?${queryString}`
       history.push(url)
     }
@@ -260,8 +256,16 @@ class AdvancedSearch extends React.Component {
     return (
       <form onSubmit={this.handleSubmit} className="advanced-search-form">
         <div className="container container-narrow">
-          <div className="advanced-header u-padding-top-1">
-            <Link to={`${match.url.replace(/([\/]advanced[\/]?)/g, "")}${this.props.searchQueryFromURL}`} className="lists-back-to-search-link"><Icon name="arrow-left" /> <span className="underline">Back to search</span></Link>
+          <div className="u-margin-top-1">
+            <Breadcrumb
+              items={[
+                {text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${document.location.search}` },
+                {text: 'Advanced Search' }
+              ]}
+              renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
+            />
+          </div>
+          <div className="advanced-header">
             <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
           </div>
           <div className="advanced-fields-container">
@@ -396,7 +400,6 @@ const AdvancedFilter = ({
   advancedFilter,
   handleAdvancedFilterChange
 }) => {
-
   switch (advancedFilter.type) {
     case 'scope_down':
       return (

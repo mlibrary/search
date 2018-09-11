@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  withRouter
+  withRouter,
+  Link
 } from 'react-router-dom'
 
 import {
@@ -13,6 +14,34 @@ import {
   GetThisFAQ,
   GetThisRecord,
 } from '../../../getthis'
+import { Breadcrumb } from '../../../reusable'
+
+class GetThisPageTemplate extends React.Component {
+  render() {
+    const { recordUid } = this.props
+
+    return (
+      <article className="container container-narrow">
+        <div className="u-margin-top-1">
+          <Breadcrumb
+            items={[
+              { text: 'Catalog', to: `/catalog${document.location.search}` },
+              { text: 'Record', to: `/catalog/record/${recordUid}${document.location.search}` },
+              { text: 'Get This' }
+            ]}
+            renderAnchor={(item) => (<Link to={item.to}>{item.text}</Link>)}
+          />
+        </div>
+        <section>
+          <h1 className="u-margin-bottom-none">Get This</h1>
+          <p className="u-margin-top-none">Request books and other media to the campus library or department most convenient for you.</p>
+        </section>
+
+        {this.props.children}
+      </article>
+    )
+  }
+}
 
 
 class GetThisPage extends React.Component {
@@ -41,35 +70,24 @@ class GetThisPage extends React.Component {
       record
     } = this.props
     const {
-      barcode
+      barcode,
+      recordUid
     } = this.props.match.params
 
     if (record && record.fields.length === 0 && record.names.length === 0) {
-      return (
-        <article className="container container-narrow">
-          <section>
-            <h1 className="u-margin-bottom-none">Get This</h1>
-            <p className="u-margin-top-none">Request books and other media to the campus library or department most convenient for you.</p>
-          </section>
-
-          <div className="alert">
-            <p><b>Error:</b> Unable to find this record.</p>
-          </div>
-        </article>
-      )
+      <GetThisPageTemplate>
+        <div className="alert">
+          <p><b>Error:</b> Unable to find this record.</p>
+        </div>
+      </GetThisPageTemplate>
     }
 
     return (
-      <article className="container container-narrow">
-        <section>
-          <h1 className="u-margin-bottom-none">Get This</h1>
-          <p className="u-margin-top-none">Request books and other media to the campus library or department most convenient for you.</p>
-        </section>
-
+      <GetThisPageTemplate recordUid={recordUid}>
         <GetThisRecord barcode={barcode} />
         <GetThisOptionList record={record} />
         <GetThisFAQ />
-      </article>
+      </GetThisPageTemplate>
     )
   }
 }

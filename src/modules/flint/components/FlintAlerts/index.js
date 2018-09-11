@@ -67,9 +67,9 @@ class FlintAlerts extends React.Component {
               >We noticed you are affiliated with U-M Flint. For the best results use the <a href="https://libguides.umflint.edu/library">Thompson Library website </a>.</Alert>
           </UserIsFlintAffiliated>
         )
+      default:
+        return null
     }
-
-    return null
   }
 }
 

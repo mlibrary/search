@@ -75,18 +75,30 @@ class DatastorePageContainer extends React.Component {
     switchPrideToDatastore(datastoreSlug)
   }
 
+  componentDidUpdate() {
+    const {
+      activeDatastore,
+      query
+    } = this.props;
+
+    if (activeDatastore) {
+      if (query) {
+        setDocumentTitle([query, activeDatastore.name])
+      } else {
+        setDocumentTitle([activeDatastore.name])
+      }
+    }
+  }
+
   render() {
     const {
       searching,
-      datastores,
       match,
       location,
       isAdvanced,
       activeFilterCount,
-      query
+      activeDatastore
     } = this.props;
-
-    const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     if (activeDatastore === undefined) {
       return null // LOADING TODO: Fade IN?
@@ -138,12 +150,6 @@ class DatastorePageContainer extends React.Component {
                   )
                 }}/>
                 <Route match={match.url} render={() => {
-                  if (query) {
-                    setDocumentTitle([query, activeDatastore.name])
-                  } else {
-                    setDocumentTitle([activeDatastore.name])
-                  }
-
                   return (
                     <InstitutionWrapper>
                       {!searching ? (
@@ -231,6 +237,7 @@ function mapStateToProps(state) {
     searching: state.search.searching,
     query: state.search.query,
     datastores: state.datastores,
+    activeDatastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
     location: state.router.location,
     isAdvanced: state.advanced[state.datastores.active] ? true : false,
     activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0
