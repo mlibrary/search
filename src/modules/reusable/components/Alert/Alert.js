@@ -10,7 +10,7 @@ class Alert extends React.Component {
     if (!closed) {
       return (
         <div className={`alert alert-${type}`}>
-          <div className="alert-inner">
+          <div className="alert-inner x-spacing">
             {this.props.children}
           </div>
         </div>

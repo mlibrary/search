@@ -1,7 +1,7 @@
 import DatastoreNavigation from './components/DatastoreNavigation';
 import Landing from './components/Landing';
 import DatastoreInfo from './components/DatastoreInfo';
-import ArticleAlerts from './components/ArticleAlerts';
+import DatastoreAuthenticationAlert from './components/DatastoreAuthenticationAlert';
 import datastoresReducer from './reducer/';
 
 import {
@@ -16,5 +16,5 @@ export {
   changeActiveDatastore,
   Landing,
   DatastoreInfo,
-  ArticleAlerts
+  DatastoreAuthenticationAlert
 };

@@ -23,7 +23,7 @@ import {
   DatastoreNavigation,
   DatastoreInfo,
   Landing,
-  ArticleAlerts
+  DatastoreAuthenticationAlert
 } from '../../../datastores'
 
 import {
@@ -135,7 +135,7 @@ class DatastorePageContainer extends React.Component {
               <SearchBox />
               <DatastoreNavigation />
               <FlintAlerts />
-              <ArticleAlerts />
+              <DatastoreAuthenticationAlert />
               <ConnectedSwitch>
                 <Route path={match.url + `/record/:recordUid/get-this/:barcode`} render={(props) => {
                   return (
