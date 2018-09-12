@@ -13,7 +13,6 @@ class FavoriteRecord extends React.Component {
   }
 
   handleClick = (login) => {
-    const { promptLogin } = this.state
     const { record, datastore } = this.props
 
     if (!login.authenticated) {

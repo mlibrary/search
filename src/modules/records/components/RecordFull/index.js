@@ -46,7 +46,7 @@ import {
   NoMatch
 } from '../../../pages'
 import {
-  FavoriteButton
+  FavoriteRecord
 } from '../../../favorites'
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
@@ -186,7 +186,7 @@ class FullRecord extends React.Component {
               </h1>
 
               <ul className="record-actions">
-                <li><FavoriteButton /></li>
+                <li><FavoriteRecord record={record} datastore={datastoreUid} /></li>
                 <li><AddToListButton item={record} /></li>
               </ul>
             </div>
