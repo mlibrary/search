@@ -2,7 +2,6 @@ import React from 'react'
 import { FavoriteButton } from '../../../favorites'
 import favorite from '../../favorite'
 import { Button, Modal } from '../../../reusable'
-import { Icon } from '../../../core'
 import { Login } from '../../../profile'
 
 
@@ -29,15 +28,17 @@ class FavoriteRecord extends React.Component {
         }, 1000)
       }
 
-      // Only favorite if not already trying to favorite.
+      // Only favorite if not already trying to change record favorite state.
       if (!this.state.favoriting) {
         const data = {
-          intent: 'favorite',
+          intent: record.favorited ? 'unfavorite' : 'favorite',
           datastore,
           record: record,
           value: undefined, // No value (aka new tag value) when favoriting.
           callback
         }
+
+        console.log('favorite action', data)
 
         favorite(data) // Favorite this record with the API/Prejudice.
       }

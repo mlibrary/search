@@ -28,6 +28,7 @@ class FavoriteTags extends React.Component {
 
   handleAddTag = (tag) => {
     this.handleTag(tag, 'tag')
+    this.setState({ tag: '' }) // clear the tag input
   }
 
   handleTag = (tag, intent) => {
@@ -36,6 +37,7 @@ class FavoriteTags extends React.Component {
       /*
         TODO:
           - Handle what to do if favoriting fails.
+          - Have a long optimisitic timeout so the record looks favorited until we hear back.
       */
     }
 
@@ -46,8 +48,6 @@ class FavoriteTags extends React.Component {
       value: [].concat(tag),
       callback
     }
-
-    console.log('tag', data)
 
     favorite(data)
   }
@@ -66,27 +66,21 @@ class FavoriteTags extends React.Component {
   }
 
   render() {
-    const { record, datastore } = this.props
-    /*
-      TODO:
-        - Check if Record has tags. The Tags will be on the records from Pride.
-    */
-    //const { tags } = record.favorite_tags
-    //const { suggestions } = record.favorite_recommended_tags
-    const tags = [
-      'Ethnography',
-      'Midterm Project',
-      'Thesis'
-    ] // TEMP placeholder to be an example.
-    const suggestions = [
-      'Parrots',
-      'Birds',
-      'Zoology'
-    ]
+    const { record } = this.props
+    const { favorite_tags } = record
+    const tags = favorite_tags
 
     if (!tags || tags.length === 0) {
       return null
     }
+
+    /*
+      TODO:
+        - Check if record has suggested tags. This might be on the profile.
+    */
+    //const { suggestions } = record.favorite_recommended_tags
+    // TEMP placeholder to be an example.
+    const suggestions = []
 
     /*
       TODO:
