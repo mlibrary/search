@@ -43,8 +43,10 @@
 
 .full-record__access-container {
   margin-bottom: 2rem;
+}
 
-  .access-item {
+.access-item {
+  &:not(:last-child) {
     margin-bottom: 0.5rem;
   }
 }

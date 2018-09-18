@@ -159,6 +159,8 @@ class FullRecord extends React.Component {
     const inList = isInList(list, record.uid)
     const recordClassName = inList ? 'full-record-container record--highlight' : 'full-record-container'
 
+    const ShowAllName = datastoreUid === "journals" ? "online journals" : null
+
 
     return (
       <div className="container container-narrow full-record-page-container">
@@ -192,7 +194,9 @@ class FullRecord extends React.Component {
                 <ShowAllChildren
                   length={access.length}
                   show={1}
-                  listClass={'access-list'}>
+                  listClass={'access-list'}
+                  name={ShowAllName}
+                >
                   {access.map((item, key) => (
                     <AccessItem key={key} type='full' item={item} />
                   ))}

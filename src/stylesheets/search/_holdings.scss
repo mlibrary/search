@@ -165,6 +165,27 @@
   }
 }
 
+.full-record__access-container {
+  .show-all-button {
+    background: transparent;
+    border: 1px solid $grey-3;
+    color: $grey-2;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    border-radius: 4px;
+    text-decoration: none;
+  
+    .show-all-button__text {
+      border: none;
+    }
+  
+    &:hover {
+      cursor: pointer;
+      border-color: $grey-2;
+    }
+  }
+}
+
 .bentobox {
   .holdings {
     padding: 1rem 1.5rem;

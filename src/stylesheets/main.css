@@ -1413,6 +1413,20 @@ body {
     cursor: pointer;
     border-color: #4E4E4E; }
 
+.full-record__access-container .show-all-button {
+  background: transparent;
+  border: 1px solid #6E6E6E;
+  color: #4E4E4E;
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  border-radius: 4px;
+  text-decoration: none; }
+  .full-record__access-container .show-all-button .show-all-button__text {
+    border: none; }
+  .full-record__access-container .show-all-button:hover {
+    cursor: pointer;
+    border-color: #4E4E4E; }
+
 .bentobox .holdings {
   padding: 1rem 1.5rem; }
 
@@ -1501,8 +1515,9 @@ body {
 
 .full-record__access-container {
   margin-bottom: 2rem; }
-  .full-record__access-container .access-item {
-    margin-bottom: 0.5rem; }
+
+.access-item:not(:last-child) {
+  margin-bottom: 0.5rem; }
 
 .full-record__access-heading {
   font-size: 1rem;
