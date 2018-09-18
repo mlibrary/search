@@ -96,18 +96,19 @@ class List extends Component {
         <Breadcrumb
           items={[
             {text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
-            {text: `My ${datastore.name} List` }
+            {text: `My Temporary ${datastore.name} List` }
           ]}
           renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
         />
 
         <header className="lists-header">
-          <h1 className="lists-heading">My {datastore.name} List</h1>
+          <h1 className="lists-heading">My Temporary {datastore.name} List</h1>
           <div className="lists-header-info">
             {this.renderRemoveAllFromListButton(list, datastore)}
             <p className="tag lists-count-tag"><b>{this.getListLength()}</b> in list</p>
           </div>
         </header>
+        <p>Items in this list are stored temporarily (within a single session).</p>
         <section className="lists-section">
           <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions</h2>
           <span className="text-small">Select what to do with this list.</span>

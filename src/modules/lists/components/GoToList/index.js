@@ -25,7 +25,7 @@ class GoToList extends Component {
           <Link to={`/${datastore.slug}/list${location.search}`} className="lists-link">
             <div className="list-info">
               <span><Icon name="view-list" /></span>
-              <p className="lists-content"><span className="underline">Go to My {datastore.name} List</span> to select actions, such as email, citations, export, and favorite.</p>
+              <p className="lists-content">Go to <span className="underline">My Temporary {datastore.name} List</span> to email, export citations, favorite, and more.</p>
             </div>
             <p className="tag lists-count-tag"><b>{listLength}</b> in list</p>
           </Link>
