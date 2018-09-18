@@ -626,9 +626,9 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters, institution) => {
       {
         uid: 'institution',
         label: 'Library',
-        activeFilter: 'All Libraries'
+        activeFilter: 'All libraries'
         filters: [
-          'All Libraries'
+          'All libraries'
           'William L. Clements Library'
           // ...
         ]
