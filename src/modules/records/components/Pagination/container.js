@@ -88,6 +88,7 @@ class PaginationContainer extends React.Component {
 
     return (
       <Pagination
+        ariaLabel="Pagination"
         page={page}
         total={total}
         onPageChange={this.onPageChange}
