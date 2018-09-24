@@ -12,13 +12,26 @@ import {
 class ResultsSummaryContainer extends React.Component {
   recordsSummary() {
     const { activeDatastoreUid, search } = this.props;
-    const { page, totalAvailable } = this.props.search.data[activeDatastoreUid];
+    const { page, totalAvailable, totalPages } = this.props.search.data[activeDatastoreUid];
 
     const displayTotalAvailable = numeral(totalAvailable).format(0,0)
     const resultsText = totalAvailable === 1 ? `result` : `results`
     const startRange = `${(page * 10 - 9)} `;
-    const endRange = totalAvailable < 10 ? `${totalAvailable}` : `${(page * 10)}`
-    const showingRange = `${startRange} to ${endRange}`
+    const endRange = () => {
+      // On first page
+      if (totalAvailable <= 10) {
+        return `${totalAvailable}` 
+      }
+
+      // On last page
+      if (page === totalPages) {
+        return `${totalAvailable}`
+      }
+
+      // Every other page
+      return `${(page * 10)}`
+    }
+    const showingRange = `${startRange} to ${endRange()}`
     const datastoreName = getDatastoreName(activeDatastoreUid);
 
     return {
