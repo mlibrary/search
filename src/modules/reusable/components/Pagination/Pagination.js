@@ -39,7 +39,11 @@ class Pagination extends React.Component {
 
     return (
       <nav className="pagination-container x-spacing" role="navigation" aria-label={ariaLabel}>
-        {toPreviousPage && (<Link to={toPreviousPage} className="underline">Previous page</Link>)}
+        <div className="pagination-previous-container">
+          {toPreviousPage && (
+            <Link to={toPreviousPage} className="underline">Previous page</Link>
+          )}
+        </div>
         <form className="pagination-input-container" onSubmit={this.handleSubmit}>
           <span>Page</span>
           <input
@@ -51,9 +55,13 @@ class Pagination extends React.Component {
             onBlur={() => this.setState({ page: this.props.page })}
             onChange={this.handleInputChange}
           />
-          <span>of {numeral(total).format(0,0)} pages</span>
+          <span>of {numeral(total).format(0,0)}</span>
         </form>
-        {toNextPage && (<Link to={toNextPage} className="underline">Next page</Link>)}
+        <div className="pagination-next-container">
+          {toNextPage && (
+            <Link to={toNextPage} className="underline">Next page</Link>
+          )}
+        </div>
       </nav>
     )
   }
