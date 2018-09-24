@@ -13,11 +13,14 @@
     color: inherit;
     text-decoration: underline;
   }
+
+  p {
+    margin: 0;
+  }
 }
 
 .alert-inner {
   display: flex;
-  justify-content: center;
   margin: 0 auto;
   align-items: baseline;
   font-size: 0.875rem;
@@ -33,6 +36,12 @@
   color: $color__orange-1;
   background: $color__orange-3;
   border-color: $color__orange-2;
+}
+
+.alert--success {
+  color: $color__green-1;
+  background: $color__green-3;
+  border-color: $color__green-2;
 }
 
 .alert--error {

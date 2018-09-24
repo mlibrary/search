@@ -14,13 +14,20 @@ class FavoriteAction extends Component {
   }
 
   handleSubmitCallback = (data) => {
+    console.log('handleSubmitCallback', data)
+
     this.setState({ status: data })
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ sent: true })
-    this.props.prejudice.act('favorite', this.props.datastore.uid, '', this.handleSubmitCallback)
+    this.props.prejudice.act(
+      'favorite',
+      this.props.datastore.uid,
+      undefined,
+      this.handleSubmitCallback
+    )
   }
 
   handleCloseStatus = () => {
@@ -51,7 +58,7 @@ class FavoriteAction extends Component {
 
     return (
       <section className="lists-action">
-        <ActionStatusMessage status={this.state.status} action={action} handleCloseStatus={this.handleCloseStatus} />
+        <ActionStatusMessage status={this.state.status} action={action} />
         {this.renderForm()}
       </section>
     )

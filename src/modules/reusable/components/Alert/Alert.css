@@ -32,10 +32,11 @@
   .alert a {
     color: inherit;
     text-decoration: underline; }
+  .alert p {
+    margin: 0; }
 
 .alert-inner {
   display: flex;
-  justify-content: center;
   margin: 0 auto;
   align-items: baseline;
   font-size: 0.875rem; }
@@ -49,6 +50,11 @@
   color: #AA5600;
   background: #FFEEDD;
   border-color: #E77504; }
+
+.alert--success {
+  color: #057C42;
+  background: #E2F4EB;
+  border-color: #05A657; }
 
 .alert--error {
   color: #C53B26;
