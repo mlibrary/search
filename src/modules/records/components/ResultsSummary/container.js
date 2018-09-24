@@ -16,20 +16,20 @@ class ResultsSummaryContainer extends React.Component {
 
     const displayTotalAvailable = numeral(totalAvailable).format(0,0)
     const resultsText = totalAvailable === 1 ? `result` : `results`
-    const startRange = `${(page * 10 - 9)} `;
+    const startRange = `${numeral((page * 10 - 9)).format(0,0)} `;
     const endRange = () => {
       // On first page
       if (totalAvailable <= 10) {
-        return `${totalAvailable}` 
+        return `${numeral(totalAvailable).format(0,0)}` 
       }
 
       // On last page
       if (page === totalPages) {
-        return `${totalAvailable}`
+        return `${numeral(totalAvailable).format(0,0)}`
       }
 
       // Every other page
-      return `${(page * 10)}`
+      return `${(numeral(page * 10).format(0,0))}`
     }
     const showingRange = `${startRange} to ${endRange()}`
     const datastoreName = getDatastoreName(activeDatastoreUid);
