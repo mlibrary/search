@@ -250,7 +250,7 @@ class AdvancedSearch extends React.Component {
   }
 
   render() {
-    const { datastores, fields, match, fieldedSearches } = this.props;
+    const { datastores, fields, fieldedSearches } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (

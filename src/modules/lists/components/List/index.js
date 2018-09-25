@@ -10,9 +10,6 @@ import {
   Record
 } from '../../../records'
 import {
-  Icon
-} from '../../../core'
-import {
   Breadcrumb
 } from '../../../reusable'
 import {

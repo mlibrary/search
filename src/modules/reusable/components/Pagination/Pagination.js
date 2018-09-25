@@ -16,7 +16,7 @@ class Pagination extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    const page = parseInt(this.state.page)
+    const page = parseInt(this.state.page, 10)
     const {
       total,
       onPageChange
@@ -43,7 +43,7 @@ class Pagination extends React.Component {
     } = this.props
 
     return (
-      <nav className="pagination-container x-spacing" role="navigation" aria-label={ariaLabel}>
+      <nav className="pagination-container x-spacing" aria-label={ariaLabel}>
         <div className="pagination-previous-container">
           {toPreviousPage && (
             <Link to={toPreviousPage} className="underline">Previous page</Link>
