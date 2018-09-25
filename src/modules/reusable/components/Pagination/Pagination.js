@@ -1,5 +1,4 @@
 import React from 'react'
-import Button from '../Button'
 import numeral from 'numeral'
 import './Pagination.css'
 import { Link } from 'react-router-dom'
@@ -7,6 +6,12 @@ import { Link } from 'react-router-dom'
 class Pagination extends React.Component {
   state = {
     page: this.props.page
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.toNextPage !== this.props.toNextPage) {
+      this.setState({ page: this.props.page })
+    }
   }
 
   handleSubmit = (e) => {
