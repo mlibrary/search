@@ -14,6 +14,8 @@ import AskALibrarian from './components/AskALibrarian'
 import ScopeDown from './components/ScopeDown'
 import SiteMessage from './components/SiteMessage'
 import DetailsList from './components/DetailsList'
+import ScrollToTopOnMount from './components/ScrollToTopOnMount'
+import ScrollToTop from './components/ScrollToTop'
 
 export {
   SearchHeader,
@@ -31,5 +33,7 @@ export {
   AskALibrarian,
   ScopeDown,
   SiteMessage,
-  DetailsList
+  DetailsList,
+  ScrollToTopOnMount,
+  ScrollToTop
 };
