@@ -50,7 +50,7 @@ class PaginationContainer extends React.Component {
     } = this.props
 
     // If there is only one page or you're on the first page.
-    if (page === total || page === 1) {
+    if (page === 1) {
       return undefined
     }
 
@@ -66,7 +66,7 @@ class PaginationContainer extends React.Component {
     } = this.props
 
     // If you're on the last page, do not render a next page link.
-    if (page === total) {
+    if (total === 0 || page === total) {
       return undefined
     }
 
@@ -82,7 +82,7 @@ class PaginationContainer extends React.Component {
       total
     } = this.props;
 
-    if (!records) {
+    if (records && records.length === 0) {
       return null
     }
 
