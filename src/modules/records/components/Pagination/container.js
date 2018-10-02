@@ -82,7 +82,7 @@ class PaginationContainer extends React.Component {
       total
     } = this.props;
 
-    if (records && records.length === 0) {
+    if (!records || (records && records.length === 0)) {
       return null
     }
 
@@ -107,7 +107,8 @@ function mapStateToProps(state) {
     search: state.search,
     activeDatastoreUid: state.datastores.active,
     filters: state.filters.active[state.datastores.active],
-    institution: state.institution
+    institution: state.institution,
+    sort: state.search.sort[state.datastores.active]
   };
 }
 
