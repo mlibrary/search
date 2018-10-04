@@ -1,22 +1,21 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
-import history from '../../../../history'
+import { withRouter, Link } from 'react-router-dom'
 import qs from 'qs'
 
 class NestedList extends React.Component {
   render() {
     const {
-      handleClick,
+      browserFilterTo,
       items
     } = this.props
     /*
       loop through the items array and create a new component for each, passing
-      the current person (id and name) and it's children (items.children) as props
+      the current person (id and name) and its children (items.children) as props
     */
 
     let nodes = items.map(function(item, key) {
       return (
-        <Node key={key} node={item} children={item.children} handleClick={handleClick} />
+        <Node key={key} node={item} children={item.children} browserFilterTo={browserFilterTo} />
       );
     });
 
@@ -31,16 +30,17 @@ class NestedList extends React.Component {
 class BrowseFilter extends React.Component {
   render() {
     const { name, value, count } = this.props.filter
-    const { handleClick } = this.props
+    const { browserFilterTo } = this.props
 
     if (value) {
       return (
-        <button
-          onClick={() => handleClick(value)}
-          className="button-link">
-            <span className="browse-button-text">{name}</span>
-            <span className="browse-button-count">({count})</span>
-        </button>
+        <Link
+          to={browserFilterTo(value)}
+          className="browse-filter-link"
+        >
+          <span className="browse-filter-link__text">{name}</span>
+          <span className="browse-filter-link__count">({count})</span>
+        </Link>
       )
     }
 
@@ -54,7 +54,7 @@ class Node extends React.Component {
   render() {
     const {
       children,
-      handleClick
+      browserFilterTo
     } = this.props
     let childnodes = null;
 
@@ -67,7 +67,7 @@ class Node extends React.Component {
             key={key}
             node={childnode}
             children={childnode.children}
-            handleClick={handleClick}
+            browserFilterTo={browserFilterTo}
           />
         );
       });
@@ -79,7 +79,7 @@ class Node extends React.Component {
       <li key={this.props.node.name}>
         <BrowseFilter
           filter={this.props.node}
-          handleClick={handleClick}
+          browserFilterTo={browserFilterTo}
         />
         { childnodes ?
           <ul>{childnodes}</ul>
@@ -90,7 +90,7 @@ class Node extends React.Component {
 }
 
 class BrowseByFilters extends React.Component {
-  handleFilterClick(filterUid, value) {
+  handleBrowserFilterTo(filterUid, value) {
     const {
       match
     } = this.props
@@ -105,8 +105,7 @@ class BrowseByFilters extends React.Component {
       format : 'RFC1738'
     })
 
-    const url = `/${match.params.datastoreSlug}?${queryString}`
-    history.push(url)
+    return `/${match.params.datastoreSlug}?${queryString}`
   }
 
   render() {
@@ -121,7 +120,7 @@ class BrowseByFilters extends React.Component {
           <section key={uid} className="browse u-margin-top-1">
             <h2 className="browse-heading">{name}</h2>
 
-            <NestedList items={filters[uid].filters} handleClick={(value) => this.handleFilterClick(uid, value)} />
+            <NestedList items={filters[uid].filters} browserFilterTo={(value) => this.handleBrowserFilterTo(uid, value)} />
           </section>
         )
       })}
