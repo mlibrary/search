@@ -153,17 +153,17 @@ class Record extends React.Component {
       return (
         <article className={recordClassName}>
           <div className="record-container record-medium-container">
-            <div>
-              <Header
-                record={record}
-                datastoreUid={datastoreUid}
-                searchQuery={searchQuery}
-              />
-              <FieldList fields={displayFields} datastoreUid={datastoreUid} institution={institution} />
-            </div>
-            <div className="record-actions-container">
-              <AddToListButton item={record} />
-            </div>
+            <Header
+              record={record}
+              datastoreUid={datastoreUid}
+              searchQuery={searchQuery}
+            />
+            <AddToListButton item={record} />
+            <FieldList
+              fields={displayFields}
+              datastoreUid={datastoreUid}
+              institution={institution}
+            />
           </div>
 
           {datastoreUid === 'website' ? null : (

@@ -181,9 +181,7 @@ class FullRecord extends React.Component {
                 <RecommendedResource record={record} />
               </h1>
 
-              <div className="record-actions-container">
-                <AddToListButton item={record} />
-              </div>
+              <AddToListButton item={record} />
             </div>
 
             <RecordDescription record={record} />
