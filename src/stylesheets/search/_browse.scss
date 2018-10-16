@@ -84,14 +84,13 @@
       font-weight: 600;
     }
 
-    button {
+    .browse-filter-link {
       font-size: inherit;
       font-weight: inherit;
       text-align: left;
 
       &:hover {
-
-        .browse-button-text {
+        .browse-filter-link__text {
           text-decoration: underline;
         }
       }
@@ -109,11 +108,11 @@
   }
 }
 
-.browse-button-text {
+.browse-filter-link__text {
   padding-right: 0.25rem;
 }
 
-.browse-button-count {
+.browse-filter-link__count {
   color: $grey-3;
 }
 

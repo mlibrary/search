@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom'
 import {
   setDocumentTitle
 } from '../../../a11y'
-import {
-  Breadcrumb
-} from '../../../reusable'
 
 
 class HelpContent extends React.Component {

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { _ } from 'underscore';
-import { Button } from '../../../reusable'
-import { Icon } from '../../../core'
+
+import {
+  Checkbox
+} from '../../../core'
 import {
   isInList
 } from '../../../lists'
@@ -34,43 +36,26 @@ class AddToListButton extends Component {
         this.setState({ waitingToBeAddedToList: true })
         prejudice.addRecord(item)
       }
-
-      this.props.setA11yMessage(`My ${this.props.datastore.name} List updated.`)
-    }
-  }
-
-  renderButtonContent = (inList) => {
-    if (inList) {
-      return (
-        <React.Fragment>
-          <Icon name="window-close" /><span>Remove from list</span>
-        </React.Fragment>
-      )
-    } else if (this.state.waitingToBeAddedToList) {
-      return (
-        <React.Fragment>
-          <Icon name="plus" /><span>Adding ...</span>
-        </React.Fragment>
-      )
-    } else {
-      return (
-        <React.Fragment>
-          <Icon name="plus" /><span>Add to list</span>
-        </React.Fragment>
-      )
     }
   }
 
   render() {
-    const { list, item } = this.props
+    const {
+      list,
+      item,
+      datastore
+    } = this.props
     const inList = isInList(list, item.uid)
 
     return (
-      <Button
-        kind="tertiary"
-        small
-        onClick={() => this.handleClick(inList, item)}
-      >{this.renderButtonContent(inList)}</Button>
+      <div className="add-to-list-checkbox-container">
+        <Checkbox
+        handleClick={() => this.handleClick(inList, item)}
+        isChecked={inList}
+        label={`Add to my temporary ${datastore.name} list`}
+        hideLabel
+      />
+      </div>
     )
   }
 }

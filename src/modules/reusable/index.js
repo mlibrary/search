@@ -4,6 +4,7 @@ import Button from './components/Button'
 import Tag from './components/Tag'
 import Modal from './components/Modal'
 import Breadcrumb from './components/Breadcrumb'
+import Pagination from './components/Pagination'
 
 
 export {
@@ -12,5 +13,6 @@ export {
   Button,
   Tag,
   Modal,
-  Breadcrumb
+  Breadcrumb,
+  Pagination
 }

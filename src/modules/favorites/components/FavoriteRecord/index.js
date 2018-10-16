@@ -38,8 +38,6 @@ class FavoriteRecord extends React.Component {
           callback
         }
 
-        console.log('favorite action', data)
-
         favorite(data) // Favorite this record with the API/Prejudice.
       }
 

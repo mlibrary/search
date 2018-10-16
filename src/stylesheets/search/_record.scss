@@ -12,10 +12,7 @@
 
 .record-container {
   padding: 1.5rem;
-
-  @media (min-width: $breakpoint-1) {
-    padding: 1.5rem 2rem;
-  }
+  padding-left: 2.75rem;
 }
 
 .record-title {

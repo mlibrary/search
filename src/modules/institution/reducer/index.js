@@ -4,7 +4,7 @@ const initialState = {
   active: undefined,
   defaultInstitution: undefined,
   options: [
-    'All Libraries',
+    'All libraries',
     'U-M Ann Arbor Libraries',
     'Flint Thompson Library',
     'Bentley Historical Library',

@@ -1,41 +1,45 @@
-.record-medium-container {
-  .record-actions {
-    margin-top: 1rem;
-    margin-bottom: 0;
-  }
+.record-container {
+  position: relative;
 
-  @media (min-width: $breakpoint-1) {
-    display: flex;
-    justify-content: space-between;
-
-    .record-actions{
-      margin-top: 0;
-    }
-  }
-}
-
-.record-actions {
-  list-style: none;
-  white-space: nowrap;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 1rem;
-  min-width: 11rem;
-
-  li {
-    margin: 0;
-    padding: 0;
-    margin-bottom: 0.25rem;
-  }
-
-  .icon {
-    margin-right: 0.25rem;
-    margin-bottom: -2px;
-    fill: currentColor;
-    width: 1.2rem;
+  // Room for .favorite-button
+  .record-title {
+    margin-right: 1rem;
   }
 }
 
 .record--highlight {
   outline: solid 2px rgba($main-3, 0.6);
+}
+
+.add-to-list-checkbox-container {
+  position: absolute;
+  top: 1.15rem;
+  left: 0;
+
+  .checkbox {
+    margin: 0;
+    padding: 0.75rem;
+    padding-left: 1rem;
+  }
+
+  .icon {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+}
+
+.record-title-and-actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.favorite-button {
+  white-space: nowrap;
+  .icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-right: 0.25rem;
+    margin-bottom: -0.1rem;
+  }
 }

@@ -250,7 +250,7 @@ class AdvancedSearch extends React.Component {
   }
 
   render() {
-    const { datastores, fields, match, fieldedSearches } = this.props;
+    const { datastores, fields, fieldedSearches } = this.props;
     const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
 
     return (
@@ -626,9 +626,9 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters, institution) => {
       {
         uid: 'institution',
         label: 'Library',
-        activeFilter: 'All Libraries'
+        activeFilter: 'All libraries'
         filters: [
-          'All Libraries'
+          'All libraries'
           'William L. Clements Library'
           // ...
         ]

@@ -1,95 +1,114 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-
-import Pagination from './presenter'
+import { Pagination } from '../../../reusable'
 
 import {
   stringifySearchQueryForURL
 } from '../../../pride'
 
 class PaginationContainer extends React.Component {
-  prevPageURL() {
-    const { search, filters, activeDatastoreUid, history, institution } = this.props
-    const query = search.query
-    const page = search.page[activeDatastoreUid]
-    const sort = search.sort[activeDatastoreUid]
-    const library = activeDatastoreUid === 'mirlyn' ? institution.active : undefined
+  /*
+    page,
+    total,
+    onPageChange,
+    onNextPage,
+    onPreviousPage
+  */
 
-
-    // Only go to prev page if you're past page 1.
-    if (page > 1) {
-      const queryString = stringifySearchQueryForURL({
-        query,
-        filter: filters,
-        page: (page - 1) === 1 ? undefined : (page - 1),
-        library,
-        sort
-      })
-
-      if (queryString.length > 0) {
-        return `${history.location.pathname}?${queryString}`
-      }
-    }
-
-    return undefined
+  onPageChange = (page) => {
+    const { history } = this.props
+    history.push(this.createSearchQuery({ page }))
   }
 
-  nextPageURL() {
-    const { search, filters, activeDatastoreUid, history, institution } = this.props
+  createSearchQuery = ({ page }) => {
+    const {
+      search,
+      filters,
+      activeDatastoreUid,
+      history,
+      institution,
+      sort
+    } = this.props
     const query = search.query
-    const page = search.page[activeDatastoreUid] ? search.page[activeDatastoreUid] : 1
-    const data = search.data[activeDatastoreUid]
-    const sort = search.sort[activeDatastoreUid]
     const library = activeDatastoreUid === 'mirlyn' ? institution.active : undefined
-
-    if ((data.totalPages === 0) || (data.page === data.totalPages)) {
-      return undefined
-    }
-
     const queryString = stringifySearchQueryForURL({
       query,
       filter: filters,
-      page: page + 1,
+      page,
       library,
-      sort,
+      sort
     })
 
-    if (queryString.length > 0) {
-      return `${history.location.pathname}?${queryString}`
-    }
-
-    return undefined
+    return `${history.location.pathname}?${queryString}`
   }
 
-  scrollToTop() {
-    if (window) {
-      window.scrollTo(0, 0)
+  toPreviousPage = () => {
+    const {
+      page,
+      total
+    } = this.props
+
+    // If there is only one page or you're on the first page.
+    if (page === 1) {
+      return undefined
     }
+
+    return this.createSearchQuery({
+      page: page - 1
+    })
+  }
+
+  toNextPage = () => {
+    const {
+      page,
+      total
+    } = this.props
+
+    // If you're on the last page, do not render a next page link.
+    if (total === 0 || page === total) {
+      return undefined
+    }
+
+    return this.createSearchQuery({
+      page: page + 1
+    })
   }
 
   render() {
-    const { records } = this.props;
+    const {
+      records,
+      page,
+      total
+    } = this.props;
 
-    if (!records) {
+    if (!records || (records && records.length === 0)) {
       return null
     }
 
-    return <Pagination
-        prevPageURL={this.prevPageURL()}
-        nextPageURL={this.nextPageURL()}
-        scrollToTop={this.scrollToTop}
+    return (
+      <Pagination
+        ariaLabel="Pagination"
+        page={page}
+        total={total}
+        onPageChange={this.onPageChange}
+        toNextPage={this.toNextPage()}
+        toPreviousPage={this.toPreviousPage()}
       />
+    )
   }
 }
 
 function mapStateToProps(state) {
   return {
+    page: state.search.data[state.datastores.active].page,
+    total: state.search.data[state.datastores.active].totalPages,
     records: state.records.records[state.datastores.active],
     search: state.search,
     activeDatastoreUid: state.datastores.active,
     filters: state.filters.active[state.datastores.active],
-    institution: state.institution
+    institution: state.institution,
+    sort: state.search.sort[state.datastores.active]
   };
 }
 

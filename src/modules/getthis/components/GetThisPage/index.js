@@ -75,11 +75,13 @@ class GetThisPage extends React.Component {
     } = this.props.match.params
 
     if (record && record.fields.length === 0 && record.names.length === 0) {
-      <GetThisPageTemplate>
-        <div className="alert">
-          <p><b>Error:</b> Unable to find this record.</p>
-        </div>
-      </GetThisPageTemplate>
+      return (
+        <GetThisPageTemplate>
+          <div className="alert">
+            <p><b>Error:</b> Unable to find this record.</p>
+          </div>
+        </GetThisPageTemplate>
+      )
     }
 
     return (

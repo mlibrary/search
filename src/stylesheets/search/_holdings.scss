@@ -27,6 +27,7 @@
   background: $grey-6;
   border-top: solid 1px $grey-5;
   padding: 1.5rem 2rem;
+  padding-left: 2.5rem;
   border-radius: 0 0 4px 4px;
 }
 
@@ -118,15 +119,6 @@
   }
 }
 
-.holdings {
-  margin: 0;
-  padding: 1.5rem 2rem;
-
-  @media (max-width: $breakpoint-1) {
-    padding: 1.5rem;
-  }
-}
-
 .holding-table {
   td, th {
     vertical-align: top;
@@ -162,6 +154,27 @@
   &:hover {
     cursor: pointer;
     border-color: $grey-2;
+  }
+}
+
+.full-record__access-container {
+  .show-all-button {
+    background: transparent;
+    border: 1px solid $grey-3;
+    color: $grey-2;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    border-radius: 4px;
+    text-decoration: none;
+  
+    .show-all-button__text {
+      border: none;
+    }
+  
+    &:hover {
+      cursor: pointer;
+      border-color: $grey-2;
+    }
   }
 }
 

@@ -156,19 +156,29 @@ class Record extends React.Component {
       return (
         <article className={recordClassName}>
           <div className="record-container record-medium-container">
-            <div>
+            <div className="record-title-and-actions-container ">
               <Header
                 record={record}
                 datastoreUid={datastoreUid}
                 searchQuery={searchQuery}
               />
-              <FavoriteTags record={record} datastore={datastoreUid} />
-              <FieldList fields={displayFields} datastoreUid={datastoreUid} institution={institution} />
+              <AddToListButton
+                item={record}
+              />
+              <FavoriteRecord
+                record={record}
+                datastore={datastoreUid}
+              />
             </div>
-            <ul className="record-actions">
-              <li className="record-actions-favorites"><FavoriteRecord record={record} datastore={datastoreUid} /></li>
-              <li className="record-actions-lists"><AddToListButton item={record} /></li>
-            </ul>
+            <FavoriteTags
+              record={record}
+              datastore={datastoreUid}
+            />
+            <FieldList
+              fields={displayFields}
+              datastoreUid={datastoreUid}
+              institution={institution}
+            />
           </div>
 
           {datastoreUid === 'website' ? null : (

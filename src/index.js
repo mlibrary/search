@@ -33,7 +33,8 @@ import {
   Main
 } from './modules/core'
 import {
-  AskALibrarian
+  AskALibrarian,
+  ScrollToTop
 } from './modules/core'
 import {
   A11yLiveMessage
@@ -80,34 +81,36 @@ class App extends React.Component {
         <div className="site-wrapper">
           <A11yLiveMessage />
           <ConnectedRouter history={history}>
-            <Main>
-              <Route component={GoogleAnalytics} />
-              <ConnectedSwitch>
-                <Route path="/how-to-use-search" exact component={HelpContent}/>
-                <Route path="/feature-road-map" exact component={RoadMapPage}/>
-                <Route path="/accessibility" exact component={AccessibilityPage}/>
-                <Route path="/" exact render={() => (
-                  <Redirect to={`/everything`} />
-                )}/>
-                <Route path={`/:datastoreSlug`} render={(props) => {
-                  const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-                  const urlState = getStateFromURL({
-                    location: props.location
-                  })
+            <ScrollToTop>
+              <Main>
+                <Route component={GoogleAnalytics} />
+                <ConnectedSwitch>
+                  <Route path="/how-to-use-search" exact component={HelpContent}/>
+                  <Route path="/feature-road-map" exact component={RoadMapPage}/>
+                  <Route path="/accessibility" exact component={AccessibilityPage}/>
+                  <Route path="/" exact render={() => (
+                    <Redirect to={`/everything`} />
+                  )}/>
+                  <Route path={`/:datastoreSlug`} render={(props) => {
+                    const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+                    const urlState = getStateFromURL({
+                      location: props.location
+                    })
 
-                  return (
-                    isDatastore && urlState ? (
-                      <URLSearchQueryWrapper>
-                        <DatastorePage {...props} />
-                      </URLSearchQueryWrapper>
-                    ) : (
-                      <NoMatch />
+                    return (
+                      isDatastore && urlState ? (
+                        <URLSearchQueryWrapper>
+                          <DatastorePage {...props} />
+                        </URLSearchQueryWrapper>
+                      ) : (
+                        <NoMatch />
+                      )
                     )
-                  )
-                }}/>
-                <Route component={NoMatch} />
-              </ConnectedSwitch>
-            </Main>
+                  }}/>
+                  <Route component={NoMatch} />
+                </ConnectedSwitch>
+              </Main>
+            </ScrollToTop>
           </ConnectedRouter>
         </div>
       </Provider>

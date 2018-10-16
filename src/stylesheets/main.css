@@ -750,7 +750,7 @@ nav {
     color: #4E4E4E; }
 
 .pagination-container {
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   background: white;
   background: #FAFAFA;
   margin-bottom: 3rem;
@@ -1002,10 +1002,8 @@ body {
   border-radius: 4px; }
 
 .record-container {
-  padding: 1.5rem; }
-  @media (min-width: 32rem) {
-    .record-container {
-      padding: 1.5rem 2rem; } }
+  padding: 1.5rem;
+  padding-left: 2.75rem; }
 
 .record-title {
   font-weight: 600;
@@ -1298,6 +1296,7 @@ body {
   background: #FAFAFA;
   border-top: solid 1px #E5E5E5;
   padding: 1.5rem 2rem;
+  padding-left: 2.5rem;
   border-radius: 0 0 4px 4px; }
 
 .holding-group:not(:last-child) {
@@ -1371,13 +1370,6 @@ body {
     .holding-table-field {
       padding: 0.5rem 0; } }
 
-.holdings {
-  margin: 0;
-  padding: 1.5rem 2rem; }
-  @media (max-width: 32rem) {
-    .holdings {
-      padding: 1.5rem; } }
-
 .holding-table td, .holding-table th {
   vertical-align: top; }
 
@@ -1405,6 +1397,20 @@ body {
     border: none; }
   .holdings-show-all-button:hover,
   .access-list-container .show-all-button:hover {
+    cursor: pointer;
+    border-color: #4E4E4E; }
+
+.full-record__access-container .show-all-button {
+  background: transparent;
+  border: 1px solid #6E6E6E;
+  color: #4E4E4E;
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  border-radius: 4px;
+  text-decoration: none; }
+  .full-record__access-container .show-all-button .show-all-button__text {
+    border: none; }
+  .full-record__access-container .show-all-button:hover {
     cursor: pointer;
     border-color: #4E4E4E; }
 
@@ -1466,13 +1472,11 @@ body {
 .access-container {
   background: #FAFAFA;
   padding: 1rem 1.5rem;
+  padding-left: 2.5rem;
   margin-top: -0.5rem;
   align-items: center;
   border-top: solid 1px #F2F2F2;
   border-radius: 0 0 4px 4px; }
-  @media (min-width: 32rem) {
-    .access-container {
-      padding: 1rem 2rem; } }
   .access-container:empty {
     display: none; }
 
@@ -1496,8 +1500,9 @@ body {
 
 .full-record__access-container {
   margin-bottom: 2rem; }
-  .full-record__access-container .access-item {
-    margin-bottom: 0.5rem; }
+
+.access-item:not(:last-child) {
+  margin-bottom: 0.5rem; }
 
 .full-record__access-heading {
   font-size: 1rem;
@@ -2216,11 +2221,11 @@ input.date-range-input-text {
   font-size: 1.1rem;
   font-weight: 600; }
 
-.browse .nested-list button {
+.browse .nested-list .browse-filter-link {
   font-size: inherit;
   font-weight: inherit;
   text-align: left; }
-  .browse .nested-list button:hover .browse-button-text {
+  .browse .nested-list .browse-filter-link:hover .browse-filter-link__text {
     text-decoration: underline; }
 
 .browse .nested-list > li {
@@ -2231,10 +2236,10 @@ input.date-range-input-text {
 .browse .nested-list li li li {
   font-size: 0.9rem; }
 
-.browse-button-text {
+.browse-filter-link__text {
   padding-right: 0.25rem; }
 
-.browse-button-count {
+.browse-filter-link__count {
   color: #6E6E6E; }
 
 .recommended-resource-tag {
@@ -2426,39 +2431,42 @@ input.get-this-field-input-year {
       text-decoration: underline;
       margin-left: -0.5rem; } }
 
-.record-medium-container .record-actions {
-  margin-top: 1rem;
-  margin-bottom: 0; }
-
-@media (min-width: 32rem) {
-  .record-medium-container {
-    display: flex;
-    justify-content: space-between; }
-    .record-medium-container .record-actions {
-      margin-top: 0; } }
-
-.record-actions {
-  list-style: none;
-  white-space: nowrap;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 1rem;
-  min-width: 11rem; }
-  .record-actions li {
-    margin: 0;
-    padding: 0;
-    margin-bottom: 0.25rem; }
-  .record-actions .icon {
-    margin-right: 0.25rem;
-    margin-bottom: -2px;
-    fill: currentColor;
-    width: 1.2rem; }
+.record-container {
+  position: relative; }
+  .record-container .record-title {
+    margin-right: 1rem; }
 
 .record--highlight {
   outline: solid 2px rgba(18, 109, 193, 0.6); }
 
+.add-to-list-checkbox-container {
+  position: absolute;
+  top: 1.15rem;
+  left: 0; }
+  .add-to-list-checkbox-container .checkbox {
+    margin: 0;
+    padding: 0.75rem;
+    padding-left: 1rem; }
+  .add-to-list-checkbox-container .icon {
+    width: 1.1rem;
+    height: 1.1rem; }
+
+.record-title-and-actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline; }
+
+.favorite-button {
+  white-space: nowrap; }
+  .favorite-button .icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-right: 0.25rem;
+    margin-bottom: -0.1rem; }
+
 .lists-link-container {
-  outline: solid 2px rgba(18, 109, 193, 0.6); }
+  outline: solid 2px rgba(18, 109, 193, 0.6);
+  z-index: 99; }
   @media (min-width: 32rem) {
     .lists-link-container {
       position: sticky;
@@ -2470,7 +2478,7 @@ input.get-this-field-input-year {
 
 .lists-link {
   background: #F2F9FF;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   display: block;
   display: flex;
   justify-content: space-between;
