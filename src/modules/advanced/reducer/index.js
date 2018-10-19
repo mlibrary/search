@@ -59,8 +59,8 @@ const advancedFieldedSearchingReducer = (state, action) => {
         booleanTypes: action.payload
       }
     case actions.ADD_FIELDED_SEARCH:
-      const defaultFieldedSearch = {
-        field: state[dsUid].fields[0].uid,
+      const newFieldedSearch = {
+        field: action.payload.field,
         query: '',
         booleanType: 0
       }
@@ -70,7 +70,7 @@ const advancedFieldedSearchingReducer = (state, action) => {
           ...state,
           [dsUid]: {
             ...state[dsUid],
-            fieldedSearches: state[dsUid].fieldedSearches.concat(defaultFieldedSearch)
+            fieldedSearches: state[dsUid].fieldedSearches.concat(newFieldedSearch)
           }
         }
       } else {
@@ -78,7 +78,7 @@ const advancedFieldedSearchingReducer = (state, action) => {
           ...state,
           [dsUid]: {
             ...state[dsUid],
-            fieldedSearches: [].concat(defaultFieldedSearch)
+            fieldedSearches: [].concat(newFieldedSearch)
           }
         }
       }
