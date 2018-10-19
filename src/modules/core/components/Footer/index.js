@@ -11,13 +11,28 @@ const Footer = () => {
       <div className="container container-narrow">
         <ul className="site-footer-nav-list">
           <li>
-            <Link to="/">Home</Link>
+            <Link
+              data-ga-action="click"
+              data-ga-category="Footer"
+              data-ga-label="Home"
+              to="/"
+            >Home</Link>
           </li>
           <li>
-            <Link to="/accessibility">Accessibility</Link>
+            <Link
+              data-ga-action="click"
+              data-ga-category="Footer"
+              data-ga-label="Accessibility"
+              to="/accessibility"
+            >Accessibility</Link>
           </li>
           <li>
-            <Link to="/how-to-use-search">How to Use Search</Link>
+            <Link
+              data-ga-action="click"
+              data-ga-category="Footer"
+              data-ga-label="How to Use Search"
+              to="/how-to-use-search"
+            >How to Use Search</Link>
           </li>
           <li>
             <a href="https://www.lib.umich.edu/get-research-help">Get Research Help</a>
