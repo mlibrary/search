@@ -92,7 +92,7 @@
 
         .loading__u-m-library-logo {
           width: 16rem;
-          height: auto;
+          height: 3rem;
           margin-bottom: 1rem;
           max-width: 100%;
         }
@@ -102,17 +102,41 @@
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
+          text-align: center;
         }
 
         .loading__text {
-           margin-top: 16px;
-           font-family: 'Open Sans', Arial;
-            color: #131D33;
-            opacity: 0.75;
-           text-align: center;
-           font-size: 14px;
+          margin-top: 16px;
+          font-family: 'Open Sans', Arial;
+          color: #131D33;
+          opacity: 0.75;
+          text-align: center;
+          font-size: 14px;
+        }
+
+        .no-js__text {
+          display: none;
+          color: rgb(197, 59, 38);
+          margin: 0px;
+          padding: 0.5rem 1rem;
+          border: 1px solid rgb(237, 93, 71);
+          background: rgb(255, 234, 231);
+          border-color: rgb(237, 93, 71);
+          font-family: 'Open Sans', Arial;
+          border-radius: 4px;
         }
       </style>
+      <noscript>
+        <style>
+          .js-only {
+            display: none;
+          }
+
+          .no-js__text {
+            display: block;
+          }
+        </style>
+      </noscript>
       <div class="fade-in">
         <div class="loading__container">
           <svg tab-index="1" class="loading__u-m-library-logo" width="954px" height="144px" viewBox="0 0 954 144" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -139,14 +163,13 @@
                 id="Fill-8" fill="#131D33" mask="url(#mask-2)"></path>
                 <polyline id="Fill-9" fill="#131D33" mask="url(#mask-2)" points="935.419 0.202 953.942 0.202 914.701 89.231 914.701 144 896.374 144 896.374 89.231 857.737 0.202 878.249 0.202 906.336 69.709 935.419 0.202"></polyline>
                 <polygon id="Fill-10" fill="#131D33" mask="url(#mask-2)" points="239.538 143.94 245.538 143.94 245.538 0 239.538 0"></polygon>
-
               </g>
             </g>
           </svg>
 
-          <div class="loading__bar"></div>
-
-          <p class="loading__text" tab-index="1">Loading Search ...</p>
+          <div class="loading__bar js-only"></div>
+          <p class="loading__text js-only">Loading Search ...</p>
+          <p class="no-js__text">U-M Library Search requires JavaScript to run.</p>
         </div>
       </div>
     </div>
