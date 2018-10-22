@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ActionError from '../ActionError'
+import ReactGA from 'react-ga'
 
 class EmailAction extends Component {
   state = {
@@ -28,6 +29,12 @@ class EmailAction extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ sent: true })
+
+    ReactGA.event({
+      action: 'Click',
+      category: 'My List',
+      label: 'Use Email from list'
+    })
 
     this.props.prejudice.act('email', this.props.datastore.uid, this.state.email, this.handleSubmitCallback)
   }

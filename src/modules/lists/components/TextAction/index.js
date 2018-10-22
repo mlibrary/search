@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ActionError from '../ActionError'
+import ReactGA from 'react-ga'
 
 class TextAction extends Component {
   state = {
@@ -27,6 +28,12 @@ class TextAction extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
+    ReactGA.event({
+      action: 'Click',
+      category: 'My List',
+      label: 'Use Export RIS from list'
+    })
 
     this.setState({ sent: true })
     this.props.prejudice.act('text', this.props.datastore.uid, this.state.text, this.handleSubmitCallback)
