@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Header } from '../../../reusable'
+import Header from '@umich-lib-ui/header'
 import config from '../../../../config'
 
 class SearchHeader extends React.Component {
@@ -17,9 +17,17 @@ class SearchHeader extends React.Component {
           name="Search"
           url="/"
           nav={[
-            { text: 'My Account', href: 'https://www.lib.umich.edu/my-account/' },
-            { text: loginText, href: loginHref }
+            { text: 'My Account', to: 'https://www.lib.umich.edu/my-account/' },
+            { text: loginText, to: loginHref }
           ]}
+          renderAnchor={(data) => (
+            <a
+              href={data.to}
+              data-ga-action="Click"
+              data-ga-category="Header"
+              data-ga-label={data.text}
+            >{data.text}</a>
+          )}
         />
       </div>
     );

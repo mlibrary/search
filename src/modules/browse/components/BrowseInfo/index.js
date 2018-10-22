@@ -12,7 +12,14 @@ class BrowseInfo extends React.Component {
 
     if (isDatastoreBrowseable(datastore.uid)) {
       return (
-        <p><Link className="underline" to={`/${datastore.slug}/browse${document.location.search}`}>Browse all {datastore.name}</Link> alphabetically or by academic discipline.</p>
+        <p>
+          <Link
+            className="underline"
+            to={`/${datastore.slug}/browse${document.location.search}`}
+            data-ga-action="Click"
+            data-ga-category="Browse"
+            data-ga-label={`Go to ${datastore.name} Browse`}
+          >Browse all {datastore.name}</Link> alphabetically or by academic discipline.</p>
       )
     }
 

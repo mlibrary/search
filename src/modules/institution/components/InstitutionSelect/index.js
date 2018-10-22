@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { _ } from 'underscore'
 import { withRouter } from 'react-router-dom';
-
+import ReactGA from 'react-ga'
 import {
   setActiveInstitution
 } from '../../../institution'
@@ -27,6 +27,12 @@ class InstitutionSelect extends React.Component {
       query: searchQuery,
       filter: activeFilters,
       library: event.target.value
+    })
+
+    ReactGA.event({
+      action: 'Select',
+      category: 'Filter',
+      label: `Change Scope to ${event.target.value}`
     })
 
     history.push(`/${activeDatastore.slug}?${queryString}`)

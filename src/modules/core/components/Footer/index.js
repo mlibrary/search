@@ -5,40 +5,60 @@ import {
   AskALibrarian
 } from '../../../core'
 
+const footer_links = [
+  {
+    text: 'Home',
+    to: '/'
+  },
+  {
+    text: 'Accessibility',
+    to: '/accessibility'
+  },
+  {
+    text: 'How to Use Search',
+    to: '/how-to-use-search'
+  },
+  {
+    text: 'Get Research Help',
+    href: 'https://www.lib.umich.edu/get-research-help'
+  }
+]
+
 const Footer = () => {
   return (
     <footer className="site-footer" role="contentinfo">
       <div className="container container-narrow">
         <ul className="site-footer-nav-list">
+          {footer_links.map((item, i) => (
+            <li key={i}>
+              {item.to ? (
+                <Link
+                  to={item.to}
+                  data-ga-action="Click"
+                  data-ga-category="Footer"
+                  data-ga-label={item.text}
+                >
+                  {item.text}
+                </Link>
+              ) : (
+                <a
+                  href={item.href}
+                  data-ga-action="Click"
+                  data-ga-category="Footer"
+                  data-ga-label={item.text}
+                >
+                  {item.text}
+                </a>
+              )}
+            </li>
+          ))}
           <li>
-            <Link
-              data-ga-action="click"
+            <a
+              href="https://ill.lib.umich.edu/"
+              data-ga-action="Click"
               data-ga-category="Footer"
-              data-ga-label="Home"
-              to="/"
-            >Home</Link>
-          </li>
-          <li>
-            <Link
-              data-ga-action="click"
-              data-ga-category="Footer"
-              data-ga-label="Accessibility"
-              to="/accessibility"
-            >Accessibility</Link>
-          </li>
-          <li>
-            <Link
-              data-ga-action="click"
-              data-ga-category="Footer"
-              data-ga-label="How to Use Search"
-              to="/how-to-use-search"
-            >How to Use Search</Link>
-          </li>
-          <li>
-            <a href="https://www.lib.umich.edu/get-research-help">Get Research Help</a>
-          </li>
-          <li>
-            <a href="https://ill.lib.umich.edu/">Make an <abbr title="Interlibrary Loan">I.L.L.</abbr> Request</a>
+              data-ga-label="Make an I.L.L. Request"
+            >Make an <abbr title="Interlibrary Loan">I.L.L.</abbr> Request</a>
           </li>
           <li>
             <AskALibrarian />
