@@ -2,6 +2,7 @@ import React from 'react'
 import numeral from 'numeral'
 import './Pagination.css'
 import { Link } from 'react-router-dom'
+import ReactGA from 'react-ga'
 
 class Pagination extends React.Component {
   state = {
@@ -24,6 +25,11 @@ class Pagination extends React.Component {
 
     if (Number.isInteger(page) && page > 0 && page <= total) {
       onPageChange(page)
+      ReactGA.event({
+        action: 'Click',
+        category: 'Page Change',
+        label: `Page Number ${page}`
+      })
     }
   }
 
@@ -46,7 +52,13 @@ class Pagination extends React.Component {
       <nav className="pagination-container x-spacing" aria-label={ariaLabel}>
         <div className="pagination-previous-container">
           {toPreviousPage && (
-            <Link to={toPreviousPage} className="underline">Previous page</Link>
+            <Link
+              to={toPreviousPage}
+              className="underline"
+              data-ga-action="Click"
+              data-ga-category="Change Page"
+              data-ga-label="Previous Page"
+            >Previous page</Link>
           )}
         </div>
         <form className="pagination-input-container" onSubmit={this.handleSubmit}>
@@ -64,7 +76,13 @@ class Pagination extends React.Component {
         </form>
         <div className="pagination-next-container">
           {toNextPage && (
-            <Link to={toNextPage} className="underline">Next page</Link>
+            <Link
+              to={toNextPage}
+              className="underline"
+              data-ga-action="Click"
+              data-ga-category="Change Page"
+              data-ga-label="Next Page"
+            >Next page</Link>
           )}
         </div>
       </nav>
