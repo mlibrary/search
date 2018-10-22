@@ -94,7 +94,9 @@ const handleSearchData = (data, datastoreUid) => {
     datastoreUid: datastoreUid
   }
 
-  if (data.specialists) {
+  const activeDatastore = store.getState().datastores.active;
+
+  if ((activeDatastore === 'everything' || activeDatastore === datastoreUid) && data.specialists) {
     store.dispatch(addSpecialists(data.specialists))
   }
 
