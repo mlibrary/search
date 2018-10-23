@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Pagination } from '../../../reusable'
-
+import ReactGA from 'react-ga'
 import {
   stringifySearchQueryForURL
 } from '../../../pride'

@@ -29,6 +29,7 @@ import {
   AddToListButton,
   isInList
 } from '../../../lists'
+import ReactGA from 'react-ga'
 
 
 const Header = ({
@@ -64,6 +65,13 @@ const Header = ({
         <Link
           to={recordUrl}
           className="record-title-link"
+          onClick={() => {
+            ReactGA.event({
+              action: 'Click',
+              category: 'Medium View',
+              label: `Full view from medium ${datastoreUid}`
+            })
+          }}
         >
           {[].concat(record.names).map((title, index) => (
             <span key={index}>
