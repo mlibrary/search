@@ -1,5 +1,6 @@
 .lists-link-container {
   outline: solid 2px rgba($main-3, 0.6);
+  z-index: 99;
 
   @media (min-width: $breakpoint-1) {
     position: sticky;
@@ -15,7 +16,7 @@
 
 .lists-link {
   background: $main-6;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   display: block;
 
   display: flex;
@@ -177,8 +178,6 @@
   background: $grey-6;
   border-radius: 4px;
   padding: 1rem 1.5rem;
-  margin-bottom: 0;
-  margin-top: 1rem;
   order: 1;
 
   .lists-action {

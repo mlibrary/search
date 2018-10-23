@@ -27,6 +27,7 @@
   background: $grey-6;
   border-top: solid 1px $grey-5;
   padding: 1.5rem 2rem;
+  padding-left: 2.5rem;
   border-radius: 0 0 4px 4px;
 }
 
@@ -115,15 +116,6 @@
 
   @media (min-width: $breakpoint-2) {
     padding: 0.5rem 0;
-  }
-}
-
-.holdings {
-  margin: 0;
-  padding: 1.5rem 2rem;
-
-  @media (max-width: $breakpoint-1) {
-    padding: 1.5rem;
   }
 }
 

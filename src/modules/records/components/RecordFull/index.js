@@ -39,7 +39,8 @@ import {
   ActionsList,
   prejudice,
   AddToListButton,
-  isInList
+  isInList,
+  GoToList
 } from '../../../lists'
 import {
   NoMatch
@@ -163,8 +164,9 @@ class FullRecord extends React.Component {
 
 
     return (
-      <div className="container container-narrow full-record-page-container">
+      <div className="container container-narrow full-record-page-container y-spacing">
         <FullRecordBreadcrumbs datastore={datastore} />
+        <GoToList list={list} datastore={datastore} />
         <div className={recordClassName}>
           <RecordFullFormats
             fields={record.fields}
@@ -181,9 +183,7 @@ class FullRecord extends React.Component {
                 <RecommendedResource record={record} />
               </h1>
 
-              <div className="record-actions-container">
-                <AddToListButton item={record} />
-              </div>
+              <AddToListButton item={record} />
             </div>
 
             <RecordDescription record={record} />

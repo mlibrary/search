@@ -3,7 +3,14 @@ import Icon from '../Icon'
 
 class Checkbox extends React.Component {
   render() {
-    const { isChecked, handleClick, label } = this.props
+    const {
+      isChecked,
+      handleClick,
+      label,
+      hideLabel
+    } = this.props
+
+    const labelTextClassName = hideLabel ? "offscreen" : "filter-name"
 
     return (
       <label
@@ -25,7 +32,9 @@ class Checkbox extends React.Component {
             <Icon name='checkbox-unchecked' />
           )}
         </div>
-        <span className="filter-name">{label}</span>
+        <span
+          className={labelTextClassName}
+        >{label}</span>
       </label>
     )
   }

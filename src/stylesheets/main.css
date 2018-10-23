@@ -1010,10 +1010,8 @@ body {
   border-radius: 4px; }
 
 .record-container {
-  padding: 1.5rem; }
-  @media (min-width: 32rem) {
-    .record-container {
-      padding: 1.5rem 2rem; } }
+  padding: 1.5rem;
+  padding-left: 2.75rem; }
 
 .record-title {
   font-weight: 600;
@@ -1078,7 +1076,6 @@ body {
   Full Record Specific
 */
 .full-record-container {
-  margin-top: 1rem;
   margin-bottom: 1.5rem;
   background: white;
   border-radius: 4px;
@@ -1303,6 +1300,7 @@ body {
   background: #FAFAFA;
   border-top: solid 1px #E5E5E5;
   padding: 1.5rem 2rem;
+  padding-left: 2.5rem;
   border-radius: 0 0 4px 4px; }
 
 .holding-group:not(:last-child) {
@@ -1375,13 +1373,6 @@ body {
   @media (min-width: 50rem) {
     .holding-table-field {
       padding: 0.5rem 0; } }
-
-.holdings {
-  margin: 0;
-  padding: 1.5rem 2rem; }
-  @media (max-width: 32rem) {
-    .holdings {
-      padding: 1.5rem; } }
 
 .holding-table td, .holding-table th {
   vertical-align: top; }
@@ -1485,13 +1476,11 @@ body {
 .access-container {
   background: #FAFAFA;
   padding: 1rem 1.5rem;
+  padding-left: 2.5rem;
   margin-top: -0.5rem;
   align-items: center;
   border-top: solid 1px #F2F2F2;
   border-radius: 0 0 4px 4px; }
-  @media (min-width: 32rem) {
-    .access-container {
-      padding: 1rem 2rem; } }
   .access-container:empty {
     display: none; }
 
@@ -2446,39 +2435,27 @@ input.get-this-field-input-year {
       text-decoration: underline;
       margin-left: -0.5rem; } }
 
-.record-medium-container .record-actions-container {
-  margin-top: 1rem;
-  margin-bottom: 0; }
-
-@media (min-width: 32rem) {
-  .record-medium-container {
-    display: flex;
-    justify-content: space-between; }
-    .record-medium-container .record-actions-container {
-      margin-top: 0; } }
-
-.record-actions-container {
-  display: inline-block;
-  white-space: nowrap;
-  margin-top: 0;
-  margin-bottom: 1rem; }
-  .record-actions-container .button-link {
-    color: #6E6E6E;
-    display: flex;
-    align-items: center; }
-    .record-actions-container .button-link > span {
-      font-size: 0.9rem;
-      text-decoration: underline; }
-    .record-actions-container .button-link .icon {
-      height: 0.9rem;
-      margin-right: 0.5rem;
-      margin-bottom: -0.05rem; }
+.record-container {
+  position: relative; }
 
 .record--highlight {
   outline: solid 2px rgba(18, 109, 193, 0.6); }
 
+.add-to-list-checkbox-container {
+  position: absolute;
+  top: 1.15rem;
+  left: 0; }
+  .add-to-list-checkbox-container .checkbox {
+    margin: 0;
+    padding: 0.75rem;
+    padding-left: 1rem; }
+  .add-to-list-checkbox-container .icon {
+    width: 1.1rem;
+    height: 1.1rem; }
+
 .lists-link-container {
-  outline: solid 2px rgba(18, 109, 193, 0.6); }
+  outline: solid 2px rgba(18, 109, 193, 0.6);
+  z-index: 99; }
   @media (min-width: 32rem) {
     .lists-link-container {
       position: sticky;
@@ -2490,7 +2467,7 @@ input.get-this-field-input-year {
 
 .lists-link {
   background: #F2F9FF;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   display: block;
   display: flex;
   justify-content: space-between;
@@ -2609,8 +2586,6 @@ input.get-this-field-input-year {
   background: #FAFAFA;
   border-radius: 4px;
   padding: 1rem 1.5rem;
-  margin-bottom: 0;
-  margin-top: 1rem;
   order: 1; }
   .full-record__actions-container .lists-action {
     margin-top: 0.5rem; }
