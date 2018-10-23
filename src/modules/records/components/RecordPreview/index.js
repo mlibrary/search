@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import ReactGA from 'react-ga'
 
 import {
   Icon,
@@ -46,12 +47,18 @@ const Header = ({
 
   return (
     <header>
-
       <h3 className="record-preview-heading">
         {hasFullView ? (
           <Link
             to={recordUrl}
             className="record-preview-title-link"
+            onClick={() => {
+              ReactGA.event({
+                action: 'Click',
+                category: 'Brief View',
+                label: `Full view from brief ${datastoreUid}`
+              })
+            }}
           >
             {[].concat(record.names).map((title, index) => (
               <span key={index}>
@@ -64,6 +71,13 @@ const Header = ({
             <a
               href={recordUrl}
               className="record-preview-title-link"
+              onClick={() => {
+                ReactGA.event({
+                  action: 'Click',
+                  category: 'Brief View',
+                  label: `Full view from brief ${datastoreUid}`
+                })
+              }}
             >
               {[].concat(record.names).map((title, index) => (
                 <span key={index}>
@@ -232,7 +246,13 @@ const Footer = ({ record, datastoreUid }) => {
   if (accessField) {
     return (
       <footer>
-        <a className="record-preview-link" href={accessField.value}>{accessField.label}</a>
+        <a
+          className="record-preview-link"
+          href={accessField.value}
+          data-ga-action="Click"
+          data-ga-category="Brief View"
+          data-ga-label={`${datastoreUid} Item Access`}
+        >{accessField.label}</a>
       </footer>
     )
   }

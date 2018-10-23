@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@umich-lib-ui/alert": "0.1.0-alpha.13",
+    "@umich-lib-ui/header": "0.1.0-alpha.13",
     "axios": "^0.16.2",
     "classnames": "^2.2.6",
     "deepcopy": "^0.6.3",
@@ -26,6 +27,7 @@
     "react": "^16.4.1",
     "react-aria-live": "^1.0.6",
     "react-dom": "^16.4.1",
+    "react-ga": "^2.5.3",
     "react-redux": "^5.0.7",
     "react-responsive": "^4.0.5",
     "react-router-dom": "^4.3.1",

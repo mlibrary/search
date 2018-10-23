@@ -113,7 +113,13 @@ class FullRecord extends React.Component {
     return (
       <div className="full-record__actions-container">
         <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions <span className="text-small lists-actions__heading-tag">Select what to do with this record.</span></h2>
-        <ActionsList setActive={this.setActiveAction} active={this.state.activeAction} record={{ recordUid, datastoreUid }} prejudice={prejudiceInstance} datastore={datastore} />
+        <ActionsList
+          setActive={this.setActiveAction}
+          active={this.state.activeAction}
+          record={{ recordUid, datastoreUid }}
+          prejudice={prejudiceInstance}
+          datastore={datastore}
+        />
       </div>
     )
   }

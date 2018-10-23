@@ -6,7 +6,7 @@ import {
   Link,
   withRouter,
 } from 'react-router-dom';
-
+import ReactGA from 'react-ga'
 import store from '../../../../store'
 
 import {
@@ -82,6 +82,13 @@ class AdvancedSearch extends React.Component {
       institution,
       datastores
     } = this.props
+    const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
+
+    ReactGA.event({
+      action: 'Click',
+      category: 'Search Button',
+      label: `Advanced Search ${activeDatastore.name}`
+    })
 
     // Build the query
     // example output: 'title:parrots AND author:charles'
@@ -108,7 +115,6 @@ class AdvancedSearch extends React.Component {
     // Submit search if query or filters are active
     if ((query.length > 0) || hasActiveFilters ){
       const { history } = this.props
-      const activeDatastore = _.findWhere(datastores.datastores, { uid: datastores.active })
       const library = activeDatastore.uid === 'mirlyn' ? institution.active : undefined
       const queryString = stringifySearchQueryForURL({
         query,

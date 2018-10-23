@@ -33,13 +33,17 @@ import {
   Main
 } from './modules/core'
 import {
-  AskALibrarian,
   ScrollToTop
 } from './modules/core'
 import {
   A11yLiveMessage
 } from './modules/a11y'
 import Alert from '@umich-lib-ui/alert'
+import {
+  GAPageView,
+  handleGAClick
+} from './modules/analytics'
+import ReactGA from 'react-ga'
 
 /*
  * Connected Switch: Quirk/Bugfix
@@ -56,35 +60,25 @@ const mapStateToProps = state => {
 };
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
-class GoogleAnalytics extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    if (process.env.NODE_ENV === 'production' && typeof window.ga === 'function') {
-      const path = this.props.location.pathname + this.props.location.search
-      const nextPath = nextProps.location.pathname + nextProps.location.search
-      const locationChanged = path !== nextPath
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    ReactGA.initialize('UA-1341620-18');
 
-      if (locationChanged) {
-        window.ga('set', 'page', nextPath);
-        window.ga('send', 'pageview');
-      }
+    if (process.env.NODE_ENV === 'production') {
+      ReactGA.pageview(this.props.location.pathname + this.props.location.search)
     }
   }
 
   render() {
-    return null
-  }
-}
-
-class App extends React.Component {
-  render() {
     return (
       <Provider store={store}>
-        <div className="site-wrapper">
+        <div className="site-wrapper" onClick={handleGAClick}>
           <A11yLiveMessage />
           <ConnectedRouter history={history}>
             <ScrollToTop>
               <Main>
-                <Route component={GoogleAnalytics} />
+                <Route component={GAPageView} />
                 <ConnectedSwitch>
                   <Route path="/how-to-use-search" exact component={HelpContent}/>
                   <Route path="/feature-road-map" exact component={RoadMapPage}/>

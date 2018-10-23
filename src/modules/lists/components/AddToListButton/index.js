@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { _ } from 'underscore';
-
+import ReactGA from 'react-ga'
 import {
   Checkbox
 } from '../../../core'
@@ -31,9 +31,19 @@ class AddToListButton extends Component {
   handleClick = (inList, item) => {
     if (!this.state.waitingToBeAddedToList) {
       if (inList) {
+        ReactGA.event({
+          action: 'Click',
+          category: 'Select',
+          label: 'List Remove'
+        })
         prejudice.removeRecord(item)
       } else {
         this.setState({ waitingToBeAddedToList: true })
+        ReactGA.event({
+          action: 'Click',
+          category: 'Select',
+          label: 'List Add'
+        })
         prejudice.addRecord(item)
       }
     }
@@ -50,11 +60,11 @@ class AddToListButton extends Component {
     return (
       <div className="add-to-list-checkbox-container">
         <Checkbox
-        handleClick={() => this.handleClick(inList, item)}
-        isChecked={inList}
-        label={`Add to my temporary ${datastore.name} list`}
-        hideLabel
-      />
+          handleClick={() => this.handleClick(inList, item)}
+          isChecked={inList}
+          label={`Add to my temporary ${datastore.name} list`}
+          hideLabel
+        />
       </div>
     )
   }

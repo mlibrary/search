@@ -23,6 +23,7 @@ import {
   createActiveFilterObj,
   getSingleSelectedFilterValue
 } from '../../utilities'
+import ReactGA from 'react-ga'
 
 class Filters extends React.Component {
   constructor(props) {
@@ -85,6 +86,15 @@ class Filters extends React.Component {
       filterItemValue,
     })
 
+    // If applying filter, send event to GA
+    if (!isActive) {
+      ReactGA.event({
+        action: 'Click',
+        category: 'Filter',
+        label: `${filterUid} Apply ${filterItemValue}`
+      })
+    }
+
     const library = datastoreUid === 'mirlyn' ? institution.active : undefined
 
     const queryString = qs.stringify({
@@ -98,6 +108,8 @@ class Filters extends React.Component {
       allowDots: true,
       format : 'RFC1738'
     })
+
+    
 
     if (queryString.length > 0) {
       history.push(`${match.url}?${queryString}`)
@@ -383,9 +395,15 @@ const ActiveFilters = ({
             ))}
           </ul>
           <div className="clear-active-filters-container">
-            <button className="button-link-light" onClick={
+            <button
+              className="button-link-light"
+              onClick={
                () => handleClearActiveFilters({ datastoreUid })
-            }>Clear filters</button>
+              }
+              data-ga-action="Click"
+              data-ga-category="Filter"
+              data-ga-label={`Clear All Filters`}
+            >Clear filters</button>
           </div>
         </React.Fragment>
       ) : (

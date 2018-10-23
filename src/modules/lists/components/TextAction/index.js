@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ActionError from '../ActionError'
+import ReactGA from 'react-ga'
 
 class TextAction extends Component {
   state = {
@@ -27,6 +28,21 @@ class TextAction extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
+    // Is this being submitted from a record or a list
+    if (this.props.record) {
+      ReactGA.event({
+        action: 'Click',
+        category: 'Actions',
+        label: 'Use Text from record'
+      })
+    } else {
+      ReactGA.event({
+        action: 'Click',
+        category: 'My List',
+        label: 'Use Text from list'
+      })
+    }
 
     this.setState({ sent: true })
     this.props.prejudice.act('text', this.props.datastore.uid, this.state.text, this.handleSubmitCallback)

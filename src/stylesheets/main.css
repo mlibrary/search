@@ -147,10 +147,6 @@ ol {
 ul {
   list-style: disc; }
 
-li {
-  padding-left: 1rem;
-  margin-top: 1rem; }
-
 dt {
   font-weight: 600; }
 
@@ -569,6 +565,9 @@ nav {
   outline: 3px solid rgba(255, 203, 5, 0.9);
   outline-offset: 0;
   transition: outline 0.05s ease-out; }
+
+[data-inner-container] {
+  max-width: 72rem; }
 
 .dropdown,
 .dropdown-multiple {

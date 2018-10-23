@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga'
 
 class FileAction extends Component {
   state = {
@@ -17,6 +18,22 @@ class FileAction extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ sent: true })
+
+    // Is this being submitted from a record or a list
+    if (this.props.record) {
+      ReactGA.event({
+        action: 'Click',
+        category: 'Actions',
+        label: 'Use Export RIS from record'
+      })
+    } else {
+      ReactGA.event({
+        action: 'Click',
+        category: 'My List',
+        label: 'Use Export RIS from list'
+      })
+    }
+    
     this.props.prejudice.act('file', this.props.datastore.uid, 'export-ris', this.handleSubmitCallback)
   }
 
