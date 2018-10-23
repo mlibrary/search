@@ -737,11 +737,22 @@ const config = {
           uid: 'title',
           name: 'Title',
           force: true,
+        },
+        {
+          uid: 'author',
+          name: 'Author',
+          force: true,
         }
       ],
       fields: [
         'all_fields',
         'title',
+        'author'
+      ],
+      defaultFields: [
+        'all_fields',
+        'title',
+        'author'
       ]
     },
     'mirlyn': {
@@ -759,6 +770,11 @@ const config = {
         'publication_date',
         'isn',
         'toc'
+      ],
+      defaultFields: [
+        'all_fields',
+        'title',
+        'author'
       ],
       filters: [
         {
@@ -833,6 +849,11 @@ const config = {
         'publication_date',
         'isn'
       ],
+      defaultFields: [
+        'all_fields',
+        'title',
+        'author'
+      ],
       filters: [
         {
           uid: 'available_online',
@@ -896,6 +917,10 @@ const config = {
         'academic_discipline',
         'publisher',
       ],
+      defaultFields: [
+        'all_fields',
+        'title_starts_with'
+      ],
       filters: [
         {
           uid: 'type',
@@ -926,13 +951,21 @@ const config = {
           uid: 'academic_discipline',
           type: 'multiple_select',
         }
+      ],
+      defaultFields: [
+        'all_fields',
+        'title',
+        'isn'
       ]
     },
     'website': {
       fields: [
         'all_fields',
         'title',
-      ]
+      ],
+      defaultFields: [
+        'all_fields'
+      ],
     }
   },
   holdingRewrites: [

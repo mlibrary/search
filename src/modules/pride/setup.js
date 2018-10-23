@@ -411,10 +411,15 @@ const setupAdvancedSearch = () => {
         }
       })
 
-      // Setup two fielded searches initially
-      store.dispatch(addFieldedSearch({ datastoreUid: dsUid }))
-      store.dispatch(addFieldedSearch({ datastoreUid: dsUid }))
+      // Setup default fields
+      config.advanced[dsUid].defaultFields.forEach(fieldUid => {
+        store.dispatch(addFieldedSearch({
+          datastoreUid: dsUid,
+          field: fieldUid
+        }))
+      })
     }
+
 
     // Setup Advanced Filters
     if (config.advanced[dsUid].filters) {
