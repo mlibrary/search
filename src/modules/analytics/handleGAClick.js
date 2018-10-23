@@ -18,8 +18,6 @@ const handleGAClick = (e) => {
         label
       }
 
-      console.log('event', event)
-
       // Send the event to Google Analytics
       ReactGA.event(event)
     }
