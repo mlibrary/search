@@ -64,10 +64,6 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     ReactGA.initialize('UA-1341620-18');
-
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.pageview(this.props.location.pathname + this.props.location.search)
-    }
   }
 
   render() {
