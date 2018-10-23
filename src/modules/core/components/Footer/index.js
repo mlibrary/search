@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-import {
-  AskALibrarian
-} from '../../../core'
+import Chat from '@umich-lib-ui/chat'
 
 const footer_links = [
   {
@@ -61,7 +59,7 @@ const Footer = () => {
             >Make an <abbr title="Interlibrary Loan">I.L.L.</abbr> Request</a>
           </li>
           <li>
-            <AskALibrarian />
+            <Chat fixed />
           </li>
         </ul>
 
