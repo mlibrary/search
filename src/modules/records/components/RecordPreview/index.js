@@ -71,6 +71,13 @@ const Header = ({
             <a
               href={recordUrl}
               className="record-preview-title-link"
+              onClick={() => {
+                ReactGA.event({
+                  action: 'Click',
+                  category: 'Brief View',
+                  label: `Full view from brief ${datastoreUid}`
+                })
+              }}
             >
               {[].concat(record.names).map((title, index) => (
                 <span key={index}>
