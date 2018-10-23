@@ -30,11 +30,20 @@ class EmailAction extends Component {
     event.preventDefault();
     this.setState({ sent: true })
 
-    ReactGA.event({
-      action: 'Click',
-      category: 'My List',
-      label: 'Use Email from list'
-    })
+    // Is this being submitted from a record or a list
+    if (this.props.record) {
+      ReactGA.event({
+        action: 'Click',
+        category: 'Actions',
+        label: 'Use Email from record'
+      })
+    } else {
+      ReactGA.event({
+        action: 'Click',
+        category: 'Actions',
+        label: 'Use Email from list'
+      })
+    }
 
     this.props.prejudice.act('email', this.props.datastore.uid, this.state.email, this.handleSubmitCallback)
   }

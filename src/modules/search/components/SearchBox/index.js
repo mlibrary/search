@@ -15,7 +15,7 @@ import {
 import {
   Icon
 } from '../../../core';
-
+import ReactGA from 'react-ga'
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -50,6 +50,12 @@ class SearchBox extends React.Component {
       sort,
       activeDatastore
     } = this.props
+
+    ReactGA.event({
+      action: 'Click',
+      category: 'Search Button',
+      label: `Search ${activeDatastore.name}`
+    })
 
     const library = activeDatastore.uid === 'mirlyn' ? institution.active : undefined
 

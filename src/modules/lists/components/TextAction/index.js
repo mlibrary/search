@@ -29,11 +29,20 @@ class TextAction extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    ReactGA.event({
-      action: 'Click',
-      category: 'My List',
-      label: 'Use Export RIS from list'
-    })
+    // Is this being submitted from a record or a list
+    if (this.props.record) {
+      ReactGA.event({
+        action: 'Click',
+        category: 'Actions',
+        label: 'Use Text from record'
+      })
+    } else {
+      ReactGA.event({
+        action: 'Click',
+        category: 'My List',
+        label: 'Use Text from list'
+      })
+    }
 
     this.setState({ sent: true })
     this.props.prejudice.act('text', this.props.datastore.uid, this.state.text, this.handleSubmitCallback)

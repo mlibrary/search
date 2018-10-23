@@ -19,11 +19,20 @@ class FileAction extends Component {
     event.preventDefault();
     this.setState({ sent: true })
 
-    ReactGA.event({
-      action: 'Click',
-      category: 'My List',
-      label: 'Use Export RIS from list'
-    })
+    // Is this being submitted from a record or a list
+    if (this.props.record) {
+      ReactGA.event({
+        action: 'Click',
+        category: 'Actions',
+        label: 'Use Export RIS from record'
+      })
+    } else {
+      ReactGA.event({
+        action: 'Click',
+        category: 'My List',
+        label: 'Use Export RIS from list'
+      })
+    }
     
     this.props.prejudice.act('file', this.props.datastore.uid, 'export-ris', this.handleSubmitCallback)
   }
