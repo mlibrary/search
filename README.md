@@ -28,7 +28,7 @@ $ gulp
 For reusable components that import their CSS directly
 
 ```sh
-$ npm run watch-css
+$ npm run watch:css
 ```
 
 ## Local Development
