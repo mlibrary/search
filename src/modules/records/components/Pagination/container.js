@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Pagination } from '../../../reusable'
-import ReactGA from 'react-ga'
 import {
   stringifySearchQueryForURL
 } from '../../../pride'
@@ -45,8 +44,7 @@ class PaginationContainer extends React.Component {
 
   toPreviousPage = () => {
     const {
-      page,
-      total
+      page
     } = this.props
 
     // If there is only one page or you're on the first page.
