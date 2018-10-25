@@ -13,7 +13,7 @@ const Specialist = ({ person }) => (
             href={person.url}
             className="specialist__url"
             data-ga-action="Click"
-            data-ga-action="Library Specialist"
+            data-ga-category="Library Specialist"
             data-ga-label={`Library Specialist Page - ${person.email}`}
           >{person.name}
           </a><Icon name="launch" /></h3>
@@ -25,7 +25,7 @@ const Specialist = ({ person }) => (
           className="specialist__email"
           href={`mailto:${person.email}`}
           data-ga-action="Click"
-          data-ga-action="Library Specialist"
+          data-ga-category="Library Specialist"
           data-ga-label={`Library Specialist Email - ${person.email}`}
         >{person.email}</a>
       </section>
