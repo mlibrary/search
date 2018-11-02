@@ -1,6 +1,3 @@
-import Prejudice from 'prejudice'
-import { Pride } from 'pride'
-import config from '../../config'
 import {
   prejudice
 } from '../lists'

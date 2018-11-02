@@ -110,8 +110,7 @@ class FullRecord extends React.Component {
   }
 
   renderActions = () => {
-    const { recordUid } = this.props.match.params
-    const { datastoreUid, datastore } = this.props
+    const { datastore } = this.props
 
     return (
       <div className="full-record__actions-container">
@@ -164,9 +163,7 @@ class FullRecord extends React.Component {
     // For adding a blue border when added to list.
     const inList = isInList(list, record.uid)
     const recordClassName = inList ? 'full-record-container record--highlight' : 'full-record-container'
-
     const ShowAllName = datastoreUid === "journals" ? "online journals" : null
-
 
     return (
       <div className="container container-narrow full-record-page-container y-spacing">

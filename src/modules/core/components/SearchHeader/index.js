@@ -13,11 +13,6 @@ class SearchHeader extends React.Component {
 
     return  (
       <div role="banner">
-        <SiteMessage>
-          <div className="container container-medium">
-            <p>U-M Library Search launched in July 2018. <a href="https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf">Please let us know if you have feedback</a>.</p>
-          </div>
-        </SiteMessage>
         <Header
           name="Search"
           url="/"

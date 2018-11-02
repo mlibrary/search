@@ -1,7 +1,7 @@
 import React from 'react'
 import { FavoriteButton } from '../../../favorites'
 import favorite from '../../favorite'
-import { Button, Modal } from '../../../reusable'
+import { Button } from '../../../reusable'
 import { Login } from '../../../profile'
 
 

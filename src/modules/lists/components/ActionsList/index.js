@@ -127,12 +127,6 @@ class ActionsList extends Component {
   }
 
   render() {
-    const {
-      active
-    } = this.props
-
-    const activeUid = active ? active.uid : null
-
     return (
       <React.Fragment>
         <ul className="lists-actions-list">
