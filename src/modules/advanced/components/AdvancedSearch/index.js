@@ -57,7 +57,8 @@ class AdvancedSearch extends React.Component {
 
   handleAddAnotherFieldedSearch() {
     this.props.addFieldedSearch({
-      datastoreUid: this.props.datastores.active
+      datastoreUid: this.props.datastores.active,
+      field: this.props.fields[0].uid
     })
 
     this.props.setA11yMessage('Fielded search added.')
