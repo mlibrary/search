@@ -1,12 +1,14 @@
 import React from 'react'
 import {
-  Button,
   Tag,
   Modal
 } from '../../../reusable'
-import { Icon } from '../../../core'
+import Button from '@umich-lib-ui/button'
+import Icon from '@umich-lib-ui/icon'
+import { connect } from 'react-redux'
 import { FavoriteInputTag } from '../../../favorites';
 import favorite from '../../favorite'
+import { _ } from 'underscore'
 
 class FavoriteTags extends React.Component {
   state = {
@@ -32,7 +34,7 @@ class FavoriteTags extends React.Component {
   }
 
   handleTag = (tag, intent) => {
-    const { record, datastore } = this.props
+    const { record, datastore, tags } = this.props
     const callback = (msg) => {
       /*
         TODO:
@@ -40,12 +42,11 @@ class FavoriteTags extends React.Component {
           - Have a long optimisitic timeout so the record looks favorited until we hear back.
       */
     }
-
     const data = {
       intent,
       datastore,
       record,
-      value: [].concat(tag),
+      value: tag,
       callback
     }
 
@@ -66,11 +67,9 @@ class FavoriteTags extends React.Component {
   }
 
   render() {
-    const { record } = this.props
-    const { favorite_tags } = record
-    const tags = favorite_tags
+    const { isFavorited, tags } = this.props
 
-    if (!tags || tags.length === 0) {
+    if (!isFavorited) {
       return null
     }
 
@@ -78,7 +77,7 @@ class FavoriteTags extends React.Component {
       TODO:
         - Check if record has suggested tags. This might be on the profile.
     */
-    //const { suggestions } = record.favorite_recommended_tags
+    // const { suggestions } = record.favorite_recommended_tags
     // TEMP placeholder to be an example.
     const suggestions = []
 
@@ -98,7 +97,13 @@ class FavoriteTags extends React.Component {
           {tags.map((tag, i) => (
             <li key={i}><Tag onRemove={() => this.handleTag(tag, 'untag')}>{tag}</Tag></li>
           ))}
-          <li><Button kind="tertiary" small onClick={this.handleOpenModal} className="favorites-add-tag"><Icon name="plus" />Add Tag</Button></li>
+          <li>
+            <Button
+              kind="tertiary"
+              small
+              onClick={this.handleOpenModal}
+              className="favorites-add-tag"
+            >Add Tag</Button></li>
         </ul>
 
         <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.handleCloseModal}>
@@ -113,8 +118,8 @@ class FavoriteTags extends React.Component {
                 value={this.state.tag}
               />
             </fieldset>
-            <Button className="favorites-add-tag-button" type="submit">Add Tag</Button>
-            <Button kind="tertiary" onClick={this.handleCloseModal}>Cancel</Button>
+            <Button style={{ marginRight: '1rem' }} type="submit">Add Tag</Button>
+            <Button kind="secondary" onClick={this.handleCloseModal}>Cancel</Button>
           </form>
         </Modal>
       </div>
@@ -122,4 +127,33 @@ class FavoriteTags extends React.Component {
   }
 }
 
-export default FavoriteTags
+function mapStateToProps(state, ownProps) {
+  const { record, datastore } = ownProps
+  const isStateFavorited =
+    state.favorites[datastore] &&
+    state.favorites[datastore][record.uid] &&
+    state.favorites[datastore][record.uid].favorited
+  const isFavorited = isStateFavorited !== undefined ?
+    isStateFavorited : record.favorite_tags
+  const stateFavoriteTags =
+    state.favorites[datastore] &&
+    state.favorites[datastore][record.uid] ?
+    state.favorites[datastore][record.uid].tags : []
+  const stateFavoriteUntags =
+    state.favorites[datastore] &&
+    state.favorites[datastore][record.uid] ?
+    state.favorites[datastore][record.uid].untags : []
+  const filteredTags =
+    record.favorite_tags ?
+    _.difference(record.favorite_tags, stateFavoriteUntags) :
+    stateFavoriteTags
+  const tags = _.compact(_.uniq([].concat(filteredTags).concat(stateFavoriteTags)))
+  return {
+    // Is the record favorited (from Spectrum) on the record or
+    // is it favorited in state (in current browser session by user)
+    isFavorited,
+    tags
+  };
+}
+
+export default connect(mapStateToProps)(FavoriteTags)

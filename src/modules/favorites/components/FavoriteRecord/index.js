@@ -1,5 +1,6 @@
 import React from 'react'
 import { FavoriteButton } from '../../../favorites'
+import { connect } from 'react-redux'
 import favorite from '../../favorite'
 import { Button } from '../../../reusable'
 import { Login } from '../../../profile'
@@ -7,53 +8,28 @@ import { Login } from '../../../profile'
 
 class FavoriteRecord extends React.Component {
   state = {
-    favoriting: false,
     promptLogin: false,
   }
 
   handleClick = (login) => {
-    const { record, datastore } = this.props
+    const { record, datastore, isFavorited } = this.props
 
     if (!login.authenticated) {
       this.setState({ promptLogin: true })
     } else {
-      const callback = (msg) => {
-        /*
-          TODO:
-            - Send feedback alert about not successfully favoriting.
-        */
-
-        setTimeout(() => {
-          this.setState({ 'favoriting': false })
-        }, 1000)
+      const data = {
+        intent: isFavorited ? 'unfavorite' : 'favorite',
+        datastore,
+        record: record,
+        value: undefined, // No value (aka new tag value) when favoriting.
       }
-
-      // Only favorite if not already trying to change record favorite state.
-      if (!this.state.favoriting) {
-        const data = {
-          intent: record.favorited ? 'unfavorite' : 'favorite',
-          datastore,
-          record: record,
-          value: undefined, // No value (aka new tag value) when favoriting.
-          callback
-        }
-
-        favorite(data) // Favorite this record with the API/Prejudice.
-      }
-
-      this.setState({ 'favoriting': true })
+      favorite(data) // Favorite this record with the API/Prejudice.
     }
   }
 
-  favoriting = (favoriting) => {
-    setTimeout(() => {
-      this.setState({ favoriting })
-    }, 1000)
-  }
-
   renderAuthentication = (login) => {
-    const { favoriting, promptLogin } = this.state
-    const { record } = this.props
+    const { promptLogin } = this.state
+    const { isFavorited } = this.props
 
     if (promptLogin) {
       return (
@@ -72,9 +48,8 @@ class FavoriteRecord extends React.Component {
       )
     }
 
-    const favorited = record.favorited || favoriting ? true : false
     return (
-      <FavoriteButton favorited={favorited} handleClick={() => this.handleClick(login)} />
+      <FavoriteButton favorited={isFavorited} handleClick={() => this.handleClick(login)} />
     )
   }
 
@@ -87,4 +62,20 @@ class FavoriteRecord extends React.Component {
   }
 }
 
-export default FavoriteRecord
+function mapStateToProps(state, ownProps) {
+  const { record, datastore } = ownProps
+  const isStateFavorited =
+    state.favorites[datastore] &&
+    state.favorites[datastore][record.uid] &&
+    state.favorites[datastore][record.uid].favorited
+  const isFavorited = isStateFavorited !== undefined ?
+    isStateFavorited : record.favorite_tags
+
+  // Is the record favorited (from Spectrum) on the record or
+  // is it favorited in state (in current browser session by user)
+  return {
+    isFavorited
+  };
+}
+
+export default connect(mapStateToProps)(FavoriteRecord)
