@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ActionError from '../ActionError'
 import ReactGA from 'react-ga'
+import ActionStatusMessage from '../ActionStatusMessage'
 
 class TextAction extends Component {
   state = {
@@ -45,7 +45,12 @@ class TextAction extends Component {
     }
 
     this.setState({ sent: true })
-    this.props.prejudice.act('text', this.props.datastore.uid, this.state.text, this.handleSubmitCallback)
+    this.props.prejudice.act(
+      'text',
+      this.props.datastore.uid,
+      this.state.text,
+      this.handleSubmitCallback
+    )
   }
 
   handleCloseStatus = () => {
@@ -82,7 +87,7 @@ class TextAction extends Component {
 
     return (
       <section className="lists-action">
-        <ActionError status={this.state.status} action={action} handleCloseStatus={this.handleCloseStatus} />
+        <ActionStatusMessage status={this.state.status} action={action} handleCloseStatus={this.handleCloseStatus} />
         {this.renderForm()}
       </section>
     )

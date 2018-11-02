@@ -13,12 +13,18 @@ class SearchHeader extends React.Component {
 
     return  (
       <div role="banner">
+        <SiteMessage>
+          <div className="container container-medium">
+            <p>U-M Library Search launched in July 2018. <a href="https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf">Please let us know if you have feedback</a>.</p>
+          </div>
+        </SiteMessage>
         <Header
           name="Search"
           url="/"
           nav={[
-            { text: 'My Account', to: 'https://www.lib.umich.edu/my-account/' },
-            { text: loginText, to: loginHref }
+            { text: 'My Account', href: 'https://www.lib.umich.edu/my-account/' },
+            { text: 'My Favorites', href: 'https://www.lib.umich.edu/my-account/favorites' },
+            { text: loginText, href: loginHref }
           ]}
           renderAnchor={(data) => (
             <a

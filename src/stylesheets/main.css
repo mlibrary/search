@@ -485,14 +485,6 @@ nav {
 .green-text {
   color: #057C42; }
 
-.tag {
-  vertical-align: top;
-  background: #1060aa;
-  padding: 0 0.25rem;
-  border-radius: 2px;
-  margin-right: 0.5rem;
-  color: white; }
-
 .focus-outline-white {
   outline-color: white; }
 
@@ -1185,6 +1177,9 @@ body {
   .full-record-page-container {
     display: flex;
     flex-direction: column; } }
+
+.full-record-page-container .lists-link-container {
+  margin-top: 1rem; }
 
 .record-person__header-has-picture {
   display: flex;
@@ -2436,6 +2431,8 @@ input.get-this-field-input-year {
 
 .record-container {
   position: relative; }
+  .record-container .record-title {
+    margin-right: 1rem; }
 
 .record--highlight {
   outline: solid 2px rgba(18, 109, 193, 0.6); }
@@ -2451,6 +2448,19 @@ input.get-this-field-input-year {
   .add-to-list-checkbox-container .icon {
     width: 1.1rem;
     height: 1.1rem; }
+
+.record-title-and-actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline; }
+
+.favorite-button {
+  white-space: nowrap; }
+  .favorite-button .icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-right: 0.25rem;
+    margin-bottom: -0.1rem; }
 
 .lists-link-container {
   outline: solid 2px rgba(18, 109, 193, 0.6);
@@ -2491,7 +2501,10 @@ input.get-this-field-input-year {
 .lists-count-tag {
   color: white;
   white-space: nowrap;
-  margin: 0; }
+  margin: 0;
+  background: #0C5292;
+  padding: 0 0.2rem;
+  border-radius: 4px; }
 
 .lists-header {
   display: flex;
@@ -2603,7 +2616,10 @@ input.get-this-field-input-year {
 .lists-action-alert {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  margin-top: 1rem; }
+  .lists-action-alert p {
+    margin: 0; }
 
 .error-help-section .ask-a-librarian-button {
   display: inline-block;
@@ -2618,6 +2634,92 @@ input.get-this-field-input-year {
   cursor: pointer;
   text-decoration: none;
   line-height: inherit; }
+
+.favorites-authentication-button {
+  margin-right: 0.5rem; }
+
+.favorite-icon {
+  margin-right: 0.25rem;
+  margin-bottom: -2px;
+  width: 1.2rem;
+  height: auto; }
+
+.favorite-tags-container {
+  margin-bottom: 0.75rem; }
+
+.favorite-tags-label {
+  margin-right: 0.5rem;
+  font-weight: 600; }
+
+.favorite-tags {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+  .favorite-tags li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem; }
+
+.favorites-add-tag svg {
+  width: 0.6rem;
+  margin-bottom: -2px;
+  margin-right: 0.25rem; }
+
+.favorite__add-tag-modal {
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+  padding: 1rem;
+  border: solid 1px #CCC; }
+
+.add-tag-heading {
+  display: block;
+  margin-top: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem; }
+
+.add-tag-fieldset {
+  margin: 0;
+  margin-bottom: 1.5rem; }
+  .add-tag-fieldset label {
+    margin-bottom: 0.25rem; }
+
+.favorites-add-tag-button {
+  margin-right: 1rem; }
+
+.react-autosuggest__container {
+  position: relative; }
+
+.react-autosuggest__suggestions-container--open {
+  position: absolute;
+  left: 0;
+  width: 100%; }
+
+.react-autosuggest__suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: white;
+  border: solid 1px #6E6E6E;
+  border-radius: 0 0 4px 4px;
+  padding: 0.25rem 0;
+  max-height: 32rem;
+  overflow-y: scroll; }
+
+.react-autosuggest__suggestion {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  padding: 0.25rem 0.75rem; }
+  .react-autosuggest__suggestion:hover {
+    text-decoration: underline; }
+
+.react-autosuggest__suggestion--highlighted {
+  text-decoration: underline; }
 
 .u-break-word {
   word-wrap: break-word; }

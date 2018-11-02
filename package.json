@@ -22,13 +22,18 @@
     "numeral": "^2.0.4",
     "object-path": "^0.11.4",
     "prejudice": "git://github.com/mlibrary/prejudice.git",
-    "pride": "git://github.com/mlibrary/pride.git",
+    "pride": "git://github.com/mlibrary/pride.git#SEARCH-657-selected-and-favorited",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
     "react": "^16.4.1",
     "react-aria-live": "^1.0.6",
+    "react-autosuggest": "^9.3.4",
     "react-dom": "^16.4.1",
+<<<<<<< HEAD
     "react-ga": "^2.5.3",
+=======
+    "react-modal": "^3.5.1",
+>>>>>>> c5405351d45f5ee26f7345db30e0364afe6e4cf8
     "react-redux": "^5.0.7",
     "react-responsive": "^4.0.5",
     "react-router-dom": "^4.3.1",
