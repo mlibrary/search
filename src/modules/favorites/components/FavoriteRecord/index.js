@@ -41,7 +41,7 @@ class FavoriteRecord extends React.Component {
           ><b>Log in</b> to Favorite</Button>
           <Button
             small
-            kind="tertiary"
+            kind="secondary"
             aria-label="Dismiss log in to favorite"
             onClick={() => this.setState({ promptLogin: false })}>Close</Button>
         </div>

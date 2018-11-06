@@ -2745,6 +2745,9 @@ input.get-this-field-input-year {
 .x-spacing > *:not(:last-child) {
   margin-right: 1rem; }
 
+.favorites-authentication {
+  display: flex; }
+
 .favorites-authentication-button {
   margin-right: 0.5rem; }
 
