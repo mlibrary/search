@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import {
   Icon
 } from '../../../core'
+import _ from 'underscore'
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
-import { AuthenticationRequired } from '../../../profile'
+import FavoriteAction from '../FavoriteAction'
+import { Login } from '../../../profile'
+import { Button } from '../../../reusable'
 
 class ActionsList extends Component {
   state = {
@@ -47,6 +50,12 @@ class ActionsList extends Component {
         name: 'Export RIS',
         icon: 'export-ris'
       },
+      {
+        uid: 'favorite',
+        action: 'favorite',
+        name: 'Favorite',
+        icon: 'star'
+      }
     ]
   }
 
@@ -65,7 +74,7 @@ class ActionsList extends Component {
     }
   }
 
-  renderActionDetails = () => {
+  renderActionDetails = (login) => {
     const {
       active
     } = this.props
@@ -74,38 +83,60 @@ class ActionsList extends Component {
       return null
     }
 
+    switch (active.action) {
+      case 'email':
+      case 'text':
+      case 'favorite':
+        if (login.authenticated) {
+          return (
+            <React.Fragment>
+              {active.action === 'email' && (<EmailAction action={active} {...this.props} />)}
+              {active.action === 'text' && (<TextAction action={active} {...this.props} />)}
+              {active.action === 'favorite' && (<FavoriteAction action={active}  {...this.props} />)}
+            </React.Fragment>
+          )
+        } else {
+          return (
+            <Button href={login.href} className="u-margin-top-1"><b>Log in</b> to continue</Button>
+          )
+        }
+      case 'file':
+        return (
+          <React.Fragment>
+            {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
+          </React.Fragment>
+        )
+      default:
+        return null
+    }
+  }
+
+  renderAction = (action) => {
+    const isActive = action.uid === this.state.activeUid
+    const activeClassName = isActive ? 'lists-action-button--active' : ''
+
+    if (_.contains(this.props.hideActions, action.uid)) {
+      return null
+    }
+
     return (
-      <React.Fragment>
-        <AuthenticationRequired>
-          {active.action === 'email' && (<EmailAction action={active} {...this.props} />)}
-          {active.action === 'text' && (<TextAction action={active} {...this.props} />)}
-        </AuthenticationRequired>
-        {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
-      </React.Fragment>
+      <li key={action.uid}>
+        <button className={`button-link lists-action-button ${activeClassName}`} onClick={() => this.handleClick(action)} aria-pressed={isActive}><Icon name={action.icon} />{action.name}</button>
+      </li>
     )
   }
 
   render() {
-    const {
-      active
-    } = this.props
-
-    const activeUid = active ? active.uid : null
-
     return (
       <React.Fragment>
         <ul className="lists-actions-list">
           {this.state.actions.map(action => {
-            const isActive = action.uid === activeUid
-            const activeClassName = isActive ? 'lists-action-button--active' : ''
-            return (
-              <li key={action.uid}>
-                <button className={`button-link lists-action-button ${activeClassName}`} onClick={() => this.handleClick(action)} aria-pressed={isActive}><Icon name={action.icon} />{action.name}</button>
-              </li>
-            )
+            return this.renderAction(action)
           })}
         </ul>
-        {this.renderActionDetails()}
+        <Login render={login => (
+          <React.Fragment>{this.renderActionDetails(login)}</React.Fragment>
+        )} />
       </React.Fragment>
     )
   }

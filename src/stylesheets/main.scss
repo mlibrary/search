@@ -14,7 +14,6 @@
 @import "partials/footer";
 @import "partials/callout";
 @import "partials/helper";
-@import "partials/tags";
 @import "partials/accessibility";
 @import "partials/multiple-choice";
 
@@ -62,5 +61,6 @@
 @import "search/record-actions";
 @import "search/lists";
 @import "search/error";
-
+@import "search/autosuggest";
 @import "partials/utility";
+@import "search/favorites";

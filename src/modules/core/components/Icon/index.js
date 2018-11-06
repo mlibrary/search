@@ -707,6 +707,16 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'star':
+    return (
+      <svg className="icon" viewBox="0 0 20 19">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g>
+            <path d="M10,13.39603 L6.237,15.66603 L7.232,11.38503 L3.91,8.50703 L8.29,8.13103 L10,4.095 L11.71,8.13103 L16.09,8.50703 L12.768,11.38503 L13.763,15.66603 L10,13.39603 Z M12.809,6.62699 L10,0 L7.191,6.62699 L0,7.244 L5.455,11.97103 L3.82,19.00003 L10,15.27203 L16.18,19.00003 L14.545,11.97103 L20,7.244 L12.809,6.62699 Z"></path>
+          </g>
+        </g>
+      </svg>
+    )
     case 'window-close':
     return (
       <svg viewBox="0 0 14 14" version="1.1" className="icon">

@@ -9,7 +9,7 @@ class Alert extends React.Component {
 
     if (!closed) {
       return (
-        <div className={`alert alert-${type}`}>
+        <div className={`alert alert--${type}`}>
           <div className="alert-inner x-spacing">
             {this.props.children}
           </div>
@@ -25,7 +25,8 @@ Alert.propTypes = {
   type: PropTypes.oneOf([
     'informational',
     'error',
-    'warning'
+    'warning',
+    'success'
   ]),
   closed: PropTypes.bool
 };

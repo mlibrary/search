@@ -39,6 +39,7 @@ const observer = (records) => {
 
 const initialize = () => {
   addRecordsToList(listRecords())
+  Pride.PreferenceEngine.registerEngine(prejudice);
 }
 
 const createVariableStorageDriverInstance = () => {

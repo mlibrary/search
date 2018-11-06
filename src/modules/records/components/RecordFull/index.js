@@ -45,6 +45,9 @@ import {
 import {
   NoMatch
 } from '../../../pages'
+import {
+  FavoriteRecord
+} from '../../../favorites'
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
 
@@ -107,19 +110,13 @@ class FullRecord extends React.Component {
   }
 
   renderActions = () => {
-    const { recordUid } = this.props.match.params
-    const { datastoreUid, datastore } = this.props
+    const { datastore } = this.props
 
     return (
       <div className="full-record__actions-container">
         <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions <span className="text-small lists-actions__heading-tag">Select what to do with this record.</span></h2>
-        <ActionsList
-          setActive={this.setActiveAction}
-          active={this.state.activeAction}
-          record={{ recordUid, datastoreUid }}
-          prejudice={prejudiceInstance}
-          datastore={datastore}
-        />
+        <ActionsList setActive={this.setActiveAction} active={this.state.activeAction}
+        prejudice={prejudiceInstance} datastore={datastore} hideActions={['favorite']} />
       </div>
     )
   }
@@ -147,6 +144,7 @@ class FullRecord extends React.Component {
     if (recordUidValue !== recordUid) {
       return (
         <div className="container container-narrow">
+          <GoToList list={list} datastore={datastore} />
           <FullRecordPlaceholder />
         </div>
       )
@@ -165,9 +163,7 @@ class FullRecord extends React.Component {
     // For adding a blue border when added to list.
     const inList = isInList(list, record.uid)
     const recordClassName = inList ? 'full-record-container record--highlight' : 'full-record-container'
-
     const ShowAllName = datastoreUid === "journals" ? "online journals" : null
-
 
     return (
       <div className="container container-narrow full-record-page-container y-spacing">
@@ -189,6 +185,9 @@ class FullRecord extends React.Component {
                 <RecommendedResource record={record} />
               </h1>
 
+              <ul className="record-actions">
+                <li><FavoriteRecord record={record} datastore={datastoreUid} /></li>
+              </ul>
               <AddToListButton item={record} />
             </div>
 

@@ -20,6 +20,7 @@ import { specialistsReducer } from './modules/specialists'
 import { listsReducer } from './modules/lists'
 import { a11yReducer } from './modules/a11y'
 import { profileReducer } from './modules/profile'
+import { favoritesReducer } from './modules/favorites'
 
 import history from './history'
 
@@ -35,7 +36,8 @@ const rootReducer = combineReducers({
   specialists: specialistsReducer,
   lists: listsReducer,
   a11y: a11yReducer,
-  profile: profileReducer
+  profile: profileReducer,
+  favorites: favoritesReducer
 })
 
 const middleware = [routerMiddleware(history)]

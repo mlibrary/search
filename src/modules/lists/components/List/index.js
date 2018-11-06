@@ -102,7 +102,7 @@ class List extends Component {
           <h1 className="lists-heading">My Temporary {datastore.name} List</h1>
           <div className="lists-header-info">
             {this.renderRemoveAllFromListButton(list, datastore)}
-            <p className="tag lists-count-tag"><b>{this.getListLength()}</b> in list</p>
+            <p className="lists-count-tag"><b>{this.getListLength()}</b> in list</p>
           </div>
         </header>
         <p>Items in this list are stored temporarily (within a single session).</p>

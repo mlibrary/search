@@ -31,6 +31,10 @@ import {
 } from '../../../lists'
 import ReactGA from 'react-ga'
 
+import {
+  FavoriteRecord,
+  FavoriteTags
+} from '../../../favorites'
 
 const Header = ({
   record,
@@ -168,12 +172,24 @@ class Record extends React.Component {
       return (
         <article className={recordClassName}>
           <div className="record-container record-medium-container">
-            <Header
+            <div className="record-title-and-actions-container ">
+              <Header
+                record={record}
+                datastoreUid={datastoreUid}
+                searchQuery={searchQuery}
+              />
+              <AddToListButton
+                item={record}
+              />
+              <FavoriteRecord
+                record={record}
+                datastore={datastoreUid}
+              />
+            </div>
+            <FavoriteTags
               record={record}
-              datastoreUid={datastoreUid}
-              searchQuery={searchQuery}
+              datastore={datastoreUid}
             />
-            <AddToListButton item={record} />
             <FieldList
               fields={displayFields}
               datastoreUid={datastoreUid}
