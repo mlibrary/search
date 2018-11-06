@@ -33,7 +33,7 @@ class GoToList extends Component {
             <div className="list-info">
               <p className="lists-content">Go to <span className="underline">My Temporary {datastore.name} List</span> to email, text, and export citations.</p>
             </div>
-            <p className="tag lists-count-tag"><b>{listLength}</b> in list</p>
+            <p className="lists-count-tag"><b>{listLength}</b> in list</p>
           </Link>
         </section>
       </React.Fragment>
