@@ -99,7 +99,7 @@ class FavoriteTags extends React.Component {
           ))}
           <li>
             <Button
-              kind="tertiary"
+              kind="secondary"
               small
               onClick={this.handleOpenModal}
               className="favorites-add-tag"

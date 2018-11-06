@@ -22,7 +22,7 @@
     "numeral": "^2.0.4",
     "object-path": "^0.11.4",
     "prejudice": "git://github.com/mlibrary/prejudice.git",
-    "pride": "git://github.com/mlibrary/pride.git#SEARCH-657-selected-and-favorited",
+    "pride": "git://github.com/mlibrary/pride.git",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
     "react": "^16.4.1",

@@ -61,7 +61,7 @@ const favoritesReducer = (state = {}, action) => {
           }
         }
       case actions.UNTAG_FAVORITE:
-        if (true) {
+        if (true) { // adding a scope to the vars
           let tags = 
             state[datastoreUid] &&
             state[datastoreUid][recordUid] && 
@@ -81,6 +81,7 @@ const favoritesReducer = (state = {}, action) => {
             [datastoreUid]: {
               ...state[datastoreUid],
               [recordUid]: {
+                ...state[datastoreUid][recordUid],
                 tags: tags ? _.flatten(tags) : undefined,
                 untags: untags ? untags : undefined
               }

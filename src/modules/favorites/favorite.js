@@ -50,7 +50,6 @@ const favoriteToPrejudice = ({
     }))
   }
 
-  /*
   // This favorites the record to the Favorites application.
   prejudice.createVariableStorageDriverInstance().addRecord(
     record
@@ -60,7 +59,6 @@ const favoriteToPrejudice = ({
     value,
     callback
   )
-  */
 }
 
 export default favoriteToPrejudice
