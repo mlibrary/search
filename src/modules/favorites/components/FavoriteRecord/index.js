@@ -33,7 +33,7 @@ class FavoriteRecord extends React.Component {
 
     if (promptLogin) {
       return (
-        <div className="favorites-authentication">
+        <div className="favorites-authentication x-spacing">
           <Button
             small
             className="favorites-authentication-button"
