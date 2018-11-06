@@ -57,7 +57,8 @@ class AdvancedSearch extends React.Component {
 
   handleAddAnotherFieldedSearch() {
     this.props.addFieldedSearch({
-      datastoreUid: this.props.datastores.active
+      datastoreUid: this.props.datastores.active,
+      field: this.props.fields[0].uid
     })
 
     this.props.setA11yMessage('Fielded search added.')
@@ -93,8 +94,8 @@ class AdvancedSearch extends React.Component {
     // Build the query
     // example output: 'title:parrots AND author:charles'
     const query = fieldedSearches.reduce((memo, fieldedSearch, index) => {
-      if (fieldedSearch.query.length > 0) {
-        if (index > 0) {
+      if (fieldedSearch.query.length) {
+        if (memo.length > 0) {
           memo.push(booleanTypes[fieldedSearch.booleanType])
         }
 
