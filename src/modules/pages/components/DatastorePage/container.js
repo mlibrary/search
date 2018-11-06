@@ -160,7 +160,7 @@ class DatastorePageContainer extends React.Component {
                           <Landing activeDatastore={activeDatastore} />
                         </div>
                       ) : (
-                        <Responsive minDeviceWidth={960}>
+                        <Responsive minDeviceWidth={980}>
                           <DatastoreInfo activeDatastore={activeDatastore} />
                         </Responsive>
                       )}
@@ -186,7 +186,7 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
     <div className="container container-medium flex-container">
       {!activeDatastore.isMultisearch ? (
         <div className="side-container">
-          <Responsive minDeviceWidth={960}>
+          <Responsive minDeviceWidth={980}>
             {(matches) => {
               if (matches) {
                 return (
