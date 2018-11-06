@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Icon
-} from '../../../core'
 import _ from 'underscore'
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
 import FavoriteAction from '../FavoriteAction'
-import { Login } from '../../../profile'
+import { Login, AuthenticationRequired } from '../../../profile'
 import { Button } from '../../../reusable'
 
 class ActionsList extends Component {
@@ -120,9 +117,20 @@ class ActionsList extends Component {
     }
 
     return (
-      <li key={action.uid}>
-        <button className={`button-link lists-action-button ${activeClassName}`} onClick={() => this.handleClick(action)} aria-pressed={isActive}><Icon name={action.icon} />{action.name}</button>
-      </li>
+      <React.Fragment>
+        {action === 'email' && (
+          <AuthenticationRequired>
+            <EmailAction action={action} {...this.props} />
+          </AuthenticationRequired>
+        )}
+        {action === 'text' && (
+          <AuthenticationRequired>
+            <TextAction action={action} {...this.props} />
+          </AuthenticationRequired>
+        )}
+        
+        {action === 'file' && (<FileAction action={action}  {...this.props} />)}
+      </React.Fragment>
     )
   }
 
