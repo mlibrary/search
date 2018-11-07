@@ -29,7 +29,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
               .slice(0, recordIndex)
               .concat([{
                 ...state.records[datastoreUid][recordIndex],
-                holdings,
+                resourceAccess: holdings,
                 loadingHoldings: false
               }])
               .concat(state.records[datastoreUid].slice(recordIndex + 1))
@@ -58,7 +58,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
       return Object.assign({}, state, {
         record: {
           ...state.record,
-          holdings: action.payload
+          resourceAccess: action.payload
         }
       });
     case actions.SET_RECORD_GET_THIS:

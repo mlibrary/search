@@ -146,11 +146,13 @@ const setupObservers = (searchObj) => {
       const records = results.reduce((accumulator, result) => {
         result.renderFull((data) => {
           const uid = getFieldValue(getField(data.fields, 'id'))[0]
+          const resourceAccess = getFieldValue(getField(data.fields, 'resource_access'))
 
           accumulator = accumulator.concat({
             uid,
             ...data,
-            loadingHoldings: recordsHaveHoldings ? 'true' : undefined
+            resourceAccess: resourceAccess ? resourceAccess : undefined,
+            loadingHoldings: recordsHaveHoldings ? true : undefined
           })
         })
 
@@ -165,13 +167,12 @@ const setupObservers = (searchObj) => {
 
       if (recordsHaveHoldings) {
         const holdingsCallback = (dsUid, uid, data) => {
-          const holdings = transformHoldings({ datastoreUid: dsUid, recordUid: uid, holdings: data })
           const fullRecordUid = getFullRecordUid()
 
           store.dispatch(addHoldings({
             datastoreUid: dsUid,
             recordUid: uid,
-            holdings
+            holdings: data
           }))
 
           // If the result holdings in the callback need
@@ -179,7 +180,7 @@ const setupObservers = (searchObj) => {
           // A record from results is stored seperate from
           // a full record.
           if (uid === fullRecordUid) {
-            store.dispatch(setRecordHoldings(holdings))
+            store.dispatch(setRecordHoldings(data))
           }
         }
 
@@ -419,7 +420,6 @@ const setupAdvancedSearch = () => {
         }))
       })
     }
-
 
     // Setup Advanced Filters
     if (config.advanced[dsUid].filters) {

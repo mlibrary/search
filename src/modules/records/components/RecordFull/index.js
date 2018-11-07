@@ -8,7 +8,6 @@ import {
 import { Breadcrumb } from '../../../reusable'
 
 import {
-  ShowAllChildren,
   TrimString,
 } from '../../../core'
 import ShowAdditionalFieldList from '../ShowAdditionalFieldList';
@@ -149,12 +148,6 @@ class FullRecord extends React.Component {
         </div>
       )
     }
-    const access = filterAccessFields({
-      fields: record.fields,
-      type: 'access',
-      datastore: datastoreUid,
-    });
-    const holdings = record.holdings
     const displayFields = getFullRecordDisplayFields({
       fields: record.fields,
       datastore: datastoreUid
@@ -193,22 +186,6 @@ class FullRecord extends React.Component {
 
             <RecordDescription record={record} />
 
-            {access.length > 0 && (
-              <div className="full-record__access-container">
-                <h2 className="full-record__access-heading">Access</h2>
-                <ShowAllChildren
-                  length={access.length}
-                  show={1}
-                  listClass={'access-list'}
-                  name={ShowAllName}
-                >
-                  {access.map((item, key) => (
-                    <AccessItem key={key} type='full' item={item} />
-                  ))}
-                </ShowAllChildren>
-              </div>
-            )}
-
             <h2 className="full-record__record-info">Record Info</h2>
             <ShowAdditionalFieldList
               fields={displayFields}
@@ -216,7 +193,16 @@ class FullRecord extends React.Component {
               institution={institution}
             />
           </div>
-          {holdings && (<Holdings holdings={holdings} />)}
+          {record.loadingHoldings ? (
+            <div className="access-container access-placeholder-container">
+              <div className="placeholder placeholder-access placeholder-inline"></div>
+              <div className="placeholder placeholder-inline"></div>
+            </div>
+          ) : (
+            <React.Fragment>
+              {record.resourceAccess.map(ra => <ResourceAccess {...ra} />)}
+            </React.Fragment>
+          )}
         </div>
         {this.renderActions()}
         {datastoreUid === 'mirlyn' && <ViewMARC record={record} />}

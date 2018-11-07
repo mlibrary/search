@@ -3,14 +3,9 @@ import { Link } from 'react-router-dom'
 
 import FieldList from '../RecordFieldList';
 import {
-  AccessItem,
-} from '../AccessList';
-import {
-  ShowAllChildren,
   TrimString,
   Icon
 } from '../../../core'
-import Holdings from '../Holdings';
 import {
   RecommendedResource
 }  from '../../../records'
@@ -21,7 +16,6 @@ import {
   getField,
   getFieldValue,
   filterDisplayFields,
-  filterAccessFields,
   hasRecordFullView,
   getAccessField
 } from '../../utilities';
@@ -30,11 +24,11 @@ import {
   isInList
 } from '../../../lists'
 import ReactGA from 'react-ga'
-
 import {
   FavoriteRecord,
   FavoriteTags
 } from '../../../favorites'
+import ResourceAccess from '@umich-lib-ui/resource-access'
 
 const Header = ({
   record,
@@ -110,47 +104,6 @@ const Header = ({
   )
 }
 
-const Access = ({
-  record,
-  access,
-  holdings,
-  datastoreUid
-}) => {
-  const name = datastoreUid === "journals" ? "online journals" : null
-
-  return (
-    <div>
-      {record.loadingHoldings ? (
-        <div className="access-container access-placeholder-container">
-          <div className="placeholder placeholder-access placeholder-inline"></div>
-          <div className="placeholder placeholder-inline"></div>
-        </div>
-      ) : (
-        <div>
-          {access.length > 0 && (
-            <div className="access-container">
-              <div className="access-list-container">
-                <ShowAllChildren
-                  length={access.length}
-                  show={1}
-                  name={name}
-                  listClass={'access-list'}>
-                    {access.map((item, index) => (
-                      <AccessItem key={index} item={item} />
-                    ))}
-                </ShowAllChildren>
-              </div>
-            </div>
-          )}
-          {holdings && (
-            <div className="holdings-condensed"><Holdings holdings={holdings} headingLevel={4}/></div>
-          )}
-        </div>
-      )}
-    </div>
-  )
-}
-
 class Record extends React.Component {
   render() {
     const { record, datastoreUid, type, searchQuery, institution, list } = this.props
@@ -159,11 +112,6 @@ class Record extends React.Component {
       type: type,
       datastore: datastoreUid
     });
-    const access = filterAccessFields({
-      fields: record.fields,
-      datastore: datastoreUid,
-    });
-    const holdings = record.holdings
     const recordUidField = getField(record.fields, 'id');
     const inList = isInList(list, record.uid)
     const recordClassName = inList ? 'record record--highlight' : 'record'
@@ -198,12 +146,18 @@ class Record extends React.Component {
           </div>
 
           {datastoreUid === 'website' ? null : (
-            <Access
-              record={record}
-              access={access}
-              holdings={holdings}
-              datastoreUid={datastoreUid}
-            />
+            <React.Fragment>
+              {record.loadingHoldings ? (
+                <div className="access-container access-placeholder-container">
+                  <div className="placeholder placeholder-access placeholder-inline"></div>
+                  <div className="placeholder placeholder-inline"></div>
+                </div>
+              ) : (
+                <React.Fragment>
+                  {record.resourceAccess.map(ra => <ResourceAccess {...ra} />)}
+                </React.Fragment>
+              )}
+            </React.Fragment>
           )}
         </article>
       )
