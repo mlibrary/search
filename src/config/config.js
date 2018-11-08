@@ -169,201 +169,7 @@ const config = {
           search: 'title',
           type: 'fielded'
         }
-      ],
-      holdings: {
-        'online': {
-          heading: 'Online Resources',
-          showAllName: 'Online Resources',
-          summaryText: { uid: 'summary_holdings' },
-          publicNote: { uid: 'public_note' },
-          fields: [
-            {
-              type: 'button-link',
-              heading: 'Link',
-              value: { uid: 'link_text' },
-              link: { uid: 'href' },
-            },
-            {
-              type: 'text',
-              value: { uid: 'relationship' },
-              heading: 'Description',
-            },
-            {
-              type: 'text',
-              value: { uid: 'text' },
-              heading: 'Source',
-            },
-          ]
-        },
-        'hathitrust': {
-          heading: 'HathiTrust Digital Library',
-          showAllName: 'HathiTrust Sources',
-          summaryText: { uid: 'summary_holdings' },
-          publicNote: { uid: 'public_note' },
-          fields: [
-            {
-              type: 'button-link',
-              heading: 'Link',
-              value: { uid: 'status' },
-              link: { uid: 'handle_url' },
-            },
-            {
-              type: 'text',
-              heading: 'Description',
-              value: { uid: 'description' },
-            },
-            {
-              type: 'text',
-              heading: 'Source',
-              value: { uid: 'source' },
-            }
-          ]
-        },
-        'circulating': {
-          heading: 'Physical Holdings',
-          summaryText: { uid: 'summary_holdings' },
-          publicNote: { uid: 'public_note' },
-          showAllName: 'Holdings',
-          groupBy: { uid: 'location' },
-          infoUrl: { uid: 'info_link' },
-          floor: { uid: 'floor' },
-          fields: [
-            {
-              type: 'link',
-              heading: 'Action',
-              value: 'Get this',
-              link: { uid: 'url' },
-            },
-            {
-              type: 'text',
-              value: { uid: 'description' },
-              heading: 'Description',
-            },
-            {
-              type: 'text',
-              value: { uid: 'status' },
-              heading: 'Status',
-            },
-            {
-              type: 'text',
-              value: { uid: 'callnumber' },
-              heading: 'Call Number',
-            },
-          ]
-        },
-        'other': {
-          heading: 'Other Holdings',
-          showAllName: 'Holdings',
-          summaryText: { uid: 'summary_holdings' },
-          publicNote: { uid: 'public_note' },
-          groupBy: { uid: 'location' },
-          fields: [
-            {
-              type: 'link',
-              heading: 'Action',
-              value: 'Request this item',
-              link: { uid: 'url' },
-            },
-            {
-              type: 'text',
-              value: { uid: 'description' },
-              heading: 'Description',
-            },
-            {
-              type: 'text',
-              value: { uid: 'status' },
-              heading: 'Status',
-            },
-            {
-              type: 'text',
-              value: { uid: 'callnumber' },
-              heading: 'Call Number',
-            },
-          ]
-        },
-        'media': {
-          heading: 'Media Holdings',
-          showAllName: 'Holdings',
-          summaryText: { uid: 'summary_holdings' },
-          publicNote: { uid: 'public_note' },
-          groupBy: { uid: 'location' },
-          fields: [
-            {
-              type: 'link',
-              heading: 'Action',
-              value: 'Advanced booking',
-              link: { uid: 'url' },
-            },
-            {
-              type: 'text',
-              value: { uid: 'description' },
-              heading: 'Description',
-            },
-            {
-              type: 'text',
-              value: { uid: 'status' },
-              heading: 'Status',
-            },
-            {
-              type: 'text',
-              value: { uid: 'callnumber' },
-              heading: 'Call Number',
-            },
-          ]
-        },
-        'special': {
-          heading: 'Reading Room Use Only',
-          showAllName: 'Special Holdings',
-          summaryText: { uid: 'summary_holdings' },
-          publicNote: { uid: 'public_note' },
-          groupBy: { uid: 'location' },
-          fields: [
-            {
-              type: 'link',
-              heading: 'Action',
-              value: 'Request this',
-              link: { uid: 'url' },
-            },
-            {
-              type: 'text',
-              value: { uid: 'description' },
-              heading: 'Description',
-            },
-            {
-              type: 'text',
-              value: { uid: 'status' },
-              heading: 'Status',
-            },
-            {
-              type: 'text',
-              value: { uid: 'callnumber' },
-              heading: 'Call Number',
-            },
-          ]
-        },
-        'downlink': {
-          heading: 'Bound with',
-          fields: [
-            {
-              type: 'link',
-              heading: 'Record link',
-              value: { uid: 'label' },
-              link: { uid: 'id' }
-            }
-          ]
-        },
-        'uplink': {
-          heading: 'Included in',
-          fields: [
-            {
-              type: 'link',
-              heading: 'Record link',
-              value: { uid: 'label' },
-              link: { uid: 'id' }
-            }
-          ]
-        }
-      }
+      ]
     },
     {
       datastore: 'articlesplus',
@@ -417,11 +223,7 @@ const config = {
           search: 'subject',
           type: 'filter'
         },
-      ],
-      access: {
-        defaultAccessText: 'Go to item',
-        link: 'access_url'
-      },
+      ]
     },
     {
       datastore: 'databases',
@@ -461,10 +263,6 @@ const config = {
         ],
         description: 'description',
       },
-      access: {
-        link: 'permalink',
-        defaultAccessText: 'Go to database',
-      },
       searches: [
         {
           uid: 'academic_discipline',
@@ -496,20 +294,6 @@ const config = {
           'alt_title',
         ]
       },
-      access: {
-        uid: 'links',
-        fields: [
-          {
-            uid: 'href',
-            label: 'Go to online journal',
-            isLink: true,
-          },
-          {
-            uid: 'text',
-            label: 'Coverage',
-          }
-        ]
-      },
       searches: [
         {
           uid: 'academic_discipline',
@@ -533,17 +317,7 @@ const config = {
         'department',
         'phone',
         'office'
-      ],
-      access: {
-        uid: 'links',
-        fields: [
-          {
-            uid: 'href',
-            label: 'Go to webpage',
-            isLink: true,
-          }
-        ]
-      },
+      ]
     },
   ],
   filters: {

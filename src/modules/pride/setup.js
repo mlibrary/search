@@ -46,8 +46,7 @@ import {
 import {
   getDatastoreSlug,
   getDatastoreName,
-  getDatastoreUidBySlug,
-  transformHoldings
+  getDatastoreUidBySlug
 } from './utils'
 
 import {

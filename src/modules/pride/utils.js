@@ -214,96 +214,6 @@ const createHolding = ({
   }
 }
 
-
-// Used to transform backend holdings data to a
-// shape better for React and based on configuration.
-const transformHoldings = ({ datastoreUid, recordUid, holdings }) => {
-  const fieldsConfig = _.findWhere(config.fields, { datastore: datastoreUid })
-
-  // Ensure there is a config for this datastore and its holdings
-  if (fieldsConfig && fieldsConfig.holdings) {
-    const holdingGroupUids = Object.keys(fieldsConfig.holdings)
-    const holdingsConfigured = holdings.reduce((prev, holding) => {
-      const holdingGroupUid = holding.type
-
-      // Do we care about these types of holdings, are they configured?
-      if (holdingGroupUids.indexOf(holdingGroupUid) !== -1) {
-        const holdingGroupConfig = fieldsConfig.holdings[holdingGroupUid]
-        const newHolding = createHolding({
-          config: holdingGroupConfig,
-          holding,
-          recordUid
-        })
-
-        let holdingGroupNameSpace = holdingGroupUid
-        let heading = fieldsConfig.holdings[holdingGroupNameSpace].heading
-        let infoUrl = undefined
-        let summaryText = undefined
-        let publicNote = undefined
-        let floor = undefined
-
-        // If these types of holdings are grouped by some other field besides type
-        if (holdingGroupConfig.groupBy) {
-          heading = holding[holdingGroupConfig.groupBy.uid]
-          holdingGroupNameSpace = holding[holdingGroupConfig.groupBy.uid]
-        }
-
-        // If these types of holdings have an info link
-        if (holdingGroupConfig.infoUrl) {
-          infoUrl = holding[holdingGroupConfig.infoUrl.uid]
-        }
-
-        // If these types of holdings have a holdings summary
-        if (holdingGroupConfig.summaryText) {
-          summaryText = holding[holdingGroupConfig.summaryText.uid]
-        }
-
-        // If these types of holdings have a public note
-        if (holdingGroupConfig.publicNote) {
-          publicNote = holding[holdingGroupConfig.publicNote.uid]
-        }
-
-        // If these types of holdings have a floor
-        if (holdingGroupConfig.floor) {
-          floor = holding[holdingGroupConfig.floor.uid]
-        }
-
-        // First of its kind
-        if (!prev[holdingGroupNameSpace]) {
-          return {
-            ...prev,
-            [holdingGroupNameSpace]: {
-              heading,
-              infoUrl,
-              summaryText,
-              publicNote,
-              floor,
-              showAllName: fieldsConfig.holdings[holdingGroupUid].showAllName,
-              holdings: [].concat(newHolding)
-            }
-          }
-
-        // Add onto an existing list of holdings.
-        } else {
-          return {
-            ...prev,
-            [holdingGroupNameSpace]: {
-              ...prev[holdingGroupNameSpace],
-              holdings: prev[holdingGroupNameSpace].holdings.concat(newHolding)
-            }
-          }
-        }
-      }
-
-      return prev
-    }, {})
-
-    return holdingsConfigured
-  } else {
-    return undefined
-  }
-}
-
 const fetchRecordFromState = ({
   datastoreUid,
   recordUid
@@ -336,8 +246,8 @@ const requestRecord = ({
     // We only want to send holdings requests for
     // record types that have holdings (e.g. the catalog)
     if (datastoreRecordsHaveHoldings(datastoreUid)) {
-      record.getHoldings((holdings) => {
-        store.dispatch(setRecordHoldings(transformHoldings({ datastoreUid, holdings, recordUid })))
+      record.getHoldings((data) => {
+        store.dispatch(setRecordHoldings(data))
       })
     }
   }
@@ -436,6 +346,5 @@ export {
   parseField,
   getFormatIconName,
   isFieldASearchLink,
-  transformHoldings,
   requestGetThis
 }
