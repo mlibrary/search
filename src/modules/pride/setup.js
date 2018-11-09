@@ -117,16 +117,6 @@ const handleSearchData = (data, datastoreUid) => {
   }
 }
 
-const hasHoldings = (datastore) => {
-  const fieldsConfig = _.findWhere(config.fields, { datastore: datastore })
-
-  if (fieldsConfig.holdings) {
-    return true
-  }
-
-  return false
-}
-
 const getFullRecordUid = () => {
   const record = store.getState().records.record
   return record ? record.uid : undefined
@@ -139,7 +129,7 @@ const setupObservers = (searchObj) => {
 
     // Does results contain undefined records
     if (!_.contains(results, undefined)) {
-      const recordsHaveHoldings = hasHoldings(searchObj.uid);
+      const recordsHaveHoldings = searchObj.uid === 'mirlyn';
 
       // Build a list of records from Pride results
       const records = results.reduce((accumulator, result) => {
