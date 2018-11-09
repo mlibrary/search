@@ -7,8 +7,7 @@ import {
 } from '../../../core'
 import {
   RecordFullFormats,
-  FullRecordPlaceholder,
-  Holdings
+  FullRecordPlaceholder
 } from '../../../records'
 
 const getGetThisHolding = ({
@@ -70,11 +69,8 @@ const GetThisHoldings = ({
     )
   }
 
-  return (
-    <div className="get-this-holdings-container">
-      <Holdings holdings={holding} />
-    </div>
-  )
+  // TODO Make this work with resource access
+  return null
 }
 
 class GetThisRecord extends React.Component {

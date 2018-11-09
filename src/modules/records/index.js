@@ -10,9 +10,9 @@ import BentoboxList from './components/BentoboxList';
 import RecordFieldValue from './components/RecordFieldValue';
 import ViewMARC from './components/ViewMARC';
 import Bookplate from './components/Bookplate';
-import Holdings from './components/Holdings';
 import RecommendedResource from './components/RecommendedResource';
 import RecordDescription from './components/RecordDescription';
+import RecordResourceAccess from './components/RecordResourceAccess';
 import recordsReducer from './reducer';
 import {
   addRecords,
@@ -49,7 +49,7 @@ export {
   RecordFieldValue,
   ViewMARC,
   Bookplate,
-  Holdings,
   RecommendedResource,
-  RecordDescription
+  RecordDescription,
+  RecordResourceAccess
 };

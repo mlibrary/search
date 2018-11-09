@@ -7,7 +7,8 @@ import {
   Icon
 } from '../../../core'
 import {
-  RecommendedResource
+  RecommendedResource,
+  RecordResourceAccess
 }  from '../../../records'
 import {
   getDatastoreSlugByUid
@@ -28,7 +29,6 @@ import {
   FavoriteRecord,
   FavoriteTags
 } from '../../../favorites'
-import ResourceAccess from '@umich-lib-ui/resource-access'
 
 const Header = ({
   record,
@@ -146,18 +146,7 @@ class Record extends React.Component {
           </div>
 
           {datastoreUid === 'website' ? null : (
-            <React.Fragment>
-              {record.loadingHoldings ? (
-                <div className="access-container access-placeholder-container">
-                  <div className="placeholder placeholder-access placeholder-inline"></div>
-                  <div className="placeholder placeholder-inline"></div>
-                </div>
-              ) : (
-                <React.Fragment>
-                  {record.resourceAccess.map(ra => <ResourceAccess {...ra} />)}
-                </React.Fragment>
-              )}
-            </React.Fragment>
+            <RecordResourceAccess record={record} />
           )}
         </article>
       )

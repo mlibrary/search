@@ -2,19 +2,20 @@ import React from 'react';
 
 const RecordPlaceholder = () => {
   return (
-    <article className="record">
+    <div className="record">
       <div className="record-container placeholder-container">
         <div className="placeholder placeholder-title"></div>
         <div className="placeholder placeholder-line"></div>
         <div className="placeholder placeholder-line placeholder-line-alt"></div>
         <div className="placeholder placeholder-line"></div>
       </div>
-
-      <div className="access-container access-placeholder-container">
-        <div className="placeholder placeholder-access placeholder-inline"></div>
-        <div className="placeholder placeholder-inline"></div>
-      </div>
-    </article>
+      <div className="resource-access-container">
+          <div className="access-placeholder-container">
+            <div className="placeholder placeholder-access placeholder-inline"></div>
+            <div className="placeholder placeholder-inline"></div>
+          </div>
+        </div>
+    </div>
   )
 }
 

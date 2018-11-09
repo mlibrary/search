@@ -150,26 +150,6 @@ ul {
 dt {
   font-weight: 600; }
 
-table {
-  width: 100%;
-  border: solid 1px #E5E5E5;
-  margin-top: 1rem;
-  margin-bottom: 1rem; }
-
-thead {
-  background: #FAFAFA;
-  border-bottom: solid 2px #E5E5E5; }
-
-td, th {
-  padding: 0.75rem 1rem; }
-
-th {
-  text-align: left;
-  color: #6E6E6E; }
-
-tr {
-  border-bottom: solid 1px #E5E5E5; }
-
 .table-compact table {
   border: none; }
 
@@ -1100,7 +1080,8 @@ body {
 @media (min-width: 820px) {
   .full-record-title-and-actions-container {
     display: flex;
-    justify-content: space-between; } }
+    justify-content: space-between;
+    align-items: flex-start; } }
 
 .full-record-format {
   color: #0C5292;
@@ -1290,184 +1271,7 @@ body {
 .party-parrot-container:hover .party-parrot {
   opacity: 0.3; }
 
-.holdings {
-  background: #FAFAFA;
-  border-top: solid 1px #E5E5E5;
-  padding: 1.5rem 2rem;
-  padding-left: 2.5rem;
-  border-radius: 0 0 4px 4px; }
-
-.holding-group:not(:last-child) {
-  margin-bottom: 2rem; }
-
-.holding-group-heading-container {
-  display: flex;
-  align-items: baseline; }
-
-.holding-group-heading {
-  margin: 0;
-  font-weight: 600;
-  font-size: 1rem;
-  margin-right: 1rem; }
-  @media (max-width: 820px) {
-    .holding-group-heading {
-      font-size: 1rem;
-      padding-bottom: 0.5rem; } }
-
-.holding-group-info-link {
-  display: inline-block;
-  text-decoration: underline;
-  font-size: 0.875rem; }
-
-.holding-table {
-  border: none;
-  padding: 0;
-  margin: 0; }
-  .holding-table thead {
-    background: none;
-    color: #4E4E4E;
-    font-size: 0.8125rem; }
-  .holding-table tr {
-    border: none; }
-  .holding-table tbody td:first-child {
-    white-space: nowrap; }
-  .holding-table tbody tr:last-child td {
-    border: none; }
-  .holding-table tbody td {
-    border-bottom: solid 1px #E5E5E5; }
-  .holding-table td, .holding-table th {
-    padding: 0;
-    vertical-align: middle; }
-  .holding-table td {
-    width: 20%; }
-  @media (max-width: 820px) {
-    .holding-table thead {
-      display: none; }
-    .holding-table tr {
-      display: block;
-      margin-bottom: 0.5rem; }
-      .holding-table tr:not(:last-child) {
-        border-bottom: solid 1px #E5E5E5;
-        padding-bottom: 0.5rem; }
-    .holding-table td {
-      width: auto; }
-    .holding-table tbody td {
-      display: inline-block;
-      border: none; } }
-
-.holding-link {
-  text-decoration: underline; }
-
-.holding-value-na {
-  color: #6E6E6E; }
-
-.holding-table-field {
-  display: inline-block;
-  margin-right: 1rem; }
-  @media (min-width: 820px) {
-    .holding-table-field {
-      padding: 0.5rem 0; } }
-
-.holding-table td, .holding-table th {
-  vertical-align: top; }
-
-.holding-group:not(:last-child) {
-  margin-bottom: 1.5rem; }
-
-.holding-button {
-  background: none;
-  padding: 0;
-  color: #126DC1;
-  border: none;
-  text-decoration: underline; }
-
-.holdings-show-all-button,
-.access-list-container .show-all-button {
-  background: transparent;
-  border: 1px solid #6E6E6E;
-  color: #4E4E4E;
-  padding: .25rem .5rem;
-  font-size: .875rem;
-  border-radius: 4px;
-  text-decoration: none; }
-  .holdings-show-all-button .show-all-button__text,
-  .access-list-container .show-all-button .show-all-button__text {
-    border: none; }
-  .holdings-show-all-button:hover,
-  .access-list-container .show-all-button:hover {
-    cursor: pointer;
-    border-color: #4E4E4E; }
-
-.full-record__access-container .show-all-button {
-  background: transparent;
-  border: 1px solid #6E6E6E;
-  color: #4E4E4E;
-  padding: .25rem .5rem;
-  font-size: .875rem;
-  border-radius: 4px;
-  text-decoration: none; }
-  .full-record__access-container .show-all-button .show-all-button__text {
-    border: none; }
-  .full-record__access-container .show-all-button:hover {
-    cursor: pointer;
-    border-color: #4E4E4E; }
-
-.bentobox .holdings {
-  padding: 1rem 1.5rem; }
-
-.bentobox .holding-table thead {
-  display: none; }
-
-.bentobox .holding-table tr {
-  display: block;
-  margin-bottom: 0.5rem; }
-  .bentobox .holding-table tr:not(:last-child) {
-    border-bottom: solid 1px #E5E5E5;
-    padding-bottom: 0.5rem; }
-
-.bentobox .holding-table td {
-  width: auto; }
-
-.bentobox .holding-table tbody td {
-  display: inline-block;
-  border: none; }
-
-.bentobox .holding-table tbody td {
-  border: none; }
-
-.bentobox .holding-table tbody .holding-table-field {
-  padding: 0; }
-
-/*
-  Holding statuses
-*/
-.holding-status-on-shelf,
-.holding-status-missing,
-.holding-status-checked-out {
-  color: #057C42;
-  display: flex;
-  align-items: center; }
-  .holding-status-on-shelf .icon,
-  .holding-status-missing .icon,
-  .holding-status-checked-out .icon {
-    min-width: 0.75rem;
-    max-width: 0.75rem;
-    margin-right: 0.5rem; }
-
-.holding-status-on-shelf {
-  color: #057C42; }
-
-.holding-status-missing {
-  color: #C53B26; }
-
-.holding-status-checked-out {
-  color: #AA5600; }
-
-.holding-group--downlink .holding-link,
-.holding-group--uplink .holding-link {
-  white-space: normal; }
-
-.access-container {
+.resource-access-container {
   background: #FAFAFA;
   padding: 1rem 1.5rem;
   padding-left: 2.5rem;
@@ -1475,38 +1279,8 @@ body {
   align-items: center;
   border-top: solid 1px #F2F2F2;
   border-radius: 0 0 4px 4px; }
-  .access-container:empty {
-    display: none; }
-
-.access-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: block; }
-
-.access-detail {
-  margin-right: 1rem; }
-  .access-detail:empty {
-    display: none; }
-
-@media (min-width: 820px) {
-  .access-item {
-    display: flex;
-    align-items: flex-start; }
-  .access-link {
-    white-space: nowrap; } }
-
-.full-record__access-container {
-  margin-bottom: 2rem; }
-
-.access-item:not(:last-child) {
-  margin-bottom: 0.5rem; }
-
-.full-record__access-heading {
-  font-size: 1rem;
-  margin: 0;
-  margin-bottom: 0.5rem;
-  padding: 0; }
+  .resource-access-container a {
+    text-decoration: underline; }
 
 @-webkit-keyframes placeHolderShimmer {
   0% {
@@ -2746,7 +2520,8 @@ input.get-this-field-input-year {
   margin-right: 1rem; }
 
 .favorites-authentication {
-  display: flex; }
+  display: flex;
+  white-space: nowrap; }
 
 .favorites-authentication-button {
   margin-right: 0.5rem; }

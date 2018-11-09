@@ -12,21 +12,17 @@ import {
 } from '../../../core'
 import ShowAdditionalFieldList from '../ShowAdditionalFieldList';
 import {
-  filterAccessFields,
   getField,
   getFieldValue,
   getFullRecordDisplayFields,
 } from '../../utilities';
 import {
-  AccessItem,
-} from '../AccessList'
-import {
   ViewMARC,
-  Holdings,
   RecordFullFormats,
   FullRecordPlaceholder,
   RecommendedResource,
-  RecordDescription
+  RecordDescription,
+  RecordResourceAccess
 } from '../../../records'
 import {
   requestRecord
@@ -49,7 +45,6 @@ import {
 } from '../../../favorites'
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
-
 
 class FullRecordBreadcrumbs extends React.Component {
   render() {
@@ -156,7 +151,6 @@ class FullRecord extends React.Component {
     // For adding a blue border when added to list.
     const inList = isInList(list, record.uid)
     const recordClassName = inList ? 'full-record-container record--highlight' : 'full-record-container'
-    const ShowAllName = datastoreUid === "journals" ? "online journals" : null
 
     return (
       <div className="container container-narrow full-record-page-container y-spacing">
@@ -178,9 +172,7 @@ class FullRecord extends React.Component {
                 <RecommendedResource record={record} />
               </h1>
 
-              <ul className="record-actions">
-                <li><FavoriteRecord record={record} datastore={datastoreUid} /></li>
-              </ul>
+              <FavoriteRecord record={record} datastore={datastoreUid} />
               <AddToListButton item={record} />
             </div>
 
@@ -193,16 +185,10 @@ class FullRecord extends React.Component {
               institution={institution}
             />
           </div>
-          {record.loadingHoldings ? (
-            <div className="access-container access-placeholder-container">
-              <div className="placeholder placeholder-access placeholder-inline"></div>
-              <div className="placeholder placeholder-inline"></div>
-            </div>
-          ) : (
-            <React.Fragment>
-              {record.resourceAccess.map(ra => <ResourceAccess {...ra} />)}
-            </React.Fragment>
-          )}
+          <RecordResourceAccess
+            record={record}
+            datastoreUid={datastoreUid}
+          />
         </div>
         {this.renderActions()}
         {datastoreUid === 'mirlyn' && <ViewMARC record={record} />}

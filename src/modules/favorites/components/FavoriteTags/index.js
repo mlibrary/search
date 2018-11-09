@@ -4,7 +4,6 @@ import {
   Modal
 } from '../../../reusable'
 import Button from '@umich-lib-ui/button'
-import Icon from '@umich-lib-ui/icon'
 import { connect } from 'react-redux'
 import { FavoriteInputTag } from '../../../favorites';
 import favorite from '../../favorite'
@@ -34,7 +33,7 @@ class FavoriteTags extends React.Component {
   }
 
   handleTag = (tag, intent) => {
-    const { record, datastore, tags } = this.props
+    const { record, datastore } = this.props
     const callback = (msg) => {
       /*
         TODO:

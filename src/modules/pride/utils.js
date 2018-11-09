@@ -163,57 +163,6 @@ const getStateFromURL = ({ location }) => {
   return {}
 }
 
-const datastoreRecordsHaveHoldings = (datastore) => {
-  const fieldsConfig = _.findWhere(config.fields, { datastore: datastore })
-
-  if (fieldsConfig && fieldsConfig.holdings) {
-    return true
-  }
-
-  return false
-}
-
-const createHolding = ({
-  config,
-  holding,
-  recordUid
-}) => {
-  const fields = config.fields.reduce((prev, field) => {
-    const configuredField = Object.keys(field).reduce((memo, fieldKey) => {
-
-      // Checks to see if a field value should be set to a uid
-      // off the holding from the backend.
-      if (field[fieldKey].uid) {
-        // This is a special case, to construct the Get This URL.
-        if (holding.type === 'circulating' && field[fieldKey].uid === 'url' && holding.barcode) {
-          return {
-            ...memo,
-            type: 'get-this',
-            [fieldKey]: `/catalog/record/${recordUid}/get-this/${holding.barcode}`
-          }
-        }
-
-        return {
-          ...memo,
-          [fieldKey]: holding[field[fieldKey].uid]
-        }
-      } else {
-        return {
-          ...memo,
-          [fieldKey]: field[fieldKey]
-        }
-      }
-    }, {})
-
-    return prev.concat(configuredField)
-  }, [])
-
-  return {
-    fields: fields,
-    barcode: holding.barcode,
-  }
-}
-
 const fetchRecordFromState = ({
   datastoreUid,
   recordUid
@@ -245,7 +194,7 @@ const requestRecord = ({
 
     // We only want to send holdings requests for
     // record types that have holdings (e.g. the catalog)
-    if (datastoreRecordsHaveHoldings(datastoreUid)) {
+    if (datastoreUid === 'mirlyn') {
       record.getHoldings((data) => {
         store.dispatch(setRecordHoldings(data))
       })
