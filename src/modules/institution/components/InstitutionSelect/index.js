@@ -14,7 +14,6 @@ import {
 
 
 class InstitutionSelect extends React.Component {
-
   handleChange(event) {
     const {
       searchQuery,
@@ -58,7 +57,7 @@ class InstitutionSelect extends React.Component {
                 id={`library-${index}`}
                 type="radio"
                 className="radio-input"
-                checked={`${selectedOption === option ? true : ''}`}
+                checked={selectedOption === option ? true : false}
                 value={option}
                 onChange={(event) => this.handleChange(event)}
               />
