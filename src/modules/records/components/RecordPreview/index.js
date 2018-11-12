@@ -11,7 +11,6 @@ import {
   getField,
   getFieldValue,
   getRecordFormats,
-  getAccessField,
   filterDisplayFields,
   hasRecordFullView
 } from '../../utilities';
@@ -36,14 +35,6 @@ const Header = ({
   const hasFullView = hasRecordFullView({ datastoreUid })
 
   let recordUrl = `/${datastoreSlug}/record/${recordUid}${searchQuery}`
-
-  if (datastoreUid === 'website') {
-    const accessField = getAccessField({ record, datastoreUid })
-
-    if (accessField && accessField.value) {
-      recordUrl = accessField.value
-    }
-  }
 
   return (
     <header>
@@ -241,21 +232,8 @@ const Footer = ({ record, datastoreUid }) => {
     return null
   }
 
-  const accessField = getAccessField({ record, datastoreUid })
-
-  if (accessField) {
-    return (
-      <footer>
-        <a
-          className="record-preview-link"
-          href={accessField.value}
-          data-ga-action="Click"
-          data-ga-category="Brief View"
-          data-ga-label={`${datastoreUid} Item Access`}
-        >{accessField.label}</a>
-      </footer>
-    )
-  }
+  // TODO
+  // Add "Go to <thing>" here with resource access component.
 
   return null
 }

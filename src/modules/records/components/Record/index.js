@@ -17,8 +17,7 @@ import {
   getField,
   getFieldValue,
   filterDisplayFields,
-  hasRecordFullView,
-  getAccessField
+  hasRecordFullView
 } from '../../utilities';
 import {
   AddToListButton,
@@ -43,12 +42,6 @@ const Header = ({
   const hasFullView = hasRecordFullView({ datastoreUid })
 
   if (datastoreUid === 'website') {
-    const accessField = getAccessField({ record, datastoreUid })
-
-    if (accessField && accessField.value) {
-      recordUrl = accessField.value
-    }
-
     if (pictureField) {
       recordHeaderClassName = 'record-title record-person__header-has-picture '
     }
