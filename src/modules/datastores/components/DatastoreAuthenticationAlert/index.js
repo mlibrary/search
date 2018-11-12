@@ -1,13 +1,9 @@
 import React from 'react';
-import { Alert, Button } from '../../../reusable'
+import Alert from '@umich-lib-ui/alert'
 import { connect } from 'react-redux';
 import config from '../../../../config'
 
 class DatastoreAuthenticationAlert extends React.Component {
-  state = {
-    closed: false
-  }
-
   render() {
     const { profile, datastore } = this.props
 
@@ -23,8 +19,8 @@ class DatastoreAuthenticationAlert extends React.Component {
           const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
 
           return (
-            <Alert type="warning" closed={this.state.closed}>
-              <span><a href={loginUrl}><b>Log in</b></a> to view complete search results and to save and request items. <Button kind="tertiary" onClick={() => this.setState({ closed: true })}>Hide</Button></span>
+            <Alert intent="warning">
+              <span><a href={loginUrl} style={{ textDecoration: 'underline', color: 'inherit' }}><b>Log in</b></a> to view complete search results and to save and request items.</span>
             </Alert>
           )
         }
