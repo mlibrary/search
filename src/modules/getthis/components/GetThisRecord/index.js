@@ -7,70 +7,16 @@ import {
 } from '../../../core'
 import {
   RecordFullFormats,
+  RecordResourceAccess,
   FullRecordPlaceholder
 } from '../../../records'
 
-const getGetThisHolding = ({
-  barcode,
-  holdings
-}) => {
-  /*
-    Looks through the holdings object data,
-    and trims it down to only be the holding
-    with the passed in barcode, if the barcode
-    does not exist on a holding, then null is
-    returned.
-  */
-
-  if (!holdings) {
-    return null
-  }
-
-  const holdingGroupKeys = Object.keys(holdings);
-  let holdingFound = false
-
-  const getThisHolding = holdingGroupKeys.reduce((memo, key) => {
-    if (!holdingFound) {
-      const holding = _.findWhere(holdings[key].holdings, { barcode: barcode })
-
-      if (holding) {
-        holdingFound = true
-
-        memo = {
-          [key]: {
-            ...holdings[key],
-            holdings: [].concat(holding)
-          }
-        }
-      }
-    }
-
-    return memo
-  }, {
-    status: '404'
-  })
-
-  return getThisHolding
-}
-
-const GetThisHoldings = ({
-  holding,
-  barcode
-}) => {
-  if (!holding) {
-    return null
-  }
-
-  if (holding && holding.status === '404') {
-    return (
-      <div className="holdings">
-        <span>The holding with barcode <b>"{barcode}"</b> could not be found.</span>
-      </div>
-    )
-  }
-
-  // TODO Make this work with resource access
-  return null
+function GetThisHolding({ record, barcode }) {
+  return (
+    <div className="holdings">
+      <span>Holding with <b>{barcode}</b> can not be rendered.</span>
+    </div>
+  )
 }
 
 class GetThisRecord extends React.Component {
@@ -84,11 +30,6 @@ class GetThisRecord extends React.Component {
     if (!record) {
       return <FullRecordPlaceholder />
     }
-
-    const holding = getGetThisHolding({
-      barcode,
-      holdings: record.holdings
-    })
 
     return (
       <div className="full-record-container u-margin-bottom-1">
@@ -106,8 +47,8 @@ class GetThisRecord extends React.Component {
           </h1>
         </div>
 
-        <GetThisHoldings
-          holding={holding}
+        <GetThisHolding
+          record={record}
           barcode={barcode}
         />
       </div>
