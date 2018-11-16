@@ -7,6 +7,11 @@ const recordsInitialState = {
   record: null,
 };
 
+/*
+// Use compact with ResourceAccess data to remove falsy values in the array.
+// Bug tacked here: SEARCH-775
+*/
+
 const recordsReducer = (state = recordsInitialState, action) => {
   switch (action.type) {
     case actions.ADD_RECORDS:
@@ -29,7 +34,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
               .slice(0, recordIndex)
               .concat([{
                 ...state.records[datastoreUid][recordIndex],
-                resourceAccess: holdings,
+                resourceAccess: _.compact(holdings),
                 loadingHoldings: false
               }])
               .concat(state.records[datastoreUid].slice(recordIndex + 1))
@@ -58,7 +63,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
       return Object.assign({}, state, {
         record: {
           ...state.record,
-          resourceAccess: action.payload
+          resourceAccess: _.compact(action.payload)
         }
       });
     case actions.SET_RECORD_GET_THIS:
