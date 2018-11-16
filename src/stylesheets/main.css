@@ -1622,8 +1622,6 @@ body {
       width: 22rem; } }
 
 .advanced-filter-inner-container {
-  background: #FAFAFA;
-  padding: 1rem;
   border-radius: 4px; }
 
 .advanced-filter-label-text {
@@ -1656,7 +1654,6 @@ body {
   line-height: 1.6; }
 
 .advanced-fields-container {
-  background: #FAFAFA;
   padding: 1.5rem;
   border-radius: 4px; }
 

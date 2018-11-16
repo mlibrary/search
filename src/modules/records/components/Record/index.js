@@ -16,8 +16,7 @@ import {
 import {
   getField,
   getFieldValue,
-  filterDisplayFields,
-  hasRecordFullView
+  filterDisplayFields
 } from '../../utilities';
 import {
   AddToListButton,

@@ -10,17 +10,12 @@ import ReactGA from 'react-ga'
 import store from '../../../../store'
 
 import {
-  Icon,
   Multiselect,
   DateRangeInput,
   MultipleChoice,
   Checkbox,
   ScopeDown
 } from '../../../core'
-
-import {
-  Breadcrumb
-} from '../../../reusable'
 
 import {
   stringifySearchQueryForURL,
@@ -36,7 +31,39 @@ import {
   setA11yMessage,
   setDocumentTitle
 } from '../../../a11y'
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanel
+} from '@umich-lib-ui/tabs'
+import {
+  CARD,
+  colors,
+  MEDIA_QUERIES
+} from '@umich-lib-ui/styles'
+import Button from '@umich-lib-ui/button'
+import Icon from '@umich-lib-ui/icon'
+import styled from 'react-emotion'
 
+const FormCard = styled('div')({
+  ...CARD,
+  background: colors.grey[100],
+  borderRadius: '0 0 4px 4px'
+})
+
+const SpacingContainer = styled('div')({
+  padding: '0 1rem',
+  [MEDIA_QUERIES.LARGESCREEN]: {
+    padding: '0 2rem'
+  }
+})
+
+const FiltersContainer = styled('div')({
+  display: 'grid',
+  gridGap: '2rem',
+  gridTemplateColumns: 'repeat(2, 1fr)'
+})
 
 class AdvancedSearch extends React.Component {
   constructor(props) {
@@ -221,20 +248,20 @@ class AdvancedSearch extends React.Component {
     const advancedFiltersGroups = Object.keys(advancedFilters)
 
     return (
-      <div className="advanced-filters-container">
+      <SpacingContainer>
         {advancedFiltersGroups.map((filterGroup, groupIndex) => (
-          <div className="container advanced-filters-inner-container" key={groupIndex}>
+          <React.Fragment key={groupIndex}>
             {filterGroup !== 'undefined' ? (
               <div className="advanced-filter-container">
                 <h2 className="advanced-filter-label-text">{filterGroup}</h2>
-                <div className="advanced-filter-inner-container">
+                <FiltersContainer>
                   {advancedFilters[filterGroup].map((advancedFilter, index) => (
                     <AdvancedFilter
                       key={index}
                       advancedFilter={advancedFilter}
                       handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
                   ))}
-                </div>
+                </FiltersContainer>
               </div>
             ) : (
               <div className="advanced-filters-inner-container">
@@ -250,9 +277,9 @@ class AdvancedSearch extends React.Component {
                 ))}
               </div>
             )}
-          </div>
+          </React.Fragment>
         ))}
-      </div>
+      </SpacingContainer>
     )
   }
 
@@ -264,46 +291,46 @@ class AdvancedSearch extends React.Component {
       <form onSubmit={this.handleSubmit} className="advanced-search-form">
         <div className="container container-narrow">
           <div className="u-margin-top-1">
-            <Breadcrumb
-              items={[
-                {text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${document.location.search}` },
-                {text: 'Advanced Search' }
-              ]}
-              renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
-            />
+            <Link to={`/${activeDatastore.slug}${document.location.search}`}>Back to Search</Link>
           </div>
           <div className="advanced-header">
-            <h1 className="advanced-heading">{activeDatastore.name} Advanced Search</h1>
-          </div>
-          <div className="advanced-fields-container">
-            <div className="advanced-field-container">
-              {fieldedSearches.map((fieldedSearch, index) => (
-                <FieldInput
-                  key={index}
-                  fieldedSearchIndex={index}
-                  fieldedSearch={fieldedSearch}
-                  fields={fields}
-                  handleFieldedSearchChange={this.handleFieldedSearchChange}
-                  handleRemoveFieldedSearch={() => this.handleRemoveFieldedSearch({ removeIndex: index})}
-                />
-              ))}
-            </div>
-            <div className="advanced-add-field-container">
-              <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherFieldedSearch()}>Add another field</button>
-            </div>
-          </div>
-        </div>
+            <h1 className="advanced-heading">Advanced Search</h1>
 
-        {this.renderAdvancedFilters()}
-
-        <div className="advanced-search-button-container">
-          <div className="container container-narrow ">
-            <button type="submit" className="button advanced-search-button">
-              <span className="flex-center">
-                <Icon name="search"/>Search
-              </span>
-            </button>
+            <p>Select a search catagory below for associated advanced search options.</p>
           </div>
+          
+          <Tabs>
+            <TabList>
+              <Tab>Everything</Tab>
+            </TabList>
+            <FormCard>
+              <TabPanel>
+                <div className="advanced-fields-container">
+                  <div className="advanced-field-container">
+                    {fieldedSearches.map((fieldedSearch, index) => (
+                      <FieldInput
+                        key={index}
+                        fieldedSearchIndex={index}
+                        fieldedSearch={fieldedSearch}
+                        fields={fields}
+                        handleFieldedSearchChange={this.handleFieldedSearchChange}
+                        handleRemoveFieldedSearch={() => this.handleRemoveFieldedSearch({ removeIndex: index})}
+                      />
+                    ))}
+                  </div>
+                  <div className="advanced-add-field-container">
+                    <button type="button" className="button-link-light" onClick={() => this.handleAddAnotherFieldedSearch()}>Add another field</button>
+                  </div>
+                </div>
+
+                {this.renderAdvancedFilters()}
+              </TabPanel>
+
+              <SpacingContainer>
+                <Button type="submit"><Icon icon="search" size={24} /> Search</Button>
+              </SpacingContainer>
+            </FormCard>
+          </Tabs>
         </div>
       </form>
     )
@@ -514,12 +541,12 @@ const FieldInput = ({
           })}
         />
         {fieldedSearchIndex > 0 ? (
-          <button
+          <Button
             className="advanced-input-remove-button"
             type="button"
             onClick={handleRemoveFieldedSearch}>
-              <Icon name="close"/><span className="offpage">Remove Field {fieldedSearchIndex + 1}</span>
-          </button>
+              <Icon icon="close" size={20} /><span className="offpage">Remove Field {fieldedSearchIndex + 1}</span>
+          </Button>
         ) : null}
       </div>
     </div>
