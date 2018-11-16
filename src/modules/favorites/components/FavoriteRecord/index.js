@@ -54,6 +54,9 @@ class FavoriteRecord extends React.Component {
   }
 
   render() {
+    // Remove once bugs are fixed.
+    return null
+
     return (
       <Login render={login => (
         <React.Fragment>{this.renderAuthentication(login)}</React.Fragment>

@@ -18,7 +18,7 @@ class SearchHeader extends React.Component {
           url="/"
           nav={[
             { text: 'My Account', href: 'https://www.lib.umich.edu/my-account/' },
-            { text: 'My Favorites', href: 'https://www.lib.umich.edu/my-account/favorites' },
+            //{ text: 'My Favorites', href: 'https://www.lib.umich.edu/my-account/favorites' },
             { text: loginText, href: loginHref }
           ]}
           renderAnchor={(data) => (
