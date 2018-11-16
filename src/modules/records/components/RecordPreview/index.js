@@ -33,15 +33,22 @@ const Header = ({
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0]
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const hasFullView = hasRecordFullView({ datastoreUid })
+  let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${searchQuery}`
 
-  let recordUrl = `/${datastoreSlug}/record/${recordUid}${searchQuery}`
+  // Special Library Website case
+  if (datastoreUid === 'website') {
+    const accessUrlField = getField(record.fields, 'access_url')
+    if (accessUrlField) {
+      recordTitleLink = accessUrlField.value
+    }
+  }
 
   return (
     <header>
       <h3 className="record-preview-heading">
         {hasFullView ? (
           <Link
-            to={recordUrl}
+            to={recordTitleLink}
             className="record-preview-title-link"
             onClick={() => {
               ReactGA.event({
@@ -60,7 +67,7 @@ const Header = ({
         ) : (
           <span>
             <a
-              href={recordUrl}
+              href={recordTitleLink}
               className="record-preview-title-link"
               onClick={() => {
                 ReactGA.event({

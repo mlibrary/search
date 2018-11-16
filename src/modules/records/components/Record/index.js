@@ -37,11 +37,16 @@ const Header = ({
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0]
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const pictureField = getField(record.fields, 'picture')
-  let recordUrl = `/${datastoreSlug}/record/${recordUid}${searchQuery}`
+  let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${searchQuery}`
   let recordHeaderClassName = 'record-title'
-  const hasFullView = hasRecordFullView({ datastoreUid })
 
+  // Special Library Website case
   if (datastoreUid === 'website') {
+    const accessUrlField = getField(record.fields, 'access_url')
+    if (accessUrlField) {
+      recordTitleLink = accessUrlField.value
+    }
+
     if (pictureField) {
       recordHeaderClassName = 'record-title record-person__header-has-picture '
     }
@@ -52,9 +57,9 @@ const Header = ({
       {pictureField && (
         <img src={pictureField.value[0]} alt="" className="record-person__profile-picture" />
       )}
-      {hasFullView ? (
+      {datastoreUid !== 'website' ? (
         <Link
-          to={recordUrl}
+          to={recordTitleLink}
           className="record-title-link"
           onClick={() => {
             ReactGA.event({
@@ -73,7 +78,7 @@ const Header = ({
       ) : (
         <span>
           <a
-            href={recordUrl}
+            href={recordTitleLink}
             className="record-title-link"
             onClick={() => {
               ReactGA.event({
