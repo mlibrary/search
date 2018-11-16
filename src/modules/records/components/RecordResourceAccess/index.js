@@ -2,6 +2,20 @@ import React from 'react'
 import ResourceAccess from '@umich-lib-ui/resource-access'
 import { Link } from 'react-router-dom'
 
+function RenderAnchor({ record, data }) {
+  const s = document.location.search
+
+  if (data.to.indexOf('get-this') === 1) {
+    return (
+      <Link to={`/catalog/record/${record.uid}${data.to}${s}`}>{data.text}</Link>
+    )
+  }
+
+  return (
+    <Link to={`/catalog${data.to}${s}`}>{data.text}</Link>
+  )
+}
+
 class RecordResourceAccess extends React.Component {
   render() {
     const {
@@ -26,7 +40,10 @@ class RecordResourceAccess extends React.Component {
           {ra.map(r => (
             <ResourceAccess
               renderAnchor={(data) => (
-                <Link to={data.to}>{data.text}</Link>
+                <RenderAnchor
+                  data={data}
+                  record={record}
+                />
               )}
               {...r}
             />
