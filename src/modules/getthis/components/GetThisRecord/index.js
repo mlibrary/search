@@ -13,8 +13,8 @@ import {
 
 function GetThisHolding({ record, barcode }) {
   return (
-    <div className="holdings">
-      <span>Holding with <b>{barcode}</b> can not be rendered.</span>
+    <div className="resource-access-container">
+      <span>Holding with barcode <b>{barcode}</b> can not be rendered.</span>
     </div>
   )
 }
