@@ -10,13 +10,49 @@ import {
   RecordResourceAccess,
   FullRecordPlaceholder
 } from '../../../records'
+import styled from 'react-emotion'
+
+/*
+  Hide the first column on the Get This page. No need for users to
+  use "Get this" link when they're already at the Get This page.
+*/
+const StyledGetThisResourceAccessContainer = styled('div')({
+  'td:first-of-type': {
+    display: 'none'
+  },
+  'th:first-of-type': {
+    display: 'none'
+  }
+})
 
 function GetThisHolding({ record, barcode }) {
-  return (
-    <div className="resource-access-container">
-      <span>Holding with barcode <b>{barcode}</b> can not be rendered.</span>
-    </div>
-  )
+  let holding
+
+  if (record.resourceAccess) {
+    record.resourceAccess.forEach(ra => {
+      ra.rows.forEach(row => {
+        row.forEach(cell => {
+          if (cell.to && cell.to.action === 'get-this' && cell.to.barcode === barcode) {
+            holding = [].concat(ra)
+          }
+        })
+      })
+    })
+
+    if (holding) {
+      const recordData = {
+        resourceAccess: holding
+      }
+
+      return (
+        <StyledGetThisResourceAccessContainer>
+          <RecordResourceAccess record={recordData} />
+        </StyledGetThisResourceAccessContainer>
+      )
+    }
+  }
+
+  return null
 }
 
 class GetThisRecord extends React.Component {
