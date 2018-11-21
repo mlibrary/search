@@ -11,8 +11,7 @@ import {
   getField,
   getFieldValue,
   getRecordFormats,
-  filterDisplayFields,
-  hasRecordFullView
+  filterDisplayFields
 } from '../../utilities';
 
 import {
@@ -32,7 +31,7 @@ const Header = ({
   const publishedDate = getFieldValue(getField(record.fields, 'published_year'))[0]
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0]
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
-  const hasFullView = hasRecordFullView({ datastoreUid })
+  const hasFullView = datastoreUid !== 'website'
   let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${searchQuery}`
 
   // Special Library Website case
@@ -218,8 +217,6 @@ const Fields = ({ record, datastoreUid }) => {
 }
 
 const Main = ({ record, datastoreUid }) => {
-  // TODO: add <p className="record-preview-about"></p>
-
   return (
     <section>
       <div className="record-preview-format-and-author">
@@ -237,6 +234,21 @@ const Footer = ({ record, datastoreUid }) => {
   // No access/holding options for Mirlyn for preview records.
   if (datastoreUid === 'mirlyn' || datastoreUid === 'website') {
     return null
+  }
+
+  if (record.resourceAccess) {
+    const accessCell = record.resourceAccess[0].rows[0][0]
+    return (
+      <footer>
+        <a
+          className="record-preview-link"
+          href={accessCell.href}
+          data-ga-action="Click"
+          data-ga-category="Brief View"
+          data-ga-label={`${datastoreUid} Item Access`}
+        >{accessCell.text}</a>
+      </footer>
+    )
   }
 
   // TODO
