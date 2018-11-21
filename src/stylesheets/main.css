@@ -1004,7 +1004,7 @@ body {
   margin-left: 0.5rem; }
 
 .record-field-list {
-  margin-top: 0.5rem; }
+  margin-top: 0rem; }
   @media (min-width: 820px) {
     .record-field-list {
       display: table;
@@ -1275,9 +1275,8 @@ body {
   background: #FAFAFA;
   padding: 1rem 1.5rem;
   padding-left: 2.5rem;
-  margin-top: -0.5rem;
   align-items: center;
-  border-top: solid 1px #F2F2F2;
+  border-top: solid 1px #E5E5E5;
   border-radius: 0 0 4px 4px; }
   .resource-access-container a {
     text-decoration: underline; }
