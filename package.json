@@ -14,6 +14,7 @@
     "@umich-lib-ui/alert": "0.1.0-alpha.20",
     "@umich-lib-ui/chat": "0.1.0-alpha.20",
     "@umich-lib-ui/header": "0.1.0-alpha.20",
+    "@umich-lib-ui/heading": "0.1.0-alpha.20",
     "@umich-lib-ui/icon": "0.1.0-alpha.20",
     "@umich-lib-ui/resource-access": "0.1.0-alpha.20",
     "@umich-lib-ui/styles": "0.1.0-alpha.20",
