@@ -19,6 +19,7 @@ import {
   removeFieldedSearch,
   setFieldedSearch
 } from '../../../advanced'
+import { _ } from 'underscore'
 
 class AdvancedSearchForm extends React.Component {
   state = {
@@ -93,10 +94,8 @@ class AdvancedSearchForm extends React.Component {
 
     let filter = activeFilters
 
-    // Is there something to
-    if (query.length === 0 || !hasActiveFilters) {
-      
-    }
+    console.log('filter', filter)
+    console.log('hasActiveFilters', hasActiveFilters)
 
     // TODO: Build the filters
     // Submit search if query or filters are active
@@ -115,6 +114,7 @@ class AdvancedSearchForm extends React.Component {
       this.setState({
         errors: ['A search term or option is required to submit an advanced search.']
       })
+      window.scrollTo(0,0);
     }
   }
 
@@ -213,7 +213,7 @@ function mapStateToProps(state, props) {
     fieldedSearches: state.advanced[datastore.uid].fieldedSearches,
     fields: state.advanced[datastore.uid].fields,
     institution: state.institution,
-    activeFilters: state.advanced[datastore.uid].activeFilters
+    activeFilters: _.omit(state.advanced[datastore.uid].activeFilters, _.isEmpty)
   };
 }
 

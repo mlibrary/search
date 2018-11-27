@@ -7,6 +7,8 @@ import AdvancedFilter from '../AdvancedFilter'
 import {
   setAdvancedFilter
 } from '../../../advanced'
+import Button from '@umich-lib-ui/button'
+import Icon from '@umich-lib-ui/icon'
 
 class FiltersContainer extends React.Component {
   handleAdvancedFilterChange = ({
@@ -121,6 +123,11 @@ class FiltersContainer extends React.Component {
             )}
           </React.Fragment>
         ))}
+
+        <Button
+          style={{ marginTop: '1rem' }}
+          type="submit"
+        ><Icon icon="search" size={24} /> Advanced Search</Button>
       </React.Fragment>
     )
   }
