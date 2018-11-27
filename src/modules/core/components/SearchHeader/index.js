@@ -15,6 +15,7 @@ class SearchHeader extends React.Component {
       <div role="banner">
         <Header
           name="Search"
+          className="search-header"
           url="/"
           nav={[
             { text: 'My Account', href: 'https://www.lib.umich.edu/my-account/' },

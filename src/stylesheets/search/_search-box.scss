@@ -35,6 +35,7 @@
 .search-box-advanced-link {
   margin-left: 1rem;
   display: inline-block;
+  font-weight: 600;
 
   @media (max-width: $breakpoint-1) {
     font-size: 0.9rem;
@@ -58,6 +59,7 @@
 }
 
 .search-box-button-text {
+  font-weight: 600;
   @media (max-width: $breakpoint-1) {
     position: absolute;
     left: -999em;

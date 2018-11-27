@@ -1,17 +1,5 @@
-nav {
-  display: inline-block;
-}
-
-.navigation {
-  float: right;
-}
-
-.navigation-list {
-  margin: 0;
-  padding: 0;
-}
-
-.navigation-item {
-  display: inline-block;
-  margin-top: 0.25rem;
+.search-header {
+  nav a {
+    font-weight: 600;
+  }
 }

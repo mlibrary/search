@@ -364,19 +364,8 @@ textarea {
   font-size: 0.8rem;
   padding: 0.2rem 0.6rem; }
 
-nav {
-  display: inline-block; }
-
-.navigation {
-  float: right; }
-
-.navigation-list {
-  margin: 0;
-  padding: 0; }
-
-.navigation-item {
-  display: inline-block;
-  margin-top: 0.25rem; }
+.search-header nav a {
+  font-weight: 600; }
 
 .site-message {
   background: #FAFAFA;
@@ -604,7 +593,8 @@ nav {
 
 .search-box-advanced-link {
   margin-left: 1rem;
-  display: inline-block; }
+  display: inline-block;
+  font-weight: 600; }
   @media (max-width: 600px) {
     .search-box-advanced-link {
       font-size: 0.9rem;
@@ -621,10 +611,12 @@ nav {
       align-self: center;
       margin-right: 0.5rem; } }
 
-@media (max-width: 600px) {
-  .search-box-button-text {
-    position: absolute;
-    left: -999em; } }
+.search-box-button-text {
+  font-weight: 600; }
+  @media (max-width: 600px) {
+    .search-box-button-text {
+      position: absolute;
+      left: -999em; } }
 
 .datastore-list-container {
   background: #FAFAFA;
