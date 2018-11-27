@@ -95,34 +95,37 @@ class FiltersContainer extends React.Component {
     return (
       <React.Fragment>
         <Heading size="large" level={2}>Additional search options</Heading>
-        {filterGroups.map((filterGroup, groupIndex) => (
-          <React.Fragment key={groupIndex}>
-            {filterGroup !== 'undefined' ? (
-              <div className="advanced-filter-container">
-                <h2 className="advanced-filter-label-text">{filterGroup}</h2>
-                {filters[filterGroup].map((advancedFilter, index) => (
-                  <AdvancedFilter
-                    key={index}
-                    advancedFilter={advancedFilter}
-                    handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
-                ))}
-              </div>
-            ) : (
-              <div className="advanced-filters-inner-container">
-                {filters[filterGroup].map((advancedFilter, index) => (
-                  <div key={index} className="advanced-filter-container">
-                    <h2 className="advanced-filter-label-text">{advancedFilter.name}</h2>
-                    <div className="advanced-filter-inner-container">
-                      <AdvancedFilter
-                        advancedFilter={advancedFilter}
-                        handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
+        <div className="advanced-filters-inner-container">
+          {filterGroups.map((filterGroup, groupIndex) => (
+            <React.Fragment key={groupIndex}>
+              {filterGroup !== 'undefined' ? (
+                <div className="advanced-filter-container">
+                  <h2 className="advanced-filter-label-text">{filterGroup}</h2>
+                  {filters[filterGroup].map((advancedFilter, index) => (
+                    <AdvancedFilter
+                      key={index}
+                      advancedFilter={advancedFilter}
+                      handleAdvancedFilterChange={this.handleAdvancedFilterChange} />
+                  ))}
+                </div>
+              ) : (
+                <React.Fragment>
+                  {filters[filterGroup].map((advancedFilter, index) => (
+                    <div key={index} className="advanced-filter-container">
+                      <h2 className="advanced-filter-label-text">{advancedFilter.name}</h2>
+                      <div className="advanced-filter-inner-container">
+                        <AdvancedFilter
+                          advancedFilter={advancedFilter}
+                          handleAdvancedFilterChange={this.handleAdvancedFilterChange}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </React.Fragment>
-        ))}
+                  ))}
+                </React.Fragment>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
 
         <Button
           style={{ marginTop: '1rem' }}

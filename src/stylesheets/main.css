@@ -63,7 +63,7 @@ html {
   max-width: 51rem; }
 
 .container-medium {
-  max-width: 74rem; }
+  max-width: 68rem; }
 
 .container-fluid {
   padding: 0 1rem; }
@@ -537,7 +537,7 @@ nav {
   transition: outline 0.05s ease-out; }
 
 [data-inner-container] {
-  max-width: 72rem; }
+  max-width: 68rem; }
 
 .dropdown,
 .dropdown-multiple {
