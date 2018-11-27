@@ -752,7 +752,6 @@ nav {
   padding: 0 1rem; }
 
 .filters-container {
-  margin-top: 1rem;
   margin-bottom: 2rem; }
 
 .small-screen-filter-details {
@@ -777,7 +776,6 @@ nav {
 .filters-heading {
   padding: 1rem;
   margin: 0;
-  color: #4E4E4E;
   background: #FAFAFA;
   font-weight: 600;
   font-size: 1rem;
@@ -795,7 +793,6 @@ nav {
 
 .filter-group-heading {
   margin: 0;
-  color: #4E4E4E;
   background: #FAFAFA;
   font-weight: 600;
   font-size: 1rem;
@@ -1189,24 +1186,24 @@ body {
   width: 100%; }
   @media (min-width: 600px) {
     .bentobox-list {
-      margin-right: -2rem; } }
+      margin-right: -1.5rem; } }
   .bentobox-list .specialists {
     width: 100%;
-    margin: 1rem 0;
+    margin-bottom: 1.5rem;
     padding: 0; }
     @media (min-width: 600px) {
       .bentobox-list .specialists {
         width: 19rem;
-        margin-right: 2rem; } }
+        margin-right: 1.5rem; } }
 
 .bentobox {
   width: 100%;
-  margin: 1rem 0;
+  margin-bottom: 1.5rem;
   padding: 0; }
   @media (min-width: 600px) {
     .bentobox {
       width: 19rem;
-      margin-right: 2rem; } }
+      margin-right: 1.5rem; } }
   .bentobox .results-list {
     border-radius: 4px; }
 
@@ -1458,8 +1455,7 @@ body {
 .datastore-info-container {
   display: flex;
   align-items: flex-start;
-  margin-top: 1.25rem;
-  margin-bottom: 0.5rem;
+  margin: 1rem 0;
   border-radius: 4px;
   justify-content: space-between; }
   .datastore-info-container h1 {
@@ -1846,7 +1842,8 @@ input.date-range-input-text {
 .institution-select-container {
   background: #FAFAFA;
   border-radius: 4px;
-  padding: 1rem; }
+  padding: 1rem;
+  margin-bottom: 1rem; }
   .institution-select-container .dropdown {
     width: 100%; }
 
@@ -2213,9 +2210,6 @@ input.get-this-field-input-year {
     margin: 0;
     padding: 0.75rem;
     padding-left: 1rem; }
-  .add-to-list-checkbox-container .icon {
-    width: 1.1rem;
-    height: 1.1rem; }
 
 .record-title-and-actions-container {
   display: flex;

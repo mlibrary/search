@@ -1,11 +1,11 @@
 @mixin bentobox() {
   width: 100%;
-  margin: 1rem 0;
+  margin-bottom: 1.5rem;
   padding: 0;
 
   @media (min-width: $breakpoint-1) {
     width: 19rem;
-    margin-right: 2rem;
+    margin-right: 1.5rem;
   }
 }
 
@@ -17,7 +17,7 @@
   width: 100%;
 
   @media (min-width: $breakpoint-1) {
-    margin-right: -2rem;
+    margin-right: -1.5rem;
   }
 
   .specialists {
