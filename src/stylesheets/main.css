@@ -572,7 +572,7 @@ textarea {
   margin: 0 auto; }
 
 .search-box-form {
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   display: flex;
   align-items: center; }
   @media (max-width: 600px) {
@@ -1202,7 +1202,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 1rem;
   background: #126DC1;
   border-radius: 4px 4px 0 0;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24); }
@@ -1213,7 +1213,7 @@ body {
 .bentobox-heading {
   margin: 0;
   color: white;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
   margin-right: 0.5rem;
   line-height: 1.5; }
@@ -1227,7 +1227,7 @@ body {
   justify-content: space-between;
   align-items: center;
   background: #FAFAFA;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   border-radius: 0 0 4px 4px; }
 
 .bentobox-no-results {
@@ -1312,7 +1312,7 @@ body {
 
 .record-preview {
   margin: 0;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   background: white;
   border-bottom: solid 1px #CCC; }
 
