@@ -1655,6 +1655,8 @@ body {
 .advanced-input-remove-container {
   display: flex;
   width: 100%; }
+  .advanced-input-remove-container > div {
+    display: flex; }
 
 .advanced-field-container fieldset {
   margin: 1rem 0; }

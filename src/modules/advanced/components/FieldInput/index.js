@@ -3,10 +3,16 @@ import Icon from '@umich-lib-ui/icon'
 import {
   MultipleChoice
 } from '../../../core'
+import {
+  MEDIA_QUERIES
+} from '@umich-lib-ui/styles'
 import styled from 'react-emotion'
+import TextInput from '@umich-lib-ui/text-input'
 
 const StyledFieldSet = styled('fieldset')({
-  textAlign: 'center'
+  [MEDIA_QUERIES.LARGESCREEN]: {
+    textAlign: 'center'
+  }
 })
 
 const Dropdown = ({
@@ -63,12 +69,12 @@ const FieldInput = ({
         handleOnFieldChange={handleFieldedSearchChange}
       />
       <div className="advanced-input-remove-container x-spacing">
-        <input
-          type="text"
-          className="advanced-input"
+        <TextInput
+          id={`fielded-search-text-input-${fieldedSearchIndex + 1}`}
           placeholder={`Search Term ${fieldedSearchIndex + 1}`}
           value={fieldedSearch.query}
-          aria-label={`Search Term ${fieldedSearchIndex + 1}`}
+          labelText={`Search Term ${fieldedSearchIndex + 1}`}
+          hideLabel
           onChange={(event) => handleFieldedSearchChange({
             fieldedSearchIndex,
             query: event.target.value

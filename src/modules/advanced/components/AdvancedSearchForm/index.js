@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Button from '@umich-lib-ui/button'
 import Icon from '@umich-lib-ui/icon'
+import Alert from '@umich-lib-ui/alert'
 import {
   stringifySearchQueryForURL,
 } from '../../../pride'
@@ -17,6 +18,10 @@ import {
 } from '../../../advanced'
 
 class AdvancedSearchForm extends React.Component {
+  state = {
+    errors: []
+  }
+
   handleFieldedSearchChange = ({
     fieldedSearchIndex,
     selectedFieldUid,
@@ -36,6 +41,13 @@ class AdvancedSearchForm extends React.Component {
     this.props.addFieldedSearch({
       datastoreUid: this.props.datastore.uid,
       field: this.props.fields[0].uid
+    })
+  }
+
+  handleRemoveFieldedSearch({ removeIndex }) {
+    this.props.removeFieldedSearch({
+      datastoreUid: this.props.datastore.uid,
+      removeIndex
     })
   }
 
@@ -63,8 +75,13 @@ class AdvancedSearchForm extends React.Component {
       return memo
     }, []).join(' ')
 
-    // TODO: Build the filters
+    if (query.length === 0) {
+      this.setState({
+        errors: ['A search term is required to submit an advanced search.']
+      })
+    }
 
+    // TODO: Build the filters
     // Submit search if query or filters are active
     if ((query.length > 0)){
       const { history } = this.props
@@ -79,22 +96,52 @@ class AdvancedSearchForm extends React.Component {
     }
   }
 
+  renderErrors = () => {
+    const {
+      errors
+    } = this.state
+    
+    if (errors) {
+      return (
+        <React.Fragment>
+          {errors.map((error, i) => (
+            <Alert intent="error" key={i}>
+              <div
+                className="x-spacing"
+                style={{
+                  fontSize: '1rem'
+                }}
+              >
+                <Icon icon="error" size={20} />
+                <span>{error}</span>
+              </div>
+            </Alert>
+          ))}
+        </React.Fragment>
+      )
+    }
+
+    return null
+  }
+
   render() {
     const {
-      datastore,
-      booleanTypes,
       fields,
       fieldedSearches
     } = this.props
     
     return (
       <form className="y-spacing" onSubmit={this.handleSubmit}>
+        {this.renderErrors()}
+
         {fieldedSearches.map((fs, i) => (
           <FieldInput
+            key={i}
             fieldedSearchIndex={i}
             fieldedSearch={fs}
             fields={fields}
             handleFieldedSearchChange={this.handleFieldedSearchChange}
+            handleRemoveFieldedSearch={() => this.handleRemoveFieldedSearch({ removeIndex: i})}
           />
         ))}
         <div

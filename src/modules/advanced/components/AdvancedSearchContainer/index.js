@@ -13,7 +13,8 @@ import {
 } from '@umich-lib-ui/tabs'
 import {
   CARD,
-  colors
+  colors,
+  MEDIA_QUERIES
 } from '@umich-lib-ui/styles'
 import Text from '@umich-lib-ui/text'
 import Heading from '@umich-lib-ui/heading'
@@ -37,15 +38,27 @@ Structure of the AdvancedSearch components:
         - SubmitSearch
 */
 
+const StyledTab = styled(Tab)(props => ({
+  [MEDIA_QUERIES.LARGESCREEN]: {
+    background: props.selected ? colors.grey[100] : 'inherit',
+    borderBottomColor: props.selected ? colors.grey[100] : 'none'
+  }
+}))
+
+StyledTab.tabsRole = 'Tab';
+
 const StyledContainer = styled('div')({
   marginTop: '1rem'
 })
 
 const StyledTabPanelContainer = styled('div')({
   ...CARD,
-  padding: '2rem 1.5rem',
+  padding: '1rem',
   background: colors.grey[100],
-  borderRadius: '0 0 4px 4px'
+  borderRadius: '0 0 4px 4px',
+  [MEDIA_QUERIES.LARGESCREEN]: {
+    padding: '2rem'
+  }
 })
 
 class AdvancedSearchContainer extends React.Component {
@@ -72,7 +85,7 @@ class AdvancedSearchContainer extends React.Component {
         <Tabs defaultIndex={activeDatastoreIndex}>
           <TabList>
             {datastores.map(ds =>
-              <Tab key={`tab-${ds.uid}`}>{ds.name}</Tab>
+              <StyledTab key={`tab-${ds.uid}`}>{ds.name}</StyledTab>
             )}
           </TabList>
           <StyledTabPanelContainer>
