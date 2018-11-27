@@ -11,7 +11,7 @@
   display: block;
   text-align: center;
   g {
-    color: $grey-3;
+    color: $grey-2;
   }
 }
 
@@ -24,14 +24,13 @@
   color: $grey-2;
   background: $grey-7;
   cursor: pointer;
-  margin-left: 0.5rem;
 
   .icon {
     height: 1rem;
     width: 0.8rem;
 
     g {
-      color: $grey-3;
+      color: $grey-2;
     }
   }
 }

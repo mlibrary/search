@@ -2,8 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { _ } from 'underscore'
 import {
-  Link,
-  withRouter,
+  Link
 } from 'react-router-dom';
 import styled from 'react-emotion'
 import {
@@ -13,7 +12,8 @@ import {
   TabPanel
 } from '@umich-lib-ui/tabs'
 import {
-  CARD
+  CARD,
+  colors
 } from '@umich-lib-ui/styles'
 import Text from '@umich-lib-ui/text'
 import Heading from '@umich-lib-ui/heading'
@@ -43,8 +43,8 @@ const StyledContainer = styled('div')({
 
 const StyledTabPanelContainer = styled('div')({
   ...CARD,
-  padding: '1rem',
-  background: 'white',
+  padding: '2rem 1.5rem',
+  background: colors.grey[100],
   borderRadius: '0 0 4px 4px'
 })
 
@@ -101,4 +101,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(AdvancedSearchContainer))
+export default connect(mapStateToProps)(AdvancedSearchContainer)
