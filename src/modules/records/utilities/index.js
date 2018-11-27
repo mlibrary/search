@@ -139,12 +139,6 @@ const getRecordFormats = ({ fields, datastoreUid }) => {
   return []
 }
 
-const hasRecordFullView = ({ datastoreUid }) => {
-  const accessConfig = _.findWhere(config.fields, { datastore: datastoreUid })
-
-  return accessConfig.full ? true : false
-}
-
 export {
   getField,
   getFieldValue,
@@ -153,6 +147,5 @@ export {
   isFullRecordType,
   getShowAllText,
   getFullRecordDisplayFields,
-  getRecordFormats,
-  hasRecordFullView
+  getRecordFormats
 }

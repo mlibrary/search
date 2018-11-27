@@ -74,7 +74,7 @@ class GetThisPage extends React.Component {
       recordUid
     } = this.props.match.params
 
-    if (record && record.fields.length === 0 && record.names.length === 0) {
+    if (record && record.fields && record.fields.length === 0 && record.names.length === 0) {
       return (
         <GetThisPageTemplate>
           <div className="alert">
