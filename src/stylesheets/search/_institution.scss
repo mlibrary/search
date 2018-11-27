@@ -1,7 +1,7 @@
 .institution-select-container {
   background: $grey-6;
   border-radius: 4px;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   margin-bottom: 1rem;
 
   .dropdown {
@@ -15,7 +15,7 @@
 .institution-select-label-text {
   display: block;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .institution-select-landing-container .radio-fieldset {

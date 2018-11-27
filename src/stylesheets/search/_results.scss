@@ -16,8 +16,8 @@
 */
 
 .results-summary-container {
-  margin-bottom: 1rem;
-  padding: 1rem 1.5rem;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 1.25rem;
   background: white;
   background: $grey-6;
   border-radius: 4px;
@@ -30,7 +30,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
 
     & > * {
       margin-top: 0;

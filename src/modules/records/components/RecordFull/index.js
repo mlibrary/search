@@ -121,7 +121,7 @@ class FullRecord extends React.Component {
 
     if (!record) {
       return (
-        <div className="container container-narrow">
+        <div className="container container-narrow y-spacing">
           <FullRecordBreadcrumbs datastore={datastore} />
           <FullRecordPlaceholder />
         </div>

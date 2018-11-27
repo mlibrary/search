@@ -79,15 +79,14 @@ html {
   Site
 */
 html {
-  font-size: 18px; }
-  @media (max-width: 820px) {
+  font-size: 14px; }
+  @media (min-width: 820px) {
     html {
-      font-size: 16px; } }
+      font-size: 18px; } }
 
 body {
-  line-height: 1.6;
-  font-size: 1rem;
   font-family: "Source Sans Pro", sans-serif;
+  line-height: 1.4;
   color: #262626; }
 
 /*
@@ -690,8 +689,8 @@ textarea {
   Search Summary // Records List Bar
 */
 .results-summary-container {
-  margin-bottom: 1rem;
-  padding: 1rem 1.5rem;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 1.25rem;
   background: white;
   background: #FAFAFA;
   border-radius: 4px; }
@@ -701,8 +700,7 @@ textarea {
     .results-summary-container {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem; }
+      align-items: center; }
       .results-summary-container > * {
         margin-top: 0; } }
 
@@ -766,7 +764,7 @@ textarea {
 
 .active-filters-heading,
 .filters-heading {
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   margin: 0;
   background: #FAFAFA;
   font-weight: 600;
@@ -802,7 +800,7 @@ textarea {
 .filter-group-toggle-show-button {
   appearance: none;
   margin: 0;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   width: 100%;
   cursor: pointer;
   border: none;
@@ -827,7 +825,7 @@ textarea {
   margin: 0; }
 
 .filter-item {
-  margin-bottom: 0.5rem; }
+  margin-bottom: 0.25rem; }
 
 .filter-button {
   background: none;
@@ -897,7 +895,7 @@ textarea {
   display: flex;
   cursor: pointer;
   margin-bottom: 0;
-  padding: 0 1rem 0.75rem; }
+  padding: 0 1rem 0.5rem; }
   .filter-group-checkbox:hover {
     text-decoration: underline; }
 
@@ -960,23 +958,23 @@ body {
   Record
 */
 .record {
-  margin: 1rem 0;
+  margin: 0.75rem 0;
   padding: 0;
   background: white;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
   border-radius: 4px; }
 
 .record-container {
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   padding-left: 2.75rem; }
 
 .record-title {
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   text-decoration: none;
   margin: 0;
   margin-right: 1rem;
-  margin-bottom: 1rem; }
+  margin-bottom: 0.75rem; }
   .record-title .icon {
     width: 0.85rem;
     color: #4E4E4E; }
@@ -1132,7 +1130,7 @@ body {
 
 @media (min-width: 820px) {
   .record-field-uid-format .record-field-name {
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
     margin-right: 0.5rem; } }
 
 .full-record__description {
@@ -1144,9 +1142,6 @@ body {
   .full-record-page-container {
     display: flex;
     flex-direction: column; } }
-
-.full-record-page-container .lists-link-container {
-  margin-top: 1rem; }
 
 .record-person__header-has-picture {
   display: flex;
@@ -1259,7 +1254,7 @@ body {
 
 .resource-access-container {
   background: #FAFAFA;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   padding-left: 2.5rem;
   align-items: center;
   border-top: solid 1px #E5E5E5;
@@ -1447,14 +1442,13 @@ body {
 .datastore-info-container {
   display: flex;
   align-items: flex-start;
-  margin: 1rem 0;
+  margin: 0.75rem 0;
   border-radius: 4px;
   justify-content: space-between; }
   .datastore-info-container h1 {
     font-size: 0.875rem;
     margin: 0;
     line-height: 1.7;
-    color: #4E4E4E;
     font-weight: 400; }
 
 .datastore-info {
@@ -1468,7 +1462,6 @@ body {
   text-decoration: underline;
   font-size: 0.875rem;
   line-height: 1.7;
-  color: #4E4E4E;
   font-weight: 600; }
   .datastore-info-hide:hover {
     background: #E5E5E5; }
@@ -1835,7 +1828,7 @@ input.date-range-input-text {
 .institution-select-container {
   background: #FAFAFA;
   border-radius: 4px;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   margin-bottom: 1rem; }
   .institution-select-container .dropdown {
     width: 100%; }
@@ -1843,7 +1836,7 @@ input.date-range-input-text {
 .institution-select-label-text {
   display: block;
   font-weight: 600;
-  margin-bottom: 0.75rem; }
+  margin-bottom: 0.5rem; }
 
 .institution-select-landing-container .radio-fieldset {
   text-align: center; }
@@ -2197,7 +2190,7 @@ input.get-this-field-input-year {
 
 .add-to-list-checkbox-container {
   position: absolute;
-  top: 1.15rem;
+  top: 0.6rem;
   left: 0; }
   .add-to-list-checkbox-container .checkbox {
     margin: 0;

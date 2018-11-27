@@ -3,17 +3,16 @@
 */
 
 html {
-  font-size: 18px;
+  font-size: 14px;
 
-  @media (max-width: $breakpoint-2) {
-    font-size: 16px;
+  @media (min-width: $breakpoint-2) {
+    font-size: 18px;
   }
 }
 
 body {
-  line-height: 1.6;
-  font-size: $font-size-base;
   font-family: $font-family-1;
+  line-height: 1.4;
   color: $grey-1;
 }
 

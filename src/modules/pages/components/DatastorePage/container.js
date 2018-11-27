@@ -183,7 +183,7 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
   }
 
   return (
-    <div className="container container-medium flex-container" style={{ marginTop: '1rem' }}>
+    <div className="container container-medium flex-container" style={{ marginTop: '0.75rem' }}>
       {!activeDatastore.isMultisearch ? (
         <div className="side-container">
           <Responsive minDeviceWidth={980}>

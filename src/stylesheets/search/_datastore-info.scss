@@ -1,7 +1,7 @@
 .datastore-info-container {
   display: flex;
   align-items: flex-start;
-  margin: 1rem 0;
+  margin: 0.75rem 0;
   border-radius: 4px;
   justify-content: space-between;
 
@@ -9,7 +9,6 @@
     font-size: 0.875rem;
     margin: 0;
     line-height: 1.7;
-    color: $grey-2;
     font-weight: 400;
   }
 }
@@ -26,7 +25,6 @@
   text-decoration: underline;
   font-size: 0.875rem;
   line-height: 1.7;
-  color: $grey-2;
   font-weight: 600;
 
   &:hover {
