@@ -620,7 +620,8 @@ textarea {
 .datastore-list-container {
   background: #FAFAFA;
   border-bottom: solid 2px #E5E5E5;
-  text-align: center; }
+  text-align: center;
+  margin-bottom: 0.75rem; }
 
 .datastore-scroll-container {
   position: relative; }
