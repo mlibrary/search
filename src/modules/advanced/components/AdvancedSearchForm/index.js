@@ -4,13 +4,16 @@ import { bindActionCreators } from 'redux'
 import Button from '@umich-lib-ui/button'
 import Icon from '@umich-lib-ui/icon'
 import Alert from '@umich-lib-ui/alert'
-import {
-  stringifySearchQueryForURL,
-} from '../../../pride'
+import Heading from '@umich-lib-ui/heading'
 import {
   withRouter
 } from 'react-router-dom';
+import ReactGA from 'react-ga'
 import FieldInput from '../FieldInput'
+import FiltersContainer from '../FiltersContainer'
+import {
+  stringifySearchQueryForURL,
+} from '../../../pride'
 import {
   addFieldedSearch,
   removeFieldedSearch,
@@ -58,8 +61,15 @@ class AdvancedSearchForm extends React.Component {
       fieldedSearches,
       booleanTypes,
       institution,
-      datastore
+      datastore,
+      activeFilters
     } = this.props
+
+    ReactGA.event({
+      action: 'Click',
+      category: 'Search Button',
+      label: `Advanced Search ${datastore.name}`
+    })
 
     // Build the query
     // example: 'title:parrots AND author:charles'
@@ -75,24 +85,36 @@ class AdvancedSearchForm extends React.Component {
       return memo
     }, []).join(' ')
 
-    if (query.length === 0) {
-      this.setState({
-        errors: ['A search term is required to submit an advanced search.']
-      })
+    let hasActiveFilters = false
+
+    if (activeFilters && Object.keys(activeFilters).length > 0) {
+      hasActiveFilters = true
+    }
+
+    let filter = activeFilters
+
+    // Is there something to
+    if (query.length === 0 || !hasActiveFilters) {
+      
     }
 
     // TODO: Build the filters
     // Submit search if query or filters are active
-    if ((query.length > 0)){
+    if ((query.length > 0) || hasActiveFilters){
       const { history } = this.props
       const library = datastore.uid === 'mirlyn' ? institution.active : undefined
       const queryString = stringifySearchQueryForURL({
         query,
+        filter,
         library
       })
 
       const url = `/${datastore.slug}?${queryString}`
       history.push(url)
+    } else {
+      this.setState({
+        errors: ['A search term or option is required to submit an advanced search.']
+      })
     }
   }
 
@@ -126,6 +148,7 @@ class AdvancedSearchForm extends React.Component {
 
   render() {
     const {
+      datastore,
       fields,
       fieldedSearches
     } = this.props
@@ -133,6 +156,8 @@ class AdvancedSearchForm extends React.Component {
     return (
       <form className="y-spacing" onSubmit={this.handleSubmit}>
         {this.renderErrors()}
+
+        <Heading className="offscreen">Fielded search options</Heading>
 
         {fieldedSearches.map((fs, i) => (
           <FieldInput
@@ -160,9 +185,11 @@ class AdvancedSearchForm extends React.Component {
         </div>
         
         <Button
-          style={{ marginTop: '2rem' }}
+          style={{ marginTop: '1rem' }}
           type="submit"
         ><Icon icon="search" size={24} /> Advanced Search</Button>
+
+        <FiltersContainer datastore={datastore} />
       </form>
     )
   }
@@ -185,7 +212,8 @@ function mapStateToProps(state, props) {
     booleanTypes: state.advanced.booleanTypes,
     fieldedSearches: state.advanced[datastore.uid].fieldedSearches,
     fields: state.advanced[datastore.uid].fields,
-    institution: state.institution
+    institution: state.institution,
+    activeFilters: state.advanced[datastore.uid].activeFilters
   };
 }
 

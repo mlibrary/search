@@ -91,11 +91,10 @@
 
 .advanced-filter-container {
   width: 100%;
-  margin: 0 0.5rem;
-  margin-top: 1rem;
+  margin-bottom: 2.5rem;
 
   @media (min-width: $breakpoint-1) {
-    width: 22rem;
+    width: calc(50% - 1rem);
   }
 }
 
@@ -106,16 +105,20 @@
 .advanced-filter-label-text {
   display: block;
   margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   font-weight: 600;
-  color: $grey-2;
   font-size: 1rem;
+
+  border-bottom: solid 2px $grey-4;
+  padding-bottom: 0.5rem;
 }
 
 .advanced-filters-inner-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
+
+  margin-bottom: -2.5rem; // Same as advanced-filter-container
 }
 
 .advanced-filter-fieldset {

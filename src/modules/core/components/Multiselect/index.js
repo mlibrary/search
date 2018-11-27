@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Text from '@umich-lib-ui/text'
 import { _ } from 'underscore'
-
 import { Checkbox } from '../../../core'
 
 class Multiselect extends React.Component {
@@ -73,6 +73,7 @@ class Multiselect extends React.Component {
 
     return (
       <div className="multiselect">
+        <Text small>Select one or more checkboxes to narrow your results to items with all selected.</Text>
         <input
           type="text"
           className="multiselect-search"

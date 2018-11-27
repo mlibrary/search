@@ -253,7 +253,7 @@ class AdvancedSearch extends React.Component {
           <React.Fragment key={groupIndex}>
             {filterGroup !== 'undefined' ? (
               <div className="advanced-filter-container">
-                <h2 className="advanced-filter-label-text">{filterGroup}</h2>
+                <h3 className="advanced-filter-label-text">{filterGroup}</h3>
                 <FiltersContainer>
                   {advancedFilters[filterGroup].map((advancedFilter, index) => (
                     <AdvancedFilter
@@ -267,7 +267,7 @@ class AdvancedSearch extends React.Component {
               <div className="advanced-filters-inner-container">
                 {advancedFilters[filterGroup].map((advancedFilter, index) => (
                   <div key={index} className="advanced-filter-container">
-                    <h2 className="advanced-filter-label-text">{advancedFilter.name}</h2>
+                    <h3 className="advanced-filter-label-text">{advancedFilter.name}</h3>
                     <div className="advanced-filter-inner-container">
                       <AdvancedFilter
                         advancedFilter={advancedFilter}
@@ -717,6 +717,8 @@ const getAdvancedFilters = ({ filterGroups, activeFilters }) => {
       activeFilters: activeFilters ? activeFilters[filterGroup.uid] : [],
     }
   })
+
+  console.log('getAdvancedFilters', advancedFilters)
 
   return _.groupBy(advancedFilters, 'groupBy')
 }
