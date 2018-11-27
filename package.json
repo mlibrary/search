@@ -19,6 +19,7 @@
     "@umich-lib-ui/resource-access": "0.1.0-alpha.20",
     "@umich-lib-ui/styles": "0.1.0-alpha.20",
     "@umich-lib-ui/tabs": "0.1.0-alpha.20",
+    "@umich-lib-ui/text": "0.0.1-alpha.10",
     "axios": "^0.16.2",
     "classnames": "^2.2.6",
     "deepcopy": "^0.6.3",

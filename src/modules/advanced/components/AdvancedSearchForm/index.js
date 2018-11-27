@@ -1,4 +1,6 @@
 import React from 'react'
+import Button from '@umich-lib-ui/button'
+import Icon from '@umich-lib-ui/icon'
 
 class AdvancedSearchForm extends React.Component {
   render() {
@@ -7,7 +9,9 @@ class AdvancedSearchForm extends React.Component {
     } = this.props
     
     return (
-      <p>Advanced Search Form</p>
+      <form>
+        <Button><Icon icon="search" size={24} /> Submit Advanced Search</Button>
+      </form>
     )
   }
 }

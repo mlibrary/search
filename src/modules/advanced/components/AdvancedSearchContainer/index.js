@@ -1,4 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { _ } from 'underscore'
+import {
+  Link,
+  withRouter,
+} from 'react-router-dom';
+import styled from 'react-emotion'
 import {
   Tabs,
   TabList,
@@ -6,20 +13,17 @@ import {
   TabPanel
 } from '@umich-lib-ui/tabs'
 import {
-  CARD,
-  colors,
-  MEDIA_QUERIES
+  CARD
 } from '@umich-lib-ui/styles'
-import Button from '@umich-lib-ui/button'
-import Icon from '@umich-lib-ui/icon'
+import Text from '@umich-lib-ui/text'
 import Heading from '@umich-lib-ui/heading'
-import styled from 'react-emotion'
-
-const StyledContainer = styled('div')({
-  ...CARD
-})
+import {
+  Breadcrumb
+} from '../../../reusable'
+import AdvancedSearchForm from '../AdvancedSearchForm'
 
 /*
+Structure of the AdvancedSearch components:
   - AdvancedSearchContainer
     - Tabs
       - Form
@@ -33,15 +37,68 @@ const StyledContainer = styled('div')({
         - SubmitSearch
 */
 
+const StyledContainer = styled('div')({
+  marginTop: '1rem'
+})
+
+const StyledTabPanelContainer = styled('div')({
+  ...CARD,
+  padding: '1rem',
+  background: 'white',
+  borderRadius: '0 0 4px 4px'
+})
+
 class AdvancedSearchContainer extends React.Component {
   render() {
+    const {
+      datastores,
+      activeDatastore,
+      activeDatastoreIndex
+    } = this.props
+
     return (
-      <StyledContainer data-inner-container>
+      <StyledContainer className="container container-narrow">
+        <Breadcrumb
+          items={[
+            {text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${document.location.search}` },
+            {text: 'Advanced Search' }
+          ]}
+          renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
+        />
+
         <Heading size="xlarge" level={1}>Advanced Search</Heading>
-        <p>Advanced Search placeholder</p>
+        <Text lede>Select a search category below for associated advanced search options.</Text>
+        
+        <Tabs defaultIndex={activeDatastoreIndex}>
+          <TabList>
+            {datastores.map(ds =>
+              <Tab key={`tab-${ds.uid}`}>{ds.name}</Tab>
+            )}
+          </TabList>
+          <StyledTabPanelContainer>
+            {datastores.map(ds => 
+              <TabPanel key={`tabpanel-${ds.uid}`}>
+                <AdvancedSearchForm datastore={ds} />
+              </TabPanel>
+            )}
+          </StyledTabPanelContainer>
+        </Tabs>
       </StyledContainer>
     )
   }
 }
 
-export default AdvancedSearchContainer
+function mapStateToProps(state) {
+  const datastores = state.datastores.datastores
+  const activeDatastoreIndex = _.findIndex(datastores, {
+    uid: state.datastores.active
+  })
+
+  return {
+    datastores,
+    activeDatastore: datastores[activeDatastoreIndex],
+    activeDatastoreIndex
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(AdvancedSearchContainer))
