@@ -1399,19 +1399,17 @@ body {
   max-width: 28rem;
   line-height: 1.6; }
   .landing-container p {
-    font-size: 1.25rem; }
+    font-size: 1.15rem; }
   .landing-container .landing-heading-text {
     padding-bottom: 1.5rem;
     border-bottom: solid 4px #CCC;
     margin-top: 0;
-    color: #4E4E4E;
     font-size: 1.25rem;
     font-weight: 400;
     line-height: 1.6; }
     .landing-container .landing-heading-text b {
       color: #262626; }
   .landing-container p:not(.landing-heading-text) {
-    color: #4E4E4E;
     padding-top: 1rem; }
   .landing-container a {
     text-decoration: underline; }
