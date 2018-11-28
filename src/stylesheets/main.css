@@ -717,15 +717,12 @@ textarea {
     color: #4E4E4E; }
 
 .pagination-container {
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1rem;
   background: white;
   background: #FAFAFA;
   margin-bottom: 3rem;
   margin-top: 1rem;
   border-radius: 4px; }
-  @media (min-width: 600px) {
-    .pagination-container {
-      padding: 1rem 2rem; } }
   .pagination-container .button-secondary,
   .pagination-container .results-summary {
     margin-right: 1rem; }
