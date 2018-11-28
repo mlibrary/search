@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BrowseInfo } from '../../../browse';
-
+import Heading from '@umich-lib-ui/heading'
 import {
   InstitutionSelect
 } from '../../../institution'
@@ -27,7 +27,7 @@ const Landing = ({ content, activeDatastore }) => {
 
           <div className="container container-narrow">
             <div className="institution-select-landing-container">
-              <h2 className="institution-select-landing-heading"> To find materials closest to you, please choose a library</h2>
+              <Heading size="large" level={2} style={{ textAlign: 'center' }}> To find materials closest to you, please choose a library</Heading>
               <InstitutionSelect type="switch" />
             </div>
             <p className="landing-extra-info"><a href="http://mirlyn-classic.lib.umich.edu/">Mirlyn Classic Catalog</a></p>
