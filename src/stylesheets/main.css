@@ -1674,8 +1674,7 @@ body {
     margin-bottom: 0.75rem; } }
 
 .sorts-select {
-  padding: 0.15rem 0.5rem;
-  color: #4E4E4E;
+  padding: 0 0.75rem;
   padding-right: 2.5rem; }
 
 .sorts-label-text {
