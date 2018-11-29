@@ -1711,7 +1711,7 @@ input.multiselect-search {
   overflow-y: scroll; }
   .multiselect-options .checkbox-label {
     display: flex;
-    font-size: 0.937rem;
+    font-size: 0.9rem;
     cursor: pointer;
     padding-right: 1rem; }
 
@@ -1722,7 +1722,12 @@ input.multiselect-search {
 
 .multiselect-options-list-item {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  margin-bottom: 0.1rem; }
+  .multiselect-options-list-item .checkbox {
+    margin-top: 0.15rem; }
+  .multiselect-options-list-item .checkbox-label:hover .filter-name {
+    text-decoration: underline; }
 
 .multiselect-show-checked-toggle {
   margin-top: 0.5rem;
