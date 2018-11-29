@@ -3,7 +3,7 @@ import {
   Tag,
   Modal
 } from '../../../reusable'
-import Button from '@umich-lib-ui/button'
+import Button from '@umich-lib/button'
 import { connect } from 'react-redux'
 import { FavoriteInputTag } from '../../../favorites';
 import favorite from '../../favorite'

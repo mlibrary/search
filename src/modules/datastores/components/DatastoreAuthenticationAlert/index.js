@@ -1,7 +1,13 @@
 import React from 'react';
-import Alert from '@umich-lib-ui/alert'
+import Alert from '@umich-lib/alert'
 import { connect } from 'react-redux';
 import config from '../../../../config'
+
+const alertStyles = {
+  marginTop: '-0.75rem',
+  textAlign: 'center',
+  marginBottom: '0.75rem'
+}
 
 class DatastoreAuthenticationAlert extends React.Component {
   render() {
@@ -18,8 +24,9 @@ class DatastoreAuthenticationAlert extends React.Component {
           const loginRoot = config.loginUrl;
           const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
 
+
           return (
-            <Alert intent="warning">
+            <Alert intent="warning" style={alertStyles}>
               <span><a href={loginUrl} style={{ textDecoration: 'underline', color: 'inherit' }}><b>Log in</b></a> to view complete search results and to save and request items.</span>
             </Alert>
           )

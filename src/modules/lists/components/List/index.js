@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
-
+import Heading from '@umich-lib/heading'
+import Text from '@umich-lib/text'
 import {
   withRouter,
   Link
@@ -99,13 +100,13 @@ class List extends Component {
         />
 
         <header className="lists-header">
-          <h1 className="lists-heading">My Temporary {datastore.name} List</h1>
+          <Heading size="xlarge" level={1}>My Temporary {datastore.name} List</Heading>
           <div className="lists-header-info">
             {this.renderRemoveAllFromListButton(list, datastore)}
             <p className="lists-count-tag"><b>{this.getListLength()}</b> in list</p>
           </div>
         </header>
-        <p>Items in this list are stored temporarily (within a single session).</p>
+        <Text lede style={{ marginTop: '0' }}>Items in this list are stored temporarily (within a single session).</Text>
         <section className="lists-section">
           <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions</h2>
           <span className="text-small">Select what to do with this list.</span>

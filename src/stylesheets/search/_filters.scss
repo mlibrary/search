@@ -1,6 +1,5 @@
 .filters-container {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .small-screen-filter-details {
@@ -12,7 +11,7 @@
 
 .small-screen-filter-summary {
   text-decoration: underline;
-  color: $grey-3;
+  color: $grey-2;
   cursor: pointer;
   padding: 0.75rem 1rem;
   border-radius: 4px;
@@ -26,9 +25,8 @@
 
 .active-filters-heading,
 .filters-heading {
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   margin: 0;
-  color: $grey-2;
   background: $grey-6;
   font-weight: 600;
   font-size: 1rem;
@@ -49,7 +47,6 @@
 
 .filter-group-heading {
   margin: 0;
-  color: $grey-2;
   background: $grey-6;
   font-weight: 600;
   font-size: 1rem;
@@ -70,7 +67,7 @@
 .filter-group-toggle-show-button {
   appearance: none;
   margin: 0;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   width: 100%;
   cursor: pointer;
   border: none;
@@ -104,7 +101,7 @@
 }
 
 .filter-item {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .filter-button {
@@ -193,7 +190,7 @@
 
 .clear-active-filters-button {
   margin-bottom: 1rem;
-  color: $grey-3;
+  color: $grey-2;
   text-decoration: underline;
 }
 
@@ -201,7 +198,7 @@
   display: flex;
   cursor: pointer;
   margin-bottom: 0;
-  padding: 0 1rem 0.75rem;
+  padding: 0 1rem 0.5rem;
 
   &:hover {
     text-decoration: underline;

@@ -7,14 +7,13 @@
   line-height: 1.6;
 
   p {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
   }
 
   .landing-heading-text {
     padding-bottom: 1.5rem;
     border-bottom: solid 4px $grey-4;
     margin-top: 0;
-    color: $grey-2;
     font-size: 1.25rem;
     font-weight: 400;
     line-height: 1.6;
@@ -25,7 +24,6 @@
   }
 
   p:not(.landing-heading-text) {
-    color: $grey-3;
     padding-top: 1rem;
   }
 

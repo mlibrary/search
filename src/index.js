@@ -38,7 +38,7 @@ import {
 import {
   A11yLiveMessage
 } from './modules/a11y'
-import Alert from '@umich-lib-ui/alert'
+import Alert from '@umich-lib/alert'
 import {
   GAPageView,
   handleGAClick

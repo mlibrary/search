@@ -54,9 +54,9 @@ storiesOf('Buttons', module)
       Tertiary buttons are best used for small UI interactions that don't require a strong presence on the page.
     `)(() =>
       <div>
-        <Button onClick={action('Button clicked')} kind="tertiary">Tertiary button</Button>
+        <Button onClick={action('Button clicked')} kind="secondary">Tertiary button</Button>
         &nbsp;
-        <Button onClick={action('Button clicked')} kind="tertiary" href="#">Tertiary link</Button>
+        <Button onClick={action('Button clicked')} kind="secondary" href="#">Tertiary link</Button>
       </div>
     )
   )
@@ -70,7 +70,7 @@ storiesOf('Buttons', module)
         &nbsp;
         <Button onClick={action('Button clicked')} kind="secondary" small={true}>Secondary</Button>
         &nbsp;
-        <Button onClick={action('Button clicked')} kind="tertiary" small={true}>Tertiary</Button>
+        <Button onClick={action('Button clicked')} kind="secondary" small={true}>Tertiary</Button>
       </div>
     )
   )

@@ -50,15 +50,13 @@ class FullRecordBreadcrumbs extends React.Component {
   render() {
     const { datastore } = this.props
     return (
-      <div className="u-margin-top-1">
-        <Breadcrumb
-          items={[
-            { text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
-            { text: 'Record' }
-          ]}
-          renderAnchor={(item) => (<Link to={item.to}>{item.text}</Link>)}
-        />
-      </div>
+      <Breadcrumb
+        items={[
+          { text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
+          { text: 'Record' }
+        ]}
+        renderAnchor={(item) => (<Link to={item.to}>{item.text}</Link>)}
+      />
     )
   }
 }
@@ -121,7 +119,7 @@ class FullRecord extends React.Component {
 
     if (!record) {
       return (
-        <div className="container container-narrow">
+        <div className="container container-narrow y-spacing">
           <FullRecordBreadcrumbs datastore={datastore} />
           <FullRecordPlaceholder />
         </div>

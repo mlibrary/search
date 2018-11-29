@@ -3,7 +3,6 @@ form {
 }
 
 label {
-  margin-bottom: 0.1rem;
   color: $grey-1;
   display: block;
 }
@@ -50,12 +49,8 @@ input[type="text"]:disabled,
 input[type="text"]:read-only {
   background: $grey-6;
   border-color: $grey-4;
-  color: $grey-3;
+  color: $grey-2;
   cursor: not-allowed;
-}
-
-fieldset {
-  margin: 1rem 0;
 }
 
 .help-text {

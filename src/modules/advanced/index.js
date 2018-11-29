@@ -13,7 +13,7 @@ import {
 } from './actions'
 
 // Components
-import AdvancedSearch from './components/AdvancedSearch';
+import AdvancedSearch from './components/AdvancedSearchContainer';
 
 // All public exports
 export {

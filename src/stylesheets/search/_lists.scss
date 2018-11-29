@@ -64,8 +64,6 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-
-  margin-bottom: 1rem;
 }
 
 .lists-back-to-search-link {
@@ -123,7 +121,7 @@
 
 .lists-remove-all {
   margin-right: 1rem;
-  color: $grey-3;
+  color: $grey-2;
 }
 
 .lists-action-button {
@@ -181,6 +179,7 @@
   background: $grey-6;
   border-radius: 4px;
   padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
   order: 1;
 
   .lists-action {

@@ -11,14 +11,14 @@
   display: block;
   text-align: center;
   g {
-    color: $grey-3;
+    color: $grey-2;
   }
 }
 
 .advanced-input-remove-button {
   display: flex;
   white-space: nowrap;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 4px;
   border: solid 1px $grey-4;
   color: $grey-2;
@@ -26,13 +26,8 @@
   cursor: pointer;
   margin-left: 0.5rem;
 
-  .icon {
-    height: 1rem;
-    width: 0.8rem;
-
-    g {
-      color: $grey-3;
-    }
+  @media (max-width: $breakpoint-2) {
+    padding: 0.5rem;
   }
 }
 
@@ -51,8 +46,9 @@
   @media (max-width: $breakpoint-2) {
     display: block;
 
-    .advanced-input {
-      margin-top: 0.5rem;
+    .advanced-field-select {
+      width: 100%;
+      margin-bottom: 0.5rem;
     }
   }
 }
@@ -92,33 +88,34 @@
 
 .advanced-filter-container {
   width: 100%;
-  margin: 0 0.5rem;
-  margin-top: 1rem;
+  margin-bottom: 2rem;
 
   @media (min-width: $breakpoint-1) {
-    width: 22rem;
+    width: calc(50% - 1rem);
   }
 }
 
 .advanced-filter-inner-container {
-  background: $grey-6;
-  padding: 1rem;
   border-radius: 4px;
 }
 
 .advanced-filter-label-text {
   display: block;
   margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   font-weight: 600;
-  color: $grey-2;
   font-size: 1rem;
+
+  border-bottom: solid 2px $grey-4;
+  padding-bottom: 0.5rem;
 }
 
 .advanced-filters-inner-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
+
+  margin-bottom: -2rem; // Same as advanced-filter-container
 }
 
 .advanced-filter-fieldset {
@@ -147,7 +144,6 @@
 }
 
 .advanced-fields-container {
-  background: $grey-6;
   padding: 1.5rem;
   border-radius: 4px;
 }
@@ -155,6 +151,10 @@
 .advanced-input-remove-container {
   display: flex;
   width: 100%;
+
+  & > div {
+    display: flex;
+  }
 }
 
 .advanced-field-container fieldset {

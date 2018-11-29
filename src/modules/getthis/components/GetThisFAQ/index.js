@@ -1,13 +1,14 @@
 import React from 'react'
+import Heading from '@umich-lib/heading'
 
 const GetThisFAQ = () => (
   <section className="card get-this-section">
-    <h3 className="get-this-section-heading get-this-faq-heading">Frequently asked questions</h3>
+    <Heading size="medium" level={3} style={{ marginTop: 0 }}>Frequently asked questions</Heading>
 
-    <h4 className="u-margin-bottom-none">I can't find my book on the shelf. Can you look for it?</h4>
+    <Heading size="small" level={4}>I can't find my book on the shelf. Can you look for it?</Heading>
     <p className="u-margin-top-none">Yes! Request it for pickup and we will take a look.</p>
 
-    <h4 className="u-margin-bottom-none">How will I receive my material?</h4>
+    <Heading size="small" level={4}>How will I receive my material?</Heading>
     <p className="u-margin-top-none">Receipt of your material depends on the services you select</p>
 
     <ul>

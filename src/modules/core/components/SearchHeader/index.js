@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Header from '@umich-lib-ui/header'
+import Header from '@umich-lib/header'
 import config from '../../../../config'
 
 class SearchHeader extends React.Component {
@@ -15,6 +15,7 @@ class SearchHeader extends React.Component {
       <div role="banner">
         <Header
           name="Search"
+          className="search-header"
           url="/"
           nav={[
             { text: 'My Account', href: 'https://www.lib.umich.edu/my-account/' },

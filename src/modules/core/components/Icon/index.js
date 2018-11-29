@@ -57,7 +57,7 @@ const Icon = ({ name }) => {
           <g transform="translate(-28.000000, -11.000000)">
             <g transform="translate(28.000000, 11.000000)">
               <path d="M9.00001,7 L9.00001,1.5 L14.50001,7 L9.00001,7 Z M2,0 C0.89499,0 0.01001,0.89599 0.01001,2 L0,18.00003 C0,19.10403 0.88599,20.00003 1.98999,20.00003 L14.00001,20.00003 C15.10401,20.00003 16.00001,19.10403 16.00001,18.00003 L16.00001,6 L10.00001,0 L2,0 L2,0 Z"></path>
-              <text fontFamily="OpenSans, Open Sans" fontSize="11" fontWeight="normal" fill="#FFFFFF">
+              <text fontFamily="OpenSans, Source Sans Pro" fontSize="11" fontWeight="normal" fill="#FFFFFF">
                 <tspan x="3" y="17">P</tspan>
               </text>
             </g>
@@ -139,7 +139,7 @@ const Icon = ({ name }) => {
             <g transform="translate(28.000000, 11.000000)">
               <g>
                 <path d="M9.00001,7 L9.00001,1.5 L14.50001,7 L9.00001,7 Z M2,0 C0.89499,0 0.01001,0.89599 0.01001,2 L0,18.00003 C0,19.10403 0.88599,20.00003 1.98999,20.00003 L14.00001,20.00003 C15.10401,20.00003 16.00001,19.10403 16.00001,18.00003 L16.00001,6 L10.00001,0 L2,0 L2,0 Z"></path>
-                <text fontFamily="OpenSans, Open Sans" fontSize="11" fontWeight="normal" fill="#FFFFFF">
+                <text fontFamily="OpenSans, Source Sans Pro" fontSize="11" fontWeight="normal" fill="#FFFFFF">
                   <tspan x="3" y="17">E</tspan>
                 </text>
               </g>
@@ -736,7 +736,7 @@ const Icon = ({ name }) => {
           <g transform="translate(-28.000000, -11.000000)">
             <g transform="translate(28.000000, 11.000000)">
               <path d="M9.00001,7 L9.00001,1.5 L14.50001,7 L9.00001,7 Z M2,0 C0.89499,0 0.01001,0.89599 0.01001,2 L0,18.00003 C0,19.10403 0.88599,20.00003 1.98999,20.00003 L14.00001,20.00003 C15.10401,20.00003 16.00001,19.10403 16.00001,18.00003 L16.00001,6 L10.00001,0 L2,0 L2,0 Z"></path>
-              <text fontFamily="OpenSans, Open Sans" fontSize="11" fontWeight="normal" fill="#FFFFFF">
+              <text fontFamily="OpenSans, Source Sans Pro" fontSize="11" fontWeight="normal" fill="#FFFFFF">
                 <tspan x="3" y="17">Z</tspan>
               </text>
             </g>

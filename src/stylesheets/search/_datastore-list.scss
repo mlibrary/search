@@ -2,6 +2,7 @@
   background: $grey-6;
   border-bottom: solid 2px $grey-5;
   text-align: center;
+  margin-bottom: 0.75rem;
 }
 
 .datastore-scroll-container {
@@ -39,7 +40,7 @@
 
 .datastore-button {
   display: inline-block;
-  color: $grey-2;
+  color: $grey-1;
   padding: 0.5rem 1rem;
   margin: 2px;
   padding-top: 0.6rem;

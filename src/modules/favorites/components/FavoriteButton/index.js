@@ -17,7 +17,7 @@ const FavoriteButton = ({
   handleClick
 }) => {
   return (
-    <Button kind="tertiary" small className="favorite-button" onClick={() => handleClick()}>
+    <Button kind="secondary" small className="favorite-button" onClick={() => handleClick()}>
       {favorited ? (
         <React.Fragment><StarSolidIcon />Remove Favorite</React.Fragment>
       ) : (

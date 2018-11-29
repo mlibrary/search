@@ -1,5 +1,5 @@
 import React from 'react'
-import ResourceAccess from '@umich-lib-ui/resource-access'
+import ResourceAccess from '@umich-lib/resource-access'
 import { Link } from 'react-router-dom'
 
 function RenderAnchor({ data }) {

@@ -1,6 +1,6 @@
 .record-preview {
   margin: 0;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   background: white;
   border-bottom: solid 1px $grey-4;
 }
@@ -11,7 +11,7 @@
   margin-bottom: 0.5rem;
 
   .icon {
-    color: $grey-3;
+    color: $grey-2;
     width: 0.85rem;
     margin-right: 0.25rem;
   }
@@ -22,7 +22,7 @@
 }
 
 .record-preview-published-date {
-  color: $grey-3;
+  color: $grey-2;
 }
 
 .record-preview-format-and-author {
@@ -31,7 +31,7 @@
 
 .record-preview-about {
   margin: 0;
-  color: $grey-3;
+  color: $grey-2;
 }
 
 .record-preview-link {
@@ -54,7 +54,7 @@
   margin-right: 0.5rem;
 
   .icon {
-    color: $grey-3;
+    color: $grey-2;
     margin-right: 0.2rem;
     margin-bottom: -0.1rem;
   }
@@ -74,7 +74,7 @@
 
 .record-preview-description {
   margin: 0;
-  color: $grey-3;
+  color: $grey-2;
 }
 
 .record-preview-placeholder {
@@ -94,7 +94,7 @@
 }
 
 .record-preview__field {
-  color: $grey-3;
+  color: $grey-2;
 }
 
 .record-preview__field-name {

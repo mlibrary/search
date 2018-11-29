@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Text from '@umich-lib/text'
 import { _ } from 'underscore'
-
 import { Checkbox } from '../../../core'
 
 class Multiselect extends React.Component {
@@ -62,7 +62,11 @@ class Multiselect extends React.Component {
   }
 
   render() {
-    const { options, filterGroupUid } = this.props
+    const {
+      options,
+      filterGroupUid,
+      descriptionText
+    } = this.props
     const { filterQuery, showOnlySelectedOptions } = this.state
 
     if (!options || options.length === 0) {
@@ -73,6 +77,9 @@ class Multiselect extends React.Component {
 
     return (
       <div className="multiselect">
+        {descriptionText && (
+          <Text small>{descriptionText}</Text>
+        )}
         <input
           type="text"
           className="multiselect-search"

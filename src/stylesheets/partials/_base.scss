@@ -12,7 +12,7 @@
 }
 
 .container-medium {
-  max-width: 74rem;
+  max-width: 68rem;
 }
 
 .container-fluid {
@@ -27,4 +27,8 @@
 
 body {
   //background: #e5e5e5;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
 }

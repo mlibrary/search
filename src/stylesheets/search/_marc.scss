@@ -6,6 +6,7 @@
   background: white;
   font-family: monospace;
   vertical-align: top;
+  font-size: 0.875rem;
 
   tr:nth-child(even) {
     background: $grey-6;
@@ -24,7 +25,7 @@
 }
 
 .marc__field-name {
-  color: $grey-3;
+  color: $grey-2;
 }
 
 .marc__subfield {

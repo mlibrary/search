@@ -1,9 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
+import Heading from '@umich-lib/heading'
+import Alert from '@umich-lib/alert'
+import Icon from '@umich-lib/icon'
 import config from '../../../../config'
 import { DetailsList } from '../../../core'
 import GetThisOption from '../GetThisOption'
+
+const Section = ({children}) => (
+  <section className="card get-this-section y-spacing">
+    <Heading size="large" level={2} style={{ marginTop: '0' }}>How would you like to get this item?</Heading>
+    {children}
+  </section>
+)
 
 class GetThisOptions extends React.Component {
   render() {
@@ -16,57 +25,50 @@ class GetThisOptions extends React.Component {
 
         if (options.length === 0) {
           return (
-            <section className="card get-this-section">
-              <h2 className="get-this-section-heading">How would you like to get this item?</h2>
-
-                <div className="alert alert-warning">
-                  <p><b>Error:</b> No options available.</p>
-                </div>
-            </section>
+            <Section>
+              <Alert kind="error">
+                <div class="x-spacing"><Icon icon="error" /><span>No options available.</span></div>
+              </Alert>
+            </Section>
           )
         }
 
         return (
-          <section className="card get-this-section">
-            <h2 className="get-this-section-heading">How would you like to get this item?</h2>
-
+          <Section>
             <DetailsList className="get-this-options">
               {options.map((option, key) => (
                 <GetThisOption option={option} key={key} />
               ))}
             </DetailsList>
-          </section>
+          </Section>
         )
       } else if (status === 'Not logged in') {
         const loginRoot = config.loginUrl;
         const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
 
         return (
-          <section className="card get-this-section">
-            <h2 className="get-this-section-heading">How would you like to get this item?</h2>
+          <Section>
             <a href={loginUrl} className="button"><b>Log in</b> to view request options</a>
-          </section>
+          </Section>
         )
       } else {
         return (
-          <section className="card get-this-section">
-            <h2 className="get-this-section-heading">How would you like to get this item?</h2>
+          <Section>
             <div className="alert">
               <p>Sorry, something unexpected happened.</p>
 
               <p><b>Status:</b> {status}</p>
             </div>
-          </section>
+          </Section>
         )
       }
     } else {
       return (
-        <section className="card get-this-section">
-          <h2 className="get-this-section-heading">How would you like to get this item?</h2>
+        <Section>
           <div className="alert">
             <p>Loading holding options...</p>
           </div>
-        </section>
+        </Section>
       )
     }
   }

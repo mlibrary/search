@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '@umich-lib/button'
 
 import {
   getField,
@@ -25,7 +26,11 @@ class ViewMARC extends React.Component {
       } else {
         return (
           <div className="marc-link-container">
-            <button className="button-light" onClick={() => this.setState({ view: true })}>View MARC data</button>
+            <Button
+              kind="secondary"
+              onClick={() => this.setState({ view: true })}
+              small
+            >View MARC data</Button>
           </div>
         )
       }

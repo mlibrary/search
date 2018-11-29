@@ -3,7 +3,7 @@
 */
 
 .record {
-  margin: 1rem 0;
+  margin: 0.75rem 0;
   padding: 0;
   background: white;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
@@ -11,21 +11,21 @@
 }
 
 .record-container {
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   padding-left: 2.75rem;
 }
 
 .record-title {
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   text-decoration: none;
   margin: 0;
   margin-right: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 
   .icon {
     width: 0.85rem;
-    color: $grey-3;
+    color: $grey-2;
   }
 }
 
@@ -57,7 +57,7 @@
       width: 11rem;
 
       padding-right: 1rem;
-      color: $grey-3;
+      color: $grey-2;
       font-weight: 400;
 
       &:after {
@@ -75,7 +75,7 @@
 .record-field-name {
   vertical-align: top;
   padding-right: 0.25rem;
-  color: $grey-3;
+  color: $grey-2;
   display: block;
 
   @media (max-width: $breakpoint-2) {
@@ -186,6 +186,7 @@
 .full-record__record-info {
   font-size: 1rem;
   margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 /*
@@ -245,7 +246,7 @@
 
 @media (min-width: $breakpoint-2) {
   .record-field-uid-format .record-field-name {
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
     margin-right: 0.5rem;
   }
 }
@@ -257,12 +258,10 @@
 }
 
 .full-record-page-container {
+  margin-top: 1rem;
+  
   @media (min-width: $breakpoint-2) {
     display: flex;
     flex-direction: column;
-  }
-
-  .lists-link-container {
-    margin-top: 1rem;
   }
 }

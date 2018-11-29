@@ -51,7 +51,7 @@ html {
   /* HTML5 display-role reset for older browsers */
   /* Reset `button` and button-style `input` default styles */
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
   color: #262626; }
   html html,
@@ -206,7 +206,7 @@ html {
     padding: 0; }
   @media (min-width: 680px) {
     html {
-      font-size: 18px; } }
+      font-size: 17px; } }
 
 a {
   color: #126DC1; }

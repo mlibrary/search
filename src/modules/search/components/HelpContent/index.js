@@ -31,7 +31,7 @@ class HelpContent extends React.Component {
             <p>Type the word(s) or phrases in the search box. You can use quotation marks to note phrases, and you can use AND and OR (in all-caps) to ensure that both terms must be in the results, or that one or the other term may be in the results.</p>
 
             <h3>Keyword searching</h3>
-            <table>
+            <table className="table">
               <tbody>
                 <tr>
                   <th>Example</th>
@@ -53,7 +53,7 @@ class HelpContent extends React.Component {
             </table>
 
             <h3>AND or OR searching</h3>
-            <table>
+            <table className="table">
               <tbody>
                 <tr>
                   <th>Example</th>
@@ -83,7 +83,7 @@ class HelpContent extends React.Component {
             </table>
 
             <h3>Retrieve all items</h3>
-            <table>
+            <table className="table">
               <tbody>
                 <tr>
                   <th>Example</th>
