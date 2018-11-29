@@ -524,6 +524,22 @@ textarea {
   outline-offset: 0;
   transition: outline 0.05s ease-out; }
 
+.table {
+  width: 100%;
+  border: solid 1px #CCC;
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
+  .table thead {
+    background: #F2F2F2;
+    border-bottom: solid 2px #E5E5E5; }
+  .table td, .table th {
+    padding: 0.75rem 1rem; }
+  .table th {
+    text-align: left;
+    font-weight: 600; }
+  .table tr {
+    border-bottom: solid 1px #CCC; }
+
 [data-inner-container] {
   max-width: 68rem; }
 
@@ -1137,10 +1153,12 @@ body {
   margin-top: 0;
   margin-bottom: 1.5rem; }
 
-@media (min-width: 820px) {
-  .full-record-page-container {
-    display: flex;
-    flex-direction: column; } }
+.full-record-page-container {
+  margin-top: 1rem; }
+  @media (min-width: 820px) {
+    .full-record-page-container {
+      display: flex;
+      flex-direction: column; } }
 
 .record-person__header-has-picture {
   display: flex;
@@ -1875,6 +1893,7 @@ input.date-range-input-text {
   background: white;
   font-family: monospace;
   vertical-align: top;
+  font-size: 0.875rem;
   max-width: 100%;
   overflow-x: scroll; }
   .marc__table tr:nth-child(even) {

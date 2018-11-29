@@ -1,5 +1,6 @@
 import React from 'react'
-import Field from '../RecordField';
+import Field from '../RecordField'
+import Button from '@umich-lib/button'
 
 class ShowAdditionalFieldList extends React.Component {
   state = {
@@ -14,7 +15,7 @@ class ShowAdditionalFieldList extends React.Component {
 
   render() {
     const { fields, datastoreUid, institution } = this.props
-    const buttonText = `${this.state.show ? 'Show Brief Record' : 'Show Complete Record' }`
+    const buttonText = `${this.state.show ? 'Show brief record' : 'Show complete record' }`
     const displayFields = this.state.show ? fields.standard.concat(fields.additional) : fields.standard
 
     return (
@@ -36,9 +37,13 @@ class ShowAdditionalFieldList extends React.Component {
 
         {fields.additional.length > 0 && (
           <div className="center-text">
-            <button onClick={this.handleShowToggleClick.bind(this)} className="button-light">
+            <Button
+              onClick={this.handleShowToggleClick.bind(this)}
+              kind="secondary"
+              small
+            >
               {buttonText}
-            </button>
+            </Button>
           </div>
         )}
       </div>
