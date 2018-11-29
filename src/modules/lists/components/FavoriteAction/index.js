@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from '../../../reusable'
+import Button from '@umich-lib/button'
 import ActionStatusMessage from '../ActionStatusMessage'
 
 
@@ -14,8 +14,6 @@ class FavoriteAction extends Component {
   }
 
   handleSubmitCallback = (data) => {
-    console.log('handleSubmitCallback', data)
-
     this.setState({ status: data })
   }
 
