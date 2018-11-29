@@ -66,10 +66,6 @@ class FavoriteTags extends React.Component {
   }
 
   render() {
-    // TEMP
-    // off while buggy
-    return null
-
     const { isFavorited, tags } = this.props
 
     if (!isFavorited) {

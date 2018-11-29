@@ -2,7 +2,7 @@ import React from 'react'
 import { FavoriteButton } from '../../../favorites'
 import { connect } from 'react-redux'
 import favorite from '../../favorite'
-import { Button } from '../../../reusable'
+import Button from '@umich-lib/button'
 import { Login } from '../../../profile'
 
 
@@ -54,9 +54,6 @@ class FavoriteRecord extends React.Component {
   }
 
   render() {
-    // Remove once bugs are fixed.
-    return null
-
     return (
       <Login render={login => (
         <React.Fragment>{this.renderAuthentication(login)}</React.Fragment>

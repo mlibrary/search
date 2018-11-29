@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '../../../reusable'
+import Button from '@umich-lib/button'
 import { Icon } from '../../../core'
 
 const StarSolidIcon = () => (
@@ -17,11 +17,16 @@ const FavoriteButton = ({
   handleClick
 }) => {
   return (
-    <Button kind="secondary" small className="favorite-button" onClick={() => handleClick()}>
+    <Button
+      kind="secondary"
+      small
+      className="favorite-button"
+      onClick={() => handleClick()}
+    >
       {favorited ? (
-        <React.Fragment><StarSolidIcon />Remove Favorite</React.Fragment>
+        <React.Fragment><StarSolidIcon /> Remove Favorite</React.Fragment>
       ) : (
-        <React.Fragment><Icon name="star" />Save to Favorites</React.Fragment>
+        <React.Fragment><Icon name="star" /> Save to Favorites</React.Fragment>
       )}
     </Button>
   )
