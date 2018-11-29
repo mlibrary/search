@@ -1,5 +1,5 @@
 import React from 'react'
-import Heading from '@umich-lib-ui/heading'
+import Heading from '@umich-lib/heading'
 
 const GetThisFAQ = () => (
   <section className="card get-this-section">

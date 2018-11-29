@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BrowseInfo } from '../../../browse';
-import Heading from '@umich-lib-ui/heading'
+import Heading from '@umich-lib/heading'
 import {
   InstitutionSelect
 } from '../../../institution'
