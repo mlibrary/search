@@ -109,8 +109,6 @@ class AdvancedSearchForm extends React.Component {
         library
       })
 
-      console.log('advanced URI query', queryString)
-
       const url = `/${datastore.slug}?${queryString}`
       history.push(url)
     } else {
