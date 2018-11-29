@@ -34,7 +34,7 @@ class FlintAlerts extends React.Component {
           <UserIsFlintAffiliated>
             <Alert
               type="warning"
-              ><span>U-M Flint users: You may not be able to access U-M Ann Arbor resources. For the best results use <a href={url}>Thompson Library’s Summon</a> to search for articles.</span><Button kind="tertiary" onClick={() => this.handleCloseButtonClick()}>Hide</Button></Alert>
+              ><span>U-M Flint users: You may not be able to access U-M Ann Arbor resources. For the best results use <a href={url}>Thompson Library’s Summon</a> to search for articles.</span><Button kind="secondary" onClick={() => this.handleCloseButtonClick()}>Hide</Button></Alert>
           </UserIsFlintAffiliated>
         )
       case 'databases':
@@ -42,7 +42,7 @@ class FlintAlerts extends React.Component {
           <UserIsFlintAffiliated>
             <Alert
               type="warning"
-              ><span>We noticed you are affiliated with U-M Flint. For the best results use the <a href="https://libguides.umflint.edu/az.php?a=all">Thompson Library’s database listing</a>.</span> <Button kind="tertiary" onClick={() => this.handleCloseButtonClick()}>Hide</Button></Alert>
+              ><span>We noticed you are affiliated with U-M Flint. For the best results use the <a href="https://libguides.umflint.edu/az.php?a=all">Thompson Library’s database listing</a>.</span> <Button kind="secondary" onClick={() => this.handleCloseButtonClick()}>Hide</Button></Alert>
           </UserIsFlintAffiliated>
         )
       case 'journals':
@@ -50,7 +50,7 @@ class FlintAlerts extends React.Component {
           <UserIsFlintAffiliated>
             <Alert
               type="warning"
-              ><span>We noticed you are affiliated with U-M Flint. For the best results use the <a href="http://th5yk4dg6v.search.serialssolutions.com/">Thompson Library’s journal listing</a>.</span> <Button kind="tertiary" onClick={() => this.handleCloseButtonClick()}>Hide</Button></Alert>
+              ><span>We noticed you are affiliated with U-M Flint. For the best results use the <a href="http://th5yk4dg6v.search.serialssolutions.com/">Thompson Library’s journal listing</a>.</span> <Button kind="secondary" onClick={() => this.handleCloseButtonClick()}>Hide</Button></Alert>
           </UserIsFlintAffiliated>
         )
       case 'website':
@@ -58,7 +58,7 @@ class FlintAlerts extends React.Component {
           <UserIsFlintAffiliated>
             <Alert
               type="warning"
-              ><span>We noticed you are affiliated with U-M Flint. For the best results use the <a href="https://libguides.umflint.edu/library">Thompson Library website </a>.</span> <Button kind="tertiary" onClick={() => this.handleCloseButtonClick()}>Hide</Button></Alert>
+              ><span>We noticed you are affiliated with U-M Flint. For the best results use the <a href="https://libguides.umflint.edu/library">Thompson Library website </a>.</span> <Button kind="secondary" onClick={() => this.handleCloseButtonClick()}>Hide</Button></Alert>
           </UserIsFlintAffiliated>
         )
       default:
