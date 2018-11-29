@@ -10,14 +10,14 @@ import {
   TabList,
   Tab,
   TabPanel
-} from '@umich-lib-ui/tabs'
+} from '@umich-lib/tabs'
 import {
   CARD,
   colors,
   MEDIA_QUERIES
-} from '@umich-lib-ui/styles'
-import Text from '@umich-lib-ui/text'
-import Heading from '@umich-lib-ui/heading'
+} from '@umich-lib/styles'
+import Text from '@umich-lib/text'
+import Heading from '@umich-lib/heading'
 import {
   Breadcrumb
 } from '../../../reusable'

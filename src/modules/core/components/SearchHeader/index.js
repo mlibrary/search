@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Header from '@umich-lib-ui/header'
+import Header from '@umich-lib/header'
 import config from '../../../../config'
 
 class SearchHeader extends React.Component {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Alert from '@umich-lib-ui/alert'
+import Alert from '@umich-lib/alert'
 import { connect } from 'react-redux';
 import config from '../../../../config'
 

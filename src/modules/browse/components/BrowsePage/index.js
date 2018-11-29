@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Heading from '@umich-lib-ui/heading'
-import Text from '@umich-lib-ui/text'
+import Heading from '@umich-lib/heading'
+import Text from '@umich-lib/text'
 import _ from 'underscore'
 import {
   setDocumentTitle
