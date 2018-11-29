@@ -68,7 +68,7 @@ const FieldInput = ({
         fieldedSearchIndex={fieldedSearchIndex}
         handleOnFieldChange={handleFieldedSearchChange}
       />
-      <div className="advanced-input-remove-container x-spacing">
+      <div className="advanced-input-remove-container">
         <TextInput
           id={`fielded-search-text-input-${fieldedSearchIndex + 1}`}
           placeholder={`Search Term ${fieldedSearchIndex + 1}`}
