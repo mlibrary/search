@@ -62,7 +62,11 @@ class Multiselect extends React.Component {
   }
 
   render() {
-    const { options, filterGroupUid } = this.props
+    const {
+      options,
+      filterGroupUid,
+      descriptionText
+    } = this.props
     const { filterQuery, showOnlySelectedOptions } = this.state
 
     if (!options || options.length === 0) {
@@ -73,7 +77,9 @@ class Multiselect extends React.Component {
 
     return (
       <div className="multiselect">
-        <Text small>Select one or more checkboxes to narrow your results to items with all selected.</Text>
+        {descriptionText && (
+          <Text small>{descriptionText}</Text>
+        )}
         <input
           type="text"
           className="multiselect-search"

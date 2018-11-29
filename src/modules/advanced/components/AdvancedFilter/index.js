@@ -143,6 +143,7 @@ const AdvancedFilter = ({
         <Multiselect
           options={options}
           filterGroupUid={advancedFilter.uid}
+          descriptionText={`Select one or more checkboxes to narrow your results to items that match all of your ${advancedFilter.name.toLowerCase()} selections.`}
           handleSelection={(index, option) => handleAdvancedFilterChange({
             filterType: advancedFilter.type,
             filterGroupUid: advancedFilter.uid,
