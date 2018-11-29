@@ -740,7 +740,7 @@ textarea {
   padding: 0 1rem; }
 
 .filters-container {
-  margin-bottom: 2rem; }
+  margin-bottom: 1rem; }
 
 .small-screen-filter-details {
   border-radius: 4px;
@@ -1086,7 +1086,8 @@ body {
 
 .full-record__record-info {
   font-size: 1rem;
-  margin: 0; }
+  margin: 0;
+  margin-bottom: 0.5rem; }
 
 /*
   Record special fields
@@ -2254,8 +2255,7 @@ input.get-this-field-input-year {
 .lists-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 1rem; }
+  align-items: baseline; }
 
 .lists-back-to-search-link {
   display: inline-flex;
@@ -2343,6 +2343,7 @@ input.get-this-field-input-year {
   background: #FAFAFA;
   border-radius: 4px;
   padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
   order: 1; }
   .full-record__actions-container .lists-action {
     margin-top: 0.5rem; }

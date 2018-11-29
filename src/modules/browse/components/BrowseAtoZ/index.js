@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom'
 import qs from 'qs'
+import Heading from '@umich-lib-ui/heading'
 
 class BrowseAtoZ extends React.Component {
   state = {
@@ -29,7 +30,7 @@ class BrowseAtoZ extends React.Component {
   render() {
     return (
       <section className="browse">
-        <h2 className="browse-heading">Titles A-Z</h2>
+        <Heading size="large" level={2} style={{ marginTop: '0' }}>Titles A-Z</Heading>
         <ul className="browse-list">
           {this.state.startsWith.map((character, key) => (
             <li className="browse-item" key={key}>

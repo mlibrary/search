@@ -5,7 +5,8 @@ import config from '../../../../config'
 
 const alertStyles = {
   marginTop: '-0.75rem',
-  textAlign: 'center'
+  textAlign: 'center',
+  marginBottom: '0.75rem'
 }
 
 class DatastoreAuthenticationAlert extends React.Component {
