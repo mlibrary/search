@@ -4,6 +4,8 @@ import {
   withRouter,
   Link
 } from 'react-router-dom'
+import Heading from '@umich-lib-ui/heading'
+import Text from '@umich-lib-ui/text'
 
 import {
   requestRecord,
@@ -33,8 +35,8 @@ class GetThisPageTemplate extends React.Component {
           />
         </div>
         <section>
-          <h1 className="u-margin-bottom-none">Get This</h1>
-          <p className="u-margin-top-none">Request books and other media to the campus library or department most convenient for you.</p>
+          <Heading size="xlarge" level={1}>Get This</Heading>
+          <Text lede>Request books and other media to the campus library or department most convenient for you.</Text>
         </section>
 
         {this.props.children}
