@@ -94,19 +94,22 @@ class AdvancedSearchForm extends React.Component {
 
     let filter = activeFilters
 
-    console.log('filter', filter)
-    console.log('hasActiveFilters', hasActiveFilters)
-
     // TODO: Build the filters
     // Submit search if query or filters are active
     if ((query.length > 0) || hasActiveFilters){
       const { history } = this.props
-      const library = datastore.uid === 'mirlyn' ? institution.active : undefined
+      let library = undefined
+
+      if (datastore.uid === 'mirlyn') {
+        library = institution.active ? institution.active : institution.defaultInstitution
+      }
       const queryString = stringifySearchQueryForURL({
         query,
         filter,
         library
       })
+
+      console.log('advanced URI query', queryString)
 
       const url = `/${datastore.slug}?${queryString}`
       history.push(url)
