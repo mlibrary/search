@@ -1,14 +1,12 @@
 .resource-access-container {
   background: $grey-6;
   padding: 0.75rem 1rem;
-  padding-bottom: 0.5rem;
   align-items: center;
   border-top: solid 1px $grey-5;
   border-radius: 0 0 4px 4px;
 
   @media screen and (min-width: $breakpoint-2) {
     padding: 0.75rem 1.5rem;
-    padding-bottom: 0.5rem;
     padding-left: 3rem;
   }
 
