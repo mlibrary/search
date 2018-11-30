@@ -397,7 +397,7 @@ textarea {
     padding: 0;
     margin: 0;
     margin-bottom: 1rem; }
-    @media (min-width: 960px) {
+    @media (min-width: 980px) {
       .site-footer-nav-list li {
         display: inline-block;
         margin-right: 1.5rem; } }
@@ -937,14 +937,14 @@ body {
 
 .flex-container {
   display: block; }
-  @media (min-width: 960px) {
+  @media (min-width: 980px) {
     .flex-container {
       display: flex; } }
 
 .side-container {
   width: 100%;
   margin-right: 1rem; }
-  @media (min-width: 960px) {
+  @media (min-width: 980px) {
     .side-container {
       width: 24rem; } }
 
@@ -1532,7 +1532,7 @@ body {
   margin-top: 0;
   margin-right: 4rem; }
 
-@media (min-width: 960px) {
+@media (min-width: 980px) {
   .feedback-options {
     display: flex;
     justify-content: space-between;
@@ -2197,7 +2197,7 @@ input.get-this-field-input-year {
 .specialist__email {
   text-decoration: underline; }
 
-@media (min-width: 960px) {
+@media (min-width: 980px) {
   .search-results .specialists__content {
     display: flex;
     flex-wrap: wrap;
