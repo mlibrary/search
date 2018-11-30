@@ -1106,7 +1106,7 @@ body {
   font-weight: 400; }
   @media (min-width: 600px) {
     .full-record-title {
-      font-size: 2rem; } }
+      font-size: 1.75rem; } }
 
 .full-record__record-info {
   font-size: 1rem;
@@ -1927,7 +1927,8 @@ input.date-range-input-text {
 
 .marc__subfield {
   display: inline-block;
-  padding-right: 0.5rem; }
+  padding-right: 0.5rem;
+  word-break: break-word; }
 
 .marc__ind {
   margin-right: 1rem; }
