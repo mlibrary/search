@@ -4,6 +4,11 @@ import { connect } from 'react-redux'
 import favorite from '../../favorite'
 import Button from '@umich-lib/button'
 import { Login } from '../../../profile'
+import styled from 'react-emotion'
+
+const FavoriteLogInButton = styled(Button)({
+  marginRight: '0.5rem'
+})
 
 
 class FavoriteRecord extends React.Component {
@@ -33,12 +38,11 @@ class FavoriteRecord extends React.Component {
 
     if (promptLogin) {
       return (
-        <div className="favorites-authentication x-spacing">
-          <Button
+        <div className="favorites-authentication">
+          <FavoriteLogInButton
             small
-            className="favorites-authentication-button"
             href={login.href}
-          ><b>Log in</b> to Favorite</Button>
+          >Log in to Favorite</FavoriteLogInButton>
           <Button
             small
             kind="secondary"
