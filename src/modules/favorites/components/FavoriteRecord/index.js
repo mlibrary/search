@@ -10,7 +10,6 @@ const FavoriteLogInButton = styled(Button)({
   marginRight: '0.5rem'
 })
 
-
 class FavoriteRecord extends React.Component {
   state = {
     promptLogin: false,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@umich-lib/button'
 import ActionStatusMessage from '../ActionStatusMessage'
-
+import { favoriteRecordsInList } from '../../../favorites'
 
 class FavoriteAction extends Component {
   state = {
@@ -20,9 +20,18 @@ class FavoriteAction extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ sent: true })
+
+    const {
+      datastore
+    } = this.props
+
+    // Assume the favoriting was successful on the front-end.
+    favoriteRecordsInList({ datastore })
+
+    // Actually send the action to the back-end.
     this.props.prejudice.act(
       'favorite',
-      this.props.datastore.uid,
+      datastore.uid,
       undefined,
       this.handleSubmitCallback
     )
