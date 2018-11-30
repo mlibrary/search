@@ -985,7 +985,7 @@ body {
   padding: 0.75rem 1rem; }
   @media screen and (min-width: 820px) {
     .record-container {
-      padding: 0.75rem 1.5rem;
+      padding: 0.9rem 1.5rem;
       padding-left: 3rem; } }
 
 .record-title {
@@ -2227,16 +2227,17 @@ input.get-this-field-input-year {
 
 .add-to-list-checkbox-container {
   position: absolute;
-  top: 0.35rem;
-  right: 0.5rem;
-  width: 2.5rem; }
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 1.5rem; }
   @media screen and (min-width: 820px) {
     .add-to-list-checkbox-container {
-      left: 0.1rem; } }
+      left: 0.75rem;
+      top: 1rem; } }
   .add-to-list-checkbox-container .checkbox {
     margin: 0;
-    padding: 0.75rem;
-    padding-left: 1rem; }
+    padding: 0.25rem;
+    font-size: 0; }
 
 @media screen and (min-width: 820px) {
   .record-title-and-actions-container {
