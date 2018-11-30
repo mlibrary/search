@@ -3,6 +3,7 @@ import { FavoriteButton } from '../../../favorites'
 import { connect } from 'react-redux'
 import favorite from '../../favorite'
 import Button from '@umich-lib/button'
+import Text from '@umich-lib/text'
 import { Login } from '../../../profile'
 import styled from 'react-emotion'
 
@@ -36,7 +37,11 @@ class FavoriteRecord extends React.Component {
     const { promptLogin } = this.state
     const { isFavorited } = this.props
 
-    if (promptLogin) {
+    if (login.loading) {
+      return <div style={{ width: '130px' }} className="placeholder placeholder-access placeholder-inline"></div>
+    }
+
+    if (promptLogin && !login.authenticated) {
       return (
         <div className="favorites-authentication">
           <FavoriteLogInButton

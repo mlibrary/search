@@ -3,7 +3,7 @@ import React from 'react';
 const RecordPlaceholder = () => {
   return (
     <div className="record">
-      <div className="record-container placeholder-container">
+      <div className="record-container placeholder-container" style={{ marginTop: '1rem' }}>
         <div className="placeholder placeholder-title"></div>
         <div className="placeholder placeholder-line"></div>
         <div className="placeholder placeholder-line placeholder-line-alt"></div>

@@ -76,13 +76,20 @@ const favoritesReducer = (state = {}, action) => {
             state[datastoreUid][recordUid].untags ?
             [...state[datastoreUid][recordUid].untags, tag] : [tag]
             
+          let favorited =
+            state[datastoreUid] &&
+            state[datastoreUid][recordUid] && 
+            state[datastoreUid][recordUid].favorited ? 
+            state[datastoreUid][recordUid].favorited : undefined
+
           return {
             ...state,
             [datastoreUid]: {
               ...state[datastoreUid],
               [recordUid]: {
                 tags: tags ? _.flatten(tags) : undefined,
-                untags: untags ? untags : undefined
+                untags: untags ? untags : undefined,
+                favorited
               }
             }
           }
