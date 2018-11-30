@@ -40,7 +40,7 @@ class RecordListContainer extends React.Component {
           </div>
 
           <div className="no-results-suggestions">
-            <Heading level={2} size="large" style={{ marginTop: '0' }}>Other suggestions</Heading>
+            <Heading level={2} size="small" style={{ marginTop: '0' }}>Other suggestions</Heading>
             <ul style={{ marginBottom: 0 }}>
               <li>Try using the other options in the search navigation.</li>
               <li>Check your spelling.</li>
