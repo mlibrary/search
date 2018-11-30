@@ -3,7 +3,7 @@
 
   // Room for .favorite-button
   .record-title {
-    margin-right: 1rem;
+    margin-right: 2.25rem;
   }
 }
 
@@ -13,8 +13,13 @@
 
 .add-to-list-checkbox-container {
   position: absolute;
-  top: 0.6rem;
-  left: 0;
+  top: 0.35rem;
+  right: 0.5rem;
+  width: 2.5rem;
+
+  @media screen and (min-width: $breakpoint-2) {
+    left: 0.1rem;
+  }
 
   .checkbox {
     margin: 0;
@@ -24,9 +29,11 @@
 }
 
 .record-title-and-actions-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  @media screen and (min-width: $breakpoint-2) {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
 }
 
 .favorite-button {

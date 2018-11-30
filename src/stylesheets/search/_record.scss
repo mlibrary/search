@@ -11,8 +11,12 @@
 }
 
 .record-container {
-  padding: 1rem 1.5rem;
-  padding-left: 2.75rem;
+  padding: 0.75rem 1rem;
+
+  @media screen and (min-width: $breakpoint-2) {
+    padding: 0.75rem 1.5rem;
+    padding-left: 3rem;
+  }
 }
 
 .record-title {
@@ -44,17 +48,22 @@
 .record-field-list {
   margin-top: 0rem;
 
+  .record-field {
+    margin-top: 0.25rem;
+  }
+
   @media (min-width: $breakpoint-2) {
     display: table;
     width: 100%;
 
     .record-field {
       display: table-row;
+      margin-top: 0;
     }
 
     .record-field-name {
       display: table-cell;
-      width: 11rem;
+      width: 160px;
 
       padding-right: 1rem;
       color: $grey-2;
@@ -117,6 +126,7 @@
 
   .record-field-list {
     .record-field {
+      margin-top: 0;
       dt, dd {
         padding: 0.5rem 1rem;
 
@@ -175,7 +185,7 @@
 .full-record-title {
   font-size: 1.4rem;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-weight: 400;
 
   @media (min-width: $breakpoint-1) {
@@ -187,6 +197,7 @@
   font-size: 1rem;
   margin: 0;
   margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 /*

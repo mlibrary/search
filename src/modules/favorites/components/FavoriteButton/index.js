@@ -5,6 +5,7 @@ import styled from 'react-emotion'
 const StyledFavoriteButton = styled(Button)({
   padding: '0',
   border: 'none',
+  whiteSpace: 'nowrap',
   ':hover': {
     textDecoration: 'underline'
   }

@@ -45,10 +45,11 @@
 }
 
 .search-box-button {
-  margin-left: 1rem;
+  margin-left: 0.75rem;
   margin-right: 0;
   display: inline-flex;
   align-items: center;
+  padding: 0.25rem 1rem;
 
   @media (min-width: $breakpoint-1) {
     .icon {

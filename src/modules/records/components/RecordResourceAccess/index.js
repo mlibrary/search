@@ -36,7 +36,7 @@ class RecordResourceAccess extends React.Component {
 
     if (ra) {
       return (
-        <div className="resource-access-container y-spacing">
+        <div className="resource-access-container">
           {ra.map((r, i) => (
             <ResourceAccess
               key={i}
