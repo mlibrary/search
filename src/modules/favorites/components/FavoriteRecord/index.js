@@ -3,7 +3,6 @@ import { FavoriteButton } from '../../../favorites'
 import { connect } from 'react-redux'
 import favorite from '../../favorite'
 import Button from '@umich-lib/button'
-import Text from '@umich-lib/text'
 import { Login } from '../../../profile'
 import styled from 'react-emotion'
 

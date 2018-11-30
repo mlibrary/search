@@ -126,6 +126,9 @@ h1, h2, h3, h4, h5, h6 {
 /*
   Typography and Elements
 */
+p {
+  margin: 1em 0; }
+
 a {
   color: #126DC1;
   cursor: pointer;
