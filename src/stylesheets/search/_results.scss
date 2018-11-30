@@ -40,16 +40,11 @@
 .no-results-suggestions {
   background: $grey-6;
   border-radius: 4px;
-  padding: 1rem 2rem;
-
-  h2 {
-    font-size: 1rem;
-    font-weight: 600;
-  }
+  padding: 1rem;
 
   li {
     margin: 0;
-    color: $grey-2;
+    margin-bottom: 0.25rem;
   }
 }
 

@@ -727,13 +727,10 @@ textarea {
 .no-results-suggestions {
   background: #FAFAFA;
   border-radius: 4px;
-  padding: 1rem 2rem; }
-  .no-results-suggestions h2 {
-    font-size: 1rem;
-    font-weight: 600; }
+  padding: 1rem; }
   .no-results-suggestions li {
     margin: 0;
-    color: #4E4E4E; }
+    margin-bottom: 0.25rem; }
 
 .pagination-container {
   padding: 0.75rem 1rem;
