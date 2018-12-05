@@ -1,5 +1,5 @@
 import React from 'react'
-
+import GetThisFindIt from '../GetThisFindIt'
 import {
   GetThisForm
 } from '../../../getthis'
@@ -19,13 +19,21 @@ class GetThisOption extends React.Component {
         </summary>
 
         <div className="get-this-option-details-container">
-          {option.form && (
+          {option.form ? (
             <div className="get-this-option-left-half">
               {option.orientation && (
                 <div dangerouslySetInnerHTML={createMarkup(option.orientation)} />
               )}
               <GetThisForm form={option.form} />
             </div>
+          ) : (
+            <React.Fragment>
+              {option.service_type === 'Self Service' && (
+                <div className="get-this-option-left-half">
+                  <GetThisFindIt />
+                </div>
+              )}
+            </React.Fragment>
           )}
 
           {option.description && (

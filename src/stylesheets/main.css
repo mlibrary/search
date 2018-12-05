@@ -1300,7 +1300,7 @@ body {
     background-position: 100vw 0; } }
 
 .placeholder-container {
-  margin-bottom: 2rem; }
+  margin-bottom: 1rem; }
 
 .placeholder {
   background: linear-gradient(to left, rgba(229, 229, 229, 0.6) 20%, #E5E5E5 50%, rgba(229, 229, 229, 0.6) 80%);

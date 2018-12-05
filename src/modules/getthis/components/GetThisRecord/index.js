@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-
+import getHoldingByBarcode from '../../getHoldingByBarcode'
 import {
   TrimString
 } from '../../../core'
@@ -21,34 +21,29 @@ const StyledGetThisResourceAccessContainer = styled('div')({
   },
   'th:first-of-type': {
     display: 'none'
+  },
+  'a': {
+    textDecoration: 'underline'
+  },
+  'table': {
+    tableLayout: 'auto',
+    minWidth: 'auto'
   }
 })
 
 function GetThisHolding({ record, barcode }) {
-  let holding
+  let holding = getHoldingByBarcode(record.resourceAccess, barcode)
 
-  if (record.resourceAccess) {
-    record.resourceAccess.forEach(ra => {
-      ra.rows.forEach(row => {
-        row.forEach(cell => {
-          if (cell.to && cell.to.action === 'get-this' && cell.to.barcode === barcode) {
-            holding = [].concat(ra)
-          }
-        })
-      })
-    })
-
-    if (holding) {
-      const recordData = {
-        resourceAccess: holding
-      }
-
-      return (
-        <StyledGetThisResourceAccessContainer>
-          <RecordResourceAccess record={recordData} />
-        </StyledGetThisResourceAccessContainer>
-      )
+  if (holding) {
+    const recordData = {
+      resourceAccess: holding
     }
+
+    return (
+      <StyledGetThisResourceAccessContainer>
+        <RecordResourceAccess record={recordData} />
+      </StyledGetThisResourceAccessContainer>
+    )
   }
 
   return null
@@ -101,3 +96,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(GetThisRecord);
+
+export {
+  StyledGetThisResourceAccessContainer
+}
