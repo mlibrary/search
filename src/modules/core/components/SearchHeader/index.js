@@ -10,6 +10,18 @@ class SearchHeader extends React.Component {
     const logoutUrl = 'https://weblogin.umich.edu/cgi-bin/logout?' + document.location
     const loginText = this.props.isAuthenticated ? 'Log out' : 'Log in'
     const loginHref = this.props.isAuthenticated ? logoutUrl : loginUrl
+    let navItems = [
+      { text: 'My Account', href: 'https://www.lib.umich.edu/my-account/' },
+      { text: 'My Favorites', href: 'https://www.lib.umich.edu/my-account/favorites' },
+      { text: loginText, href: loginHref }
+    ]
+
+    if (this.props.favoritesDisabled) {
+      navItems = [
+        { text: 'My Account', href: 'https://www.lib.umich.edu/my-account/' },
+        { text: loginText, href: loginHref }
+      ]
+    }
 
     return  (
       <div role="banner">
@@ -17,11 +29,7 @@ class SearchHeader extends React.Component {
           name="Search"
           className="search-header"
           url="/"
-          nav={[
-            { text: 'My Account', href: 'https://www.lib.umich.edu/my-account/' },
-            { text: 'My Favorites', href: 'https://www.lib.umich.edu/my-account/favorites' },
-            { text: loginText, href: loginHref }
-          ]}
+          nav={navItems}
           renderAnchor={(data) => (
             <a
               href={data.to}
@@ -40,7 +48,8 @@ function mapStateToProps(state) {
   return {
     isAuthenticated: state.profile.status === 'Logged in',
     datastore: state.datastores.active,
-    search: state.search
+    search: state.search,
+    favoritesDisabled: state.favorites.disabled === true
   };
 }
 
