@@ -60,6 +60,7 @@ const favoritesReducer = (state = { disabled: true }, action) => {
             }
           }
         }
+        break
       case actions.UNTAG_FAVORITE:
         if (true) { // adding a scope to the vars
           let tags = 
@@ -94,6 +95,7 @@ const favoritesReducer = (state = { disabled: true }, action) => {
             }
           }
         }
+        break
       default:
         return state
     }
