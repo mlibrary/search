@@ -16,7 +16,11 @@ class FavoriteRecord extends React.Component {
   }
 
   handleClick = (login) => {
-    const { record, datastore, isFavorited } = this.props
+    const {
+      record,
+      datastore,
+      isFavorited,
+    } = this.props
 
     if (!login.authenticated) {
       this.setState({ promptLogin: true })
@@ -61,6 +65,10 @@ class FavoriteRecord extends React.Component {
   }
 
   render() {
+    if (this.props.disabled) {
+      return null
+    }
+
     return (
       <Login render={login => (
         <React.Fragment>{this.renderAuthentication(login)}</React.Fragment>
@@ -81,7 +89,8 @@ function mapStateToProps(state, ownProps) {
   // Is the record favorited (from Spectrum) on the record or
   // is it favorited in state (in current browser session by user)
   return {
-    isFavorited
+    isFavorited,
+    disabled: state.favorites.disabled === true
   };
 }
 

@@ -66,9 +66,9 @@ class FavoriteTags extends React.Component {
   }
 
   render() {
-    const { isFavorited, tags } = this.props
+    const { isFavorited, tags, disabled } = this.props
 
-    if (!isFavorited) {
+    if (disabled || !isFavorited) {
       return null
     }
 
@@ -151,7 +151,8 @@ function mapStateToProps(state, ownProps) {
     // Is the record favorited (from Spectrum) on the record or
     // is it favorited in state (in current browser session by user)
     isFavorited,
-    tags
+    tags,
+    disabled: state.favorites.disabled === true
   };
 }
 

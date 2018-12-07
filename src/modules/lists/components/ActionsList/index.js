@@ -106,7 +106,8 @@ class ActionsList extends Component {
 
   render() {
     const {
-      active
+      active,
+      favoritesDisabled
     } = this.props
 
     const activeUid = active ? active.uid : null
@@ -115,6 +116,9 @@ class ActionsList extends Component {
       <React.Fragment>
         <ul className="lists-actions-list">
           {this.state.actions.map(action => {
+            if (action.uid === 'favorite' && favoritesDisabled) {
+              return null
+            }
             const isActive = action.uid === activeUid
             const activeClassName = isActive ? 'lists-action-button--active' : ''
             return (
@@ -133,6 +137,7 @@ class ActionsList extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
+    favoritesDisabled: state.favorites.disabled === true
   };
 }
 

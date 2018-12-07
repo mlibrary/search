@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import Button from '@umich-lib/button'
 import ActionStatusMessage from '../ActionStatusMessage'
 import { favoriteRecordsInList } from '../../../favorites'
@@ -57,9 +58,13 @@ class FavoriteAction extends Component {
   }
 
   render() {
-    const { listLength, action } = this.props
+    const {
+      listLength,
+      action,
+      disabled
+    } = this.props
 
-    if (listLength === 0) {
+    if (disabled || listLength === 0) {
       return null
     }
 
@@ -72,4 +77,10 @@ class FavoriteAction extends Component {
   }
 }
 
-export default FavoriteAction
+function mapStateToProps(state, ownProps) {
+  return {
+    disabled: state.favorites.disabled === true
+  };
+}
+
+export default connect(mapStateToProps)(FavoriteAction)

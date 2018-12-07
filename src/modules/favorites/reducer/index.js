@@ -1,7 +1,7 @@
 import * as actions from '../actions';
 import { _ } from 'underscore'
 
-const favoritesReducer = (state = {}, action) => {
+const favoritesReducer = (state = { disabled: true }, action) => {
   if (action.payload) {
     const {
       recordUid,
