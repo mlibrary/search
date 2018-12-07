@@ -6,7 +6,7 @@ html {
   font-size: 14px;
 
   @media (min-width: $breakpoint-2) {
-    font-size: 18px;
+    font-size: 17px;
   }
 }
 
@@ -66,10 +66,8 @@ h1, h2, h3, h4, h5, h6 {
   Typography and Elements
 */
 
-// Paragraphs
-
 p {
-  margin: 1rem 0;
+  margin: 1em 0;
 }
 
 // Links

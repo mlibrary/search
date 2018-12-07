@@ -31,6 +31,7 @@
 .marc__subfield {
   display: inline-block;
   padding-right: 0.5rem;
+  word-break: break-word;
 }
 
 .marc__ind {

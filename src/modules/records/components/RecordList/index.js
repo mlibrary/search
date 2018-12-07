@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import Record from '../Record';
 import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
+import Heading from '@umich-lib/heading'
 
 import {
   ResultsSummary,
@@ -39,8 +40,8 @@ class RecordListContainer extends React.Component {
           </div>
 
           <div className="no-results-suggestions">
-            <h2>Other Search Suggestions</h2>
-            <ul>
+            <Heading level={2} size="small" style={{ marginTop: '0' }}>Other suggestions</Heading>
+            <ul style={{ marginBottom: 0 }}>
               <li>Try using the other options in the search navigation.</li>
               <li>Check your spelling.</li>
               <li>Try more general keywords.</li>

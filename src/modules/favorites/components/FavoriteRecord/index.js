@@ -2,9 +2,13 @@ import React from 'react'
 import { FavoriteButton } from '../../../favorites'
 import { connect } from 'react-redux'
 import favorite from '../../favorite'
-import { Button } from '../../../reusable'
+import Button from '@umich-lib/button'
 import { Login } from '../../../profile'
+import styled from 'react-emotion'
 
+const FavoriteLogInButton = styled(Button)({
+  marginRight: '0.5rem'
+})
 
 class FavoriteRecord extends React.Component {
   state = {
@@ -31,14 +35,17 @@ class FavoriteRecord extends React.Component {
     const { promptLogin } = this.state
     const { isFavorited } = this.props
 
-    if (promptLogin) {
+    if (login.loading) {
+      return <div style={{ width: '130px' }} className="placeholder placeholder-access placeholder-inline"></div>
+    }
+
+    if (promptLogin && !login.authenticated) {
       return (
-        <div className="favorites-authentication x-spacing">
-          <Button
+        <div className="favorites-authentication">
+          <FavoriteLogInButton
             small
-            className="favorites-authentication-button"
             href={login.href}
-          ><b>Log in</b> to Favorite</Button>
+          >Log in to Favorite</FavoriteLogInButton>
           <Button
             small
             kind="secondary"
@@ -54,9 +61,6 @@ class FavoriteRecord extends React.Component {
   }
 
   render() {
-    // Remove once bugs are fixed.
-    return null
-
     return (
       <Login render={login => (
         <React.Fragment>{this.renderAuthentication(login)}</React.Fragment>

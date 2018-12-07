@@ -6,6 +6,7 @@ import {
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
+import FavoriteAction from '../FavoriteAction'
 import { AuthenticationRequired } from '../../../profile'
 
 class ActionsList extends Component {
@@ -47,6 +48,12 @@ class ActionsList extends Component {
         name: 'Export RIS',
         icon: 'export-ris'
       },
+      {
+        uid: 'favorite',
+        action: 'favorite',
+        name: 'Favorite',
+        icon: 'star'
+      },
     ]
   }
 
@@ -84,6 +91,11 @@ class ActionsList extends Component {
         {active.action === 'text' && (
           <AuthenticationRequired>
             <TextAction action={active} {...this.props} />
+          </AuthenticationRequired>
+        )}
+        {active.action === 'favorite' && (
+          <AuthenticationRequired>
+            <FavoriteAction action={active} {...this.props} />
           </AuthenticationRequired>
         )}
         

@@ -4,7 +4,7 @@
 
 .container {
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 0.75rem;
 }
 
 .container-narrow {
@@ -12,7 +12,7 @@
 }
 
 .container-medium {
-  max-width: 68rem;
+  max-width: 1200px;
 }
 
 .container-fluid {
@@ -20,13 +20,9 @@
 }
 
 .container-large {
-  @media (min-width: 1280px) {
+  @media (min-width: 1200px) {
     max-width: 140rem;
   }
-}
-
-body {
-  //background: #e5e5e5;
 }
 
 * {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga'
+import Button from '@umich-lib/button'
 
 class FileAction extends Component {
   state = {
@@ -48,7 +49,7 @@ class FileAction extends Component {
     if (!status) {
       return (
         <form className="lists-action-form" onSubmit={this.handleSubmit}>
-          <input type="submit" value="Download" className="button" />
+          <Button type="submit">Download</Button>
         </form>
       )
     }

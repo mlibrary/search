@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactGA from 'react-ga'
 import ActionStatusMessage from '../ActionStatusMessage'
+import Button from '@umich-lib/button'
 
 class TextAction extends Component {
   state = {
@@ -69,7 +70,7 @@ class TextAction extends Component {
               <label htmlFor="phoneNumber">Phone number</label>
               <input id="phoneNumber" type="tel" placeholder="000-123-5555" required value={this.state.text} onChange={this.handleChange}/>
             </div>
-            <input type="submit" value="Send text" className="button" />
+            <Button type="submit" style={{ whiteSpace: 'nowrap' }}>Send text</Button>
           </form>
         </React.Fragment>
       )

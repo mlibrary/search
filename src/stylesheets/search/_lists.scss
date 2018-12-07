@@ -16,7 +16,7 @@
 
 .lists-link {
   background: $main-6;
-  padding: 1rem 1.5rem;
+  padding: 0.5rem 1.25rem;
   display: block;
 
   display: flex;
@@ -173,6 +173,7 @@
 
 .lists-action {
   padding: 0;
+  margin-top: 1rem;
 }
 
 .full-record__actions-container {

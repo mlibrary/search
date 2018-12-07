@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@umich-lib/alert": "0.1.0",
-    "@umich-lib/button": "0.1.0",
+    "@umich-lib/button": "0.1.2",
     "@umich-lib/chat": "0.1.0",
     "@umich-lib/header": "0.1.0",
     "@umich-lib/heading": "0.1.0",
