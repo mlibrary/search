@@ -13,6 +13,11 @@ import {
   setRecordGetThis
 } from '../records';
 
+import {
+  getField,
+  getFieldValue,
+} from '../records/utilities';
+
 const isSlugADatastore = (slug) => {
   const slugDs = _.findWhere(config.datastores.list, {slug: slug})
   const uidDs = _.findWhere(config.datastores.list, {uid: slug});
@@ -185,8 +190,11 @@ const requestRecord = ({
     store.dispatch(setRecord(recordFromState));
   } else {
     const callback = (record) => {
+      const resourceAccess = getFieldValue(getField(record.fields, 'resource_access'))
+
       store.dispatch(setRecord({
         uid: recordUid,
+        resourceAccess,
         ...record
       }));
     }
