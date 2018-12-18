@@ -25,12 +25,6 @@ class ActionsList extends Component {
         icon: 'text-message'
       },
       {
-        uid: 'refworks',
-        action: 'file',
-        name: 'RefWorks',
-        icon: 'file'
-      },
-      {
         uid: 'zotero',
         action: 'file',
         name: 'Zotero',
