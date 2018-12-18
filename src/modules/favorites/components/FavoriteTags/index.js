@@ -1,13 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { _ } from 'underscore'
+import Button from '@umich-lib/button'
+import ReactGA from 'react-ga'
+import { FavoriteInputTag } from '../../../favorites';
+import favorite from '../../favorite'
 import {
   Tag,
   Modal
 } from '../../../reusable'
-import Button from '@umich-lib/button'
-import { connect } from 'react-redux'
-import { FavoriteInputTag } from '../../../favorites';
-import favorite from '../../favorite'
-import { _ } from 'underscore'
 
 class FavoriteTags extends React.Component {
   state = {
@@ -41,9 +43,18 @@ class FavoriteTags extends React.Component {
           - Have a long optimisitic timeout so the record looks favorited until we hear back.
       */
     }
+
+    const ga_add_or_remove = intent === 'tag' ? 'add' : 'remove'
+    const ga_record_type = this.props.match.path === '/:datastoreSlug' ? 'medium' : 'full'
+    ReactGA.event({
+      action: 'Click',
+      category: 'Favorites',
+      label: `${ga_add_or_remove} tag ${datastore.name} ${ga_record_type} view`
+    })
+
     const data = {
       intent,
-      datastore,
+      datastore: datastore.uid,
       record,
       value: tag,
       callback
@@ -152,8 +163,9 @@ function mapStateToProps(state, ownProps) {
     // is it favorited in state (in current browser session by user)
     isFavorited,
     tags,
+    datastore: _.findWhere(state.datastores.datastores, { uid: datastore }),
     disabled: state.favorites.disabled === true
   };
 }
 
-export default connect(mapStateToProps)(FavoriteTags)
+export default withRouter(connect(mapStateToProps)(FavoriteTags))

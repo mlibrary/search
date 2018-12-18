@@ -1,10 +1,13 @@
 import React from 'react'
-import { FavoriteButton } from '../../../favorites'
 import { connect } from 'react-redux'
-import favorite from '../../favorite'
+import ReactGA from 'react-ga'
+import styled from 'react-emotion'
+import { withRouter } from 'react-router-dom'
+import { _ } from 'underscore'
 import Button from '@umich-lib/button'
 import { Login } from '../../../profile'
-import styled from 'react-emotion'
+import { FavoriteButton } from '../../../favorites'
+import favorite from '../../favorite'
 
 const FavoriteLogInButton = styled(Button)({
   marginRight: '0.5rem'
@@ -20,14 +23,39 @@ class FavoriteRecord extends React.Component {
       record,
       datastore,
       isFavorited,
+      match
     } = this.props
 
     if (!login.authenticated) {
       this.setState({ promptLogin: true })
     } else {
+      /*
+        Google Analytics wants to know if this
+        button is clicked on the full page or
+        from results.
+
+        So the component is wrapped with withRouter()
+        to provide router information in props. We check
+        if this component is rendered from results by
+        checking the match props.
+
+        Because favorite button only appears on medium
+        or full records, we can assume it's full if not
+        matching the results view.
+      */
+
+      let ga_label = match.path === '/:datastoreSlug' ? 'medium' : 'full'
+      let ga_add_or_remove = isFavorited === true ? 'remove' : 'save'
+
+      ReactGA.event({
+        action: 'Click',
+        category: 'Favorites',
+        label: `${ga_add_or_remove} favorite item from ${datastore.name} ${ga_label} record`
+      })
+
       const data = {
         intent: isFavorited ? 'unfavorite' : 'favorite',
-        datastore,
+        datastore: datastore.uid,
         record: record,
         value: undefined, // No value (aka new tag value) when favoriting.
       }
@@ -90,8 +118,9 @@ function mapStateToProps(state, ownProps) {
   // is it favorited in state (in current browser session by user)
   return {
     isFavorited,
-    disabled: state.favorites.disabled === true
+    disabled: state.favorites.disabled === true,
+    datastore: _.findWhere(state.datastores.datastores, { uid: datastore })
   };
 }
 
-export default connect(mapStateToProps)(FavoriteRecord)
+export default withRouter(connect(mapStateToProps)(FavoriteRecord))
