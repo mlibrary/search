@@ -42,7 +42,7 @@
     "react-ga": "^2.5.3",
     "react-modal": "^3.5.1",
     "react-redux": "^5.0.7",
-    "react-responsive": "^4.0.5",
+    "react-responsive": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
