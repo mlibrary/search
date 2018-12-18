@@ -142,7 +142,6 @@ class URLSearchQueryWrapper extends React.Component {
 
         if (shouldRunSearch) {
           this.props.setA11yMessage(`Search modified.`)
-
           runSearch()
         }
 
@@ -153,15 +152,25 @@ class URLSearchQueryWrapper extends React.Component {
           this.props.clearActiveFilters({ datastoreUid })
         }
 
-        // Not searching
-        if (isSearching) {
-          this.props.searching(false)
-        }
-
         // Reset query
         if (query.length > 0) {
           this.props.setSearchQuery('')
         }
+      }
+
+      /*
+        Deciding when the UI should be in a "Searching" state.
+        Searching state will show results instead of the
+        landing page datastore information.
+
+        Criteria to be in a "Searching" state.
+          1. URL contains a query, or
+          2. URL contains a filter.
+      */
+      if (urlState.query || urlState.filter) {
+        this.props.searching(true)
+      } else {
+        this.props.searching(false)
       }
     }
   }

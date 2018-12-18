@@ -350,7 +350,6 @@ const runSearch = () => {
     count: 10
   }
 
-  store.dispatch(searching(true))
   const datastores = state.datastores.datastores
 
   datastores.forEach(datastore => {
