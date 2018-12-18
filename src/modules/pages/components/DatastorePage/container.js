@@ -186,9 +186,6 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
         <div className="side-container">
           <MediaQuery minWidth={980}>
             {(matches) => {
-
-              console.log('matches', matches)
-
               if (matches) {
                 return (
                   <React.Fragment>
