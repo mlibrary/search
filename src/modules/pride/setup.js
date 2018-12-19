@@ -27,8 +27,7 @@ import {
 } from '../records/utilities';
 
 import {
-  setSearchData,
-  searching,
+  setSearchData
 } from '../search';
 
 import {
