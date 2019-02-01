@@ -6,7 +6,7 @@ import Chat from '@umich-lib/chat'
 const footer_links = [
   {
     text: 'Home',
-    to: '/'
+    href: '/'
   },
   {
     text: 'Accessibility',
