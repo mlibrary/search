@@ -19,11 +19,12 @@ function RenderAnchor({ data }) {
 class RecordResourceAccess extends React.Component {
   render() {
     const {
-      record
+      record,
+      datastoreUid
     } = this.props
     const ra = record.resourceAccess
 
-    if (record.loadingHoldings) {
+    if (record.loadingHoldings || (datastoreUid === 'mirlyn' && ra.length === 0)) {
       return (
         <div className="resource-access-container">
           <div className="access-placeholder-container">
