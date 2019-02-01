@@ -61,6 +61,13 @@ const favoriteToPrejudice = ({
   )
 }
 
+const favoriteRecord = ({ datastoreUid, recordUid }) => {
+  store.dispatch(favorite({
+    datastoreUid,
+    recordUid
+  }))
+}
+
 /*
   Favorite all the records in a user list by datastore.
 */
@@ -68,14 +75,15 @@ const favoriteRecordsInList = ({ datastore }) => {
   const state = store.getState()
 
   state.lists[datastore.uid].forEach(record => {
-    store.dispatch(favorite({
+    favoriteRecord({
       datastoreUid: datastore.uid,
       recordUid: record.uid
-    }))
+    })
   })
 }
 
 export {
+  favoriteRecord,
   favoriteRecordsInList
 }
 

@@ -3,7 +3,10 @@ import FavoriteRecord from './components/FavoriteRecord'
 import FavoriteButton from './components/FavoriteButton'
 import FavoriteTags from './components/FavoriteTags'
 import FavoriteInputTag from './components/FavoriteInputTag'
-import { favoriteRecordsInList } from './favorite'
+import {
+  favoriteRecord,
+  favoriteRecordsInList
+} from './favorite'
 
 export {
   favoritesReducer,
@@ -11,5 +14,6 @@ export {
   FavoriteButton,
   FavoriteTags,
   FavoriteInputTag,
+  favoriteRecord,
   favoriteRecordsInList
 }

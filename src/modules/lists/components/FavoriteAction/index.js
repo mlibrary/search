@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Button from '@umich-lib/button'
 import ActionStatusMessage from '../ActionStatusMessage'
-import { favoriteRecordsInList } from '../../../favorites'
+import {
+  favoriteRecord,
+  favoriteRecordsInList
+} from '../../../favorites'
 
 class FavoriteAction extends Component {
   state = {
@@ -23,11 +26,21 @@ class FavoriteAction extends Component {
     this.setState({ sent: true })
 
     const {
-      datastore
+      datastore,
+      record
     } = this.props
 
-    // Assume the favoriting was successful on the front-end.
-    favoriteRecordsInList({ datastore })
+    // If a record is passed in as a prop, then only favorite that record, not the list.
+    if (!record) {
+      // Assume the favoriting was successful on the front-end. This favorites the records
+      // in the Search state only. Not with Prejudice.
+      favoriteRecordsInList({ datastore })
+    } else {
+      favoriteRecord({
+        datastoreUid: datastore.uid,
+        recordUid: record.uid
+      })
+    }
 
     // Actually send the action to the back-end.
     this.props.prejudice.act(
