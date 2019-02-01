@@ -10,8 +10,6 @@ class FlintAlerts extends React.Component {
   }
 
   handleCloseButtonClick = () => {
-    console.log('closed', this.state.closed)
-
     this.setState({ closed: true })
   }
 
