@@ -9,8 +9,6 @@ class AuthenticationRequired extends Component {
       return this.props.children
     }
 
-    console.log('children', this.props.children)
-
     if (!this.props.children) {
       return null
     }
