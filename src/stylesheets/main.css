@@ -2382,6 +2382,8 @@ input.get-this-field-input-year {
 .lists-action {
   padding: 0;
   margin-top: 1rem; }
+  .lists-action .react-tabs__tab--selected {
+    border-bottom-color: #FAFAFA; }
 
 .full-record__actions-container {
   background: #FAFAFA;

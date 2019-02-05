@@ -23,6 +23,7 @@
     "@umich-lib/text": "0.1.0",
     "@umich-lib/text-input": "0.1.0",
     "axios": "^0.16.2",
+    "citeproc": "^2.1.214",
     "classnames": "^2.2.6",
     "deepcopy": "^0.6.3",
     "emotion": "^9.2.12",

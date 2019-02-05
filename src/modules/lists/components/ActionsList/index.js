@@ -7,6 +7,7 @@ import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
 import FavoriteAction from '../FavoriteAction'
+import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
 
 class ActionsList extends Component {
@@ -23,6 +24,12 @@ class ActionsList extends Component {
         action: 'text',
         name: 'Text',
         icon: 'text-message'
+      },
+      {
+        uid: 'citation',
+        action: 'citation',
+        name: 'Citation',
+        icon: 'error'
       },
       {
         uid: 'zotero',
@@ -93,6 +100,7 @@ class ActionsList extends Component {
           </AuthenticationRequired>
         )}
         
+        {active.action === 'citation' && (<CitationAction action={active}  {...this.props} />)}
         {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
       </React.Fragment>
     )
