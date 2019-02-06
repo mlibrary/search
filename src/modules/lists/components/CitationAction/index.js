@@ -31,6 +31,7 @@ class CitationAction extends Component {
             <Tab>Chicago</Tab>
             <Tab>IEEE</Tab>
             <Tab>NLM</Tab>
+            <Tab>BibTex</Tab>
           </TabList>
 
           <TabPanel>
@@ -39,10 +40,29 @@ class CitationAction extends Component {
             </CitationText>
           </TabPanel>
           <TabPanel>
-            <p>Articles is a gateway to discovering a wide range of the library's resources.</p>
+            <CitationText>
+              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
+            </CitationText>
           </TabPanel>
           <TabPanel>
-            <p>Databases are library search engines focused on a specific subject or range of subjects. Some may highlight a particular format, while others will contain a variety of material types.</p>
+            <CitationText>
+              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
+            </CitationText>
+          </TabPanel>
+          <TabPanel>
+            <CitationText>
+              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
+            </CitationText>
+          </TabPanel>
+          <TabPanel>
+            <CitationText>
+              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
+            </CitationText>
+          </TabPanel>
+          <TabPanel>
+            <CitationText>
+              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
+            </CitationText>
           </TabPanel>
         </Tabs>
       </section>
