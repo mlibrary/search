@@ -1,68 +1,80 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ReactGA from 'react-ga'
-import ActionStatusMessage from '../ActionStatusMessage'
-import Button from '@umich-lib/button'
-import Heading from '@umich-lib/heading'
 import { Tabs, TabList, Tab, TabPanel } from '@umich-lib/tabs'
+import {
+  cite
+} from '../../../citations'
 
-const CitationText = ({ children }) => (
-  <textarea
-    style={{
-      marginTop: '0.5rem',
-      marginBottom: '0',
-      width: '100%',
-      padding: '0.5rem 0.75rem'
-    }}
-    readonly
-  >
-    {children}
-  </textarea>
-)
+class CitationText extends React.Component {
+  render() {
+    return (
+      <textarea
+        style={{
+          marginTop: '0.5rem',
+          marginBottom: '0',
+          width: '100%',
+          padding: '0.5rem 0.75rem'
+        }}
+        value={this.props.value}
+        onFocus={(e) => e.target.select()}
+        readOnly
+      />
+    )
+  }
+}
+
+const citation_options = [
+  {
+    name: 'MLA'
+  },
+  {
+    name: 'APA'
+  },
+  {
+    name: 'Chicago'
+  },
+  {
+    name: 'IEEE'
+  },
+  {
+    name: 'NLM'
+  },
+  {
+    name: 'BibTex'
+  }
+]
 
 class CitationAction extends Component {
+  componentDidMount() {
+    cite({}, 'chicago-annotated-bibliography')
+  }
+
   render() {
     return (
       <section className="lists-action y-spacing">
         <Tabs>
           <TabList>
-            <Tab>MLA</Tab>
-            <Tab>APA</Tab>
-            <Tab>Chicago</Tab>
-            <Tab>IEEE</Tab>
-            <Tab>NLM</Tab>
-            <Tab>BibTex</Tab>
+            {citation_options.map(co => (
+              <Tab>{co.name}</Tab>
+            ))}
           </TabList>
 
           <TabPanel>
-            <CitationText>
-              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
-            </CitationText>
+            <CitationText value="..." />
           </TabPanel>
           <TabPanel>
-            <CitationText>
-              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
-            </CitationText>
+          <CitationText value="Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing."/>
           </TabPanel>
           <TabPanel>
-            <CitationText>
-              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
-            </CitationText>
+            <CitationText value="Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing."/>
           </TabPanel>
           <TabPanel>
-            <CitationText>
-              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
-            </CitationText>
+            <CitationText value="Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing."/>
           </TabPanel>
           <TabPanel>
-            <CitationText>
-              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
-            </CitationText>
+            <CitationText value="Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing."/>
           </TabPanel>
           <TabPanel>
-            <CitationText>
-              Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing.
-            </CitationText>
+            <CitationText value="Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing."/>
           </TabPanel>
         </Tabs>
       </section>
