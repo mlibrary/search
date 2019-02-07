@@ -45,7 +45,9 @@ const citation_options = [
 
 class CitationAction extends Component {
   componentDidMount() {
-    cite({}, 'chicago-annotated-bibliography')
+    let citation = cite({}, 'chicago-annotated-bibliography')
+
+    console.log('citation', citation)
   }
 
   render() {
@@ -54,7 +56,7 @@ class CitationAction extends Component {
         <Tabs>
           <TabList>
             {citation_options.map(co => (
-              <Tab>{co.name}</Tab>
+              <Tab key={co.name}>{co.name}</Tab>
             ))}
           </TabList>
 
