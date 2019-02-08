@@ -45,9 +45,9 @@ const citation_options = [
 
 class CitationAction extends Component {
   componentDidMount() {
-    let citation = cite({}, 'chicago-annotated-bibliography')
+    //let citation = cite({}, 'chicago-annotated-bibliography')
 
-    console.log('citation', citation)
+   // console.log('citation', citation)
   }
 
   render() {

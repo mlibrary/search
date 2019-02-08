@@ -13,7 +13,7 @@ function cite(items, chosenStyleID) {
     - Profit.
   */
 
-  /*
+  
     // Example code from https://citeproc-js.readthedocs.io/en/latest/deployments.html
 
   var chosenLibraryItems = "https://api.zotero.org/groups/459003/items?format=csljson&limit=8&itemType=journalArticle";
@@ -35,7 +35,7 @@ function cite(items, chosenStyleID) {
     citations[id] = item;
     itemIDs.push(id);
   }
-  */
+  
 
   console.log('itemIDs', itemIDs)
   console.log('citations', citations)
