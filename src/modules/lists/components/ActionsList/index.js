@@ -98,7 +98,12 @@ class ActionsList extends Component {
           </AuthenticationRequired>
         )}
         
-        {active.action === 'citation' && (<CitationAction action={active}  {...this.props} />)}
+        {active.action === 'citation' && (
+          <CitationAction
+            action={active}
+            {...this.props}
+          />
+        )}
         {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
       </React.Fragment>
     )

@@ -3,6 +3,10 @@ import { Tabs, TabList, Tab, TabPanel } from '@umich-lib/tabs'
 import {
   cite
 } from '../../../citations'
+import { Modal } from '../../../reusable'
+import { colors } from '@umich-lib/styles'
+import Heading from '@umich-lib/heading'
+import Button from '@umich-lib/button'
 
 class CitationText extends React.Component {
   render() {
@@ -44,42 +48,89 @@ const citation_options = [
 ]
 
 class CitationAction extends Component {
-  componentDidMount() {
-    //let citation = cite({}, 'chicago-annotated-bibliography')
+  state = {
+    modalIsOpen: false
+  }
 
-   // console.log('citation', citation)
+  handleCloseModal = () => {
+    this.setState({ modalIsOpen: false })
+
+    // Unselects the citation button from the actions lists.
+    this.props.setActive(undefined)
+  }
+
+  handleOpenModal = () => {
+    this.setState({ modalIsOpen: true })
+  }
+
+  componentDidMount() {
+    let citation = cite({}, 'chicago-annotated-bibliography')
+
+    this.handleOpenModal();
+  }
+
+  handleCopyToClipboard() {
+    
   }
 
   render() {
-    return (
-      <section className="lists-action y-spacing">
-        <Tabs>
-          <TabList>
-            {citation_options.map(co => (
-              <Tab key={co.name}>{co.name}</Tab>
-            ))}
-          </TabList>
+    const value="Citation not available yet. This text is a placeholder."
 
-          <TabPanel>
-            <CitationText value="..." />
-          </TabPanel>
-          <TabPanel>
-          <CitationText value="Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing."/>
-          </TabPanel>
-          <TabPanel>
-            <CitationText value="Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing."/>
-          </TabPanel>
-          <TabPanel>
-            <CitationText value="Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing."/>
-          </TabPanel>
-          <TabPanel>
-            <CitationText value="Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing."/>
-          </TabPanel>
-          <TabPanel>
-            <CitationText value="Jacques, G., Le Treut, H. (2005). Climate change. Paris: UNESCO Publishing."/>
-          </TabPanel>
-        </Tabs>
-      </section>
+    return (
+      <div style={{
+        background: colors.grey[100]
+      }}>
+        <StyledModal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.handleCloseModal}
+          className={this.props.className}
+        >
+          <Heading
+            size="medium"
+            level={2}
+            style={{ marginTop: '0' }}
+          >Select a citation format</Heading>
+
+          <Tabs>
+            <TabList>
+              {citation_options.map(co => (
+                <Tab key={co.name}>{co.name}</Tab>
+              ))}
+            </TabList>
+
+            <TabPanel>
+              <CitationText value={value} />
+            </TabPanel>
+            <TabPanel>
+              <CitationText value={value}/>
+            </TabPanel>
+            <TabPanel>
+              <CitationText value={value}/>
+            </TabPanel>
+            <TabPanel>
+              <CitationText value={value}/>
+            </TabPanel>
+            <TabPanel>
+              <CitationText value={value}/>
+            </TabPanel>
+            <TabPanel>
+              <CitationText value={value}/>
+            </TabPanel>
+          </Tabs>
+
+          <div className="x-spacing" style={{
+            marginTop: '0.5rem'
+          }}>
+            <Button
+              onSubmit={this.handleCopyToClipboard}
+            >Copy to clipboard</Button>
+            <Button
+              kind="secondary"
+              onClick={this.handleCloseModal}
+            >Close</Button>
+          </div>
+        </StyledModal>
+      </div>
     )
   }
 }
