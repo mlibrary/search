@@ -8,9 +8,8 @@ function cite(items, chosenStyleID) {
     - Store select CSLs locally. Not from github endpoint.
     - Store locals locally. Not from github endpoint.
   */
-
   
-    // Example code from https://citeproc-js.readthedocs.io/en/latest/deployments.html
+  // Example code from https://citeproc-js.readthedocs.io/en/latest/deployments.html
 
   var chosenLibraryItems = "https://api.zotero.org/groups/459003/items?format=csljson&limit=8&itemType=journalArticle";
 

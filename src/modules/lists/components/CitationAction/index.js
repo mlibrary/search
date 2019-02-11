@@ -80,7 +80,7 @@ class CitationAction extends Component {
       <div style={{
         background: colors.grey[100]
       }}>
-        <StyledModal
+        <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.handleCloseModal}
           className={this.props.className}
@@ -129,7 +129,7 @@ class CitationAction extends Component {
               onClick={this.handleCloseModal}
             >Close</Button>
           </div>
-        </StyledModal>
+        </Modal>
       </div>
     )
   }
