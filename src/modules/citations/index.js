@@ -5,12 +5,8 @@ function cite(items, chosenStyleID) {
     // TODO:
 
     - Transform items (aka records) into CSL JSON format. The objects need to be reorganized for keyed access. We also need an array of the keys. And store the keyed citations as `citations`, and the array of IDs as `itemIDs`.
-
     - Store select CSLs locally. Not from github endpoint.
-
     - Store locals locally. Not from github endpoint.
-
-    - Profit.
   */
 
   
@@ -37,8 +33,8 @@ function cite(items, chosenStyleID) {
   }
   
 
-  console.log('itemIDs', itemIDs)
-  console.log('citations', citations)
+  //console.log('itemIDs', itemIDs)
+  //console.log('citations', citations)
 
   let citeprocSys = {
     retrieveLocale: function (lang){
