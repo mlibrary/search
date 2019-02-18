@@ -101,6 +101,7 @@ const config = {
           'language_note',
           'copyright_status_information',
           'note',
+          'arrangement',
           'copyright',
           'physical_description',
           'playing_time',
