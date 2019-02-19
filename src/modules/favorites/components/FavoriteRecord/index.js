@@ -77,11 +77,11 @@ class FavoriteRecord extends React.Component {
           <FavoriteLogInButton
             small
             href={login.href}
-          >Log in to Favorite</FavoriteLogInButton>
+          >Log in to use Favorites</FavoriteLogInButton>
           <Button
             small
             kind="secondary"
-            aria-label="Dismiss log in to favorite"
+            aria-label="Dismiss log in to use favorite"
             onClick={() => this.setState({ promptLogin: false })}>Close</Button>
         </div>
       )
