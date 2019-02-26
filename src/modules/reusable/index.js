@@ -4,7 +4,7 @@ import Tag from './components/Tag'
 import Modal from './components/Modal'
 import Breadcrumb from './components/Breadcrumb'
 import Pagination from './components/Pagination'
-
+import ContextProvider from './components/ContextProvider'
 
 export {
   Alert,
@@ -12,5 +12,6 @@ export {
   Tag,
   Modal,
   Breadcrumb,
-  Pagination
+  Pagination,
+  ContextProvider
 }
