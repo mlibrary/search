@@ -76,6 +76,7 @@ class RecordResourceAccess extends React.Component {
             <div
               className="resource-access-container"
               onClick={(e) => this.handleAnalytics(e, data)}
+              key={`datastoreUid-${record.uid}`}
             >
               {ra.map((r, i) => (
                 <ResourceAccess
