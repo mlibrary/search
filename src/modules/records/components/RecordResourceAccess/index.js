@@ -37,7 +37,7 @@ class RecordResourceAccess extends React.Component {
 
     if (ra) {
       return (
-        <div className="resource-access-container">
+        <div className="resource-access-container" key={`datastoreUid-${record.uid}`}>
           {ra.map((r, i) => (
             <ResourceAccess
               key={i}
