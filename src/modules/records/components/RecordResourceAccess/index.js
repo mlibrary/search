@@ -1,22 +1,48 @@
 import React from 'react'
 import ResourceAccess from '@umich-lib/resource-access'
 import { Link } from 'react-router-dom'
+import { ContextProvider } from '../../../reusable'
+import ReactGA from 'react-ga'
 
 function RenderAnchor({ data }) {
-  const s = document.location.search
-
-  if (data.to.action === 'get-this') {
-    return (
-      <Link to={`/catalog/record/${data.to.record}/get-this/${data.to.barcode}${s}`}>{data.text}</Link>
-    )
-  }
+  /*
+    Rendered Anchors go to an internal Get This page.
+  */
+  let to = `/catalog/record/${data.to.record}/get-this/${data.to.barcode}`
+    + `${document.location.search}`
 
   return (
-    <Link to={`/catalog/record/${data.to.record}${s}`}>{data.text}</Link>
+    <Link
+      to={to}
+    >
+      {data.text}
+    </Link>
   )
 }
 
 class RecordResourceAccess extends React.Component {
+  handleAnalytics = (e, data) => {
+    const target = e.target
+    /*
+      We only want to track anchor tags / links clicked.
+
+      Typically you should aboid using dom APIs (tagName) like
+      this with React, but in this case it makes easy to
+      implement analytics. Maybe the "preferred" way is to use
+      React refs.
+    */
+    if (target.tagName === 'A') {
+      // i.e. "Get this Catalog Medium"
+      const label = `${e.target.innerText} ${data.datastore.name} ${data.recordViewType}`
+
+      ReactGA.event({
+        action: 'Click',
+        category: 'Resource Access',
+        label
+      })
+    }
+  }
+
   render() {
     const {
       record,
@@ -36,25 +62,39 @@ class RecordResourceAccess extends React.Component {
     }
 
     if (ra) {
+      /*
+        ContextProvider adds in the active datastore
+        and the record view type (medium or full).
+
+        Use onClick on parent element to avoid modifying
+        the ResourceAcess component to be concerned about
+        where it is used.
+      */
       return (
-        <div className="resource-access-container" key={`datastoreUid-${record.uid}`}>
-          {ra.map((r, i) => (
-            <ResourceAccess
-              key={i}
-              renderAnchor={(data) => (
-                <RenderAnchor
-                  data={data}
-                  record={record}
+        <ContextProvider
+          render={data => (
+            <div
+              className="resource-access-container"
+              onClick={(e) => this.handleAnalytics(e, data)}
+              key={`datastoreUid-${record.uid}`}
+            >
+              {ra.map((r, i) => (
+                <ResourceAccess
+                  key={i}
+                  renderAnchor={(data) => (
+                    <RenderAnchor
+                      data={data}
+                      record={record}
+                    />
+                  )}
+                  {...r}
                 />
-              )}
-              {...r}
-            />
-          ))}
-        </div>
+              ))}
+            </div>
+          )}
+        />
       )
     }
-
-    return null
   }
 }
 
