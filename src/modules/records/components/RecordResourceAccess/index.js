@@ -70,6 +70,7 @@ class RecordResourceAccess extends React.Component {
         the ResourceAcess component to be concerned about
         where it is used.
       */
+
       return (
         <ContextProvider
           render={data => (
