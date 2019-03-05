@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { Tabs, TabList, Tab, TabPanel } from '@umich-lib/tabs'
-import {
-  cite
-} from '../../../citations'
 import { Modal } from '../../../reusable'
 import { colors } from '@umich-lib/styles'
 import Heading from '@umich-lib/heading'
@@ -68,17 +65,21 @@ class CitationAction extends Component {
       datastore,
       record
     } = this.props
+    
 
     // If a record is passed in as a prop, then that means it's a full record page.
     // If not, then it's a list view.
     // TOOD: - Maybe get this information from the ContextProvider component.
     if (!record) {
       // Full record view
+
+      /*
       const recordsToCite = [
         { recordUid: record.uid, datastoreUid: datastore.uid }
       ]
+      */
   
-      let citations = cite(recordsToCite)
+      //let citations = cite(recordsToCite)
 
       /*
         TODO
@@ -95,10 +96,6 @@ class CitationAction extends Component {
     //console.log('citations', citations)
 
     this.handleOpenModal();
-  }
-
-  handleCopyToClipboard() {
-    
   }
 
   render() {

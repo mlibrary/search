@@ -21,7 +21,7 @@ function cite(records, chosenStyleID) {
 
   var chosenLibraryItems = "https://api.zotero.org/groups/459003/items?format=csljson&limit=8&itemType=journalArticle";
 
-  var chosenStyleID = "chicago-fullnote-bibliography";
+  //var chosenStyleID = "chicago-fullnote-bibliography";
 
   var xhr = new XMLHttpRequest();
   xhr.open('GET', chosenLibraryItems, false);
