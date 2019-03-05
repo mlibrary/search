@@ -259,6 +259,7 @@ const config = {
           'mobile_url',
           'subject',
           'help',
+          'more_information',
           'platform',
           'academic_discipline'
         ],
