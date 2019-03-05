@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Icon
-} from '../../../core'
+import Icon from '@umich-lib/icon'
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
 import FavoriteAction from '../FavoriteAction'
 import PermalinkAction from '../PermalinkAction'
+import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
 
 class ActionsList extends Component {
@@ -23,31 +22,39 @@ class ActionsList extends Component {
         uid: 'text',
         action: 'text',
         name: 'Text',
-        icon: 'text-message'
+        icon: 'chat'
       },
+      /*
+      {
+        uid: 'citation',
+        action: 'citation',
+        name: 'Citation',
+        icon: 'format_quote'
+      },
+      */
       {
         uid: 'zotero',
         action: 'file',
         name: 'Zotero',
-        icon: 'zotero'
+        icon: 'insert_drive_file'
       },
       {
         uid: 'endnote',
         action: 'file',
         name: 'Endnote',
-        icon: 'endnote'
+        icon: 'insert_drive_file'
       },
       {
         uid: 'ris',
         action: 'file',
         name: 'Export RIS',
-        icon: 'export-ris'
+        icon: 'insert_drive_file'
       },
       {
         uid: 'favorite',
         action: 'favorite',
         name: 'Favorite',
-        icon: 'star'
+        icon: 'star_border'
       },
       {
         uid: 'permalink',
@@ -103,6 +110,12 @@ class ActionsList extends Component {
           <PermalinkAction action={active} {...this.props} />
         )}
         
+        {active.action === 'citation' && (
+          <CitationAction
+            action={active}
+            {...this.props}
+          />
+        )}
         {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
       </React.Fragment>
     )
@@ -127,7 +140,18 @@ class ActionsList extends Component {
             const activeClassName = isActive ? 'lists-action-button--active' : ''
             return (
               <li key={action.uid}>
-                <button className={`button-link lists-action-button ${activeClassName}`} onClick={() => this.handleClick(action)} aria-pressed={isActive}><Icon name={action.icon} />{action.name}</button>
+                <button
+                  className={`button-link lists-action-button ${activeClassName}`}
+                  onClick={() => this.handleClick(action)}
+                  aria-pressed={isActive}
+                >
+                  <span style={{ opacity: '0.75' }}>
+                    {action.icon_d ?
+                      <Icon size={20} d={action.icon_d} /> :
+                      <Icon size={20} icon={action.icon} />
+                    }
+                  </span>{action.name}
+                </button>
               </li>
             )
           })}

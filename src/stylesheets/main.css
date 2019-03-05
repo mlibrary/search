@@ -2346,7 +2346,7 @@ input.get-this-field-input-year {
 
 .lists-action-button {
   border: none;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
   border: solid 1px transparent;
   border-radius: 4px;
   line-height: 1.2;
@@ -2383,6 +2383,8 @@ input.get-this-field-input-year {
 .lists-action {
   padding: 0;
   margin-top: 1rem; }
+  .lists-action .react-tabs__tab--selected {
+    border-bottom-color: #FAFAFA; }
 
 .full-record__actions-container {
   background: #FAFAFA;
