@@ -1,6 +1,7 @@
 import React from 'react';
 
 class Feedback extends React.Component {
+  /*
   state = {
     form: false
   }
@@ -55,6 +56,7 @@ class Feedback extends React.Component {
       )
     }
   }
+  */
 
   renderQualtricsLink = () => {
     return (

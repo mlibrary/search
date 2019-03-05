@@ -15,7 +15,6 @@ import {
   stringifySearchQueryForURL,
   parseField,
   getFormatIconName,
-  parseSearchQueryStringToBooleanFields,
   isFieldASearchLink,
   requestGetThis
 } from './utils'
@@ -46,7 +45,6 @@ export {
   stringifySearchQueryForURL,
   parseField,
   getFormatIconName,
-  parseSearchQueryStringToBooleanFields,
   isFieldASearchLink,
   requestGetThis,
   isDatastoreBrowseable,
