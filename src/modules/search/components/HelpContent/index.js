@@ -124,8 +124,8 @@ class HelpContent extends React.Component {
               <li><b>Text</b> will let logged-in users send a text with the list of items to a cell phone in the United States or Canada</li>
               <li><b>Export RIS</b> will download a file to your computer that can be imported into many citation management tools</li>
               <li><b>Endnote</b> will download a file to your computer that can be imported into the Endnote citation management software</li>
-              <li><b>Refworks</b> will download a file to your computer that can be imported into the Refworks citation management software</li>
               <li><b>Zotero</b> will download a file to your computer that can be imported into the Zotero citation management software</li>
+              <li><b>Favorite</b> will add the selected item(s) to your Library Favorites account.</li>
             </ul>
 
             <p>When you are viewing a single item’s full details (after you have clicked an item title in any search result), you have access to the same list of export options.</p>
