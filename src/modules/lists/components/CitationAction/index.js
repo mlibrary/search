@@ -64,7 +64,35 @@ class CitationAction extends Component {
   }
 
   componentDidMount() {
-    let citation = cite({}, 'chicago-annotated-bibliography')
+    const {
+      datastore,
+      record
+    } = this.props
+
+    // If a record is passed in as a prop, then that means it's a full record page.
+    // If not, then it's a list view.
+    // TOOD: - Maybe get this information from the ContextProvider component.
+    if (!record) {
+      // Full record view
+      const recordsToCite = [
+        { recordUid: record.uid, datastoreUid: datastore.uid }
+      ]
+  
+      let citations = cite(recordsToCite)
+
+      /*
+        TODO
+
+        - [ ] Add these citations to component state.
+      */
+
+    } else {
+      // List view
+
+      // TODO
+    }
+
+    //console.log('citations', citations)
 
     this.handleOpenModal();
   }

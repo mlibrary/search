@@ -1,6 +1,14 @@
 import CSL from 'citeproc'
+import { requestRecordCSL } from './utils'
 
-function cite(items, chosenStyleID) {
+function cite(records, chosenStyleID) {
+  console.log('requestRecordCSL')
+  console.log('records', records)
+
+  const record_csls = records.map(record => requestRecordCSL({ ...record }))
+
+  console.log('record_csls', record_csls)
+
   /*
     // TODO:
 
@@ -30,7 +38,6 @@ function cite(items, chosenStyleID) {
     citations[id] = item;
     itemIDs.push(id);
   }
-  
 
   //console.log('itemIDs', itemIDs)
   //console.log('citations', citations)
