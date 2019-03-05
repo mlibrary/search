@@ -17,7 +17,7 @@ class AuthenticationRequired extends Component {
     const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
 
     return (
-      <a href={loginUrl} className="button u-margin-top-1"><b>Log in</b> to continue</a>
+      <a href={loginUrl} className="button"><b>Log in</b> to continue</a>
     )
   }
 }
