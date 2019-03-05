@@ -173,6 +173,21 @@ class RecordField extends React.Component {
       )
     }
 
+    if (field.uid === 'more_information') {
+      return (
+        <div className={uniqueFieldClassName}>
+          <dt className="record-field-name">{field.value.term}</dt>
+          <dd className="record-field-value">
+            {field.value.description.map((d, i) => (
+              <div className="record-field-value-item">
+                <a className="record-field-value-link" href={d.href} key={i + d}>{d.text}</a>
+              </div>
+            ))}
+          </dd>
+        </div>
+      )
+    }
+
     return (
       <div className={uniqueFieldClassName}>
         <dt className="record-field-name">{field.name}</dt>
