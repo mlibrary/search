@@ -46,7 +46,7 @@ class RecordListContainer extends React.Component {
               <li>Check your spelling.</li>
               <li>Try more general keywords.</li>
               <li>Try different keywords that mean the same thing.</li>
-              <li>Use Ask a Librarian and we will help you find what you're looking for.</li>
+              <li>Use <a href="https://www.lib.umich.edu/ask-librarian" className="underline">Ask a Librarian</a> and we will help you find what you're looking for.</li>
             </ul>
           </div>
         </div>
