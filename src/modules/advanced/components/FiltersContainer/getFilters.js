@@ -2,7 +2,7 @@ import { _ } from 'underscore'
 import store from '../../../../store'
 
 const getCatalogNarrowSearchToOptions = (data, activeFilters, institution) => {
-  this.getActiveFilter = ({ uid, defaultFilter, filters }) => {
+  function getActiveFilter({ uid, defaultFilter, filters }) {
     if (activeFilters && activeFilters[uid]) {
       return activeFilters[uid][0]
     }
@@ -33,7 +33,7 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters, institution) => {
   // institution
   const institutionData = _.findWhere(data.filters, { uid: 'institution' })
   const institutionFilters = institutionData.values.map(value => value.label)
-  const institutionActiveFilter = this.getActiveFilter({
+  const institutionActiveFilter = getActiveFilter({
     uid: 'institution',
     defaultFilter: library,
     filters: institutionFilters
@@ -49,7 +49,7 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters, institution) => {
   const locationData = _.findWhere(institutionData.values, { label: institutionActiveFilter })
   const locationDefaultFilter = _.findWhere(data.defaults, { uid: 'location' })
   const locationFilters = locationData.values.map(value => value.label)
-  const locationActiveFilter = this.getActiveFilter({
+  const locationActiveFilter = getActiveFilter({
     uid: 'location',
     defaultFilter: locationDefaultFilter.value,
     filters: locationFilters
@@ -65,7 +65,7 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters, institution) => {
   const collectionData = _.findWhere(locationData.values, { label: locationActiveFilter })
   const collectionDefaultFilter = _.findWhere(data.defaults, { uid: 'collection' })
   const collectionFilters = collectionData.values.map(value => value.label)
-  const collectionActiveFilter = this.getActiveFilter({
+  const collectionActiveFilter = getActiveFilter({
     uid: 'collection',
     defaultFilter: collectionDefaultFilter.value,
     filters: collectionFilters
