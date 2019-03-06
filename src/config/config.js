@@ -258,7 +258,6 @@ const config = {
           'mobile_available',
           'mobile_url',
           'subject',
-          'help',
           'more_information',
           'platform',
           'academic_discipline'
