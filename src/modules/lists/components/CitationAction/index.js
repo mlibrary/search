@@ -4,6 +4,7 @@ import { Modal } from '../../../reusable'
 import { colors } from '@umich-lib/styles'
 import Heading from '@umich-lib/heading'
 import Button from '@umich-lib/button'
+import { cite } from '../../../citations'
 
 class CitationText extends React.Component {
   render() {
@@ -63,23 +64,21 @@ class CitationAction extends Component {
   componentDidMount() {
     const {
       datastore,
-      record
+      record,
+      recordViewType
     } = this.props
     
+    console.log('props', this.props)
 
     // If a record is passed in as a prop, then that means it's a full record page.
     // If not, then it's a list view.
     // TOOD: - Maybe get this information from the ContextProvider component.
-    if (!record) {
-      // Full record view
-
-      /*
+    if (recordViewType === 'Full') {
       const recordsToCite = [
         { recordUid: record.uid, datastoreUid: datastore.uid }
       ]
-      */
   
-      //let citations = cite(recordsToCite)
+      let citations = cite(recordsToCite, 'modern-language-association')
 
       /*
         TODO
