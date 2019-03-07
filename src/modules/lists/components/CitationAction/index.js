@@ -26,6 +26,7 @@ class CitationText extends React.Component {
 
 const citation_options = [
   {
+    id: 'apa-5th-edition',
     name: 'MLA'
   },
   {
@@ -67,8 +68,6 @@ class CitationAction extends Component {
       record,
       recordViewType
     } = this.props
-    
-    console.log('props', this.props)
 
     // If a record is passed in as a prop, then that means it's a full record page.
     // If not, then it's a list view.
@@ -78,7 +77,7 @@ class CitationAction extends Component {
         { recordUid: record.uid, datastoreUid: datastore.uid }
       ]
   
-      let citations = cite(recordsToCite, 'modern-language-association')
+      let citations = cite(recordsToCite, 'apa-5th-edition')
 
       /*
         TODO

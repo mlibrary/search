@@ -1,5 +1,8 @@
 import CSL from 'citeproc'
-import { requestRecordCSL } from './utils'
+import {
+  requestRecordCSL,
+  getStyle
+} from './utils'
 
 function cite(records, chosenStyleID) {
   /*
@@ -43,10 +46,7 @@ function cite(records, chosenStyleID) {
     };
   
     function getProcessor(styleID) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'https://raw.githubusercontent.com/citation-style-language/styles/master/' + styleID + '.csl', false);
-      xhr.send(null);
-      var styleAsText = xhr.responseText;
+      var styleAsText = getStyle(styleID)
       var citeproc = new CSL.Engine(citeprocSys, styleAsText);
       return citeproc;
     };
