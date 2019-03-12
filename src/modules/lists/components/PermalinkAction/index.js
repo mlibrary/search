@@ -4,7 +4,7 @@ import { colors } from '@umich-lib/styles'
 import Heading from '@umich-lib/heading'
 import Button from '@umich-lib/button'
 import TextInput from '@umich-lib/text-input'
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import * as clipboard from 'clipboard-polyfill';
 
 class CitationAction extends Component {
   state = {
@@ -32,11 +32,19 @@ class CitationAction extends Component {
     })
   }
 
+  handleCopy = () => {
+    var dt = new clipboard.DT();
+    dt.setData("text/plain", this.state.permalink);
+    clipboard.write(dt);
+
+    this.handleCopied()
+  }
+
   handleCopied = () => {
     this.handleCloseModal()
     this.props.setAlert({
       intent: 'success',
-      text: 'Link successfuly copied to clipboard!'
+      text: 'Link copied to clipboard!'
     })
   }
 
@@ -77,14 +85,9 @@ class CitationAction extends Component {
             <div className="x-spacing" style={{
                 marginTop: '0.5rem'
               }}>
-              <CopyToClipboard
-                text={this.state.permalink}
-                onCopy={this.handleCopied}
-              >
-                <Button
-                  onSubmit={this.handleCloseModal}
-                >Copy to clipboard</Button>
-              </CopyToClipboard>
+              <Button
+                onClick={this.handleCopy}
+              >Copy to clipboard</Button>
               
               <Button
                 kind="secondary"
