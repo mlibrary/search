@@ -59,6 +59,8 @@ function cite(records, chosenStyleID, cb) {
       citeproc.updateItems(itemIDs);
       var result = citeproc.makeBibliography();
 
+      console.log('result', result)
+
       return result[1].join('\n');
     }
 
