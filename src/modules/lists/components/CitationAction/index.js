@@ -4,6 +4,7 @@ import { Modal } from '../../../reusable'
 import { colors } from '@umich-lib/styles'
 import Heading from '@umich-lib/heading'
 import Button from '@umich-lib/button'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { cite } from '../../../citations'
 
 class CitationText extends React.Component {
@@ -14,7 +15,8 @@ class CitationText extends React.Component {
           marginTop: '0.5rem',
           marginBottom: '0',
           width: '100%',
-          padding: '0.5rem 0.75rem'
+          padding: '0.5rem 0.75rem',
+          minHeight: '7rem'
         }}
         value={this.props.value}
         onFocus={(e) => e.target.select()}
@@ -26,22 +28,27 @@ class CitationText extends React.Component {
 
 const citation_options = [
   {
-    id: 'apa-5th-edition',
+    id: 'modern-language-association',
     name: 'MLA'
   },
   {
+    id: 'apa-5th-edition',
     name: 'APA'
   },
   {
+    id: 'chicago-note-bibliography-16th-edition',
     name: 'Chicago'
   },
   {
+    id: 'ieee',
     name: 'IEEE'
   },
   {
+    id: 'national-library-of-medicine-grant-proposals',
     name: 'NLM'
   },
   {
+    id: 'bibtex',
     name: 'BibTex'
   }
 ]
@@ -62,6 +69,13 @@ class CitationAction extends Component {
     this.setState({ modalIsOpen: true })
   }
 
+  handleCitationsData = (chosenStyleID, data) => {
+    this.setState({
+      ...this.state,
+      [chosenStyleID]: data
+    })
+  }
+
   componentDidMount() {
     const {
       datastore,
@@ -76,15 +90,8 @@ class CitationAction extends Component {
       const recordsToCite = [
         { recordUid: record.uid, datastoreUid: datastore.uid }
       ]
-  
-      let citations = cite(recordsToCite, 'apa-5th-edition')
 
-      /*
-        TODO
-
-        - [ ] Add these citations to component state.
-      */
-
+      citation_options.forEach(co => cite(recordsToCite, co.id, this.handleCitationsData))
     } else {
       // List view
 
@@ -97,8 +104,6 @@ class CitationAction extends Component {
   }
 
   render() {
-    const value="Citation not available yet. This text is a placeholder."
-
     return (
       <div style={{
         background: colors.grey[100]
@@ -121,37 +126,32 @@ class CitationAction extends Component {
               ))}
             </TabList>
 
-            <TabPanel>
-              <CitationText value={value} />
-            </TabPanel>
-            <TabPanel>
-              <CitationText value={value}/>
-            </TabPanel>
-            <TabPanel>
-              <CitationText value={value}/>
-            </TabPanel>
-            <TabPanel>
-              <CitationText value={value}/>
-            </TabPanel>
-            <TabPanel>
-              <CitationText value={value}/>
-            </TabPanel>
-            <TabPanel>
-              <CitationText value={value}/>
-            </TabPanel>
+            {citation_options.map(co => (
+              <TabPanel>
+                {this.state[co.id] ? (
+                  <React.Fragment>
+                    <CitationText value={this.state[co.id]} />
+                    <div className="x-spacing" style={{
+                      marginTop: '0.5rem'
+                    }}>
+                      <CopyToClipboard
+                        text={this.state[co.id]}
+                        onCopy={this.handleCloseModal}
+                      >
+                        <Button>Copy to clipboard</Button>
+                      </CopyToClipboard>
+                      <Button
+                        kind="secondary"
+                        onClick={this.handleCloseModal}
+                      >Close</Button>
+                    </div>
+                  </React.Fragment>
+                ) : (
+                  <p>Generating citations ...</p>
+                )}
+              </TabPanel>
+            ))}
           </Tabs>
-
-          <div className="x-spacing" style={{
-            marginTop: '0.5rem'
-          }}>
-            <Button
-              onSubmit={this.handleCopyToClipboard}
-            >Copy to clipboard</Button>
-            <Button
-              kind="secondary"
-              onClick={this.handleCloseModal}
-            >Close</Button>
-          </div>
         </Modal>
       </div>
     )

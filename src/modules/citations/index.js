@@ -4,7 +4,7 @@ import {
   getStyle
 } from './utils'
 
-function cite(records, chosenStyleID) {
+function cite(records, chosenStyleID, cb) {
   /*
     Turn records into this shape:
     {
@@ -30,13 +30,15 @@ function cite(records, chosenStyleID) {
     requestRecordCSL({ ...record, callback })
   })
 
-  function proceed(citations) {
+  function proceed(citations) {    
     const itemIDs = Object.keys(citations)
 
     let citeprocSys = {
       retrieveLocale: function (lang){
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://raw.githubusercontent.com/Juris-M/citeproc-js-docs/master/locales-' + lang + '.xml', false);
+        const path = require('./locales-en-US.xml')
+        xhr.open('GET', path, false);
+        
         xhr.send(null);
         return xhr.responseText;
       },
@@ -48,6 +50,7 @@ function cite(records, chosenStyleID) {
     function getProcessor(styleID) {
       var styleAsText = getStyle(styleID)
       var citeproc = new CSL.Engine(citeprocSys, styleAsText);
+
       return citeproc;
     };
   
@@ -55,12 +58,13 @@ function cite(records, chosenStyleID) {
       var citeproc = getProcessor(chosenStyleID);
       citeproc.updateItems(itemIDs);
       var result = citeproc.makeBibliography();
+
       return result[1].join('\n');
     }
 
-    console.log('output', processorOutput())
+    const output = processorOutput()
   
-    //return processorOutput()
+    cb(chosenStyleID, output) // callback
   }
 }
 
