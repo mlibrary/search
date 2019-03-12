@@ -7,20 +7,20 @@ import Button from '@umich-lib/button'
 import * as clipboard from 'clipboard-polyfill';
 import { cite } from '../../../citations'
 
-class CitationText extends React.Component {
+class CitationArea extends React.Component {
   render() {
     return (
-      <textarea
+      <div
         style={{
-          marginTop: '0.5rem',
-          marginBottom: '0',
-          width: '100%',
-          padding: '0.5rem 0.75rem',
-          minHeight: '7rem'
+          border: `solid 1px rgba(0, 0, 0, 0.3)`,
+          boxShadow: `inset 0 1px 4px rgba(0, 0, 0, 0.08)`,
+          borderRadius: `4px`,
+          padding: `0.5rem 0.75rem`,
+          marginTop: '1rem'
         }}
-        value={this.props.value}
-        onFocus={(e) => e.target.select()}
-        readOnly
+        className="y-spacing"
+        contenteditable="true"
+        {...this.props}
       />
     )
   }
@@ -86,7 +86,7 @@ class CitationAction extends Component {
   handleCitationsData = (chosenStyleID, data) => {
     this.setState({
       ...this.state,
-      [chosenStyleID]: data.replace(/<\/?[^>]+(>|$)/g, "") // Remove HTML tags
+      [chosenStyleID]: data // Remove HTML tags
     })
   }
 
@@ -144,20 +144,16 @@ class CitationAction extends Component {
             {citation_options.map(co => (
               <TabPanel>
                 {this.state[co.id] ? (
-                  <React.Fragment>
-                    <CitationText value={this.state[co.id]} />
-                    <div className="x-spacing" style={{
-                      marginTop: '0.5rem'
-                    }}>
-                      <Button onClick={() => this.handleCopyToClipboard(co.id)}>Copy to clipboard</Button>
-                      <Button
-                        kind="secondary"
-                        onClick={this.handleCloseModal}
-                      >Close</Button>
-                    </div>
-                  </React.Fragment>
+                  <div className="y-spacing">
+                    <CitationArea
+                      dangerouslySetInnerHTML={{
+                        __html: this.state[co.id]
+                      }}
+                    />
+                    <Button kind="secondary" onClick={this.handleCloseModal}>Close</Button>
+                  </div>
                 ) : (
-                  <p>Generating citations ...</p>
+                  <p>Loading ...</p>
                 )}
               </TabPanel>
             ))}
