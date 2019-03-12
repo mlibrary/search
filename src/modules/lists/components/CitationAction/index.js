@@ -60,11 +60,6 @@ class CitationAction extends Component {
 
   handleCloseModal = () => {
     this.setState({ modalIsOpen: false })
-    this.props.setAlert({
-      intent: 'success',
-      text: 'Citation copied to clipboard!'
-    })
-
     // Unselects the citation button from the actions lists.
     this.props.setActive(undefined)
   }
@@ -79,6 +74,12 @@ class CitationAction extends Component {
     var dt = new clipboard.DT();
     dt.setData("text/plain", citation);
     clipboard.write(dt);
+
+    this.props.setAlert({
+      intent: 'success',
+      text: 'Citation copied to clipboard!'
+    })
+    
     this.handleCloseModal()
   }
 
