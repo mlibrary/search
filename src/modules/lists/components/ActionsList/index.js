@@ -128,6 +128,7 @@ class ActionsList extends Component {
           {active.action === 'citation' && (
             <CitationAction
               action={active}
+              setAlert={this.setAlert}
               {...data}
               {...this.props}
             />
