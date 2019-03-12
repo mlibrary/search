@@ -4,7 +4,7 @@ import { Modal } from '../../../reusable'
 import { colors } from '@umich-lib/styles'
 import Heading from '@umich-lib/heading'
 import Button from '@umich-lib/button'
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import * as clipboard from 'clipboard-polyfill';
 import { cite } from '../../../citations'
 
 class CitationText extends React.Component {
@@ -69,36 +69,46 @@ class CitationAction extends Component {
     this.setState({ modalIsOpen: true })
   }
 
+  handleCopyToClipboard = (id) => {
+    const citation = this.state[id]
+
+    var dt = new clipboard.DT();
+    dt.setData("text/plain", citation);
+    clipboard.write(dt);
+    this.handleCloseModal()
+  }
+
   handleCitationsData = (chosenStyleID, data) => {
     this.setState({
       ...this.state,
-      [chosenStyleID]: data
+      [chosenStyleID]: data.replace(/<\/?[^>]+(>|$)/g, "") // Remove HTML tags
     })
+  }
+
+  generateCitations = (records) => {
+    citation_options.forEach(co => cite(records, co.id, this.handleCitationsData))
   }
 
   componentDidMount() {
     const {
       datastore,
       record,
-      recordViewType
+      recordViewType,
+      list
     } = this.props
 
-    // If a record is passed in as a prop, then that means it's a full record page.
-    // If not, then it's a list view.
-    // TOOD: - Maybe get this information from the ContextProvider component.
     if (recordViewType === 'Full') {
-      const recordsToCite = [
+      const records = [
         { recordUid: record.uid, datastoreUid: datastore.uid }
       ]
-
-      citation_options.forEach(co => cite(recordsToCite, co.id, this.handleCitationsData))
-    } else {
-      // List view
-
-      // TODO
+      this.generateCitations(records)
+    } else if (recordViewType === 'List' && list && list.length > 0) {
+      const records = list.map(r => ({
+        recordUid: r.uid,
+        datastoreUid: datastore.uid
+      }))
+      this.generateCitations(records)
     }
-
-    //console.log('citations', citations)
 
     this.handleOpenModal();
   }
@@ -134,12 +144,7 @@ class CitationAction extends Component {
                     <div className="x-spacing" style={{
                       marginTop: '0.5rem'
                     }}>
-                      <CopyToClipboard
-                        text={this.state[co.id]}
-                        onCopy={this.handleCloseModal}
-                      >
-                        <Button>Copy to clipboard</Button>
-                      </CopyToClipboard>
+                      <Button onClick={() => this.handleCopyToClipboard(co.id)}>Copy to clipboard</Button>
                       <Button
                         kind="secondary"
                         onClick={this.handleCloseModal}

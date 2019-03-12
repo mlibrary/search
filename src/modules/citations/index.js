@@ -12,9 +12,9 @@ function cite(records, chosenStyleID, cb) {
       ...
     }
   */
-  records.forEach(record => {
-    let csls = {}
+  let csls = {}
 
+  records.forEach(record => {
     function callback(data) {
       csls = {
         ...csls,

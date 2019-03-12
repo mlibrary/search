@@ -31,6 +31,7 @@ function mapStateToProps(state, props) {
   const recordViewType =
       props.match.path === '/:datastoreSlug' ? 'Medium'
     : props.match.path.indexOf('/record/') !== -1 ? 'Full'
+    : props.match.path.indexOf('/list') !== -1 ? 'List'
     : undefined
 
   /*
