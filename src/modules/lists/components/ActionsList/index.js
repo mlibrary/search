@@ -26,14 +26,12 @@ class ActionsList extends Component {
         name: 'Text',
         icon: 'chat'
       },
-      /*
       {
         uid: 'citation',
         action: 'citation',
         name: 'Citation',
         icon: 'format_quote'
       },
-      */
       {
         uid: 'zotero',
         action: 'file',
@@ -102,38 +100,43 @@ class ActionsList extends Component {
     }
 
     return (
-      <React.Fragment>
-        {active.action === 'email' && (
-          <AuthenticationRequired>
-            <EmailAction action={active} {...this.props} />
-          </AuthenticationRequired>
-        )}
-        {active.action === 'text' && (
-          <AuthenticationRequired>
-            <TextAction action={active} {...this.props} />
-          </AuthenticationRequired>
-        )}
-        {active.action === 'favorite' && (
-          <AuthenticationRequired>
-            <FavoriteAction action={active} {...this.props} />
-          </AuthenticationRequired>
-        )}
-        {active.action === 'permalink' && (
-          <PermalinkAction
-            action={active}
-            setAlert={this.setAlert}
-            {...this.props}
-          />
-        )}
-        
-        {active.action === 'citation' && (
-          <CitationAction
-            action={active}
-            {...this.props}
-          />
-        )}
-        {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
-      </React.Fragment>
+      <ContextProvider render={data => (
+        <React.Fragment>
+          {active.action === 'email' && (
+            <AuthenticationRequired>
+              <EmailAction action={active} {...this.props} />
+            </AuthenticationRequired>
+          )}
+          {active.action === 'text' && (
+            <AuthenticationRequired>
+              <TextAction action={active} {...this.props} />
+            </AuthenticationRequired>
+          )}
+          {active.action === 'favorite' && (
+            <AuthenticationRequired>
+              <FavoriteAction action={active} {...this.props} />
+            </AuthenticationRequired>
+          )}
+          {active.action === 'permalink' && (
+            <PermalinkAction
+              action={active}
+              setAlert={this.setAlert}
+              {...this.props}
+            />
+          )}
+          
+          {active.action === 'citation' && (
+            <CitationAction
+              action={active}
+              setAlert={this.setAlert}
+              {...data}
+              {...this.props}
+            />
+          )}
+          {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
+        </React.Fragment>
+        )}>
+      </ContextProvider>
     )
   }
 

@@ -4,20 +4,23 @@ import { Modal } from '../../../reusable'
 import { colors } from '@umich-lib/styles'
 import Heading from '@umich-lib/heading'
 import Button from '@umich-lib/button'
+import * as clipboard from 'clipboard-polyfill';
+import { cite } from '../../../citations'
 
-class CitationText extends React.Component {
+class CitationArea extends React.Component {
   render() {
     return (
-      <textarea
+      <div
         style={{
-          marginTop: '0.5rem',
-          marginBottom: '0',
-          width: '100%',
-          padding: '0.5rem 0.75rem'
+          border: `solid 1px rgba(0, 0, 0, 0.3)`,
+          boxShadow: `inset 0 1px 4px rgba(0, 0, 0, 0.08)`,
+          borderRadius: `4px`,
+          padding: `0.5rem 0.75rem`,
+          marginTop: '1rem'
         }}
-        value={this.props.value}
-        onFocus={(e) => e.target.select()}
-        readOnly
+        className="y-spacing"
+        contenteditable="true"
+        {...this.props}
       />
     )
   }
@@ -25,21 +28,27 @@ class CitationText extends React.Component {
 
 const citation_options = [
   {
+    id: 'modern-language-association',
     name: 'MLA'
   },
   {
+    id: 'apa-5th-edition',
     name: 'APA'
   },
   {
+    id: 'chicago-note-bibliography-16th-edition',
     name: 'Chicago'
   },
   {
+    id: 'ieee',
     name: 'IEEE'
   },
   {
+    id: 'national-library-of-medicine-grant-proposals',
     name: 'NLM'
   },
   {
+    id: 'bibtex',
     name: 'BibTex'
   }
 ]
@@ -51,7 +60,6 @@ class CitationAction extends Component {
 
   handleCloseModal = () => {
     this.setState({ modalIsOpen: false })
-
     // Unselects the citation button from the actions lists.
     this.props.setActive(undefined)
   }
@@ -60,47 +68,57 @@ class CitationAction extends Component {
     this.setState({ modalIsOpen: true })
   }
 
+  handleCopyToClipboard = (id) => {
+    const citation = this.state[id]
+
+    var dt = new clipboard.DT();
+    dt.setData("text/plain", citation);
+    clipboard.write(dt);
+
+    this.props.setAlert({
+      intent: 'success',
+      text: 'Citation copied to clipboard!'
+    })
+    
+    this.handleCloseModal()
+  }
+
+  handleCitationsData = (chosenStyleID, data) => {
+    this.setState({
+      ...this.state,
+      [chosenStyleID]: data // Remove HTML tags
+    })
+  }
+
+  generateCitations = (records) => {
+    citation_options.forEach(co => cite(records, co.id, this.handleCitationsData))
+  }
+
   componentDidMount() {
     const {
       datastore,
-      record
+      record,
+      recordViewType,
+      list
     } = this.props
-    
 
-    // If a record is passed in as a prop, then that means it's a full record page.
-    // If not, then it's a list view.
-    // TOOD: - Maybe get this information from the ContextProvider component.
-    if (!record) {
-      // Full record view
-
-      /*
-      const recordsToCite = [
+    if (recordViewType === 'Full') {
+      const records = [
         { recordUid: record.uid, datastoreUid: datastore.uid }
       ]
-      */
-  
-      //let citations = cite(recordsToCite)
-
-      /*
-        TODO
-
-        - [ ] Add these citations to component state.
-      */
-
-    } else {
-      // List view
-
-      // TODO
+      this.generateCitations(records)
+    } else if (recordViewType === 'List' && list && list.length > 0) {
+      const records = list.map(r => ({
+        recordUid: r.uid,
+        datastoreUid: datastore.uid
+      }))
+      this.generateCitations(records)
     }
-
-    //console.log('citations', citations)
 
     this.handleOpenModal();
   }
 
   render() {
-    const value="Citation not available yet. This text is a placeholder."
-
     return (
       <div style={{
         background: colors.grey[100]
@@ -123,37 +141,23 @@ class CitationAction extends Component {
               ))}
             </TabList>
 
-            <TabPanel>
-              <CitationText value={value} />
-            </TabPanel>
-            <TabPanel>
-              <CitationText value={value}/>
-            </TabPanel>
-            <TabPanel>
-              <CitationText value={value}/>
-            </TabPanel>
-            <TabPanel>
-              <CitationText value={value}/>
-            </TabPanel>
-            <TabPanel>
-              <CitationText value={value}/>
-            </TabPanel>
-            <TabPanel>
-              <CitationText value={value}/>
-            </TabPanel>
+            {citation_options.map(co => (
+              <TabPanel>
+                {this.state[co.id] ? (
+                  <div className="y-spacing">
+                    <CitationArea
+                      dangerouslySetInnerHTML={{
+                        __html: this.state[co.id]
+                      }}
+                    />
+                    <Button kind="secondary" onClick={this.handleCloseModal}>Close</Button>
+                  </div>
+                ) : (
+                  <p>Loading ...</p>
+                )}
+              </TabPanel>
+            ))}
           </Tabs>
-
-          <div className="x-spacing" style={{
-            marginTop: '0.5rem'
-          }}>
-            <Button
-              onSubmit={this.handleCopyToClipboard}
-            >Copy to clipboard</Button>
-            <Button
-              kind="secondary"
-              onClick={this.handleCloseModal}
-            >Close</Button>
-          </div>
         </Modal>
       </div>
     )
