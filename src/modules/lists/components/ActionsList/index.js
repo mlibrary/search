@@ -26,12 +26,14 @@ class ActionsList extends Component {
         name: 'Text',
         icon: 'chat'
       },
+      /*
       {
         uid: 'citation',
         action: 'citation',
         name: 'Citation',
         icon: 'format_quote'
       },
+      */
       {
         uid: 'zotero',
         action: 'file',
