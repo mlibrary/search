@@ -331,13 +331,12 @@ const runSearch = () => {
   } else {
     fieldTree = Pride.FieldTree.parseField('all_fields', query)
   }
-
   // Inject library aka institution filter with facets
-  // if the datastore is Mirlyn.
-  if (state.datastores.active === 'mirlyn' && state.institution.active) {
+  // if the datastore is Mirlyn or Everything which uses Mirlyn.
+  if (state.datastores.active === 'mirlyn' || state.datastores.active === 'everything') {
     facets = {
       ...facets,
-      institution: state.institution.active
+      institution: state.institution.active || state.institution.defaultInstitution
     }
   }
 
@@ -348,7 +347,6 @@ const runSearch = () => {
     sort,
     count: 10
   }
-
   const datastores = state.datastores.datastores
 
   datastores.forEach(datastore => {
