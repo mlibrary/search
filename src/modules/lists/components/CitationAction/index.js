@@ -21,7 +21,9 @@ class CitationArea extends React.Component {
           boxShadow: `inset 0 1px 4px rgba(0, 0, 0, 0.08)`,
           borderRadius: `4px`,
           padding: `0.5rem 0.75rem`,
-          marginTop: '1rem'
+          marginTop: '1rem',
+          overflowY: 'scroll',
+          maxHeight: '40vh'
         }}
         className="y-spacing"
         contenteditable="true"
