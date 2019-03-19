@@ -10,6 +10,7 @@ import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
 import { ContextProvider } from '../../../reusable'
 import Alert from '@umich-lib/alert'
+import ReactGA from 'react-ga'
 
 class ActionsList extends Component {
   state = {
@@ -72,7 +73,7 @@ class ActionsList extends Component {
     })
   }
 
-  handleClick = (type) => {
+  handleClick = (type, data) => {
     const {
       active,
       setActive
@@ -84,6 +85,12 @@ class ActionsList extends Component {
       setActive(undefined)
     } else {
       setActive(type)
+
+      ReactGA.event({
+        action: 'Click',
+        category: 'Actions',
+        label: `Activated ${type.name} from ${data.recordViewType}`
+      })
     }
 
     // also reset Alert
@@ -167,7 +174,7 @@ class ActionsList extends Component {
                 <li key={action.uid}>
                   <button
                     className={`button-link lists-action-button ${activeClassName}`}
-                    onClick={() => this.handleClick(action)}
+                    onClick={() => this.handleClick(action, data)}
                     aria-pressed={isActive}
                   >
                     <span style={{ opacity: '0.75' }}>
