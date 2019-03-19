@@ -83,9 +83,7 @@ const config = {
           'edition',
           'series',
           'series_statement',
-          'summary'
-        ],
-        additional: [
+          'summary',
           'uniform_title',
           'other_titles',
           'in_collection',
@@ -128,7 +126,7 @@ const config = {
           'academic_discipline',
           'table_of_contents',
           'bookplate'
-        ]
+        ],
       },
       searches: [
         /*
