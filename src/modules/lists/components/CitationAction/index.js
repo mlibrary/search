@@ -6,6 +6,7 @@ import Heading from '@umich-lib/heading'
 import Button from '@umich-lib/button'
 import * as clipboard from 'clipboard-polyfill';
 import { cite } from '../../../citations'
+import ReactGA from 'react-ga'
 
 class CitationArea extends React.Component {
   render() {
@@ -58,6 +59,14 @@ const citation_options = [
 class CitationAction extends Component {
   state = {
     modalIsOpen: false
+  }
+
+  handleTabClick = (label) => {
+    ReactGA.event({
+      action: 'Tab',
+      category: 'Cite This',
+      label: `${label} ${this.props.recordViewType}`
+    })
   }
 
   handleCloseModal = () => {
@@ -139,7 +148,10 @@ class CitationAction extends Component {
           <Tabs>
             <TabList>
               {citation_options.map(co => (
-                <Tab key={co.name}>{co.name}</Tab>
+                <Tab
+                  key={co.name}
+                  onClick={() => this.handleTabClick(co.name)}
+                >{co.name}</Tab>
               ))}
             </TabList>
 
