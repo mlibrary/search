@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { Tabs, TabList, Tab, TabPanel } from '@umich-lib/tabs'
-import { Modal } from '../../../reusable'
-import { colors } from '@umich-lib/styles'
-import Heading from '@umich-lib/heading'
-import Button from '@umich-lib/button'
+import {
+  COLORS,
+  Heading,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanel,
+  Button
+} from '@umich-lib/core'
 import * as clipboard from 'clipboard-polyfill';
+import { Modal } from '../../../reusable'
 import { cite } from '../../../citations'
 
 class CitationArea extends React.Component {
@@ -121,7 +126,7 @@ class CitationAction extends Component {
   render() {
     return (
       <div style={{
-        background: colors.grey[100]
+        background: COLORS.grey[100]
       }}>
         <Modal
           isOpen={this.state.modalIsOpen}

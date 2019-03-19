@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactGA from 'react-ga'
 import ActionStatusMessage from '../ActionStatusMessage'
-import Button from '@umich-lib/button'
+import { Button } from '@umich-lib/core'
 
 class EmailAction extends Component {
   state = {

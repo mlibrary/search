@@ -9,7 +9,7 @@ import {
   RecordResourceAccess,
   FullRecordPlaceholder
 } from '../../../records'
-import styled from 'react-emotion'
+import styled from '@emotion/styled'
 
 /*
   Hide the first column on the Get This page. No need for users to

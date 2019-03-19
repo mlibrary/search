@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
-import Heading from '@umich-lib/heading'
-import Text from '@umich-lib/text'
+import { Heading, Text } from '@umich-lib/core'
 import {
   withRouter,
   Link

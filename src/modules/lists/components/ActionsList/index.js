@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Icon from '@umich-lib/icon'
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
@@ -9,7 +8,7 @@ import PermalinkAction from '../PermalinkAction'
 import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
 import { ContextProvider } from '../../../reusable'
-import Alert from '@umich-lib/alert'
+import { Alert, Icon } from '@umich-lib/core'
 
 class ActionsList extends Component {
   state = {

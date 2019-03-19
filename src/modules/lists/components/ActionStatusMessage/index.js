@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Alert from '@umich-lib/alert';
+import { Alert } from '@umich-lib/core';
 
 class ActionStatusMessage extends Component {
   render() {

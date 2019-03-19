@@ -1,5 +1,5 @@
 import React from 'react'
-import ResourceAccess from '@umich-lib/resource-access'
+import { ResourceAccess } from '@umich-lib/core'
 import { Link } from 'react-router-dom'
 import { ContextProvider } from '../../../reusable'
 import ReactGA from 'react-ga'

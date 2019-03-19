@@ -1,14 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Heading from '@umich-lib/heading'
+import { Button, Icon, Heading } from '@umich-lib/core'
 import getFilters from './getFilters'
 import AdvancedFilter from '../AdvancedFilter'
 import {
   setAdvancedFilter
 } from '../../../advanced'
-import Button from '@umich-lib/button'
-import Icon from '@umich-lib/icon'
 
 class FiltersContainer extends React.Component {
   handleAdvancedFilterChange = ({

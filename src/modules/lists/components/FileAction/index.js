@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga'
-import Button from '@umich-lib/button'
+import { Button } from '@umich-lib/core'
 
 class FileAction extends Component {
   state = {

@@ -4,8 +4,7 @@ import {
   withRouter,
   Link
 } from 'react-router-dom'
-import Heading from '@umich-lib/heading'
-import Text from '@umich-lib/text'
+import { Heading, Text } from '@umich-lib/core'
 
 import {
   requestRecord,

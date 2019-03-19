@@ -1,13 +1,13 @@
 import React from 'react'
-import Icon from '@umich-lib/icon'
+import {
+  Icon,
+  MEDIA_QUERIES,
+  TextInput
+} from '@umich-lib/core'
 import {
   MultipleChoice
 } from '../../../core'
-import {
-  MEDIA_QUERIES
-} from '@umich-lib/styles'
-import styled from 'react-emotion'
-import TextInput from '@umich-lib/text-input'
+import styled from '@emotion/styled'
 
 const StyledFieldSet = styled('fieldset')({
   [MEDIA_QUERIES.LARGESCREEN]: {

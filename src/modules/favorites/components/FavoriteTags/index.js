@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { _ } from 'underscore'
-import Button from '@umich-lib/button'
+import { Button } from '@umich-lib/core'
 import ReactGA from 'react-ga'
 import { FavoriteInputTag } from '../../../favorites';
 import favorite from '../../favorite'

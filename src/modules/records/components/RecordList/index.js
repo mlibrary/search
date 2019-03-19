@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import Record from '../Record';
 import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
-import Heading from '@umich-lib/heading'
+import { Heading } from '@umich-lib/core'
 
 import {
   ResultsSummary,

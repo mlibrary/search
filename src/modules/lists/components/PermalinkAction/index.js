@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Modal } from '../../../reusable'
-import { colors } from '@umich-lib/styles'
-import Heading from '@umich-lib/heading'
-import Button from '@umich-lib/button'
-import TextInput from '@umich-lib/text-input'
+import { Button, Heading, COLORS, TextInput } from '@umich-lib/core'
 import * as clipboard from 'clipboard-polyfill';
 
 class CitationAction extends Component {
@@ -51,7 +48,7 @@ class CitationAction extends Component {
   render() {
     return (
       <div style={{
-        background: colors.grey[100]
+        background: COLORS.grey[100]
       }}>
         <Modal
           isOpen={this.state.modalIsOpen}

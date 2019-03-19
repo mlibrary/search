@@ -1,10 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Button from '@umich-lib/button'
-import Icon from '@umich-lib/icon'
-import Alert from '@umich-lib/alert'
-import Heading from '@umich-lib/heading'
+import { Button, Icon, Alert, Heading } from '@umich-lib/core'
 import {
   withRouter
 } from 'react-router-dom';

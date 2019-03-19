@@ -12,6 +12,7 @@ import {
 import {
   ConnectedRouter,
 } from 'react-router-redux'
+import { Alert } from '@umich-lib/core'
 import {
   initializePride,
   isSlugADatastore,
@@ -38,7 +39,6 @@ import {
 import {
   A11yLiveMessage
 } from './modules/a11y'
-import Alert from '@umich-lib/alert'
 import {
   GAPageView,
   handleGAClick

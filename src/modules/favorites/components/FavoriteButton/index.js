@@ -1,6 +1,6 @@
 import React from 'react'
-import Button from '@umich-lib/button'
-import styled from 'react-emotion'
+import { Button } from '@umich-lib/core'
+import styled from '@emotion/styled'
 
 const StyledFavoriteButton = styled(Button)({
   padding: '0',
