@@ -78,6 +78,11 @@ class CitationAction extends Component {
     this.setState({ modalIsOpen: false })
     // Unselects the citation button from the actions lists.
     this.props.setActive(undefined)
+    ReactGA.event({
+      action: 'Click',
+      category: 'Cite This',
+      label: `Close`
+    })
   }
 
   handleOpenModal = () => {

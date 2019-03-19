@@ -8,7 +8,11 @@ import PermalinkAction from '../PermalinkAction'
 import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
 import { ContextProvider } from '../../../reusable'
+<<<<<<< HEAD
 import { Alert, Icon } from '@umich-lib/core'
+=======
+import Alert from '@umich-lib/alert'
+>>>>>>> Add GA for activating an action and on citation close -- SEARCH-867.
 import ReactGA from 'react-ga'
 
 class ActionsList extends Component {
@@ -72,7 +76,11 @@ class ActionsList extends Component {
     })
   }
 
+<<<<<<< HEAD
   handleClick = (type, view) => {
+=======
+  handleClick = (type, data) => {
+>>>>>>> Add GA for activating an action and on citation close -- SEARCH-867.
     const {
       active,
       setActive
@@ -84,11 +92,19 @@ class ActionsList extends Component {
       setActive(undefined)
     } else {
       setActive(type)
+<<<<<<< HEAD
       
       ReactGA.event({
         action: 'Click',
         category: 'Actions',
         label: `Activated ${type.uid} from ${view}`
+=======
+
+      ReactGA.event({
+        action: 'Click',
+        category: 'Actions',
+        label: `Activated ${type.name} from ${data.recordViewType}`
+>>>>>>> Add GA for activating an action and on citation close -- SEARCH-867.
       })
     }
 
@@ -200,7 +216,11 @@ class ActionsList extends Component {
                 <li key={action.uid}>
                   <button
                     className={`button-link lists-action-button ${activeClassName}`}
+<<<<<<< HEAD
                     onClick={() => this.handleClick(action, data.viewType)}
+=======
+                    onClick={() => this.handleClick(action, data)}
+>>>>>>> Add GA for activating an action and on citation close -- SEARCH-867.
                     aria-pressed={isActive}
                   >
                     <span style={{ opacity: '0.75' }}>
