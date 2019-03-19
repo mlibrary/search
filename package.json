@@ -39,7 +39,6 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.8",
-    "reqwest": "^2.0.5",
     "underscore": "^1.9.1"
   },
   "scripts": {
