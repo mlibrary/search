@@ -8,11 +8,7 @@ import PermalinkAction from '../PermalinkAction'
 import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
 import { ContextProvider } from '../../../reusable'
-<<<<<<< HEAD
 import { Alert, Icon } from '@umich-lib/core'
-=======
-import Alert from '@umich-lib/alert'
->>>>>>> def0673aa6a548c28f774445dc4b028af9bde0fc
 import ReactGA from 'react-ga'
 
 class ActionsList extends Component {
@@ -76,11 +72,7 @@ class ActionsList extends Component {
     })
   }
 
-<<<<<<< HEAD
   handleClick = (type, view) => {
-=======
-  handleClick = (type, data) => {
->>>>>>> def0673aa6a548c28f774445dc4b028af9bde0fc
     const {
       active,
       setActive
@@ -92,19 +84,11 @@ class ActionsList extends Component {
       setActive(undefined)
     } else {
       setActive(type)
-<<<<<<< HEAD
       
       ReactGA.event({
         action: 'Click',
         category: 'Actions',
         label: `Activated ${type.uid} from ${view}`
-=======
-
-      ReactGA.event({
-        action: 'Click',
-        category: 'Actions',
-        label: `Activated ${type.name} from ${data.recordViewType}`
->>>>>>> def0673aa6a548c28f774445dc4b028af9bde0fc
       })
     }
 
@@ -217,11 +201,7 @@ class ActionsList extends Component {
                 <li key={action.uid}>
                   <button
                     className={`button-link lists-action-button ${activeClassName}`}
-<<<<<<< HEAD
                     onClick={() => this.handleClick(action, data.viewType)}
-=======
-                    onClick={() => this.handleClick(action, data)}
->>>>>>> def0673aa6a548c28f774445dc4b028af9bde0fc
                     aria-pressed={isActive}
                   >
                     <span style={{ opacity: '0.75' }}>
