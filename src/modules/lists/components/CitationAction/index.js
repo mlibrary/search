@@ -5,6 +5,7 @@ import {
   Tabs,
   TabList,
   Tab,
+  Text,
   TabPanel,
   Button
 } from '@umich-lib/core'
@@ -174,6 +175,8 @@ class CitationAction extends Component {
                         __html: this.state[co.id]
                       }}
                     />
+
+                    <Text small>These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</Text>
                     <Button kind="secondary" onClick={this.handleCloseModal}>Close</Button>
                   </div>
                 ) : (
