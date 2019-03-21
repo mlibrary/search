@@ -154,6 +154,7 @@ class ActionsList extends Component {
           
           {active.action === 'citation' && (
             <CitationAction
+              {...data}
               action={active}
               onUsed={() => this.handleUse(active.uid, data.viewType)}
               setAlert={this.setAlert}
