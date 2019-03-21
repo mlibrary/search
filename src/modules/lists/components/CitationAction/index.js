@@ -108,7 +108,7 @@ class CitationAction extends Component {
   handleCitationsData = (chosenStyleID, data) => {
     this.setState({
       ...this.state,
-      [chosenStyleID]: data // Remove HTML tags
+      [chosenStyleID]: data
     })
   }
 
@@ -171,12 +171,16 @@ class CitationAction extends Component {
                 {this.state[co.id] ? (
                   <div className="y-spacing">
                     <CitationArea
+                      aria-describedby={`${co.id}-disclaimer`}
                       dangerouslySetInnerHTML={{
                         __html: this.state[co.id]
                       }}
                     />
 
-                    <Text small>These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</Text>
+                    <Text
+                      small
+                      id={`${co.id}-disclaimer`}
+                    >These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</Text>
                     <Button kind="secondary" onClick={this.handleCloseModal}>Close</Button>
                   </div>
                 ) : (
