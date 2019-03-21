@@ -9,6 +9,7 @@ import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
 import { ContextProvider } from '../../../reusable'
 import { Alert, Icon } from '@umich-lib/core'
+import ReactGA from 'react-ga'
 
 class ActionsList extends Component {
   state = {
@@ -73,7 +74,7 @@ class ActionsList extends Component {
     })
   }
 
-  handleClick = (type) => {
+  handleClick = (type, view) => {
     const {
       active,
       setActive
@@ -85,10 +86,24 @@ class ActionsList extends Component {
       setActive(undefined)
     } else {
       setActive(type)
+      
+      ReactGA.event({
+        action: 'Click',
+        category: 'Actions',
+        label: `Activated ${type.uid} from ${view}`
+      })
     }
 
     // also reset Alert
     this.setState({ alert: null })
+  }
+
+  handleUse = (action, view) => {
+    ReactGA.event({
+      action: 'Click',
+      category: 'Actions',
+      label: `Use ${action} from ${view}`
+    })
   }
 
   renderActionDetails = () => {
@@ -105,22 +120,35 @@ class ActionsList extends Component {
         <React.Fragment>
           {active.action === 'email' && (
             <AuthenticationRequired>
-              <EmailAction action={active} {...this.props} />
+              <EmailAction
+                action={active}
+                onUsed={() => this.handleUse(active.uid, data.viewType)}
+                {...this.props}
+              />
             </AuthenticationRequired>
           )}
           {active.action === 'text' && (
             <AuthenticationRequired>
-              <TextAction action={active} {...this.props} />
+              <TextAction
+                action={active}
+                onUsed={() => this.handleUse(active.uid, data.viewType)}
+                {...this.props}
+              />
             </AuthenticationRequired>
           )}
           {active.action === 'favorite' && (
             <AuthenticationRequired>
-              <FavoriteAction action={active} {...this.props} />
+              <FavoriteAction
+                action={active}
+                onUsed={() => this.handleUse(active.uid, data.viewType)}
+                {...this.props}
+              />
             </AuthenticationRequired>
           )}
           {active.action === 'permalink' && (
             <PermalinkAction
               action={active}
+              onUsed={() => this.handleUse(active.uid, data.viewType)}
               setAlert={this.setAlert}
               {...this.props}
             />
@@ -129,12 +157,18 @@ class ActionsList extends Component {
           {active.action === 'citation' && (
             <CitationAction
               action={active}
+              onUsed={() => this.handleUse(active.uid, data.viewType)}
               setAlert={this.setAlert}
-              {...data}
               {...this.props}
             />
           )}
-          {active.action === 'file' && (<FileAction action={active}  {...this.props} />)}
+          {active.action === 'file' && (
+            <FileAction
+              action={active}
+              onUsed={() => this.handleUse(active.uid, data.viewType)}
+              {...this.props}
+            />
+          )}
         </React.Fragment>
         )}>
       </ContextProvider>
@@ -157,7 +191,7 @@ class ActionsList extends Component {
               if (action.uid === 'favorite' && favoritesDisabled) {
                 return null
               }
-              if (action.uid === 'permalink' && data.recordViewType !== 'Full') {
+              if (action.uid === 'permalink' && data.viewType !== 'Full') {
                 return null
               }
 
@@ -168,7 +202,7 @@ class ActionsList extends Component {
                 <li key={action.uid}>
                   <button
                     className={`button-link lists-action-button ${activeClassName}`}
-                    onClick={() => this.handleClick(action)}
+                    onClick={() => this.handleClick(action, data.viewType)}
                     aria-pressed={isActive}
                   >
                     <span style={{ opacity: '0.75' }}>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactGA from 'react-ga'
 import ActionStatusMessage from '../ActionStatusMessage'
 import { Button } from '@umich-lib/core'
 
@@ -29,22 +28,6 @@ class TextAction extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
-    // Is this being submitted from a record or a list
-    if (this.props.record) {
-      ReactGA.event({
-        action: 'Click',
-        category: 'Actions',
-        label: 'Use Text from record'
-      })
-    } else {
-      ReactGA.event({
-        action: 'Click',
-        category: 'My List',
-        label: 'Use Text from list'
-      })
-    }
-
     this.setState({ sent: true })
     this.props.prejudice.act(
       'text',
@@ -52,6 +35,7 @@ class TextAction extends Component {
       this.state.text,
       this.handleSubmitCallback
     )
+    this.props.onUsed()
   }
 
   handleCloseStatus = () => {

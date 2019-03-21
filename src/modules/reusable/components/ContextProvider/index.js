@@ -28,7 +28,7 @@ function mapStateToProps(state, props) {
     Record View Type is decided by the matched
     React Router path.
   */
-  const recordViewType =
+  const viewType =
       props.match.path === '/:datastoreSlug' ? 'Medium'
     : props.match.path.indexOf('/record/') !== -1 ? 'Full'
     : props.match.path.indexOf('/list') !== -1 ? 'List'
@@ -44,7 +44,7 @@ function mapStateToProps(state, props) {
       state.datastores.datastores,
       { uid: state.datastores.active }
     ),
-    recordViewType
+    viewType
   };
 }
 

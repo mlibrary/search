@@ -49,6 +49,8 @@ class FavoriteAction extends Component {
       undefined,
       this.handleSubmitCallback
     )
+
+    this.props.onUsed()
   }
 
   handleCloseStatus = () => {

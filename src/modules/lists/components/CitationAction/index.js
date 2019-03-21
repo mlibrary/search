@@ -103,16 +103,16 @@ class CitationAction extends Component {
     const {
       datastore,
       record,
-      recordViewType,
+      viewType,
       list
     } = this.props
 
-    if (recordViewType === 'Full') {
+    if (viewType === 'Full') {
       const records = [
         { recordUid: record.uid, datastoreUid: datastore.uid }
       ]
       this.generateCitations(records)
-    } else if (recordViewType === 'List' && list && list.length > 0) {
+    } else if (viewType === 'List' && list && list.length > 0) {
       const records = list.map(r => ({
         recordUid: r.uid,
         datastoreUid: datastore.uid

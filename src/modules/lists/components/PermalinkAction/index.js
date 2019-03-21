@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Modal } from '../../../reusable'
 import { Button, Heading, COLORS, TextInput } from '@umich-lib/core'
 import * as clipboard from 'clipboard-polyfill';
+import ReactGA from 'react-ga'
 
 class CitationAction extends Component {
   state = {
@@ -42,6 +43,12 @@ class CitationAction extends Component {
     this.props.setAlert({
       intent: 'success',
       text: 'Link copied to clipboard!'
+    })
+
+    ReactGA.event({
+      action: 'Click',
+      category: 'Actions',
+      label: `Use Permalink from ${this.props.viewType}`
     })
   }
 
