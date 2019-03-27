@@ -42,7 +42,7 @@ class CitationAction extends Component {
     this.handleCloseModal()
     this.props.setAlert({
       intent: 'success',
-      text: 'Link copied to clipboard!'
+      text: 'Link copied!'
     })
 
     ReactGA.event({
@@ -91,7 +91,7 @@ class CitationAction extends Component {
               }}>
               <Button
                 onClick={this.handleCopy}
-              >Copy to clipboard</Button>
+              >Copy link</Button>
               
               <Button
                 kind="secondary"
