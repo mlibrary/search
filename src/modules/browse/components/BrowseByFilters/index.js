@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import qs from 'qs'
-import Heading from '@umich-lib/heading'
+import { Heading } from '@umich-lib/core'
 
 class NestedList extends React.Component {
   render() {

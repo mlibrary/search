@@ -83,9 +83,7 @@ const config = {
           'edition',
           'series',
           'series_statement',
-          'summary'
-        ],
-        additional: [
+          'summary',
           'uniform_title',
           'other_titles',
           'in_collection',
@@ -128,7 +126,7 @@ const config = {
           'academic_discipline',
           'table_of_contents',
           'bookplate'
-        ]
+        ],
       },
       searches: [
         /*
@@ -181,38 +179,28 @@ const config = {
         'format',
         'author',
         'publication_date',
-        'abstract',
-        'volume',
-        'issue',
-        'publication_title',
-        'start_page',
-        'end_page',
-        'genre',
+        'published_brief',
+        'page_range',
         'snippet',
         'isi_cited',
-        'scopus_cited'
+        'scopus_cited',
       ],
       full: {
         standard: [
           'author',
           'publication_date',
-          'volume',
-          'issue',
-          'publication_title',
-          'start_page',
-          'end_page',
+          'published_brief',
+          'page_range',
           'genre',
-          'snippet',
-          'isi_cited',
-          'scopus_cited',
-          'publisher',
           'issn',
           'eissn',
           'isbn',
           'eisbn',
           'doi',
-          'subject',
           'language',
+          'subject',
+          'isi_cited',
+          'scopus_cited',
         ],
         description: 'abstract'
       },

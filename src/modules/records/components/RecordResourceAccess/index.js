@@ -1,5 +1,5 @@
 import React from 'react'
-import ResourceAccess from '@umich-lib/resource-access'
+import { ResourceAccess } from '@umich-lib/core'
 import { Link } from 'react-router-dom'
 import { ContextProvider } from '../../../reusable'
 import ReactGA from 'react-ga'
@@ -33,7 +33,7 @@ class RecordResourceAccess extends React.Component {
     */
     if (target.tagName === 'A') {
       // i.e. "Get this Catalog Medium"
-      const label = `${e.target.innerText} ${data.datastore.name} ${data.recordViewType}`
+      const label = `${e.target.innerText} ${data.datastore.name} ${data.viewType}`
 
       ReactGA.event({
         action: 'Click',

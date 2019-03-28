@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {
   withRouter
 } from 'react-router-dom'
-import ResourceAccess from '@umich-lib/resource-access'
+import { ResourceAccess } from '@umich-lib/core'
 import getHoldingByBarcode from '../../getHoldingByBarcode'
 import {
   StyledGetThisResourceAccessContainer

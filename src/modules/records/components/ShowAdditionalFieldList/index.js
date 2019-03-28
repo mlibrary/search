@@ -1,6 +1,6 @@
 import React from 'react'
 import Field from '../RecordField'
-import Button from '@umich-lib/button'
+import { Button } from '@umich-lib/core'
 
 class ShowAdditionalFieldList extends React.Component {
   state = {

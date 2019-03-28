@@ -57,6 +57,16 @@ class AddToListButton extends Component {
     } = this.props
     const inList = isInList(list, item.uid)
 
+    /*
+      Re: SEARCH-881
+      Do not render checkbox while holdings are loading.
+      This is a workaround for a race condition when
+      adding records to a list before holdings have loaded.
+    */
+    if (item.loadingHoldings) {
+      return null
+    }
+
     return (
       <div className="add-to-list-checkbox-container">
         <Checkbox

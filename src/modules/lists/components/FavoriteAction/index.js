@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import Button from '@umich-lib/button'
+import { Button } from '@umich-lib/core'
 import ActionStatusMessage from '../ActionStatusMessage'
 import {
   favoriteRecord,
@@ -49,6 +49,8 @@ class FavoriteAction extends Component {
       undefined,
       this.handleSubmitCallback
     )
+
+    this.props.onUsed()
   }
 
   handleCloseStatus = () => {

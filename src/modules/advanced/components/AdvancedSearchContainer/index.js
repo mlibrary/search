@@ -4,24 +4,26 @@ import { _ } from 'underscore'
 import {
   Link
 } from 'react-router-dom';
-import styled from 'react-emotion'
+import styled from '@emotion/styled'
 import {
   Tabs,
   TabList,
   Tab,
-  TabPanel
-} from '@umich-lib/tabs'
-import {
-  CARD,
-  colors,
+  TabPanel,
+  Text,
+  Heading,
+  COLORS,
   MEDIA_QUERIES
-} from '@umich-lib/styles'
-import Text from '@umich-lib/text'
-import Heading from '@umich-lib/heading'
+} from '@umich-lib/core'
 import {
   Breadcrumb
 } from '../../../reusable'
 import AdvancedSearchForm from '../AdvancedSearchForm'
+
+const CARD = {
+  boxShadow: 'rgba(0, 0, 0, 0.12) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 2px 4px 0px',
+  background: 'rgb(250, 250, 250)'
+}
 
 /*
 Structure of the AdvancedSearch components:
@@ -40,8 +42,8 @@ Structure of the AdvancedSearch components:
 
 const StyledTab = styled(Tab)(props => ({
   [MEDIA_QUERIES.LARGESCREEN]: {
-    background: props.selected ? colors.grey[100] : 'inherit',
-    borderBottomColor: props.selected ? colors.grey[100] : 'none'
+    background: props.selected ? COLORS.grey[100] : 'inherit',
+    borderBottomColor: props.selected ? COLORS.grey[100] : 'none'
   }
 }))
 
@@ -54,7 +56,7 @@ const StyledContainer = styled('div')({
 const StyledTabPanelContainer = styled('div')({
   ...CARD,
   padding: '1rem',
-  background: colors.grey[100],
+  background: COLORS.grey[100],
   borderRadius: '0 0 4px 4px',
   [MEDIA_QUERIES.LARGESCREEN]: {
     padding: '2rem'

@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '@umich-lib/button'
+import { Button } from '@umich-lib/core'
 
 import {
   getField,

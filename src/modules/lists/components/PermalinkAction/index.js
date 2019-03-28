@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Modal } from '../../../reusable'
-import { colors } from '@umich-lib/styles'
-import Heading from '@umich-lib/heading'
-import Button from '@umich-lib/button'
-import TextInput from '@umich-lib/text-input'
+import { Button, Heading, COLORS, TextInput } from '@umich-lib/core'
 import * as clipboard from 'clipboard-polyfill';
+import ReactGA from 'react-ga'
 
 class CitationAction extends Component {
   state = {
@@ -44,14 +42,20 @@ class CitationAction extends Component {
     this.handleCloseModal()
     this.props.setAlert({
       intent: 'success',
-      text: 'Link copied to clipboard!'
+      text: 'Link copied!'
+    })
+
+    ReactGA.event({
+      action: 'Click',
+      category: 'Actions',
+      label: `Use Permalink from ${this.props.viewType}`
     })
   }
 
   render() {
     return (
       <div style={{
-        background: colors.grey[100]
+        background: COLORS.grey[100]
       }}>
         <Modal
           isOpen={this.state.modalIsOpen}
@@ -87,7 +91,7 @@ class CitationAction extends Component {
               }}>
               <Button
                 onClick={this.handleCopy}
-              >Copy to clipboard</Button>
+              >Copy link</Button>
               
               <Button
                 kind="secondary"

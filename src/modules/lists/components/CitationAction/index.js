@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { Tabs, TabList, Tab, TabPanel } from '@umich-lib/tabs'
-import { Modal } from '../../../reusable'
-import { colors } from '@umich-lib/styles'
-import Heading from '@umich-lib/heading'
-import Button from '@umich-lib/button'
+import {
+  COLORS,
+  Heading,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanel,
+  Button
+} from '@umich-lib/core'
 import * as clipboard from 'clipboard-polyfill';
+import { Modal } from '../../../reusable'
 import { cite } from '../../../citations'
 
 class CitationArea extends React.Component {
@@ -98,16 +103,16 @@ class CitationAction extends Component {
     const {
       datastore,
       record,
-      recordViewType,
+      viewType,
       list
     } = this.props
 
-    if (recordViewType === 'Full') {
+    if (viewType === 'Full') {
       const records = [
         { recordUid: record.uid, datastoreUid: datastore.uid }
       ]
       this.generateCitations(records)
-    } else if (recordViewType === 'List' && list && list.length > 0) {
+    } else if (viewType === 'List' && list && list.length > 0) {
       const records = list.map(r => ({
         recordUid: r.uid,
         datastoreUid: datastore.uid
@@ -121,7 +126,7 @@ class CitationAction extends Component {
   render() {
     return (
       <div style={{
-        background: colors.grey[100]
+        background: COLORS.grey[100]
       }}>
         <Modal
           isOpen={this.state.modalIsOpen}
