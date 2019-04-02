@@ -182,8 +182,7 @@ const config = {
         'published_brief',
         'page_range',
         'snippet',
-        'isi_cited',
-        'scopus_cited',
+        'times_cited',
       ],
       full: {
         standard: [
@@ -199,8 +198,7 @@ const config = {
           'doi',
           'language',
           'subject',
-          'isi_cited',
-          'scopus_cited',
+          'times_cited'
         ],
         description: 'abstract'
       },
