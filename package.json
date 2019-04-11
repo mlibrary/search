@@ -39,8 +39,12 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.8",
+<<<<<<< HEAD
     "remark-images": "^0.18.0",
     "remark-react": "^5.0.1",
+=======
+    "remark": "^10.0.1",
+>>>>>>> Add remark dep
     "underscore": "^1.9.1"
   },
   "scripts": {
