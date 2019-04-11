@@ -3,7 +3,7 @@ import schematicImage from './schematic.png'
 export default `
 # Technical overview
 
-Library Search (<https://search.lib.umich.edu/>) was built by the [Design & Discovery](https://www.lib.umich.edu/library-information-technology/design-discovery) department at the University of Michigan Library. It was originally based on the [CLIO project](https://github.com/cul/clio-spectrum) from Columbia University, but has evolved significantly into its own application over its two-year development path. It relies on many open source packages, ([Solr](http://lucene.apache.org/solr/), [Blacklight](http://projectblacklight.org/), [React.js](https://reactjs.org/), [CSL](https://citationstyles.org/), and many others).
+Library Search (<https://search.lib.umich.edu/>) was built by the [Design & Discovery](https://www.lib.umich.edu/library-information-technology/design-discovery) department at the University of Michigan Library. It was originally based on the [CLIO project](https://github.com/cul/clio-spectrum) from Columbia University, but has evolved significantly into its own application over its two-year development path. It relies on many open source technologies, ([Solr](http://lucene.apache.org/solr/), [Blacklight](http://projectblacklight.org/), [Rails](https://rubyonrails.org/), [React.js](https://reactjs.org/), [CSL](https://citationstyles.org/), and many others).
 
 Library Search is built in three main layers to allow for flexibility in the front end and back end data repositories. A different front end application should not require rewriting the search queries, while conversely changes to one or more back-end search indexes or repositories would not require updates to the user interface. The middle layer acts as translator between the front and back ends.
 
@@ -23,7 +23,7 @@ The front end interacts with two pieces of middleware, Pride and Prejudice. Whil
 
 ### Pride
 
-Pride is a Ruby app that translates user queries generated from the front end and represented as JSON objects. It then passes them along to the Search API to be run against against our two local Solr indexes (for catalog and web content) and Summon (for licensed context).
+Pride is a JavaScript library that translates user queries generated from the front end and represented as JSON objects. It then passes them along to the Search API to be run against against our two local Solr indexes (for catalog and web content) and Summon (for licensed context).
 
 Where user identification can make a difference for the scope of the query, Pride checks for the user's logged in status and/or IP range to formulate the appropriate search query. This is important, for example, because users affiliated with the U-M Flint campus get a Flint-library-only catalog scope by default and users affiliated with the Ann Arbor campus get results from Articles that cover all content licensed for their campus when they are logged in or on a campus computer network.
 
