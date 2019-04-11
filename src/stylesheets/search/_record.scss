@@ -98,6 +98,10 @@
   display: block;
 }
 
+.record-field-value a {
+  text-decoration: underline;
+}
+
 .record-field-description-has-inner-html {
   *:first-child {
     margin-top: 0;
