@@ -1,7 +1,6 @@
 import React from 'react'
 import remark from 'remark'
 import remark2react from 'remark-react'
-import images from 'remark-images'
 import {
   Heading,
   Text,
@@ -17,7 +16,6 @@ class TechnicalOverview extends React.Component {
         <article className="page">
           {
             remark()
-              .use(images)
               .use(remark2react, {
                 remarkReactComponents: {
                   'h1': (props) => <Heading size="xlarge" level={1} style={{ marginTop: '0' }} {...props} />,
