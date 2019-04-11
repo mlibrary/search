@@ -22,7 +22,7 @@ const footer_links = [
   },
   {
     text: 'Technical overview',
-    href: '/technical-overview'
+    to: '/technical-overview'
   }
 ]
 
