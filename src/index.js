@@ -23,7 +23,8 @@ import {
   NoMatch,
   DatastorePage,
   RoadMapPage,
-  AccessibilityPage
+  AccessibilityPage,
+  TechnicalOverview
 } from './modules/pages'
 import {
   HelpContent,
@@ -76,6 +77,7 @@ class App extends React.Component {
               <Main>
                 <Route component={GAPageView} />
                 <ConnectedSwitch>
+                  <Route path="/technical-overview" exact component={TechnicalOverview}/>
                   <Route path="/how-to-use-search" exact component={HelpContent}/>
                   <Route path="/feature-road-map" exact component={RoadMapPage}/>
                   <Route path="/accessibility" exact component={AccessibilityPage}/>
