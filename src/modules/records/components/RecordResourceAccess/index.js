@@ -6,10 +6,19 @@ import ReactGA from 'react-ga'
 
 function RenderAnchor({ data }) {
   /*
-    Rendered Anchors go to an internal Get This page.
+    Rendered Anchors go to
+    - an internal Get This page, or
+    - a full record page.
   */
-  let to = `/catalog/record/${data.to.record}/get-this/${data.to.barcode}`
-    + `${document.location.search}`
+  let to
+
+  if (data.to.action === 'get-this') {
+    to = `/catalog/record/${data.to.record}/get-this/${data.to.barcode}`
+      + `${document.location.search}`
+  } else {
+    to = `/catalog/record/${data.to.record}`
+      + `${document.location.search}`
+  }
 
   return (
     <Link

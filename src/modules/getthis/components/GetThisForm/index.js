@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-
+import ReactGA from 'react-ga'
 import {
   getField,
   getFieldValue,
@@ -45,7 +45,14 @@ const Field = ({ field, handeFieldChange, loading }) => {
   } else if (type === 'submit') {
     return (
       <React.Fragment>
-        <input className="button margin-right-1" id={name} type={type} name={name} value={value} disabled={loading}/>
+        <input
+          className="button margin-right-1"
+          id={name}
+          type={type}
+          name={name}
+          value={value}
+          disabled={loading}
+        />
         {loading && (<span role="alert">Placing hold ...</span>)}
       </React.Fragment>
     )
@@ -83,8 +90,14 @@ class GetThisForm extends React.Component {
   }
 
   handleSubmit = (event) => {
-    const { datastoreUid, recordId, form } = this.props;
+    const { datastoreUid, recordId, form, label } = this.props;
     const { loading, fields } = this.state
+
+    ReactGA.event({
+      action: 'Catalog Get This',
+      category: 'Item Request',
+      label: `Submit Get This ${label}`
+    })
 
     // Submitted form is type ajax and not already loading.
     if (form.type === 'ajax' && !loading) {
