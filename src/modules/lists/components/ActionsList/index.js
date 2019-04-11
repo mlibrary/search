@@ -26,14 +26,12 @@ class ActionsList extends Component {
         name: 'Text',
         icon: 'chat'
       },
-      /*
       {
         uid: 'citation',
         action: 'citation',
         name: 'Citation',
         icon: 'format_quote'
       },
-      */
       {
         uid: 'zotero',
         action: 'file',
@@ -156,6 +154,7 @@ class ActionsList extends Component {
           
           {active.action === 'citation' && (
             <CitationAction
+              {...data}
               action={active}
               onUsed={() => this.handleUse(active.uid, data.viewType)}
               setAlert={this.setAlert}

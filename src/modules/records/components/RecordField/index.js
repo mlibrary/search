@@ -32,6 +32,16 @@ class RecordField extends React.Component {
       return null
     }
 
+    // Need to inject HTML with this one.
+    if (field.uid === 'times_cited') {
+      return (
+        <div className={uniqueFieldClassName}>
+          <dt className="record-field-name">{field.name}</dt>
+          <dd className="record-field-value" dangerouslySetInnerHTML={createMarkup(field.value)} />
+        </div>
+      )
+    }
+
     if (field.uid === 'email') {
       const mailto = `mailto:${field.value}`
 

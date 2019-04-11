@@ -5,12 +5,14 @@ import {
   Tabs,
   TabList,
   Tab,
+  Text,
   TabPanel,
   Button
 } from '@umich-lib/core'
 import * as clipboard from 'clipboard-polyfill';
 import { Modal } from '../../../reusable'
 import { cite } from '../../../citations'
+import ReactGA from 'react-ga'
 
 class CitationArea extends React.Component {
   render() {
@@ -21,7 +23,9 @@ class CitationArea extends React.Component {
           boxShadow: `inset 0 1px 4px rgba(0, 0, 0, 0.08)`,
           borderRadius: `4px`,
           padding: `0.5rem 0.75rem`,
-          marginTop: '1rem'
+          marginTop: '1rem',
+          overflowY: 'scroll',
+          maxHeight: '40vh'
         }}
         className="y-spacing"
         contenteditable="true"
@@ -63,10 +67,23 @@ class CitationAction extends Component {
     modalIsOpen: false
   }
 
+  handleTabClick = (label) => {
+    ReactGA.event({
+      action: 'Tab',
+      category: 'Cite This',
+      label: `${label} ${this.props.recordViewType}`
+    })
+  }
+
   handleCloseModal = () => {
     this.setState({ modalIsOpen: false })
     // Unselects the citation button from the actions lists.
     this.props.setActive(undefined)
+    ReactGA.event({
+      action: 'Click',
+      category: 'Cite This',
+      label: `Close`
+    })
   }
 
   handleOpenModal = () => {
@@ -91,7 +108,7 @@ class CitationAction extends Component {
   handleCitationsData = (chosenStyleID, data) => {
     this.setState({
       ...this.state,
-      [chosenStyleID]: data // Remove HTML tags
+      [chosenStyleID]: data
     })
   }
 
@@ -142,7 +159,10 @@ class CitationAction extends Component {
           <Tabs>
             <TabList>
               {citation_options.map(co => (
-                <Tab key={co.name}>{co.name}</Tab>
+                <Tab
+                  key={co.name}
+                  onClick={() => this.handleTabClick(co.name)}
+                >{co.name}</Tab>
               ))}
             </TabList>
 
@@ -151,10 +171,16 @@ class CitationAction extends Component {
                 {this.state[co.id] ? (
                   <div className="y-spacing">
                     <CitationArea
+                      aria-describedby={`${co.id}-disclaimer`}
                       dangerouslySetInnerHTML={{
                         __html: this.state[co.id]
                       }}
                     />
+
+                    <Text
+                      small
+                      id={`${co.id}-disclaimer`}
+                    >These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</Text>
                     <Button kind="secondary" onClick={this.handleCloseModal}>Close</Button>
                   </div>
                 ) : (
