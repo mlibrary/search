@@ -45,11 +45,7 @@ class CitationAction extends Component {
       text: 'Link copied!'
     })
 
-    ReactGA.event({
-      action: 'Click',
-      category: 'Actions',
-      label: `Use Permalink from ${this.props.viewType}`
-    })
+    this.props.onUsed()
   }
 
   render() {
