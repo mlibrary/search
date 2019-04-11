@@ -13,12 +13,16 @@ const footer_links = [
     to: '/accessibility'
   },
   {
-    text: 'How to Use Search',
+    text: 'How to use search',
     to: '/how-to-use-search'
   },
   {
-    text: 'Get Research Help',
+    text: 'Get research help',
     href: 'https://www.lib.umich.edu/get-research-help'
+  },
+  {
+    text: 'Technical overview',
+    href: '/technical-overview'
   }
 ]
 
