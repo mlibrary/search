@@ -115,7 +115,7 @@ class HelpContent extends React.Component {
 
           <section>
             <h2>How do I email, text, or export records?</h2>
-            <p>When you do a search in Catalog, Articles, Databases, Journals, or Library Website, you can add one or more search results to a temporary list by clicking “Add to list”. <b>Your list is erased when you close your browser</b>. Later this summer, you will be able to use Favorites to save items in your library account.</p>
+            <p>When you do a search in Catalog, Articles, Databases, Journals, or Library Website, you can add one or more search results to a temporary list by clicking “Add to list”. <b>Your list is erased when you close your browser</b>.</p>
 
             <p>Once you have added at least one item to the list, a “Go to my list” link will appear at the top of the results. Click that to see the export options:</p>
 
