@@ -42,7 +42,7 @@ function Zotero({ record }) {
 
   // Create COinS
   return (
-    <span title={getFieldValue(getField(record.fields, 'z3988'))[0]} className="z3988"></span>
+    <span title={z3988} className="z3988"></span>
   )
 }
 
