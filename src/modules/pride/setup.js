@@ -332,13 +332,17 @@ const runSearch = () => {
     fieldTree = Pride.FieldTree.parseField('all_fields', query)
   }
 
-  // Inject library aka institution filter with facets
-  // if the datastore is Mirlyn.
-  if (state.datastores.active === 'mirlyn' && state.institution.active) {
-    facets = {
-      ...facets,
-      institution: state.institution.active
-    }
+  // Inject library/institution filter with facets.
+  // The backend whitelists facets, so 
+  // the FE can always includes the institution in
+  // a search. This is useful and allows including
+  // institution in an Everything search so that
+  // catalog works as expect, but other datastores
+  // can ignore it.
+  // For more background: SEARCH-871
+  facets = {
+    ...facets,
+    institution: state.institution.active || state.institution.default
   }
 
   const prideConfig = {
