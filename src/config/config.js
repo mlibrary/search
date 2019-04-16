@@ -170,6 +170,16 @@ const config = {
           uid: 'other_titles',
           search: 'title',
           type: 'fielded'
+        },
+        {
+          uid: 'new_title',
+          search: 'title',
+          type: 'fielded'
+        },
+        {
+          uid: 'full_new_title',
+          search: 'title',
+          type: 'fielded'
         }
       ]
     },
