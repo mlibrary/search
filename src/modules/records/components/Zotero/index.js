@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   getField,
   getFieldValue
@@ -23,18 +23,18 @@ import {
   And tell Zotero COinS was created.
 */
 function Zotero({ record }) {
-  const z3988 = getFieldValue(getField(record.fields, 'z3988'))[0]
+  const [ z3988, setZ3988 ] = useState(null)
 
   useEffect(() => {
-    // Tell Zotero an Item has been rendered to the page.
-    // Only use effect if record has the z3988 to create 
-    if (z3988) {
-      document.dispatchEvent(new Event('ZoteroItemUpdated', {
-        bubbles: true,
-        cancelable: true
-      }))
-    }
+    setZ3988(getFieldValue(getField(record.fields, 'z3988'))[0])
   })
+
+  useEffect(() => {
+    document.dispatchEvent(new Event('ZoteroItemUpdated', {
+      bubbles: true,
+      cancelable: true
+    }))
+  }, [z3988]) // Only change when z3988 changes.
 
   if (!z3988) {
     return null
@@ -42,7 +42,7 @@ function Zotero({ record }) {
 
   // Create COinS
   return (
-    <span title={z3988} className="z3988"></span>
+    <span title={z3988} className="Z3988" />
   )
 }
 
