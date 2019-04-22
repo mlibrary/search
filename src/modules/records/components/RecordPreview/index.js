@@ -20,7 +20,8 @@ import {
 } from '../../../pride';
 
 import {
-  RecommendedResource
+  RecommendedResource,
+  Zotero
 }  from '../../../records'
 
 import {
@@ -227,6 +228,7 @@ const Main = ({ record, datastoreUid }) => {
       <div className="record-preview-format-and-author">
         <Formats record={record} datastoreUid={datastoreUid} />
         <Authors record={record} />
+        <Zotero record={record} />
         <Fields record={record} datastoreUid={datastoreUid} />
         <Description record={record} datastoreUid={datastoreUid} />
       </div>

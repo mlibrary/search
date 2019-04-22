@@ -13,6 +13,7 @@ import Bookplate from './components/Bookplate';
 import RecommendedResource from './components/RecommendedResource';
 import RecordDescription from './components/RecordDescription';
 import RecordResourceAccess from './components/RecordResourceAccess';
+import Zotero from './components/Zotero';
 import recordsReducer from './reducer';
 import {
   addRecords,
@@ -51,5 +52,6 @@ export {
   Bookplate,
   RecommendedResource,
   RecordDescription,
-  RecordResourceAccess
+  RecordResourceAccess,
+  Zotero
 };

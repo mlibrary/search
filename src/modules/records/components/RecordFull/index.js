@@ -22,7 +22,8 @@ import {
   FullRecordPlaceholder,
   RecommendedResource,
   RecordDescription,
-  RecordResourceAccess
+  RecordResourceAccess,
+  Zotero
 } from '../../../records'
 import {
   requestRecord
@@ -189,6 +190,8 @@ class FullRecord extends React.Component {
             />
 
             <RecordDescription record={record} />
+
+            <Zotero record={record} />
 
             <h2 className="full-record__record-info">Record Info</h2>
             <ShowAdditionalFieldList
