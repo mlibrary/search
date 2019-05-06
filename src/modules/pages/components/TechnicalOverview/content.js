@@ -23,7 +23,7 @@ The front end interacts with two pieces of middleware, Pride and Prejudice. Whil
 
 ### Pride
 
-Pride is a JavaScript library that translates user queries generated from the front end and represented as JSON objects. It then passes them along to the Search API to be run against against our two local Solr indexes (for catalog and web content) and Summon (for licensed context).
+Pride is a JavaScript library that translates user queries generated from the front end and represented as JSON objects. It then passes them along to the Search API to be run against our two local Solr indexes (for catalog and web content) and Summon (for licensed context).
 
 Where user identification can make a difference for the scope of the query, Pride checks for the user's logged in status and/or IP range to formulate the appropriate search query. This is important, for example, because users affiliated with the U-M Flint campus get a Flint-library-only catalog scope by default and users affiliated with the Ann Arbor campus get results from Articles that cover all content licensed for their campus when they are logged in or on a campus computer network.
 
