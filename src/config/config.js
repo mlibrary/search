@@ -72,8 +72,10 @@ const config = {
       full: {
         standard: [
           'preferred_title',
-          'new_title',
-          'previous_title',
+          'uniform_title',
+          'other_titles',
+          'full_new_title',
+          'full_previous_title',
           'main_author',
           'published_brief',
           'contributors',
@@ -84,8 +86,6 @@ const config = {
           'series',
           'series_statement',
           'summary',
-          'uniform_title',
-          'other_titles',
           'in_collection',
           'access',
           'language',
@@ -93,8 +93,6 @@ const config = {
           'performers',
           'date_place_of_event',
           'related_items',
-          'full_previous_title',
-          'full_new_title',
           'numbering',
           'source_of_description_note',
           'copy_specific_note',
@@ -168,6 +166,16 @@ const config = {
         },
         {
           uid: 'other_titles',
+          search: 'title',
+          type: 'fielded'
+        },
+        {
+          uid: 'new_title',
+          search: 'title',
+          type: 'fielded'
+        },
+        {
+          uid: 'full_new_title',
           search: 'title',
           type: 'fielded'
         }

@@ -1838,7 +1838,7 @@ input.date-range-input-text {
 
 .bookplate-image {
   width: 100%;
-  max-width: 100%; }
+  max-width: 14rem; }
 
 .bookplate-description {
   margin-top: 0;

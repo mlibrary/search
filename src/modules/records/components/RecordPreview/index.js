@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import ReactGA from 'react-ga'
 
 import {
-  Icon,
+  Icon as SearchIcon,
   TrimString
 } from '../../../core'
 
@@ -22,6 +22,11 @@ import {
 import {
   RecommendedResource
 }  from '../../../records'
+
+import {
+  Icon,
+  INTENT_COLORS
+} from '@umich-lib/core'
 
 const Header = ({
   record,
@@ -82,7 +87,7 @@ const Header = ({
                 </span>
               ))}
             </a>
-            <Icon name="launch" />
+            <SearchIcon name="launch" />
           </span>
         )}
         {(publishedDate && (datastoreUid !== 'website')) && (
@@ -144,7 +149,7 @@ const Formats = ({ record, datastoreUid }) => {
           const iconName = getFormatIconName({ format: value })
 
           return (
-            <li className="record-preview-format" key={index}><Icon name={iconName} />{value}</li>
+            <li className="record-preview-format" key={index}><SearchIcon name={iconName} />{value}</li>
           )
         })}
       </ul>
@@ -230,16 +235,24 @@ const Main = ({ record, datastoreUid }) => {
 }
 
 const Footer = ({ record, datastoreUid }) => {
-
   // No access/holding options for Mirlyn for preview records.
   if (datastoreUid === 'mirlyn' || datastoreUid === 'website') {
     return null
   }
 
+  const outage = getFieldValue(getField(record.fields, 'outage'))[0]
+
   if (record.resourceAccess) {
     const accessCell = record.resourceAccess[0].rows[0][0]
     return (
       <footer>
+        {outage && (
+          <p style={{
+            color: INTENT_COLORS['error'],
+            marginBottom: '0',
+            marginTop: '0.5rem'
+          }}><Icon icon="warning" /> {outage}</p>
+        )}
         <a
           className="record-preview-link"
           href={accessCell.href}
