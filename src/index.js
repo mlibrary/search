@@ -22,7 +22,6 @@ import {
 import {
   NoMatch,
   DatastorePage,
-  RoadMapPage,
   AccessibilityPage,
   TechnicalOverview
 } from './modules/pages'
@@ -79,7 +78,6 @@ class App extends React.Component {
                 <ConnectedSwitch>
                   <Route path="/technical-overview" exact component={TechnicalOverview}/>
                   <Route path="/how-to-use-search" exact component={HelpContent}/>
-                  <Route path="/feature-road-map" exact component={RoadMapPage}/>
                   <Route path="/accessibility" exact component={AccessibilityPage}/>
                   <Route path="/" exact render={() => (
                     <Redirect to={`/everything`} />
