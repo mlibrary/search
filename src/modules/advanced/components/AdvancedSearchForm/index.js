@@ -99,6 +99,10 @@ class AdvancedSearchForm extends React.Component {
 
       if (datastore.uid === 'mirlyn') {
         library = institution.active ? institution.active : institution.defaultInstitution
+        if (filter['institution']) {
+          library = filter['institution'][0] // inst overrides library
+          filter = {...filter, institution: undefined} // remove inst from filter obj
+        }
       }
       const queryString = stringifySearchQueryForURL({
         query,
