@@ -21,25 +21,30 @@
 }
 
 .datastore-scroll-gradient {
-  background: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(248,248,248,0)),color-stop(100%,rgba(248,248,248,1)));
-  position: absolute;
-  pointer-events: none;
-  right: 0;
-  top: 0;
-  width: 2rem;
-  height: 100%;
-  z-index: 2;
+  @media (min-width: $breakpoint-1) { 
+    background: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(248,248,248,0)),color-stop(100%,rgba(248,248,248,1)));
+    position: absolute;
+    pointer-events: none;
+    right: 0;
+    top: 0;
+    width: 2rem;
+    height: 100%;
+    z-index: 2;
+  }
 }
 
 .datastore-item {
-  display: inline-block;
+  @media (min-width: $breakpoint-1) { 
+    display: inline-block;
+  }
   padding: 0;
   margin: 0;
   vertical-align: bottom;
 }
 
 .datastore-button {
-  display: inline-block;
+  display: block;
+  width: 100%;
   color: $grey-1;
   padding: 0.5rem 1rem;
   margin: 2px;
@@ -47,26 +52,35 @@
   margin: 0;
   cursor: pointer;
   border: none;
-  border-bottom: solid 2.5px transparent;
+  border-bottom: solid 1px $grey-5;
+  border-left: solid 3px transparent;
   background: transparent;
+  text-align: left;
+
+  .icon {
+    margin-right: 0.5rem;
+  }
+
+  @media (min-width: $breakpoint-1) { 
+    display: flex;
+    align-items: center;
+    border-left: none;
+    border-bottom: solid 3px transparent;;
+  }
 }
 
 .datastore-button--active {
-  border-bottom: solid 2px $main-3;
+  border-left: solid 3px $main-3;
   color: $main-3;
+
+  @media (min-width: $breakpoint-1) { 
+    border-bottom: solid 2px $main-3;
+    border-left: none;
+  }
 }
 
 .datastore-button:not(.datastore-button--active) {
   svg g {
     fill: $grey-4;
-  }
-}
-
-.datastore-button {
-  display: flex;
-  align-items: center;
-
-  .icon {
-    margin-right: 0.5rem;
   }
 }

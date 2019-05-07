@@ -659,24 +659,28 @@ textarea {
   overflow-x: auto;
   padding-top: 3px; }
 
-.datastore-scroll-gradient {
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(248, 248, 248, 0)), color-stop(100%, #f8f8f8));
-  position: absolute;
-  pointer-events: none;
-  right: 0;
-  top: 0;
-  width: 2rem;
-  height: 100%;
-  z-index: 2; }
+@media (min-width: 600px) {
+  .datastore-scroll-gradient {
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(248, 248, 248, 0)), color-stop(100%, #f8f8f8));
+    position: absolute;
+    pointer-events: none;
+    right: 0;
+    top: 0;
+    width: 2rem;
+    height: 100%;
+    z-index: 2; } }
 
 .datastore-item {
-  display: inline-block;
   padding: 0;
   margin: 0;
   vertical-align: bottom; }
+  @media (min-width: 600px) {
+    .datastore-item {
+      display: inline-block; } }
 
 .datastore-button {
-  display: inline-block;
+  display: block;
+  width: 100%;
   color: #262626;
   padding: 0.5rem 1rem;
   margin: 2px;
@@ -684,21 +688,29 @@ textarea {
   margin: 0;
   cursor: pointer;
   border: none;
-  border-bottom: solid 2.5px transparent;
-  background: transparent; }
+  border-bottom: solid 1px #E5E5E5;
+  border-left: solid 3px transparent;
+  background: transparent;
+  text-align: left; }
+  .datastore-button .icon {
+    margin-right: 0.5rem; }
+  @media (min-width: 600px) {
+    .datastore-button {
+      display: flex;
+      align-items: center;
+      border-left: none;
+      border-bottom: solid 3px transparent; } }
 
 .datastore-button--active {
-  border-bottom: solid 2px #126DC1;
+  border-left: solid 3px #126DC1;
   color: #126DC1; }
+  @media (min-width: 600px) {
+    .datastore-button--active {
+      border-bottom: solid 2px #126DC1;
+      border-left: none; } }
 
 .datastore-button:not(.datastore-button--active) svg g {
   fill: #CCC; }
-
-.datastore-button {
-  display: flex;
-  align-items: center; }
-  .datastore-button .icon {
-    margin-right: 0.5rem; }
 
 /*
   Multiple results container // aka Bento box
