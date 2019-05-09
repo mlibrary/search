@@ -1,7 +1,39 @@
 import { _ } from 'underscore'
 import store from '../../../../store'
 
-const getCatalogNarrowSearchToOptions = (data, activeFilters, institution) => {
+/*
+// Example of what to return:
+  // Return three filters:
+  //  - institution
+  //  - location
+  //  - collection
+
+  // Any active filters?
+  //  - no? Then use defaults
+  //  - yes? Then scope accordingly
+
+  [
+    {
+      uid: 'institution',
+      label: 'Library',
+      activeFilter: 'All libraries'
+      filters: [
+        'All libraries'
+        'William L. Clements Library'
+        // ...
+      ]
+    },
+    {
+      uid: 'location',
+      // ...
+    },
+    {
+      uid: 'collection',
+      // ...
+    }
+  ]
+*/
+const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
   function getActiveFilter({ uid, defaultFilter, filters }) {
     if (activeFilters && activeFilters[uid]) {
       return activeFilters[uid][0]
@@ -14,94 +46,56 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters, institution) => {
     return filters[0]
   }
 
-  let options = []
-
-  // Return three filters:
-  //  - institution
-  //  - location
-  //  - collection
-
-  // Any active filters?
-  //   - no? Then use defaults
-  //   - yes? Then scope accordingly
-
   const state = store.getState()
+  const library = state.institution.active
+    ? state.institution.active : state.institution.defaultInstitution
 
-  // library aka institution
-  const library = state.institution.active ? state.institution.active : state.institution.defaultInstitution // Get the site wide set institution to be used with the advanced search
-
-  // institution
-  const institutionData = _.findWhere(data.filters, { uid: 'institution' })
-  const institutionFilters = institutionData.values.map(value => value.label)
-  const institutionActiveFilter = getActiveFilter({
+  const inst = _.findWhere(data.filters, { uid: 'institution' })
+  const instFilterLabels = inst.values.map(filter => filter.label)
+  const instActiveFilter = getActiveFilter({
     uid: 'institution',
     defaultFilter: library,
-    filters: institutionFilters
-  })
-  options = options.concat({
-    uid: 'institution',
-    label: institutionData.field,
-    activeFilter: institutionActiveFilter ,
-    filters: institutionFilters
+    filters: instFilterLabels
   })
 
-  // location
-  const locationData = _.findWhere(institutionData.values, { label: institutionActiveFilter })
-  const locationDefaultFilter = _.findWhere(data.defaults, { uid: 'location' })
-  const locationFilters = locationData.values.map(value => value.label)
+  const location = _.findWhere(inst.values, { label: instActiveFilter })
+  const locationFilterLabels = location.values.map(value => value.label)
+  const locationDefault = _.findWhere(data.defaults, { uid: 'location' })
   const locationActiveFilter = getActiveFilter({
     uid: 'location',
-    defaultFilter: locationDefaultFilter.value,
-    filters: locationFilters
-  })
-  options = options.concat({
-    uid: 'location',
-    label: locationData.field,
-    activeFilter: locationActiveFilter,
-    filters: locationFilters
+    defaultFilter: locationDefault.value,
+    filters: locationFilterLabels
   })
 
-  // collection
-  const collectionData = _.findWhere(locationData.values, { label: locationActiveFilter })
-  const collectionDefaultFilter = _.findWhere(data.defaults, { uid: 'collection' })
-  const collectionFilters = collectionData.values.map(value => value.label)
+  const collection = _.findWhere(location.values, { label: locationActiveFilter })
+  const collectionFilterLabels = collection.values.map(value => value.label)
+  const collectionDefault = _.findWhere(data.defaults, { uid: 'collection' })
   const collectionActiveFilter = getActiveFilter({
     uid: 'collection',
-    defaultFilter: collectionDefaultFilter.value,
-    filters: collectionFilters
-  })
-  options = options.concat({
-    uid: 'collection',
-    label: collectionData.field,
-    activeFilter: collectionActiveFilter,
-    filters: collectionFilters
+    defaultFilter: collectionDefault.value,
+    filters: collectionFilterLabels
   })
 
-  // Example of what to return:
-
-  /*
-    [
-      {
-        uid: 'institution',
-        label: 'Library',
-        activeFilter: 'All libraries'
-        filters: [
-          'All libraries'
-          'William L. Clements Library'
-          // ...
-        ]
-      },
-      {
-        uid: 'location',
-        // ...
-      },
-      {
-        uid: 'collection',
-        // ...
-      }
-    ]
-
-  */
+  const options = [
+    {
+      uid: 'institution',
+      label: inst.field,
+      filters: instFilterLabels,
+      activeFilter: instActiveFilter
+    },
+    {
+      uid: 'location',
+      label: location.field,
+      filters: locationFilterLabels,
+      activeFilter: locationActiveFilter
+    },
+    {
+      uid: 'collection',
+      label: collection.field,
+      filters: collectionFilterLabels,
+      activeFilter: collectionActiveFilter
+    },
+  ]
 
   return options
 }

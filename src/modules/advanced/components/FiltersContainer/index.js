@@ -30,6 +30,14 @@ class FiltersContainer extends React.Component {
             filterValue: undefined,
             onlyOneFilterValue: true
           })
+
+          setAdvancedFilter({
+            datastoreUid: datastore.uid,
+            filterType,
+            filterGroupUid: 'location',
+            filterValue: undefined,
+            onlyOneFilterValue: true
+          })
         }
 
         // Clear active filters
