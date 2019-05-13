@@ -27,6 +27,7 @@ import {
   FavoriteRecord,
   FavoriteTags
 } from '../../../favorites'
+import Zotero from '../Zotero'
 
 const Header = ({
   record,
@@ -131,6 +132,7 @@ class Record extends React.Component {
                 datastore={datastoreUid}
               />
             </div>
+            <Zotero record={record} />
             <FavoriteTags
               record={record}
               datastore={datastoreUid}
