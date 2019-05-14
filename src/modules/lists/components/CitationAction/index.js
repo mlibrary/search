@@ -71,7 +71,7 @@ class CitationAction extends Component {
     ReactGA.event({
       action: 'Tab',
       category: 'Cite This',
-      label: `${label} ${this.props.recordViewType}`
+      label: `${label} ${this.props.viewType}`
     })
   }
 
