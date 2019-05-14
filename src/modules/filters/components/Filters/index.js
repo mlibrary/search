@@ -91,7 +91,7 @@ class Filters extends React.Component {
       ReactGA.event({
         action: 'Click',
         category: 'Filter',
-        label: `${filterUid} Apply ${filterItemValue}`
+        label: `${datastoreUid}: ${filterUid} Apply ${filterItemValue}`
       })
     }
 
@@ -108,8 +108,6 @@ class Filters extends React.Component {
       allowDots: true,
       format : 'RFC1738'
     })
-
-    
 
     if (queryString.length > 0) {
       history.push(`${match.url}?${queryString}`)
