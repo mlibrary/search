@@ -40,7 +40,7 @@ import {
   A11yLiveMessage
 } from './modules/a11y'
 import {
-  GAPageView,
+  GAListener,
   handleGAClick
 } from './modules/analytics'
 import ReactGA from 'react-ga'
@@ -72,36 +72,37 @@ class App extends React.Component {
         <div className="site-wrapper" onClick={handleGAClick}>
           <A11yLiveMessage />
           <ConnectedRouter history={history}>
-            <ScrollToTop>
-              <Main>
-                <Route component={GAPageView} />
-                <ConnectedSwitch>
-                  <Route path="/technical-overview" exact component={TechnicalOverview}/>
-                  <Route path="/how-to-use-search" exact component={HelpContent}/>
-                  <Route path="/accessibility" exact component={AccessibilityPage}/>
-                  <Route path="/" exact render={() => (
-                    <Redirect to={`/everything`} />
-                  )}/>
-                  <Route path={`/:datastoreSlug`} render={(props) => {
-                    const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-                    const urlState = getStateFromURL({
-                      location: props.location
-                    })
+            <GAListener>
+              <ScrollToTop>
+                <Main>
+                  <ConnectedSwitch>
+                    <Route path="/technical-overview" exact component={TechnicalOverview}/>
+                    <Route path="/how-to-use-search" exact component={HelpContent}/>
+                    <Route path="/accessibility" exact component={AccessibilityPage}/>
+                    <Route path="/" exact render={() => (
+                      <Redirect to={`/everything`} />
+                    )}/>
+                    <Route path={`/:datastoreSlug`} render={(props) => {
+                      const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+                      const urlState = getStateFromURL({
+                        location: props.location
+                      })
 
-                    return (
-                      isDatastore && urlState ? (
-                        <URLSearchQueryWrapper>
-                          <DatastorePage {...props} />
-                        </URLSearchQueryWrapper>
-                      ) : (
-                        <NoMatch />
+                      return (
+                        isDatastore && urlState ? (
+                          <URLSearchQueryWrapper>
+                            <DatastorePage {...props} />
+                          </URLSearchQueryWrapper>
+                        ) : (
+                          <NoMatch />
+                        )
                       )
-                    )
-                  }}/>
-                  <Route component={NoMatch} />
-                </ConnectedSwitch>
-              </Main>
-            </ScrollToTop>
+                    }}/>
+                    <Route component={NoMatch} />
+                  </ConnectedSwitch>
+                </Main>
+              </ScrollToTop>
+            </GAListener>
           </ConnectedRouter>
         </div>
       </Provider>
