@@ -1,7 +1,7 @@
-import GAPageView from './components/GAPageView'
+import GAListener from './components/GAListener'
 import handleGAClick from './handleGAClick'
 
 export {
-  GAPageView,
+  GAListener,
   handleGAClick
 }
