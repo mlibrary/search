@@ -1213,22 +1213,31 @@ body {
   color: #0C5292; }
 
 .bentobox-list {
+  display: flex;
+  flex-wrap: wrap;
   list-style: none;
-  width: 100%;
-  column-gap: 1.5rem;
-  column-width: 19rem; }
-  @media (min-width: 820px) {
+  justify-content: center;
+  width: 100%; }
+  @media (min-width: 600px) {
     .bentobox-list {
-      margin: 0 1rem; } }
+      margin-right: -1.5rem; } }
   .bentobox-list .specialists {
     width: 100%;
-    padding-bottom: 1.5rem;
-    break-inside: avoid; }
+    margin-bottom: 1.5rem;
+    padding: 0; }
+    @media (min-width: 600px) {
+      .bentobox-list .specialists {
+        width: 19rem;
+        margin-right: 1.5rem; } }
 
 .bentobox {
   width: 100%;
-  padding-bottom: 1.5rem;
-  break-inside: avoid; }
+  margin-bottom: 1.5rem;
+  padding: 0; }
+  @media (min-width: 600px) {
+    .bentobox {
+      width: 19rem;
+      margin-right: 1.5rem; } }
   .bentobox .results-list {
     border-radius: 4px; }
 

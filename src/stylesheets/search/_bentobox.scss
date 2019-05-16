@@ -1,17 +1,23 @@
 @mixin bentobox() {
   width: 100%;
-  padding-bottom: 1.5rem;
-  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  padding: 0;
+
+  @media (min-width: $breakpoint-1) {
+    width: 19rem;
+    margin-right: 1.5rem;
+  }
 }
 
 .bentobox-list {
+  display: flex;
+  flex-wrap: wrap;
   list-style: none;
+  justify-content: center;
   width: 100%;
-  column-gap: 1.5rem;
-  column-width: 19rem;
 
-  @media (min-width: $breakpoint-2) {
-    margin: 0 1rem;
+  @media (min-width: $breakpoint-1) {
+    margin-right: -1.5rem;
   }
 
   .specialists {
