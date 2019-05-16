@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Header } from '@umich-lib/core'
+import Header from './header'
 import config from '../../../../config'
 
 class SearchHeader extends React.Component {
@@ -28,7 +28,7 @@ class SearchHeader extends React.Component {
         <Header
           name="Search"
           className="search-header"
-          url="/"
+          siteUrl="/everything"
           nav={navItems}
           renderAnchor={(data) => (
             <a
