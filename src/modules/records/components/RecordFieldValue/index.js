@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import ReactGA from 'react-ga'
 import _ from 'underscore'
+import { ContextProvider } from '../../../reusable'
 
 import {
   stringifySearchQueryForURL,
@@ -75,9 +77,22 @@ class RecordFieldValue extends React.Component {
 
       if (queryString.length > 0) {
         return (
-          <Link to={`/${datastoreSlug}?${queryString}`} className="record-field-value-link">
-            {displayValue}
-          </Link>
+          <ContextProvider render={data => (
+            <Link
+              to={`/${datastoreSlug}?${queryString}`}
+              className="record-field-value-link"
+              onClick={() => {
+                ReactGA.event({
+                  action: `Linked metadata`,
+                  category: `${data.viewType} View`,
+                  label: `New ${data.datastore.name} Search from ${field.name}`
+                })
+              }}
+            >
+              {displayValue}
+            </Link>
+          )} />
+          
         )
       }
     }
