@@ -86,6 +86,7 @@ const UMichBlockM = () => (
     style={{
       display: 'inherit',
       height: '26px',
+      width: '37px'
     }}
   >
     <title>University of Michigan</title>
@@ -102,7 +103,8 @@ const UMichLibrary = () => (
     viewBox="0 0 715 144"
     style={{
       display: 'inherit',
-      height: '1.6rem',
+      height: '26px',
+      width: '130px'
     }}
   >
     <title>Library</title>
