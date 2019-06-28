@@ -33,21 +33,15 @@ class ActionsList extends Component {
         icon: 'format_quote'
       },
       {
-        uid: 'zotero',
-        action: 'file',
-        name: 'Zotero',
-        icon: 'insert_drive_file'
-      },
-      {
         uid: 'endnote',
         action: 'file',
-        name: 'Endnote',
+        name: 'Export Citation (EndNote)',
         icon: 'insert_drive_file'
       },
       {
         uid: 'ris',
         action: 'file',
-        name: 'Export RIS',
+        name: 'Export Citation (RIS)',
         icon: 'insert_drive_file'
       },
       {

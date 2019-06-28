@@ -2368,6 +2368,7 @@ input.get-this-field-input-year {
   line-height: 1.2;
   margin-right: 0.25rem;
   color: #262626;
+  max-width: 8rem;
   display: flex;
   flex-direction: column;
   align-items: center; }
