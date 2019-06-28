@@ -1,6 +1,5 @@
 import SearchBox from './components/SearchBox';
 import ClearSearchButton from './components/ClearSearchButton';
-import HelpContent from './components/HelpContent';
 
 import searchReducer from './reducer';
 import {
@@ -21,6 +20,5 @@ export {
   setPage,
   searching,
   ClearSearchButton,
-  clearSearch,
-  HelpContent
+  clearSearch
 }
