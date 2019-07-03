@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text } from '@umich-lib/core'
+import { Text, Button } from '@umich-lib/core'
 import { _ } from 'underscore'
 import { Checkbox } from '../../../core'
 
@@ -113,15 +113,15 @@ class Multiselect extends React.Component {
           </ul>
         </fieldset>
         {selectedOptions.length > 0 ? (
-          <button
-            type="button"
-            className="button-link-light multiselect-show-checked-toggle" onClick={this.handleShowOnlySelectedOptionsClick}>
+          <Button
+            small
+            onClick={this.handleShowOnlySelectedOptionsClick}>
             {showOnlySelectedOptions ? (
               <span>Show all options</span>
             ) : (
               <span>{`Show only selected options (${selectedOptions.length})`}</span>
             )}
-          </button>
+          </Button>
         ) : null}
       </div>
     )

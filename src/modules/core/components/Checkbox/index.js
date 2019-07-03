@@ -1,5 +1,9 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+
 import React from 'react'
 import Icon from '../Icon'
+import { COLORS } from '@umich-lib/core';
 
 class Checkbox extends React.Component {
   render() {
@@ -25,9 +29,13 @@ class Checkbox extends React.Component {
             handleClick()
           }
         }}>
-        <div className="checkbox">
+        <div className="checkbox" css={{
+          color: COLORS.neutral['300']
+        }}>
           {isChecked ? (
-            <span className="filter-checkbox-checked"><Icon name='checkbox-checked' /></span>
+            <span css={{
+              color: COLORS.teal['400']
+            }}><Icon name='checkbox-checked' /></span>
           ) : (
             <Icon name='checkbox-unchecked' />
           )}

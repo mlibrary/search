@@ -143,7 +143,7 @@ class CitationAction extends Component {
   render() {
     return (
       <div style={{
-        background: COLORS.grey[100]
+        background: COLORS.neutral[100]
       }}>
         <Modal
           isOpen={this.state.modalIsOpen}

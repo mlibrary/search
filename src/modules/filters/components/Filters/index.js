@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+
 import React from 'react'
 import { connect } from 'react-redux'
 import { _ } from 'underscore'
@@ -11,6 +14,9 @@ import {
   ShowAllChildren,
   Checkbox,
 } from '../../../core'
+import {
+  LINK_STYLES
+} from '@umich-lib/core'
 import {
   getDisplayFilters,
   getFilterItems,
@@ -342,9 +348,18 @@ const FilterItem = ({
       <button
         className="filter-button"
         onClick={handleFilterItemClick}
+        css={{
+          '.filter-value-text': {
+            ...LINK_STYLES['default'],
+            ':hover': {}
+          },
+          ':hover .filter-value-text': {
+            ...LINK_STYLES['default'][':hover']
+          }
+        }}
       >
         <span className="flex-space-between flex-center">
-          <span className="filter-value">{filter.name}</span>
+          <span className="filter-value"><span className="filter-value-text">{filter.name}</span></span>
 
           {filter.count ? (
             <span className="filter-count">{numeral(filter.count).format(0,0)}</span>

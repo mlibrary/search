@@ -25,9 +25,8 @@
 
 .active-filters-heading,
 .filters-heading {
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0;
   margin: 0;
-  background: $grey-6;
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.5;
@@ -40,7 +39,6 @@
 }
 
 .filter-group {
-  background: $grey-6;
   margin: 0;
   padding: 0;
 }
@@ -67,7 +65,7 @@
 .filter-group-toggle-show-button {
   appearance: none;
   margin: 0;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0;
   width: 100%;
   cursor: pointer;
   border: none;
@@ -116,16 +114,11 @@
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-
-  &:hover .filter-value {
-    text-decoration: underline;
-  }
 }
 
 .filter-value {
   margin-right: 0.5rem;
   word-break: break-word;
-  color: $main-3;
 }
 
 .filter-item-active {
@@ -198,7 +191,7 @@
   display: flex;
   cursor: pointer;
   margin-bottom: 0;
-  padding: 0 1rem 0.5rem;
+  padding: 0 0 0.5rem;
 
   &:hover {
     text-decoration: underline;
@@ -213,12 +206,10 @@
 }
 
 .filter-checkbox-checked {
-  color: $main-3;
+  
 }
 
 .filter-list-container {
-  padding-left: 1rem;
-  padding-right: 1rem;
   padding-bottom: 1rem;
 
   .button-link-light {

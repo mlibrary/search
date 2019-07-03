@@ -7,7 +7,7 @@ import GetThisOption from '../GetThisOption'
 
 const Section = ({children}) => (
   <section className="card get-this-section y-spacing">
-    <Heading size="large" level={2} style={{ marginTop: '0' }}>How would you like to get this item?</Heading>
+    <Heading size="3XL" level={2} style={{ marginTop: '0' }}>How would you like to get this item?</Heading>
     {children}
   </section>
 )

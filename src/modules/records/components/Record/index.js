@@ -1,6 +1,12 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+
 import React from 'react';
 import { Link } from 'react-router-dom'
 
+import {
+  LINK_STYLES
+} from '@umich-lib/core'
 import FieldList from '../RecordFieldList';
 import {
   TrimString,
@@ -60,7 +66,9 @@ const Header = ({
       {datastoreUid !== 'website' ? (
         <Link
           to={recordTitleLink}
-          className="record-title-link"
+          css={{
+            ...LINK_STYLES['default']
+          }}
           onClick={() => {
             ReactGA.event({
               action: 'Click',
@@ -79,7 +87,9 @@ const Header = ({
         <span>
           <a
             href={recordTitleLink}
-            className="record-title-link"
+            css={{
+              ...LINK_STYLES['default']
+            }}
             onClick={() => {
               ReactGA.event({
                 action: 'Click',

@@ -33,14 +33,6 @@
   }
 }
 
-.record-title-link {
-  border-bottom: solid 2px rgba($main-3, 0.4);
-
-  &:hover {
-    background: $main-5;
-  }
-}
-
 .record-title-link + .icon {
   margin-left: 0.5rem;
 }

@@ -27,7 +27,7 @@ const Landing = ({ content, activeDatastore }) => {
 
           <div className="container container-narrow">
             <div className="institution-select-landing-container">
-              <Heading size="large" level={2} style={{ textAlign: 'center' }}> To find materials closest to you, please choose a library</Heading>
+              <Heading size="XL" level={2} style={{ textAlign: 'center' }}> To find materials closest to you, please choose a library</Heading>
               <InstitutionSelect type="switch" />
             </div>
             <p className="landing-extra-info"><a href="http://mirlyn-classic.lib.umich.edu/">Mirlyn Classic Catalog</a></p>

@@ -17,10 +17,6 @@
 
 .results-summary-container {
   margin-bottom: 0.75rem;
-  padding: 0.5rem 1.25rem;
-  background: white;
-  background: $grey-6;
-  border-radius: 4px;
 
   & > * {
     margin-top: 0.5rem;
@@ -49,9 +45,6 @@
 }
 
 .pagination-container {
-  padding: 0.75rem 1rem;
-  background: white;
-  background: $grey-6;
   margin-bottom: 3rem;
   margin-top: 1rem;
 

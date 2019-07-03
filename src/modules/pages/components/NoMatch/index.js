@@ -14,7 +14,7 @@ const NoMatch = function NoMatch() {
   return (
     <div className="container container-narrow">
       <div className="page-not-found-container">
-        <Heading size="xlarge" level={1}>
+        <Heading size="3XL" level={1}>
           Page not found - 404
         </Heading>
 

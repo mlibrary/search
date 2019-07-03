@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import config from '../../../../config'
 
 const alertStyles = {
-  marginTop: '-0.75rem',
   textAlign: 'center',
   marginBottom: '0.75rem'
 }

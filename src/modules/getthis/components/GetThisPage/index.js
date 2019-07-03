@@ -34,7 +34,7 @@ class GetThisPageTemplate extends React.Component {
           />
         </div>
         <section>
-          <Heading size="xlarge" level={1}>Get This</Heading>
+          <Heading size="3XL" level={1}>Get This</Heading>
           <Text lede>Request books and other media to the campus library or department most convenient for you.</Text>
         </section>
 

@@ -119,7 +119,7 @@ class BrowseByFilters extends React.Component {
 
         return (
           <section key={uid} className="browse u-margin-top-1">
-            <Heading size="large" level={2} style={{ marginTop: '0' }}>{name}</Heading>
+            <Heading size="3XL" level={2} style={{ marginTop: '0' }}>{name}</Heading>
 
             <NestedList items={filters[uid].filters} browserFilterTo={(value) => this.handleBrowserFilterTo(uid, value)} />
           </section>

@@ -1,5 +1,11 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+
 import React from 'react'
-import { ResourceAccess } from '@umich-lib/core'
+import {
+  ResourceAccess,
+  SPACING
+} from '@umich-lib/core'
 import { Link } from 'react-router-dom'
 import { ContextProvider } from '../../../reusable'
 import ReactGA from 'react-ga'
@@ -84,9 +90,9 @@ class RecordResourceAccess extends React.Component {
         <ContextProvider
           render={data => (
             <div
-              className="resource-access-container"
               onClick={(e) => this.handleAnalytics(e, data)}
               key={`datastoreUid-${record.uid}`}
+              className="resource-access-container"
             >
               {ra.map((r, i) => (
                 <ResourceAccess

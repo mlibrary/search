@@ -30,7 +30,7 @@ class BrowseAtoZ extends React.Component {
   render() {
     return (
       <section className="browse">
-        <Heading size="large" level={2} style={{ marginTop: '0' }}>Titles A-Z</Heading>
+        <Heading size="3XL" level={2} style={{ marginTop: '0' }}>Titles A-Z</Heading>
         <ul className="browse-list">
           {this.state.startsWith.map((character, key) => (
             <li className="browse-item" key={key}>

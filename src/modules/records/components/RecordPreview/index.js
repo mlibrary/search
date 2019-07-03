@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+
 import React from 'react'
 import { Link } from 'react-router-dom'
 import ReactGA from 'react-ga'
@@ -6,6 +9,11 @@ import {
   Icon as SearchIcon,
   TrimString
 } from '../../../core'
+
+import {
+  LINK_STYLES,
+  SPACING
+} from '@umich-lib/core'
 
 import {
   getField,
@@ -54,7 +62,10 @@ const Header = ({
         {hasFullView ? (
           <Link
             to={recordTitleLink}
-            className="record-preview-title-link"
+            css={{
+              ...LINK_STYLES['default'],
+              marginRight: SPACING['XS']
+            }}
             onClick={() => {
               ReactGA.event({
                 action: 'Click',
@@ -73,7 +84,10 @@ const Header = ({
           <span>
             <a
               href={recordTitleLink}
-              className="record-preview-title-link"
+              css={{
+                ...LINK_STYLES['default'],
+                marginRight: SPACING['XS']
+              }}
               onClick={() => {
                 ReactGA.event({
                   action: 'Click',
@@ -256,6 +270,9 @@ const Footer = ({ record, datastoreUid }) => {
           }}><Icon icon="warning" /> {outage}</p>
         )}
         <a
+          css={{
+            ...LINK_STYLES['subtle']
+          }}
           className="record-preview-link"
           href={accessCell.href}
           data-ga-action="Click"

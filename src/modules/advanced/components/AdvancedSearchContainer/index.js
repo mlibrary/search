@@ -42,8 +42,8 @@ Structure of the AdvancedSearch components:
 
 const StyledTab = styled(Tab)(props => ({
   [MEDIA_QUERIES.LARGESCREEN]: {
-    background: props.selected ? COLORS.grey[100] : 'inherit',
-    borderBottomColor: props.selected ? COLORS.grey[100] : 'none'
+    background: props.selected ? COLORS.neutral[100] : 'inherit',
+    borderBottomColor: props.selected ? COLORS.neutral[100] : 'none'
   }
 }))
 
@@ -56,7 +56,7 @@ const StyledContainer = styled('div')({
 const StyledTabPanelContainer = styled('div')({
   ...CARD,
   padding: '1rem',
-  background: COLORS.grey[100],
+  background: COLORS.neutral[100],
   borderRadius: '0 0 4px 4px',
   [MEDIA_QUERIES.LARGESCREEN]: {
     padding: '2rem'
@@ -81,7 +81,7 @@ class AdvancedSearchContainer extends React.Component {
           renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
         />
 
-        <Heading size="xlarge" level={1}>Advanced Search</Heading>
+        <Heading size="3XL" level={1}>Advanced Search</Heading>
         <Text lede>Select a search category below for associated advanced search options.</Text>
         
         <Tabs defaultIndex={activeDatastoreIndex}>

@@ -18,8 +18,8 @@ class TechnicalOverview extends React.Component {
             remark()
               .use(remark2react, {
                 remarkReactComponents: {
-                  'h1': (props) => <Heading size="xlarge" level={1} style={{ marginTop: '0' }} {...props} />,
-                  'h2': (props) => <Heading size="large" level={2} {...props} />,
+                  'h1': (props) => <Heading size="3XL" level={1} style={{ marginTop: '0' }} {...props} />,
+                  'h2': (props) => <Heading size="3XL" level={2} {...props} />,
                   'h3': (props) => <Heading size="medium" level={3} {...props} />,
                   'a': (props) => <a {...props} className="underline" />,
                   'p': Text,

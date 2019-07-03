@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -9,12 +11,17 @@ import {
 import _ from 'underscore'
 
 import {
+  Button,
+  Icon,
+  TextInput,
+  Margins,
+  SPACING
+} from '@umich-lib/core'
+
+import {
   setSearchQueryInput,
   searching
 } from '../../actions'
-import {
-  Icon
-} from '../../../core';
 import ReactGA from 'react-ga'
 
 class SearchBox extends React.Component {
@@ -83,6 +90,37 @@ class SearchBox extends React.Component {
     const { match, location, queryInput, isAdvanced, activeDatastore } = this.props
 
     return (
+      <div css={{
+        padding: `${SPACING['S']} 0`
+      }}>
+        <Margins>
+          <form
+            onSubmit={this.handleSubmit}
+            role="search"
+            css={{
+              display: 'flex',
+              maxWidth: '42rem',
+              margin: '0 auto'
+            }}
+          >
+            <TextInput
+              id="search-box"
+              label="query"
+              hideLabel
+              value={queryInput}
+              spellCheck="false"
+              onChange={event => this.handleChange(event.target.value)}
+            />
+            <Button kind="primary" css={{
+              whiteSpace: 'nowrap',
+              marginLeft: SPACING['XS']
+            }}><Icon icon="search" size={20} /> Search</Button>
+          </form>
+        </Margins>
+      </div>
+    )
+
+    return (
       <div className="search-box-container-full">
         <div className="search-box-container">
           <form className="search-box-form" onSubmit={this.handleSubmit} role="search" id="search-box">
@@ -96,7 +134,7 @@ class SearchBox extends React.Component {
                 spellCheck="false"
                 onChange={event => this.handleChange(event.target.value)}
               />
-              <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
+              <Button><Icon icon="search" />Search</Button>
             </div>
 
             {isAdvanced && (

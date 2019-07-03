@@ -1,4 +1,11 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+
 import React from 'react'
+
+import {
+  Margins
+} from '@umich-lib/core'
 
 import {
   Icon
@@ -22,10 +29,11 @@ const DatastoreNavigationPresenter = ({
   history
 }) => {
   return (
-    <div className="datastore-list-container datastore-scroll-container">
-      <div className="datastore-scroll-gradient"></div>
-      <div className="datastore-scroll-x">
-        <ul className="datastore-list" role="navigation" title="Search groupings">
+    <Margins>
+      <nav aria-label="Search groupings">
+        <ul css={{
+          textAlign: 'center'
+        }}>
           {datastores.datastores.map(ds => (
             <DatastoreNavigationItem
               key={ds.uid}
@@ -38,8 +46,8 @@ const DatastoreNavigationPresenter = ({
             />
           ))}
         </ul>
-      </div>
-    </div>
+      </nav>
+    </Margins>
   );
 };
 

@@ -1,6 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
+  Button
+} from '@umich-lib/core'
+import {
   setA11yMessage
 } from '../../../a11y'
 
@@ -37,21 +40,15 @@ class ShowAllChildren extends React.Component {
           return null
         })}
         {hasShowHideButton && (
-          <ShowHideButton handleOnClick={this.handleShowToggleClick.bind(this)} show={this.state.show}>
-            <span className="show-all-button__text">{buttonText}</span>
-          </ShowHideButton>
+          <Button
+            small
+            onClick={this.handleShowToggleClick.bind(this)}
+            aria-expanded={this.state.show}
+          >
+            {buttonText}
+          </Button>
         )}
       </React.Fragment>
-    )
-  }
-}
-
-class ShowHideButton extends React.Component {
-  render() {
-    return (
-      <button onClick={() => this.props.handleOnClick()} className="button-link-light show-all-button" aria-expanded={this.props.show}>
-        {this.props.children}
-      </button>
     )
   }
 }

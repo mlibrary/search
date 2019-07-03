@@ -1,6 +1,9 @@
 import 'react-app-polyfill/ie11';
 import 'core-js';
 
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {
@@ -15,7 +18,11 @@ import {
 import {
   ConnectedRouter,
 } from 'react-router-redux'
-import { Alert } from '@umich-lib/core'
+import {
+  Alert,
+  GlobalStyleSheet,
+  COLORS
+} from '@umich-lib/core'
 import {
   initializePride,
   isSlugADatastore,
@@ -72,7 +79,10 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="site-wrapper" onClick={handleGAClick}>
+        <div onClick={handleGAClick} css={{
+          background: COLORS.blue['100']
+        }}>
+          <GlobalStyleSheet />
           <A11yLiveMessage />
           <ConnectedRouter history={history}>
             <GAListener>

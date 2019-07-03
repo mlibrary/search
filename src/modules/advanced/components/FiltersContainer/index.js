@@ -100,7 +100,7 @@ class FiltersContainer extends React.Component {
 
     return (
       <React.Fragment>
-        <Heading size="large" level={2}>Additional search options</Heading>
+        <Heading size="3XL" level={2}>Additional search options</Heading>
         <div className="advanced-filters-inner-container">
           {filterGroups.map((filterGroup, groupIndex) => (
             <React.Fragment key={groupIndex}>
