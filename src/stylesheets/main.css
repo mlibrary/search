@@ -1410,50 +1410,6 @@ body {
 .record-preview__field-value {
   display: inline-block; }
 
-.landing-container {
-  margin: 0 auto;
-  padding: 1rem 0;
-  margin-top: 1.5rem;
-  border-radius: 4px;
-  max-width: 28rem;
-  line-height: 1.6; }
-  .landing-container p {
-    font-size: 1.15rem; }
-  .landing-container .landing-heading-text {
-    padding-bottom: 1.5rem;
-    border-bottom: solid 4px #CCC;
-    margin-top: 0;
-    font-size: 1.25rem;
-    font-weight: 400;
-    line-height: 1.6; }
-    .landing-container .landing-heading-text b {
-      color: #212B36; }
-  .landing-container p:not(.landing-heading-text) {
-    padding-top: 1rem; }
-  .landing-container a {
-    text-decoration: underline; }
-
-.landing-icons {
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: center; }
-  .landing-icons svg {
-    margin: 0 1rem; }
-  .landing-icons .icon {
-    width: 2.5rem;
-    height: 2.5rem; }
-    .landing-icons .icon g {
-      color: #1E80A2; }
-
-.landing-extra-info {
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 1rem; }
-  .landing-extra-info a {
-    font-size: 1rem;
-    border-bottom: solid 2px rgba(30, 128, 162, 0.5); }
-
 .datastore-info-container {
   display: flex;
   align-items: flex-start;

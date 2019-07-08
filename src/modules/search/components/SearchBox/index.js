@@ -111,6 +111,7 @@ class SearchBox extends React.Component {
               labelText="query"
               hideLabel
               value={queryInput}
+              placeholder="Find it with Library Search"
               spellCheck="false"
               onChange={event => this.handleChange(event.target.value)}
             />

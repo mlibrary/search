@@ -10,7 +10,9 @@ import {
   TYPOGRAPHY,
   COLORS
 } from '@umich-lib/core'
-import { NONAME } from 'dns';
+import {
+  stringifySearchQueryForURL
+} from '../../../pride'
 
 /*
 import DatastoreNavigation from './container';
@@ -45,8 +47,49 @@ function createLinkStyles(active) {
   }
 }
 
+function DatastoreNavigationItem({ uid }) {
+  const {
+    datastores,
+    search,
+    filters,
+    institution
+  }  = useSelector(state => state)
+  const { name, slug } = datastores.datastores.filter(ds => ds.uid === uid)[0]
+  const active = datastores.active
+  const queryString = stringifySearchQueryForURL({
+    query: search.query,
+    filter: filters.active[uid],
+    page: search.page[uid] === 1 ? undefined : search.page[uid],
+    sort: search.sort[uid],
+    library: uid === 'mirlyn' ? institution.active : undefined
+  })
+  const query = queryString.length ? '?' + queryString : ''
+  const to = "/" + slug + query
+
+  return (
+    <li
+      key={uid}
+      css={{
+        [MEDIA_QUERIES.LARGESCREEN]: {
+          display: 'inline-block',
+          ':not(:first-of-type)': {
+            marginLeft: SPACING['L']
+          }
+        }
+      }}
+    >
+      <Link
+        to={to}
+        css={createLinkStyles(uid === active)}
+      >
+        <span>{name}</span>
+      </Link>
+    </li>
+  )
+}
+
 export default function DatastoreNavigation() {
-  const { active, datastores }  = useSelector(state => state.datastores)
+  const { datastores }  = useSelector(state => state.datastores)
 
   return (
     <nav aria-label="search groupings" css={{
@@ -60,25 +103,8 @@ export default function DatastoreNavigation() {
             textAlign: 'center'
           }
         }}>
-          {datastores.map(({ uid, slug, name }) => (
-            <li
-              key={uid}
-              css={{
-                [MEDIA_QUERIES.LARGESCREEN]: {
-                  display: 'inline-block',
-                  ':not(:first-of-type)': {
-                    marginLeft: SPACING['L']
-                  }
-                }
-              }}
-            >
-              <Link
-                to={"/" + slug}
-                css={createLinkStyles(uid === active)}
-              >
-                <span>{name}</span>
-              </Link>
-            </li>
+          {datastores.map(({ uid }) => (
+            <DatastoreNavigationItem uid={uid} key={uid} />
           ))}
         </ul>
       </Margins>
