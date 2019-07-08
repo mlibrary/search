@@ -1,10 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  withRouter,
-  Link
+  withRouter
 } from 'react-router-dom'
-import { Heading, Text } from '@umich-lib/core'
+import {
+  Heading,
+  Text,
+  Breadcrumb,
+  BreadcrumbItem
+} from '@umich-lib/core'
+
+import { Link } from '../../../core'
 
 import {
   requestRecord,
@@ -15,7 +21,6 @@ import {
   GetThisFAQ,
   GetThisRecord,
 } from '../../../getthis'
-import { Breadcrumb } from '../../../reusable'
 
 class GetThisPageTemplate extends React.Component {
   render() {
@@ -23,16 +28,19 @@ class GetThisPageTemplate extends React.Component {
 
     return (
       <article className="container container-narrow">
-        <div className="u-margin-top-1">
-          <Breadcrumb
-            items={[
-              { text: 'Catalog', to: `/catalog${document.location.search}` },
-              { text: 'Record', to: `/catalog/record/${recordUid}${document.location.search}` },
-              { text: 'Get This' }
-            ]}
-            renderAnchor={(item) => (<Link to={item.to}>{item.text}</Link>)}
-          />
-        </div>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to={`/catalog${document.location.search}`}>
+              Catalog
+            </Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <Link to={`/catalog/record/${recordUid}${document.location.search}`}>
+              Record
+            </Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem>Get This</BreadcrumbItem>
+        </Breadcrumb>
         <section>
           <Heading size="3XL" level={1}>Get This</Heading>
           <Text lede>Request books and other media to the campus library or department most convenient for you.</Text>

@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+
 import React from 'react'
 import { connect } from 'react-redux'
 import MediaQuery from 'react-responsive';
@@ -6,6 +9,10 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
+
+import {
+  Margins
+} from '@umich-lib/core'
 
 import {
   NoMatch
@@ -181,7 +188,7 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
   }
 
   return (
-    <div className="container container-medium flex-container" style={{ marginTop: '0.75rem' }}>
+    <Margins css={{ display: 'flex' }}>
       {!activeDatastore.isMultisearch ? (
         <div className="side-container">
           <MediaQuery minWidth={980}>
@@ -219,7 +226,7 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
           <Pagination />
         </div>
       ) : null }
-    </div>
+    </Margins>
   )
 }
 

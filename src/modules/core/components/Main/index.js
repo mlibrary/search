@@ -10,7 +10,6 @@ class Main extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <SearchHeader />
         {this.props.children}
         <Feedback />
         <Footer />

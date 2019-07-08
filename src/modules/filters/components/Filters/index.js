@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { jsx } from '@emotion/core'
 
 import React from 'react'
 import { connect } from 'react-redux'
@@ -15,7 +15,8 @@ import {
   Checkbox,
 } from '../../../core'
 import {
-  LINK_STYLES
+  LINK_STYLES,
+  SPACING
 } from '@umich-lib/core'
 import {
   getDisplayFilters,
@@ -187,7 +188,7 @@ const FilterList = ({
   if (filters.length > 0) {
     return (
       <div>
-        <h2 className="filters-heading">Filter your search</h2>
+        <h2 css={{ fontWeight: '700', padding: `${SPACING['M']} 0` }}>Filter your search</h2>
         <ul className="filter-group-list">
           {filters.map((filter, index) => (
             <Filter
@@ -304,7 +305,9 @@ const Filter = ({
             })}
           >
             <span className="flex-space-between flex-center">
-              <h3 className="filter-group-heading">
+              <h3 css={{
+                fontWeight: '700'
+              }}>
                 {filter.name}
               </h3>
               {filter.open ? <Icon name="minus" /> : <Icon name="chevron-down" /> }

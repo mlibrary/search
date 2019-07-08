@@ -2,7 +2,7 @@ import 'react-app-polyfill/ie11';
 import 'core-js';
 
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { jsx } from '@emotion/core'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -17,11 +17,12 @@ import {
 } from 'react-router-dom'
 import {
   ConnectedRouter,
-} from 'react-router-redux'
+} from 'connected-react-router'
 import {
   Alert,
   GlobalStyleSheet,
-  COLORS
+  COLORS,
+  UniversalHeader
 } from '@umich-lib/core'
 import {
   initializePride,
@@ -46,9 +47,6 @@ import {
 import {
   ScrollToTop
 } from './modules/core'
-import {
-  A11yLiveMessage
-} from './modules/a11y'
 import {
   GAListener,
   handleGAClick
@@ -82,8 +80,8 @@ class App extends React.Component {
         <div onClick={handleGAClick} css={{
           background: COLORS.blue['100']
         }}>
+          <UniversalHeader />
           <GlobalStyleSheet />
-          <A11yLiveMessage />
           <ConnectedRouter history={history}>
             <GAListener>
               <ScrollToTop>

@@ -5,7 +5,7 @@ import {
   withRouter,
   Link
 } from 'react-router-dom'
-import { Breadcrumb } from '../../../reusable'
+import { Breadcrumb, BreadcrumbItem } from '@umich-lib/core'
 
 import {
   TrimString,
@@ -52,13 +52,12 @@ class FullRecordBreadcrumbs extends React.Component {
   render() {
     const { datastore } = this.props
     return (
-      <Breadcrumb
-        items={[
-          { text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
-          { text: 'Record' }
-        ]}
-        renderAnchor={(item) => (<Link to={item.to}>{item.text}</Link>)}
-      />
+      <Breadcrumb>
+        <BreadcrumbItem>
+          <Link to={`/${datastore.slug}${document.location.search}`}>{datastore.name}</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>Record</BreadcrumbItem>
+      </Breadcrumb>
     )
   }
 }

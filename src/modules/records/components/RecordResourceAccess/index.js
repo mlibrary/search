@@ -1,10 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { jsx } from '@emotion/core'
 
 import React from 'react'
 import {
-  ResourceAccess,
-  SPACING
+  ResourceAccess
 } from '@umich-lib/core'
 import { Link } from 'react-router-dom'
 import { ContextProvider } from '../../../reusable'

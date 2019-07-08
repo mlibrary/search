@@ -1,6 +1,5 @@
 import SearchHeader from './components/SearchHeader';
 import Main from './components/Main';
-import Button from './components/Button';
 import Loading from './components/Loading';
 import Icon from './components/Icon';
 import ShowAllChildren from './components/ShowAllChildren'
@@ -15,11 +14,11 @@ import SiteMessage from './components/SiteMessage'
 import DetailsList from './components/DetailsList'
 import ScrollToTopOnMount from './components/ScrollToTopOnMount'
 import ScrollToTop from './components/ScrollToTop'
+import Link from './components/Link'
 
 export {
   SearchHeader,
   Main,
-  Button,
   Loading,
   Icon,
   ShowAllChildren,
@@ -33,5 +32,6 @@ export {
   SiteMessage,
   DetailsList,
   ScrollToTopOnMount,
-  ScrollToTop
+  ScrollToTop,
+  Link
 };

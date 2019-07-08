@@ -1,7 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Text, Heading } from '@umich-lib/core'
+import {
+  Text,
+  Heading,
+  Breadcrumb,
+  BreadcrumbItem
+} from '@umich-lib/core'
 import _ from 'underscore'
 import {
   setDocumentTitle
@@ -10,9 +15,6 @@ import {
   BrowseAtoZ,
   BrowseByFilters
 } from '../../../browse'
-import {
-  Breadcrumb
-} from '../../../reusable'
 
 
 class BrowsePage extends React.Component {
@@ -26,13 +28,14 @@ class BrowsePage extends React.Component {
 
     return (
       <div className="container container-narrow u-margin-top-1">
-        <Breadcrumb
-          items={[
-            {text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
-            {text: 'Browse' }
-          ]}
-          renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
-        />
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to={`/${datastore.slug}${document.location.search}`}>
+              {datastore.name}
+            </Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem>Browse</BreadcrumbItem>
+        </Breadcrumb>
 
         <Heading size="3XL" level={1}>Browse all {datastore.name}</Heading>
         <Text lede>When you're stuck looking for specific {datastore.name.toLowerCase()} or just want to see what's out there, the browse page makes finding the right {datastore.name.toLowerCase()} easy. Browse all {datastore.name.toLowerCase()} titles alphabetically or by academic discipline.</Text>

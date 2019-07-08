@@ -1,12 +1,11 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { jsx } from '@emotion/core'
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import qs from 'qs'
 import {
-  withRouter,
-  Link,
+  withRouter
 } from 'react-router-dom'
 import _ from 'underscore'
 
@@ -17,6 +16,8 @@ import {
   Margins,
   SPACING
 } from '@umich-lib/core'
+
+import { Link } from '../../../core'
 
 import {
   setSearchQueryInput,
@@ -91,7 +92,8 @@ class SearchBox extends React.Component {
 
     return (
       <div css={{
-        padding: `${SPACING['S']} 0`
+        paddingTop: SPACING['M'],
+        background: 'white'
       }}>
         <Margins>
           <form
@@ -99,13 +101,14 @@ class SearchBox extends React.Component {
             role="search"
             css={{
               display: 'flex',
-              maxWidth: '42rem',
-              margin: '0 auto'
+              maxWidth: '48rem',
+              margin: '0 auto',
+              alignItems: 'center'
             }}
           >
             <TextInput
               id="search-box"
-              label="query"
+              labelText="query"
               hideLabel
               value={queryInput}
               spellCheck="false"
@@ -115,31 +118,16 @@ class SearchBox extends React.Component {
               whiteSpace: 'nowrap',
               marginLeft: SPACING['XS']
             }}><Icon icon="search" size={20} /> Search</Button>
-          </form>
-        </Margins>
-      </div>
-    )
-
-    return (
-      <div className="search-box-container-full">
-        <div className="search-box-container">
-          <form className="search-box-form" onSubmit={this.handleSubmit} role="search" id="search-box">
-            <div className="search-box">
-              <input
-                id="search-query"
-                className="search-box-input"
-                type="search"
-                aria-label="search text"
-                value={queryInput}
-                spellCheck="false"
-                onChange={event => this.handleChange(event.target.value)}
-              />
-              <Button><Icon icon="search" />Search</Button>
-            </div>
 
             {isAdvanced && (
               <div className="search-box-advanced">
-                <Link to={`/${match.params.datastoreSlug}/advanced${location.search}`} className="search-box-advanced-link">
+                <Link
+                  to={`/${match.params.datastoreSlug}/advanced${location.search}`}
+                  kind="subtle"
+                  css={{
+                    marginLeft: SPACING['M']
+                  }}
+                >
                   <span className="offpage">{activeDatastore.name}</span>
                   <span>Advanced</span>
                   <span className="offpage">Search</span>
@@ -147,7 +135,7 @@ class SearchBox extends React.Component {
               </div>
             )}
           </form>
-        </div>
+        </Margins>
       </div>
     )
   }

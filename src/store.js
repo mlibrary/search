@@ -3,10 +3,7 @@ import {
   combineReducers,
   applyMiddleware,
 } from 'redux'
-import {
-  routerReducer,
-  routerMiddleware
-} from 'react-router-redux'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { datastoresReducer } from './modules/datastores'
@@ -25,11 +22,11 @@ import { favoritesReducer } from './modules/favorites'
 import history from './history'
 
 const rootReducer = combineReducers({
+  router: connectRouter(history),
   datastores: datastoresReducer,
   records: recordsReducer,
   search: searchReducer,
   filters: filtersReducer,
-  router: routerReducer,
   advanced: advancedReducer,
   institution: institutionReducer,
   browse: browseReducer,

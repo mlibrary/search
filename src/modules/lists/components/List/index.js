@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { _ } from 'underscore';
-import { Heading, Text } from '@umich-lib/core'
+import {
+  Heading,
+  Text,
+  Breadcrumb,
+  BreadcrumbItem
+} from '@umich-lib/core'
 import {
   withRouter,
   Link
@@ -9,9 +14,6 @@ import {
 import {
   Record
 } from '../../../records'
-import {
-  Breadcrumb
-} from '../../../reusable'
 import {
   setA11yMessage
 } from '../../../a11y'
@@ -90,13 +92,14 @@ class List extends Component {
 
     return (
       <article className="container container-narrow u-margin-top-1">
-        <Breadcrumb
-          items={[
-            {text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
-            {text: `My Temporary ${datastore.name} List` }
-          ]}
-          renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
-        />
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to={`/${datastore.slug}${document.location.search}`}>
+              {datastore.name}
+            </Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem>My Temporary {datastore.name} List</BreadcrumbItem>
+        </Breadcrumb>
 
         <header className="lists-header">
           <Heading size="3XL" level={1}>My Temporary {datastore.name} List</Heading>

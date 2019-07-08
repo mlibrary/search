@@ -1,7 +1,9 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import qs from 'qs'
 import { Heading } from '@umich-lib/core'
+
+import { Link } from '../../../core'
 
 class BrowseAtoZ extends React.Component {
   state = {

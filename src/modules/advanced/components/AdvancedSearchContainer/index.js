@@ -13,11 +13,10 @@ import {
   Text,
   Heading,
   COLORS,
-  MEDIA_QUERIES
+  MEDIA_QUERIES,
+  Breadcrumb,
+  BreadcrumbItem
 } from '@umich-lib/core'
-import {
-  Breadcrumb
-} from '../../../reusable'
 import AdvancedSearchForm from '../AdvancedSearchForm'
 
 const CARD = {
@@ -73,13 +72,16 @@ class AdvancedSearchContainer extends React.Component {
 
     return (
       <StyledContainer className="container container-narrow">
-        <Breadcrumb
-          items={[
-            {text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${document.location.search}` },
-            {text: 'Advanced Search' }
-          ]}
-          renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
-        />
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link
+              to={`/${activeDatastore.slug}${document.location.search}`}
+            >{activeDatastore.name}</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            Advanced Search
+          </BreadcrumbItem>
+        </Breadcrumb>
 
         <Heading size="3XL" level={1}>Advanced Search</Heading>
         <Text lede>Select a search category below for associated advanced search options.</Text>

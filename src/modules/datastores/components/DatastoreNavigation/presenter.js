@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { jsx } from '@emotion/core'
 
 import React from 'react'
 
@@ -29,25 +29,29 @@ const DatastoreNavigationPresenter = ({
   history
 }) => {
   return (
-    <Margins>
-      <nav aria-label="Search groupings">
-        <ul css={{
-          textAlign: 'center'
-        }}>
-          {datastores.datastores.map(ds => (
-            <DatastoreNavigationItem
-              key={ds.uid}
-              datastore={ds}
-              datastores={datastores}
-              search={search}
-              activeFilters={activeFilters}
-              institution={institution}
-              history={history}
-            />
-          ))}
-        </ul>
-      </nav>
-    </Margins>
+    <div css={{
+      background: 'white'
+    }}>
+      <Margins>
+        <nav aria-label="Search groupings">
+          <ul css={{
+            textAlign: 'center'
+          }}>
+            {datastores.datastores.map(ds => (
+              <DatastoreNavigationItem
+                key={ds.uid}
+                datastore={ds}
+                datastores={datastores}
+                search={search}
+                activeFilters={activeFilters}
+                institution={institution}
+                history={history}
+              />
+            ))}
+          </ul>
+        </nav>
+      </Margins>
+    </div>
   );
 };
 
