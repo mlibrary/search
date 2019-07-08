@@ -182,7 +182,7 @@ class DatastorePageContainer extends React.Component {
 
 const Results = ({ searching, activeDatastore, activeFilterCount }) => {
   if (activeDatastore.isMultisearch && searching) {
-    return <MultisearchSearching activeDatastore={activeDatastore}/>
+    return <BentoboxList />
   }
 
   return (
@@ -225,14 +225,6 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
         </div>
       ) : null }
     </Margins>
-  )
-}
-
-const MultisearchSearching = () => {
-  return (
-    <div className="container container-large flex-container">
-      <BentoboxList />
-    </div>
   )
 }
 

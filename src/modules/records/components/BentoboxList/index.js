@@ -1,7 +1,14 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
+
+import {
+  SPACING
+} from '@umich-lib/core'
 
 import { Icon } from '../../../core'
 import { getMultiSearchRecords } from '../../../pride'
@@ -20,7 +27,9 @@ class BentoboxList extends React.Component {
     const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords)
 
     return (
-      <article className={`bentobox-list`} id="search-results">
+      <article css={{
+        marginTop: SPACING['L']
+      }}>
         <SpecialistsWrapper show={2}>
           {bentoboxListRecords.map(bentobox => {
             if (!bentobox.records) {
