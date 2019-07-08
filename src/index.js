@@ -2,7 +2,7 @@ import 'react-app-polyfill/ie11';
 import 'core-js';
 
 /** @jsx jsx */
-import { jsx } from '@emotion/core'
+import { jsx, Global } from '@emotion/core'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -78,10 +78,19 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <div onClick={handleGAClick} css={{
-          background: COLORS.blue['100']
+          background: COLORS.blue['100'],
+          minHeight: '100%',
+          display: 'grid',
+          gridTemplateRows: 'auto 1fr auto auto',
+          gridTemplateColumns: '100%'
         }}>
           <UniversalHeader />
           <GlobalStyleSheet />
+          <Global styles={{
+            'html, body, #root': {
+              height: '100%'
+            }
+          }} />
           <ConnectedRouter history={history}>
             <GAListener>
               <ScrollToTop>
