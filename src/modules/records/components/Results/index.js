@@ -9,7 +9,8 @@ import {
   COLORS,
   MEDIA_QUERIES,
   Heading,
-  Loading
+  Loading,
+  Z_SPACE
 } from '@umich-lib/core'
 
 import {
@@ -19,6 +20,10 @@ import {
 import {
   SpecialistsWrapper
 } from '../../../specialists'
+
+import {
+  Filters
+} from '../../../filters'
 
 export default function Results() {
   const {
@@ -34,24 +39,93 @@ export default function Results() {
   }
 
   /*
-    Check if the results are for a multisearch (bentobox)
+    Check if the results are for a multisearch (BentoResults)
     or a typical list of results.
   */
-  const { isMultisearch } = datastores.datastores
+  const datastore = datastores.datastores
     .filter(({ uid }) => datastores.active === uid)[0]
 
-  if (isMultisearch) {
-    return <Bentobox />
+  if (datastore.isMultisearch) {
+    return <BentoResults />
   }
 
   return (
     <Margins>
-      <p>results</p>
+      <div css={{
+        marginTop: SPACING['L'],
+        display: 'flex'
+      }}>
+        <div
+          aria-label="filters"
+          css={{
+            flex: '0 0 20rem',
+            [MEDIA_QUERIES.LARGESCREEN]: {
+              marginRight: SPACING['XL']
+            }
+          }}
+        >
+          <Filters />
+        </div>
+        <DatastoreResults datastore={datastore} />
+      </div>
     </Margins>
   )
 }
 
-function Bentobox() {
+function DatastoreResults({ datastore }) {
+  const { uid, name, slug } = datastore
+  const { results, records, loading } = useSelector(state => state.records)
+
+  if (loading[uid]) {
+    return (
+      <Loading small />
+    )
+  }
+
+  /*
+    Let the user know this datastore
+    does not have any results to show.
+  */
+  const noResults = !results[uid].length
+  if (noResults) {
+    const hasBrowse = (uid === 'databases' || uid === 'journals') ? true : false
+
+    return (
+      <React.Fragment>
+        <p>
+          <b css={{ fontWeight: '700' }}>No results</b> match your search.
+        </p>
+
+        {hasBrowse && (
+          <p css={{
+            marginTop: SPACING['S']
+          }}>Try our <Link to={`/${slug}/browse`}>Browse {name} page</Link> to view all titles alphabetically or by academic discipline.</p>
+        )}
+      </React.Fragment>
+    )
+  }
+
+  return (
+    <ul css={{
+      width: '100%',
+      '.result': {
+        ...Z_SPACE['8'],
+        background: 'white',
+        borderRadius: '2px',
+        padding: SPACING['L'],
+        marginBottom: SPACING['M']
+      }
+    }}>
+      {results[uid].map(result => (
+        <li>
+          <Result record={records[result]} />
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function BentoResults() {
   const {
     datastores
   } = useSelector(state => state.datastores, shallowEqual)
@@ -133,7 +207,7 @@ function BentoGroupResults({ datastore }) {
   }
 
   /*
-    Handle rendering of a set of bentobox group results.
+    Handle rendering of a set of BentoResults group results.
   */
   return (
     <ul>
@@ -156,15 +230,15 @@ function Result({ record }) {
 
   const to = datastore === 'website'
     ? fields.filter(field => field.uid === 'access_url')[0].value
-    : `https://search.lib.umich.edu/${datastore}/record/${uid}`
+    : `/${datastore}/record/${uid}`
 
   return (
     <div
       css={{
-        borderBottom: `solid 1px ${COLORS.neutral[100]}`,
         paddingBottom: SPACING["M"],
         marginBottom: SPACING["M"]
       }}
+      className="result"
       role="region"
       aria-label="result"
     >

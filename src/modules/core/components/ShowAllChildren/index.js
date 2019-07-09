@@ -1,7 +1,10 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  Button
+  Button,
+  SPACING
 } from '@umich-lib/core'
 import {
   setA11yMessage
@@ -41,6 +44,9 @@ class ShowAllChildren extends React.Component {
         })}
         {hasShowHideButton && (
           <Button
+            css={{
+              marginTop: SPACING['2XS']
+            }}
             small
             onClick={this.handleShowToggleClick.bind(this)}
             aria-expanded={this.state.show}
