@@ -14,6 +14,7 @@ import RecommendedResource from './components/RecommendedResource';
 import RecordDescription from './components/RecordDescription';
 import RecordResourceAccess from './components/RecordResourceAccess';
 import Zotero from './components/Zotero';
+import Results from './components/Results';
 import recordsReducer from './reducer';
 import {
   addRecords,
@@ -53,5 +54,6 @@ export {
   RecommendedResource,
   RecordDescription,
   RecordResourceAccess,
-  Zotero
+  Zotero,
+  Results
 };

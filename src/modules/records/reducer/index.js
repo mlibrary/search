@@ -5,6 +5,7 @@ const recordsInitialState = {
   loading: false,
   records: null,
   record: null,
+  results: {}
 };
 
 /*
@@ -15,11 +16,23 @@ const recordsInitialState = {
 const recordsReducer = (state = recordsInitialState, action) => {
   switch (action.type) {
     case actions.ADD_RECORDS:
+
+      function recordReducer(acc, record) {
+        return {
+          ...acc,
+          [record.datastore + record.uid]: record
+        }
+      }
+
       return {
         ...state,
         records: {
           ...state.records,
-          [action.payload.datastoreUid]: action.payload.records
+          ...action.payload.records.reduce(recordReducer, {})
+        },
+        results: {
+          ...state.results,
+          [action.payload.datastoreUid]: action.payload.records.map(({ datastore, uid }) => datastore + uid)
         }
       }
     case actions.ADD_HOLDINGS:

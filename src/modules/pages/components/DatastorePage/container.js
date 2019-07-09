@@ -46,7 +46,8 @@ import {
   RecordList,
   Pagination,
   BentoboxList,
-  RecordFull
+  RecordFull,
+  Results
 } from '../../../records'
 
 import {
@@ -167,7 +168,7 @@ class DatastorePageContainer extends React.Component {
                       ) : (
                         <DatastoreInfo activeDatastore={activeDatastore} />
                       )}
-                      <Results searching={searching} activeDatastore={activeDatastore} activeFilterCount={activeFilterCount} />
+                      <Results />
                     </InstitutionWrapper>
                   )
                 }}/>
@@ -178,54 +179,6 @@ class DatastorePageContainer extends React.Component {
       </main>
     )
   }
-}
-
-const Results = ({ searching, activeDatastore, activeFilterCount }) => {
-  if (activeDatastore.isMultisearch && searching) {
-    return <BentoboxList />
-  }
-
-  return (
-    <Margins css={{ display: 'flex' }}>
-      {!activeDatastore.isMultisearch ? (
-        <div className="side-container">
-          <MediaQuery minWidth={980}>
-            {(matches) => {
-              if (matches) {
-                return (
-                  <React.Fragment>
-                    {searching ? (<InstitutionSelect />) : null}
-                    <Filters />
-                    {searching ? (<BrowseInfo datastore={activeDatastore} />) : null}
-                  </React.Fragment>
-                )
-              } else {
-                const hasActiveFilters = activeFilterCount > 0
-                const summaryClassName = hasActiveFilters ? "small-screen-filter-summary small-screen-filter-summary--active-filters" : "small-screen-filter-summary"
-
-                return (
-                  <details className="small-screen-filter-details">
-                    <summary className={summaryClassName}>Filters {hasActiveFilters ? (`(${activeFilterCount})`) : null}</summary>
-
-                    {searching ? (<InstitutionSelect />) : null}
-                    <Filters />
-                    {searching ? (<BrowseInfo datastore={activeDatastore} />) : null}
-                  </details>
-                )
-              }
-            }}
-          </MediaQuery>
-        </div>
-      ) : null }
-
-      {searching ? (
-        <div className="results-container">
-          <RecordList />
-          <Pagination />
-        </div>
-      ) : null }
-    </Margins>
-  )
 }
 
 function mapStateToProps(state) {
