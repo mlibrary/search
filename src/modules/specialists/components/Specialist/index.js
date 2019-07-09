@@ -1,33 +1,61 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import React from 'react'
-import { Icon } from '../../../core'
+
+import {
+  SPACING,
+  COLORS,
+  Heading
+} from '@umich-lib/core'
+
+import {
+  Link
+} from '../../../core'
 
 const Specialist = ({ person }) => (
-  <article className="specialist">
+  <article css={{
+    display: 'flex',
+    marginTop: SPACING['M'],
+    marginBottom: SPACING['M'],
+    paddingBottom: SPACING['M'],
+    borderBottom: `solid 1px ${COLORS.neutral[100]}`
+  }}>
     <div>
-      <img src={person.picture} alt="" className="specialist__picture" />
+      <img src={person.picture} alt="" css={{
+        width: '4rem',
+        height: '4rem',
+        borderRadius: '50%',
+        objectFit: 'cover',
+        objectPosition: 'top right',
+        marginRight: SPACING['L']
+      }} />
     </div>
     <div>
       <header>
-        <h3 className="specialist__heading">
-          <a
-            href={person.url}
-            className="specialist__url"
+        <Heading size="XS" level={3}>
+          <Link
+            to={person.url}
             data-ga-action="Click"
             data-ga-category="Library Specialist"
             data-ga-label={`Library Specialist Page - ${person.name}`}
           >{person.name}
-          </a><Icon name="launch" /></h3>
+          </Link>
+        </Heading>
       </header>
       <section>
-        <p className="specialist__job-title">{person.job_title}</p>
-        <p className="specialist__phone">{person.phone}</p>
-        <a
-          className="specialist__email"
-          href={`mailto:${person.email}`}
+        <p css={{
+          color: COLORS.neutral['300'],
+          marginTop: SPACING['XS'],
+          marginBottom: SPACING['XS']
+        }}>{person.job_title}</p>
+        <p>{person.phone}</p>
+        <Link
+          kind="subtle"
+          to={`mailto:${person.email}`}
           data-ga-action="Click"
           data-ga-category="Library Specialist"
           data-ga-label={`Library Specialist Email - ${person.name}`}
-        >{person.email}</a>
+        >{person.email}</Link>
       </section>
     </div>
   </article>
