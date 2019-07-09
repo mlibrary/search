@@ -20,8 +20,8 @@ const footer_links = [
     to: '/accessibility'
   },
   {
-    text: 'How to use search',
-    to: '/how-to-use-search'
+    text: 'Tips for Using Library Search',
+    to: 'https://guides.lib.umich.edu/c.php?g=914690'
   },
   {
     text: 'Get research help',
