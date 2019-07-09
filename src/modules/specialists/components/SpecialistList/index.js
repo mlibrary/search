@@ -4,7 +4,9 @@ import { ShowAllChildren } from '../../../core'
 import Specialist from '../Specialist'
 
 import {
-  Heading
+  Heading,
+  SPACING,
+  Z_SPACE
 } from '@umich-lib/core'
 
 const SpecialistList = ({
@@ -18,7 +20,13 @@ const SpecialistList = ({
 
   return (
     <li>
-      <Heading level={2} size="L">Talk to a Library Specialist</Heading>
+      <Heading
+        level={2}
+        size="M"
+        css={{
+          marginBottom: SPACING['S']
+        }}
+      >Talk to a Library Specialist</Heading>
 
       <ShowAllChildren
         length={specialists.length}

@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import config from '../../../../config'
 
 const alertStyles = {
-  textAlign: 'center',
-  marginBottom: '0.75rem'
+  textAlign: 'center'
 }
 
 class DatastoreAuthenticationAlert extends React.Component {
@@ -22,7 +21,6 @@ class DatastoreAuthenticationAlert extends React.Component {
         if (profile.institutions && profile.institutions.length === 0) {
           const loginRoot = config.loginUrl;
           const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
-
 
           return (
             <Alert intent="warning" style={alertStyles}>

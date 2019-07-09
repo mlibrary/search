@@ -15,10 +15,9 @@ import {
 const Specialist = ({ person }) => (
   <article css={{
     display: 'flex',
-    marginTop: SPACING['M'],
-    marginBottom: SPACING['M'],
-    paddingBottom: SPACING['M'],
-    borderBottom: `solid 1px ${COLORS.neutral[100]}`
+    paddingBottom: SPACING['L'],
+    paddingTop: SPACING['L'],
+    borderBottom: `solid 1px ${COLORS.neutral['100']}`
   }}>
     <div>
       <img src={person.picture} alt="" css={{
