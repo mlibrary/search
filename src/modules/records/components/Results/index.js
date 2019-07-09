@@ -2,6 +2,8 @@
 import { jsx } from '@emotion/core'
 import React from 'react'
 import { useSelector, shallowEqual } from 'react-redux'
+import numeral from 'numeral'
+import { Link as RouterLink } from 'react-router-dom'
 
 import {
   Margins,
@@ -137,12 +139,15 @@ function BentoResults() {
         <ul
           css={{
             marginTop: SPACING["XL"],
+            columnGap: SPACING["L"],
             [MEDIA_QUERIES.LARGESCREEN]: {
-              columns: "3",
-              columnGap: SPACING["XL"]
+              columns: "2"
+            },
+            '@media only screen and (min-width: 960px)': {
+              columns: '3'
             },
             '> li': {
-              marginBottom: SPACING["XL"],
+              paddingBottom: SPACING["XL"],
               breakInside: 'avoid'
             }
           }}
@@ -150,15 +155,31 @@ function BentoResults() {
           <SpecialistsWrapper show={2}>
             {bentoDatastores.map((datastore) => (
               <li aria-label="group">
-                <Heading
-                  size="L"
-                  level={2}
+                <RouterLink
                   css={{
-                    marginBottom: SPACING["M"]
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                    ':hover .bento-heading': {
+                      borderBottom: `solid 1px`
+                    }
                   }}
+                  to={`/${datastore.slug}${document.location.search}`}
                 >
-                  {datastore.name}
-                </Heading>
+                  <Heading
+                    size="M"
+                    level={2}
+                    className="bento-heading"
+                    css={{
+                      marginBottom: SPACING["S"],
+                      borderBottom: `solid 1px transparent`
+                    }}
+                  >
+                    {datastore.name}
+                  </Heading>
+
+                  <BentoboxResultsNum datastore={datastore} />
+                </RouterLink>
 
                 <BentoGroupResults datastore={datastore} />
               </li>
@@ -167,6 +188,21 @@ function BentoResults() {
         </ul>
       </section>
     </Margins>
+  )
+}
+
+function BentoboxResultsNum({ datastore }) {
+  const { totalAvailable } = useSelector(state => state.search.data[datastore.uid])
+
+  if (!totalAvailable) {
+    return null
+  }
+
+  return (
+    <span css={{
+      fontWeight: '600',
+      color: COLORS.neutral['300']
+    }}>{numeral(totalAvailable).format(0,0)} results</span>
   )
 }
 
@@ -210,8 +246,21 @@ function BentoGroupResults({ datastore }) {
     Handle rendering of a set of BentoResults group results.
   */
   return (
-    <ul>
-      {records.results[uid].slice(0, 4).map(result => (
+    <ul css={{
+      ...Z_SPACE['8'],
+      background: 'white',
+      borderRadius: '2px',
+      '.result': {
+        border: 'none',
+        padding: SPACING['M'],
+        margin: '0'
+      },
+      '& > li:not(:last-child) .result': {
+        padding: SPACING['M'],
+        borderBottom: `solid 1px ${COLORS.neutral['100']}`
+      }
+    }}>
+      {records.results[uid].slice(0, 3).map(result => (
         <li>
           <Result record={records.records[result]} />
         </li>
