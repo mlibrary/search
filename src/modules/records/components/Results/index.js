@@ -7,7 +7,6 @@ import {
   Margins,
   SPACING,
   COLORS,
-  TYPOGRAPHY,
   MEDIA_QUERIES,
   Heading,
   Loading
@@ -151,8 +150,13 @@ function Result({ record }) {
   const {
     names,
     datastore,
-    ...metadata
+    fields,
+    uid
   } = record;
+
+  const to = datastore === 'website'
+    ? fields.filter(field => field.uid === 'access_url')[0].value
+    : `https://search.lib.umich.edu/${datastore}/record/${uid}`
 
   return (
     <div
@@ -165,9 +169,7 @@ function Result({ record }) {
       aria-label="result"
     >
       <Link
-        to={`https://search.lib.umich.edu/${
-          datastore
-        }/record/${metadata.uid}`}
+        to={to}
         css={{
           fontWeight: "600",
           fontSize: "1.15rem"
@@ -176,7 +178,7 @@ function Result({ record }) {
         {names}
       </Link>
 
-      <Metadata fields={metadata.fields} />
+      <Metadata fields={fields} />
     </div>
   );
 }
@@ -201,7 +203,8 @@ function MetadataField({ name, value }) {
       <React.Fragment>
         <dt
           css={{
-            ...TYPOGRAPHY["3XS"],
+            fontWeight: '600',
+            color: COLORS.neutral[300],
             marginTop: SPACING["XS"]
           }}
         >
