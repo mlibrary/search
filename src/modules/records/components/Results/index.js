@@ -12,7 +12,8 @@ import {
   MEDIA_QUERIES,
   Heading,
   Loading,
-  Z_SPACE
+  Z_SPACE,
+  LINK_STYLES
 } from '@umich-lib/core'
 
 import {
@@ -251,26 +252,39 @@ function BentoGroupResults({ datastore }) {
     Handle rendering of a set of BentoResults group results.
   */
   return (
-    <ul css={{
-      ...Z_SPACE['8'],
-      background: 'white',
-      borderRadius: '2px',
-      '.result': {
-        border: 'none',
-        padding: SPACING['M'],
-        margin: '0'
-      },
-      '& > li:not(:last-child) .result': {
-        padding: SPACING['M'],
-        borderBottom: `solid 1px ${COLORS.neutral['100']}`
-      }
-    }}>
-      {records.results[uid].slice(0, 3).map(result => (
-        <li>
-          <Result record={records.records[result]} />
-        </li>
-      ))}
-    </ul>
+    <React.Fragment>
+      <ul css={{
+        ...Z_SPACE['8'],
+        background: 'white',
+        borderRadius: '2px',
+        '.result': {
+          border: 'none',
+          padding: SPACING['M'],
+          margin: '0'
+        },
+        '& > li:not(:last-child) .result': {
+          padding: SPACING['M'],
+          borderBottom: `solid 1px ${COLORS.neutral['100']}`
+        }
+      }}>
+        {records.results[uid].slice(0, 3).map(result => (
+          <li>
+            <Result record={records.records[result]} />
+          </li>
+        ))}
+      </ul>
+
+      <Link
+        to={`/${datastore.slug}${document.location.search}`}
+        kind="subtle"
+        css={{
+          display: 'inline-block',
+          margin: `${SPACING['S']} 0`
+        }}
+      >
+        View all {datastore.name} results
+      </Link>
+    </React.Fragment>
   )
 }
 

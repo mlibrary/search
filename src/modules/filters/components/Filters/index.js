@@ -10,13 +10,15 @@ import {
 } from 'react-router-dom'
 import qs from 'qs'
 import {
-  Icon,
   ShowAllChildren,
   Checkbox,
 } from '../../../core'
 import {
   LINK_STYLES,
-  SPACING
+  SPACING,
+  Button,
+  COLORS,
+  Icon
 } from '@umich-lib/core'
 import {
   getDisplayFilters,
@@ -250,7 +252,11 @@ const Filter = ({
       })
 
       return (
-        <li className="filter-group filter-group-checkbox">
+        <li css={{
+          '> label': {
+            padding: `${SPACING['2XS']} 0`
+          }
+        }}>
           <Checkbox
             handleClick={() => handleFilterItemClick({
               datastoreUid,
@@ -295,26 +301,41 @@ const Filter = ({
       }
 
       return (
-        <li className="filter-group filter-group-multiselect">
+        <li css={{
+          borderTop: `solid 1px ${COLORS.neutral[100]}`
+        }}>
           <button
-            className="filter-group-toggle-show-button"
+            css={{
+              width: '100%',
+              padding: `${SPACING['M']} 0`
+            }}
             aria-expanded={filter.open}
             onClick={() => handleFilterClick({
               datastoreUid: datastoreUid,
               filterUid: filter.uid
             })}
           >
-            <span className="flex-space-between flex-center">
+            <span css={{
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
               <h3 css={{
                 fontWeight: '700'
               }}>
                 {filter.name}
               </h3>
-              {filter.open ? <Icon name="minus" /> : <Icon name="chevron-down" /> }
+              {filter.open
+                ? <Icon icon="expand_less" size="24" />
+                : <Icon icon="expand_more" size="24" />
+              }
             </span>
           </button>
           {filter.open && (
-            <div className="filter-list-container">
+            <div css={{
+              marginBottom: SPACING['L']
+            }}>
               <ul className="filter-list">
                 <ShowAllChildren
                   length={filterItems.length}
@@ -349,9 +370,11 @@ const FilterItem = ({
   return (
     <li className="filter-item">
       <button
-        className="filter-button"
         onClick={handleFilterItemClick}
         css={{
+          display: 'block',
+          width: '100%',
+          padding: `${SPACING['XS']} 0`,
           '.filter-value-text': {
             ...LINK_STYLES['default'],
             ':hover': {}
@@ -361,8 +384,12 @@ const FilterItem = ({
           }
         }}
       >
-        <span className="flex-space-between flex-center">
-          <span className="filter-value"><span className="filter-value-text">{filter.name}</span></span>
+        <span css={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%'
+        }}>
+          <span className="filter-value" css={{ textAlign: 'left' }}><span className="filter-value-text">{filter.name}</span></span>
 
           {filter.count ? (
             <span className="filter-count">{numeral(filter.count).format(0,0)}</span>
@@ -379,20 +406,24 @@ const ActiveFilters = ({
   handleFilterItemClick,
   handleClearActiveFilters
 }) => {
-  const isHidden = activeFilters.length > 0 ? '' : 'offpage'
-  const cn = `active-filters-container ${isHidden}`
-
   return (
-    <div className={cn}>
-      <h2 className="active-filters-heading">Current Filters</h2>
+    <div>
+      <h2 css={{
+        fontWeight: '700',
+        marginBottom: SPACING['S']
+      }}>Current filters</h2>
 
       {activeFilters.length > 0 ? (
         <React.Fragment>
-          <ul className="active-filters-list">
+          <ul>
             {activeFilters.map((activeFilter, index) => (
-              <li key={index} className="active-filter-item">
+              <li key={index}>
                 <button
-                  className="active-filter-button"
+                  css={{
+                    display: 'block',
+                    width: '100%',
+                    marginBottom: SPACING['S']
+                  }}
                   onClick={
                     () => handleFilterItemClick({
                       datastoreUid: datastoreUid,
@@ -400,26 +431,39 @@ const ActiveFilters = ({
                       filterItemValue: activeFilter.value,
                     })
                   }>
-                  <span className="flex-space-between flex-center">
-                    <span className="active-filter-button-text">
+                  <span 
+                    css={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: `${SPACING['S']} ${SPACING['M']}`,
+                      background: COLORS.green['100'],
+                      border: `solid 1px ${COLORS.green['200']}`,
+                      borderRadius: '2px',
+                      color: COLORS.green['500']
+                    }}
+                  >
+                    <span css={{
+                      textAlign: 'left'
+                    }}>
                       {activeFilter.name}: {activeFilter.value}
                     </span>
-                    <Icon name="close" /><span className="offpage">Remove</span>
+                    <Icon icon="close" size="20" /><span className="offpage">Remove</span>
                   </span>
                 </button>
               </li>
             ))}
           </ul>
-          <div className="clear-active-filters-container">
-            <button
-              className="button-link-light"
+          <div>
+            <Button
+              small
               onClick={
                () => handleClearActiveFilters({ datastoreUid })
               }
               data-ga-action="Click"
               data-ga-category="Filter"
               data-ga-label={`Clear All Filters`}
-            >Clear filters</button>
+            >Clear filters</Button>
           </div>
         </React.Fragment>
       ) : (
