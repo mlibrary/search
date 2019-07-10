@@ -18,7 +18,7 @@ import Results from './components/Results';
 import recordsReducer from './reducer';
 import {
   addRecords,
-  clearRecords,
+  clearResults,
   setRecord,
   clearRecord,
   loadingRecords,
@@ -39,7 +39,7 @@ export {
   RecordFullFormats,
   RecordPlaceholder,
   FullRecordPlaceholder,
-  clearRecords,
+  clearResults,
   setRecord,
   clearRecord,
   loadingRecords,

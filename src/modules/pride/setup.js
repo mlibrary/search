@@ -15,7 +15,7 @@ import {
 
 import {
   addRecords,
-  clearRecords,
+  clearResults,
   loadingRecords,
   addHoldings,
   setRecordHoldings
@@ -100,15 +100,15 @@ const handleSearchData = (data, datastoreUid) => {
 
   store.dispatch(setSearchData(payload))
 
-  const records = store.getState().records.results[datastoreUid];
-  const recordsLength = _.values(records).length
+  const results = store.getState().records.results[datastoreUid]
+  const resultsLength = results ? results.length : 0
   const count = data.count // page count
   const page = data.page
   const totalAvailable = data.total_available
-  const lastPage = (page - 1) * count + recordsLength === totalAvailable
+  const lastPage = (page - 1) * count + resultsLength === totalAvailable
 
   // Check to see if records have loaded.
-  if (recordsLength === count || lastPage) {
+  if (resultsLength === count || lastPage) {
     store.dispatch(loadingRecords({
       datastoreUid,
       loading: false
@@ -124,7 +124,7 @@ const getFullRecordUid = () => {
 const setupObservers = (searchObj) => {
   // TODO: Only listen to this overserver if new search is made.
   searchObj.resultsObservers.add(function(results) {
-    store.dispatch(clearRecords(searchObj.uid));
+    store.dispatch(clearResults(searchObj.uid));
 
     // Does results contain undefined records
     if (!_.contains(results, undefined)) {

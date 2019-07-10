@@ -77,7 +77,7 @@ class FullRecord extends React.Component {
 
     requestRecord({ recordUid, datastoreUid })
     prejudiceInstance = prejudice.createVariableStorageDriverInstance()
-    prejudiceInstance.clearRecords()
+    prejudiceInstance.clearResults()
     prejudiceInstance.addRecord({ recordUid, datastoreUid })
   }
 

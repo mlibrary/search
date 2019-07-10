@@ -56,12 +56,12 @@ const recordsReducer = (state = recordsInitialState, action) => {
       }
 
       return state
-    case actions.CLEAR_RECORDS:
+    case actions.CLEAR_RESULTS:
       return {
         ...state,
-        records: {
-          ...state.records,
-          [action.payload]: undefined,
+        results: {
+          ...state.results,
+          [action.payload]: []
         }
       }
     case actions.CLEAR_RECORD:
