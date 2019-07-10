@@ -131,6 +131,9 @@ function BentoResults() {
   const {
     datastores
   } = useSelector(state => state.datastores, shallowEqual)
+  const {
+    loading
+  } = useSelector(state => state.records, shallowEqual)
   const bentoDatastores = datastores.filter(({ isMultisearch }) => !isMultisearch)
 
   return (
@@ -178,7 +181,11 @@ function BentoResults() {
                     {datastore.name}
                   </Heading>
 
-                  <BentoboxResultsNum datastore={datastore} />
+                  {loading[datastore.uid] ? (
+                    <Loading small />
+                  ) : (
+                    <BentoboxResultsNum datastore={datastore} />
+                  )}
                 </RouterLink>
 
                 <BentoGroupResults datastore={datastore} />
@@ -214,9 +221,7 @@ function BentoGroupResults({ datastore }) {
   */
   const records = useSelector(state => state.records)
   if (records.loading[uid]) {
-    return (
-      <Loading small />
-    )
+    return null
   }
 
   /*
