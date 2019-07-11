@@ -30,10 +30,15 @@ function Zotero({ record }) {
   })
 
   useEffect(() => {
-    document.dispatchEvent(new Event('ZoteroItemUpdated', {
-      bubbles: true,
-      cancelable: true
-    }))
+    try {
+      document.dispatchEvent(new Event('ZoteroItemUpdated', {
+        bubbles: true,
+        cancelable: true
+      }))
+    }
+    catch(error) {
+      console.error(error)
+    }
   }, [z3988]) // Only change when z3988 changes.
 
   if (!z3988) {
