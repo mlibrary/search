@@ -10,7 +10,7 @@ import {
 const prejudice = new Prejudice({
   recordEngine: Pride,
   datastores: config.datastores.list,
-  actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development
+  actionBaseUrl: config.spectrum
 })
 
 const addRecord = (record) => {
