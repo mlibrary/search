@@ -29,6 +29,8 @@ import {
 } from '../../../favorites'
 import Zotero from '../Zotero'
 
+import Holdings from '../../../holdings'
+
 const Header = ({
   record,
   datastoreUid,
@@ -103,6 +105,22 @@ const Header = ({
 }
 
 class Record extends React.Component {
+  renderAccess = () => {
+    const {
+      datastoreUid,
+      record
+    } = this.props
+
+    switch (datastoreUid) {
+      case 'mirlyn':
+        return <Holdings record={record} />
+      case 'website':
+          return null
+      default:
+          return <RecordResourceAccess record={record} />
+    }
+  }
+
   render() {
     const { record, datastoreUid, type, searchQuery, institution, list } = this.props
     const displayFields = filterDisplayFields({
@@ -144,9 +162,7 @@ class Record extends React.Component {
             />
           </div>
 
-          {datastoreUid === 'website' ? null : (
-            <RecordResourceAccess record={record} />
-          )}
+          {this.renderAccess()}
         </article>
       )
     }
