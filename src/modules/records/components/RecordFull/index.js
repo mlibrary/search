@@ -10,7 +10,8 @@ import {
 import { Breadcrumb } from '../../../reusable'
 import {
   COLORS,
-  MEDIA_QUERIES
+  MEDIA_QUERIES,
+  SPACING
 } from '../../../available-at/umich-lib-core-temp/index'
 
 import {
@@ -199,6 +200,10 @@ class FullRecord extends React.Component {
 
             <section aria-label="Availability">
               <div css={{
+                borderBottom: `solid 1px ${COLORS.neutral[100]}`,
+                '[data-accordion-component="AccordionItemPanel"]': {
+                  padding: `0 ${SPACING['M']}`
+                },
                 [MEDIA_QUERIES.LARGESCREEN]: {
                   '[data-accordion-component="AccordionItemButton"]': {
                     paddingLeft: '3rem'
@@ -206,7 +211,6 @@ class FullRecord extends React.Component {
                   '[data-accordion-component="AccordionItemPanel"]': {
                     paddingLeft: '3rem'
                   },
-                  borderBottom: `solid 1px ${COLORS.neutral[100]}`
                 }
               }}>
                 <AvailableAt record={record} />
@@ -214,9 +218,7 @@ class FullRecord extends React.Component {
             </section>
           
           <div className="record-container">
-
             <RecordDescription record={record} />
-
             <Zotero record={record} />
 
             <h2 className="full-record__record-info">Record Info</h2>

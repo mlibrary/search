@@ -156,7 +156,7 @@ class Record extends React.Component {
           <div
             css={{
               '[data-accordion-component="AccordionItemPanel"]': {
-                padding: `${SPACING['S']} ${SPACING['XS']}`
+                padding: `0 ${SPACING['M']}`
               },
               [MEDIA_QUERIES.LARGESCREEN]: {
                 '[data-accordion-component="AccordionItemButton"]': {
