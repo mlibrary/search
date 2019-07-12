@@ -1074,19 +1074,13 @@ body {
   .full-record-container .record-field-list {
     margin-bottom: 1rem; }
   .full-record-container .record-field-list .record-field {
-    margin-top: 0; }
+    margin-top: 0.5rem; }
     .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
-      padding: 0.5rem 1rem; }
+      padding: 0.25rem 0; }
       @media (max-width: 820px) {
         .full-record-container .record-field-list .record-field dt, .full-record-container .record-field-list .record-field dd {
-          padding: 0; } }
-    @media (max-width: 820px) {
-      .full-record-container .record-field-list .record-field {
-        padding: 0.5rem 1rem; } }
-  .full-record-container .record-field-list .record-field:nth-child(even) {
-    background: #FAFAFA; }
-  .full-record-container .record-field-list .record-field:nth-child(odd) {
-    background: #F2F2F2; }
+          padding: 0;
+          margin-top: 0; } }
 
 .full-record-header {
   display: flex;

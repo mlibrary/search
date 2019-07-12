@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import React from 'react';
 import { Link } from 'react-router-dom'
 
@@ -29,7 +31,12 @@ import {
 } from '../../../favorites'
 import Zotero from '../Zotero'
 
-import Holdings from '../../../holdings'
+import {
+  COLORS,
+  MEDIA_QUERIES,
+  SPACING
+} from '../../../available-at/umich-lib-core-temp/index'
+import AvailableAt from '../../../available-at'
 
 const Header = ({
   record,
@@ -105,22 +112,6 @@ const Header = ({
 }
 
 class Record extends React.Component {
-  renderAccess = () => {
-    const {
-      datastoreUid,
-      record
-    } = this.props
-
-    switch (datastoreUid) {
-      case 'mirlyn':
-        return <Holdings record={record} />
-      case 'website':
-          return null
-      default:
-          return <RecordResourceAccess record={record} />
-    }
-  }
-
   render() {
     const { record, datastoreUid, type, searchQuery, institution, list } = this.props
     const displayFields = filterDisplayFields({
@@ -162,7 +153,25 @@ class Record extends React.Component {
             />
           </div>
 
-          {this.renderAccess()}
+          <div
+            css={{
+              '[data-accordion-component="AccordionItemPanel"]': {
+                padding: `${SPACING['S']} ${SPACING['XS']}`
+              },
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                '[data-accordion-component="AccordionItemButton"]': {
+                  paddingLeft: '3rem'
+                },
+                '[data-accordion-component="AccordionItemPanel"]': {
+                  padding: `0 ${SPACING['M']}`,
+                  paddingLeft: '3rem'
+                },
+                borderBottom: `solid 1px ${COLORS.neutral[100]}`
+              }
+            }}
+          >
+            <AvailableAt record={record} />
+          </div>
         </article>
       )
     }

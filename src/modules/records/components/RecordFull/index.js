@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
@@ -6,6 +8,10 @@ import {
   Link
 } from 'react-router-dom'
 import { Breadcrumb } from '../../../reusable'
+import {
+  COLORS,
+  MEDIA_QUERIES
+} from '../../../available-at/umich-lib-core-temp/index'
 
 import {
   TrimString,
@@ -45,6 +51,7 @@ import {
   FavoriteRecord,
   FavoriteTags
 } from '../../../favorites'
+import AvailableAt from '../../../available-at'
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
 
@@ -188,6 +195,25 @@ class FullRecord extends React.Component {
               record={record}
               datastore={datastoreUid}
             />
+          </div>
+
+            <section aria-label="Availability">
+              <div css={{
+                [MEDIA_QUERIES.LARGESCREEN]: {
+                  '[data-accordion-component="AccordionItemButton"]': {
+                    paddingLeft: '3rem'
+                  },
+                  '[data-accordion-component="AccordionItemPanel"]': {
+                    paddingLeft: '3rem'
+                  },
+                  borderBottom: `solid 1px ${COLORS.neutral[100]}`
+                }
+              }}>
+                <AvailableAt record={record} />
+              </div>
+            </section>
+          
+          <div className="record-container">
 
             <RecordDescription record={record} />
 
@@ -200,10 +226,6 @@ class FullRecord extends React.Component {
               institution={institution}
             />
           </div>
-          <RecordResourceAccess
-            record={record}
-            datastoreUid={datastoreUid}
-          />
         </div>
         {this.renderActions()}
         {datastoreUid === 'mirlyn' && <ViewMARC record={record} />}

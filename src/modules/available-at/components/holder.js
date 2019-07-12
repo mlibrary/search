@@ -1,15 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import Holding from './holding'
-
 import {
   COLORS,
   SPACING,
+  MEDIA_QUERIES
 } from '../umich-lib-core-temp'
-
 import {
   Expandable,
   ExpandableProvider,
@@ -20,7 +18,7 @@ import {
 const cell_padding = {
   paddingTop: SPACING['XS'],
   paddingBottom: SPACING['XS'],
-  paddingRight: SPACING['L'],
+  paddingRight: SPACING['L']
 }
 
 export default function Holder({
@@ -33,10 +31,10 @@ export default function Holder({
   return (
     <div
       css={{
-        borderTop: `solid 1px ${COLORS.neutral['100']}`,
         'a': {
-          textDecoration: 'underline'
-        }
+          textDecoration: 'underline',
+        },
+        padding: `${SPACING['S']} 0`
       }}
       {...rest}
     >
