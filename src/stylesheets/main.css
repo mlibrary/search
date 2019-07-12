@@ -457,11 +457,6 @@ textarea {
 .focus-outline-white {
   outline-color: white; }
 
-*:focus {
-  outline: 3px solid rgba(255, 203, 5, 0.9);
-  outline-offset: 0;
-  transition: outline 0.05s ease-out; }
-
 .offscreen {
   position: absolute;
   left: -999em; }
