@@ -42,18 +42,32 @@ export function Holders ({ record }) {
     )
   }
 
+  /*
+    Create a list of uuids that should be Accordion preExpanded'ed
+    Docs: https://www.npmjs.com/package/react-accessible-accordion#preexpanded-string--optional--default--
+  */
+  const preExpandedUuids = record.resourceAccess.map(({
+    caption,
+    preExpanded
+  }, i) => {
+    if (preExpanded) {
+      return i + caption
+    }
+  })
+
   return (
     <Accordion
       allowMultipleExpanded
       allowZeroExpanded
+      preExpanded={preExpandedUuids}
       css={{
         '[aria-expanded="true"][data-accordion-component]': {
           background: COLORS.blue['100']
         }
       }}
     >
-      {record.resourceAccess.map(({ caption, rows, ...rest }) => (
-        <AccordionItem>
+      {record.resourceAccess.map(({ caption, rows, preExpanded, ...rest }, i) => (
+        <AccordionItem uuid={i + caption}>
           <AccordionItemHeading>
             <AccordionItemButton css={{
               ...contentPadding,
