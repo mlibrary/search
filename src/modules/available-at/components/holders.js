@@ -47,11 +47,10 @@ export function Holders ({ record }) {
     Docs: https://www.npmjs.com/package/react-accessible-accordion#preexpanded-string--optional--default--
   */
   const preExpandedUuids = record.resourceAccess.map(({
-    caption,
     preExpanded
   }, i) => {
     if (preExpanded) {
-      return i + caption
+      return i
     }
   })
 
@@ -67,7 +66,7 @@ export function Holders ({ record }) {
       }}
     >
       {record.resourceAccess.map(({ caption, rows, preExpanded, ...rest }, i) => (
-        <AccordionItem uuid={i + caption}>
+        <AccordionItem uuid={i}>
           <AccordionItemHeading>
             <AccordionItemButton css={{
               ...contentPadding,
