@@ -65,7 +65,13 @@ export function Holders ({ record }) {
         }
       }}
     >
-      {record.resourceAccess.map(({ caption, rows, preExpanded, ...rest }, i) => (
+      {record.resourceAccess.map(({
+        caption,
+        rows,
+        preExpanded,
+        icon,
+        ...rest
+      }, i) => (
         <AccordionItem uuid={i}>
           <AccordionItemHeading>
             <AccordionItemButton css={{
