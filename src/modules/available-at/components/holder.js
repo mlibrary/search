@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import React from 'react'
+import React, { useState } from 'react'
 
 import Holding from './holding'
 import {
@@ -12,7 +12,9 @@ import {
   Expandable,
   ExpandableProvider,
   ExpandableChildren,
-  ExpandableButton
+  ExpandableButton,
+  Icon,
+  Button
 } from '@umich-lib/core'
 
 const cell_padding = {
@@ -26,6 +28,7 @@ export default function Holder({
   headings,
   rows,
   captionLink,
+  notes,
   ...rest
 }) {
   return (
@@ -39,15 +42,20 @@ export default function Holder({
       {...rest}
     >
       {captionLink && (
-        <a
-          href={captionLink.href}
-          css={{
-            color: COLORS.neutral['400'],
-            display: 'inline-block',
-            paddingBottom: SPACING['S']
-          }}
-        >{captionLink.text}</a>
+        <p css={{ margin: '0' }}>
+          <a
+            href={captionLink.href}
+            css={{
+              color: COLORS.neutral['400'],
+              display: 'inline-block',
+              paddingBottom: SPACING['S']
+            }}
+          >
+            {captionLink.text}
+          </a>
+        </p>
       )}
+      <Notes notes={notes} />
 
       <Expandable>
         <table
@@ -82,6 +90,49 @@ export default function Holder({
         </table>
       </Expandable>
     </div>
+  )
+}
+
+function Notes({ notes }) {
+  const [expanded, setExpanded] = useState(false);
+
+  if (!notes) {
+    return null
+  }
+
+  return (
+    <React.Fragment>
+      <Button
+        kind="secondary"
+        small
+        aria-expanded={expanded}
+        onClick={() => setExpanded(!expanded)}
+        css={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          marginBottom: SPACING['S']
+        }}
+      >
+        <span css={{ paddingRight: '0.25rem' }}>View items held or missing</span>
+        {expanded ? (
+          <Icon
+            d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+          />
+        ) : (
+          <Icon
+            d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+          />
+        )}
+      </Button>
+
+      {expanded && (
+        <ul>
+          {notes.map(note => (
+            <li css={{ paddingBottom: SPACING['XS'] }}>{note}</li>
+          ))}
+        </ul>
+      )}
+    </React.Fragment>
   )
 }
 
