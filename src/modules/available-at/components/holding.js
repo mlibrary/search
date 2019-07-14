@@ -4,8 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import {
-  SPACING,
-  COLORS
+  SPACING
 } from '../umich-lib-core-temp'
 
 import {

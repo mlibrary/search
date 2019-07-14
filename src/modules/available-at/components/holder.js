@@ -5,8 +5,7 @@ import React, { useState } from 'react'
 import Holding from './holding'
 import {
   COLORS,
-  SPACING,
-  MEDIA_QUERIES
+  SPACING
 } from '../umich-lib-core-temp'
 import {
   Expandable,
@@ -58,9 +57,15 @@ export default function Holder({
       <Notes notes={notes} />
 
       <Expandable>
+        <div
+          css={{
+            overflowX: 'auto'
+          }}
+        >
         <table
           css={{
             width: '100%',
+            minWidth: '24rem',
             textAlign: 'left',
             tableLayout: 'fixed'
           }}
@@ -88,6 +93,7 @@ export default function Holder({
             <HolderRows rows={rows} />
           </tbody>
         </table>
+        </div>
       </Expandable>
     </div>
   )
@@ -109,7 +115,7 @@ function Notes({ notes }) {
         onClick={() => setExpanded(!expanded)}
         css={{
           display: 'flex',
-          alignItems: 'flex-end',
+          alignItems: 'center',
           marginBottom: SPACING['S']
         }}
       >
@@ -161,7 +167,8 @@ function HolderRows({
         <td
           colSpan={`${rows[0].length}`}
           css={{
-            ...cell_padding
+            ...cell_padding,
+            wordBreak: 'break-word'
           }}
         >
           <ExpandableButton
