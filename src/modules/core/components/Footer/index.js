@@ -13,8 +13,8 @@ const footer_links = [
     to: '/accessibility'
   },
   {
-    text: 'How to use search',
-    to: '/how-to-use-search'
+    text: 'Tips for Using Library Search',
+    href: 'https://guides.lib.umich.edu/c.php?g=914690'
   },
   {
     text: 'Get research help',
@@ -28,8 +28,8 @@ const footer_links = [
 
 const Footer = () => {
   return (
-    <footer className="site-footer" role="contentinfo">
-      <div className="container container-narrow">
+    <footer className="site-footer" role="contentinfo" style={{ textAlign: 'center' }}>
+      <div className="container container-medium">
         <ul className="site-footer-nav-list">
           {footer_links.map((item, i) => (
             <li key={i}>
