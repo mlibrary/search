@@ -207,7 +207,11 @@ class FullRecord extends React.Component {
             />
           </div>
 
-          <section aria-label="Availability">
+          <section aria-labelledby="available-at">
+            <div className="record-container" css={{ paddingBottom: '0.25rem' }}>
+              <h2 className="full-record__record-info" id="available-at">Available at</h2>
+            </div>
+
             <div css={{
               borderBottom: `solid 1px ${COLORS.neutral[100]}`,
               '[data-accordion-component="AccordionItemPanel"]': {

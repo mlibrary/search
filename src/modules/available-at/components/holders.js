@@ -42,6 +42,10 @@ export function Holders ({ record }) {
     )
   }
 
+  function getUuid(i) {
+    return 'available-at-holder--' + record.datastore + record.uid + '-' + i
+  }
+
   /*
     Create a list of uuids that should be Accordion preExpanded'ed
     Docs: https://www.npmjs.com/package/react-accessible-accordion#preexpanded-string--optional--default--
@@ -50,7 +54,7 @@ export function Holders ({ record }) {
     preExpanded
   }, i) => {
     if (preExpanded) {
-      return i
+      return getUuid(i)
     }
   })
 
@@ -72,7 +76,7 @@ export function Holders ({ record }) {
         icon,
         ...rest
       }, i) => (
-        <AccordionItem uuid={i}>
+        <AccordionItem uuid={getUuid(i)}>
           <AccordionItemHeading>
             <AccordionItemButton css={{
               ...contentPadding,

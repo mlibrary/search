@@ -169,6 +169,7 @@ class Record extends React.Component {
                 borderBottom: `solid 1px ${COLORS.neutral[100]}`
               }
             }}
+            aria-label="Available at"
           >
             <AvailableAt record={record} />
           </div>

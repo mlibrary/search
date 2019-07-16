@@ -198,8 +198,9 @@ function HolderRows({
           key={i}
         />
       ))}
-
-      {renderExpandableButton()}
+      {rows.length > 10 && (
+        <React.Fragment>{renderExpandableButton()}</React.Fragment>
+      )}
       <ExpandableChildren show={0}>
         {rows.slice(10).map((row, i) => (
           <Holding
