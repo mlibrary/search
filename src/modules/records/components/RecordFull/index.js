@@ -196,28 +196,6 @@ class FullRecord extends React.Component {
               record={record}
               datastore={datastoreUid}
             />
-          </div>
-
-            <section aria-label="Availability">
-              <div css={{
-                borderBottom: `solid 1px ${COLORS.neutral[100]}`,
-                '[data-accordion-component="AccordionItemPanel"]': {
-                  padding: `0 ${SPACING['M']}`
-                },
-                [MEDIA_QUERIES.LARGESCREEN]: {
-                  '[data-accordion-component="AccordionItemButton"]': {
-                    paddingLeft: '3rem'
-                  },
-                  '[data-accordion-component="AccordionItemPanel"]': {
-                    paddingLeft: '3rem'
-                  },
-                }
-              }}>
-                <AvailableAt record={record} />
-              </div>
-            </section>
-          
-          <div className="record-container">
             <RecordDescription record={record} />
             <Zotero record={record} />
 
@@ -228,6 +206,25 @@ class FullRecord extends React.Component {
               institution={institution}
             />
           </div>
+
+          <section aria-label="Availability">
+            <div css={{
+              borderBottom: `solid 1px ${COLORS.neutral[100]}`,
+              '[data-accordion-component="AccordionItemPanel"]': {
+                padding: `0 ${SPACING['M']}`
+              },
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                '[data-accordion-component="AccordionItemButton"]': {
+                  paddingLeft: '3rem'
+                },
+                '[data-accordion-component="AccordionItemPanel"]': {
+                  paddingLeft: '3rem'
+                },
+              }
+            }}>
+              <AvailableAt record={record} />
+            </div>
+          </section>
         </div>
         {this.renderActions()}
         {datastoreUid === 'mirlyn' && <ViewMARC record={record} />}
