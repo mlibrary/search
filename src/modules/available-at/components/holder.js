@@ -100,7 +100,7 @@ export default function Holder({
 }
 
 function Notes({ notes }) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   if (!notes) {
     return null
