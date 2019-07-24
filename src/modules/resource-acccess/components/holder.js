@@ -132,10 +132,7 @@ function Notes({ notes }) {
       </Button>
 
       {expanded && (
-        <ul css={{
-          marginLeft: '0',
-          listStyle: 'none'
-        }}>
+        <ul>
           {notes.map(note => (
             <li
               css={{
