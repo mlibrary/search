@@ -133,6 +133,8 @@ function Notes({ notes }) {
 
       {expanded && (
         <ul css={{
+          marginLeft: '0',
+          listStyle: 'none'
         }}>
           {notes.map(note => (
             <li

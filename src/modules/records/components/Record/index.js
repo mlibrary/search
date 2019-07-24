@@ -10,7 +10,6 @@ import {
 } from '../../../core'
 import {
   RecommendedResource,
-  RecordResourceAccess
 }  from '../../../records'
 import {
   getDatastoreSlugByUid
@@ -35,8 +34,8 @@ import {
   COLORS,
   MEDIA_QUERIES,
   SPACING
-} from '../../../available-at/umich-lib-core-temp/index'
-import AvailableAt from '../../../available-at'
+} from '../../../resource-acccess/umich-lib-core-temp'
+import ResourceAccess from '../../../resource-acccess'
 
 const Header = ({
   record,
@@ -171,7 +170,7 @@ class Record extends React.Component {
             }}
             aria-label="Available at"
           >
-            <AvailableAt record={record} />
+            <ResourceAccess record={record} />
           </div>
         </article>
       )

@@ -12,7 +12,7 @@ import {
   COLORS,
   MEDIA_QUERIES,
   SPACING
-} from '../../../available-at/umich-lib-core-temp/index'
+} from '../../../resource-acccess/umich-lib-core-temp'
 
 import {
   TrimString,
@@ -29,7 +29,6 @@ import {
   FullRecordPlaceholder,
   RecommendedResource,
   RecordDescription,
-  RecordResourceAccess,
   Zotero
 } from '../../../records'
 import {
@@ -52,7 +51,7 @@ import {
   FavoriteRecord,
   FavoriteTags
 } from '../../../favorites'
-import AvailableAt from '../../../available-at'
+import ResourceAccess from '../../../resource-acccess'
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
 
@@ -226,7 +225,7 @@ class FullRecord extends React.Component {
                 },
               }
             }}>
-              <AvailableAt record={record} />
+              <ResourceAccess record={record} />
             </div>
           </section>
         </div>
