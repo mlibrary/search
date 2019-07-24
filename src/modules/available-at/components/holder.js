@@ -132,9 +132,14 @@ function Notes({ notes }) {
       </Button>
 
       {expanded && (
-        <ul>
+        <ul css={{
+        }}>
           {notes.map(note => (
-            <li css={{ paddingBottom: SPACING['XS'] }}>{note}</li>
+            <li
+              css={{
+                paddingBottom: SPACING['XS'],
+                color: COLORS.neutral['300']
+              }}>{note}</li>
           ))}
         </ul>
       )}
