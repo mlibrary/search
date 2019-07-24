@@ -30,6 +30,9 @@ const contentPadding = {
         Holding
 */
 export function Holders ({ record }) {
+  if (record.datastore === 'website') {
+    return null
+  }
 
   if (record.loadingHoldings || (record.datastore === 'mirlyn' && record.resourceAccess.length === 0)) {
     return (
