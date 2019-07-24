@@ -1143,7 +1143,8 @@ body {
 .record-field-value-list-item {
   display: block;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  padding-bottom: 0.25rem; }
 
 .record-field-uid-academic_discipline .icon {
   width: 0.75rem;

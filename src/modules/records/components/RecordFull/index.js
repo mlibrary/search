@@ -198,7 +198,7 @@ class FullRecord extends React.Component {
             <RecordDescription record={record} />
             <Zotero record={record} />
 
-            <h2 className="full-record__record-info">Record Info</h2>
+            <h2 className="full-record__record-info">Record info:</h2>
             <ShowAdditionalFieldList
               fields={displayFields}
               datastoreUid={datastoreUid}
@@ -208,7 +208,7 @@ class FullRecord extends React.Component {
 
           <section aria-labelledby="available-at">
             <div className="record-container" css={{ paddingBottom: '0.25rem' }}>
-              <h2 className="full-record__record-info" id="available-at">Available at</h2>
+              <h2 className="full-record__record-info" id="available-at">Available at:</h2>
             </div>
 
             <div css={{
