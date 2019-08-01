@@ -36,7 +36,7 @@ const footer_links = [
 const Footer = () => {
   return (
     <footer css={{
-      background: COLORS.teal['400'],
+      background: COLORS.teal['500'],
       paddingTop: SPACING['XL'],
       paddingBottom: SPACING['XL'],
       minHeight: '14rem'

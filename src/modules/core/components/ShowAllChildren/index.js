@@ -47,6 +47,7 @@ class ShowAllChildren extends React.Component {
             css={{
               marginTop: SPACING['2XS']
             }}
+            kind="subtle"
             small
             onClick={this.handleShowToggleClick.bind(this)}
             aria-expanded={this.state.show}
