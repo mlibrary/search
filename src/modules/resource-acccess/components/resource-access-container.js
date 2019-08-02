@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { _ } from 'underscore'
 
 import ResourceAccessLoading from './resource-access-loading'
 import Holders from './holders'
-import { set } from 'react-ga';
+import { ContextProvider } from '../../reusable'
+import ReactGA from 'react-ga';
 
 function ResourceAccessContainer({ record }) {
   /*
@@ -26,26 +26,44 @@ function ResourceAccessContainer({ record }) {
 
   /*
     If you've made it this far, then ready to render.
+
+    ContextProvider is required to send Context
+    to ResourceAccess create a label for GA event.
   */
-  return <ResourceAccess record={record} />
+  return (
+    <ContextProvider render={context => (
+      <ResourceAccess record={record} context={context} />
+    )} />
+  )
 }
 
-function ResourceAccess({ record }) {
+/*
+  Basically a container to handle the logic for
+  sending a Google Analytics event related to
+  expanding accordion items.
+*/
+function ResourceAccess({ record, context }) {
   const [expandedIds, setExpandedIds] = useState(() => preExpandedIds(record))
 
-  useEffect(() => {
-    console.log('ResourceAccess useEffect', expandedIds)
-  }, [expandedIds])
-
-  /*
-    The Accordion will pass ids of the expanded
-    accordion items.
-  */
   function handleChange(ids) {
-    /*
-      TODO:
-        - [ ] Figure out what Accordion has expanded or collapsed
-    */
+    // Difference between the two arrays
+    const id = expandedIds
+      .filter(x => !ids.includes(x))
+      .concat(ids.filter(x => !expandedIds.includes(x)))[0]
+
+    // Was the id expanded or collapsed
+    const expanded = !expandedIds.includes(id)
+    const resourceAccessIndex = id[id.length -1]
+    const resourceAccessData = record.resourceAccess[resourceAccessIndex]
+    const label = (expanded ? 'Expand ' : 'Collapse ')
+      + resourceAccessData.caption + ' from '
+      + context.datastore.name + ' ' + context.viewType
+
+    ReactGA.event({
+      action: 'Click',
+      category: 'Resource Access',
+      label
+    })
 
     setExpandedIds(ids)
   }
@@ -74,7 +92,10 @@ function preExpandedIds(record) {
   }, [])
 }
 
-
+/*
+  These need to be unique to the app for React to handle
+  rendering properly.
+*/
 function createId(record, i) {
   return 'holder--' + record.datastore + record.uid + '-' + i
 }
