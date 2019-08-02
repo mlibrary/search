@@ -16,7 +16,7 @@ export default function HolderContainer({ context, ...rest }) {
 }
 
 function handleHolderAnalytics(e, context, caption) {
-  e.preventDefault(); // only for testing to prevent routing.
+  //e.preventDefault(); // only for testing to prevent routing.
 
   const target = e.target
 
