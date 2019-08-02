@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import ResourceAccessLoading from './resource-access-loading'
 import Holders from './holders'
@@ -74,6 +74,7 @@ function ResourceAccess({ record, context }) {
       preExpandedIds={preExpandedIds(record)}
       handleChange={handleChange}
       createId={createId}
+      context={context}
     />
   )
 }
@@ -99,6 +100,5 @@ function preExpandedIds(record) {
 function createId(record, i) {
   return 'holder--' + record.datastore + record.uid + '-' + i
 }
-
 
 export default ResourceAccessContainer

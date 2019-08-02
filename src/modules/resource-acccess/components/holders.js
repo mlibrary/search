@@ -13,7 +13,7 @@ import {
   Icon
 } from '@umich-lib/core'
 
-import Holder from './holder'
+import HolderContainer from './holder-container'
 import {
   COLORS,
   SPACING
@@ -29,7 +29,8 @@ export default function Holders ({
   record,
   preExpandedIds,
   handleChange,
-  createId
+  createId,
+  context
 }) {
   return (
     <Accordion
@@ -53,7 +54,7 @@ export default function Holders ({
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                 {expanded ? (
-                  <Holder {...data} />
+                  <HolderContainer context={context} {...data} />
                 ) : null}
                 </AccordionItemPanel>
               </React.Fragment>
