@@ -1,3 +1,3 @@
-import { Holders } from './components/holders'
+import ResourceAccessContainer from './components/resource-access-container'
 
-export default Holders
+export default ResourceAccessContainer
