@@ -43,6 +43,7 @@ export default function Holders ({
         }
       }}
       onChange={(ids) => handleChange(ids)}
+      key={record.type + record.uid}
     >
       {record.resourceAccess.map((data, i) => (
         <AccordionItem uuid={createId(record, i)}>
