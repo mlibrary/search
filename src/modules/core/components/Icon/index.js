@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Icon as DSIcon } from '@umich-lib/core'
+
 const Icon = ({ name }) => {
   switch (name) {
     case 'account':
@@ -695,6 +697,14 @@ const Icon = ({ name }) => {
         </g>
       </svg>
     )
+    case 'pawn':
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="icon">
+          <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+            <path d="M17,8a.9.9,0,0,1-1,1H8A.9.9,0,0,1,7,8,.9.9,0,0,1,8,7h.8a4,4,0,0,1-.3-1.5,3.5,3.5,0,0,1,7,0A4,4,0,0,1,15.2,7H16A.9.9,0,0,1,17,8Zm-3,2H10L9,18h6Zm1,9H9L6,20v2H18V20Z"/>
+          </g>
+        </svg>
+      )
     case 'plus':
     return (
       <svg viewBox="0 0 14 15" version="1.1" className="icon">

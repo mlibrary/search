@@ -781,6 +781,10 @@ const config = {
       formats: ['Newsletter', 'Newspaper'],
     },
     {
+      icon: 'pawn',
+      formats: ['Board Games']
+    },
+    {
       icon: 'volume', // column-high
       formats: ["Audio", "Audio CD", "Audio LP", "Audio (music)", "Audio (spoken word)", "Audio Recording", "Music Recording", "Sound Recording", "Spoken Word Recording", "Streaming Audio"]
     },
