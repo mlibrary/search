@@ -51,8 +51,6 @@ function ResourceAccess({ record, context }) {
       .filter(x => !ids.includes(x))
       .concat(ids.filter(x => !expandedIds.includes(x)))[0]
 
-    console.log('id', id)
-
     // Was the id expanded or collapsed
     const expanded = !expandedIds.includes(id)
     const resourceAccessIndex = id[id.length - 1]
