@@ -51,19 +51,28 @@ function ResourceAccess({ record, context }) {
       .filter(x => !ids.includes(x))
       .concat(ids.filter(x => !expandedIds.includes(x)))[0]
 
+    console.log('id', id)
+
     // Was the id expanded or collapsed
     const expanded = !expandedIds.includes(id)
-    const resourceAccessIndex = id[id.length -1]
+    const resourceAccessIndex = id[id.length - 1]
     const resourceAccessData = record.resourceAccess[resourceAccessIndex]
+    const caption = resourceAccessData.caption ? resourceAccessData.caption : 'Availability'
     const label = (expanded ? 'Expand ' : 'Collapse ')
-      + resourceAccessData.caption + ' from '
+      + caption + ' from '
       + context.datastore.name + ' ' + context.viewType
 
-    ReactGA.event({
+    const event = {
       action: 'Click',
       category: 'Resource Access',
       label
-    })
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      ReactGA.event(event)
+    } else {
+      console.log('[development] Google Analytics Event', event)
+    }
 
     setExpandedIds(ids)
   }

@@ -15,9 +15,15 @@ export default function HolderContainer({ context, ...rest }) {
   )
 }
 
-function handleHolderAnalytics(e, context, caption) {
-  //e.preventDefault(); // only for testing to prevent routing.
+function sendEvent(event) {
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.event(event)
+  } else {
+    console.log('[development] Google Analytics Event', event)
+  }
+}
 
+function handleHolderAnalytics(e, context, caption = 'Availability') {
   const target = e.target
 
   /*
@@ -36,11 +42,13 @@ function handleHolderAnalytics(e, context, caption) {
       + context.datastore.name + ' '
       + context.viewType
 
-    ReactGA.event({
+    const event = {
       action: 'Click',
       category: 'Resource Access',
       label
-    })
+    }
+
+    sendEvent(event)
   }
 
   // Track when users click the show all or fewer button.
@@ -51,10 +59,12 @@ function handleHolderAnalytics(e, context, caption) {
       + context.datastore.name + ' '
       + context.viewType
 
-    ReactGA.event({
+    const event = {
       action: 'Click',
       category: 'Resource Access',
       label
-    })
+    }
+
+    sendEvent(event)
   }
 }
