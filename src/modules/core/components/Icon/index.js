@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Icon as DSIcon } from '@umich-lib/core'
-
 const Icon = ({ name }) => {
   switch (name) {
     case 'account':

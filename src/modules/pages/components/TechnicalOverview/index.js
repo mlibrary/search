@@ -21,9 +21,9 @@ class TechnicalOverview extends React.Component {
                   'h1': (props) => <Heading size="xlarge" level={1} style={{ marginTop: '0' }} {...props} />,
                   'h2': (props) => <Heading size="large" level={2} {...props} />,
                   'h3': (props) => <Heading size="medium" level={3} {...props} />,
-                  'a': (props) => <a {...props} className="underline" />,
+                  'a': ({ href, children, ...rest }) => <a href={href} {...rest} className="underline">{children}</a>,
                   'p': Text,
-                  'img': (props) => <img {...props} style={{ width: '100%' }} />,
+                  'img': (props) => <img {...props} alt="" style={{ width: '100%' }} />,
                   'ul': (props) => <List {...props} type="bulleted" />
                 }
               })

@@ -24,10 +24,11 @@ import {
 */
 function Zotero({ record }) {
   const [ z3988, setZ3988 ] = useState(null)
+  const value = getFieldValue(getField(record.fields, 'z3988'))[0]
 
   useEffect(() => {
-    setZ3988(getFieldValue(getField(record.fields, 'z3988'))[0])
-  })
+    setZ3988(value)
+  }, [value])
 
   useEffect(() => {
     try {
