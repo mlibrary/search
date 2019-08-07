@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import React from 'react';
 import { Link } from 'react-router-dom'
 
@@ -8,7 +10,6 @@ import {
 } from '../../../core'
 import {
   RecommendedResource,
-  RecordResourceAccess
 }  from '../../../records'
 import {
   getDatastoreSlugByUid
@@ -28,6 +29,13 @@ import {
   FavoriteTags
 } from '../../../favorites'
 import Zotero from '../Zotero'
+
+import {
+  COLORS,
+  MEDIA_QUERIES,
+  SPACING
+} from '../../../resource-acccess/umich-lib-core-temp'
+import ResourceAccess from '../../../resource-acccess'
 
 const Header = ({
   record,
@@ -144,9 +152,26 @@ class Record extends React.Component {
             />
           </div>
 
-          {datastoreUid === 'website' ? null : (
-            <RecordResourceAccess record={record} />
-          )}
+          <div
+            css={{
+              '[data-accordion-component="AccordionItemPanel"]': {
+                padding: `0 ${SPACING['M']}`
+              },
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                '[data-accordion-component="AccordionItemButton"]': {
+                  paddingLeft: '3rem'
+                },
+                '[data-accordion-component="AccordionItemPanel"]': {
+                  padding: `0 ${SPACING['M']}`,
+                  paddingLeft: '3rem'
+                },
+                borderBottom: `solid 1px ${COLORS.neutral[100]}`
+              }
+            }}
+            aria-label="Available at"
+          >
+            <ResourceAccess record={record} />
+          </div>
         </article>
       )
     }

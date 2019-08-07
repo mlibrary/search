@@ -1,12 +1,14 @@
+const spectrum = process.env.REACT_APP_SPECTRUM_BASE_URL
+  ? process.env.REACT_APP_SPECTRUM_BASE_URL
+  : window.location.origin
+
+const loginUrl = process.env.REACT_APP_LOGIN_BASE_URL
+  ? process.env.REACT_APP_LOGIN_BASE_URL + '/login'
+  : window.location.origin + '/login'
+
 const config = {
-  spectrum: {
-    production: window.location.origin + '/spectrum',
-    development: 'https://search-staging.www.lib.umich.edu/spectrum',
-  },
-  loginUrl: {
-    production: window.location.origin + '/login',
-    development: 'https://search-staging.www.lib.umich.edu/login',
-  }[process.env.NODE_ENV],
+  spectrum,
+  loginUrl,
   datastores: {
     list: [
       {

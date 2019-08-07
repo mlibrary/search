@@ -1,15 +1,22 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import React from 'react'
 import { connect } from 'react-redux';
+import styled from '@emotion/styled'
 import getHoldingByBarcode from '../../getHoldingByBarcode'
 import {
   TrimString
 } from '../../../core'
 import {
   RecordFullFormats,
-  RecordResourceAccess,
   FullRecordPlaceholder
 } from '../../../records'
-import styled from '@emotion/styled'
+import ResourceAccess from '../../../resource-acccess'
+import {
+  COLORS,
+  MEDIA_QUERIES,
+  SPACING
+} from '../../../resource-acccess/umich-lib-core-temp'
 
 /*
   Hide the first column on the Get This page. No need for users to
@@ -36,12 +43,34 @@ function GetThisHolding({ record, barcode }) {
 
   if (holding) {
     const recordData = {
-      resourceAccess: holding
+      resourceAccess: [].concat({
+        ...holding[0],
+        preExpanded: true
+      })
     }
 
     return (
       <StyledGetThisResourceAccessContainer>
-        <RecordResourceAccess record={recordData} />
+        <div
+          css={{
+            '[data-accordion-component="AccordionItemPanel"]': {
+              padding: `0 ${SPACING['M']}`
+            },
+            [MEDIA_QUERIES.LARGESCREEN]: {
+              '[data-accordion-component="AccordionItemButton"]': {
+                paddingLeft: '3rem'
+              },
+              '[data-accordion-component="AccordionItemPanel"]': {
+                padding: `0 ${SPACING['M']}`,
+                paddingLeft: '3rem'
+              },
+              borderBottom: `solid 1px ${COLORS.neutral[100]}`
+            }
+          }}
+          aria-label="Available at"
+        >
+        <ResourceAccess record={recordData} />
+        </div>
       </StyledGetThisResourceAccessContainer>
     )
   }

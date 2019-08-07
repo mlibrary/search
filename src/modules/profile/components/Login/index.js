@@ -7,7 +7,7 @@ class Login extends Component {
     const authenticated = this.props.profile && this.props.profile.status === 'Logged in'
     const href = config.loginUrl + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
     const loading = this.props.loading
-    
+
     return (
       <React.Fragment>
         {this.props.render({ href, authenticated, loading })}

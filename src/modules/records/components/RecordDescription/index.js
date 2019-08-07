@@ -19,6 +19,10 @@ const RecordDescription = ({ record }) => {
 
   const description = getFieldValue(getField(record.fields, fieldConfig.full.description))[0]
 
+  if (!description) {
+    return null
+  }
+
   return (
     <p className="full-record__description" dangerouslySetInnerHTML={createMarkup(description)} />
   )

@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
@@ -6,6 +8,11 @@ import {
   Link
 } from 'react-router-dom'
 import { Breadcrumb } from '../../../reusable'
+import {
+  COLORS,
+  MEDIA_QUERIES,
+  SPACING
+} from '../../../resource-acccess/umich-lib-core-temp'
 
 import {
   TrimString,
@@ -22,7 +29,6 @@ import {
   FullRecordPlaceholder,
   RecommendedResource,
   RecordDescription,
-  RecordResourceAccess,
   Zotero
 } from '../../../records'
 import {
@@ -45,6 +51,7 @@ import {
   FavoriteRecord,
   FavoriteTags
 } from '../../../favorites'
+import ResourceAccess from '../../../resource-acccess'
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance()
 
@@ -188,22 +195,39 @@ class FullRecord extends React.Component {
               record={record}
               datastore={datastoreUid}
             />
-
             <RecordDescription record={record} />
-
             <Zotero record={record} />
 
-            <h2 className="full-record__record-info">Record Info</h2>
+            <h2 className="full-record__record-info">Record info:</h2>
             <ShowAdditionalFieldList
               fields={displayFields}
               datastoreUid={datastoreUid}
               institution={institution}
             />
           </div>
-          <RecordResourceAccess
-            record={record}
-            datastoreUid={datastoreUid}
-          />
+
+          <section aria-labelledby="available-at">
+            <div className="record-container" css={{ paddingBottom: '0.25rem' }}>
+              <h2 className="full-record__record-info" id="available-at">Available at:</h2>
+            </div>
+
+            <div css={{
+              borderBottom: `solid 1px ${COLORS.neutral[100]}`,
+              '[data-accordion-component="AccordionItemPanel"]': {
+                padding: `0 ${SPACING['M']}`
+              },
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                '[data-accordion-component="AccordionItemButton"]': {
+                  paddingLeft: '3rem'
+                },
+                '[data-accordion-component="AccordionItemPanel"]': {
+                  paddingLeft: '3rem'
+                },
+              }
+            }}>
+              <ResourceAccess record={record} />
+            </div>
+          </section>
         </div>
         {this.renderActions()}
         {datastoreUid === 'mirlyn' && <ViewMARC record={record} />}

@@ -33,6 +33,7 @@
     "qs": "^6.6.0",
     "react": "^16.8.4",
     "react-app-polyfill": "^1.0.1",
+    "react-accessible-accordion": "^3.0.0",
     "react-aria-live": "^1.0.6",
     "react-autosuggest": "^9.4.3",
     "react-dom": "^16.8.4",
@@ -50,7 +51,8 @@
   },
   "scripts": {
     "reinstall": "rm -rf node_modules && npm isntall",
-    "start": "react-scripts start",
+    "start": "REACT_APP_SPECTRUM_BASE_URL=https://search-staging.www.lib.umich.edu/spectrum react-scripts start",
+    "develop": "npm run start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

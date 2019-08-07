@@ -67,12 +67,7 @@ import { setupProfile } from '../profile'
 /*
   Pride Internal Configuration
 */
-if (process.env.NODE_ENV !== 'production') {
-  Pride.Settings.datastores_url = config.spectrum.development;
-} else {
-  Pride.Settings.datastores_url = config.spectrum.production;
-}
-
+Pride.Settings.datastores_url = config.spectrum
 Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = false; // Console log messages
 
