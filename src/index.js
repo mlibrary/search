@@ -28,9 +28,6 @@ import {
   AccessibilityPage,
   TechnicalOverview
 } from './modules/pages'
-import {
-  HelpContent,
-} from './modules/search'
 import store from './store'
 import history from './history'
 import {
@@ -73,6 +70,9 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <div className="site-wrapper" onClick={handleGAClick}>
+          <Alert>
+            Learn about <a href="https://www.lib.umich.edu/blogs/library-tech-talk/update-library-search" className="underline">how we've improved Library Search</a> over the past year.
+          </Alert>
           <A11yLiveMessage />
           <ConnectedRouter history={history}>
             <GAListener>
@@ -80,7 +80,6 @@ class App extends React.Component {
                 <Main>
                   <ConnectedSwitch>
                     <Route path="/technical-overview" exact component={TechnicalOverview}/>
-                    <Route path="/how-to-use-search" exact component={HelpContent}/>
                     <Route path="/accessibility" exact component={AccessibilityPage}/>
                     <Route path="/" exact render={() => (
                       <Redirect to={`/everything`} />
