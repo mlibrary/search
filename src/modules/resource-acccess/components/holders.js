@@ -84,6 +84,20 @@ const headingStyles = {
   color: COLORS.neutral['300']
 }
 
+const icons = {
+  'description': 'M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z',
+  'link': 'M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z'
+}
+
+function getIconPath(type) {
+  switch(type) {
+    case 'electronic':
+      return icons['link']
+    default:
+      return icons['description']
+  }
+}
+
 /*
   - Render the button to click on.
   - And create the Google Analytics click event handler.
@@ -91,12 +105,18 @@ const headingStyles = {
 function AccordionItemHeadingContent({ data, expanded }) {
   const {
     rows,
-    caption
+    caption,
+    type
   } = data
   
   return (
     <AccordionItemButton css={headingStyles}>
-      <span css={{ paddingRight: SPACING['M'] }}>
+      <span css={{
+        paddingRight: SPACING['M']
+      }}>
+        <span css={{ paddingRight: SPACING['S'] }}>
+          <Icon d={getIconPath(type)} css={{ marginTop: '-4px' }} />
+        </span>
         <span
           data-holdings-holder-name
           css={{ fontWeight: '600', color: COLORS.neutral['400'] }}
