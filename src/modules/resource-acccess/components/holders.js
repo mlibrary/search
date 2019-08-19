@@ -9,9 +9,7 @@ import {
   AccordionItemButton,
   AccordionItemState
 } from 'react-accessible-accordion';
-import {
-  Icon
-} from '@umich-lib/core'
+import Icon from '../../reusable/components/Icon'
 
 import HolderContainer from './holder-container'
 import {
@@ -46,7 +44,7 @@ export default function Holders ({
       key={record.type + record.uid}
     >
       {record.resourceAccess.map((data, i) => (
-        <AccordionItem uuid={createId(record, i)}>
+        <AccordionItem uuid={createId(record, i)} key={createId(record, i)}>
           <AccordionItemState>
             {({ expanded }) => (
               <React.Fragment>
@@ -127,12 +125,12 @@ function AccordionItemHeadingContent({ data, expanded }) {
       <span>
         {expanded ? (
           <Icon
-            size="24"
+            size={24}
             d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
           />
         ) : (
           <Icon
-            size="24"
+            size={24}
             d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
           />
         )}
