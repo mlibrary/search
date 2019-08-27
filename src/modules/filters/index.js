@@ -2,10 +2,11 @@ import Filters from './components/Filters';
 import filtersReducer from './reducer';
 
 import {
-  addFilters,
+  addFilterGroup,
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
+  setFilterGroupOrder
 } from './actions';
 
 import {
@@ -15,9 +16,10 @@ import {
 export {
   Filters,
   filtersReducer,
-  addFilters,
+  addFilterGroup,
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
-  isFilterItemActive
+  isFilterItemActive,
+  setFilterGroupOrder
 }
