@@ -6,7 +6,7 @@ import Holding from './holding'
 import {
   COLORS,
   SPACING
-} from '../umich-lib-core-temp'
+} from '../../reusable/umich-lib-core-temp'
 import {
   Expandable,
   ExpandableProvider,

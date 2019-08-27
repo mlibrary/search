@@ -12,7 +12,7 @@ import {
   COLORS,
   MEDIA_QUERIES,
   SPACING
-} from '../../../resource-acccess/umich-lib-core-temp'
+} from '../../../reusable/umich-lib-core-temp'
 
 import {
   TrimString,
