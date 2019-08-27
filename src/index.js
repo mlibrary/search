@@ -14,7 +14,7 @@ import {
 } from 'react-router-dom'
 import {
   ConnectedRouter,
-} from 'react-router-redux'
+} from 'connected-react-router'
 import { Alert } from '@umich-lib/core'
 import {
   initializePride,
