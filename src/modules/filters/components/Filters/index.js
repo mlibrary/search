@@ -1,16 +1,10 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { _ } from 'underscore'
-import numeral from 'numeral'
-import {
-  withRouter
-} from 'react-router-dom'
-import qs from 'qs'
-import {
-  Icon,
-  ShowAllChildren,
-  Checkbox,
-} from '../../../core'
+import React from "react";
+import { connect } from "react-redux";
+import { _ } from "underscore";
+import numeral from "numeral";
+import { withRouter } from "react-router-dom";
+import qs from "qs";
+import { Icon, ShowAllChildren, Checkbox } from "../../../core";
 import {
   getDisplayFilters,
   getFilterItems,
@@ -22,20 +16,21 @@ import {
   getCheckboxOnClickValue,
   createActiveFilterObj,
   getSingleSelectedFilterValue
-} from '../../utilities'
-import ReactGA from 'react-ga'
+} from "../../utilities";
+import ReusableIcon from "../../../reusable/components/Icon";
+import ReactGA from "react-ga";
 
 class Filters extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       open: getOpenFilterDefaults()
-    }
+    };
 
-    this.handleFilterClick = this.handleFilterClick.bind(this)
-    this.handleFilterItemClick = this.handleFilterItemClick.bind(this)
-    this.handleClearActiveFilters = this.handleClearActiveFilters.bind(this)
+    this.handleFilterClick = this.handleFilterClick.bind(this);
+    this.handleFilterItemClick = this.handleFilterItemClick.bind(this);
+    this.handleClearActiveFilters = this.handleClearActiveFilters.bind(this);
   }
   openFilter({ datastoreUid, filterUid }) {
     const open = this.state.open;
@@ -44,25 +39,28 @@ class Filters extends React.Component {
         ...open,
         [datastoreUid]: open[datastoreUid].concat(filterUid)
       }
-    })
+    });
   }
   closeFilter({ datastoreUid, filterUid }) {
     const open = this.state.open;
     this.setState({
       open: {
         ...open,
-        [datastoreUid]: _.filter(open[datastoreUid], filter => filter !== filterUid)
+        [datastoreUid]: _.filter(
+          open[datastoreUid],
+          filter => filter !== filterUid
+        )
       }
-    })
+    });
   }
   handleFilterClick({ datastoreUid, filterUid }) {
-    const { open } = this.state
-    const isOpen = _.contains(open[datastoreUid], filterUid)
+    const { open } = this.state;
+    const isOpen = _.contains(open[datastoreUid], filterUid);
 
     if (isOpen) {
-      this.closeFilter({ datastoreUid, filterUid })
+      this.closeFilter({ datastoreUid, filterUid });
     } else {
-      this.openFilter({ datastoreUid, filterUid })
+      this.openFilter({ datastoreUid, filterUid });
     }
   }
   handleFilterItemClick({
@@ -71,81 +69,87 @@ class Filters extends React.Component {
     filterType,
     filterItemValue
   }) {
-    const { history, match, query, sort, institution } = this.props
+    const { history, match, query, sort, institution } = this.props;
     const isActive = isFilterItemActive({
       datastoreUid,
       filterUid,
       filterItemValue
-    })
+    });
 
     const filterObj = createActiveFilterObj({
       addActiveFilter: !isActive,
       activeFilters: this.props.activeFilters,
       filterUid,
       filterType,
-      filterItemValue,
-    })
+      filterItemValue
+    });
 
     // If applying filter, send event to GA
     if (!isActive) {
       ReactGA.event({
-        action: 'Click',
-        category: 'Filter',
+        action: "Click",
+        category: "Filter",
         label: `${datastoreUid}: ${filterUid} Apply ${filterItemValue}`
-      })
+      });
     }
 
-    const library = datastoreUid === 'mirlyn' ? institution.active : undefined
+    const library = datastoreUid === "mirlyn" ? institution.active : undefined;
 
-    const queryString = qs.stringify({
-      query,
-      filter: filterObj,
-      sort,
-      library
-    }, {
-      arrayFormat: 'repeat',
-      encodeValuesOnly: true,
-      allowDots: true,
-      format : 'RFC1738'
-    })
+    const queryString = qs.stringify(
+      {
+        query,
+        filter: filterObj,
+        sort,
+        library
+      },
+      {
+        arrayFormat: "repeat",
+        encodeValuesOnly: true,
+        allowDots: true,
+        format: "RFC1738"
+      }
+    );
 
     if (queryString.length > 0) {
-      history.push(`${match.url}?${queryString}`)
+      history.push(`${match.url}?${queryString}`);
     } else {
-      history.push(match.url)
+      history.push(match.url);
     }
   }
   handleClearActiveFilters({ datastoreUid }) {
-    let query = undefined
+    let query = undefined;
 
     if (this.props.query && this.props.query.length > 0) {
-      query = this.props.query
+      query = this.props.query;
     }
 
-    const queryString = qs.stringify({
-      query: query
-    }, {
-      arrayFormat: 'repeat',
-      encodeValuesOnly: true,
-      allowDots: true,
-      format : 'RFC1738'
-    })
+    const queryString = qs.stringify(
+      {
+        query: query
+      },
+      {
+        arrayFormat: "repeat",
+        encodeValuesOnly: true,
+        allowDots: true,
+        format: "RFC1738"
+      }
+    );
 
-    const { history, match } = this.props
-    const url = `${match.url}?${queryString}`
+    const { history, match } = this.props;
+    const url = `${match.url}?${queryString}`;
 
-    history.push(url)
+    history.push(url);
   }
   render() {
-    const { datastoreUid, filters, activeFilters, defaults } = this.props
-    const open = this.state.open[datastoreUid]
+    const { datastoreUid, filters, activeFilters, defaults } = this.props;
+    const open = this.state.open[datastoreUid];
     const displayActiveFilters = getActiveFilters({
       datastoreUid,
       activeFilters,
       filters,
       defaults
-    })
-    const displayFilters = filtersWithOpenProperty({ open, filters })
+    });
+    const displayFilters = filtersWithOpenProperty({ open, filters });
 
     return (
       <div className="filters-container">
@@ -165,7 +169,7 @@ class Filters extends React.Component {
           activeFilters={activeFilters}
         />
       </div>
-    )
+    );
   }
 }
 
@@ -197,29 +201,26 @@ const FilterList = ({
           ))}
         </ul>
       </div>
-    )
+    );
   }
 
-  return null
-}
+  return null;
+};
 
-const SingleSelect = ({
-  labelText,
-  options,
-  selectedOption,
-  handleChange
-}) => (
+const SingleSelect = ({ labelText, options, selectedOption, handleChange }) => (
   <select
-    aria-label={labelText ? labelText : 'dropdown'}
+    aria-label={labelText ? labelText : "dropdown"}
     className="dropdown"
     value={selectedOption}
     onChange={handleChange}
   >
-    {options.map((option, index) =>
-      <option value={option.value} key={index}>{option.name}</option>
-    )}
+    {options.map((option, index) => (
+      <option value={option.value} key={index}>
+        {option.name}
+      </option>
+    ))}
   </select>
-)
+);
 
 const Filter = ({
   datastoreUid,
@@ -230,32 +231,34 @@ const Filter = ({
   filters
 }) => {
   switch (filter.type) {
-    case 'checkbox':
+    case "checkbox":
       const isChecked = isFilterItemChecked({
         datastoreUid,
         filterUid: filter.uid,
         activeFilters,
         filters
-      })
+      });
       const value = getCheckboxOnClickValue({
         datastoreUid,
-        filterUid: filter.uid,
-      })
+        filterUid: filter.uid
+      });
 
       return (
         <li className="filter-group filter-group-checkbox">
           <Checkbox
-            handleClick={() => handleFilterItemClick({
-              datastoreUid,
-              filterUid: filter.uid,
-              filterItemValue: value
-            })}
+            handleClick={() =>
+              handleFilterItemClick({
+                datastoreUid,
+                filterUid: filter.uid,
+                filterItemValue: value
+              })
+            }
             isChecked={isChecked}
             label={filter.name}
           />
         </li>
-      )
-    case 'singleselect':
+      );
+    case "singleselect":
       return (
         <li className="filter-group filter-group-checkbox">
           <div>
@@ -266,25 +269,27 @@ const Filter = ({
                 filter,
                 activeFilters
               })}
-              handleChange={(event) => handleFilterItemClick({
-                datastoreUid,
-                filterUid: filter.uid,
-                filterType: filter.type,
-                filterItemValue: event.target.value
-              })}
+              handleChange={event =>
+                handleFilterItemClick({
+                  datastoreUid,
+                  filterUid: filter.uid,
+                  filterType: filter.type,
+                  filterItemValue: event.target.value
+                })
+              }
             />
           </div>
         </li>
-      )
-    case 'multiselect':
+      );
+    case "multiselect":
       const filterItems = getFilterItems({
         datastoreUid: datastoreUid,
         filterUid: filter.uid,
         items: filter.filters
-      })
+      });
 
       if (filterItems.length === 0) {
-        return null
+        return null;
       }
 
       return (
@@ -292,16 +297,26 @@ const Filter = ({
           <button
             className="filter-group-toggle-show-button"
             aria-expanded={filter.open}
-            onClick={() => handleFilterClick({
-              datastoreUid: datastoreUid,
-              filterUid: filter.uid
-            })}
+            onClick={() =>
+              handleFilterClick({
+                datastoreUid: datastoreUid,
+                filterUid: filter.uid
+              })
+            }
           >
             <span className="flex-space-between flex-center">
-              <h3 className="filter-group-heading">
-                {filter.name}
-              </h3>
-              {filter.open ? <Icon name="minus" /> : <Icon name="chevron-down" /> }
+              <h3 className="filter-group-heading">{filter.name}</h3>
+              {filter.open ? (
+                <ReusableIcon
+                  size={24}
+                  d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+                />
+              ) : (
+                <ReusableIcon
+                  size={24}
+                  d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                />
+              )}
             </span>
           </button>
           {filter.open && (
@@ -310,50 +325,49 @@ const Filter = ({
                 <ShowAllChildren
                   length={filterItems.length}
                   show={5}
-                  name={`${filter.name} Filters`}>
-                    {filterItems.map((filterItem, index) => (
-                      <FilterItem
-                        key={index}
-                        filter={filterItem}
-                        handleFilterItemClick={() => handleFilterItemClick({
+                  name={`${filter.name} Filters`}
+                >
+                  {filterItems.map((filterItem, index) => (
+                    <FilterItem
+                      key={index}
+                      filter={filterItem}
+                      handleFilterItemClick={() =>
+                        handleFilterItemClick({
                           datastoreUid,
                           filterUid: filter.uid,
                           filterItemValue: filterItem.value
-                        })}
-                      />
-                    ))}
+                        })
+                      }
+                    />
+                  ))}
                 </ShowAllChildren>
               </ul>
             </div>
           )}
         </li>
-      )
+      );
     default:
-      return null
+      return null;
   }
-}
+};
 
-const FilterItem = ({
-  filter,
-  handleFilterItemClick
-}) => {
+const FilterItem = ({ filter, handleFilterItemClick }) => {
   return (
     <li className="filter-item">
-      <button
-        className="filter-button"
-        onClick={handleFilterItemClick}
-      >
+      <button className="filter-button" onClick={handleFilterItemClick}>
         <span className="flex-space-between flex-center">
           <span className="filter-value">{filter.name}</span>
 
           {filter.count ? (
-            <span className="filter-count">{numeral(filter.count).format(0,0)}</span>
+            <span className="filter-count">
+              {numeral(filter.count).format(0, 0)}
+            </span>
           ) : null}
         </span>
       </button>
     </li>
-  )
-}
+  );
+};
 
 const ActiveFilters = ({
   datastoreUid,
@@ -361,8 +375,8 @@ const ActiveFilters = ({
   handleFilterItemClick,
   handleClearActiveFilters
 }) => {
-  const isHidden = activeFilters.length > 0 ? '' : 'offpage'
-  const cn = `active-filters-container ${isHidden}`
+  const isHidden = activeFilters.length > 0 ? "" : "offpage";
+  const cn = `active-filters-container ${isHidden}`;
 
   return (
     <div className={cn}>
@@ -375,18 +389,20 @@ const ActiveFilters = ({
               <li key={index} className="active-filter-item">
                 <button
                   className="active-filter-button"
-                  onClick={
-                    () => handleFilterItemClick({
+                  onClick={() =>
+                    handleFilterItemClick({
                       datastoreUid: datastoreUid,
                       filterUid: activeFilter.uid,
-                      filterItemValue: activeFilter.value,
+                      filterItemValue: activeFilter.value
                     })
-                  }>
+                  }
+                >
                   <span className="flex-space-between flex-center">
                     <span className="active-filter-button-text">
                       {activeFilter.name}: {activeFilter.value}
                     </span>
-                    <Icon name="close" /><span className="offpage">Remove</span>
+                    <Icon name="close" />
+                    <span className="offpage">Remove</span>
                   </span>
                 </button>
               </li>
@@ -395,21 +411,21 @@ const ActiveFilters = ({
           <div className="clear-active-filters-container">
             <button
               className="button-link-light"
-              onClick={
-               () => handleClearActiveFilters({ datastoreUid })
-              }
+              onClick={() => handleClearActiveFilters({ datastoreUid })}
               data-ga-action="Click"
               data-ga-category="Filter"
               data-ga-label={`Clear All Filters`}
-            >Clear filters</button>
+            >
+              Clear filters
+            </button>
           </div>
         </React.Fragment>
       ) : (
         <p>You have no filters applied.</p>
       )}
     </div>
-  )
-}
+  );
+};
 
 function mapStateToProps(state) {
   return {
@@ -423,9 +439,7 @@ function mapStateToProps(state) {
     }),
     activeFilters: state.filters.active[state.datastores.active],
     institution: state.institution
-  }
+  };
 }
 
-export default withRouter(
-  connect(mapStateToProps)(Filters)
-);
+export default withRouter(connect(mapStateToProps)(Filters));
