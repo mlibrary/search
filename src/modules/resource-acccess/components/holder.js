@@ -12,9 +12,9 @@ import {
   ExpandableProvider,
   ExpandableChildren,
   ExpandableButton,
-  Icon,
   Button
 } from '@umich-lib/core'
+import Icon from '../../reusable/components/Icon'
 
 const cell_padding = {
   paddingTop: SPACING['XS'],
