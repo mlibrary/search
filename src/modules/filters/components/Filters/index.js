@@ -2,6 +2,8 @@
 import { jsx } from "@emotion/core";
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom'
+import { _ } from 'underscore'
+import qs from 'qs'
 import {
   Accordion,
   AccordionItem,
@@ -13,7 +15,6 @@ import {
 
 import {
   Expandable,
-  ExpandableProvider,
   ExpandableChildren,
   ExpandableButton
 } from '@umich-lib/core'
@@ -22,6 +23,10 @@ import {
   SPACING,
   COLORS
 } from '../../../reusable/umich-lib-core-temp'
+
+import {
+  stringifySearchQueryForURL
+} from '../../../pride'
 
 export default function Filters() {
   const { datastores, filters } = useSelector(state => state);
@@ -47,7 +52,7 @@ export default function Filters() {
         }}
       >
         {order.map(uid => (
-          <FilterGroup uid={uid} />
+          <FilterGroup uid={uid} key={datastores.active + uid} />
         ))}
       </Accordion>
     </section>
@@ -62,7 +67,6 @@ function FilterGroup({ uid }) {
     return null;
   }
 
-  const filterGroupName = group.metadata.name
   const uuid = datastores.active + "-" + uid
 
   return (
@@ -74,17 +78,17 @@ function FilterGroup({ uid }) {
             fontWeight: '600',
             cursor: 'pointer'
           }}
-        >{filterGroupName}</AccordionItemButton>
+        >{group.metadata.name}</AccordionItemButton>
       </AccordionItemHeading>
       
       <AccordionItemState>
-        {({ expanded }) => <FilterGroupFilters filterGroupName={filterGroupName} expanded={expanded} filters={group.filters} />}
+        {({ expanded }) => <FilterGroupFilters group={group} expanded={expanded} filters={group.filters} />}
       </AccordionItemState>
     </AccordionItem>
   );
 }
 
-function FilterGroupFilters({ filterGroupName, expanded, filters }) {
+function FilterGroupFilters({ group, expanded, filters }) {
   if (!expanded) {
     return null
   }
@@ -97,7 +101,7 @@ function FilterGroupFilters({ filterGroupName, expanded, filters }) {
           margin: '0'
         }}>
           <ExpandableChildren show={5}>
-            {filters.map(f => <li><Filter {...f} /></li>)}
+            {filters.map((f, i) => <li key={group.metadata.name + f.value + i}><FilterContainer group={group} {...f} /></li>)}
           </ExpandableChildren>
         </ul>
 
@@ -105,7 +109,7 @@ function FilterGroupFilters({ filterGroupName, expanded, filters }) {
           padding: `${SPACING['2XS']} ${SPACING['M']}`
         }}>
           <ExpandableButton
-            name={filterGroupName + " filters"}
+            name={group.metadata.name + " filters"}
             count={filters.length}
             kind="secondary"
             small
@@ -116,16 +120,29 @@ function FilterGroupFilters({ filterGroupName, expanded, filters }) {
   )
 }
 
-function Filter({ value, name, count }) {
+function FilterContainer({ group, value, count }) {
+  const search = newSearch({ filter: { [group.uid]: value }})
+  const url = document.location.pathname + '?' + search
+
   return (
+    <Filter
+      url={url}
+      value={value}
+      count={count}
+    />
+  )
+}
+
+function Filter({ value, count, url }) {
+  return ( 
     <Link
-      to=""
+      to={url}
       css={{
         display: 'flex',
         justifyContent: 'space-between',
         padding: `${SPACING['2XS']} ${SPACING['M']}`,
         ':hover': {
-          'span:first-child': {
+          'span:first-of-type': {
             textDecoration: 'underline'
           }
         }
@@ -135,4 +152,52 @@ function Filter({ value, name, count }) {
       <span css={{ color: COLORS.neutral['400'] }}>{count}</span>
     </Link>
   )
+}
+
+/*
+  newQuery
+
+  Args:
+    - filter
+    - query
+    - sort
+    - library
+    - page
+*/
+function newSearch(data) {
+  const urlSearchState = qs.parse(
+    document.location.search.substring(1),
+    { allowDots: true }
+  )
+  const filter = newSearchFilter({
+    proposed: data.filter,
+    existing: urlSearchState.filter
+  })
+  const newSearchState = {
+    ...urlSearchState,
+    ...data,
+    filter
+  }
+  
+  return qs.stringify(newSearchState, {
+    arrayFormat: 'repeat',
+    encodeValuesOnly: true,
+    allowDots: true,
+    format : 'RFC1738'
+  })
+}
+
+function newSearchFilter({ proposed = {}, existing = {} }) {
+  const groups = Object.keys(proposed).concat(Object.keys(existing))
+  const filter = groups.reduce((acc, group) => {
+    return {
+      ...acc,
+      [group]: _.unique(
+        [].concat(proposed[group])
+          .concat(existing[group])
+      )
+    }
+  }, {})
+
+  return filter
 }
