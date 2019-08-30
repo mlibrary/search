@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom'
 import {
   Accordion,
   AccordionItem,
@@ -11,7 +12,15 @@ import {
 } from 'react-accessible-accordion';
 
 import {
-  SPACING
+  Expandable,
+  ExpandableProvider,
+  ExpandableChildren,
+  ExpandableButton
+} from '@umich-lib/core'
+
+import {
+  SPACING,
+  COLORS
 } from '../../../reusable/umich-lib-core-temp'
 
 export default function Filters() {
@@ -48,11 +57,12 @@ export default function Filters() {
 function FilterGroup({ uid }) {
   const { datastores, filters } = useSelector(state => state);
   const group = filters.groups[uid];
-
+  
   if (!group) {
     return null;
   }
 
+  const filterGroupName = group.metadata.name
   const uuid = datastores.active + "-" + uid
 
   return (
@@ -64,28 +74,65 @@ function FilterGroup({ uid }) {
             fontWeight: '600',
             cursor: 'pointer'
           }}
-        >{group.metadata.name}</AccordionItemButton>
+        >{filterGroupName}</AccordionItemButton>
       </AccordionItemHeading>
       
       <AccordionItemState>
-        {({ expanded }) => <FilterGroupFilters expanded={expanded} filters={group.filters} />}
+        {({ expanded }) => <FilterGroupFilters filterGroupName={filterGroupName} expanded={expanded} filters={group.filters} />}
       </AccordionItemState>
     </AccordionItem>
   );
 }
 
-function FilterGroupFilters({ expanded, filters }) {
+function FilterGroupFilters({ filterGroupName, expanded, filters }) {
   if (!expanded) {
     return null
   }
 
   return (
     <AccordionItemPanel>
-      <ul>
-        {filters.map(f => <li>
-          {f.name} {f.count}
-        </li>)}
-      </ul>
+      <Expandable>
+        <ul css={{
+          listStyle: 'none',
+          margin: '0'
+        }}>
+          <ExpandableChildren show={5}>
+            {filters.map(f => <li><Filter {...f} /></li>)}
+          </ExpandableChildren>
+        </ul>
+
+        <div css={{
+          padding: `${SPACING['2XS']} ${SPACING['M']}`
+        }}>
+          <ExpandableButton
+            name={filterGroupName + " filters"}
+            count={filters.length}
+            kind="secondary"
+            small
+          />
+        </div>
+      </Expandable>
     </AccordionItemPanel>
+  )
+}
+
+function Filter({ value, name, count }) {
+  return (
+    <Link
+      to=""
+      css={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: `${SPACING['2XS']} ${SPACING['M']}`,
+        ':hover': {
+          'span:first-child': {
+            textDecoration: 'underline'
+          }
+        }
+      }}
+    >
+      <span css={{ marginRight: SPACING['XS'] }}>{value}</span>
+      <span css={{ color: COLORS.neutral['400'] }}>{count}</span>
+    </Link>
   )
 }
