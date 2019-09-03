@@ -199,6 +199,10 @@ function FilterGroup({ uid }) {
     return null;
   }
 
+  const activeFilters = filters.active[datastores.active]
+    ? filters.active[datastores.active][uid]
+    : null
+
   const uuid = datastores.active + "-" + uid
 
   return (
@@ -239,7 +243,14 @@ function FilterGroup({ uid }) {
               </span>
             </AccordionItemButton>
           </AccordionItemHeading>
-          <FilterGroupFilters group={group} expanded={expanded} filters={group.filters} />
+          <FilterGroupFilters
+            group={group}
+            expanded={expanded}
+            filters={filterOutActiveFilters({
+              active: activeFilters,
+              filters: filters.groups[uid].filters
+            })}
+          />
         </React.Fragment>
       )}
       </AccordionItemState>
@@ -414,4 +425,43 @@ function getURLWithoutFilters() {
     ...getSearchStateFromURL(),
     filters: undefined
   })
+}
+
+/*
+  Remove active filter values from the
+  list of filter objects that contain
+  that value.
+
+  active: ["Book"]
+  filters: [
+    {
+      value: "Book",
+      ...
+    },
+    {
+      value: "Serial"
+    },
+    {
+      ...
+    }
+  ]
+
+  output:
+  [
+    {
+      value: "Serial"
+    },
+    {
+      ...
+    }
+  ]
+
+*/
+
+function filterOutActiveFilters({ active, filters}) {
+  if (!active) {
+    return filters
+  }
+
+  return filters.filter(({ value }) => !_.contains(active, value) )
 }
