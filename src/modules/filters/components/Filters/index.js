@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useSelector } from "react-redux";
+import React from 'react';
 import { Link } from 'react-router-dom'
 import { _ } from 'underscore'
 import qs from 'qs'
@@ -23,10 +24,12 @@ import {
   SPACING,
   COLORS
 } from '../../../reusable/umich-lib-core-temp'
+import Icon from '../../../reusable/components/Icon'
 
-import {
-  stringifySearchQueryForURL
-} from '../../../pride'
+const filterGroupStyles = {
+  padding: `0 ${SPACING['M']}`,
+  borderBottom: `solid 1px ${COLORS.neutral['100']}`
+}
 
 export default function Filters() {
   const { datastores, filters } = useSelector(state => state);
@@ -41,14 +44,23 @@ export default function Filters() {
   }, [])
 
   return (
-    <section aria-label="filters">
+    <section
+      aria-label="filters"
+      css={{
+        background: '#FAFAFA'
+      }}
+    >
+      <ActiveFilters />
       <Accordion
         preExpanded={preExpandedFilterGroups}
         allowMultipleExpanded
         allowZeroExpanded
         css={{
           margin: 0,
-          padding: 0
+          padding: 0,
+          '& > *': {
+            ...filterGroupStyles
+          }
         }}
       >
         {order.map(uid => (
@@ -57,6 +69,106 @@ export default function Filters() {
       </Accordion>
     </section>
   );
+}
+
+function ActiveFilters() {
+  const { datastores, filters } = useSelector(state => state);
+  const active = filters.active[datastores.active]
+
+  if (!active) {
+    return null
+  }
+
+  /*
+    input:
+    {
+      subject: ['Birds', 'Birds North America'],
+      format: ['Science', 'Biology']
+    }
+
+    expected output:
+    [
+      { group: 'subject', value: 'Birds' },
+      { group: 'subject', value: 'Birds North America' },
+      { group: 'format', value: 'Science' },
+      { group: 'format', value: 'Biology' }
+    ]
+  */
+  const items = Object.keys(active).reduce((acc, group) => {
+    acc = acc.concat(active[group].map(item => {
+      return {
+        group,
+        value: item
+      }
+    }))
+
+    return acc
+  }, [])
+
+  return (
+    <section
+      aria-label="active-filters"
+      css={{
+        ...filterGroupStyles,
+        padding: `${SPACING['S']} ${SPACING['M']}`
+      }}
+    >
+      <h2 id="active-filters" css={{
+        fontSize: '1rem',
+        marginTop: '0'
+      }}>Active filters</h2>
+
+      <ul css={{
+        margin: 0,
+        listStyle: 'none'
+      }}>
+        {items.map((item, i) => (
+          <li
+            key={i + item.group + item.value}
+            css={{
+              marginBottom: SPACING['XS'],
+              ':last-of-type': {
+                marginBottom: 0
+              }
+            }}
+          >
+            <ActiveFilterItem {...item} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+function ActiveFilterItem({ group, value }) {
+  const { groups } = useSelector(state => state.filters);
+  const url = getURLWithFilterRemoved({ group, value })
+
+  if (!groups[group]) {
+    return null
+  }
+
+  return (
+    <Link
+      to={url}
+      css={{
+        padding: `${SPACING['XS']} ${SPACING['S']}`,
+        color: COLORS.green['500'],
+        background: COLORS.green['100'],
+        border: `solid 1px ${COLORS.green['200']}`,
+        borderRadius: '4px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        ':hover': {
+          textDecoration: 'underline'
+        }
+      }}
+    >
+      <span>{groups[group].metadata.name}: {value}</span>
+      <Icon icon="close" />
+    </Link>
+  )
 }
 
 function FilterGroup({ uid }) {
@@ -71,18 +183,45 @@ function FilterGroup({ uid }) {
 
   return (
     <AccordionItem uuid={uuid} key={uuid}>
-      <AccordionItemHeading>
-        <AccordionItemButton
-          css={{
-            padding: `${SPACING['S']} ${SPACING['M']}`,
-            fontWeight: '600',
-            cursor: 'pointer'
-          }}
-        >{group.metadata.name}</AccordionItemButton>
-      </AccordionItemHeading>
-      
       <AccordionItemState>
-        {({ expanded }) => <FilterGroupFilters group={group} expanded={expanded} filters={group.filters} />}
+      {({ expanded }) => (
+        <React.Fragment>
+          <AccordionItemHeading>
+            <AccordionItemButton
+              css={{
+                padding: SPACING['S'],
+                margin: `0 -${SPACING['S']}`,
+                fontWeight: '600',
+                cursor: 'pointer',
+                ':hover': {
+                  textDecoration: 'underline'
+                },
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <span>{group.metadata.name}</span>
+              <span css={{
+                color: COLORS.neutral['300']
+              }}>
+              {expanded ? (
+                <Icon
+                  size={24}
+                  d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+                />
+              ) : (
+                <Icon
+                  size={24}
+                  d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                />
+              )}
+              </span>
+            </AccordionItemButton>
+          </AccordionItemHeading>
+          <FilterGroupFilters group={group} expanded={expanded} filters={group.filters} />
+        </React.Fragment>
+      )}
       </AccordionItemState>
     </AccordionItem>
   );
@@ -106,13 +245,16 @@ function FilterGroupFilters({ group, expanded, filters }) {
         </ul>
 
         <div css={{
-          padding: `${SPACING['2XS']} ${SPACING['M']}`
+          padding: `${SPACING['2XS']} 0`
         }}>
           <ExpandableButton
             name={group.metadata.name + " filters"}
             count={filters.length}
             kind="secondary"
             small
+            css={{
+              marginBottom: SPACING['XS']
+            }}
           />
         </div>
       </Expandable>
@@ -140,7 +282,7 @@ function Filter({ value, count, url }) {
       css={{
         display: 'flex',
         justifyContent: 'space-between',
-        padding: `${SPACING['2XS']} ${SPACING['M']}`,
+        padding: `${SPACING['2XS']} 0`,
         ':hover': {
           'span:first-of-type': {
             textDecoration: 'underline'
@@ -165,10 +307,7 @@ function Filter({ value, count, url }) {
     - page
 */
 function newSearch(data) {
-  const urlSearchState = qs.parse(
-    document.location.search.substring(1),
-    { allowDots: true }
-  )
+  const urlSearchState = getSearchStateFromURL()
   const filter = newSearchFilter({
     proposed: data.filter,
     existing: urlSearchState.filter
@@ -178,8 +317,19 @@ function newSearch(data) {
     ...data,
     filter
   }
-  
-  return qs.stringify(newSearchState, {
+
+  return stringifySearch(newSearchState)
+}
+
+function getSearchStateFromURL() {
+  return qs.parse(
+    document.location.search.substring(1),
+    { allowDots: true }
+  )
+}
+
+function stringifySearch(searchStateObj) {
+  return qs.stringify(searchStateObj, {
     arrayFormat: 'repeat',
     encodeValuesOnly: true,
     allowDots: true,
@@ -200,4 +350,41 @@ function newSearchFilter({ proposed = {}, existing = {} }) {
   }, {})
 
   return filter
+}
+
+/*
+  Remove a filter from the URL.
+
+  Removes the value from a filter group
+  and will remove the group if the value
+  is the group's only value.
+
+  returns a new URL with the filter removed.
+*/
+function getURLWithFilterRemoved({ group, value }) {
+  const urlSearchState = getSearchStateFromURL()
+  const groups = Object.keys(urlSearchState.filter)
+  const filter = groups.reduce((acc, g) => {
+    if (g === group) {
+      if (Array.isArray(urlSearchState.filter[g])) {
+        acc = {
+          ...acc,
+          [g]: urlSearchState.filter[g].filter(val => val !== value)
+        }
+      }
+    } else {
+      acc = {
+        ...acc,
+        [g]: urlSearchState.filter[g]
+      }
+    }
+
+    return acc
+  }, {})
+  const newSearchState = {
+    ...urlSearchState,
+    filter
+  }
+
+  return document.location.pathname + '?' + stringifySearch(newSearchState)
 }
