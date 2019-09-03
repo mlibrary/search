@@ -136,7 +136,27 @@ function ActiveFilters() {
           </li>
         ))}
       </ul>
+
+      {items.length > 1 && (
+        <ClearActiveFiltersLink />
+      )}
     </section>
+  )
+}
+
+function ClearActiveFiltersLink() {
+  const url = getURLWithoutFilters()
+
+  return (
+    <Link
+      to={url}
+      css={{
+        display: 'inline-block',
+        paddingTop: SPACING['XS'],
+        textDecoration: 'underline',
+        color: COLORS.neutral['300']
+      }}
+    >Clear all active filters</Link>
   )
 }
 
@@ -387,4 +407,11 @@ function getURLWithFilterRemoved({ group, value }) {
   }
 
   return document.location.pathname + '?' + stringifySearch(newSearchState)
+}
+
+function getURLWithoutFilters() {
+  return document.location.pathname + '?' + stringifySearch({
+    ...getSearchStateFromURL(),
+    filters: undefined
+  })
 }
