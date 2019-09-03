@@ -28,6 +28,7 @@ export default function Holder({
   rows,
   captionLink,
   notes,
+  preExpanded,
   ...rest
 }) {
   return (
