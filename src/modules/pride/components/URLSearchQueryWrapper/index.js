@@ -34,6 +34,7 @@ import {
 import {
   setA11yMessage
 } from '../../../a11y'
+import { affiliationCookieSetter } from "../../../affiliation";
 
 class URLSearchQueryWrapper extends React.Component {
   constructor(props) {
@@ -53,6 +54,8 @@ class URLSearchQueryWrapper extends React.Component {
   }) {
     const urlState = getStateFromURL({ location })
     let shouldRunSearch = false
+
+    affiliationCookieSetter(urlState.affiliation)
 
     if (datastoreUid) {
 
