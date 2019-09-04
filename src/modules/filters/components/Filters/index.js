@@ -31,7 +31,20 @@ const filterGroupStyles = {
   borderBottom: `solid 1px ${COLORS.neutral['100']}`
 }
 
-export default function Filters() {
+export default function FiltersContainer() {
+  const { datastores, search, records } = useSelector(state => state);
+  const isLoading = search.searching && records.loading[datastores.active]
+
+  if (isLoading) {
+    return null
+  }
+
+  return (
+    <Filters />
+  )
+}
+
+function Filters() {
   const { datastores, filters } = useSelector(state => state);
   const { order, groups } = filters
 
