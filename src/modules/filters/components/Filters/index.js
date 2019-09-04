@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { _ } from 'underscore'
+import numeral from "numeral";
 import qs from 'qs'
 import {
   Accordion,
@@ -335,7 +336,7 @@ function Filter({ value, count, url }) {
       }}
     >
       <span css={{ marginRight: SPACING['XS'] }}>{value}</span>
-      <span css={{ color: COLORS.neutral['400'] }}>{count}</span>
+      <span css={{ color: COLORS.neutral['400'] }}>{numeral(count).format(0, 0)}</span>
     </Link>
   )
 }
