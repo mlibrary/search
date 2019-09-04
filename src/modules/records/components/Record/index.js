@@ -65,6 +65,10 @@ const Header = ({
       {pictureField && (
         <img src={pictureField.value[0]} alt="" className="record-person__profile-picture" />
       )}
+      <span css={{
+        marginRight: SPACING['2XS'],
+        color: COLORS.neutral['300']
+      }}>{record.position + 1}.</span>
       {datastoreUid !== 'website' ? (
         <Link
           to={recordTitleLink}
