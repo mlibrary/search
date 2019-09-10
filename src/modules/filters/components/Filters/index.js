@@ -3,9 +3,8 @@ import { jsx } from "@emotion/core";
 import { useSelector } from "react-redux";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { _ } from "underscore";
 import numeral from "numeral";
-import qs from "qs";
+
 import {
   Accordion,
   AccordionItem,
@@ -21,10 +20,16 @@ import {
   ExpandableButton
 } from "@umich-lib/core";
 
-import { Checkbox } from "../../../core";
-
 import { SPACING, COLORS } from "../../../reusable/umich-lib-core-temp";
 import Icon from "../../../reusable/components/Icon";
+import CheckboxFilters from "../CheckboxFilters"
+
+import {
+  getURLWithoutFilters,
+  getURLWithFilterRemoved,
+  filterOutActiveFilters,
+  newSearch
+} from '../../utilities'
 
 const filterGroupStyles = {
   padding: `0 ${SPACING["M"]}`,
@@ -62,6 +67,7 @@ function Filters() {
       }}
     >
       <ActiveFilters />
+      <CheckboxFilters />
       <Accordion
         preExpanded={preExpandedFilterGroups}
         allowMultipleExpanded
@@ -106,17 +112,23 @@ function ActiveFilters() {
     ]
   */
   const items = Object.keys(active).reduce((acc, group) => {
-    acc = acc.concat(
-      active[group].map(item => {
-        return {
-          group,
-          value: item
-        };
-      })
-    );
+    if (filters.groups[group].type === 'multiselect') {
+      acc = acc.concat(
+        active[group].map(item => {
+          return {
+            group,
+            value: item
+          };
+        })
+      );
+    }
 
     return acc;
   }, []);
+
+  if (items.length === 0) {
+    return null;
+  }
 
   return (
     <section
@@ -219,7 +231,7 @@ function FilterGroupContainer({ uid }) {
   const { datastores, filters } = useSelector(state => state);
   const group = filters.groups[uid];
 
-  if (!group) {
+  if (!group || group.filters.length === 0) {
     return null;
   }
 
@@ -240,60 +252,27 @@ function FilterGroupContainer({ uid }) {
 
   if (group.type === "multiselect") {
     return <FilterGroupMultiselect {...props} />;
-  } else if (group.type === "checkbox") {
-    return <FilterGroupCheckbox {...props} />;
   }
 
   return null;
 }
 
-function FilterGroupCheckbox({
-  filters,
-  datastores,
-  group,
-  uid,
-  uuid,
-  activeFilters
-}) {
-  /*
-    Filter checkbox cases
-    - URL has state for this filter, use that.
-    - No URL state, then set to group.preSelected
-  */
-  const [checked, setChecked] = useState(group.preSelected === true);
-
-  return (
-    <div
-      css={{
-        "> label": {
-          padding: SPACING["S"],
-          margin: `0 -${SPACING["S"]}`,
-          ":hover": {
-            textDecoration: "underline"
-          }
-        },
-        svg: {
-          marginBottom: "-0.15rem"
-        }
-      }}
-    >
-      <Checkbox
-        handleClick={() => setChecked(!checked)}
-        isChecked={checked}
-        label={group.metadata.name}
-      />
-    </div>
-  );
-}
-
 function FilterGroupMultiselect({
   filters,
-  datastores,
   group,
   uid,
   uuid,
   activeFilters
 }) {
+  const filtersWithoutActive = filterOutActiveFilters({
+    active: activeFilters,
+    filters: filters.groups[uid].filters
+  })
+
+  if (filtersWithoutActive.length === 0) {
+    return null
+  }
+
   return (
     <AccordionItem uuid={uuid} key={uuid}>
       <AccordionItemState>
@@ -337,10 +316,7 @@ function FilterGroupMultiselect({
             <FilterGroupFilters
               group={group}
               expanded={expanded}
-              filters={filterOutActiveFilters({
-                active: activeFilters,
-                filters: filters.groups[uid].filters
-              })}
+              filters={filtersWithoutActive}
             />
           </React.Fragment>
         )}
@@ -350,7 +326,7 @@ function FilterGroupMultiselect({
 }
 
 function FilterGroupFilters({ group, expanded, filters }) {
-  if (!expanded) {
+  if (!expanded || filters.length === 0) {
     return null;
   }
 
@@ -420,141 +396,4 @@ function Filter({ value, count, url }) {
       </span>
     </Link>
   );
-}
-
-/*
-  newQuery
-
-  Args:
-    - filter
-    - query
-    - sort
-    - library
-    - page
-*/
-function newSearch(data) {
-  const urlSearchState = getSearchStateFromURL();
-  const filter = newSearchFilter({
-    proposed: data.filter,
-    existing: urlSearchState.filter
-  });
-  const newSearchState = {
-    ...urlSearchState,
-    ...data,
-    filter
-  };
-
-  return stringifySearch(newSearchState);
-}
-
-function getSearchStateFromURL() {
-  return qs.parse(document.location.search.substring(1), { allowDots: true });
-}
-
-function stringifySearch(searchStateObj) {
-  return qs.stringify(searchStateObj, {
-    arrayFormat: "repeat",
-    encodeValuesOnly: true,
-    allowDots: true,
-    format: "RFC1738"
-  });
-}
-
-function newSearchFilter({ proposed = {}, existing = {} }) {
-  const groups = Object.keys(proposed).concat(Object.keys(existing));
-  const filter = groups.reduce((acc, group) => {
-    return {
-      ...acc,
-      [group]: _.unique([].concat(proposed[group]).concat(existing[group]))
-    };
-  }, {});
-
-  return filter;
-}
-
-/*
-  Remove a filter from the URL.
-
-  Removes the value from a filter group
-  and will remove the group if the value
-  is the group's only value.
-
-  returns a new URL with the filter removed.
-*/
-function getURLWithFilterRemoved({ group, value }) {
-  const urlSearchState = getSearchStateFromURL();
-  const groups = Object.keys(urlSearchState.filter);
-  const filter = groups.reduce((acc, g) => {
-    if (g === group) {
-      if (Array.isArray(urlSearchState.filter[g])) {
-        acc = {
-          ...acc,
-          [g]: urlSearchState.filter[g].filter(val => val !== value)
-        };
-      }
-    } else {
-      acc = {
-        ...acc,
-        [g]: urlSearchState.filter[g]
-      };
-    }
-
-    return acc;
-  }, {});
-  const newSearchState = {
-    ...urlSearchState,
-    filter
-  };
-
-  return document.location.pathname + "?" + stringifySearch(newSearchState);
-}
-
-function getURLWithoutFilters() {
-  return (
-    document.location.pathname +
-    "?" +
-    stringifySearch({
-      ...getSearchStateFromURL(),
-      filters: undefined
-    })
-  );
-}
-
-/*
-  Remove active filter values from the
-  list of filter objects that contain
-  that value.
-
-  active: ["Book"]
-  filters: [
-    {
-      value: "Book",
-      ...
-    },
-    {
-      value: "Serial"
-    },
-    {
-      ...
-    }
-  ]
-
-  output:
-  [
-    {
-      value: "Serial"
-    },
-    {
-      ...
-    }
-  ]
-
-*/
-
-function filterOutActiveFilters({ active, filters }) {
-  if (!active) {
-    return filters;
-  }
-
-  return filters.filter(({ value }) => !_.contains(active, value));
 }

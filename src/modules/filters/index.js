@@ -9,10 +9,6 @@ import {
   setFilterGroupOrder
 } from './actions';
 
-import {
-  isFilterItemActive
-} from './utilities'
-
 export {
   Filters,
   filtersReducer,
@@ -20,6 +16,5 @@ export {
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
-  isFilterItemActive,
   setFilterGroupOrder
 }
