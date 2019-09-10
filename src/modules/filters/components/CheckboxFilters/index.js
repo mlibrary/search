@@ -94,7 +94,9 @@ function CheckboxFilter({ label, isChecked, url }) {
         textDecoration: 'underline'
       }
     }}
+    role="checkbox"
     aria-checked={isChecked}
+    aria-label={label}
     >
       <span aria-hidden="true" css={{
         color: isChecked ? '#126DC1' : COLORS.neutral['300'],
