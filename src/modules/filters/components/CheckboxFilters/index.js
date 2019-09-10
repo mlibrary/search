@@ -16,7 +16,7 @@ export default function CheckBoxFiltersContainer() {
   const { order, groups } = filters;
 
   const checkboxes = order.reduce((acc, id) => {
-    if (groups[id].type === 'checkbox') {
+    if (groups[id] && groups[id].type === 'checkbox') {
       acc = acc.concat(groups[id])
     }
 

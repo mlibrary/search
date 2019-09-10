@@ -36,7 +36,7 @@ const filterGroupStyles = {
   borderBottom: `solid 1px ${COLORS.neutral["100"]}`
 };
 
-export default function FiltersContainer() {
+function FiltersLoadingContainer({ children }) {
   const { datastores, search, records } = useSelector(state => state);
   const isLoading = search.searching && records.loading[datastores.active];
 
@@ -44,10 +44,10 @@ export default function FiltersContainer() {
     return null;
   }
 
-  return <Filters />;
+  return children;
 }
 
-function Filters() {
+export default function Filters() {
   const { datastores, filters } = useSelector(state => state);
   const { order, groups } = filters;
 
@@ -68,22 +68,24 @@ function Filters() {
     >
       <ActiveFilters />
       <CheckboxFilters />
-      <Accordion
-        preExpanded={preExpandedFilterGroups}
-        allowMultipleExpanded
-        allowZeroExpanded
-        css={{
-          margin: 0,
-          padding: 0,
-          "& > *": {
-            ...filterGroupStyles
-          }
-        }}
-      >
-        {order.map(uid => (
-          <FilterGroupContainer uid={uid} key={datastores.active + uid} />
-        ))}
-      </Accordion>
+      <FiltersLoadingContainer>
+        <Accordion
+          preExpanded={preExpandedFilterGroups}
+          allowMultipleExpanded
+          allowZeroExpanded
+          css={{
+            margin: 0,
+            padding: 0,
+            "& > *": {
+              ...filterGroupStyles
+            }
+          }}
+        >
+          {order.map(uid => (
+            <FilterGroupContainer uid={uid} key={datastores.active + uid} />
+          ))}
+        </Accordion>
+      </FiltersLoadingContainer>
     </section>
   );
 }
@@ -112,7 +114,7 @@ function ActiveFilters() {
     ]
   */
   const items = Object.keys(active).reduce((acc, group) => {
-    if (filters.groups[group].type === 'multiselect') {
+    if (filters.groups[group] && filters.groups[group].type === 'multiselect') {
       acc = acc.concat(
         active[group].map(item => {
           return {
