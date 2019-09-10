@@ -144,7 +144,8 @@ function ActiveFilters() {
         id="active-filters"
         css={{
           fontSize: "1rem",
-          marginTop: "0"
+          marginTop: "0",
+          marginBottom: SPACING['XS']
         }}
       >
         Active filters
