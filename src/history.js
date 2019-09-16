@@ -1,6 +1,6 @@
-const createHistory = require("history").createBrowserHistory
+const createHistory = require("history").createBrowserHistory;
 
 // Create a history of your choosing (we're using a browser history in this case)
-const history = createHistory()
+const history = createHistory();
 
-export default history
+export default history;

@@ -166,7 +166,7 @@ class RecordField extends React.Component {
           <dd className="record-field-value">
             <ShowAllChildren
               length={field.value.length}
-              show={3}
+              show={4}
               listClass={'record-field-value-list'}>
               {field.value.map((value, index) => (
                 <span className="record-field-value-item record-field-value-list-item" key={index}>
