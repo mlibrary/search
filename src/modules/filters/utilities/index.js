@@ -99,37 +99,6 @@ export function getURLWithoutFilters() {
   );
 }
 
-/*
-  Remove active filter values from the
-  list of filter objects that contain
-  that value.
-
-  active: ["Book"]
-  filters: [
-    {
-      value: "Book",
-      ...
-    },
-    {
-      value: "Serial"
-    },
-    {
-      ...
-    }
-  ]
-
-  output:
-  [
-    {
-      value: "Serial"
-    },
-    {
-      ...
-    }
-  ]
-
-*/
-
 export function filterOutActiveFilters({ active, filters }) {
   if (!active) {
     return filters;
