@@ -67,18 +67,22 @@ export default function ChooseAffiliation() {
   )
 }
 
-function AffiliationForm({ handleClose }) {
+function AffiliationForm({ handleClose, initialIndex = 2 }) {
   const [cookies, setCookie, removeCookie] = useCookies(['affiliation']);
   const [selectedIndex, setSelectedIndex] = useState(undefined)
   const cookie = cookies['affiliation']
   const options = Object.keys(affiliations).map(a => affiliations[a])
   
   useEffect(() => {
-    if (selectedIndex === undefined && cookie) {
-      const index = Object.keys(affiliations).findIndex(a => a === cookie)
+    if (selectedIndex === undefined) {
+      if (cookie) {
+        const index = Object.keys(affiliations).findIndex(a => a === cookie)
 
-      if (index >= 0) { // index found
-        setSelectedIndex(index)
+        if (index >= 0) { // index found
+          setSelectedIndex(index)
+        }
+      } else {
+        setSelectedIndex(initialIndex)
       }
     }
   }, [selectedIndex])
