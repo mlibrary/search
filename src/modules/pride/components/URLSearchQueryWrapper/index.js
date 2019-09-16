@@ -16,6 +16,7 @@ import {
   loadingRecords
 } from '../../../records'
 import {
+  resetFilters,
   setActiveFilters,
   clearActiveFilters
 } from '../../../filters'
@@ -149,11 +150,7 @@ class URLSearchQueryWrapper extends React.Component {
         }
 
       } else { // URL does not have state,
-
-        // Clear active filters
-        if (activeFilters && Object.keys(activeFilters).length > 0) {
-          this.props.clearActiveFilters({ datastoreUid })
-        }
+        this.props.resetFilters()
 
         // Reset query
         if (query.length > 0) {
@@ -226,6 +223,7 @@ function mapDispatchToProps(dispatch) {
     setSearchQueryInput,
     setActiveFilters,
     clearActiveFilters,
+    resetFilters,
     searching,
     loadingRecords,
     changeActiveDatastore,

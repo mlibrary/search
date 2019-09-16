@@ -6,6 +6,7 @@ import {
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
+  resetFilters
 } from './actions';
 
 import {
@@ -19,5 +20,6 @@ export {
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
-  isFilterItemActive
+  isFilterItemActive,
+  resetFilters
 }

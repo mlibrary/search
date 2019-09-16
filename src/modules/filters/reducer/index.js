@@ -5,6 +5,7 @@ import {
   CLEAR_FILTERS,
   SET_ACTIVE_FILTERS,
   CLEAR_ACTIVE_FILTERS,
+  RESET_FILTERS
 } from '../actions';
 
 const initialState = {
@@ -14,6 +15,9 @@ const initialState = {
 
 const filtersReducer = function filterReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_FILTERS: {
+      return initialState
+    }
     case ADD_FILTERS:
       return {
         ...state,
