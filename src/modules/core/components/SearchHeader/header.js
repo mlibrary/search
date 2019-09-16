@@ -8,6 +8,8 @@ import {
   MEDIA_QUERIES
 } from '@umich-lib/core'
 
+import { ChooseAffiliation } from '../../../affiliation'
+
 
 const StyledHeader = styled('header')({
   display: 'block',
@@ -189,6 +191,9 @@ const Header = ({
                   />
                 </StyledNavListItem>
               ))}
+              <StyledNavListItem key={"affiliation-menu-item"}>
+                <ChooseAffiliation />
+              </StyledNavListItem>
             </StyledNavList>
           </StyledNav>
         )}
