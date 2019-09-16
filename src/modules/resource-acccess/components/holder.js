@@ -1,12 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core'
-import React, { useState } from 'react'
+import { jsx } from "@emotion/core";
+import React, { useState } from "react";
 
-import Holding from './holding'
-import {
-  COLORS,
-  SPACING
-} from '../umich-lib-core-temp'
+import Holding from "./holding";
+import { COLORS, SPACING } from "../umich-lib-core-temp";
 import {
   Expandable,
   ExpandableProvider,
@@ -17,10 +14,10 @@ import {
 import Icon from '../../reusable/components/Icon'
 
 const cell_padding = {
-  paddingTop: SPACING['XS'],
-  paddingBottom: SPACING['XS'],
-  paddingRight: SPACING['L']
-}
+  paddingTop: SPACING["XS"],
+  paddingBottom: SPACING["XS"],
+  paddingRight: SPACING["L"]
+};
 
 export default function Holder({
   record,
@@ -28,26 +25,27 @@ export default function Holder({
   rows,
   captionLink,
   notes,
+  preExpanded,
   ...rest
 }) {
   return (
     <div
       css={{
-        'a': {
-          textDecoration: 'underline',
+        a: {
+          textDecoration: "underline"
         },
-        padding: `${SPACING['S']} 0`
+        padding: `${SPACING["S"]} 0`
       }}
       {...rest}
     >
       {captionLink && (
-        <p css={{ margin: '0' }}>
+        <p css={{ margin: "0" }}>
           <a
             href={captionLink.href}
             css={{
-              color: COLORS.neutral['400'],
-              display: 'inline-block',
-              paddingBottom: SPACING['S']
+              color: COLORS.neutral["400"],
+              display: "inline-block",
+              paddingBottom: SPACING["S"]
             }}
           >
             {captionLink.text}
@@ -59,51 +57,51 @@ export default function Holder({
       <Expandable>
         <div
           css={{
-            overflowX: 'auto'
+            overflowX: "auto"
           }}
         >
-        <table
-          css={{
-            width: '100%',
-            minWidth: '24rem',
-            textAlign: 'left',
-            tableLayout: 'fixed'
-          }}
-        >
-          <thead>
-            <tr>
-              {headings.map((heading, i) => (
-                <th
-                  scope="col"
-                  key={i}
-                  css={{
-                    fontWeight: '600',
-                    color: COLORS.neutral['300'],
-                    ...cell_padding,
-                    borderBottom: `solid 2px ${COLORS.neutral['100']}`,
-                    width: headings.length === 3 && i === 2 ? '50%' : 'auto'
-                  }}
-                >
-                  {heading}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            <HolderRows rows={rows} />
-          </tbody>
-        </table>
+          <table
+            css={{
+              width: "100%",
+              minWidth: "24rem",
+              textAlign: "left",
+              tableLayout: "fixed"
+            }}
+          >
+            <thead>
+              <tr>
+                {headings.map((heading, i) => (
+                  <th
+                    scope="col"
+                    key={i}
+                    css={{
+                      fontWeight: "600",
+                      color: COLORS.neutral["300"],
+                      ...cell_padding,
+                      borderBottom: `solid 2px ${COLORS.neutral["100"]}`,
+                      width: headings.length === 3 && i === 2 ? "50%" : "auto"
+                    }}
+                  >
+                    {heading}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <HolderRows rows={rows} />
+            </tbody>
+          </table>
         </div>
       </Expandable>
     </div>
-  )
+  );
 }
 
 function Notes({ notes }) {
   const [expanded, setExpanded] = useState(true);
 
   if (!notes) {
-    return null
+    return null;
   }
 
   return (
@@ -114,20 +112,16 @@ function Notes({ notes }) {
         aria-expanded={expanded}
         onClick={() => setExpanded(!expanded)}
         css={{
-          display: 'flex',
-          alignItems: 'center',
-          marginBottom: SPACING['S']
+          display: "flex",
+          alignItems: "center",
+          marginBottom: SPACING["S"]
         }}
       >
-        <span css={{ paddingRight: '0.25rem' }}>Location has:</span>
+        <span css={{ paddingRight: "0.25rem" }}>Location has:</span>
         {expanded ? (
-          <Icon
-            d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
-          />
+          <Icon d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" />
         ) : (
-          <Icon
-            d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-          />
+          <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
         )}
       </Button>
 
@@ -136,19 +130,20 @@ function Notes({ notes }) {
           {notes.map(note => (
             <li
               css={{
-                paddingBottom: SPACING['XS'],
-                color: COLORS.neutral['300']
-              }}>{note}</li>
+                paddingBottom: SPACING["XS"],
+                color: COLORS.neutral["300"]
+              }}
+            >
+              {note}
+            </li>
           ))}
         </ul>
       )}
     </React.Fragment>
-  )
+  );
 }
 
-function HolderRows({
-  rows
-}) {
+function HolderRows({ rows }) {
   /*
     Just render the holdings. 
   */
@@ -156,13 +151,10 @@ function HolderRows({
     return (
       <React.Fragment>
         {rows.map((row, i) => (
-          <Holding
-            holding={row}
-            key={i}
-          />
+          <Holding holding={row} key={i} />
         ))}
       </React.Fragment>
-    )
+    );
   }
 
   function renderExpandableButton() {
@@ -172,17 +164,13 @@ function HolderRows({
           colSpan={`${rows[0].length}`}
           css={{
             ...cell_padding,
-            wordBreak: 'break-word'
+            wordBreak: "break-word"
           }}
         >
-          <ExpandableButton
-            kind="secondary"
-            small
-            count={rows.length}
-          />
+          <ExpandableButton kind="secondary" small count={rows.length} />
         </td>
       </tr>
-    )
+    );
   }
 
   /*
@@ -194,36 +182,28 @@ function HolderRows({
     The rest of holdings.
     Then finally an expandable button.
   */
- return (
+  return (
     <React.Fragment>
       {rows.slice(0, 10).map((row, i) => (
-        <Holding
-          holding={row}
-          key={i}
-        />
+        <Holding holding={row} key={i} />
       ))}
       {rows.length > 10 && (
         <React.Fragment>{renderExpandableButton()}</React.Fragment>
       )}
       <ExpandableChildren show={0}>
         {rows.slice(10).map((row, i) => (
-          <Holding
-            holding={row}
-            key={i}
-          />
+          <Holding holding={row} key={i} />
         ))}
       </ExpandableChildren>
       <ExpandableProvider>
-        {context =>
+        {context => (
           <React.Fragment>
-            {(context.expanded) && (
-              <React.Fragment>
-                {renderExpandableButton()}
-              </React.Fragment>
+            {context.expanded && (
+              <React.Fragment>{renderExpandableButton()}</React.Fragment>
             )}
           </React.Fragment>
-        }
+        )}
       </ExpandableProvider>
     </React.Fragment>
-  )
+  );
 }
