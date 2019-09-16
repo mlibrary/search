@@ -10,7 +10,8 @@ import {
   setSearchQueryInput,
   searching,
   setPage,
-  setSort
+  setSort,
+  resetSort
 } from '../../../search/actions'
 import {
   loadingRecords
@@ -152,6 +153,11 @@ class URLSearchQueryWrapper extends React.Component {
       } else { // URL does not have state,
         this.props.resetFilters()
 
+        // Only reset if a sort is active.
+        if (Object.keys(this.props.sort).length > 0) {
+          this.props.resetSort()
+        }
+
         // Reset query
         if (query.length > 0) {
           this.props.setSearchQuery('')
@@ -229,6 +235,7 @@ function mapDispatchToProps(dispatch) {
     changeActiveDatastore,
     setPage,
     setSort,
+    resetSort,
     setActiveInstitution,
     setA11yMessage
   }, dispatch)
