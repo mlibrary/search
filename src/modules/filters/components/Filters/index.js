@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useSelector } from "react-redux";
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import numeral from "numeral";
 
@@ -328,8 +328,8 @@ function FilterGroupMultiselect({
   );
 }
 
-function FilterGroupFilters({ group, expanded, filters }) {
-  if (!expanded || filters.length === 0) {
+function FilterGroupFilters({ group, expanded, hidden = false, filters }) {
+  if (hidden || !expanded || filters.length === 0) {
     return null;
   }
 

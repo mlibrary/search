@@ -38,7 +38,7 @@ import {
 } from '../advanced'
 
 import {
-  addFilterGroup,
+  addFilters,
   clearFilters,
   setFilterGroupOrder
 } from '../filters';
@@ -205,7 +205,7 @@ const setupObservers = (searchObj) => {
             defaultValue = 'U-M Ann Arbor Libraries'
           }
 
-          store.dispatch(addFilterGroup({
+          store.dispatch(addFilters({
             ...metadata,
             uid: filterGroup.uid,
             defaultValue,

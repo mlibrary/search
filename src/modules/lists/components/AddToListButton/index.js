@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux'
 import { _ } from 'underscore';
 import ReactGA from 'react-ga'

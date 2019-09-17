@@ -9,6 +9,7 @@ import {
   searching,
   setPage,
   clearSearch,
+  resetSort
 } from './actions';
 
 export {
@@ -20,5 +21,6 @@ export {
   setPage,
   searching,
   ClearSearchButton,
-  clearSearch
+  clearSearch,
+  resetSort
 }

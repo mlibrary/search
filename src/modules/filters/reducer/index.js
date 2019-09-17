@@ -1,11 +1,12 @@
 import { _ } from 'underscore'
 
 import {
-  ADD_FILTER_GROUP,
+  ADD_FILTERS,
   SET_FILTER_GROUP_ORDER,
   CLEAR_FILTERS,
   SET_ACTIVE_FILTERS,
   CLEAR_ACTIVE_FILTERS,
+  RESET_FILTERS
 } from '../actions';
 
 const initialState = {
@@ -16,7 +17,10 @@ const initialState = {
 
 const filtersReducer = function filterReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_FILTER_GROUP:
+    case RESET_FILTERS: {
+      return initialState
+    }
+    case ADD_FILTERS:
       return {
         ...state,
           groups: {

@@ -10,12 +10,14 @@ import {
   setSearchQueryInput,
   searching,
   setPage,
-  setSort
+  setSort,
+  resetSort
 } from '../../../search/actions'
 import {
   loadingRecords
 } from '../../../records'
 import {
+  resetFilters,
   setActiveFilters,
   clearActiveFilters
 } from '../../../filters'
@@ -149,12 +151,17 @@ class URLSearchQueryWrapper extends React.Component {
         }
 
       } else { // URL does not have state,
-
-        // Clear active filters
-        if (activeFilters && Object.keys(activeFilters).length > 0) {
-          this.props.clearActiveFilters({ datastoreUid })
+        this.props.resetFilters()
+        
+        /*
+          You shouldn't do this in React, but this is being asked
+          and better than handling a ref across concerns
+        */
+        let el = document.getElementById('search-query')
+        if (el) {
+          el.value = ""
         }
-
+        
         // Reset query
         if (query.length > 0) {
           this.props.setSearchQuery('')
@@ -226,11 +233,13 @@ function mapDispatchToProps(dispatch) {
     setSearchQueryInput,
     setActiveFilters,
     clearActiveFilters,
+    resetFilters,
     searching,
     loadingRecords,
     changeActiveDatastore,
     setPage,
     setSort,
+    resetSort,
     setActiveInstitution,
     setA11yMessage
   }, dispatch)

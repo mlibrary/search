@@ -2,19 +2,21 @@ import Filters from './components/Filters';
 import filtersReducer from './reducer';
 
 import {
-  addFilterGroup,
+  addFilters,
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
-  setFilterGroupOrder
+  setFilterGroupOrder,
+  resetFilters
 } from './actions';
 
 export {
   Filters,
   filtersReducer,
-  addFilterGroup,
+  addFilters,
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
-  setFilterGroupOrder
+  setFilterGroupOrder,
+  resetFilters
 }

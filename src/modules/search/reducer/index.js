@@ -39,6 +39,11 @@ const searchReducer = function searchReducer(state = initialState, action) {
       });
     case actions.CLEAR_SEARCH:
       return initialState;
+    case actions.RESET_SORT:
+      return {
+        ...state,
+        sort: {}
+      }
     case actions.SET_SORT:
       return {
         ...state,
