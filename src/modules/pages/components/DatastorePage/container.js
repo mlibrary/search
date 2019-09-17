@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import React from 'react'
 import { connect } from 'react-redux'
 import MediaQuery from 'react-responsive';
@@ -134,7 +136,15 @@ class DatastorePageContainer extends React.Component {
             <React.Fragment>
               <SearchBox />
               <DatastoreNavigation />
-              <FlintAlerts />
+              <div css={{
+                marginTop: "-0.75rem",
+                '.alert-inner': {
+                  display: 'flex',
+                  justifyContent: 'center'
+                }
+              }}>
+                <FlintAlerts />
+              </div>
               <DatastoreAuthenticationAlert />
               <ConnectedSwitch>
                 <Route path={match.url + `/record/:recordUid/get-this/:barcode`} render={(props) => {
