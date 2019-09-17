@@ -85,7 +85,7 @@ function AffiliationForm({ handleClose, initialIndex = 2 }) {
         setSelectedIndex(initialIndex)
       }
     }
-  }, [selectedIndex])
+  }, [selectedIndex, cookie, initialIndex])
 
   function handleSetCookie(e) {
     e.preventDefault()
