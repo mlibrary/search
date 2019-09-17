@@ -141,6 +141,9 @@ class DatastorePageContainer extends React.Component {
                 '.alert-inner': {
                   display: 'flex',
                   justifyContent: 'center'
+                },
+                ':empty': {
+                  display: 'none'
                 }
               }}>
                 <FlintAlerts />
