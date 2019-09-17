@@ -152,12 +152,16 @@ class URLSearchQueryWrapper extends React.Component {
 
       } else { // URL does not have state,
         this.props.resetFilters()
-
-        // Only reset if a sort is active.
-        if (Object.keys(this.props.sort).length > 0) {
-          this.props.resetSort()
+        
+        /*
+          You shouldn't do this in React, but this is being asked
+          and better than handling a ref across concerns
+        */
+        let el = document.getElementById('search-query')
+        if (el) {
+          el.value = ""
         }
-
+        
         // Reset query
         if (query.length > 0) {
           this.props.setSearchQuery('')
