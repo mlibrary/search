@@ -153,8 +153,6 @@ const Header = ({
 }) => {
   const isAuthenticated = useIsAuthenticated()
 
-  console.log('isAuthenticated', isAuthenticated)
-
   return (
     <StyledHeader className={className}>
       <StyledHeaderInner data-inner-container>
