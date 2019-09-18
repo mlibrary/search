@@ -14,7 +14,7 @@ import {
 } from '../../reusable'
 import {
   SPACING
-} from '../../resource-acccess/umich-lib-core-temp'
+} from '../../reusable/umich-lib-core-temp'
 import {
   MultipleChoice
 } from '../../core'

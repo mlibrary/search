@@ -16,7 +16,7 @@ import {
   COLORS,
   MEDIA_QUERIES,
   SPACING
-} from '../../../resource-acccess/umich-lib-core-temp'
+} from '../../../reusable/umich-lib-core-temp'
 
 /*
   Hide the first column on the Get This page. No need for users to

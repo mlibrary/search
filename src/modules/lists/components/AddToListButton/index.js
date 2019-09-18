@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+import { Component } from 'react';
 import { connect } from 'react-redux'
 import { _ } from 'underscore';
 import ReactGA from 'react-ga'
@@ -12,6 +14,9 @@ import {
   setA11yMessage
 } from '../../../a11y'
 
+import {
+  COLORS
+} from '../../../reusable/umich-lib-core-temp'
 import prejudice from '../../prejudice'
 
 class AddToListButton extends Component {
@@ -68,7 +73,9 @@ class AddToListButton extends Component {
     }
 
     return (
-      <div className="add-to-list-checkbox-container">
+      <div className="add-to-list-checkbox-container" css={{
+        color: COLORS.neutral['300']
+      }}>
         <Checkbox
           handleClick={() => this.handleClick(inList, item)}
           isChecked={inList}

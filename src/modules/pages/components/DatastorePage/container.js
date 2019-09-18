@@ -202,9 +202,13 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
               if (matches) {
                 return (
                   <React.Fragment>
-                    {searching ? (<InstitutionSelect />) : null}
-                    <Filters />
-                    {searching ? (<BrowseInfo datastore={activeDatastore} />) : null}
+                    {searching ? (
+                      <React.Fragment>
+                        <InstitutionSelect />
+                        <Filters />
+                        <BrowseInfo datastore={activeDatastore} />
+                      </React.Fragment>
+                    ) : null}
                   </React.Fragment>
                 )
               } else {
@@ -215,9 +219,13 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
                   <details className="small-screen-filter-details">
                     <summary className={summaryClassName}>Filters {hasActiveFilters ? (`(${activeFilterCount})`) : null}</summary>
 
-                    {searching ? (<InstitutionSelect />) : null}
-                    <Filters />
-                    {searching ? (<BrowseInfo datastore={activeDatastore} />) : null}
+                    {searching ? (
+                      <React.Fragment>
+                        <InstitutionSelect />
+                        <Filters />
+                        <BrowseInfo datastore={activeDatastore} />
+                      </React.Fragment>
+                    ) : null}
                   </details>
                 )
               }

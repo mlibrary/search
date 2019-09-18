@@ -2,6 +2,7 @@ import { _ } from 'underscore'
 
 import {
   ADD_FILTERS,
+  SET_FILTER_GROUP_ORDER,
   CLEAR_FILTERS,
   SET_ACTIVE_FILTERS,
   CLEAR_ACTIVE_FILTERS,
@@ -10,7 +11,8 @@ import {
 
 const initialState = {
   active: {},
-  groups: {}
+  groups: {},
+  order: undefined
 };
 
 const filtersReducer = function filterReducer(state = initialState, action) {
@@ -26,6 +28,11 @@ const filtersReducer = function filterReducer(state = initialState, action) {
             [action.payload.uid]: action.payload
           }
         }
+    case SET_FILTER_GROUP_ORDER:
+      return {
+        ...state,
+        order: action.payload.order
+      }
     case CLEAR_FILTERS:
       return Object.assign({}, state, {
         groups: {}

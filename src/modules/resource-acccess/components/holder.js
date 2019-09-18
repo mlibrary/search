@@ -2,8 +2,11 @@
 import { jsx } from "@emotion/core";
 import React, { useState } from "react";
 
-import Holding from "./holding";
-import { COLORS, SPACING } from "../umich-lib-core-temp";
+import Holding from './holding'
+import {
+  COLORS,
+  SPACING
+} from '../../reusable/umich-lib-core-temp'
 import {
   Expandable,
   ExpandableProvider,
