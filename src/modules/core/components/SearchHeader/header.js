@@ -9,7 +9,7 @@ import {
 } from '@umich-lib/core'
 
 import { ChooseAffiliation } from '../../../affiliation'
-
+import { useIsAuthenticated } from '../../../profile'
 
 const StyledHeader = styled('header')({
   display: 'block',
@@ -151,6 +151,10 @@ const Header = ({
   renderAnchor,
   className
 }) => {
+  const isAuthenticated = useIsAuthenticated()
+
+  console.log('isAuthenticated', isAuthenticated)
+
   return (
     <StyledHeader className={className}>
       <StyledHeaderInner data-inner-container>
@@ -191,9 +195,11 @@ const Header = ({
                   />
                 </StyledNavListItem>
               ))}
-              <StyledNavListItem key={"affiliation-menu-item"}>
-                <ChooseAffiliation />
-              </StyledNavListItem>
+              {isAuthenticated === false && (
+                <StyledNavListItem key={"affiliation-menu-item"}>
+                  <ChooseAffiliation />
+                </StyledNavListItem>
+              )}
             </StyledNavList>
           </StyledNav>
         )}
