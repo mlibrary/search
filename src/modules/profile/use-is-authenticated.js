@@ -14,7 +14,7 @@ export default function useIsAuthenticated() {
         setIsAuthenticated(false)
       }
     }
-  }, [profileStatus])
+  }, [profile, profileStatus])
 
   return isAuthenticated
 }

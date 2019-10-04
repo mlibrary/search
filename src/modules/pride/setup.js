@@ -54,6 +54,10 @@ import {
 } from '../institution'
 
 import {
+  setDefaultAffiliation
+} from '../affiliation'
+
+import {
   addBrowseFilter,
   organizeByParents
 } from '../browse'
@@ -458,6 +462,10 @@ const setupDefaultInstitution = () => {
   store.dispatch(setDefaultInstitution(Pride.Settings.default_institution))
 }
 
+const setupDefaultAffiliation = () => {
+  store.dispatch(setDefaultAffiliation(Pride.Settings.affiliation))
+}
+
 const compareFacetName = (a, b) => {
   // Use toUpperCase() to ignore character casing
   const nameA = a.name.toUpperCase();
@@ -509,6 +517,7 @@ const initializePride = () => {
       setupSearches();
       setupAdvancedSearch()
       setupDefaultInstitution()
+      setupDefaultAffiliation()
       setupBrowse()
       renderApp()
       prejudice.initialize()
