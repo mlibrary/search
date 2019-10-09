@@ -5,6 +5,7 @@ import Modal from './components/Modal'
 import Breadcrumb from './components/Breadcrumb'
 import Pagination from './components/Pagination'
 import ContextProvider from './components/ContextProvider'
+import Icon from './components/Icon'
 
 export {
   Alert,
@@ -13,5 +14,6 @@ export {
   Modal,
   Breadcrumb,
   Pagination,
-  ContextProvider
+  ContextProvider,
+  Icon
 }

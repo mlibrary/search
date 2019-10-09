@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 import {
   SPACING
-} from '../umich-lib-core-temp'
+} from '../../reusable/umich-lib-core-temp'
 
 import {
   Button,

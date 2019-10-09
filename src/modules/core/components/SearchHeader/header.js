@@ -8,6 +8,8 @@ import {
   MEDIA_QUERIES
 } from '@umich-lib/core'
 
+import { ChooseAffiliation } from '../../../affiliation'
+import { useIsAuthenticated } from '../../../profile'
 
 const StyledHeader = styled('header')({
   display: 'block',
@@ -149,6 +151,8 @@ const Header = ({
   renderAnchor,
   className
 }) => {
+  const isAuthenticated = useIsAuthenticated()
+
   return (
     <StyledHeader className={className}>
       <StyledHeaderInner data-inner-container>
@@ -189,6 +193,11 @@ const Header = ({
                   />
                 </StyledNavListItem>
               ))}
+              {isAuthenticated === false && (
+                <StyledNavListItem key={"affiliation-menu-item"}>
+                  <ChooseAffiliation />
+                </StyledNavListItem>
+              )}
             </StyledNavList>
           </StyledNav>
         )}

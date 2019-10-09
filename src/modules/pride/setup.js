@@ -40,6 +40,7 @@ import {
 import {
   addFilters,
   clearFilters,
+  setFilterGroupOrder
 } from '../filters';
 
 import {
@@ -51,6 +52,10 @@ import {
 import {
   setDefaultInstitution
 } from '../institution'
+
+import {
+  setDefaultAffiliation
+} from '../affiliation'
 
 import {
   addBrowseFilter,
@@ -185,35 +190,35 @@ const setupObservers = (searchObj) => {
 
     if (activeDatastore === searchObj.uid) {
       store.dispatch(clearFilters())
+
+      /*
+        Set the filter order in state.
+      */
+      store.dispatch(setFilterGroupOrder({
+        order: filterGroups.map(fg => fg.uid)
+      }))
+
       filterGroups.forEach(filterGroup => {
 
-        // Does the filter configuration request that this
-        // filter group be used and displayed.
-        if (_.findWhere(config.filters[searchObj.uid], { uid: filterGroup.uid })) {
-          filterGroup.resultsObservers.add(filters => {
-            const metadata = filterGroup.getData('metadata')
+        
+        filterGroup.resultsObservers.add(filters => {
+          const metadata = filterGroup.getData('metadata')
 
-            // BEGIN TEMP
-            // Hack to add in temporary filter value
-            // TODO: Update when Pride sends default_value and perhaps
-            // handle defaults in a generic way.
-            let defaultValue
-            if (filterGroup.uid === 'institution') {
-              defaultValue = 'U-M Ann Arbor Libraries'
-            }
-            // END TEMP
+          let defaultValue
+          if (filterGroup.uid === 'institution') {
+            defaultValue = 'U-M Ann Arbor Libraries'
+          }
 
-            store.dispatch(addFilters({
-              uid: filterGroup.uid,
-              name: metadata.metadata.name,
-              defaultValue,
-              filters: filters.slice(0, 50)
-            }))
-          })
-        } // end of config filter group check
-      }) // end of for each filterGroup
-    } // end of only listen to filter groups from active datastore
-  }) // end of facet observer
+          store.dispatch(addFilters({
+            ...metadata,
+            uid: filterGroup.uid,
+            defaultValue,
+            filters: filters.slice(0, 50),
+          }))
+        })
+      })
+    }
+  })
 }
 
 const setupSearches = () => {
@@ -457,6 +462,10 @@ const setupDefaultInstitution = () => {
   store.dispatch(setDefaultInstitution(Pride.Settings.default_institution))
 }
 
+const setupDefaultAffiliation = () => {
+  store.dispatch(setDefaultAffiliation(Pride.Settings.affiliation))
+}
+
 const compareFacetName = (a, b) => {
   // Use toUpperCase() to ignore character casing
   const nameA = a.name.toUpperCase();
@@ -508,6 +517,7 @@ const initializePride = () => {
       setupSearches();
       setupAdvancedSearch()
       setupDefaultInstitution()
+      setupDefaultAffiliation()
       setupBrowse()
       renderApp()
       prejudice.initialize()

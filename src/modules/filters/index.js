@@ -6,12 +6,9 @@ import {
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
+  setFilterGroupOrder,
   resetFilters
 } from './actions';
-
-import {
-  isFilterItemActive
-} from './utilities'
 
 export {
   Filters,
@@ -20,6 +17,6 @@ export {
   clearFilters,
   setActiveFilters,
   clearActiveFilters,
-  isFilterItemActive,
+  setFilterGroupOrder,
   resetFilters
 }

@@ -15,7 +15,7 @@ import HolderContainer from './holder-container'
 import {
   COLORS,
   SPACING
-} from '../umich-lib-core-temp/index'
+} from '../../reusable/umich-lib-core-temp/index'
 
 /*
   Holders
