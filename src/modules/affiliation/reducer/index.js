@@ -13,7 +13,7 @@ const affiliationReducer = (state = initialState, action) => {
     case actions.SET_DEFAULT_AFFILIATION:
       return {
         ...state,
-        default: action.payload
+        defaultAffiliation: action.payload
       };
     default:
       return state;
