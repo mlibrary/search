@@ -70,9 +70,6 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <div className="site-wrapper" onClick={handleGAClick}>
-          <Alert>
-            Learn about <a href="https://www.lib.umich.edu/blogs/library-tech-talk/update-library-search" className="underline">how we've improved Library Search</a> over the past year.
-          </Alert>
           <A11yLiveMessage />
           <ConnectedRouter history={history}>
             <GAListener>
