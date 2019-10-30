@@ -8,7 +8,7 @@ import qs from "qs";
 
 import { Button, Heading, Text, MEDIA_QUERIES } from "@umich-lib/core";
 import { Icon, Modal } from "../../reusable";
-import { SPACING, COLORS } from "../../reusable/umich-lib-core-temp";
+import { SPACING } from "../../reusable/umich-lib-core-temp";
 
 export default function ChooseAffiliation() {
   const { defaultAffiliation, affiliationOptions } = useSelector(
