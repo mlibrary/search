@@ -22,14 +22,14 @@ import {
 
 import { SPACING, COLORS } from "../../../reusable/umich-lib-core-temp";
 import Icon from "../../../reusable/components/Icon";
-import CheckboxFilters from "../CheckboxFilters"
+import CheckboxFilters from "../CheckboxFilters";
 
 import {
   getURLWithoutFilters,
   getURLWithFilterRemoved,
   filterOutActiveFilters,
   newSearch
-} from '../../utilities'
+} from "../../utilities";
 
 const filterGroupStyles = {
   padding: `0 ${SPACING["M"]}`,
@@ -50,6 +50,10 @@ function FiltersLoadingContainer({ children }) {
 export default function Filters() {
   const { datastores, filters } = useSelector(state => state);
   const { order, groups } = filters;
+
+  if (!order) {
+    return null;
+  }
 
   const preExpandedFilterGroups = order.reduce((memo, uid) => {
     if (groups[uid] && groups[uid].preExpanded) {
@@ -114,7 +118,7 @@ function ActiveFilters() {
     ]
   */
   const items = Object.keys(active).reduce((acc, group) => {
-    if (filters.groups[group] && filters.groups[group].type === 'multiselect') {
+    if (filters.groups[group] && filters.groups[group].type === "multiselect") {
       acc = acc.concat(
         active[group].map(item => {
           return {
@@ -145,7 +149,7 @@ function ActiveFilters() {
         css={{
           fontSize: "1rem",
           marginTop: "0",
-          marginBottom: SPACING['XS']
+          marginBottom: SPACING["XS"]
         }}
       >
         Active filters
@@ -260,20 +264,14 @@ function FilterGroupContainer({ uid }) {
   return null;
 }
 
-function FilterGroupMultiselect({
-  filters,
-  group,
-  uid,
-  uuid,
-  activeFilters
-}) {
+function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
   const filtersWithoutActive = filterOutActiveFilters({
     active: activeFilters,
     filters: filters.groups[uid].filters
-  })
+  });
 
   if (filtersWithoutActive.length === 0) {
-    return null
+    return null;
   }
 
   return (
