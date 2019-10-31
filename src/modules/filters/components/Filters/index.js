@@ -63,6 +63,8 @@ export default function Filters() {
     return memo;
   }, []);
 
+  console.log("preExpandedFilterGroups", preExpandedFilterGroups);
+
   return (
     <section
       aria-label="filters"
@@ -75,6 +77,7 @@ export default function Filters() {
       <FiltersLoadingContainer>
         <Accordion
           preExpanded={preExpandedFilterGroups}
+          key={preExpandedFilterGroups.join("-")}
           allowMultipleExpanded
           allowZeroExpanded
           css={{
@@ -273,6 +276,8 @@ function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
   if (filtersWithoutActive.length === 0) {
     return null;
   }
+
+  console.log("uuid", uuid);
 
   return (
     <AccordionItem uuid={uuid} key={uuid}>
