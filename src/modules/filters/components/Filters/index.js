@@ -63,8 +63,6 @@ export default function Filters() {
     return memo;
   }, []);
 
-  console.log("preExpandedFilterGroups", preExpandedFilterGroups);
-
   return (
     <section
       aria-label="filters"
