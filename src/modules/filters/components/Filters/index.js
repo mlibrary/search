@@ -275,8 +275,6 @@ function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
     return null;
   }
 
-  console.log("uuid", uuid);
-
   return (
     <AccordionItem uuid={uuid} key={uuid}>
       <AccordionItemState>
