@@ -94,7 +94,7 @@ export function getURLWithoutFilters() {
     "?" +
     stringifySearch({
       ...getSearchStateFromURL(),
-      filters: undefined
+      filter: undefined
     })
   );
 }
