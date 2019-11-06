@@ -130,8 +130,9 @@ function Notes({ notes }) {
 
       {expanded && (
         <ul>
-          {notes.map(note => (
+          {notes.map((note, i) => (
             <li
+              key={note + i}
               css={{
                 paddingBottom: SPACING["XS"],
                 color: COLORS.neutral["300"]
