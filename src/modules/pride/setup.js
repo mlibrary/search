@@ -342,7 +342,7 @@ const runSearch = () => {
   // For more background: SEARCH-871
   facets = {
     ...facets,
-    institution: state.institution.active || state.institution.default
+    institution: state.institution.active || state.defaultInstitution
   }
 
   const prideConfig = {
