@@ -119,15 +119,12 @@ function ActiveFilters() {
     ]
   */
   const items = Object.keys(active).reduce((acc, group) => {
-    if (filters.groups[group] && filters.groups[group].type === "multiselect") {
-      acc = acc.concat(
-        active[group].map(item => {
-          return {
-            group,
-            value: item
-          };
-        })
-      );
+    // Just don't show the checkbox filters as active filter items.
+    if (!filters.groups[group] || filters.groups[group].type !== "checkbox") {
+      acc = acc.concat({
+        group,
+        value: active[group]
+      });
     }
 
     return acc;
@@ -203,10 +200,7 @@ function ClearActiveFiltersLink() {
 function ActiveFilterItem({ group, value }) {
   const { groups } = useSelector(state => state.filters);
   const url = getURLWithFilterRemoved({ group, value });
-
-  if (!groups[group]) {
-    return null;
-  }
+  const name = groups[group] ? groups[group].metadata.name : group;
 
   return (
     <Link
@@ -226,7 +220,7 @@ function ActiveFilterItem({ group, value }) {
       }}
     >
       <span>
-        {groups[group].metadata.name}: {value}
+        {name}: {value}
       </span>
       <span>
         <Icon icon="close" />
