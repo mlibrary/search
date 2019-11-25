@@ -2,19 +2,16 @@
 import { jsx } from "@emotion/core";
 import React, { useState } from "react";
 
-import Holding from './holding'
-import {
-  COLORS,
-  SPACING
-} from '../../reusable/umich-lib-core-temp'
+import Holding from "./holding";
+import { COLORS, SPACING } from "../../reusable/umich-lib-core-temp";
 import {
   Expandable,
   ExpandableProvider,
   ExpandableChildren,
   ExpandableButton,
   Button
-} from '@umich-lib/core'
-import Icon from '../../reusable/components/Icon'
+} from "@umich-lib/core";
+import Icon from "../../reusable/components/Icon";
 
 const cell_padding = {
   paddingTop: SPACING["XS"],
@@ -57,45 +54,47 @@ export default function Holder({
       )}
       <Notes notes={notes} />
 
-      <Expandable>
-        <div
-          css={{
-            overflowX: "auto"
-          }}
-        >
-          <table
+      {rows && (
+        <Expandable>
+          <div
             css={{
-              width: "100%",
-              minWidth: "24rem",
-              textAlign: "left",
-              tableLayout: "fixed"
+              overflowX: "auto"
             }}
           >
-            <thead>
-              <tr>
-                {headings.map((heading, i) => (
-                  <th
-                    scope="col"
-                    key={i}
-                    css={{
-                      fontWeight: "600",
-                      color: COLORS.neutral["300"],
-                      ...cell_padding,
-                      borderBottom: `solid 2px ${COLORS.neutral["100"]}`,
-                      width: headings.length === 3 && i === 2 ? "50%" : "auto"
-                    }}
-                  >
-                    {heading}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <HolderRows rows={rows} />
-            </tbody>
-          </table>
-        </div>
-      </Expandable>
+            <table
+              css={{
+                width: "100%",
+                minWidth: "24rem",
+                textAlign: "left",
+                tableLayout: "fixed"
+              }}
+            >
+              <thead>
+                <tr>
+                  {headings.map((heading, i) => (
+                    <th
+                      scope="col"
+                      key={i}
+                      css={{
+                        fontWeight: "600",
+                        color: COLORS.neutral["300"],
+                        ...cell_padding,
+                        borderBottom: `solid 2px ${COLORS.neutral["100"]}`,
+                        width: headings.length === 3 && i === 2 ? "50%" : "auto"
+                      }}
+                    >
+                      {heading}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <HolderRows rows={rows} />
+              </tbody>
+            </table>
+          </div>
+        </Expandable>
+      )}
     </div>
   );
 }
