@@ -121,10 +121,11 @@ function ActiveFilters() {
   const items = Object.keys(active).reduce((acc, group) => {
     // Just don't show the checkbox filters as active filter items.
     if (!filters.groups[group] || filters.groups[group].type !== "checkbox") {
-      acc = acc.concat({
-        group,
-        value: active[group]
+      const activeFiltersToAdd = active[group].map(value => {
+        return { group, value };
       });
+
+      acc = acc.concat(activeFiltersToAdd);
     }
 
     return acc;
