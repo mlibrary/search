@@ -7,7 +7,6 @@ import RecordPlaceholder from "./components/RecordPlaceholder";
 import FullRecordPlaceholder from "./components/FullRecordPlaceholder";
 import ResultsSummary from "./components/ResultsSummary";
 import BentoboxList from "./components/BentoboxList";
-import RecordFieldValue from "./components/RecordFieldValue";
 import ViewMARC from "./components/ViewMARC";
 import Bookplate from "./components/Bookplate";
 import RecommendedResource from "./components/RecommendedResource";
@@ -47,7 +46,6 @@ export {
   loadingHoldings,
   setRecordHoldings,
   setRecordGetThis,
-  RecordFieldValue,
   ViewMARC,
   Bookplate,
   RecommendedResource,
