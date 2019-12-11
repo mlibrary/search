@@ -1,4 +1,4 @@
-export default [
+const data1 = [
   {
     term: "Format",
     descriptions: [
@@ -73,3 +73,33 @@ export default [
     ]
   }
 ];
+
+const data2 = [
+  {
+    term: "Format",
+    descriptions: [{ text: "Book", icon: "book" }]
+  },
+  {
+    term: "Main Author",
+    descriptions: [
+      {
+        text: "Aristophanes.",
+        search: {
+          type: "facet",
+          scope: "author",
+          value: "Aristophanes"
+        }
+      }
+    ]
+  },
+  {
+    term: "Published/Created",
+    descriptions: [
+      {
+        text: "2000 - Universal City, CA : Universal Studios Home Video,"
+      }
+    ]
+  }
+];
+
+export default data2;
