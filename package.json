@@ -26,7 +26,7 @@
     "history": "^4.10.1",
     "install": "^0.12.2",
     "jsonschema": "^1.2.4",
-    "npm": "^6.12.1",
+    "npm": "^6.13.4",
     "numeral": "^2.0.4",
     "object-path": "^0.11.4",
     "prejudice": "git://github.com/mlibrary/prejudice.git",
