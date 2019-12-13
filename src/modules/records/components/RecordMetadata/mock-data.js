@@ -85,7 +85,7 @@ const data2 = [
       {
         text: "Aristophanes.",
         search: {
-          type: "facet",
+          type: "fielded",
           scope: "author",
           value: "Aristophanes"
         }
