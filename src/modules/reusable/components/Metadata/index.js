@@ -148,14 +148,14 @@ function DescriptionItem({ icon, href, search, children }) {
 function DescriptionItemLink({ href, search, children }) {
   if (href) {
     return (
-      <a css={LINK_STYLES["subtle"]} href={href}>
+      <a css={LINK_STYLES["default"]} href={href}>
         {children}
       </a>
     );
   }
 
   return (
-    <Link css={LINK_STYLES["subtle"]} to={createSearchURL(search)}>
+    <Link css={LINK_STYLES["default"]} to={createSearchURL(search)}>
       {children}
     </Link>
   );
