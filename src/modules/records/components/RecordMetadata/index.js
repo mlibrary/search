@@ -5,7 +5,7 @@ import testingData from "./mock-data.js";
 import { getField, getFieldValue } from "../../utilities";
 
 export default function RecordMetadata({ record, kind }) {
-  const data = getFieldValue(getField(record.fields, "metadata"))[0];
+  const data = record.metadata;
 
   if (data) {
     return (
