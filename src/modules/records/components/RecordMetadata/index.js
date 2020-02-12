@@ -10,8 +10,8 @@ export default function RecordMetadata({ record, kind }) {
   if (data) {
     return (
       <ContextProvider
-        render={data => (
-          <MetadataTypeContainer data={data} type={data.viewType} kind={kind} />
+        render={context => (
+          <MetadataTypeContainer data={data} type={context.viewType} kind={kind} />
         )}
       />
     );
