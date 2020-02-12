@@ -5,6 +5,7 @@ import React from "react";
 import qs from "qs";
 import { Link } from "react-router-dom";
 import { Icon } from "@umich-lib/core";
+import { useSelector } from "react-redux";
 import { icons } from "../../../reusable/components/Icon";
 import {
   SPACING,
@@ -12,6 +13,7 @@ import {
   COLORS,
   LINK_STYLES
 } from "../../umich-lib-core-temp";
+import { stringifySearchQueryForURL } from "../../../pride";
 
 const visuallyHiddenCSS = {
   border: 0,
@@ -154,6 +156,24 @@ function DescriptionItemLink({ href, search, children }) {
     );
   }
 
+  return <SearchLink search={search}>{children}</SearchLink>;
+}
+
+function SearchLink({ children, search }) {
+  const { datastores, institution } = useSelector(state => state);
+  const activeDatastore = datastores.datastores.find(
+    ds => ds.uid === datastores.active
+  );
+  const to =
+    "/" +
+    activeDatastore.slug +
+    "?" +
+    createSearchURL({
+      ...search,
+      institution,
+      datastoreUid: activeDatastore.uid
+    });
+
   return (
     <Link css={LINK_STYLES["default"]} to={createSearchURL(search)}>
       {children}
@@ -161,22 +181,20 @@ function DescriptionItemLink({ href, search, children }) {
   );
 }
 
-function createSearchURL({ type, scope, value }) {
-  const query = type === "fielded" ? `${scope}:${value}` : null;
-  const filter = type === "facet" ? { [scope]: value } : null;
+function createSearchURL({ type, scope, value, institution, datastoreUid }) {
+  const query = type === "fielded" ? `${scope}:${value}` : {};
+  const filter = type === "facet" ? { [scope]: value } : {};
+  let library = {};
 
-  const url = qs.stringify(
-    {
-      query,
-      filter
-    },
-    {
-      arrayFormat: "repeat",
-      encodeValuesOnly: true,
-      allowDots: true,
-      format: "RFC1738"
-    }
-  );
+  if (datastoreUid === "mirlyn") {
+    library = institution.active
+      ? institution.active
+      : institution.defaultInstitution;
+  }
 
-  return url;
+  return stringifySearchQueryForURL({
+    query,
+    filter,
+    library
+  });
 }
