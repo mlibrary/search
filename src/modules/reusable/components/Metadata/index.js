@@ -1,8 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 // eslint-disable-next-line
-import React from "react";
-import qs from "qs";
 import { Link } from "react-router-dom";
 import { Icon } from "@umich-lib/core";
 import { useSelector } from "react-redux";
@@ -175,7 +173,7 @@ function SearchLink({ children, search }) {
     });
 
   return (
-    <Link css={LINK_STYLES["default"]} to={createSearchURL(search)}>
+    <Link css={LINK_STYLES["default"]} to={to}>
       {children}
     </Link>
   );
