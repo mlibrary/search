@@ -67,7 +67,7 @@ export default function Metadata({ data, kind }) {
           >
             {d.term}
           </dt>
-          {d.descriptions.map(d => (
+          {d.description.map(d => (
             <dd
               css={{
                 gridColumnStart: "2",
