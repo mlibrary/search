@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 // eslint-disable-next-line
+import React from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@umich-lib/core";
 import { useSelector } from "react-redux";
@@ -181,7 +182,7 @@ function SearchLink({ children, search }) {
 
 function createSearchURL({ type, scope, value, institution, datastoreUid }) {
   const query = type === "fielded" ? `${scope}:${value}` : {};
-  const filter = type === "facet" ? { [scope]: value } : {};
+  const filter = type === "filtered" ? { [scope]: value } : {};
   let library = {};
 
   if (datastoreUid === "mirlyn") {
