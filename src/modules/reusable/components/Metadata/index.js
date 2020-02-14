@@ -71,7 +71,7 @@ export default function Metadata({ data, kind }) {
               css={{
                 gridColumnStart: "2",
                 display: "flex",
-                alignItems: "center"
+                alignItems: "top"
               }}
             >
               <Description data={d} />
