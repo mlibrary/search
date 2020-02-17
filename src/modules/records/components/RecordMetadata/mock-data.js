@@ -1,18 +1,18 @@
 const data1 = [
   {
     term: "Format",
-    descriptions: [
+    description: [
       { text: "Article", icon: "document" },
       { text: "Book", icon: "book" }
     ]
   },
   {
     term: "Main Author",
-    descriptions: [
+    description: [
       {
         text: "Aristophanes.",
         search: {
-          type: "facet",
+          type: "filtered",
           scope: "author",
           value: "Aristophanes"
         }
@@ -21,7 +21,7 @@ const data1 = [
   },
   {
     term: "Published/Created",
-    descriptions: [
+    description: [
       {
         text: "2000 - Universal City, CA : Universal Studios Home Video,"
       }
@@ -29,11 +29,11 @@ const data1 = [
   },
   {
     term: "Subjects",
-    descriptions: [
+    description: [
       {
         text: "Birds -- Periodicals.",
         search: {
-          type: "facet",
+          type: "filtered",
           scope: "subject",
           value: "Birds Periodicals"
         }
@@ -42,7 +42,7 @@ const data1 = [
   },
   {
     term: "New Title",
-    descriptions: [
+    description: [
       {
         text: "Nature's home",
         search: {
@@ -55,19 +55,31 @@ const data1 = [
   },
   {
     term: "Academic Discipline",
-    descriptions: [
+    description: [
       [
         {
           text: "Science",
-          href: "/catalog?filter.academic_discipline=Science"
+          search: {
+            type: "filtered",
+            scope: "academic_discipline",
+            value: "Science"
+          }
         },
         {
           text: "Biology",
-          href: "/catalog?filter.academic_discipline=Biology"
+          search: {
+            type: "filtered",
+            scope: "academic_discipline",
+            value: "Biology"
+          }
         },
         {
           text: "Zoology",
-          href: "/catalog?filter.academic_discipline=Zoology"
+          search: {
+            type: "filtered",
+            scope: "academic_discipline",
+            value: "Zoology"
+          }
         }
       ]
     ]
@@ -77,11 +89,11 @@ const data1 = [
 const data2 = [
   {
     term: "Format",
-    descriptions: [{ text: "Book", icon: "book" }]
+    description: [{ text: "Book", icon: "book" }]
   },
   {
     term: "Main Author",
-    descriptions: [
+    description: [
       {
         text: "Aristophanes.",
         search: {
@@ -94,7 +106,7 @@ const data2 = [
   },
   {
     term: "Published/Created",
-    descriptions: [
+    description: [
       {
         text: "2000 - Universal City, CA : Universal Studios Home Video,"
       }
