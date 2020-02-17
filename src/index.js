@@ -1,49 +1,30 @@
-import 'react-app-polyfill/ie11';
-import 'core-js';
+import "react-app-polyfill/ie11";
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {
-  connect,
-  Provider
-} from 'react-redux'
-import {
-  Route,
-  Switch,
-  Redirect
-} from 'react-router-dom'
-import {
-  ConnectedRouter,
-} from 'connected-react-router'
-import { Alert } from '@umich-lib/core'
+import React from "react";
+import ReactDOM from "react-dom";
+import { connect, Provider } from "react-redux";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { Alert } from "@umich-lib/core";
 import {
   initializePride,
   isSlugADatastore,
   URLSearchQueryWrapper,
-  getStateFromURL,
-} from './modules/pride'
+  getStateFromURL
+} from "./modules/pride";
 import {
   NoMatch,
   DatastorePage,
   AccessibilityPage,
   TechnicalOverview
-} from './modules/pages'
-import store from './store'
-import history from './history'
-import {
-  Main
-} from './modules/core'
-import {
-  ScrollToTop
-} from './modules/core'
-import {
-  A11yLiveMessage
-} from './modules/a11y'
-import {
-  GAListener,
-  handleGAClick
-} from './modules/analytics'
-import ReactGA from 'react-ga'
+} from "./modules/pages";
+import store from "./store";
+import history from "./history";
+import { Main } from "./modules/core";
+import { ScrollToTop } from "./modules/core";
+import { A11yLiveMessage } from "./modules/a11y";
+import { GAListener, handleGAClick } from "./modules/analytics";
+import ReactGA from "react-ga";
 
 /*
  * Connected Switch: Quirk/Bugfix
@@ -56,14 +37,14 @@ import ReactGA from 'react-ga'
  * https://github.com/ReactTraining/react-router/issues/5072#issuecomment-300636461
  */
 const mapStateToProps = state => {
-	return { location: state.router.location };
+  return { location: state.router.location };
 };
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
-    ReactGA.initialize('UA-1341620-18');
+    super(props);
+    ReactGA.initialize("UA-1341620-18");
   }
 
   render() {
@@ -76,27 +57,40 @@ class App extends React.Component {
               <ScrollToTop>
                 <Main>
                   <ConnectedSwitch>
-                    <Route path="/technical-overview" exact component={TechnicalOverview}/>
-                    <Route path="/accessibility" exact component={AccessibilityPage}/>
-                    <Route path="/" exact render={() => (
-                      <Redirect to={`/everything`} />
-                    )}/>
-                    <Route path={`/:datastoreSlug`} render={(props) => {
-                      const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-                      const urlState = getStateFromURL({
-                        location: props.location
-                      })
+                    <Route
+                      path="/technical-overview"
+                      exact
+                      component={TechnicalOverview}
+                    />
+                    <Route
+                      path="/accessibility"
+                      exact
+                      component={AccessibilityPage}
+                    />
+                    <Route
+                      path="/"
+                      exact
+                      render={() => <Redirect to={`/everything`} />}
+                    />
+                    <Route
+                      path={`/:datastoreSlug`}
+                      render={props => {
+                        const isDatastore = isSlugADatastore(
+                          props.match.params.datastoreSlug
+                        );
+                        const urlState = getStateFromURL({
+                          location: props.location
+                        });
 
-                      return (
-                        isDatastore && urlState ? (
+                        return isDatastore && urlState ? (
                           <URLSearchQueryWrapper>
                             <DatastorePage {...props} />
                           </URLSearchQueryWrapper>
                         ) : (
                           <NoMatch />
-                        )
-                      )
-                    }}/>
+                        );
+                      }}
+                    />
                     <Route component={NoMatch} />
                   </ConnectedSwitch>
                 </Main>
@@ -105,29 +99,24 @@ class App extends React.Component {
           </ConnectedRouter>
         </div>
       </Provider>
-    )
+    );
   }
 }
 
 const renderApp = () => {
-  ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-  )
-}
+  ReactDOM.render(<App />, document.getElementById("root"));
+};
 
 const renderPrideFailedToLoad = () => {
   ReactDOM.render(
     <Alert intent="error">
-      U-M Library Search is not available. We will fix this issue as soon as we can.
+      U-M Library Search is not available. We will fix this issue as soon as we
+      can.
     </Alert>,
-    document.getElementById('root')
-  )
-}
+    document.getElementById("root")
+  );
+};
 
-initializePride()
+initializePride();
 
-export {
-  renderApp,
-  renderPrideFailedToLoad
-}
+export { renderApp, renderPrideFailedToLoad };
