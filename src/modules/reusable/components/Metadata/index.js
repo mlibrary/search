@@ -122,8 +122,9 @@ function Description({ data }) {
         <span
           css={{
             marginRight: SPACING["2XS"],
-            lineHeight: "0",
-            color: COLORS.neutral["300"]
+            color: COLORS.neutral["300"],
+            display: "flex",
+            alignItems: "center"
           }}
         >
           <Icon icon={icon} size={16} />
