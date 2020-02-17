@@ -35,7 +35,7 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
         {hasFullView ? (
           <Link
             to={recordTitleLink}
-            className="record-preview-title-link"
+            className="record-title-link"
             onClick={() => {
               ReactGA.event({
                 action: "Click",
@@ -54,7 +54,7 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
           <span>
             <a
               href={recordTitleLink}
-              className="record-preview-title-link"
+              className="record-title-link"
               onClick={() => {
                 ReactGA.event({
                   action: "Click",
@@ -71,9 +71,6 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
             </a>
             <SearchIcon name="launch" />
           </span>
-        )}
-        {publishedDate && datastoreUid !== "website" && (
-          <span className="record-preview-published-date">{publishedDate}</span>
         )}
         <RecommendedResource record={record} />
       </h3>

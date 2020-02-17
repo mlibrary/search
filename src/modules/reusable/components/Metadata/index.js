@@ -13,6 +13,11 @@ import {
   LINK_STYLES
 } from "../../umich-lib-core-temp";
 import { stringifySearchQueryForURL } from "../../../pride";
+import {
+  Expandable,
+  ExpandableChildren,
+  ExpandableButton
+} from "@umich-lib/core";
 
 const visuallyHiddenCSS = {
   border: 0,
@@ -27,7 +32,6 @@ const visuallyHiddenCSS = {
 
 export default function Metadata({ data, kind }) {
   const isCondensed = kind === "condensed";
-
   const metadataCSS = !isCondensed
     ? {
         [MEDIA_QUERIES.LARGESCREEN]: {
@@ -48,6 +52,23 @@ export default function Metadata({ data, kind }) {
         }
       };
 
+  // Only show expandable if more than 5.
+  function expandable(desc) {
+    if (desc.length <= 5) {
+      return {
+        show: desc.length,
+        expandable: false
+      };
+    }
+
+    console.log("desc", desc);
+
+    return {
+      show: 4,
+      expandable: true
+    };
+  }
+
   return (
     <dl
       css={{
@@ -58,7 +79,7 @@ export default function Metadata({ data, kind }) {
       }}
     >
       {data.map((d, i) => (
-        <>
+        <Expandable key={"expandable-metadata-dt-dd-" + i}>
           <dt
             css={{
               gridColumnStart: "1"
@@ -66,7 +87,21 @@ export default function Metadata({ data, kind }) {
           >
             {d.term}
           </dt>
-          {d.description.map(d => (
+          <ExpandableChildren show={expandable(d.description).show}>
+            {d.description.map(d => (
+              <dd
+                css={{
+                  gridColumnStart: "2",
+                  display: "flex",
+                  alignItems: "top"
+                }}
+              >
+                <Description data={d} />
+              </dd>
+            ))}
+          </ExpandableChildren>
+
+          {expandable(d.description).expandable && (
             <dd
               css={{
                 gridColumnStart: "2",
@@ -74,10 +109,18 @@ export default function Metadata({ data, kind }) {
                 alignItems: "top"
               }}
             >
-              <Description data={d} />
+              <ExpandableButton
+                name={d.term}
+                count={d.description.length}
+                kind="secondary"
+                small
+                css={{
+                  marginTop: SPACING["XS"]
+                }}
+              />
             </dd>
-          ))}
-        </>
+          )}
+        </Expandable>
       ))}
     </dl>
   );
@@ -175,7 +218,15 @@ function SearchLink({ children, search }) {
     });
 
   return (
-    <Link css={LINK_STYLES["default"]} to={to}>
+    <Link
+      css={{
+        textDecoration: "underline",
+        ":hover": {
+          textDecorationThickness: "2px"
+        }
+      }}
+      to={to}
+    >
       {children}
     </Link>
   );
