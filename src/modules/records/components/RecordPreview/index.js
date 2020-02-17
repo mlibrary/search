@@ -1,21 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactGA from "react-ga";
-
-import { Icon as SearchIcon, TrimString } from "../../../core";
-
-import { getField, getFieldValue } from "../../utilities";
-
-import { getDatastoreSlugByUid } from "../../../pride";
-
-import { RecommendedResource, Zotero, RecordMetadata } from "../../../records";
-
 import { Icon, INTENT_COLORS } from "@umich-lib/core";
 
+import { Icon as SearchIcon, TrimString } from "../../../core";
+import { getField, getFieldValue } from "../../utilities";
+import { getDatastoreSlugByUid } from "../../../pride";
+import { RecommendedResource, Zotero, RecordMetadata } from "../../../records";
+
 const Header = ({ record, datastoreUid, searchQuery }) => {
-  const publishedDate = getFieldValue(
-    getField(record.fields, "published_year")
-  )[0];
   const recordUid = getFieldValue(getField(record.fields, "id"))[0];
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const hasFullView = datastoreUid !== "website";
