@@ -136,11 +136,15 @@ class URLSearchQueryWrapper extends React.Component {
         }
 
         // library aka institution
-        if (datastoreUid === 'mirlyn' && urlState.library !== institution.active) {
+        if (urlState.library && urlState.library !== institution.active) {
           this.props.setActiveInstitution(urlState.library)
 
-          // Do not run search if it is the landing page, but do run if you're reset to the default (no url state).
-          if (Object.keys(urlState).length > 1 || !urlState.library) {
+          /*
+            Users can change their library, but that does not trigger a search.
+          */
+          const hasMoreThanLibraryInUrlState = Object.keys(urlState).filter(key => key !== 'library').length > 0
+
+          if (hasMoreThanLibraryInUrlState) {
             shouldRunSearch = true
           }
         }

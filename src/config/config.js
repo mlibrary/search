@@ -317,7 +317,9 @@ const config = {
         "date_desc",
         "author_asc",
         "author_desc",
-        "date_added"
+        "date_added",
+        "title_asc",
+        "title_desc"
       ]
     },
     articlesplus: {
