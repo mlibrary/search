@@ -61,8 +61,6 @@ export default function Metadata({ data, kind }) {
       };
     }
 
-    console.log("desc", desc);
-
     return {
       show: 4,
       expandable: true
@@ -157,7 +155,7 @@ function Description({ data }) {
     );
   }
 
-  const { icon, text } = data;
+  const { icon, text, image } = data;
 
   return (
     <DescriptionItem {...data}>
@@ -173,7 +171,29 @@ function Description({ data }) {
           <Icon icon={icon} size={16} />
         </span>
       )}
-      {text}
+
+      {image ? (
+        <div>
+          <span
+            css={{
+              display: "block"
+            }}
+          >
+            {text}
+          </span>
+          <img
+            src={image}
+            alt=""
+            css={{
+              maxWidth: "16rem",
+              width: "100%",
+              paddingTop: SPACING["XS"]
+            }}
+          />
+        </div>
+      ) : (
+        <>{text}</>
+      )}
     </DescriptionItem>
   );
 }
