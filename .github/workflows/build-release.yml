@@ -1,0 +1,54 @@
+name: Build and package releases
+on:
+  release:
+    types: [created]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: npm install
+
+      - name: Clean
+        run: rm -rf build
+      - name: Build
+        run: npm run build
+        env:
+          REACT_APP_LOGIN_BASE_URL: https://search-staging.www.lib.umich.edu
+          REACT_APP_SPECTRUM_BASE_URL: https://search-staging.www.lib.umich.edu/spectrum
+      - name: Package
+        run: tar -C build --transform s/./search/ -czf search-staging.tar.gz .
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./search-staging.tar.gz
+          asset_name: search-staging.tar.gz
+          asset_content_type: application/gzip
+
+      - name: Clean
+        run: rm -rf build
+      - name: Build
+        run: npm run build
+        env:
+          REACT_APP_LOGIN_BASE_URL: https://search.lib.umich.edu
+          REACT_APP_SPECTRUM_BASE_URL: https://search.lib.umich.edu/spectrum
+      - name: Package
+        run: tar -C build --transform s/./search/ -czf search-production.tar.gz .
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./search-production.tar.gz
+          asset_name: search-production.tar.gz
+          asset_content_type: application/gzip
