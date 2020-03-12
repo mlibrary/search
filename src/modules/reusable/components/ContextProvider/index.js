@@ -25,7 +25,7 @@ function mapStateToProps(state, props) {
     React Router path.
   */
   const viewType =
-    props.match.path.indexOf("/everything") !== -1
+    props.match.url.indexOf("/everything") !== -1
       ? "Preview"
       : props.match.path === "/:datastoreSlug"
       ? "Medium"
