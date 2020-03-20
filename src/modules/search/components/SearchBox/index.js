@@ -1,21 +1,13 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import qs from 'qs'
-import {
-  withRouter,
-  Link,
-} from 'react-router-dom'
-import _ from 'underscore'
+import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import qs from "qs";
+import { withRouter, Link } from "react-router-dom";
+import _ from "underscore";
 
-import {
-  setSearchQueryInput,
-  searching
-} from '../../actions'
-import {
-  Icon
-} from '../../../core';
-import ReactGA from 'react-ga'
+import { setSearchQueryInput, searching } from "../../actions";
+import { Icon } from "../../../core";
+import ReactGA from "react-ga";
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -27,16 +19,16 @@ class SearchBox extends React.Component {
   }
 
   handleChange(query) {
-    this.props.setSearchQueryInput(query)
+    this.props.setSearchQueryInput(query);
   }
 
   onBackButtonEvent(e) {
-    const { query } = this.props
-    this.handleChange(query)
+    const { query } = this.props;
+    this.handleChange(query);
   }
 
   componentDidMount() {
-    window.onpopstate = this.onBackButtonEvent
+    window.onpopstate = this.onBackButtonEvent;
   }
 
   handleSubmit(event) {
@@ -49,43 +41,58 @@ class SearchBox extends React.Component {
       institution,
       sort,
       activeDatastore
-    } = this.props
+    } = this.props;
 
     ReactGA.event({
-      action: 'Click',
-      category: 'Search Button',
+      action: "Click",
+      category: "Search Button",
       label: `Search ${activeDatastore.name}`
-    })
+    });
 
-    const library = activeDatastore.uid === 'mirlyn' ? institution.active : undefined
+    const library =
+      activeDatastore.uid === "mirlyn" ? institution.active : undefined;
 
     // Query is not empty
     if (queryInput.length > 0) {
-      const queryString = qs.stringify({
-        query: queryInput,
-        filter: activeFilters,
-        library,
-        sort
-      }, {
-        arrayFormat: 'repeat',
-        encodeValuesOnly: true,
-        allowDots: true,
-        format : 'RFC1738'
-      })
+      const queryString = qs.stringify(
+        {
+          query: queryInput,
+          filter: activeFilters,
+          library,
+          sort
+        },
+        {
+          arrayFormat: "repeat",
+          encodeValuesOnly: true,
+          allowDots: true,
+          format: "RFC1738"
+        }
+      );
 
-      const url = `/${match.params.datastoreSlug}?${queryString}`
+      const url = `/${match.params.datastoreSlug}?${queryString}`;
 
-      history.push(url)
+      history.push(url);
     }
   }
 
   render() {
-    const { match, location, queryInput, isAdvanced, activeDatastore } = this.props
+    const {
+      match,
+      location,
+      queryInput,
+      isAdvanced,
+      activeDatastore
+    } = this.props;
 
     return (
       <div className="search-box-container-full">
         <div className="search-box-container">
-          <form className="search-box-form" onSubmit={this.handleSubmit} role="search" id="search-box">
+          <form
+            className="search-box-form"
+            onSubmit={this.handleSubmit}
+            role="search"
+            id="search-box"
+          >
             <div className="search-box">
               <input
                 id="search-query"
@@ -94,14 +101,21 @@ class SearchBox extends React.Component {
                 aria-label="search text"
                 value={queryInput}
                 spellCheck="false"
+                data-hj-whitelist
                 onChange={event => this.handleChange(event.target.value)}
               />
-              <button className="button search-box-button" type="submit"><Icon name="search"/><span className="search-box-button-text">Search</span></button>
+              <button className="button search-box-button" type="submit">
+                <Icon name="search" />
+                <span className="search-box-button-text">Search</span>
+              </button>
             </div>
 
             {isAdvanced && (
               <div className="search-box-advanced">
-                <Link to={`/${match.params.datastoreSlug}/advanced${location.search}`} className="search-box-advanced-link">
+                <Link
+                  to={`/${match.params.datastoreSlug}/advanced${location.search}`}
+                  className="search-box-advanced-link"
+                >
                   <span className="offpage">{activeDatastore.name}</span>
                   <span>Advanced</span>
                   <span className="offpage">Search</span>
@@ -111,7 +125,7 @@ class SearchBox extends React.Component {
           </form>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -121,7 +135,9 @@ function mapStateToProps(state) {
     query: state.search.query,
     queryInput: state.search.queryInput,
     activeFilters: state.filters.active[state.datastores.active],
-    activeDatastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
+    activeDatastore: _.findWhere(state.datastores.datastores, {
+      uid: state.datastores.active
+    }),
     location: state.router.location,
     isAdvanced: state.advanced[state.datastores.active] ? true : false,
     institution: state.institution,
@@ -131,10 +147,13 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    setSearchQueryInput,
-    searching
-  }, dispatch)
+  return bindActionCreators(
+    {
+      setSearchQueryInput,
+      searching
+    },
+    dispatch
+  );
 }
 
 export default withRouter(

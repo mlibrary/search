@@ -1,19 +1,13 @@
-import React from 'react'
-import {
-  Icon,
-  MEDIA_QUERIES,
-  TextInput
-} from '@umich-lib/core'
-import {
-  MultipleChoice
-} from '../../../core'
-import styled from '@emotion/styled'
+import React from "react";
+import { Icon, MEDIA_QUERIES, TextInput } from "@umich-lib/core";
+import { MultipleChoice } from "../../../core";
+import styled from "@emotion/styled";
 
-const StyledFieldSet = styled('fieldset')({
+const StyledFieldSet = styled("fieldset")({
   [MEDIA_QUERIES.LARGESCREEN]: {
-    textAlign: 'center'
+    textAlign: "center"
   }
-})
+});
 
 const Dropdown = ({
   labelText,
@@ -24,40 +18,47 @@ const Dropdown = ({
   multiple
 }) => (
   <select
-    aria-label={labelText ? labelText : 'dropdown'}
+    aria-label={labelText ? labelText : "dropdown"}
     className="dropdown advanced-field-select"
     value={selectedOption}
     multiple={multiple ? multiple : false}
-    onChange={(event) => handleOnFieldChange({
-      fieldedSearchIndex,
-      selectedFieldUid: event.target.value,
-    })}
+    onChange={event =>
+      handleOnFieldChange({
+        fieldedSearchIndex,
+        selectedFieldUid: event.target.value
+      })
+    }
   >
-    {options.map((option, index) =>
-      <option value={option.uid} key={index}>{option.name}</option>
-    )}
+    {options.map((option, index) => (
+      <option value={option.uid} key={index}>
+        {option.name}
+      </option>
+    ))}
   </select>
-)
+);
 
 const FieldInput = ({
   fieldedSearchIndex,
   fieldedSearch,
   fields,
   handleFieldedSearchChange,
-  handleRemoveFieldedSearch,
+  handleRemoveFieldedSearch
 }) => (
   <StyledFieldSet className="y-spacing">
     <legend className="offpage">Search field {fieldedSearchIndex + 1}</legend>
     {fieldedSearchIndex === 0 ? null : (
       <MultipleChoice
         name={`search-field-${fieldedSearchIndex}-booleans`}
-        heading={`Boolean operator for field ${fieldedSearchIndex} and field ${fieldedSearchIndex + 1}`}
-        options={['AND', 'OR', 'NOT']}
+        heading={`Boolean operator for field ${fieldedSearchIndex} and field ${fieldedSearchIndex +
+          1}`}
+        options={["AND", "OR", "NOT"]}
         selectedIndex={fieldedSearch.booleanType}
-        onMultipleChoiceChange={({ index }) => handleFieldedSearchChange({
-          fieldedSearchIndex,
-          booleanType: index
-        })}
+        onMultipleChoiceChange={({ index }) =>
+          handleFieldedSearchChange({
+            fieldedSearchIndex,
+            booleanType: index
+          })
+        }
       />
     )}
     <div className="advanced-input-container">
@@ -75,22 +76,29 @@ const FieldInput = ({
           value={fieldedSearch.query}
           labelText={`Search Term ${fieldedSearchIndex + 1}`}
           hideLabel
-          onChange={(event) => handleFieldedSearchChange({
-            fieldedSearchIndex,
-            query: event.target.value
-          })}
+          data-hj-whitelist
+          onChange={event =>
+            handleFieldedSearchChange({
+              fieldedSearchIndex,
+              query: event.target.value
+            })
+          }
         />
         {fieldedSearchIndex > 0 ? (
           <button
             className="advanced-input-remove-button"
             type="button"
-            onClick={handleRemoveFieldedSearch}>
-              <Icon icon="close" size={24} /><span className="offpage">Remove Field {fieldedSearchIndex + 1}</span>
+            onClick={handleRemoveFieldedSearch}
+          >
+            <Icon icon="close" size={24} />
+            <span className="offpage">
+              Remove Field {fieldedSearchIndex + 1}
+            </span>
           </button>
         ) : null}
       </div>
     </div>
   </StyledFieldSet>
-)
+);
 
-export default FieldInput
+export default FieldInput;
