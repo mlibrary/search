@@ -40,7 +40,7 @@ function COVIDAlert() {
             Physical items are not currently available for check-out. To
             restrict your search results to online resources only, check the
             “Available online” filter box.{" "}
-            <a href="https://guides.lib.umich.edu/c.php?g=914690">
+            <a href="https://guides.lib.umich.edu/c.php?g=914690&p=7402383">
               Read about access changes due to COVID-19
             </a>
             .
