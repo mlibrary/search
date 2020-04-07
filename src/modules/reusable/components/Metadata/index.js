@@ -10,13 +10,13 @@ import {
   SPACING,
   MEDIA_QUERIES,
   COLORS,
-  LINK_STYLES
+  LINK_STYLES,
 } from "../../umich-lib-core-temp";
 import { stringifySearchQueryForURL } from "../../../pride";
 import {
   Expandable,
   ExpandableChildren,
-  ExpandableButton
+  ExpandableButton,
 } from "@umich-lib/core";
 
 const visuallyHiddenCSS = {
@@ -27,7 +27,7 @@ const visuallyHiddenCSS = {
   overflow: "hidden",
   padding: 0,
   position: "absolute",
-  width: "1px"
+  width: "1px",
 };
 
 export default function Metadata({ data, kind }) {
@@ -39,17 +39,17 @@ export default function Metadata({ data, kind }) {
           gridTemplateColumns: "9rem 1fr",
           gridColumnGap: SPACING["S"],
           "dt:not(:first-of-type) + dd": {
-            paddingTop: SPACING["XS"]
-          }
-        }
+            paddingTop: SPACING["XS"],
+          },
+        },
       }
     : {
         dt: {
-          ...visuallyHiddenCSS
+          ...visuallyHiddenCSS,
         },
         "dt:not(:first-of-type) + dd": {
-          paddingTop: SPACING["XS"]
-        }
+          paddingTop: SPACING["XS"],
+        },
       };
 
   // Only show expandable if more than 5.
@@ -57,13 +57,13 @@ export default function Metadata({ data, kind }) {
     if (desc.length <= 5) {
       return {
         show: desc.length,
-        expandable: false
+        expandable: false,
       };
     }
 
     return {
       show: 4,
-      expandable: true
+      expandable: true,
     };
   }
 
@@ -72,26 +72,26 @@ export default function Metadata({ data, kind }) {
       css={{
         ...metadataCSS,
         "dt:not(:first-of-type)": {
-          paddingTop: SPACING["XS"]
-        }
+          paddingTop: SPACING["XS"],
+        },
       }}
     >
       {data.map((d, i) => (
         <Expandable key={"expandable-metadata-dt-dd-" + i}>
           <dt
             css={{
-              gridColumnStart: "1"
+              gridColumnStart: "1",
             }}
           >
             {d.term}
           </dt>
           <ExpandableChildren show={expandable(d.description).show}>
-            {d.description.map(d => (
+            {d.description.map((d) => (
               <dd
                 css={{
                   gridColumnStart: "2",
                   display: "flex",
-                  alignItems: "top"
+                  alignItems: "top",
                 }}
               >
                 <Description data={d} />
@@ -104,16 +104,16 @@ export default function Metadata({ data, kind }) {
               css={{
                 gridColumnStart: "2",
                 display: "flex",
-                alignItems: "top"
+                alignItems: "top",
               }}
             >
               <ExpandableButton
-                name={d.term}
+                name={d.termPlural ? d.termPlural : d.term}
                 count={d.description.length}
                 kind="secondary"
                 small
                 css={{
-                  marginTop: SPACING["XS"]
+                  marginTop: SPACING["XS"],
                 }}
               />
             </dd>
@@ -130,19 +130,19 @@ function Description({ data }) {
       <ol
         css={{
           margin: "0",
-          padding: "0"
+          padding: "0",
         }}
       >
         {data.map((d, i) => (
           <li
             css={{
-              display: "inline-block"
+              display: "inline-block",
             }}
           >
             {i > 0 && (
               <span
                 css={{
-                  color: COLORS.neutral["300"]
+                  color: COLORS.neutral["300"],
                 }}
               >
                 <Icon d={icons["navigate_next"]} />
@@ -165,7 +165,7 @@ function Description({ data }) {
             marginRight: SPACING["2XS"],
             color: COLORS.neutral["300"],
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <Icon icon={icon} size={16} />
@@ -176,7 +176,7 @@ function Description({ data }) {
         <div>
           <span
             css={{
-              display: "block"
+              display: "block",
             }}
           >
             {text}
@@ -187,7 +187,7 @@ function Description({ data }) {
             css={{
               maxWidth: "16rem",
               width: "100%",
-              paddingTop: SPACING["XS"]
+              paddingTop: SPACING["XS"],
             }}
           />
         </div>
@@ -223,9 +223,9 @@ function DescriptionItemLink({ href, search, children }) {
 }
 
 function SearchLink({ children, search }) {
-  const { datastores, institution } = useSelector(state => state);
+  const { datastores, institution } = useSelector((state) => state);
   const activeDatastore = datastores.datastores.find(
-    ds => ds.uid === datastores.active
+    (ds) => ds.uid === datastores.active
   );
   const to =
     "/" +
@@ -234,7 +234,7 @@ function SearchLink({ children, search }) {
     createSearchURL({
       ...search,
       institution,
-      datastoreUid: activeDatastore.uid
+      datastoreUid: activeDatastore.uid,
     });
 
   return (
@@ -242,8 +242,8 @@ function SearchLink({ children, search }) {
       css={{
         textDecoration: "underline",
         ":hover": {
-          textDecorationThickness: "2px"
-        }
+          textDecorationThickness: "2px",
+        },
       }}
       to={to}
     >
@@ -266,6 +266,6 @@ function createSearchURL({ type, scope, value, institution, datastoreUid }) {
   return stringifySearchQueryForURL({
     query,
     filter,
-    library
+    library,
   });
 }
