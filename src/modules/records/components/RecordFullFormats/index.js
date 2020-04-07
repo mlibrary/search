@@ -27,6 +27,10 @@ export default function RecordFullFormats({ icons, fields, datastoreUid }) {
 }
 
 function RecordFormatIcon({ value, icons }) {
+  if (!icons) {
+    return null;
+  }
+
   const icon = icons.find((i) => i.text === value);
 
   if (icon) {

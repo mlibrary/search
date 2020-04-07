@@ -14,26 +14,26 @@ const config = {
       {
         uid: "mirlyn",
         name: "Catalog",
-        slug: "catalog"
+        slug: "catalog",
       },
       {
         uid: "articlesplus",
         name: "Articles",
-        slug: "articles"
+        slug: "articles",
       },
       {
         uid: "databases",
-        name: "Databases"
+        name: "Databases",
       },
       {
         uid: "journals",
         name: "Online Journals",
-        slug: "onlinejournals"
+        slug: "onlinejournals",
       },
       {
         uid: "website",
         name: "Library Website",
-        slug: "librarywebsite"
+        slug: "librarywebsite",
       },
       {
         uid: "everything",
@@ -43,9 +43,9 @@ const config = {
           "articlesplus",
           "databases",
           "journals",
-          "website"
-        ]
-      }
+          "website",
+        ],
+      },
     ],
     ordering: [
       "everything",
@@ -53,261 +53,10 @@ const config = {
       "articlesplus",
       "journals",
       "databases",
-      "website"
+      "website",
     ],
-    default: "everything"
+    default: "everything",
   },
-  fields: [
-    {
-      datastore: "mirlyn",
-      preview: ["edition"],
-      medium: [
-        "format",
-        "main_author",
-        "published_brief",
-        //'place_of_publication',
-        "edition"
-        //'publisher'
-      ],
-      full: {
-        standard: [
-          "preferred_title",
-          "uniform_title",
-          "other_titles",
-          "full_new_title",
-          "full_previous_title",
-          "main_author",
-          "published_brief",
-          "contributors",
-          "created",
-          "distributed",
-          "manufactured",
-          "edition",
-          "series",
-          "series_statement",
-          "summary",
-          "in_collection",
-          "access",
-          "language",
-          "language_note",
-          "performers",
-          "date_place_of_event",
-          "related_items",
-          "numbering",
-          "source_of_description_note",
-          "copy_specific_note",
-          "biography_history",
-          "references",
-          "copyright_status_information",
-          "note",
-          "arrangement",
-          "copyright",
-          "physical_description",
-          "playing_time",
-          "media_format",
-          "audience",
-          "awards",
-          "production_credits",
-          "bibliography",
-          "isbn",
-          "issn",
-          "publisher_number",
-          "report_number",
-          "chronology",
-          "place",
-          "printer",
-          "association",
-          "marc_bookplate",
-          "terms_of_use",
-          "lcsh_subjects",
-          "other_subjects",
-          "academic_discipline",
-          "table_of_contents",
-          "bookplate"
-        ]
-      },
-      searches: [
-        /*
-        {
-          uid: 'field_uid',
-          search: 'search_uid', // what fielded or filter uid do you want to search one
-          type: 'fielded' // or filter
-        }
-        */
-        {
-          uid: "main_author",
-          search: "author",
-          type: "filter" // or 'fielded'
-        },
-        {
-          uid: "contributors",
-          search: "author",
-          type: "filter" // or 'fielded'
-        },
-        {
-          uid: "academic_discipline",
-          search: "academic_discipline",
-          type: "filter"
-        },
-        {
-          uid: "other_subjects",
-          search: "subject",
-          type: "filter"
-        },
-        {
-          uid: "lcsh_subjects",
-          search: "subject",
-          type: "filter"
-        },
-        {
-          uid: "full_previous_title",
-          search: "title",
-          type: "fielded"
-        },
-        {
-          uid: "other_titles",
-          search: "title",
-          type: "fielded"
-        },
-        {
-          uid: "new_title",
-          search: "title",
-          type: "fielded"
-        },
-        {
-          uid: "full_new_title",
-          search: "title",
-          type: "fielded"
-        }
-      ]
-    },
-    {
-      datastore: "articlesplus",
-      medium: [
-        "format",
-        "author",
-        "publication_date",
-        "published_brief",
-        "page_range",
-        "snippet",
-        "times_cited"
-      ],
-      full: {
-        standard: [
-          "author",
-          "publication_date",
-          "published_brief",
-          "page_range",
-          "genre",
-          "issn",
-          "eissn",
-          "isbn",
-          "eisbn",
-          "doi",
-          "language",
-          "subject",
-          "times_cited"
-        ],
-        description: "abstract"
-      },
-      searches: [
-        {
-          uid: "author",
-          search: "author",
-          type: "fielded"
-        },
-        {
-          uid: "subject",
-          search: "subject",
-          type: "filter"
-        }
-      ]
-    },
-    {
-      datastore: "databases",
-      defaultFields: [
-        {
-          uid: "format",
-          name: "Format",
-          value: ["Database"]
-        }
-      ],
-      medium: [
-        "format",
-        "type",
-        "brief_description",
-        "permalink",
-        "new",
-        "trial",
-        "outage",
-        "coverage"
-      ],
-      full: {
-        standard: [
-          "type",
-          "access_type",
-          "new",
-          "trial",
-          "permalink",
-          "outage",
-          "alt_title",
-          "coverage",
-          "mobile_available",
-          "mobile_url",
-          "subject",
-          "more_information",
-          "platform",
-          "academic_discipline"
-        ],
-        description: "description"
-      },
-      searches: [
-        {
-          uid: "academic_discipline",
-          search: "academic_discipline",
-          type: "filter"
-        }
-      ]
-    },
-    {
-      datastore: "journals",
-      defaultFields: [
-        {
-          uid: "format",
-          name: "Format",
-          value: ["Online Journal"]
-        }
-      ],
-      medium: ["format", "issn", "academic_discipline", "holdings"],
-      full: {
-        standard: ["issn", "academic_discipline", "holdings", "alt_title"]
-      },
-      searches: [
-        {
-          uid: "academic_discipline",
-          search: "academic_discipline",
-          type: "filter"
-        }
-      ]
-    },
-    {
-      datastore: "website",
-      medium: [
-        "page_type",
-        "brief_description",
-        "section_title",
-        "section_description",
-        "author",
-        "academic_discipline",
-        "name",
-        "email",
-        "picture",
-        "department",
-        "phone",
-        "office"
-      ]
-    }
-  ],
   sorts: {
     mirlyn: {
       default: "relevance",
@@ -319,25 +68,25 @@ const config = {
         "author_desc",
         "date_added",
         "title_asc",
-        "title_desc"
-      ]
+        "title_desc",
+      ],
     },
     articlesplus: {
       default: "relevance",
-      sorts: ["relevance", "date_asc", "date_desc"]
+      sorts: ["relevance", "date_asc", "date_desc"],
     },
     databases: {
       default: "relevance",
-      sorts: ["relevance", "title_asc", "title_desc"]
+      sorts: ["relevance", "title_asc", "title_desc"],
     },
     journals: {
       default: "relevance",
-      sorts: ["relevance", "title_asc", "title_desc"]
+      sorts: ["relevance", "title_asc", "title_desc"],
     },
     website: {
       default: "relevance",
-      sorts: ["relevance", "title_asc", "title_desc", "date_asc", "date_desc"]
-    }
+      sorts: ["relevance", "title_asc", "title_desc", "date_asc", "date_desc"],
+    },
   },
   advancedBooleanTypes: ["AND", "OR", "NOT"],
   advanced: {
@@ -346,21 +95,21 @@ const config = {
         {
           uid: "all_fields",
           name: "All Fields",
-          force: true
+          force: true,
         },
         {
           uid: "title",
           name: "Title",
-          force: true
+          force: true,
         },
         {
           uid: "author",
           name: "Author",
-          force: true
-        }
+          force: true,
+        },
       ],
       fields: ["all_fields", "title", "author"],
-      defaultFields: ["all_fields", "title", "author"]
+      defaultFields: ["all_fields", "title", "author"],
     },
     mirlyn: {
       fields: [
@@ -376,7 +125,7 @@ const config = {
         "series",
         "publication_date",
         "isn",
-        "toc"
+        "toc",
       ],
       defaultFields: ["all_fields", "title", "author"],
       filters: [
@@ -386,8 +135,8 @@ const config = {
           groupBy: "Access Options",
           conditions: {
             checked: true,
-            unchecked: undefined
-          }
+            unchecked: undefined,
+          },
         },
         {
           uid: "search_only",
@@ -397,8 +146,8 @@ const config = {
           conditions: {
             checked: undefined,
             unchecked: false,
-            default: "checked"
-          }
+            default: "checked",
+          },
         },
         {
           uid: "narrow_search",
@@ -407,39 +156,39 @@ const config = {
           defaults: [
             {
               uid: "institution",
-              value: "All libraries"
+              value: "All libraries",
             },
             {
               uid: "location",
-              value: "All locations"
+              value: "All locations",
             },
             {
               uid: "collection",
-              value: "All collections"
-            }
-          ]
+              value: "All collections",
+            },
+          ],
         },
         {
           uid: "date_of_publication",
-          type: "date_range_input"
+          type: "date_range_input",
         },
         {
           uid: "academic_discipline",
-          type: "multiple_select"
+          type: "multiple_select",
         },
         {
           uid: "language",
-          type: "multiple_select"
+          type: "multiple_select",
         },
         {
           uid: "format",
-          type: "multiple_select"
+          type: "multiple_select",
         },
         {
           uid: "place_of_publication_filter",
-          type: "multiple_select"
-        }
-      ]
+          type: "multiple_select",
+        },
+      ],
     },
     articlesplus: {
       fields: [
@@ -450,7 +199,7 @@ const config = {
         "subject",
         "series",
         "publication_date",
-        "isn"
+        "isn",
       ],
       defaultFields: ["all_fields", "title", "author"],
       filters: [
@@ -461,8 +210,8 @@ const config = {
           groupBy: "Access Options",
           conditions: {
             checked: true,
-            unchecked: undefined
-          }
+            unchecked: undefined,
+          },
         },
         {
           uid: "is_scholarly",
@@ -471,8 +220,8 @@ const config = {
           type: "checkbox",
           conditions: {
             checked: true,
-            unchecked: undefined
-          }
+            unchecked: undefined,
+          },
         },
         {
           uid: "holdings_only",
@@ -481,8 +230,8 @@ const config = {
           type: "checkbox",
           conditions: {
             checked: false,
-            unchecked: undefined
-          }
+            unchecked: undefined,
+          },
         },
         {
           uid: "exclude_newspapers",
@@ -491,22 +240,22 @@ const config = {
           type: "checkbox",
           conditions: {
             checked: true,
-            unchecked: undefined
-          }
+            unchecked: undefined,
+          },
         },
         {
           uid: "publication_date",
-          type: "date_range_input"
+          type: "date_range_input",
         },
         {
           uid: "language",
-          type: "multiple_select"
+          type: "multiple_select",
         },
         {
           uid: "format",
-          type: "multiple_select"
-        }
-      ]
+          type: "multiple_select",
+        },
+      ],
     },
     databases: {
       fields: [
@@ -514,23 +263,23 @@ const config = {
         "title",
         "title_starts_with",
         "academic_discipline",
-        "publisher"
+        "publisher",
       ],
       defaultFields: ["all_fields", "title_starts_with"],
       filters: [
         {
           uid: "type",
-          type: "multiple_select"
+          type: "multiple_select",
         },
         {
           uid: "academic_discipline",
-          type: "multiple_select"
+          type: "multiple_select",
         },
         {
           uid: "access_type",
-          type: "multiple_select"
-        }
-      ]
+          type: "multiple_select",
+        },
+      ],
     },
     journals: {
       fields: [
@@ -540,39 +289,39 @@ const config = {
         "subject",
         "academic_discipline",
         "call_number_starts_with",
-        "isn"
+        "isn",
       ],
       filters: [
         {
           uid: "academic_discipline",
-          type: "multiple_select"
-        }
+          type: "multiple_select",
+        },
       ],
-      defaultFields: ["all_fields", "title", "isn"]
+      defaultFields: ["all_fields", "title", "isn"],
     },
     website: {
       fields: ["all_fields", "title"],
-      defaultFields: ["all_fields"]
-    }
+      defaultFields: ["all_fields"],
+    },
   },
   holdingRewrites: [
     {
       match: {
         uid: "status",
-        value: "Search only (no full text)"
+        value: "Search only (no full text)",
       },
       replace: [
         {
           uid: "linkText",
-          value: "Search keyword frequency"
+          value: "Search keyword frequency",
         },
         {
           uid: "linkStyle",
-          value: "link"
-        }
-      ]
-    }
-  ]
+          value: "link",
+        },
+      ],
+    },
+  ],
 };
 
 export default config;
