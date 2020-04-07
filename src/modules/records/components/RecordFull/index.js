@@ -8,7 +8,7 @@ import { Breadcrumb } from "../../../reusable";
 import {
   COLORS,
   MEDIA_QUERIES,
-  SPACING
+  SPACING,
 } from "../../../reusable/umich-lib-core-temp";
 
 import { TrimString } from "../../../core";
@@ -20,7 +20,7 @@ import {
   RecommendedResource,
   RecordDescription,
   Zotero,
-  RecordMetadata
+  RecordMetadata,
 } from "../../../records";
 import { requestRecord } from "../../../pride";
 import { setDocumentTitle } from "../../../a11y";
@@ -29,7 +29,7 @@ import {
   prejudice,
   AddToListButton,
   isInList,
-  GoToList
+  GoToList,
 } from "../../../lists";
 import { NoMatch } from "../../../pages";
 import { FavoriteRecord, FavoriteTags } from "../../../favorites";
@@ -45,11 +45,11 @@ class FullRecordBreadcrumbs extends React.Component {
         items={[
           {
             text: `${datastore.name}`,
-            to: `/${datastore.slug}${document.location.search}`
+            to: `/${datastore.slug}${document.location.search}`,
           },
-          { text: "Record" }
+          { text: "Record" },
         ]}
-        renderAnchor={item => <Link to={item.to}>{item.text}</Link>}
+        renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
       />
     );
   }
@@ -57,10 +57,10 @@ class FullRecordBreadcrumbs extends React.Component {
 
 class FullRecord extends React.Component {
   state = {
-    activeAction: ""
+    activeAction: "",
   };
 
-  setActiveAction = activeAction => {
+  setActiveAction = (activeAction) => {
     this.setState({ activeAction });
   };
 
@@ -85,17 +85,14 @@ class FullRecord extends React.Component {
 
     if (record) {
       const activeDatastore = _.findWhere(datastores.datastores, {
-        uid: datastores.active
+        uid: datastores.active,
       });
       // Set page title
 
       setDocumentTitle([
-        []
-          .concat(record.names)
-          .join()
-          .slice(0, 120),
+        [].concat(record.names).join().slice(0, 120),
         "Record",
-        activeDatastore.name
+        activeDatastore.name,
       ]);
     }
   }
@@ -162,6 +159,7 @@ class FullRecord extends React.Component {
         <GoToList list={list} datastore={datastore} />
         <div className={recordClassName}>
           <RecordFullFormats
+            icons={record.icons}
             fields={record.fields}
             datastoreUid={datastoreUid}
           />
@@ -202,16 +200,16 @@ class FullRecord extends React.Component {
               css={{
                 borderBottom: `solid 1px ${COLORS.neutral[100]}`,
                 '[data-accordion-component="AccordionItemPanel"]': {
-                  padding: `0 ${SPACING["M"]}`
+                  padding: `0 ${SPACING["M"]}`,
                 },
                 [MEDIA_QUERIES.LARGESCREEN]: {
                   '[data-accordion-component="AccordionItemButton"]': {
-                    paddingLeft: "3rem"
+                    paddingLeft: "3rem",
                   },
                   '[data-accordion-component="AccordionItemPanel"]': {
-                    paddingLeft: "3rem"
-                  }
-                }
+                    paddingLeft: "3rem",
+                  },
+                },
               }}
             >
               <ResourceAccess record={record} />
@@ -228,13 +226,13 @@ class FullRecord extends React.Component {
 function mapStateToProps(state) {
   return {
     datastore: _.findWhere(state.datastores.datastores, {
-      uid: state.datastores.active
+      uid: state.datastores.active,
     }),
     record: state.records.record,
     datastoreUid: state.datastores.active,
     datastores: state.datastores,
     institution: state.institution,
-    list: state.lists[state.datastores.active]
+    list: state.lists[state.datastores.active],
   };
 }
 

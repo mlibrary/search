@@ -198,7 +198,7 @@ function Description({ data }) {
   );
 }
 
-function DescriptionItem({ icon, href, search, children }) {
+function DescriptionItem({ href, search, children }) {
   if (href || search) {
     return (
       <DescriptionItemLink href={href} search={search}>

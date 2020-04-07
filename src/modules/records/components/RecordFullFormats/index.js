@@ -1,11 +1,15 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import React from "react";
 
+import { Icon } from "@umich-lib/core";
 import { getRecordFormats } from "../../utilities";
+import { SPACING } from "../../../reusable/umich-lib-core-temp";
 
-const RecordFullFormats = ({ fields, datastoreUid }) => {
+export default function RecordFullFormats({ icons, fields, datastoreUid }) {
   const formats = getRecordFormats({
     fields,
-    datastoreUid
+    datastoreUid,
   });
 
   return (
@@ -13,12 +17,28 @@ const RecordFullFormats = ({ fields, datastoreUid }) => {
       {formats.map((value, index) => {
         return (
           <span className="full-record-format" key={index}>
+            <RecordFormatIcon icons={icons} value={value} />
             {value}
           </span>
         );
       })}
     </div>
   );
-};
+}
 
-export default RecordFullFormats;
+function RecordFormatIcon({ value, icons }) {
+  const icon = icons.find((i) => i.text === value);
+
+  if (icon) {
+    return (
+      <Icon
+        icon={icon.icon}
+        css={{
+          marginRight: SPACING["2XS"],
+        }}
+      />
+    );
+  }
+
+  return null;
+}
