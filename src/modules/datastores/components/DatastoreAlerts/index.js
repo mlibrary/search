@@ -5,13 +5,13 @@ import { useSelector } from "react-redux";
 import {
   SPACING,
   COLORS,
-  Margins
+  Margins,
 } from "../../../reusable/umich-lib-core-temp";
 import { Button } from "../../../reusable/";
 
 function COVIDAlert() {
   const [dismissed, setDismissed] = useState(false);
-  const { datastores } = useSelector(state => state);
+  const { datastores } = useSelector((state) => state);
 
   if (dismissed) {
     return null;
@@ -23,15 +23,15 @@ function COVIDAlert() {
         css={{
           padding: SPACING["S"],
           "* + *": {
-            marginBottom: SPACING["M"]
+            marginBottom: SPACING["M"],
           },
           background: COLORS.orange["100"],
           borderBottom: `solid 1px ${COLORS.orange["300"]}`,
           color: COLORS.orange["500"],
           a: {
             color: COLORS.orange["500"],
-            textDecoration: "underline"
-          }
+            textDecoration: "underline",
+          },
         }}
         role="alert"
       >
@@ -47,9 +47,10 @@ function COVIDAlert() {
           </p>
 
           <p>
-            The HathiTrust Digital Library is offering Temporary Emergency
-            Access Service to its digital copies of the in-copyright works in
-            our collection. To use this service, go to{" "}
+            The HathiTrust Digital Library is offering Emergency Temporary
+            Access to its digital copies of in-copyright works in our
+            collection. In catalog search results, look for items marked "Full
+            text available (log in required)." Or, go to{" "}
             <a href="https://www.hathitrust.org">HathiTrust</a> and log in with
             your U-M credentials.
           </p>
