@@ -50,7 +50,7 @@ function COVIDAlert() {
             The HathiTrust Digital Library is offering Emergency Temporary
             Access to its digital copies of in-copyright works in our
             collection. In catalog search results, look for items marked "Full
-            text available (log in required)." Or, go to{" "}
+            text available (HathiTrust log in required)." Or, go to{" "}
             <a href="https://www.hathitrust.org">HathiTrust</a> and log in with
             your U-M credentials.
           </p>
