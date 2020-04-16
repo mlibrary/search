@@ -158,11 +158,7 @@ class FullRecord extends React.Component {
         <FullRecordBreadcrumbs datastore={datastore} />
         <GoToList list={list} datastore={datastore} />
         <div className={recordClassName}>
-          <RecordFullFormats
-            icons={record.icons}
-            fields={record.fields}
-            datastoreUid={datastoreUid}
-          />
+          <RecordFullFormats formats={record.formats} />
           <div className="record-container">
             <div className="full-record-title-and-actions-container">
               <h1 className="full-record-title">
