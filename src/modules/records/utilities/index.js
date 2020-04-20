@@ -139,15 +139,6 @@ const getShowAllText = ({ holdingUid, datastoreUid }) => {
   return undefined;
 };
 
-const getRecordFormats = ({ fields }) => {
-  const format = getField(fields, "format");
-
-  if (format) {
-    return getFieldValue(format);
-  }
-  return [];
-};
-
 export {
   getField,
   getFieldValue,
@@ -156,5 +147,4 @@ export {
   isFullRecordType,
   getShowAllText,
   getFullRecordDisplayFields,
-  getRecordFormats,
 };

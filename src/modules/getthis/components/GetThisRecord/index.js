@@ -75,7 +75,7 @@ function GetThisHolding({ record, barcode }) {
 
 class GetThisRecord extends React.Component {
   render() {
-    const { record, datastoreUid, barcode } = this.props;
+    const { record, barcode } = this.props;
 
     if (!record) {
       return <FullRecordPlaceholder />;
@@ -83,11 +83,7 @@ class GetThisRecord extends React.Component {
 
     return (
       <div className="full-record-container u-margin-bottom-1">
-        <RecordFullFormats
-          icons={record.icons}
-          fields={record.fields}
-          datastoreUid={datastoreUid}
-        />
+        <RecordFullFormats formats={record.formats} />
         <div className="record-container">
           <h1 className="full-record-title u-margin-bottom-none">
             {[].concat(record.names).map((title, index) => (
