@@ -1,5 +1,4 @@
 import React from "react";
-import { _ } from "underscore";
 import { getField, getFieldValue } from "../../utilities";
 
 function createMarkup(markup_string) {
