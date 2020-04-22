@@ -1,35 +1,38 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 
-import {
-  Icon,
-} from '../../../core'
-import {
-  getRecordFormats,
-} from '../../utilities';
-import {
-  getFormatIconName
-} from '../../../pride'
+import { Icon } from "@umich-lib/core";
+import { SPACING } from "../../../reusable/umich-lib-core-temp";
 
-const RecordFullFormats = ({
-  fields,
-  datastoreUid
-}) => {
-  const formats = getRecordFormats({
-    fields,
-    datastoreUid
-  })
+export default function RecordFullFormats({ formats }) {
 
   return (
     <div className="full-record-header">
-      {formats.map((value, index) => {
-        const iconName = getFormatIconName({ format: value })
-
+      
+      {(formats || []).map((format, index) => {
         return (
-          <span className="full-record-format" key={index}><Icon name={iconName} />{value}</span>
-        )
+          <span className="full-record-format" key={index}>
+            <RecordFormatIcon icon={format.icon} />
+            {format.text}
+          </span>
+        );
       })}
     </div>
-  )
+  );
 }
 
-export default RecordFullFormats
+function RecordFormatIcon({ icon }) {
+
+  if (icon) {
+    return (
+      <Icon
+        icon={icon}
+        css={{
+          marginRight: SPACING["2XS"],
+        }}
+      />
+    );
+  }
+
+  return null;
+}

@@ -1,31 +1,27 @@
-import React from 'react'
-import { _ } from 'underscore';
-import {
-  getField,
-  getFieldValue
-} from '../../utilities';
-import config from '../../../../config'
-
+import React from "react";
+import { _ } from "underscore";
+import { getField, getFieldValue } from "../../utilities";
 
 function createMarkup(markup_string) {
-  return {__html: markup_string};
+  return { __html: markup_string };
 }
 
 const RecordDescription = ({ record }) => {
-  const fieldConfig = _.findWhere(config.fields, {datastore: record.datastore})
-  if (!fieldConfig.full.description) {
-    return null
-  }
-
-  const description = getFieldValue(getField(record.fields, fieldConfig.full.description))[0]
+  const abstract = getField(record.fields, "abstract");
+  const desc = getField(record.fields, "description");
+  const descField = abstract ? abstract : desc;
+  const description = getFieldValue(descField)[0];
 
   if (!description) {
-    return null
+    return null;
   }
 
   return (
-    <p className="full-record__description" dangerouslySetInnerHTML={createMarkup(description)} />
-  )
-}
+    <p
+      className="full-record__description"
+      dangerouslySetInnerHTML={createMarkup(description)}
+    />
+  );
+};
 
-export default RecordDescription
+export default RecordDescription;

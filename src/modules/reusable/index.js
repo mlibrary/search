@@ -1,11 +1,12 @@
-import Alert from './components/Alert'
-import Button from './components/Button'
-import Tag from './components/Tag'
-import Modal from './components/Modal'
-import Breadcrumb from './components/Breadcrumb'
-import Pagination from './components/Pagination'
-import ContextProvider from './components/ContextProvider'
-import Icon from './components/Icon'
+import Alert from "./components/Alert";
+import Button from "./components/Button";
+import Tag from "./components/Tag";
+import Modal from "./components/Modal";
+import Breadcrumb from "./components/Breadcrumb";
+import Pagination from "./components/Pagination";
+import ContextProvider from "./components/ContextProvider";
+import Metadata from "./components/Metadata";
+import Icon from "./components/Icon";
 
 export {
   Alert,
@@ -15,5 +16,6 @@ export {
   Breadcrumb,
   Pagination,
   ContextProvider,
-  Icon
-}
+  Icon,
+  Metadata
+};

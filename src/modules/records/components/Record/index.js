@@ -1,84 +1,69 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core'
-import React from 'react';
-import { Link } from 'react-router-dom'
+import { jsx } from "@emotion/core";
+import React from "react";
+import { Link } from "react-router-dom";
 
-import FieldList from '../RecordFieldList';
-import {
-  TrimString,
-  Icon
-} from '../../../core'
-import {
-  RecommendedResource,
-}  from '../../../records'
-import {
-  getDatastoreSlugByUid
-} from '../../../pride';
-import {
-  getField,
-  getFieldValue,
-  filterDisplayFields
-} from '../../utilities';
-import {
-  AddToListButton,
-  isInList
-} from '../../../lists'
-import ReactGA from 'react-ga'
-import {
-  FavoriteRecord,
-  FavoriteTags
-} from '../../../favorites'
-import Zotero from '../Zotero'
-
+import { TrimString, Icon } from "../../../core";
+import { RecommendedResource, RecordMetadata } from "../../../records";
+import { getDatastoreSlugByUid } from "../../../pride";
+import { getField, getFieldValue } from "../../utilities";
+import { AddToListButton, isInList } from "../../../lists";
+import ReactGA from "react-ga";
+import { FavoriteRecord, FavoriteTags } from "../../../favorites";
+import Zotero from "../Zotero";
 import {
   COLORS,
   MEDIA_QUERIES,
   SPACING
-} from '../../../reusable/umich-lib-core-temp'
-import ResourceAccess from '../../../resource-acccess'
+} from "../../../reusable/umich-lib-core-temp";
+import ResourceAccess from "../../../resource-acccess";
 
-const Header = ({
-  record,
-  datastoreUid,
-  searchQuery
-}) => {
-  const recordUid = getFieldValue(getField(record.fields, 'id'))[0]
+const Header = ({ record, datastoreUid, searchQuery }) => {
+  const recordUid = getFieldValue(getField(record.fields, "id"))[0];
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
-  const pictureField = getField(record.fields, 'picture')
-  let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${searchQuery}`
-  let recordHeaderClassName = 'record-title'
+  const pictureField = getField(record.fields, "picture");
+  let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${searchQuery}`;
+  let recordHeaderClassName = "record-title";
 
   // Special Library Website case
-  if (datastoreUid === 'website') {
-    const accessUrlField = getField(record.fields, 'access_url')
+  if (datastoreUid === "website") {
+    const accessUrlField = getField(record.fields, "access_url");
     if (accessUrlField) {
-      recordTitleLink = accessUrlField.value
+      recordTitleLink = accessUrlField.value;
     }
 
     if (pictureField) {
-      recordHeaderClassName = 'record-title record-person__header-has-picture '
+      recordHeaderClassName = "record-title record-person__header-has-picture ";
     }
   }
 
   return (
     <h3 className={recordHeaderClassName}>
       {pictureField && (
-        <img src={pictureField.value[0]} alt="" className="record-person__profile-picture" />
+        <img
+          src={pictureField.value[0]}
+          alt=""
+          className="record-person__profile-picture"
+        />
       )}
-      <span css={{
-        marginRight: SPACING['2XS'],
-        color: COLORS.neutral['300']
-      }}>{record.position + 1}.</span>
-      {datastoreUid !== 'website' ? (
+      <span
+        css={{
+          marginRight: SPACING["2XS"],
+          color: COLORS.neutral["300"]
+        }}
+      >
+        {record.position + 1}.
+      </span>
+      {datastoreUid !== "website" ? (
         <Link
           to={recordTitleLink}
           className="record-title-link"
           onClick={() => {
             ReactGA.event({
-              action: 'Click',
-              category: 'Medium View',
+              action: "Click",
+              category: "Medium View",
               label: `Full view from medium ${datastoreUid}`
-            })
+            });
           }}
         >
           {[].concat(record.names).map((title, index) => (
@@ -94,10 +79,10 @@ const Header = ({
             className="record-title-link"
             onClick={() => {
               ReactGA.event({
-                action: 'Click',
-                category: 'Medium View',
+                action: "Click",
+                category: "Medium View",
                 label: `Full view from medium ${datastoreUid}`
-              })
+              });
             }}
           >
             {[].concat(record.names).map((title, index) => (
@@ -111,20 +96,15 @@ const Header = ({
       )}
       <RecommendedResource record={record} />
     </h3>
-  )
-}
+  );
+};
 
 class Record extends React.Component {
   render() {
-    const { record, datastoreUid, type, searchQuery, institution, list } = this.props
-    const displayFields = filterDisplayFields({
-      fields: record.fields,
-      type: type,
-      datastore: datastoreUid
-    });
-    const recordUidField = getField(record.fields, 'id');
-    const inList = isInList(list, record.uid)
-    const recordClassName = inList ? 'record record--highlight' : 'record'
+    const { record, datastoreUid, searchQuery, list } = this.props;
+    const recordUidField = getField(record.fields, "id");
+    const inList = isInList(list, record.uid);
+    const recordClassName = inList ? "record record--highlight" : "record";
 
     if (recordUidField) {
       return (
@@ -136,38 +116,26 @@ class Record extends React.Component {
                 datastoreUid={datastoreUid}
                 searchQuery={searchQuery}
               />
-              <AddToListButton
-                item={record}
-              />
-              <FavoriteRecord
-                record={record}
-                datastore={datastoreUid}
-              />
+              <AddToListButton item={record} />
+              <FavoriteRecord record={record} datastore={datastoreUid} />
             </div>
             <Zotero record={record} />
-            <FavoriteTags
-              record={record}
-              datastore={datastoreUid}
-            />
-            <FieldList
-              fields={displayFields}
-              datastoreUid={datastoreUid}
-              institution={institution}
-            />
+            <FavoriteTags record={record} datastore={datastoreUid} />
+            <RecordMetadata record={record} />
           </div>
 
           <div
             css={{
               '[data-accordion-component="AccordionItemPanel"]': {
-                padding: `0 ${SPACING['M']}`
+                padding: `0 ${SPACING["M"]}`
               },
               [MEDIA_QUERIES.LARGESCREEN]: {
                 '[data-accordion-component="AccordionItemButton"]': {
-                  paddingLeft: '3rem'
+                  paddingLeft: "3rem"
                 },
                 '[data-accordion-component="AccordionItemPanel"]': {
-                  padding: `0 ${SPACING['M']}`,
-                  paddingLeft: '3rem'
+                  padding: `0 ${SPACING["M"]}`,
+                  paddingLeft: "3rem"
                 },
                 borderBottom: `solid 1px ${COLORS.neutral[100]}`
               }
@@ -177,10 +145,10 @@ class Record extends React.Component {
             <ResourceAccess record={record} />
           </div>
         </article>
-      )
+      );
     }
 
-    return null
+    return null;
   }
 }
 
