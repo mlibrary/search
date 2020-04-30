@@ -7,7 +7,8 @@ import {
   COLORS,
   Margins,
 } from "../../../reusable/umich-lib-core-temp";
-import { Button } from "../../../reusable/";
+import { Heading } from "@umich-lib/core";
+import { Button, Icon } from "../../../reusable/";
 
 function COVIDAlert() {
   const [dismissed, setDismissed] = useState(false);
@@ -22,20 +23,31 @@ function COVIDAlert() {
       <div
         css={{
           padding: SPACING["S"],
-          "* + *": {
-            marginBottom: SPACING["M"],
-          },
           background: COLORS.orange["100"],
           borderBottom: `solid 1px ${COLORS.orange["300"]}`,
-          color: COLORS.orange["500"],
+          paddingBottom: SPACING["L"],
           a: {
-            color: COLORS.orange["500"],
             textDecoration: "underline",
           },
         }}
         role="alert"
       >
         <Margins>
+          <Heading
+            level={2}
+            size="XL"
+            css={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Icon
+              icon="error"
+              size={24}
+              css={{ marginRight: SPACING["XS"], color: COLORS.orange["400"] }}
+            />
+            <span>Important message</span>
+          </Heading>
           <p>
             Physical items are not currently available for check-out. To
             restrict your search results to online resources only, check the
@@ -55,7 +67,13 @@ function COVIDAlert() {
             your U-M credentials.
           </p>
 
-          <Button onClick={() => setDismissed(true)} kind="secondary">
+          <Button
+            onClick={() => setDismissed(true)}
+            kind="secondary"
+            css={{
+              color: "inherit",
+            }}
+          >
             Dismiss this message
           </Button>
         </Margins>
