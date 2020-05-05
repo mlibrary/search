@@ -168,7 +168,7 @@ function Description({ data }) {
             alignItems: "center",
           }}
         >
-          <Icon icon={icon} size={16} />
+          <Icon icon={icon} size={19} />
         </span>
       )}
 

@@ -9,14 +9,14 @@ import {
   ExpandableProvider,
   ExpandableChildren,
   ExpandableButton,
-  Button
+  Button,
 } from "@umich-lib/core";
 import Icon from "../../reusable/components/Icon";
 
 const cell_padding = {
   paddingTop: SPACING["XS"],
   paddingBottom: SPACING["XS"],
-  paddingRight: SPACING["L"]
+  paddingRight: SPACING["L"],
 };
 
 export default function Holder({
@@ -32,9 +32,9 @@ export default function Holder({
     <div
       css={{
         a: {
-          textDecoration: "underline"
+          textDecoration: "underline",
         },
-        padding: `${SPACING["S"]} 0`
+        padding: `${SPACING["S"]} 0`,
       }}
       {...rest}
     >
@@ -45,7 +45,7 @@ export default function Holder({
             css={{
               color: COLORS.neutral["400"],
               display: "inline-block",
-              paddingBottom: SPACING["S"]
+              paddingBottom: SPACING["S"],
             }}
           >
             {captionLink.text}
@@ -58,7 +58,7 @@ export default function Holder({
         <Expandable>
           <div
             css={{
-              overflowX: "auto"
+              overflowX: "auto",
             }}
           >
             <table
@@ -66,7 +66,7 @@ export default function Holder({
                 width: "100%",
                 minWidth: "24rem",
                 textAlign: "left",
-                tableLayout: "fixed"
+                tableLayout: "fixed",
               }}
             >
               <thead>
@@ -80,7 +80,8 @@ export default function Holder({
                         color: COLORS.neutral["300"],
                         ...cell_padding,
                         borderBottom: `solid 2px ${COLORS.neutral["100"]}`,
-                        width: headings.length === 3 && i === 2 ? "50%" : "auto"
+                        width:
+                          headings.length === 3 && i === 2 ? "50%" : "auto",
                       }}
                     >
                       {heading}
@@ -116,14 +117,14 @@ function Notes({ notes }) {
         css={{
           display: "flex",
           alignItems: "center",
-          marginBottom: SPACING["S"]
+          marginBottom: SPACING["S"],
         }}
       >
         <span css={{ paddingRight: "0.25rem" }}>Location has:</span>
         {expanded ? (
-          <Icon d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" />
+          <Icon d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" size={19} />
         ) : (
-          <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+          <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={19} />
         )}
       </Button>
 
@@ -134,7 +135,7 @@ function Notes({ notes }) {
               key={note + i}
               css={{
                 paddingBottom: SPACING["XS"],
-                color: COLORS.neutral["300"]
+                color: COLORS.neutral["300"],
               }}
             >
               {note}
@@ -167,7 +168,7 @@ function HolderRows({ rows }) {
           colSpan={`${rows[0].length}`}
           css={{
             ...cell_padding,
-            wordBreak: "break-word"
+            wordBreak: "break-word",
           }}
         >
           <ExpandableButton kind="secondary" small count={rows.length} />
@@ -199,7 +200,7 @@ function HolderRows({ rows }) {
         ))}
       </ExpandableChildren>
       <ExpandableProvider>
-        {context => (
+        {(context) => (
           <React.Fragment>
             {context.expanded && (
               <React.Fragment>{renderExpandableButton()}</React.Fragment>
