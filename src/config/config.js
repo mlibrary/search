@@ -125,7 +125,6 @@ const config = {
         "series",
         "publication_date",
         "isn",
-        "contents_listing",
       ],
       defaultFields: ["all_fields", "title", "author"],
       filters: [
