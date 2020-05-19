@@ -59,7 +59,8 @@ function COVIDAlert() {
           </p>
 
           <p>
-            The HathiTrust Digital Library is offering Emergency Temporary
+            The HathiTrust Digital Library is offering U-M students, faculty, 
+            and staff Emergency Temporary
             Access to its digital copies of in-copyright works in our
             collection. In catalog search results, look for items marked "Full
             text available (HathiTrust log in required)." Or, go to{" "}
