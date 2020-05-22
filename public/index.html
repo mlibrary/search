@@ -2,25 +2,35 @@
 <html lang="en">
   <head>
     <title>U-M Library Search</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#00274C" />
-    <meta http-equiv="X-UA-Compatible" content="IE=11" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#00274C"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=11"/>
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico"/>
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700"
       rel="stylesheet"
-    />
+/>
+
+    <script
+      type="module"
+      src="https://unpkg.com/@umich-lib/components@latest/dist/umich-lib/umich-lib.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/@umich-lib/components@latest/dist/umich-lib/umich-lib.js"
+    ></script>
 
     <!-- Hotjar Tracking Code -->
     <script>
-      (function(h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function() {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 1553464, hjsv: 6 };
+      (function (h, o, t, j, a, r) {
+        h.hj = h.hj || function () {
+          (h.hj.q = h.hj.q || []).push(arguments);
+        };
+        h._hjSettings = {
+          hjid: 1553464,
+          hjsv: 6
+        };
         a = o.getElementsByTagName("head")[0];
         r = o.createElement("script");
         r.async = 1;
@@ -30,6 +40,7 @@
     </script>
   </head>
   <body class="site-min-width">
+    <m-universal-header mode="development"></m-universal-header>
     <div id="root">
       <style>
         @-webkit-keyframes placeHolderShimmer {
@@ -129,7 +140,7 @@
         .no-js__text {
           display: none;
           color: rgb(197, 59, 38);
-          margin: 0px;
+          margin: 0;
           padding: 8px 16px;
           border: 1px solid rgb(237, 93, 71);
           background: rgb(255, 234, 231);
@@ -246,5 +257,6 @@
         </div>
       </div>
     </div>
+    <m-chat></m-chat>
   </body>
 </html>
