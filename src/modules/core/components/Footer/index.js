@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Chat } from "@umich-lib/core";
-
 const footer_links = [
   {
     text: "Home",
