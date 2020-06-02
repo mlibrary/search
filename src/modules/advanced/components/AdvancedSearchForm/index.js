@@ -71,13 +71,13 @@ class AdvancedSearchForm extends React.Component {
 
     // Build the query
     // example: 'title:parrots AND author:charles'
-    const query = fieldedSearches.reduce((memo, fieldedSearch, index) => {
+    const query = fieldedSearches.reduce((memo, fieldedSearch) => {
       if (fieldedSearch.query.length) {
         if (memo.length > 0) {
           memo.push(booleanTypes[fieldedSearch.booleanType])
         }
 
-        memo.push(`${fieldedSearch.field}:${fieldedSearch.query}`)
+        memo.push(`${fieldedSearch.field}:(${fieldedSearch.query})`)
       }
 
       return memo
