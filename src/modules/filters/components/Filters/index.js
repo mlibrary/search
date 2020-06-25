@@ -374,7 +374,7 @@ function Filter({ value, count, url }) {
   );
 }
 
-function ShowAllFilters({ group, filters }) {
+function ShowAllFiltersModal({ group, filters }) {
   const [open, setOpen] = useState(false);
 
   const name = group.metadata.name;
