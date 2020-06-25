@@ -339,7 +339,9 @@ function FilterGroupFilters({ group, expanded, hidden = false, filters }) {
         ))}
       </ul>
 
-      <ShowAllFiltersModal group={group} filters={filters} />
+      {filters.length > 5 && (
+        <ShowAllFiltersModal group={group} filters={filters} />
+      )}
     </AccordionItemPanel>
   );
 }
