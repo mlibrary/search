@@ -51,7 +51,7 @@ function COVIDAlert() {
           <p>
             Physical items are not currently available for check-out. To
             restrict your search results to online resources only, check the
-            “Available online” filter box.{" "}
+            “Available online” filter box. For physical print materials at limited locations, U-M faculty, staff, and students can request to have a small portion scanned. {" "}
             <a href="https://guides.lib.umich.edu/c.php?g=914690&p=7402383">
               Read about access changes due to COVID-19
             </a>
