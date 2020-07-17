@@ -32,8 +32,8 @@ const config = {
       },
       {
         uid: "website",
-        name: "Library Website",
-        slug: "librarywebsite",
+        name: "Guides and More",
+        slug: "guidesandmore",
       },
       {
         uid: "everything",

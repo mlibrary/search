@@ -13,7 +13,7 @@ const Landing = ({ content, activeDatastore }) => {
       return (
         <div className="landing-container">
           <h1 className="landing-heading-text" aria-live="polite">Search <b>Everything</b> to see a broad sampling of results from across 'Library Search' and to explore specific areas and records in greater detail.</h1>
-          <p>You will see results from the <Link to={`/catalog`}>Catalog</Link>, <Link to={`/articlesplus`}>Articles</Link>, <Link to={`/databases`}>Databases</Link>, <Link to={`/onlinejournals`}>Online Journals</Link>, and <Link to={`/librarywebsite`}>Library Website</Link> pages.</p>
+          <p>You will see results from the <Link to={`/catalog`}>Catalog</Link>, <Link to={`/articlesplus`}>Articles</Link>, <Link to={`/databases`}>Databases</Link>, <Link to={`/onlinejournals`}>Online Journals</Link>, and <Link to={`/guidesandmore`}>Guides and More</Link> pages.</p>
           <p>Enter a search term in the search box to start your own Everything search.</p>
         </div>
       )
@@ -63,8 +63,8 @@ const Landing = ({ content, activeDatastore }) => {
     case 'website':
       return (
         <div className="landing-container">
-          <h1 className="landing-heading-text" aria-live="polite">Our <b>library website</b> is the place to learn about our services, spaces, and collections.</h1>
-          <p>Your results will include website pages, research guides, library staff, events, exhibits, news, and more.</p>
+          <h1 className="landing-heading-text" aria-live="polite"><b>Guides and more</b> is the place to learn about our services, spaces, and collections.</h1>
+          <p>Your results will include research guides, specialty sites, blogs and blogs posts, and online exhibits. Visit <a href="https://lib.umich.edu">lib.umich.edu</a> to search the library website, including library staff, current news, events, and physical exhibits.</p>
         </div>
       )
     default:
