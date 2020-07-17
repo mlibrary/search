@@ -1,94 +1,90 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from '@emotion/styled'
-import { Link } from 'react-router-dom'
-import {
-  COLORS,
-  SITE_WIDTH,
-  MEDIA_QUERIES
-} from '@umich-lib/core'
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
+import { COLORS, SITE_WIDTH, MEDIA_QUERIES } from "@umich-lib/core";
 
-import { ChooseAffiliation } from '../../../affiliation'
-import { useIsAuthenticated } from '../../../profile'
+import { ChooseAffiliation } from "../../../affiliation";
+import { useIsAuthenticated } from "../../../profile";
 
-const StyledHeader = styled('header')({
-  display: 'block',
+const StyledHeader = styled("header")({
+  display: "block",
   background: COLORS.brand.blue,
-  padding: '0.8rem 0'
-})
+  padding: "0.8rem 0",
+});
 
-const StyledHeaderInner = styled('div')({
-  margin: '0 auto',
-  padding: '0 1rem',
+const StyledHeaderInner = styled("div")({
+  margin: "0 auto",
+  padding: "0 1rem",
   maxWidth: SITE_WIDTH,
-  '> *:not(:last-child)': {
-    marginBottom: '1rem'
+  "> *:not(:last-child)": {
+    marginBottom: "1rem",
   },
   [MEDIA_QUERIES.LARGESCREEN]: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    '> *:not(:last-child)': {
-      marginBottom: '0'
-    }
-  }
-})
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    "> *:not(:last-child)": {
+      marginBottom: "0",
+    },
+  },
+});
 
-const StyledNav = styled('nav')({
+const StyledNav = styled("nav")({
   [MEDIA_QUERIES.LARGESCREEN]: {
-    marginLeft: '1rem'
-  }
-})
+    marginLeft: "1rem",
+  },
+});
 
-const StyledLogoNameContainer = styled('div')({
-  fontSize: '1.4rem',
-  lineHeight: '1',
-  marginRight: '1rem',
-  '> *:not(:last-child)': {
-    marginBottom: '0.5rem'
+const StyledLogoNameContainer = styled("div")({
+  fontSize: "1.4rem",
+  lineHeight: "1",
+  marginRight: "1rem",
+  "> *:not(:last-child)": {
+    marginBottom: "0.5rem",
   },
   [MEDIA_QUERIES.LARGESCREEN]: {
-    display: 'flex',
-    alignItems: 'center',
-    '> *:not(:last-child)': {
-      marginBottom: '0'
-    }
-  }
-})
+    display: "flex",
+    alignItems: "center",
+    "> *:not(:last-child)": {
+      marginBottom: "0",
+    },
+  },
+});
 
-const StyledLogoContainer = styled('div')({
-  display: 'flex',
-  alignItems: 'center'
-})
+const StyledLogoContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
+});
 
-const StyledNameContainer = styled('div')({
-  display: 'block'
-})
+const StyledNameContainer = styled("div")({
+  display: "block",
+});
 
-const StyledNavList = styled('ul')({
+const StyledNavList = styled("ul")({
   listStyle: "none",
-  padding: '0',
-  margin: '0',
-  'a': {
-    color: 'white',
-    textDecoration: 'none'
-  }
-})
+  padding: "0",
+  margin: "0",
+  a: {
+    color: "white",
+    textDecoration: "none",
+  },
+});
 
-const StyledNavListItem = styled('li')({
-  display: 'inline-block',
-  '&:not(:last-child)': {
-    marginRight: '1rem'
-  }
-})
+const StyledNavListItem = styled("li")({
+  display: "inline-block",
+  "&:not(:last-child)": {
+    marginRight: "1rem",
+  },
+});
 
 const UMichBlockM = () => (
   <svg
     viewBox="0 0 202 144"
     style={{
-      display: 'inherit',
-      height: '26px',
-      width: '37px'
+      display: "inherit",
+      height: "26px",
+      width: "37px",
     }}
   >
     <title>University of Michigan</title>
@@ -98,15 +94,15 @@ const UMichBlockM = () => (
       </g>
     </g>
   </svg>
-)
+);
 
 const UMichLibrary = () => (
   <svg
     viewBox="0 0 715 144"
     style={{
-      display: 'inherit',
-      height: '26px',
-      width: '130px'
+      display: "inherit",
+      height: "26px",
+      width: "130px",
     }}
   >
     <title>Library</title>
@@ -122,62 +118,62 @@ const UMichLibrary = () => (
       </g>
     </g>
   </svg>
-)
+);
 
-const NavItem = ({
-  item,
-  renderAnchor
-}) => {
+const NavItem = ({ item, renderAnchor }) => {
   if (item.href) {
-    return (
-      <a href={item.href}>{ item.text }</a>
-    )
+    return <a href={item.href}>{item.text}</a>;
   }
 
   if (item.to) {
-    return (
-      renderAnchor(item)
-    )
+    return renderAnchor(item);
   }
-}
+};
 
 /**
   Keep your header as simple as possible. Use a header for critical navigation elements.
 */
-const Header = ({
-  name,
-  siteUrl,
-  nav,
-  renderAnchor,
-  className
-}) => {
-  const isAuthenticated = useIsAuthenticated()
+const Header = ({ name, siteUrl, nav, renderAnchor, className }) => {
+  const isAuthenticated = useIsAuthenticated();
 
   return (
     <StyledHeader className={className}>
       <StyledHeaderInner data-inner-container>
         <StyledLogoNameContainer>
           <StyledLogoContainer>
-            <a href="https://umich.edu/"><UMichBlockM className="logo__svg" /></a>
             <a
               href="https://www.lib.umich.edu/"
               style={{
-                marginLeft: '0.5rem',
-                paddingLeft: '0.5rem',
-                borderLeft: 'solid 1px white',
-                marginRight: '0.5rem'
+                display: "flex",
+                alignItems: "center",
               }}
-            ><UMichLibrary className="logo__svg" /></a>
+            >
+              <span>
+                <UMichBlockM className="logo__svg" />
+              </span>
+              <span
+                style={{
+                  marginLeft: "0.5rem",
+                  paddingLeft: "0.5rem",
+                  borderLeft: "solid 1px white",
+                  marginRight: "0.5rem",
+                }}
+              >
+                <UMichLibrary className="logo__svg" />
+              </span>
+            </a>
           </StyledLogoContainer>
           {name && siteUrl && (
             <StyledNameContainer>
               <Link
                 to={siteUrl}
                 style={{
-                  color: 'white',
-                  textDecoration: 'none'
+                  color: "white",
+                  textDecoration: "none",
                 }}
-              >{name}</Link>
+              >
+                {name}
+              </Link>
             </StyledNameContainer>
           )}
         </StyledLogoNameContainer>
@@ -187,10 +183,7 @@ const Header = ({
             <StyledNavList>
               {nav.map((item, key) => (
                 <StyledNavListItem key={key}>
-                  <NavItem
-                    item={item} 
-                    renderAnchor={renderAnchor}
-                  />
+                  <NavItem item={item} renderAnchor={renderAnchor} />
                 </StyledNavListItem>
               ))}
               {isAuthenticated === false && (
@@ -203,8 +196,8 @@ const Header = ({
         )}
       </StyledHeaderInner>
     </StyledHeader>
-  )
-}
+  );
+};
 
 Header.propTypes = {
   /**
@@ -222,11 +215,11 @@ Header.propTypes = {
   /**
     A render prop to handle the nav object `to` prop.
   */
-  renderAnchor: PropTypes.func
+  renderAnchor: PropTypes.func,
 };
 
 Header.defaultProps = {
-  siteUrl: '/',
+  siteUrl: "/",
 };
 
-export default Header
+export default Header;
