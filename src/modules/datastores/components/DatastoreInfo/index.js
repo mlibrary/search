@@ -6,7 +6,7 @@ const DatastoreInfo = ({ activeDatastore }) => {
     case 'everything':
       return (
         <div className="datastore-info">
-          <h1><b>Everything</b>: results from the Catalog, Articles, Databases, Online Journals, and Library Website pages.</h1>
+          <h1><b>Everything</b>: results from the Catalog, Articles, Databases, Online Journals, and Guides and More pages.</h1>
         </div>
       )
     case 'mirlyn':
@@ -36,7 +36,7 @@ const DatastoreInfo = ({ activeDatastore }) => {
     case 'website':
       return (
         <div className="datastore-info">
-          <h1><b>Library Website</b>: the place to learn about our services, spaces, and collections. Your results will include research guides, library staff, events, exhibits, news, and more.</h1>
+          <h1><b>Guides and More</b>: the place to learn about our services, spaces, and collections. Your results will include research guides, specialty sites, blogs and blogs posts, and online exhibits. Visit <a href="https://lib.umich.edu">lib.umich.edu</a> to search the library website, including library staff, current news, events, and physical exhibits.</h1>
         </div>
       )
     default:

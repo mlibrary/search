@@ -16,7 +16,8 @@ const footer_links = [
   },
   {
     text: "Get research help",
-    href: "https://www.lib.umich.edu/get-research-help",
+    href:
+      "https://lib.umich.edu/research-and-scholarship/help-research/how-we-can-help",
   },
   {
     text: "Technical overview",
@@ -71,7 +72,7 @@ const Footer = () => {
         <p>
           ©2018 Regents of the University of Michigan. For details and
           exceptions, see the{" "}
-          <a href="https://www.lib.umich.edu/library-administration/library-copyright-statement">
+          <a href="https://lib.umich.edu/about-us/policies/copyright-policy">
             Copyright Policy
           </a>
           .

@@ -35,7 +35,7 @@ const DatastoreInfo = ({ activeDatastore }) => {
     case 'website':
       return (
         <div className="alert datastore-info">
-          <p><b>Library Website</b>: the place to learn about our services, spaces, and collections. Your results will include website pages, events, exhibits, news, and more.</p>
+          <p><b>Guides and more</b>: the place to learn about our services, spaces, and collections. Your results will include research guides, specialty sites, blogs and blogs posts, and online exhibits. Visit <a href="https://lib.umich.edu">lib.umich.edu</a> to search the library website, including library staff, current news, events, and physical exhibits.</p>
         </div>
       )
     default:
