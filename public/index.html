@@ -2,15 +2,15 @@
 <html lang="en">
   <head>
     <title>U-M Library Search</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="theme-color" content="#00274C"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#00274C" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700|Crimson+Text|Muli:400,600,700"
       rel="stylesheet"
-/>
+    />
     <script
       type="module"
       src="https://unpkg.com/@umich-lib/components@latest/dist/umich-lib/umich-lib.esm.js"
@@ -19,16 +19,34 @@
       nomodule
       src="https://unpkg.com/@umich-lib/components@latest/dist/umich-lib/umich-lib.js"
     ></script>
-
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          "gtm.start": new Date().getTime(),
+          event: "gtm.js",
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-5KZ8T2S");
+    </script>
+    <!-- End Google Tag Manager -->
     <!-- Hotjar Tracking Code -->
     <script>
       (function (h, o, t, j, a, r) {
-        h.hj = h.hj || function () {
-          (h.hj.q = h.hj.q || []).push(arguments);
-        };
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
         h._hjSettings = {
           hjid: 1553464,
-          hjsv: 6
+          hjsv: 6,
         };
         a = o.getElementsByTagName("head")[0];
         r = o.createElement("script");
@@ -39,6 +57,16 @@
     </script>
   </head>
   <body class="site-min-width">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5KZ8T2S"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden;"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <m-universal-header mode="development"></m-universal-header>
     <div id="root">
       <style>
