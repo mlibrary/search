@@ -76,6 +76,13 @@ class App extends React.Component {
               <ScrollToTop>
                 <Main>
                   <ConnectedSwitch>
+                    <Route path="/librarywebsite" render={({location}) => (
+                      <Redirect 
+                      to={{
+                          ...location,
+                          pathname: location.pathname.replace(/librarywebsite/, 'guidesandmore'),
+                      }} />
+                    )} />
                     <Route path="/technical-overview" exact component={TechnicalOverview}/>
                     <Route path="/accessibility" exact component={AccessibilityPage}/>
                     <Route path="/" exact render={() => (
