@@ -5,8 +5,8 @@ import styled from "@emotion/styled";
 
 const StyledFieldSet = styled("fieldset")({
   [MEDIA_QUERIES.LARGESCREEN]: {
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 
 const Dropdown = ({
@@ -15,17 +15,17 @@ const Dropdown = ({
   options,
   selectedOption,
   handleOnFieldChange,
-  multiple
+  multiple,
 }) => (
   <select
     aria-label={labelText ? labelText : "dropdown"}
     className="dropdown advanced-field-select"
     value={selectedOption}
     multiple={multiple ? multiple : false}
-    onChange={event =>
+    onChange={(event) =>
       handleOnFieldChange({
         fieldedSearchIndex,
-        selectedFieldUid: event.target.value
+        selectedFieldUid: event.target.value,
       })
     }
   >
@@ -42,21 +42,22 @@ const FieldInput = ({
   fieldedSearch,
   fields,
   handleFieldedSearchChange,
-  handleRemoveFieldedSearch
+  handleRemoveFieldedSearch,
 }) => (
   <StyledFieldSet className="y-spacing">
     <legend className="offpage">Search field {fieldedSearchIndex + 1}</legend>
     {fieldedSearchIndex === 0 ? null : (
       <MultipleChoice
         name={`search-field-${fieldedSearchIndex}-booleans`}
-        heading={`Boolean operator for field ${fieldedSearchIndex} and field ${fieldedSearchIndex +
-          1}`}
+        heading={`Boolean operator for field ${fieldedSearchIndex} and field ${
+          fieldedSearchIndex + 1
+        }`}
         options={["AND", "OR", "NOT"]}
         selectedIndex={fieldedSearch.booleanType}
         onMultipleChoiceChange={({ index }) =>
           handleFieldedSearchChange({
             fieldedSearchIndex,
-            booleanType: index
+            booleanType: index,
           })
         }
       />
@@ -76,11 +77,11 @@ const FieldInput = ({
           value={fieldedSearch.query}
           labelText={`Search Term ${fieldedSearchIndex + 1}`}
           hideLabel
-          data-hj-whitelist
-          onChange={event =>
+          data-hj-allow
+          onChange={(event) =>
             handleFieldedSearchChange({
               fieldedSearchIndex,
-              query: event.target.value
+              query: event.target.value,
             })
           }
         />

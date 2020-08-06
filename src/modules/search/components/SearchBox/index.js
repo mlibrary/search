@@ -40,13 +40,13 @@ class SearchBox extends React.Component {
       activeFilters,
       institution,
       sort,
-      activeDatastore
+      activeDatastore,
     } = this.props;
 
     ReactGA.event({
       action: "Click",
       category: "Search Button",
-      label: `Search ${activeDatastore.name}`
+      label: `Search ${activeDatastore.name}`,
     });
 
     const library =
@@ -59,13 +59,13 @@ class SearchBox extends React.Component {
           query: queryInput,
           filter: activeFilters,
           library,
-          sort
+          sort,
         },
         {
           arrayFormat: "repeat",
           encodeValuesOnly: true,
           allowDots: true,
-          format: "RFC1738"
+          format: "RFC1738",
         }
       );
 
@@ -81,7 +81,7 @@ class SearchBox extends React.Component {
       location,
       queryInput,
       isAdvanced,
-      activeDatastore
+      activeDatastore,
     } = this.props;
 
     return (
@@ -101,8 +101,8 @@ class SearchBox extends React.Component {
                 aria-label="search text"
                 value={queryInput}
                 spellCheck="false"
-                data-hj-whitelist
-                onChange={event => this.handleChange(event.target.value)}
+                data-hj-allow
+                onChange={(event) => this.handleChange(event.target.value)}
               />
               <button className="button search-box-button" type="submit">
                 <Icon name="search" />
@@ -136,13 +136,13 @@ function mapStateToProps(state) {
     queryInput: state.search.queryInput,
     activeFilters: state.filters.active[state.datastores.active],
     activeDatastore: _.findWhere(state.datastores.datastores, {
-      uid: state.datastores.active
+      uid: state.datastores.active,
     }),
     location: state.router.location,
     isAdvanced: state.advanced[state.datastores.active] ? true : false,
     institution: state.institution,
     datastores: state.datastores,
-    sort: state.search.sort[state.datastores.active]
+    sort: state.search.sort[state.datastores.active],
   };
 }
 
@@ -150,7 +150,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       setSearchQueryInput,
-      searching
+      searching,
     },
     dispatch
   );
