@@ -49,23 +49,10 @@ function COVIDAlert() {
             <span>Important message</span>
           </Heading>
           <p>
-            Physical items are not currently available for check-out. To
-            restrict your search results to online resources only, check the
-            “Available online” filter box. For physical print materials at limited locations, U-M faculty, staff, and students can request to have a small portion scanned. {" "}
-            <a href="https://guides.lib.umich.edu/c.php?g=914690&p=7402383">
-              Read about access changes due to COVID-19
-            </a>
-            .
-          </p>
-
-          <p>
-            The HathiTrust Digital Library is offering U-M students, faculty, 
-            and staff Emergency Temporary
-            Access to its digital copies of in-copyright works in our
-            collection. In catalog search results, look for items marked "Full
-            text available (HathiTrust log in required)." Or, go to{" "}
-            <a href="https://www.hathitrust.org">HathiTrust</a> and log in with
-            your U-M credentials.
+	    Log in to view Get This options for items in our catalog while
+	    building access is limited. <a
+	    href="https://guides.lib.umich.edu/c.php?g=914690&p=7402383">Learn
+	    more about access changes due to COVID-19</a>.
           </p>
 
           <Button
