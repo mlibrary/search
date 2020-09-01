@@ -52,3 +52,22 @@ jobs:
           asset_path: ./search-production.tar.gz
           asset_name: search-production.tar.gz
           asset_content_type: application/gzip
+
+      - name: Clean
+        run: rm -rf build
+      - name: Build
+        run: npm run build
+        env:
+          REACT_APP_LOGIN_BASE_URL: http://127.0.0.1:3000
+          REACT_APP_SPECTRUM_BASE_URL: http://127.0.0.1:3000/spectrum
+      - name: Package
+        run: tar -C build --transform s/./search/ -czf search-local.tar.gz .
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./search-local.tar.gz
+          asset_name: search-local.tar.gz
+          asset_content_type: application/gzip
