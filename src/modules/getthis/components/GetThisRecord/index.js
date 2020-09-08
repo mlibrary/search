@@ -80,14 +80,21 @@ function GetBarcode({ barcode }) {
       <section className="record-container">
         <p
           css={{
-            fontFamily: `Source Sans Pro`,
             fontSize: `1rem`,
-            color: `#637381`,
             marginTop: `0`,
             marginBottom: `0`,
+            fontWeight: 600,
           }}
         >
-          Barcode: {barcode}
+          Barcode:{" "}
+          <span
+            css={{
+              color: `#637381`,
+              fontWeight: 400,
+            }}
+          >
+            {barcode}
+          </span>
         </p>
       </section>
     );
