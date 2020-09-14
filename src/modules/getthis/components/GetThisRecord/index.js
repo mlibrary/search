@@ -17,6 +17,7 @@ import {
   Hide the first column on the Get This page. No need for users to
   use "Get this" link when they're already at the Get This page.
 */
+
 const StyledGetThisResourceAccessContainer = styled("div")({
   "td:first-of-type": {
     display: "none",
@@ -73,6 +74,34 @@ function GetThisHolding({ record, barcode }) {
   return null;
 }
 
+function GetBarcode({ barcode }) {
+  if (barcode) {
+    return (
+      <section className="record-container">
+        <p
+          css={{
+            fontSize: `1rem`,
+            marginTop: `0`,
+            marginBottom: `0`,
+            fontWeight: 600,
+          }}
+        >
+          Barcode:{" "}
+          <span
+            css={{
+              color: `#637381`,
+              fontWeight: 400,
+            }}
+          >
+            {barcode}
+          </span>
+        </p>
+      </section>
+    );
+  }
+  return null;
+}
+
 class GetThisRecord extends React.Component {
   render() {
     const { record, barcode } = this.props;
@@ -95,6 +124,7 @@ class GetThisRecord extends React.Component {
         </div>
 
         <GetThisHolding record={record} barcode={barcode} />
+        <GetBarcode barcode={barcode} />
       </div>
     );
   }
