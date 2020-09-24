@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import numeral from "numeral";
 
 import { Modal, Icon } from "../../../reusable";
+import { MEDIA_QUERIES } from "../../../reusable/umich-lib-core-temp";
 
 import {
   Accordion,
@@ -299,11 +300,11 @@ function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
                       d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
                     />
                   ) : (
-                      <Icon
-                        size={24}
-                        d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                      />
-                    )}
+                    <Icon
+                      size={24}
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                    />
+                  )}
                 </span>
               </AccordionItemButton>
             </AccordionItemHeading>
@@ -424,8 +425,11 @@ function ShowAllFiltersModal({ group, filters }) {
             css={{
               listStyle: "none",
               maxHeight: "calc(100% - 150px)",
-              maxWidth: "28rem",
               marginLeft: "0",
+              maxWidth: "18rem",
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                maxWidth: "28rem",
+              },
             }}
           >
             {filters.map((f, i) => (
@@ -434,7 +438,6 @@ function ShowAllFiltersModal({ group, filters }) {
               </li>
             ))}
           </ul>
-
         </Modal>
       )}
     </React.Fragment>
