@@ -299,11 +299,11 @@ function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
                       d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
                     />
                   ) : (
-                    <Icon
-                      size={24}
-                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                    />
-                  )}
+                      <Icon
+                        size={24}
+                        d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      />
+                    )}
                 </span>
               </AccordionItemButton>
             </AccordionItemHeading>
@@ -391,17 +391,11 @@ function ShowAllFiltersModal({ group, filters }) {
         }}
         onClick={() => setOpen(true)}
       >
-        Show all {numeral(filters.length).format(0, 0)} {name + " filters"}
+        Show {numeral(filters.length).format(0, 0)} {name + " filters"}
       </Button>
 
       {open && (
-        <Modal
-          isOpen={open}
-          onRequestClose={() => setOpen(false)}
-          css={{
-            maxWidth: "22rem",
-          }}
-        >
+        <Modal isOpen={open} onRequestClose={() => setOpen(false)}>
           <Button
             kind="secondary"
             onClick={() => setOpen(false)}
@@ -423,13 +417,15 @@ function ShowAllFiltersModal({ group, filters }) {
               marginRight: "4rem",
             }}
           >
-            All {filters.length} {name} filters
+            Showing {filters.length} {name} filters
           </Heading>
 
           <ul
             css={{
               listStyle: "none",
-              margin: "0",
+              maxHeight: "calc(100% - 150px)",
+              maxWidth: "28rem",
+              marginLeft: "0",
             }}
           >
             {filters.map((f, i) => (
@@ -438,6 +434,7 @@ function ShowAllFiltersModal({ group, filters }) {
               </li>
             ))}
           </ul>
+
         </Modal>
       )}
     </React.Fragment>
