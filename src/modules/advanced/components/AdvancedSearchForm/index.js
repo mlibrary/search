@@ -77,11 +77,11 @@ class AdvancedSearchForm extends React.Component {
           // Listed hard-coded fields should have a parentheses
           // TODO: remove after query parser update
           if (
-            fieldedSearch.field == "all_fields" ||
-            fieldedSearch.field == "author" ||
-            fieldedSearch.field == "title" ||
-            fieldedSearch.field == "subject" ||
-            (fieldedSearch.field == "series" && datastore.uid == "mirlyn")
+            fieldedSearch.field === "all_fields" ||
+            fieldedSearch.field === "author" ||
+            fieldedSearch.field === "title" ||
+            fieldedSearch.field === "subject" ||
+            (fieldedSearch.field === "series" && datastore.uid === "mirlyn")
           ) {
             memo.push(`${fieldedSearch.field}:(${fieldedSearch.query})`);
           } else {
