@@ -192,7 +192,7 @@ function Description({ data }) {
           />
         </div>
       ) : (
-        <>{text}</>
+        <React.Fragment>{text}</React.Fragment>
       )}
     </DescriptionItem>
   );
