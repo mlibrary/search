@@ -326,12 +326,12 @@ const runSearch = () => {
   const sort = state.search.sort[state.datastores.active]
   let fieldTree
 
-  if (query === '*') {
-    fieldTree = {} // search all
-  } else {
-    fieldTree = Pride.FieldTree.parseField('all_fields', query)
-  }
-
+  // if (query === '*') {
+  //   fieldTree = {} // search all
+  // } else {
+  //   fieldTree = Pride.FieldTree.parseField('all_fields', query)
+  // }
+  fieldTree = {'query': query}
   // Inject library/institution filter with facets.
   // The backend whitelists facets, so 
   // the FE can always includes the institution in
