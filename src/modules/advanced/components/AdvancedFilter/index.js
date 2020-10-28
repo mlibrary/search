@@ -27,17 +27,17 @@ const getDateRangeValue = ({ beginDateQuery, endDateQuery, selectedRange }) => {
       if (!endDateQuery) {
         return undefined
       }
-      return `before${endDateQuery}`
+      return `before ${endDateQuery}`
     case 'After':
       if (!beginDateQuery) {
         return undefined
       }
-      return `after${beginDateQuery}`
+      return `after ${beginDateQuery}`
     case 'Between':
       if (!beginDateQuery || !endDateQuery) {
         return undefined
       }
-      return `${beginDateQuery}to${endDateQuery}`
+      return `${beginDateQuery} to ${endDateQuery}`
     case 'In':
       if (!beginDateQuery) {
         return undefined
