@@ -347,6 +347,7 @@ const runSearch = () => {
 
   const prideConfig = {
     field_tree: fieldTree,
+    raw_query: query,
     page,
     facets,
     sort,
