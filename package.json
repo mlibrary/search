@@ -27,7 +27,7 @@
     "numeral": "^2.0.4",
     "object-path": "^0.11.5",
     "prejudice": "git://github.com/mlibrary/prejudice.git",
-    "pride": "git://github.com/mlibrary/pride.git",
+    "pride": "git://github.com/mlibrary/pride.git#parser_test_1",
     "prop-types": "^15.7.2",
     "qs": "^6.9.0",
     "react": "^16.13.1",
