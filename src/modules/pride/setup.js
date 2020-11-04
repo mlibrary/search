@@ -76,6 +76,10 @@ Pride.Settings.datastores_url = config.spectrum
 Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = false; // Console log messages
 
+Pride.Messenger.addObserver(function(msg) { console.log(['info', msg]); }, 'info');
+Pride.Messenger.addObserver(function(msg) { console.log(['warning', msg]); }, 'warning');
+Pride.Messenger.addObserver(function(msg) { console.log(['error', msg]); }, 'error');
+
 let searchSwitcher;
 
 const handleSearchData = (data, datastoreUid) => {
