@@ -31,9 +31,9 @@
 }
 @media screen and (min-width: 680px) {
   .Modal__Content {
-    max-height: calc(100% - 100px);
+    max-height: calc(100% - 150px);
     position: fixed;
-    top: 14vh;
+    top: 12vh;
     left: 50%;
     transform: translate(-50%, 0);
     width: 100%;

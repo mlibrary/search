@@ -300,11 +300,11 @@ function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
                       d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
                     />
                   ) : (
-                    <Icon
-                      size={24}
-                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                    />
-                  )}
+                      <Icon
+                        size={24}
+                        d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      />
+                    )}
                 </span>
               </AccordionItemButton>
             </AccordionItemHeading>
@@ -410,7 +410,9 @@ function ShowAllFiltersModal({ group, filters }) {
             }}
           >
             Dismiss
+            <Icon icon="close" size={24} />
           </Button>
+
           <Heading
             size="large"
             css={{
@@ -420,13 +422,17 @@ function ShowAllFiltersModal({ group, filters }) {
           >
             Showing {filters.length} {name} filters
           </Heading>
-
+      
           <ul
             css={{
               listStyle: "none",
-              maxHeight: "calc(100% - 150px)",
+              height: "20rem",
+              overflow: "scroll",
               marginLeft: "0",
-              maxWidth: "18rem",
+              marginBottom: "1em",
+              maxWidth: "14rem",
+              border: "1px solid #d6d2d2",
+              padding: ".5em",
               [MEDIA_QUERIES.LARGESCREEN]: {
                 maxWidth: "28rem",
               },
@@ -438,6 +444,29 @@ function ShowAllFiltersModal({ group, filters }) {
               </li>
             ))}
           </ul>
+          <section
+            css={{
+              textAlign: "center",
+              border: "1px solid #126DC1",
+              borderRadius: "4px",
+              padding: ".25em",
+              color: "#126DC1",
+              width: "20rem",
+              margin: "0 auto"
+            }}
+          >
+            
+            <p
+              css={{
+                display: "inline"
+              }}>
+              <span css={{
+                fontWeight: "bold"
+              }}>scroll</span> or <span css={{
+                fontWeight: "bold"
+              }}>tab</span> to view additional filters
+              </p>
+          </section>
         </Modal>
       )}
     </React.Fragment>
