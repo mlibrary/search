@@ -460,9 +460,10 @@ function ShowAllFiltersModal({ group, filters }) {
               css={{
                 display: "inline"
               }}>
+              <Icon icon="arrow_downward" size={24} />
               <span css={{
                 fontWeight: "bold"
-              }}>scroll</span> or <span css={{
+              }}> scroll</span> or <span css={{
                 fontWeight: "bold"
               }}>tab</span> to view additional filters
               </p>
