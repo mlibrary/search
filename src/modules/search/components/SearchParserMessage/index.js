@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import React, { useState } from "react";
+import store from "./../../../../store";
+import { setParserMessage } from "../../../search";
 import { useSelector } from "react-redux";
 import { Modal } from "../../../reusable";
 import { Button, Heading, Alert } from "@umich-lib/core";
@@ -8,14 +9,18 @@ import { SPACING } from "../../../reusable/umich-lib-core-temp";
 
 export default function SearchParserMessage() {
   const { parserMessage } = useSelector((state) => state.search);
-  const [open, setOpen] = useState(true);
+  const isOpen = parserMessage !== null;
 
-  if (!parserMessage) {
+  if (!isOpen) {
     return null;
   }
 
+  const handleDismiss = () => {
+    store.dispatch(setParserMessage(null));
+  };
+
   return (
-    <Modal isOpen={open} onRequestClose={() => setOpen(false)}>
+    <Modal isOpen={isOpen} onRequestClose={handleDismiss}>
       <div
         css={{
           maxWidth: "32rem",
@@ -23,7 +28,7 @@ export default function SearchParserMessage() {
       >
         <Button
           kind="secondary"
-          onClick={() => setOpen(false)}
+          onClick={handleDismiss}
           small
           css={{
             position: "fixed",
@@ -42,7 +47,7 @@ export default function SearchParserMessage() {
             marginRight: "4rem",
           }}
         >
-          Query Parser Message
+          Query parser message
         </Heading>
         <div
           css={{
@@ -65,7 +70,7 @@ export default function SearchParserMessage() {
           </Alert>
         </div>
 
-        <Button onClick={() => setOpen(false)}>Okay</Button>
+        <Button onClick={handleDismiss}>Okay</Button>
       </div>
     </Modal>
   );
