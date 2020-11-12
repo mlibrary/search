@@ -24,6 +24,7 @@
 */
 .Modal__Content {
   background: white;
+  max-width: 100%;
   padding: 1.5rem;
   overflow: auto;
   height: 100%;
@@ -31,7 +32,7 @@
 }
 @media screen and (min-width: 680px) {
   .Modal__Content {
-    max-height: calc(100% - 150px);
+    max-height: calc(100% - 50px);
     position: fixed;
     top: 12vh;
     left: 50%;

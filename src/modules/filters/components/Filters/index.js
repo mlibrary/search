@@ -426,15 +426,21 @@ function ShowAllFiltersModal({ group, filters }) {
           <ul
             css={{
               listStyle: "none",
-              height: "20rem",
-              overflow: "scroll",
               marginLeft: "0",
               marginBottom: "1em",
-              maxWidth: "14rem",
+              maxWidth: "80vw",
               border: "1px solid #d6d2d2",
               padding: ".5em",
+[             MEDIA_QUERIES.SMALLSCREEN]: {
+                maxWidth: "60vw",
+                border: "none"
+              },
+              
               [MEDIA_QUERIES.LARGESCREEN]: {
-                maxWidth: "28rem",
+                
+                maxHeight: "40vh",
+                height: "20rem",
+                overflow: "scroll",
               },
             }}
           >
@@ -452,7 +458,11 @@ function ShowAllFiltersModal({ group, filters }) {
               padding: ".25em",
               color: "#126DC1",
               width: "20rem",
-              margin: "0 auto"
+              margin: "0 auto",
+              display: 'none',
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                display: "block"
+              },
             }}
           >
             

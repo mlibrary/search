@@ -21,6 +21,8 @@ export const BREAKPOINTS = {
 };
 
 export const MEDIA_QUERIES = {
+  
+  SMALLSCREEN: `@media only screen and (max-width: ${BREAKPOINTS.SMALLSCREEN}px)`,
   LARGESCREEN: `@media only screen and (min-width: ${BREAKPOINTS.LARGESCREEN}px)`,
   PRINT: "@media print"
 };
