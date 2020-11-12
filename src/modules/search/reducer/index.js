@@ -1,4 +1,4 @@
-import * as actions from '../actions/';
+import * as actions from "../actions/";
 
 const initialState = {
   searching: false,
@@ -6,8 +6,8 @@ const initialState = {
   queryInput: "",
   data: null,
   page: {},
-  sort: {}
-}
+  sort: {},
+};
 
 const searchReducer = function searchReducer(state = initialState, action) {
   switch (action.type) {
@@ -27,14 +27,14 @@ const searchReducer = function searchReducer(state = initialState, action) {
       return Object.assign({}, state, {
         data: {
           ...state.data,
-          [action.payload.datastoreUid]: action.payload.data
+          [action.payload.datastoreUid]: action.payload.data,
         },
       });
     case actions.SET_PAGE:
       return Object.assign({}, state, {
         page: {
           ...state.page,
-          [action.payload.datastoreUid]: action.payload.page
+          [action.payload.datastoreUid]: action.payload.page,
         },
       });
     case actions.CLEAR_SEARCH:
@@ -42,19 +42,21 @@ const searchReducer = function searchReducer(state = initialState, action) {
     case actions.RESET_SORT:
       return {
         ...state,
-        sort: {}
-      }
+        sort: {},
+      };
     case actions.SET_SORT:
       return {
         ...state,
         sort: {
           ...state.sort,
-          [action.payload.datastoreUid]: action.payload.sort
-        }
-      }
+          [action.payload.datastoreUid]: action.payload.sort,
+        },
+      };
     default:
+      //console.log("Search reducer action", action);
+
       return state;
   }
-}
+};
 
-export default searchReducer
+export default searchReducer;
