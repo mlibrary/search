@@ -3,8 +3,8 @@ import { jsx } from "@emotion/core";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Modal } from "../../../reusable";
-import { Button, Heading, Alert, Text } from "@umich-lib/core";
-import { COLORS, SPACING } from "../../../reusable/umich-lib-core-temp";
+import { Button, Heading, Alert } from "@umich-lib/core";
+import { SPACING } from "../../../reusable/umich-lib-core-temp";
 
 export default function SearchParserMessage() {
   const { parserMessage } = useSelector((state) => state.search);
@@ -52,14 +52,18 @@ export default function SearchParserMessage() {
           }}
         >
           <Alert>
-            <strong
-              css={{
-                fontWeight: "600",
-              }}
-            >
-              {parserMessage.class}:{" "}
-            </strong>
-            {parserMessage.summary}
+            <p>
+              <strong
+                css={{
+                  fontWeight: "600",
+                }}
+              >
+                {parserMessage.class}:{" "}
+              </strong>
+              {parserMessage.summary}
+            </p>
+
+            <p>{parserMessage.details}</p>
           </Alert>
         </div>
 
