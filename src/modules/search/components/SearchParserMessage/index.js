@@ -10,8 +10,6 @@ export default function SearchParserMessage() {
   const { parserMessage } = useSelector((state) => state.search);
   const [open, setOpen] = useState(true);
 
-  console.log("parserMessage", parserMessage);
-
   if (!parserMessage) {
     return null;
   }
