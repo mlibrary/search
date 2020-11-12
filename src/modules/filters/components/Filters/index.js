@@ -428,7 +428,7 @@ function ShowAllFiltersModal({ group, filters }) {
               listStyle: "none",
               marginLeft: "0",
               marginBottom: "1em",
-              maxWidth: "75vw",
+              maxWidth: "70vw",
               border: "1px solid #d6d2d2",
               padding: ".5em",
 [             MEDIA_QUERIES.SMALLSCREEN]: {
