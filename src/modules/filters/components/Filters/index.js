@@ -428,16 +428,14 @@ function ShowAllFiltersModal({ group, filters }) {
               listStyle: "none",
               marginLeft: "0",
               marginBottom: "1em",
-              maxWidth: "80vw",
+              maxWidth: "75vw",
               border: "1px solid #d6d2d2",
               padding: ".5em",
 [             MEDIA_QUERIES.SMALLSCREEN]: {
                 maxWidth: "60vw",
                 border: "none"
               },
-              
               [MEDIA_QUERIES.LARGESCREEN]: {
-                
                 maxHeight: "40vh",
                 height: "20rem",
                 overflow: "scroll",
