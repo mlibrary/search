@@ -7,6 +7,7 @@ const initialState = {
   data: null,
   page: {},
   sort: {},
+  parserMessage: null,
 };
 
 const searchReducer = function searchReducer(state = initialState, action) {
@@ -52,6 +53,12 @@ const searchReducer = function searchReducer(state = initialState, action) {
           [action.payload.datastoreUid]: action.payload.sort,
         },
       };
+    case actions.SET_PARSER_MESSAGE: {
+      return {
+        ...state,
+        parserMessage: action.payload,
+      };
+    }
     default:
       //console.log("Search reducer action", action);
 
