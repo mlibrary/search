@@ -49,10 +49,7 @@ function COVIDAlert() {
             <span>Important message</span>
           </Heading>
           <p>
-	    Log in to view Get This options for items in our catalog while
-	    building access is limited. <a
-	    href="https://guides.lib.umich.edu/c.php?g=914690&p=7402383">Learn
-	    more about access changes due to COVID-19</a>.
+	    This instance of Search is evaluating a new query parser for Catalog Search.
           </p>
 
           <Button
