@@ -61,12 +61,30 @@ export default function SearchParserMessage() {
                   fontWeight: "600",
                 }}
               >
-                {parserMessage.class}:{" "}
+                Type:{" "}
               </strong>
-              {parserMessage.summary}
+               {parserMessage.class}
             </p>
-
-            <p>{parserMessage.details}</p>
+            <p>
+            <strong
+                css={{
+                  fontWeight: "600",
+                }}
+              >
+                Summary:{" "}
+              </strong>
+               {parserMessage.summary}
+            </p>
+            <p>
+            <strong
+                css={{
+                  fontWeight: "600",
+                }}
+              >
+                Details:{" "}
+              </strong>
+              {parserMessage.details}
+            </p>
           </Alert>
         </div>
 
