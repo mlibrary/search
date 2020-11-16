@@ -54,7 +54,17 @@ function COVIDAlert() {
 	    href="https://guides.lib.umich.edu/c.php?g=914690&p=7402383">Learn
 	    more about access changes due to COVID-19</a>.
           </p>
-
+          <p>
+          Some Library Search features, including contactless pickup requests, and My Account features, including checkouts, checkout history, and fines/fees, in addition to access to Mirlyn Classic, will be unavailable from 
+            <span css={{
+              fontWeight: 600,
+            }}> 8AM to noon </span>
+            on
+            <span css={{
+              fontWeight: 600,
+            }}> Saturday, November 21</span>, 
+            for system maintenance. 
+          </p>
           <Button
             onClick={() => setDismissed(true)}
             kind="secondary"
