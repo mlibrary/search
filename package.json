@@ -13,7 +13,7 @@
     "@emotion/styled": "^10.0.27",
     "@reach/visually-hidden": "^0.1.4",
     "@umich-lib/core": "^0.1.1",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "citeproc": "^2.2.27",
     "classnames": "^2.2.6",
     "clipboard-polyfill": "^2.7.0",
