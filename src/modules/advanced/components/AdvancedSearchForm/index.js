@@ -134,34 +134,6 @@ class AdvancedSearchForm extends React.Component {
     }
   };
 
-  renderActiveFilters = () => {
-    const { filters, activeFilters } = this.props;
-    const hasActiveFilters =
-      activeFilters && Object.keys(activeFilters).length > 0;
-
-    if (hasActiveFilters) {
-      const filterGroups = Object.keys(activeFilters).map((key) => {
-        return filters.find((f) => f.uid === key);
-      });
-
-      return (
-        <React.Fragment>
-          <h2>Active Filters:</h2>
-          <ul>
-            {filterGroups.map((group) => (
-              <li>
-                {group.name}:{" "}
-                {activeFilters[group.uid].map((value) => value).join(", ")}
-              </li>
-            ))}
-          </ul>
-        </React.Fragment>
-      );
-    }
-
-    return <p>No active filters.</p>;
-  };
-
   renderErrors = () => {
     const { errors } = this.state;
 
@@ -194,8 +166,6 @@ class AdvancedSearchForm extends React.Component {
     return (
       <form className="y-spacing" onSubmit={this.handleSubmit}>
         {this.renderErrors()}
-
-        {this.renderActiveFilters()}
 
         <Heading className="offscreen">Fielded search options</Heading>
 

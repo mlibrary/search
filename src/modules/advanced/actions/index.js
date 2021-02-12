@@ -1,26 +1,24 @@
-export const ADD_ADVANCED_FIELD = 'advanced/ADD_ADVANCED_FIELD';
+export const ADD_ADVANCED_FIELD = "advanced/ADD_ADVANCED_FIELD";
 
-export const ADD_ADVANCED_BOOLEAN_TYPES = 'advanced/ADD_ADVANCED_BOOLEAN_TYPES';
+export const ADD_ADVANCED_BOOLEAN_TYPES = "advanced/ADD_ADVANCED_BOOLEAN_TYPES";
 
-export const ADD_FIELDED_SEARCH = 'advanced/ADD_FIELDED_SEARCH';
-export const REMOVE_FIELDED_SEARCH = 'advanced/REMOVE_FIELDED_SEARCH';
-export const SET_FIELDED_SEARCH = 'advanced/SET_FIELDED_SEARCH';
+export const ADD_FIELDED_SEARCH = "advanced/ADD_FIELDED_SEARCH";
+export const REMOVE_FIELDED_SEARCH = "advanced/REMOVE_FIELDED_SEARCH";
+export const SET_FIELDED_SEARCH = "advanced/SET_FIELDED_SEARCH";
 
-export const ADD_ADVANCED_FILTER_GROUPS = 'advanced/ADD_ADVANCED_FILTER_GROUPS';
-export const SET_ADVANCED_FILTER = 'advanced/SET_ADVANCED_FILTER';
-
+export const ADD_ADVANCED_FILTER_GROUPS = "advanced/ADD_ADVANCED_FILTER_GROUPS";
+export const SET_ADVANCED_FILTER = "advanced/SET_ADVANCED_FILTER";
+export const RESET_ADVANCED_FILTERS = "advanced/RESET_ADVANCED_FILTERS";
 
 // Adding Fields to use with a fielded search
 export const addAdvancedField = (payload) => {
   return { type: ADD_ADVANCED_FIELD, payload };
 };
 
-
 // Boolean types
 export const addAdvancedBooleanTypes = (payload) => {
   return { type: ADD_ADVANCED_BOOLEAN_TYPES, payload };
 };
-
 
 // Fielded searching
 export const addFieldedSearch = (payload) => {
@@ -35,7 +33,6 @@ export const setFieldedSearch = (payload) => {
   return { type: SET_FIELDED_SEARCH, payload };
 };
 
-
 // Filters
 export const addAdvancedFilterGroups = (payload) => {
   return { type: ADD_ADVANCED_FILTER_GROUPS, payload };
@@ -43,4 +40,8 @@ export const addAdvancedFilterGroups = (payload) => {
 
 export const setAdvancedFilter = (payload) => {
   return { type: SET_ADVANCED_FILTER, payload };
+};
+
+export const resetAdvancedFilters = function resetAdvancedFilters(payload) {
+  return { type: RESET_ADVANCED_FILTERS, payload };
 };
