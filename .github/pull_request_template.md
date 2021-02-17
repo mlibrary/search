@@ -24,7 +24,7 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] Test A
 - [ ] Test B
 
-### This has been testing on the following browser(s)
+### This has been tested on the following browser(s)
 
 - [ ] Chrome
 - [ ] Safari
