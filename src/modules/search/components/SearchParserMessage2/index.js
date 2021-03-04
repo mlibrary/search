@@ -1,15 +1,13 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import store from "./../../../../store";
-import { setParserMessage } from "../../../search";
 import { useSelector } from "react-redux";
 import { Icon } from "@umich-lib/core";
+import { COLORS } from "../../../reusable/umich-lib-core-temp";
 
 export default function SearchParserMessage2() {
   const { parserMessage } = useSelector((state) => state.search);
-  const isOpen = parserMessage !== null;
 
-  if (!isOpen) {
+  if (!parserMessage) {
     return null;
   }
 
@@ -18,14 +16,14 @@ export default function SearchParserMessage2() {
       className="parser-message"
       css={{
         width: `100%`,
-        color: "#333",
+        color: COLORS.neutral["400"],
       }}
     >
       <p>
         <strong
           css={{
             fontWeight: "600",
-            color: "#333",
+            color: COLORS.neutral["400"],
           }}
         >
           Showing results for:{" "}
@@ -56,7 +54,7 @@ export default function SearchParserMessage2() {
         <strong
           css={{
             fontWeight: "600",
-            color: "#AA5600",
+            color: COLORS.orange["500"],
           }}
         >
           <Icon icon="error" size={20} /> Summary: {parserMessage.summary}
