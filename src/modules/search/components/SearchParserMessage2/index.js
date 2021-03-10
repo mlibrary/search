@@ -5,10 +5,38 @@ import { Icon } from "@umich-lib/core";
 import { COLORS } from "../../../reusable/umich-lib-core-temp";
 
 export default function SearchParserMessage2() {
-  const { parserMessage } = useSelector((state) => state.search);
-
+  const { parserMessage, query } = useSelector((state) => state.search);
+  
+  //Check if there is a message from the parser and render the query if no message
   if (!parserMessage) {
-    return null;
+    return (
+      <section
+      className="parser-message"
+      css={{
+        width: `100%`,
+        color: COLORS.neutral["400"],
+      }}
+    >
+      <p>
+        <strong
+          css={{
+            fontWeight: "600",
+            color: COLORS.neutral["400"],
+          }}
+        >
+          Showing results for:{" "}
+        </strong>
+        <strong
+          css={{
+            fontWeight: "600",
+            color: "#0C5292",
+          }}
+        >
+          {query} 
+          </strong>
+        </p>
+       </section>
+    )
   }
 
   return (
@@ -34,7 +62,7 @@ export default function SearchParserMessage2() {
             color: "#0C5292",
           }}
         >
-          {parserMessage.details}
+          {parserMessage.data.actual}
         </strong>
       </p>
 
@@ -46,7 +74,7 @@ export default function SearchParserMessage2() {
             fontSize: "1em",
           }}
         >
-          {parserMessage.class}
+          {parserMessage.data.original}
         </strong>
       </p>
 
@@ -57,7 +85,7 @@ export default function SearchParserMessage2() {
             color: COLORS.orange["500"],
           }}
         >
-          <Icon icon="error" size={20} /> Summary: {parserMessage.summary}
+          <Icon icon="error" size={20} /> {parserMessage.data.details}
         </strong>
       </p>
     </section>
