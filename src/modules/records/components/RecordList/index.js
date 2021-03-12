@@ -6,7 +6,7 @@ import Record from '../Record';
 import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
 import { Heading } from '@umich-lib/core'
-import { SearchParserMessage2 } from "../../../search";
+import { SearchResultsMessage } from "../../../search";
 
 
 import {
@@ -89,7 +89,7 @@ class RecordListContainer extends React.Component {
         <div className="results-summary-container">
           <ResultsSummary />
           <Sorts />
-          <SearchParserMessage2 />
+          <SearchResultsMessage />
         </div>
         <GoToList list={list} datastore={datastore} />
         <div className="results-list results-list-border search-results" id="search-results">

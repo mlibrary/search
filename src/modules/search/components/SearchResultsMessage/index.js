@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Icon } from "@umich-lib/core";
 import { COLORS } from "../../../reusable/umich-lib-core-temp";
 
-export default function SearchParserMessage2() {
+export default function SearchResultsMessage() {
   const { parserMessage, query } = useSelector((state) => state.search);
   
   //Check if there is a message from the parser and render the query if no message
@@ -16,8 +16,9 @@ export default function SearchParserMessage2() {
         width: `100%`,
         color: COLORS.neutral["400"],
       }}
-    >
-      <p css={{
+      >
+        <p
+          css={{
             fontWeight: "600",
           }}>
         <strong>
@@ -29,7 +30,7 @@ export default function SearchParserMessage2() {
           }}
         >
           {query} 
-          </strong>
+        </strong>
         </p>
        </section>
     )
@@ -52,7 +53,7 @@ export default function SearchParserMessage2() {
             color: COLORS.neutral["400"],
           }}
         >
-          Showing results for:{" "}
+        Showing results for:{" "}
         </strong>
         <strong
           css={{
