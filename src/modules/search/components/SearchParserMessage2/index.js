@@ -11,24 +11,20 @@ export default function SearchParserMessage2() {
   if (!parserMessage) {
     return (
       <section
-      className="parser-message"
+      className="results-message"
       css={{
         width: `100%`,
         color: COLORS.neutral["400"],
       }}
     >
-      <p>
-        <strong
-          css={{
+      <p css={{
             fontWeight: "600",
-            color: COLORS.neutral["400"],
-          }}
-        >
+          }}>
+        <strong>
           Showing results for:{" "}
         </strong>
         <strong
           css={{
-            fontWeight: "600",
             color: "#0C5292",
           }}
         >
@@ -47,10 +43,12 @@ export default function SearchParserMessage2() {
         color: COLORS.neutral["400"],
       }}
     >
-      <p>
+      <p
+      css={{
+            fontWeight: "600",
+          }}>
         <strong
           css={{
-            fontWeight: "600",
             color: COLORS.neutral["400"],
           }}
         >
@@ -58,7 +56,6 @@ export default function SearchParserMessage2() {
         </strong>
         <strong
           css={{
-            fontWeight: "600",
             color: "#0C5292",
           }}
         >
@@ -66,12 +63,15 @@ export default function SearchParserMessage2() {
         </strong>
       </p>
 
-      <p>
+      <p css={{
+        fontSize: ".8em",
+        paddingBottom: ".5em",
+          }}
+          >
         You searched for:{" "}
         <strong
           css={{
             fontWeight: "600",
-            fontSize: "1em",
           }}
         >
           {parserMessage.data.original}
@@ -82,10 +82,12 @@ export default function SearchParserMessage2() {
         <strong
           css={{
             fontWeight: "600",
-            color: COLORS.orange["500"],
+            color: "#AA5600",
+            fontSize: ".8em",
           }}
         >
-          <Icon icon="error" size={20} /> {parserMessage.data.details}
+          <Icon icon="warning" size={14} />
+          {parserMessage.data.details} 
         </strong>
       </p>
     </section>
