@@ -730,10 +730,17 @@ textarea {
   @media (min-width: 600px) {
     .results-summary-container {
       display: flex;
+      flex-flow: row wrap;
       justify-content: space-between;
       align-items: center; }
       .results-summary-container > * {
         margin-top: 0; } }
+    .parser-message, .results-message {
+      padding-top: .25em;
+    }
+    .parser-message p, .results-message p {
+      margin: .25em 0;
+    }
 
 .no-results-suggestions {
   background: #FAFAFA;

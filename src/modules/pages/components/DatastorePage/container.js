@@ -8,7 +8,7 @@ import { Route, Switch } from "react-router-dom";
 
 import { NoMatch } from "../../../pages";
 
-import { SearchBox, SearchParserMessage } from "../../../search";
+import { SearchBox } from "../../../search";
 
 import { AdvancedSearch } from "../../../advanced";
 
@@ -116,7 +116,6 @@ class DatastorePageContainer extends React.Component {
             render={() => (
               <React.Fragment>
                 <SearchBox />
-                <SearchParserMessage />
                 <DatastoreNavigation />
                 <div
                   css={{

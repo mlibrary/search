@@ -1,6 +1,7 @@
 import SearchBox from "./components/SearchBox";
 import ClearSearchButton from "./components/ClearSearchButton";
 import SearchParserMessage from "./components/SearchParserMessage";
+import SearchResultsMessage from "./components/SearchResultsMessage";
 
 import searchReducer from "./reducer";
 import {
@@ -27,4 +28,5 @@ export {
   resetSort,
   setParserMessage,
   SearchParserMessage,
+  SearchResultsMessage
 };
