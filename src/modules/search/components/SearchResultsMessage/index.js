@@ -6,33 +6,31 @@ import { COLORS } from "../../../reusable/umich-lib-core-temp";
 
 export default function SearchResultsMessage() {
   const { parserMessage, query } = useSelector((state) => state.search);
+
+  const createMarkup = (html) => {
+    return { __html: html };
+  };
   
   //Check if there is a message from the parser and render the query if no message
   if (!parserMessage) {
     return (
       <section
-      className="results-message"
-      css={{
-        width: `100%`,
-        color: COLORS.neutral["400"],
+        className="results-message"
+        css={{
+          width: `100%`,
+          color: COLORS.neutral["400"],
       }}
       >
-        <p
-          css={{
-            fontWeight: "600",
-          }}>
-        <strong>
+        <p>
           Showing results for:{" "}
-        </strong>
-        <strong
+          <strong
           css={{
-            color: "#0C5292",
-          }}
-        >
-          {query} 
-        </strong>
+              fontWeight: "600",
+            }}>
+            {query} 
+          </strong>
         </p>
-       </section>
+      </section>
     )
   }
 
@@ -44,31 +42,22 @@ export default function SearchResultsMessage() {
         color: COLORS.neutral["400"],
       }}
     >
-      <p
-      css={{
+      <p aria-live="polite">
+        Showing results for:{" "}
+        <strong
+        css={{
             fontWeight: "600",
           }}>
-        <strong
-          css={{
-            color: COLORS.neutral["400"],
-          }}
-        >
-        Showing results for:{" "}
-        </strong>
-        <strong
-          css={{
-            color: "#0C5292",
-          }}
-        >
           {parserMessage.data.actual}
         </strong>
       </p>
 
-      <p css={{
-        fontSize: ".8em",
-        paddingBottom: ".5em",
+      <p
+        css={{
+          fontSize: "0.875rem",
+          paddingBottom: "0.25em",
           }}
-          >
+        >
         You searched for:{" "}
         <strong
           css={{
@@ -79,18 +68,24 @@ export default function SearchResultsMessage() {
         </strong>
       </p>
 
-      <p>
-        <strong
+      <span
+      className="details-container"
+      css={{
+          color: "#AA5600",
+          fontSize: "0.875rem",
+          display: "inline-flex",
+          alignContent: "center",
+          padding: "0.25em"
+          }}>
+      <Icon icon="warning" size={15} />
+        <p
           css={{
-            fontWeight: "600",
-            color: "#AA5600",
-            fontSize: ".8em",
+            paddingLeft: "0.25em",
+            width: "97%",
           }}
-        >
-          <Icon icon="warning" size={14} />
-          {parserMessage.data.details} 
-        </strong>
-      </p>
+          className="details-message"
+          dangerouslySetInnerHTML={createMarkup(parserMessage.data.details)} />
+      </span>
     </section>
   );
 }
