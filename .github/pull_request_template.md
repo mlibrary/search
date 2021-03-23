@@ -31,6 +31,13 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] Firefox
 - [ ] Opera
 
+### This has been tested for Accessibility with the following:
+
+- [ ] WAVE
+- [ ] Accessibility Insights
+- [ ] axe
+- [ ] Other
+
 ## Preview
 
 Insert screen shot, video, or deploy preview link. Add captions for images.
