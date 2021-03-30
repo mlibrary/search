@@ -17,7 +17,7 @@ import {
   DatastoreInfo,
   Landing,
   DatastoreAuthenticationAlert,
-  DatastoreAlerts
+  DatastoreAlerts,
 } from "../../../datastores";
 
 import { Filters } from "../../../filters";
@@ -28,7 +28,7 @@ import {
   RecordList,
   Pagination,
   BentoboxList,
-  RecordFull
+  RecordFull,
 } from "../../../records";
 
 import { GetThisPage } from "../../../getthis";
@@ -71,7 +71,7 @@ class DatastorePageContainer extends React.Component {
       location,
       isAdvanced,
       activeFilterCount,
-      activeDatastore
+      activeDatastore,
     } = this.props;
 
     if (activeDatastore === undefined) {
@@ -123,11 +123,11 @@ class DatastorePageContainer extends React.Component {
                     marginTop: "-0.75rem",
                     ".alert-inner": {
                       display: "flex",
-                      justifyContent: "center"
+                      justifyContent: "center",
                     },
                     ":empty": {
-                      display: "none"
-                    }
+                      display: "none",
+                    },
                   }}
                 >
                   <DatastoreAlerts />
@@ -137,21 +137,21 @@ class DatastorePageContainer extends React.Component {
                 <ConnectedSwitch>
                   <Route
                     path={match.url + `/record/:recordUid/get-this/:barcode`}
-                    render={props => {
+                    render={(props) => {
                       return <GetThisPage />;
                     }}
                   />
                   <Route
                     path={match.url + `/record/:recordUid`}
                     exact
-                    render={props => {
+                    render={(props) => {
                       return <RecordFull />;
                     }}
                   />
                   <Route
                     path={match.url + `/list`}
                     exact
-                    render={props => {
+                    render={(props) => {
                       return <List />;
                     }}
                   />
@@ -199,7 +199,7 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
       {!activeDatastore.isMultisearch ? (
         <div className="side-container">
           <MediaQuery minWidth={980}>
-            {matches => {
+            {(matches) => {
               if (matches) {
                 return (
                   <React.Fragment>
@@ -266,11 +266,11 @@ function mapStateToProps(state) {
     query: state.search.query,
     datastores: state.datastores,
     activeDatastore: _.findWhere(state.datastores.datastores, {
-      uid: state.datastores.active
+      uid: state.datastores.active,
     }),
     location: state.router.location,
     isAdvanced: state.advanced[state.datastores.active] ? true : false,
-    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0
+    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0,
   };
 }
 

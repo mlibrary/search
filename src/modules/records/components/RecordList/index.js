@@ -6,6 +6,8 @@ import Record from '../Record';
 import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
 import { Heading } from '@umich-lib/core'
+import { SearchResultsMessage } from "../../../search";
+
 
 import {
   ResultsSummary,
@@ -42,10 +44,11 @@ class RecordListContainer extends React.Component {
           <div className="no-results-suggestions">
             <Heading level={2} size="small" style={{ marginTop: '0' }}>Other suggestions</Heading>
             <ul style={{ marginBottom: 0 }}>
-              <li>Try using the other options in the search navigation.</li>
+              <li>Try looking at the other search categories linked below the search box.</li>
               <li>Check your spelling.</li>
               <li>Try more general keywords.</li>
               <li>Try different keywords that mean the same thing.</li>
+               <li>Try using <a href={`${datastore.slug}/advanced`} className="underline">Advanced Search</a> to construct a targeted query.</li>
               <li>Use <a href="https://www.lib.umich.edu/ask-librarian" className="underline">Ask a Librarian</a> and we will help you find what you're looking for.</li>
             </ul>
           </div>
@@ -86,6 +89,7 @@ class RecordListContainer extends React.Component {
         <div className="results-summary-container">
           <ResultsSummary />
           <Sorts />
+          <SearchResultsMessage />
         </div>
         <GoToList list={list} datastore={datastore} />
         <div className="results-list results-list-border search-results" id="search-results">

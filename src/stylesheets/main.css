@@ -717,7 +717,7 @@ textarea {
   list-style: none; }
 
 /*
-  Search Summary // Records List Bar
+  Search Summary // Records List Bar and Parser Message
 */
 .results-summary-container {
   margin-bottom: 0.75rem;
@@ -730,10 +730,26 @@ textarea {
   @media (min-width: 600px) {
     .results-summary-container {
       display: flex;
+      flex-flow: row wrap;
       justify-content: space-between;
       align-items: center; }
       .results-summary-container > * {
         margin-top: 0; } }
+
+    .parser-message p, .results-message p {
+      margin: .25em 0;
+    }
+    .details-container > svg {
+      top: .35em;
+      position: relative;
+    } 
+    .details-message > strong {
+      font-weight: 600;
+    }
+
+    .details-message > a {
+      text-decoration: underline;
+    }
 
 .no-results-suggestions {
   background: #FAFAFA;
