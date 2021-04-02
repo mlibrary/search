@@ -69,6 +69,8 @@ const config = {
         "date_added",
         "title_asc",
         "title_desc",
+        "call_number_asc",
+        "call_number_desc",
       ],
     },
     articlesplus: {
