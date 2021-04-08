@@ -17,7 +17,6 @@ import {
   DatastoreInfo,
   Landing,
   DatastoreAuthenticationAlert,
-  DatastoreAlerts,
 } from "../../../datastores";
 
 import { Filters } from "../../../filters";
@@ -130,7 +129,6 @@ class DatastorePageContainer extends React.Component {
                     },
                   }}
                 >
-                  <DatastoreAlerts />
                   <FlintAlerts />
                 </div>
                 <DatastoreAuthenticationAlert />
