@@ -119,7 +119,7 @@ const BentoFooter = ({
 }
 
 const BentoboxNoResults = ({ bentobox }) => {
-  const hasBrowse = (bentobox.uid === 'databases' || bentobox.uid === 'journals') ? true : false
+  const hasBrowse = (bentobox.uid === 'databases' || bentobox.uid === 'journals' || bentobox.uid === 'onlinejournals') ? true : false
 
   return (
     <div className="bentobox-no-results">

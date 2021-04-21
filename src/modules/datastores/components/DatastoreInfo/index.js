@@ -33,6 +33,12 @@ const DatastoreInfo = ({ activeDatastore }) => {
           <h1><b>Online Journals</b>: results from Library subscription-based and open access journals, newspapers, trade publications, magazines, and more. Visit individual journals to browse the contents or search within them.</h1>
         </div>
       )
+    case 'onlinejournals':
+      return (
+        <div className="datastore-info">
+          <h1><b>Online Journals</b>: results from Library subscription-based and open access journals, newspapers, trade publications, magazines, and more. Visit individual journals to browse the contents or search within them.</h1>
+        </div>
+      )
     case 'website':
       return (
         <div className="datastore-info">

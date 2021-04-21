@@ -538,7 +538,7 @@ const setupBrowse = () => {
     4) Add filters to browse state.
   */
 
-  ["databases", "journals"].forEach((datastoreUid) => {
+  ["databases", "journals", "onlinejournals"].forEach((datastoreUid) => {
     const facets = Pride.AllDatastores.get(datastoreUid).get("facets");
     const facet = _.findWhere(facets, { uid: "academic_discipline" });
     const filters = organizeByParents(facet.values.sort(compareFacetName));
