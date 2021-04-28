@@ -96,8 +96,6 @@ const config = {
         "relevance",
         "date_asc",
         "date_desc",
-        "author_asc",
-        "author_desc",
         "date_added",
         "title_asc",
         "title_desc",
@@ -319,67 +317,18 @@ const config = {
       defaultFields: ["all_fields", "title", "isn"],
     },
     onlinejournals: {
-      fields: [
+       fields: [
         "all_fields",
         "title",
         "title_starts_with",
-        "author",
-        "journal_title",
         "subject",
         "academic_discipline",
         "call_number_starts_with",
-        "publisher",
-        "series",
-        "publication_date",
         "isn",
       ],
-      defaultFields: ["all_fields", "title", "author"],
       filters: [
         {
-          uid: "available_online",
-          type: "checkbox",
-          groupBy: "Access Options",
-          conditions: {
-            checked: true,
-            unchecked: undefined,
-          },
-        },
-        {
-          uid: "search_only",
-          name: "Remove Search Only HathiTrust Materials",
-          groupBy: "Access Options",
-          type: "checkbox",
-          conditions: {
-            checked: undefined,
-            unchecked: false,
-            default: "checked",
-          },
-        },
-        {
-          uid: "narrow_search",
-          type: "scope_down",
-          name: "Narrow Search To",
-          defaults: [
-            {
-              uid: "institution",
-              value: "All libraries",
-            },
-            {
-              uid: "location",
-              value: "All locations",
-            },
-            {
-              uid: "collection",
-              value: "All collections",
-            },
-          ],
-        },
-        {
-          uid: "date_of_publication",
-          type: "date_range_input",
-        },
-        {
-          uid: "academic_discipline",
+          uid: "subject",
           type: "multiple_select",
         },
         {
@@ -387,14 +336,15 @@ const config = {
           type: "multiple_select",
         },
         {
-          uid: "format",
-          type: "multiple_select",
-        },
-        {
           uid: "place_of_publication_filter",
           type: "multiple_select",
         },
+        {
+          uid: "academic_discipline",
+          type: "multiple_select",
+        },
       ],
+      defaultFields: ["all_fields", "title", "subject"],
     },
     website: {
       fields: ["all_fields", "title"],
