@@ -26,12 +26,6 @@ const DatastoreInfo = ({ activeDatastore }) => {
           <p><b>Databases</b>: results from subscription-based, locally created, and open access databases. Some highlight a particular format, while others contain a variety. Visit individual databases to continue searching and discover additional content.</p>
         </div>
       )
-    case 'journals':
-      return (
-        <div className="alert datastore-info">
-          <p><b>Online Journals</b>: results from Library subscription-based and open access journals, newspapers, trade publications, magazines, and more. Visit individual journals to browse the contents or search within them.</p>
-        </div>
-      )
     case 'onlinejournals':
       return (
         <div className="alert datastore-info">

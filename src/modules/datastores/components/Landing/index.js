@@ -19,7 +19,6 @@ const Landing = ({ content, activeDatastore }) => {
             You will see results from the <Link to={`/catalog`}>Catalog</Link>,{" "}
             <Link to={`/articlesplus`}>Articles</Link>,{" "}
             <Link to={`/databases`}>Databases</Link>,{" "}
-            <Link to={`/journals`}>Journals</Link>,{" "}
             <Link to={`/onlinejournals`}>Online Journals</Link>, and{" "}
             <Link to={`/guidesandmore`}>Guides and More</Link> pages.
           </p>
@@ -92,26 +91,6 @@ const Landing = ({ content, activeDatastore }) => {
             Your results will include databases the library subscribes to,
             databases of locally created materials, and databases available to
             anyone via open access.
-          </p>
-
-          <BrowseInfo datastore={activeDatastore} />
-        </div>
-      );
-    case "journals":
-      return (
-        <div className="landing-container">
-          <h1 className="landing-heading-text" aria-live="polite">
-            <b>Online Journals</b> are serial (repeating) publications the
-            library subscribes to electronically. This includes not only
-            journals, but also newspapers, trade publications, magazines, and
-            more.
-          </h1>
-          <p>
-            Your results will include journals the library subscribes to, as
-            well as some available to anyone via open access. You will see
-            statements with any specifics about access and many journals will be
-            available through multiple platforms. Be sure to check dates
-            alongside each to see what you can access.
           </p>
 
           <BrowseInfo datastore={activeDatastore} />

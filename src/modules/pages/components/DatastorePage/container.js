@@ -86,7 +86,6 @@ class DatastorePageContainer extends React.Component {
             render={() => {
               if (
                 activeDatastore.uid === "databases" ||
-                activeDatastore.uid === "journals" ||
                 activeDatastore.uid === "onlinejournals"
               ) {
                 return <BrowsePage />;

@@ -26,11 +26,6 @@ const config = {
         name: "Databases",
       },
       {
-        uid: "journals",
-        name: "Journals",
-        slug: "journals",
-      },
-      {
         uid: "onlinejournals",
         name: "Online Journals",
         slug: "onlinejournals",
@@ -47,7 +42,6 @@ const config = {
           "mirlyn",
           "articlesplus",
           "databases",
-          "journals",
           "onlinejournals",
           "website",
         ],
@@ -57,7 +51,6 @@ const config = {
       "everything",
       "mirlyn",
       "articlesplus",
-      "journals",
       "onlinejournals",
       "databases",
       "website",
@@ -83,10 +76,6 @@ const config = {
       sorts: ["relevance", "date_asc", "date_desc"],
     },
     databases: {
-      default: "relevance",
-      sorts: ["relevance", "title_asc", "title_desc"],
-    },
-    journals: {
       default: "relevance",
       sorts: ["relevance", "title_asc", "title_desc"],
     },
@@ -297,24 +286,6 @@ const config = {
           type: "multiple_select",
         },
       ],
-    },
-    journals: {
-      fields: [
-        "all_fields",
-        "title",
-        "title_starts_with",
-        "subject",
-        "academic_discipline",
-        "call_number_starts_with",
-        "isn",
-      ],
-      filters: [
-        {
-          uid: "academic_discipline",
-          type: "multiple_select",
-        },
-      ],
-      defaultFields: ["all_fields", "title", "isn"],
     },
     onlinejournals: {
        fields: [
