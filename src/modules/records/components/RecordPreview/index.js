@@ -79,7 +79,7 @@ const Footer = ({ record, datastoreUid }) => {
 
   const outage = getFieldValue(getField(record.fields, "outage"))[0];
 
-  if (record.resourceAccess) {
+  if (record.resourceAccess && record.resourceAccess[0]) {
     const accessCell = record.resourceAccess[0].rows[0][0];
     return (
       <footer>
