@@ -46,6 +46,7 @@ const config = {
         datastores: [
           "mirlyn",
           "articlesplus",
+          "primo",
           "databases",
           "journals",
           "website",
@@ -56,7 +57,7 @@ const config = {
       "everything",
       "mirlyn",
       "articlesplus",
-      "articles",
+      "primo",
       "journals",
       "databases",
       "website",
