@@ -18,8 +18,13 @@ const config = {
       },
       {
         uid: "articlesplus",
-        name: "Articles",
+        name: "Summon Articles",
         slug: "articles",
+      },
+      {
+        uid: "primo",
+        name: "Primo Articles",
+        slug: "primo",
       },
       {
         uid: "databases",
@@ -51,6 +56,7 @@ const config = {
       "everything",
       "mirlyn",
       "articlesplus",
+      "articles",
       "journals",
       "databases",
       "website",
@@ -74,6 +80,10 @@ const config = {
     articlesplus: {
       default: "relevance",
       sorts: ["relevance", "date_asc", "date_desc"],
+    },
+    primo: {
+      default: "relevance",
+      sorts: ["relevance", "title", "author", "date"],
     },
     databases: {
       default: "relevance",
@@ -255,6 +265,16 @@ const config = {
           type: "multiple_select",
         },
       ],
+    },
+    primo: {
+      fields: [
+       "all_fields",
+       "title",
+       "creator",
+      ],
+      defaultFields: ["all_fields", "title", "creator"],
+      filters: [],
+     
     },
     databases: {
       fields: [

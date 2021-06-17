@@ -20,6 +20,12 @@ const DatastoreInfo = ({ activeDatastore }) => {
           <p><b>Articles+</b>: results from scholarly journal articles, newspaper articles, book chapters, conference proceedings, and more.</p>
         </div>
       )
+    case 'primo':
+      return (
+        <div className="alert datastore-info">
+          <p><b>Primo Articles</b>: results from scholarly journal articles, newspaper articles, book chapters, conference proceedings, and more.</p>
+        </div>
+      )
     case 'databases':
       return (
         <div className="alert datastore-info">

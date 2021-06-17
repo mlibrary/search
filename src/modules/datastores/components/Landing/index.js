@@ -79,6 +79,20 @@ const Landing = ({ content, activeDatastore }) => {
           </p>
         </div>
       );
+    case "primo":
+      return (
+        <div className="landing-container">
+          <h1 className="landing-heading-text" aria-live="polite">
+            <b>Primo Articles</b> is a gateway to discovering a wide range of the
+            library's resources.
+          </h1>
+          <p>
+            Your results will include scholarly journal articles, newspaper
+            articles, book chapters, conference proceedings, and more. To focus
+            your search on a specific subject area, try looking for databases.
+          </p>
+        </div>
+      );
     case "databases":
       return (
         <div className="landing-container">
