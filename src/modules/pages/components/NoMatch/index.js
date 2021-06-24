@@ -33,7 +33,7 @@ const NoMatch = function NoMatch() {
           </li>
           <li>
           <Text>
-            <Link to="/databases/browse" className="underline">Browse all Databases</Link> or <Link to="/journals/browse" className="underline">Browse all Online Journals</Link> to view comprehensive lists
+            <Link to="/databases/browse" className="underline">Browse all Databases</Link> or <Link to="/onlinejournals/browse" className="underline">Browse all Online Journals</Link> to view comprehensive lists
             of current library resources.</Text>
           </li>
           <li>

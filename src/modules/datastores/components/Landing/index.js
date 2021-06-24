@@ -110,7 +110,7 @@ const Landing = ({ content, activeDatastore }) => {
           <BrowseInfo datastore={activeDatastore} />
         </div>
       );
-    case "journals":
+    case "onlinejournals":
       return (
         <div className="landing-container">
           <h1 className="landing-heading-text" aria-live="polite">
