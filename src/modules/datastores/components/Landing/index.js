@@ -29,6 +29,18 @@ const Landing = ({ content, activeDatastore }) => {
         </div>
       );
     case "mirlyn":
+
+      /**
+       * 
+       * Browse developer comments
+       * ==========
+       * 
+       * It's likely that this area could be replaced with a component that
+       * handles to show the standard/default landing page OR the
+       * *browse* landing page.
+       * 
+       */
+
       return (
         <div>
           <div className="landing-container">

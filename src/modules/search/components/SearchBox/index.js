@@ -9,6 +9,24 @@ import { setSearchQueryInput, searching } from "../../actions";
 import { Icon } from "../../../core";
 import ReactGA from "react-ga";
 
+/**
+ * 
+ * Browse developer comments
+ * =====
+ * 
+ * This component will be rewritten without classes and without
+ * `bindActionCreators`, since that is an older pattern not recommened
+ * anymore for new development. So now is the chance to update
+ * this one.
+ * 
+ * We need to redesign the Search Box to match the new Browse designs.
+ * 
+ * And add conditionals to what datastore is active so that this
+ * search box can change accordingly.
+ * 
+ */
+
+
 class SearchBox extends React.Component {
   constructor(props) {
     super(props);
