@@ -1,4 +1,7 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
+
+import { COLORS, SPACING, Heading } from  '../../../reusable/umich-lib-core-temp'
 
 export default function BrowseByCallNumber() {
   /**
@@ -12,6 +15,8 @@ export default function BrowseByCallNumber() {
    */
 
   return (
-    <p>Hello, Browse by Call Number.</p>
+    <div className="container container-medium">
+       <p css={{ color: COLORS['maize']['400'] }}>BRIDGET!!!</p>
+    </div>
   )
 }

@@ -42,6 +42,8 @@ import { setDocumentTitle } from "../../../a11y";
 
 import { FlintAlerts } from "../../../flint";
 
+import BrowseByCallNumber from "../../../browse/components/BrowseByCallNumber";
+
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class DatastorePageContainer extends React.Component {
@@ -187,6 +189,14 @@ class DatastorePageContainer extends React.Component {
 const Results = ({ searching, activeDatastore, activeFilterCount }) => {
   if (activeDatastore.isMultisearch && searching) {
     return <MultisearchSearching activeDatastore={activeDatastore} />;
+  }
+
+  const isCatalogBrowse = activeDatastore.uid === 'mirlyn';
+
+  if (isCatalogBrowse) {
+    return (
+      <BrowseByCallNumber />
+    )
   }
 
   return (

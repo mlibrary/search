@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import qs from "qs";
 import { withRouter, Link } from "react-router-dom";
 import _ from "underscore";
+import VisuallyHidden from '@reach/visually-hidden';
 
 import { setSearchQueryInput, searching } from "../../actions";
 import { Icon } from "../../../core";
@@ -13,6 +14,18 @@ import ReactGA from "react-ga";
  * 
  * Browse developer comments
  * =====
+ * 
+ * Plan:
+ * (1) make it work, even if it's ugly
+ *     [ ] Add active field to SearchBox state, so that it can be
+ *         included in the URL with `qs.stringify`.
+ *         Ignore `all_fields`.
+ * (2) clean it up
+ *     [ ] Convert to a function (not a class)
+ *     [ ] Remove sass (class names) and use Emotion
+ *         with design tokens.
+ * (3) Get feedback from team.
+ *     [ ] Share with team for feedback.
  * 
  * This component will be rewritten without classes and without
  * `bindActionCreators`, since that is an older pattern not recommened
@@ -24,8 +37,8 @@ import ReactGA from "react-ga";
  * And add conditionals to what datastore is active so that this
  * search box can change accordingly.
  * 
+ * 
  */
-
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -77,7 +90,7 @@ class SearchBox extends React.Component {
           query: queryInput,
           filter: activeFilters,
           library,
-          sort,
+          sort
         },
         {
           arrayFormat: "repeat",
@@ -100,6 +113,7 @@ class SearchBox extends React.Component {
       queryInput,
       isAdvanced,
       activeDatastore,
+      fields
     } = this.props;
 
     return (
@@ -112,6 +126,17 @@ class SearchBox extends React.Component {
             id="search-box"
           >
             <div className="search-box">
+              {activeDatastore.uid === 'mirlyn' && (
+                <select>
+                  <optgroup label="Fields">
+                    {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                  </optgroup>
+
+                  <optgroup label="Browse">
+                    <option value="lc-call-number">Browse by LC call number</option>
+                  </optgroup>
+                </select>
+              )}
               <input
                 id="search-query"
                 className="search-box-input"
@@ -124,7 +149,9 @@ class SearchBox extends React.Component {
               />
               <button className="button search-box-button" type="submit">
                 <Icon name="search" />
-                <span className="search-box-button-text">Search</span>
+                <VisuallyHidden>
+                  <span className="search-box-button-text">Search</span>
+                </VisuallyHidden>
               </button>
             </div>
 
@@ -161,6 +188,7 @@ function mapStateToProps(state) {
     institution: state.institution,
     datastores: state.datastores,
     sort: state.search.sort[state.datastores.active],
+    fields: state.advanced[state.datastores.active].fields,
   };
 }
 
