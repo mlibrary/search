@@ -18,12 +18,12 @@ const config = {
       },
       {
         uid: "articlesplus",
-        name: "Summon Articles",
+        name: "Articles via Summon API",
         slug: "articles",
       },
       {
         uid: "primo",
-        name: "Primo Articles",
+        name: "Articles via Primo API",
         slug: "primo",
       },
       {
