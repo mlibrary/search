@@ -46,6 +46,15 @@ export default function BrowseByCallNumber() {
         Browse '{query}' in call numbers
       </Heading>
 
+      <p>
+        <span css={{ fontWeight: "600", color: "#333" }}>
+          Browse by call number info:
+        </span>{" "}
+        Search a Library of Congress (LC) call number and view an alphabetical
+        list of all LC call numbers and related titles indexed in the Library
+        catalog.
+      </p>
+
       <div
         css={{
           overflowX: "auto",
