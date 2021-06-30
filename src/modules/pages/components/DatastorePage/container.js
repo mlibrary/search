@@ -80,7 +80,12 @@ class DatastorePageContainer extends React.Component {
     }
 
     return (
-      <main className="main-container">
+      <main
+        className="main-container"
+        css={{
+          backgroundColor: "white",
+        }}
+      >
         <Switch>
           <Route
             path={`/:datastoreSlug/browse`}
@@ -191,12 +196,10 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
     return <MultisearchSearching activeDatastore={activeDatastore} />;
   }
 
-  const isCatalogBrowse = activeDatastore.uid === 'mirlyn';
+  const isCatalogBrowse = activeDatastore.uid === "mirlyn";
 
   if (isCatalogBrowse) {
-    return (
-      <BrowseByCallNumber />
-    )
+    return <BrowseByCallNumber />;
   }
 
   return (
