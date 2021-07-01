@@ -46,7 +46,7 @@
     "redux-devtools-extension": "^2.13.8",
     "remark": "^10.0.1",
     "remark-react": "^5.0.1",
-    "underscore": "^1.9.1"
+    "underscore": "^1.13.1"
   },
   "scripts": {
     "reinstall": "rm -rf node_modules && npm install",

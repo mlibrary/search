@@ -1,5 +1,5 @@
 import React from 'react';
-import { _ } from 'underscore';
+import _ from 'underscore';
 
 const DatastoreInfo = ({ activeDatastore }) => {
   switch (activeDatastore.uid) {

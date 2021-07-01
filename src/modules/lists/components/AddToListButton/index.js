@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core'
 import { Component } from 'react';
 import { connect } from 'react-redux'
-import { _ } from 'underscore';
+import _ from 'underscore';
 import ReactGA from 'react-ga'
 import {
   Checkbox
