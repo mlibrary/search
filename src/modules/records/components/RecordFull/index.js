@@ -75,12 +75,16 @@ class FullRecord extends React.Component {
   }
 
   componentDidUpdate() {
-    const { record, datastoreUid, datastores } = this.props;
+    const { record, datastoreUid, datastores, history } = this.props;
     const { recordUid } = this.props.match.params;
 
     // If the record isn't in state
     if (record && record.uid !== recordUid) {
-      requestRecord({ recordUid, datastoreUid });
+        if (recordUid.length === 9) { // treat as an aleph id
+            history.push(`/catalog/record/${record.uid}`)
+        } else {
+            requestRecord({recordUid, datastoreUid});
+        }
     }
 
     if (record) {
