@@ -51,7 +51,7 @@
     "reinstall": "rm -rf node_modules && npm install",
     "start": "REACT_APP_SPECTRUM_BASE_URL=https://search-staging.www.lib.umich.edu/spectrum react-scripts start",
     "develop": "npm run start",
-    "develop:testing": "REACT_APP_SPECTRUM_BASE_URL=https://testing-1.search.kubernetes.lib.umich.edu/spectrum react-scripts start",
+    "develop:testing": "REACT_APP_SPECTRUM_BASE_URL=https://testing-alma.search.kubernetes.lib.umich.edu/spectrum react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

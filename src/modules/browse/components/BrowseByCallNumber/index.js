@@ -14,6 +14,7 @@ const cell_padding = {
 
 export default function BrowseByCallNumber() {
   const { query } = useSelector((state) => state.search);
+  const results = useSelector((state) => state.records.records['mirlyn'])
   /**
    *
    * Browse developer comments
@@ -94,140 +95,51 @@ export default function BrowseByCallNumber() {
               </tr>
             </thead>
             <tbody>
-              <tr colSpan="1" css={{ borderBottom: "solid 1px #CCCCCC" }}>
-                <td
-                  css={{
-                    ...cell_padding,
-                    wordBreak: "break-word",
-                  }}
-                >
-                  Z 253 .U582 1984
-                </td>
-                <td
-                  colSpan="2"
-                  css={{
-                    ...cell_padding,
-                    wordBreak: "break-word",
-                    fontSize: "1em",
-                  }}
-                >
-                  <a
-                    href={"#"}
-                    css={{ fontWeight: "600", textDecoration: "underline" }}
-                  >
-                    Patents and trademarks style manual:
-                  </a>
-
-                  <p css={{ color: "#4E4E4E", marginTop: "0" }}>
-                    United States. Patent and Trademark Office. Washington, D.C. :
-                    The Office : For sale by the Supt. of Docs., U.S. G.P.O.,
-                    1984.
-                  </p>
-                </td>
-              </tr>
-
-              <tr css={{ borderBottom: "solid 1px #CCCCCC" }}>
-                <td
-                  colSpan="1"
-                  css={{
-                    ...cell_padding,
-                    wordBreak: "break-word",
-                  }}
-                >
-                  Z 253 .U582 1984
-                </td>
-                <td
-                  colSpan="2"
-                  css={{
-                    ...cell_padding,
-                    wordBreak: "break-word",
-                    fontSize: "1em",
-                  }}
-                >
-                  <a
-                    href={"#"}
-                    css={{ fontWeight: "600", textDecoration: "underline" }}
-                  >
-                    Patents and trademarks style manual:
-                  </a>
-
-                  <p css={{ color: "#4E4E4E", marginTop: "0" }}>
-                    United States. Patent and Trademark Office. Washington, D.C. :
-                    The Office : For sale by the Supt. of Docs., U.S. G.P.O.,
-                    1984.
-                  </p>
-                </td>
-              </tr>
-
-              <tr
-                css={{
-                  border: `3px solid ${COLORS["maize"]["400"]}`,
-                }}
-              >
-                <td
-                  colSpan="1"
-                  css={{
-                    ...cell_padding,
-                    wordBreak: "break-word",
-                  }}
-                >
-                  Z 253 .U582 1984
-                </td>
-                <td
-                  colSpan="2"
-                  css={{
-                    ...cell_padding,
-                    wordBreak: "break-word",
-                    fontSize: "1em",
-                  }}
-                >
-                  <a
-                    href={"#"}
-                    css={{ fontWeight: "600", textDecoration: "underline" }}
-                  >
-                    Patents and trademarks style manual:
-                  </a>
-
-                  <p css={{ color: "#4E4E4E", marginTop: "0" }}>
-                    United States. Patent and Trademark Office. Washington, D.C. :
-                    The Office : For sale by the Supt. of Docs., U.S. G.P.O.,
-                    1984.
-                  </p>
-                </td>
-              </tr>
-
-              <tr
-                css={{
-                  borderBottom: "solid 1px #CCCCCC",
-                  background: "#f2f2f2",
-                }}
-              >
-                <td
-                  colSpan="3"
-                  css={{
-                    ...cell_padding,
-                    wordBreak: "break-word",
-                    fontSize: "1em",
-                  }}
-                >
-                  <p
-                    css={{
-                      color: "#4E4E4E",
-                      marginTop: "0",
-                    }}
-                  >
-                    <span css={{ fontWeight: "600", color: "#333" }}>
-                      Z 253 .U68
-                    </span>{" "}
-                    would appear here. No exact match for the call number in our
-                    catalog.
-                  </p>
-                </td>
-              </tr>
+              {results && results.map(result => <CallnumberResult {...result} />)}
             </tbody>
           </table>
         </div>
       </div>
     </div>
   );
+}
+
+function CallnumberResult(data) {
+  const result = {
+    callnumber: 'n/a',
+    title: data.header.medium['main-left-aligned'][1][0].text,
+    description: 'n/a'
+  }
+
+  return (
+    <tr colSpan="1" css={{ borderBottom: "solid 1px #CCCCCC" }}>
+      <td
+        css={{
+          ...cell_padding,
+          wordBreak: "break-word",
+        }}
+      >
+       {result.callnumber}
+      </td>
+      <td
+        colSpan="2"
+        css={{
+          ...cell_padding,
+          wordBreak: "break-word",
+          fontSize: "1em",
+        }}
+      >
+        <a
+          href={"#"}
+          css={{ fontWeight: "600", textDecoration: "underline" }}
+        >
+          {result.title}
+        </a>
+
+        <p css={{ color: "#4E4E4E", marginTop: "0" }}>
+          TODO: placeholder for a description.
+        </p>
+      </td>
+    </tr>
+  )
 }

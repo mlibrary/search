@@ -8,7 +8,8 @@ const initialState = {
   page: {},
   sort: {},
   parserMessage: null,
-  browsing: false
+  browsing: false,
+  field: null
 };
 
 const searchReducer = function searchReducer(state = initialState, action) {
@@ -64,6 +65,12 @@ const searchReducer = function searchReducer(state = initialState, action) {
       return {
         ...state,
         browsing: action.payload
+      }
+    }
+    case actions.SET_FIELD: {
+      return {
+        ...state,
+        field: action.payload
       }
     }
     default:

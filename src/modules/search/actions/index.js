@@ -1,3 +1,5 @@
+import { SET_FIELDED_SEARCH } from "../../advanced/actions";
+
 export const SET_SEARCH_QUERY = "search/SET_SEARCH_QUERY";
 export const SET_SEARCH_QUERY_INPUT = "search/SET_SEARCH_QUERY_INPUT";
 export const CLEAR_SEARCH = "search/CLEAR_SEARCH";
@@ -12,6 +14,7 @@ export const REMOVE_ADVANCED_FIELD = "search/REMOVE_ADVANCED_FIELD";
 export const ADD_ADVANCED_FIELD = "search/ADD_ADVANCED_FIELD";
 export const SET_PARSER_MESSAGE = "search/SET_PARSER_MESSAGE";
 export const SET_BROWSING = "search/SET_BROWSING";
+export const SET_FIELD = "search/SET_FIELD"
 
 export const setSearchQuery = function submitSearch(payload) {
   return { type: SET_SEARCH_QUERY, payload };
@@ -68,3 +71,7 @@ export const setParserMessage = (payload) => {
 export const setBrowsing = (payload) => {
   return { type: SET_BROWSING, payload };
 };
+
+export const setField = (payload) => {
+  return { type: SET_FIELD, payload  }
+}
