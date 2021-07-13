@@ -127,7 +127,7 @@ class SearchBox extends React.Component {
           >
             <div className="search-box">
               {activeDatastore.uid === 'mirlyn' && (
-                <select>
+                <select className="search-box__select">
                   <optgroup label="Fields">
                     {fields.map(field => <option value={field.uid}>{field.name}</option>)}
                   </optgroup>
@@ -137,24 +137,27 @@ class SearchBox extends React.Component {
                   </optgroup>
                 </select>
               )}
-              <input
-                id="search-query"
-                className="search-box-input"
-                type="search"
-                aria-label="search text"
-                value={queryInput}
-                spellCheck="false"
-                data-hj-allow
-                onChange={(event) => this.handleChange(event.target.value)}
-              />
-              <button className="button search-box-button" type="submit">
-                <Icon name="search" />
-                <VisuallyHidden>
-                  <span className="search-box-button-text">Search</span>
-                </VisuallyHidden>
-              </button>
+              
+              <div className="search-box__input-group">
+                <input
+                  id="search-query"
+                  className="search-box-input"
+                  type="search"
+                  aria-label="search text"
+                  value={queryInput}
+                  spellCheck="false"
+                  data-hj-allow
+                  onChange={(event) => this.handleChange(event.target.value)}
+                />
+                <button className="button search-box-button" type="submit">
+                  <Icon name="search" />
+                  <VisuallyHidden>
+                    <span className="search-box-button-text">Search</span>
+                  </VisuallyHidden>
+                  </button>
+              </div>
             </div>
-
+            
             {isAdvanced && (
               <div className="search-box-advanced">
                 <Link
