@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -5,6 +7,8 @@ import qs from "qs";
 import { withRouter, Link } from "react-router-dom";
 import _ from "underscore";
 import VisuallyHidden from '@reach/visually-hidden';
+import { Button } from "@umich-lib/core";
+import { COLORS, SPACING } from "../../../reusable/umich-lib-core-temp";
 
 import { setSearchQueryInput, searching } from "../../actions";
 import { Icon } from "../../../core";
@@ -127,7 +131,15 @@ class SearchBox extends React.Component {
           >
             <div className="search-box">
               {activeDatastore.uid === 'mirlyn' && (
-                <select className="search-box__select">
+                <select css={{
+                  fontFamily: '"OpenSans", "Source Sans Pro"',
+                  backgroundColor: "#F7F8F9",
+                  border: "1px solid rgba(18,109,193,0.4)",
+                  fontSize: "1em",
+                  borderRadius: "4px",
+                  paddingLeft: ".5em",
+                  margin: "0"
+                }}>
                   <optgroup label="Fields">
                     {fields.map(field => <option value={field.uid}>{field.name}</option>)}
                   </optgroup>
@@ -138,24 +150,31 @@ class SearchBox extends React.Component {
                 </select>
               )}
               
-              <div className="search-box__input-group">
-                <input
-                  id="search-query"
-                  className="search-box-input"
-                  type="search"
-                  aria-label="search text"
-                  value={queryInput}
-                  spellCheck="false"
-                  data-hj-allow
-                  onChange={(event) => this.handleChange(event.target.value)}
-                />
-                <button className="button search-box-button" type="submit">
-                  <Icon name="search" />
-                  <VisuallyHidden>
-                    <span className="search-box-button-text">Search</span>
-                  </VisuallyHidden>
-                  </button>
-              </div>
+              <input
+                id="search-query"
+                css={{
+                  margin: '0 ' + SPACING['XS'] + "!important"
+                }}
+                type="search"
+                aria-label="search text"
+                value={queryInput}
+                spellCheck="false"
+                data-hj-allow
+                onChange={(event) => this.handleChange(event.target.value)}
+              />
+              <Button
+                type="submit"
+                css={{
+                  margin: 0,
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <Icon name="search" />
+                <VisuallyHidden>
+                  <span className="search-box-button-text">Search</span>
+                </VisuallyHidden>
+              </Button>
             </div>
             
             {isAdvanced && (
