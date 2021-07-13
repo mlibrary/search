@@ -10,7 +10,7 @@ import VisuallyHidden from '@reach/visually-hidden';
 import { Button } from "@umich-lib/core";
 import { COLORS, SPACING } from "../../../reusable/umich-lib-core-temp";
 
-import { setSearchQueryInput, searching } from "../../actions";
+import { setSearchQueryInput, searching, setBrowsing } from "../../actions";
 import { Icon } from "../../../core";
 import ReactGA from "react-ga";
 
@@ -51,13 +51,14 @@ class SearchBox extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
   }
 
   handleChange(query) {
     this.props.setSearchQueryInput(query);
   }
 
-  onBackButtonEvent(e) {
+  onBackButtonEvent() {
     const { query } = this.props;
     this.handleChange(query);
   }
@@ -110,6 +111,22 @@ class SearchBox extends React.Component {
     }
   }
 
+  handleSelectChange(event) {
+    const {
+      setBrowsing
+    } = this.props;
+
+    console.log("handleFieldChange", event, event.target.value)
+
+    const userSelectedBrowse = event.target.value === 'lc-call-number'
+
+    if (userSelectedBrowse) {
+      setBrowsing(true)
+    } else {
+      setBrowsing(false)
+    }
+  }
+
   render() {
     const {
       match,
@@ -131,15 +148,18 @@ class SearchBox extends React.Component {
           >
             <div className="search-box">
               {activeDatastore.uid === 'mirlyn' && (
-                <select css={{
-                  fontFamily: '"OpenSans", "Source Sans Pro"',
-                  backgroundColor: "#F7F8F9",
-                  border: "1px solid rgba(18,109,193,0.4)",
-                  fontSize: "1em",
-                  borderRadius: "4px",
-                  paddingLeft: ".5em",
-                  margin: "0"
-                }}>
+                <select
+                  css={{
+                    fontFamily: '"OpenSans", "Source Sans Pro"',
+                    backgroundColor: "#F7F8F9",
+                    border: "1px solid rgba(18,109,193,0.4)",
+                    fontSize: "1em",
+                    borderRadius: "4px",
+                    paddingLeft: ".5em",
+                    margin: "0"
+                  }}
+                  onChange={this.handleSelectChange}
+                >
                   <optgroup label="Fields">
                     {fields.map(field => <option value={field.uid}>{field.name}</option>)}
                   </optgroup>
@@ -219,6 +239,7 @@ function mapDispatchToProps(dispatch) {
     {
       setSearchQueryInput,
       searching,
+      setBrowsing
     },
     dispatch
   );

@@ -23,7 +23,6 @@ export default function BrowseByCallNumber() {
    * for the search ("browse") entered  by the user.
    *
    * To do:
-   * [ ] Add conditional for main container background to be white for browse pages
    * [ ] Connect the real data
    * [ ] Add attributes for not found/found styling
    */

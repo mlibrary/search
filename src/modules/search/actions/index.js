@@ -11,6 +11,7 @@ export const SET_ADVANCED_FIELD = "search/SET_ADVANCED_FIELD";
 export const REMOVE_ADVANCED_FIELD = "search/REMOVE_ADVANCED_FIELD";
 export const ADD_ADVANCED_FIELD = "search/ADD_ADVANCED_FIELD";
 export const SET_PARSER_MESSAGE = "search/SET_PARSER_MESSAGE";
+export const SET_BROWSING = "search/SET_BROWSING";
 
 export const setSearchQuery = function submitSearch(payload) {
   return { type: SET_SEARCH_QUERY, payload };
@@ -62,4 +63,8 @@ export const addAdvancedField = function addAdvancedField(payload) {
 
 export const setParserMessage = (payload) => {
   return { type: SET_PARSER_MESSAGE, payload };
+};
+
+export const setBrowsing = (payload) => {
+  return { type: SET_BROWSING, payload };
 };

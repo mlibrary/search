@@ -8,6 +8,7 @@ const initialState = {
   page: {},
   sort: {},
   parserMessage: null,
+  browsing: false
 };
 
 const searchReducer = function searchReducer(state = initialState, action) {
@@ -58,6 +59,12 @@ const searchReducer = function searchReducer(state = initialState, action) {
         ...state,
         parserMessage: action.payload,
       };
+    }
+    case actions.SET_BROWSING: {
+      return {
+        ...state,
+        browsing: action.payload
+      }
     }
     default:
       //console.log("Search reducer action", action);

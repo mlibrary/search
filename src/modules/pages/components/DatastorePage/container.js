@@ -67,6 +67,7 @@ class DatastorePageContainer extends React.Component {
 
   render() {
     const {
+      browsing,
       searching,
       match,
       location,
@@ -170,6 +171,7 @@ class DatastorePageContainer extends React.Component {
                             <DatastoreInfo activeDatastore={activeDatastore} />
                           )}
                           <Results
+                            browsing={browsing}
                             searching={searching}
                             activeDatastore={activeDatastore}
                             activeFilterCount={activeFilterCount}
@@ -188,15 +190,14 @@ class DatastorePageContainer extends React.Component {
   }
 }
 
-const Results = ({ searching, activeDatastore, activeFilterCount }) => {
+const Results = ({ browsing, searching, activeDatastore, activeFilterCount }) => {
   if (activeDatastore.isMultisearch && searching) {
     return <MultisearchSearching activeDatastore={activeDatastore} />;
   }
 
   const isCatalogBrowse = activeDatastore.uid === "mirlyn";
-  const browsing = true; // TODO: replace with state that captures if the search box selects a browse section.
 
-  if (searching && isCatalogBrowse) {
+  if (browsing && searching && isCatalogBrowse) {
     return <BrowseByCallNumber />;
   }
 
@@ -272,6 +273,7 @@ function mapStateToProps(state) {
 
   return {
     searching: state.search.searching,
+    browsing: state.search.browsing,
     query: state.search.query,
     datastores: state.datastores,
     activeDatastore: _.findWhere(state.datastores.datastores, {
