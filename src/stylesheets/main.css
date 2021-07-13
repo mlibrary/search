@@ -608,6 +608,7 @@ textarea {
   
 .search-box__select {
    font-family: "OpenSans", "Source Sans Pro";
+   margin: 0;
    background-color: #F7F8F9;
    border: 1px solid rgba(18,109,193,0.4);
    font-size: 1em;
