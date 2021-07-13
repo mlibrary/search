@@ -82,9 +82,6 @@ class DatastorePageContainer extends React.Component {
     return (
       <main
         className="main-container"
-        css={{
-          backgroundColor: "white",
-        }}
       >
         <Switch>
           <Route
@@ -197,8 +194,9 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
   }
 
   const isCatalogBrowse = activeDatastore.uid === "mirlyn";
+  const browsing = true; // TODO: replace with state that captures if the search box selects a browse section.
 
-  if (isCatalogBrowse) {
+  if (searching && isCatalogBrowse) {
     return <BrowseByCallNumber />;
   }
 

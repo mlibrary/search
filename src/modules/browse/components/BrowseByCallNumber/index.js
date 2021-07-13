@@ -8,8 +8,7 @@ import { Heading } from "@umich-lib/core";
 import { COLORS, SPACING } from "../../../reusable/umich-lib-core-temp";
 
 const cell_padding = {
-  paddingTop: SPACING["XS"],
-  paddingBottom: SPACING["XS"],
+  padding: SPACING["XS"],
   paddingRight: SPACING["L"],
 };
 
@@ -33,195 +32,202 @@ export default function BrowseByCallNumber() {
   let headings = ["Call number", "Item"];
 
   return (
-    <div className="container container-narrow full-record-page-container y-spacing">
-      <Breadcrumb
-        items={[
-          { text: "Catalog", to: `/catalog` },
-          { text: "Browse by call number" },
-        ]}
-        renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
-      />
+    <div className="container container-narrow y-spacing">
+      <div css={{
+        padding: SPACING['L'],
+        background: 'white',
+        borderRadius: '4px'
+      }}>
 
-      <Heading size="large" level={1} style={{ marginTop: "0" }}>
-        Browse '{query}' in call numbers
-      </Heading>
+        <Breadcrumb
+          items={[
+            { text: "Catalog", to: `/catalog` },
+            { text: "Browse by call number" },
+          ]}
+          renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
+        />
 
-      <p>
-        <span css={{ fontWeight: "600", color: "#333" }}>
-          Browse by call number info:
-        </span>{" "}
-        Search a Library of Congress (LC) call number and view an alphabetical
-        list of all LC call numbers and related titles indexed in the Library
-        catalog.
-      </p>
+        <Heading size="large" level={1}>
+          Browse '{query}' in call numbers
+        </Heading>
 
-      <div
-        css={{
-          overflowX: "auto",
-        }}
-      >
-        <table
+        <p>
+          <span css={{ fontWeight: "600", color: "#333" }}>
+            Browse by call number info:
+          </span>{" "}
+          Search a Library of Congress (LC) call number and view an alphabetical
+          list of all LC call numbers and related titles indexed in the Library
+          catalog.
+        </p>
+
+        <div
           css={{
-            width: "100%",
-            minWidth: "24rem",
-            textAlign: "left",
-            tableLayout: "fixed",
-            marginBottom: "2em",
+            /*overflowX: "auto",*/
           }}
         >
-          <thead>
-            <tr>
-              {headings.map((heading, i) => (
-                <th
-                  colSpan={i + 1}
-                  scope="col"
-                  key={i}
+          <table
+            css={{
+              width: "100%",
+              minWidth: "24rem",
+              textAlign: "left",
+              tableLayout: "fixed",
+              margin: `0 calc(-1 * ${SPACING['XS']})`
+            }}
+          >
+            <thead>
+              <tr>
+                {headings.map((heading, i) => (
+                  <th
+                    colSpan={i + 1}
+                    scope="col"
+                    key={i}
+                    css={{
+                      fontWeight: "600",
+                      color: COLORS.neutral["300"],
+                      ...cell_padding,
+                      borderBottom: `solid 2px ${COLORS.neutral["100"]}`,
+                      width: headings.length === 3 && i === 2 ? "50%" : "auto",
+                    }}
+                  >
+                    {heading}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr colSpan="1" css={{ borderBottom: "solid 1px #CCCCCC" }}>
+                <td
                   css={{
-                    fontWeight: "600",
-                    color: COLORS.neutral["300"],
                     ...cell_padding,
-                    borderBottom: `solid 2px ${COLORS.neutral["100"]}`,
-                    width: headings.length === 3 && i === 2 ? "50%" : "auto",
+                    wordBreak: "break-word",
                   }}
                 >
-                  {heading}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            <tr colSpan="1" css={{ borderBottom: "solid 1px #CCCCCC" }}>
-              <td
-                css={{
-                  ...cell_padding,
-                  wordBreak: "break-word",
-                }}
-              >
-                Z 253 .U582 1984
-              </td>
-              <td
-                colSpan="2"
-                css={{
-                  ...cell_padding,
-                  wordBreak: "break-word",
-                  fontSize: "1em",
-                }}
-              >
-                <a
-                  href={"#"}
-                  css={{ fontWeight: "600", textDecoration: "underline" }}
-                >
-                  Patents and trademarks style manual:
-                </a>
-
-                <p css={{ color: "#4E4E4E", marginTop: "0" }}>
-                  United States. Patent and Trademark Office. Washington, D.C. :
-                  The Office : For sale by the Supt. of Docs., U.S. G.P.O.,
-                  1984.
-                </p>
-              </td>
-            </tr>
-
-            <tr css={{ borderBottom: "solid 1px #CCCCCC" }}>
-              <td
-                colSpan="1"
-                css={{
-                  ...cell_padding,
-                  wordBreak: "break-word",
-                }}
-              >
-                Z 253 .U582 1984
-              </td>
-              <td
-                colSpan="2"
-                css={{
-                  ...cell_padding,
-                  wordBreak: "break-word",
-                  fontSize: "1em",
-                }}
-              >
-                <a
-                  href={"#"}
-                  css={{ fontWeight: "600", textDecoration: "underline" }}
-                >
-                  Patents and trademarks style manual:
-                </a>
-
-                <p css={{ color: "#4E4E4E", marginTop: "0" }}>
-                  United States. Patent and Trademark Office. Washington, D.C. :
-                  The Office : For sale by the Supt. of Docs., U.S. G.P.O.,
-                  1984.
-                </p>
-              </td>
-            </tr>
-
-            <tr
-              css={{
-                border: `3px solid ${COLORS["maize"]["400"]}`,
-              }}
-            >
-              <td
-                colSpan="1"
-                css={{
-                  ...cell_padding,
-                  wordBreak: "break-word",
-                }}
-              >
-                Z 253 .U582 1984
-              </td>
-              <td
-                colSpan="2"
-                css={{
-                  ...cell_padding,
-                  wordBreak: "break-word",
-                  fontSize: "1em",
-                }}
-              >
-                <a
-                  href={"#"}
-                  css={{ fontWeight: "600", textDecoration: "underline" }}
-                >
-                  Patents and trademarks style manual:
-                </a>
-
-                <p css={{ color: "#4E4E4E", marginTop: "0" }}>
-                  United States. Patent and Trademark Office. Washington, D.C. :
-                  The Office : For sale by the Supt. of Docs., U.S. G.P.O.,
-                  1984.
-                </p>
-              </td>
-            </tr>
-
-            <tr
-              css={{
-                borderBottom: "solid 1px #CCCCCC",
-                background: "#f2f2f2",
-              }}
-            >
-              <td
-                colSpan="3"
-                css={{
-                  ...cell_padding,
-                  wordBreak: "break-word",
-                  fontSize: "1em",
-                }}
-              >
-                <p
+                  Z 253 .U582 1984
+                </td>
+                <td
+                  colSpan="2"
                   css={{
-                    color: "#4E4E4E",
-                    marginTop: "0",
+                    ...cell_padding,
+                    wordBreak: "break-word",
+                    fontSize: "1em",
                   }}
                 >
-                  <span css={{ fontWeight: "600", color: "#333" }}>
-                    Z 253 .U68
-                  </span>{" "}
-                  would appear here. No exact match for the call number in our
-                  catalog.
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  <a
+                    href={"#"}
+                    css={{ fontWeight: "600", textDecoration: "underline" }}
+                  >
+                    Patents and trademarks style manual:
+                  </a>
+
+                  <p css={{ color: "#4E4E4E", marginTop: "0" }}>
+                    United States. Patent and Trademark Office. Washington, D.C. :
+                    The Office : For sale by the Supt. of Docs., U.S. G.P.O.,
+                    1984.
+                  </p>
+                </td>
+              </tr>
+
+              <tr css={{ borderBottom: "solid 1px #CCCCCC" }}>
+                <td
+                  colSpan="1"
+                  css={{
+                    ...cell_padding,
+                    wordBreak: "break-word",
+                  }}
+                >
+                  Z 253 .U582 1984
+                </td>
+                <td
+                  colSpan="2"
+                  css={{
+                    ...cell_padding,
+                    wordBreak: "break-word",
+                    fontSize: "1em",
+                  }}
+                >
+                  <a
+                    href={"#"}
+                    css={{ fontWeight: "600", textDecoration: "underline" }}
+                  >
+                    Patents and trademarks style manual:
+                  </a>
+
+                  <p css={{ color: "#4E4E4E", marginTop: "0" }}>
+                    United States. Patent and Trademark Office. Washington, D.C. :
+                    The Office : For sale by the Supt. of Docs., U.S. G.P.O.,
+                    1984.
+                  </p>
+                </td>
+              </tr>
+
+              <tr
+                css={{
+                  border: `3px solid ${COLORS["maize"]["400"]}`,
+                }}
+              >
+                <td
+                  colSpan="1"
+                  css={{
+                    ...cell_padding,
+                    wordBreak: "break-word",
+                  }}
+                >
+                  Z 253 .U582 1984
+                </td>
+                <td
+                  colSpan="2"
+                  css={{
+                    ...cell_padding,
+                    wordBreak: "break-word",
+                    fontSize: "1em",
+                  }}
+                >
+                  <a
+                    href={"#"}
+                    css={{ fontWeight: "600", textDecoration: "underline" }}
+                  >
+                    Patents and trademarks style manual:
+                  </a>
+
+                  <p css={{ color: "#4E4E4E", marginTop: "0" }}>
+                    United States. Patent and Trademark Office. Washington, D.C. :
+                    The Office : For sale by the Supt. of Docs., U.S. G.P.O.,
+                    1984.
+                  </p>
+                </td>
+              </tr>
+
+              <tr
+                css={{
+                  borderBottom: "solid 1px #CCCCCC",
+                  background: "#f2f2f2",
+                }}
+              >
+                <td
+                  colSpan="3"
+                  css={{
+                    ...cell_padding,
+                    wordBreak: "break-word",
+                    fontSize: "1em",
+                  }}
+                >
+                  <p
+                    css={{
+                      color: "#4E4E4E",
+                      marginTop: "0",
+                    }}
+                  >
+                    <span css={{ fontWeight: "600", color: "#333" }}>
+                      Z 253 .U68
+                    </span>{" "}
+                    would appear here. No exact match for the call number in our
+                    catalog.
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
