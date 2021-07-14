@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
-    "node-sass-chokidar": "^1.5.0",
     "react-scripts": "^3.4.3"
   },
   "dependencies": {
@@ -52,11 +51,10 @@
     "reinstall": "rm -rf node_modules && npm install",
     "start": "REACT_APP_SPECTRUM_BASE_URL=https://search-staging.www.lib.umich.edu/spectrum react-scripts start",
     "develop": "npm run start",
+    "develop:testing": "REACT_APP_SPECTRUM_BASE_URL=https://testing-alma.search.kubernetes.lib.umich.edu/spectrum react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "build:css": "node-sass-chokidar src/ -o src/",
-    "watch:css": "npm run build:css && node-sass-chokidar src/ -o src/ --watch --recursive"
+    "eject": "react-scripts eject"
   },
   "browserslist": [
     ">0.2%",

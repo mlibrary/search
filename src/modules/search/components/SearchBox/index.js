@@ -1,13 +1,48 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import qs from "qs";
 import { withRouter, Link } from "react-router-dom";
 import _ from "underscore";
+import VisuallyHidden from '@reach/visually-hidden';
+import { Button } from "@umich-lib/core";
+import { SPACING } from "../../../reusable/umich-lib-core-temp";
 
-import { setSearchQueryInput, searching } from "../../actions";
+import { setSearchQueryInput, searching, setBrowsing } from "../../actions";
 import { Icon } from "../../../core";
 import ReactGA from "react-ga";
+
+/**
+ * 
+ * Browse developer comments
+ * =====
+ * 
+ * Plan:
+ * (1) make it work, even if it's ugly
+ *     [ ] Add active field to SearchBox state, so that it can be
+ *         included in the URL with `qs.stringify`.
+ *         Ignore `all_fields`.
+ * (2) clean it up
+ *     [ ] Convert to a function (not a class)
+ *     [ ] Remove sass (class names) and use Emotion
+ *         with design tokens.
+ * (3) Get feedback from team.
+ *     [ ] Share with team for feedback.
+ * 
+ * This component will be rewritten without classes and without
+ * `bindActionCreators`, since that is an older pattern not recommened
+ * anymore for new development. So now is the chance to update
+ * this one.
+ * 
+ * We need to redesign the Search Box to match the new Browse designs.
+ * 
+ * And add conditionals to what datastore is active so that this
+ * search box can change accordingly.
+ * 
+ * 
+ */
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -16,13 +51,14 @@ class SearchBox extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
   }
 
   handleChange(query) {
     this.props.setSearchQueryInput(query);
   }
 
-  onBackButtonEvent(e) {
+  onBackButtonEvent() {
     const { query } = this.props;
     this.handleChange(query);
   }
@@ -59,7 +95,7 @@ class SearchBox extends React.Component {
           query: queryInput,
           filter: activeFilters,
           library,
-          sort,
+          sort
         },
         {
           arrayFormat: "repeat",
@@ -75,6 +111,22 @@ class SearchBox extends React.Component {
     }
   }
 
+  handleSelectChange(event) {
+    const {
+      setBrowsing
+    } = this.props;
+
+    console.log("handleFieldChange", event, event.target.value)
+
+    const userSelectedBrowse = event.target.value === 'lc-call-number'
+
+    if (userSelectedBrowse) {
+      setBrowsing(true)
+    } else {
+      setBrowsing(false)
+    }
+  }
+
   render() {
     const {
       match,
@@ -82,6 +134,7 @@ class SearchBox extends React.Component {
       queryInput,
       isAdvanced,
       activeDatastore,
+      fields
     } = this.props;
 
     return (
@@ -94,9 +147,34 @@ class SearchBox extends React.Component {
             id="search-box"
           >
             <div className="search-box">
+              {activeDatastore.uid === 'mirlyn' && (
+                <select
+                  css={{
+                    fontFamily: '"OpenSans", "Source Sans Pro"',
+                    backgroundColor: "#F7F8F9",
+                    border: "1px solid rgba(18,109,193,0.4)",
+                    fontSize: "1em",
+                    borderRadius: "4px",
+                    paddingLeft: ".5em",
+                    margin: "0"
+                  }}
+                  onChange={this.handleSelectChange}
+                >
+                  <optgroup label="Fields">
+                    {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                  </optgroup>
+
+                  <optgroup label="Browse">
+                    <option value="lc-call-number">Browse by LC call number</option>
+                  </optgroup>
+                </select>
+              )}
+              
               <input
                 id="search-query"
-                className="search-box-input"
+                css={{
+                  margin: '0 ' + SPACING['XS'] + "!important"
+                }}
                 type="search"
                 aria-label="search text"
                 value={queryInput}
@@ -104,12 +182,21 @@ class SearchBox extends React.Component {
                 data-hj-allow
                 onChange={(event) => this.handleChange(event.target.value)}
               />
-              <button className="button search-box-button" type="submit">
+              <Button
+                type="submit"
+                css={{
+                  margin: 0,
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
                 <Icon name="search" />
-                <span className="search-box-button-text">Search</span>
-              </button>
+                <VisuallyHidden>
+                  <span className="search-box-button-text">Search</span>
+                </VisuallyHidden>
+              </Button>
             </div>
-
+            
             {isAdvanced && (
               <div className="search-box-advanced">
                 <Link
@@ -143,6 +230,7 @@ function mapStateToProps(state) {
     institution: state.institution,
     datastores: state.datastores,
     sort: state.search.sort[state.datastores.active],
+    fields: state.advanced[state.datastores.active].fields,
   };
 }
 
@@ -151,6 +239,7 @@ function mapDispatchToProps(dispatch) {
     {
       setSearchQueryInput,
       searching,
+      setBrowsing
     },
     dispatch
   );

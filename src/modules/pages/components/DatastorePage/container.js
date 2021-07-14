@@ -42,6 +42,8 @@ import { setDocumentTitle } from "../../../a11y";
 
 import { FlintAlerts } from "../../../flint";
 
+import BrowseByCallNumber from "../../../browse/components/BrowseByCallNumber";
+
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class DatastorePageContainer extends React.Component {
@@ -65,6 +67,7 @@ class DatastorePageContainer extends React.Component {
 
   render() {
     const {
+      browsing,
       searching,
       match,
       location,
@@ -78,7 +81,9 @@ class DatastorePageContainer extends React.Component {
     }
 
     return (
-      <main className="main-container">
+      <main
+        className="main-container"
+      >
         <Switch>
           <Route
             path={`/:datastoreSlug/browse`}
@@ -166,6 +171,7 @@ class DatastorePageContainer extends React.Component {
                             <DatastoreInfo activeDatastore={activeDatastore} />
                           )}
                           <Results
+                            browsing={browsing}
                             searching={searching}
                             activeDatastore={activeDatastore}
                             activeFilterCount={activeFilterCount}
@@ -184,9 +190,15 @@ class DatastorePageContainer extends React.Component {
   }
 }
 
-const Results = ({ searching, activeDatastore, activeFilterCount }) => {
+const Results = ({ browsing, searching, activeDatastore, activeFilterCount }) => {
   if (activeDatastore.isMultisearch && searching) {
     return <MultisearchSearching activeDatastore={activeDatastore} />;
+  }
+
+  const isCatalogBrowse = activeDatastore.uid === "mirlyn";
+
+  if (browsing && searching && isCatalogBrowse) {
+    return <BrowseByCallNumber />;
   }
 
   return (
@@ -261,6 +273,7 @@ function mapStateToProps(state) {
 
   return {
     searching: state.search.searching,
+    browsing: state.search.browsing,
     query: state.search.query,
     datastores: state.datastores,
     activeDatastore: _.findWhere(state.datastores.datastores, {
