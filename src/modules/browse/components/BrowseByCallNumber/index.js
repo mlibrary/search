@@ -108,10 +108,12 @@ function CallnumberResult(data) {
   const result = {
     callnumber: 'n/a',
     title: data.header.medium['main-left-aligned'][1][0].text,
-    description: 'n/a'
+    author: data.metadata.medium[1].description[0].text,
+    published: data.metadata.medium[2].description[0].text
   }
 
   return (
+    
     <tr colSpan="1" css={{ borderBottom: "solid 1px #CCCCCC" }}>
       <td
         css={{
@@ -137,7 +139,7 @@ function CallnumberResult(data) {
         </a>
 
         <p css={{ color: "#4E4E4E", marginTop: "0" }}>
-          TODO: placeholder for a description.
+          {result.author} {result.published} 
         </p>
       </td>
     </tr>

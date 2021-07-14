@@ -8,7 +8,7 @@ import { withRouter, Link } from "react-router-dom";
 import _ from "underscore";
 import VisuallyHidden from '@reach/visually-hidden';
 import { Button } from "@umich-lib/core";
-import { COLORS, SPACING } from "../../../reusable/umich-lib-core-temp";
+import { SPACING } from "../../../reusable/umich-lib-core-temp";
 
 import { setSearchQueryInput, searching, setBrowsing } from "../../actions";
 import { Icon } from "../../../core";
