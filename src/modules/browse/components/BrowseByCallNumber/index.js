@@ -108,8 +108,8 @@ function CallnumberResult(data) {
   const result = {
     callnumber: 'n/a',
     title: data.header.medium['main-left-aligned'][1][0].text,
-    author: data.metadata.medium[1].description[0].text,
-    published: data.metadata.medium[2].description[0].text
+    author: data.metadata.medium[1]?.description[0]?.text,
+    published: data.metadata.medium[2]?.description[0]?.text
   }
 
   return (
