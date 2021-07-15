@@ -281,8 +281,60 @@ const config = {
        "creator",
       ],
       defaultFields: ["all_fields", "title", "creator"],
-      filters: [],
-     
+      filters: [
+        {
+          uid: "available_online",
+          name: "Limit to articles available online",
+          type: "checkbox",
+          groupBy: "Access Options",
+          conditions: {
+            checked: true,
+            unchecked: undefined,
+          },
+        },
+        {
+          uid: "is_scholarly",
+          name: "Limit to articles from scholarly journals",
+          groupBy: "Access Options",
+          type: "checkbox",
+          conditions: {
+            checked: true,
+            unchecked: undefined,
+          },
+        },
+        {
+          uid: "holdings_only",
+          name: "Add results beyond the library's holdings",
+          groupBy: "Access Options",
+          type: "checkbox",
+          conditions: {
+            checked: false,
+            unchecked: undefined,
+          },
+        },
+        {
+          uid: "exclude_newspapers",
+          name: "Exclude newspaper holdings",
+          groupBy: "Access Options",
+          type: "checkbox",
+          conditions: {
+            checked: true,
+            unchecked: undefined,
+          },
+        },
+        {
+          uid: "publication_date",
+          type: "date_range_input",
+        },
+        {
+          uid: "language",
+          type: "multiple_select",
+        },
+        {
+          uid: "format",
+          type: "multiple_select",
+        }
+      ]
     },
     databases: {
       fields: [
