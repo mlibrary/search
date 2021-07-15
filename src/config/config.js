@@ -276,11 +276,16 @@ const config = {
     },
     primo: {
       fields: [
-       "all_fields",
-       "title",
-       "creator",
+        "all_fields",
+        "title",
+        "author",
+        "publication_title",
+        "subject",
+        "publication_date",
+        "issn",
+        "isbn"
       ],
-      defaultFields: ["all_fields", "title", "creator"],
+      defaultFields: ["all_fields", "title", "author"],
       filters: [
         {
           uid: "available_online",
