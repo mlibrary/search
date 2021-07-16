@@ -17,7 +17,7 @@ const Landing = ({ content, activeDatastore }) => {
           </h1>
           <p>
             You will see results from the <Link to={`/catalog`}>Catalog</Link>,{" "}
-            <Link to={`/articlesplus`}>Articles</Link>,{" "}
+            <Link to={`/articles`}>Articles</Link>,{" "}
             <Link to={`/databases`}>Databases</Link>,{" "}
             <Link to={`/onlinejournals`}>Online Journals</Link>, and{" "}
             <Link to={`/guidesandmore`}>Guides and More</Link> pages.
@@ -65,25 +65,11 @@ const Landing = ({ content, activeDatastore }) => {
           </div>
         </div>
       );
-    case "articlesplus":
-      return (
-        <div className="landing-container">
-          <h1 className="landing-heading-text" aria-live="polite">
-            <b>Articles</b> is a gateway to discovering a wide range of the
-            library's resources.
-          </h1>
-          <p>
-            Your results will include scholarly journal articles, newspaper
-            articles, book chapters, conference proceedings, and more. To focus
-            your search on a specific subject area, try looking for databases.
-          </p>
-        </div>
-      );
     case "primo":
       return (
         <div className="landing-container">
           <h1 className="landing-heading-text" aria-live="polite">
-            <b>Primo Articles</b> is a gateway to discovering a wide range of the
+            <b>Articles</b> is a gateway to discovering a wide range of the
             library's resources.
           </h1>
           <p>

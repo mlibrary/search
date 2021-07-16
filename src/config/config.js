@@ -17,14 +17,9 @@ const config = {
         slug: "catalog",
       },
       {
-        uid: "articlesplus",
-        name: "Articles via Summon API",
-        slug: "articles",
-      },
-      {
         uid: "primo",
-        name: "Articles via Primo API",
-        slug: "primo",
+        name: "Articles",
+        slug: "articles",
       },
       {
         uid: "databases",
@@ -45,7 +40,6 @@ const config = {
         name: "Everything",
         datastores: [
           "mirlyn",
-          "articlesplus",
           "primo",
           "databases",
           "onlinejournals",
@@ -56,7 +50,6 @@ const config = {
     ordering: [
       "everything",
       "mirlyn",
-      "articlesplus",
       "primo",
       "onlinejournals",
       "databases",
@@ -77,10 +70,6 @@ const config = {
         "title_asc",
         "title_desc",
       ],
-    },
-    articlesplus: {
-      default: "relevance",
-      sorts: ["relevance", "date_asc", "date_desc"],
     },
     primo: {
       default: "relevance",
@@ -203,73 +192,6 @@ const config = {
         },
         {
           uid: "place_of_publication_filter",
-          type: "multiple_select",
-        },
-      ],
-    },
-    articlesplus: {
-      fields: [
-        "all_fields",
-        "title",
-        "author",
-        "publication_title",
-        "subject",
-        "series",
-        "publication_date",
-        "isn",
-      ],
-      defaultFields: ["all_fields", "title", "author"],
-      filters: [
-        {
-          uid: "available_online",
-          name: "Limit to articles available online",
-          type: "checkbox",
-          groupBy: "Access Options",
-          conditions: {
-            checked: true,
-            unchecked: undefined,
-          },
-        },
-        {
-          uid: "is_scholarly",
-          name: "Limit to articles from scholarly journals",
-          groupBy: "Access Options",
-          type: "checkbox",
-          conditions: {
-            checked: true,
-            unchecked: undefined,
-          },
-        },
-        {
-          uid: "holdings_only",
-          name: "Add results beyond the library's holdings",
-          groupBy: "Access Options",
-          type: "checkbox",
-          conditions: {
-            checked: false,
-            unchecked: undefined,
-          },
-        },
-        {
-          uid: "exclude_newspapers",
-          name: "Exclude newspaper holdings",
-          groupBy: "Access Options",
-          type: "checkbox",
-          conditions: {
-            checked: true,
-            unchecked: undefined,
-          },
-        },
-        {
-          uid: "publication_date",
-          type: "date_range_input",
-        },
-        {
-          uid: "language",
-          type: "multiple_select",
-        },
-        {
-          uid: "format",
           type: "multiple_select",
         },
       ],

@@ -15,16 +15,10 @@ const DatastoreInfo = ({ activeDatastore }) => {
           <h1><b>Catalog</b>: results from everything in our physical collection (books, audio, video, maps, musical scores, archival materials, and more), as well as materials available online such as electronic books, streaming audio and video, and online journals.</h1>
         </div>
       )
-    case 'articlesplus':
-      return (
-        <div className="datastore-info">
-          <h1><b>Articles</b>: results from scholarly journal articles, newspaper articles, book chapters, conference proceedings, and more.</h1>
-        </div>
-      )
     case 'primo':
       return (
         <div className="datastore-info">
-          <h1><b>Primo Articles</b>: results from scholarly journal articles, newspaper articles, book chapters, conference proceedings, and more.</h1>
+          <h1><b>Articles</b>: results from scholarly journal articles, newspaper articles, book chapters, conference proceedings, and more.</h1>
         </div>
       )
     case 'databases':
