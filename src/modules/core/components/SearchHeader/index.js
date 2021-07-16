@@ -15,7 +15,7 @@ class SearchHeader extends React.Component {
     const loginText = this.props.isAuthenticated ? "Log out" : "Log in";
     const loginHref = this.props.isAuthenticated ? logoutUrl : loginUrl;
     let navItems = [
-      { text: "My Account", href: "https://apps.lib.umich.edu/my-account" },
+      { text: "Account", href: "https://account.lib.umich.edu/" },
       {
         text: "My Favorites",
         href: "https://apps.lib.umich.edu/my-account/favorites",
