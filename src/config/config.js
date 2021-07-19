@@ -100,8 +100,8 @@ const config = {
     everything: {
       forcedFields: [
         {
-          uid: "all_fields",
-          name: "All Fields",
+          uid: "keyword",
+          name: "Keyword",
           force: true,
         },
         {
@@ -115,12 +115,12 @@ const config = {
           force: true,
         },
       ],
-      fields: ["all_fields", "title", "author"],
-      defaultFields: ["all_fields", "title", "author"],
+      fields: ["keyword", "title", "author"],
+      defaultFields: ["keyword", "title", "author"],
     },
     mirlyn: {
       fields: [
-        "all_fields",
+        "keyword",
         "title",
         "title_starts_with",
         "author",
@@ -133,7 +133,7 @@ const config = {
         "publication_date",
         "isn",
       ],
-      defaultFields: ["all_fields", "title", "author"],
+      defaultFields: ["keyword", "title", "author"],
       filters: [
         {
           uid: "available_online",
@@ -198,7 +198,7 @@ const config = {
     },
     primo: {
       fields: [
-        "all_fields",
+        "keyword",
         "title",
         "author",
         "publication_title",
@@ -207,7 +207,7 @@ const config = {
         "issn",
         "isbn"
       ],
-      defaultFields: ["all_fields", "title", "author"],
+      defaultFields: ["keyword", "title", "author"],
       filters: [
         {
           uid: "available_online",
@@ -265,13 +265,13 @@ const config = {
     },
     databases: {
       fields: [
-        "all_fields",
+        "keyword",
         "title",
         "title_starts_with",
         "academic_discipline",
         "publisher",
       ],
-      defaultFields: ["all_fields", "title_starts_with"],
+      defaultFields: ["keyword", "title_starts_with"],
       filters: [
         {
           uid: "type",
@@ -289,7 +289,7 @@ const config = {
     },
     onlinejournals: {
        fields: [
-        "all_fields",
+        "keyword",
         "title",
         "title_starts_with",
         "subject",
@@ -315,11 +315,11 @@ const config = {
           type: "multiple_select",
         },
       ],
-      defaultFields: ["all_fields", "title", "subject"],
+      defaultFields: ["keyword", "title", "subject"],
     },
     website: {
-      fields: ["all_fields", "title"],
-      defaultFields: ["all_fields"],
+      fields: ["keyword", "title"],
+      defaultFields: ["keyword"],
     },
   },
   holdingRewrites: [
