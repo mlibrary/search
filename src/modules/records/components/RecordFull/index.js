@@ -80,10 +80,10 @@ class FullRecord extends React.Component {
 
     // If the record isn't in state
     if (record && record.uid !== recordUid) {
-        if (datastoreUid == 'mirlyn' && recordUid.length === 9) {
+        if (datastoreUid === 'mirlyn' && recordUid.length === 9) {
             // treat as an aleph id
             history.push(`/catalog/record/${record.uid}`)
-        } else if (datastoreUid == 'onlinejournals' && recordUid.length == 0) {
+        } else if (datastoreUid === 'onlinejournals' && recordUid.length === 9) {
             // treat as an aleph id
             history.push(`/onlinejournals/record/${record.uid}`)
         } else {
