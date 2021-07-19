@@ -37,7 +37,7 @@ class BrowseAtoZ extends React.Component {
               <Link
                 className="browse-button"
                 to={this.createBrowseTo({
-                  query: 'title_starts_with:' + character
+                  filter: 'title_initial:' + character
                 })}
               >{character}</Link>
             </li>
