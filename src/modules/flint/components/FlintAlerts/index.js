@@ -21,7 +21,7 @@ class FlintAlerts extends React.Component {
     }
 
     switch (datastore) {
-      case 'articlesplus':
+      case 'primo':
         let url = 'https://umflint.summon.serialssolutions.com/#!/'
 
         if (query) {
@@ -43,7 +43,7 @@ class FlintAlerts extends React.Component {
               ><span>We noticed you are affiliated with U-M Flint. For the best results use the <a href="https://libguides.umflint.edu/az.php?a=all">Thompson Library’s database listing</a>.</span> <Button kind="secondary" small onClick={() => this.handleCloseButtonClick()}>Dismiss</Button></Alert>
           </UserIsFlintAffiliated>
         )
-      case 'journals':
+      case 'onlinejournals':
         return (
           <UserIsFlintAffiliated>
             <Alert

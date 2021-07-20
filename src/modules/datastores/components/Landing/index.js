@@ -17,7 +17,7 @@ const Landing = ({ content, activeDatastore }) => {
           </h1>
           <p>
             You will see results from the <Link to={`/catalog`}>Catalog</Link>,{" "}
-            <Link to={`/articlesplus`}>Articles</Link>,{" "}
+            <Link to={`/articles`}>Articles</Link>,{" "}
             <Link to={`/databases`}>Databases</Link>,{" "}
             <Link to={`/onlinejournals`}>Online Journals</Link>, and{" "}
             <Link to={`/guidesandmore`}>Guides and More</Link> pages.
@@ -65,7 +65,7 @@ const Landing = ({ content, activeDatastore }) => {
           </div>
         </div>
       );
-    case "articlesplus":
+    case "primo":
       return (
         <div className="landing-container">
           <h1 className="landing-heading-text" aria-live="polite">
@@ -96,7 +96,7 @@ const Landing = ({ content, activeDatastore }) => {
           <BrowseInfo datastore={activeDatastore} />
         </div>
       );
-    case "journals":
+    case "onlinejournals":
       return (
         <div className="landing-container">
           <h1 className="landing-heading-text" aria-live="polite">

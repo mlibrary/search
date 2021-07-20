@@ -17,7 +17,7 @@ const config = {
         slug: "catalog",
       },
       {
-        uid: "articlesplus",
+        uid: "primo",
         name: "Articles",
         slug: "articles",
       },
@@ -26,7 +26,7 @@ const config = {
         name: "Databases",
       },
       {
-        uid: "journals",
+        uid: "onlinejournals",
         name: "Online Journals",
         slug: "onlinejournals",
       },
@@ -40,9 +40,9 @@ const config = {
         name: "Everything",
         datastores: [
           "mirlyn",
-          "articlesplus",
+          "primo",
           "databases",
-          "journals",
+          "onlinejournals",
           "website",
         ],
       },
@@ -50,8 +50,8 @@ const config = {
     ordering: [
       "everything",
       "mirlyn",
-      "articlesplus",
-      "journals",
+      "primo",
+      "onlinejournals",
       "databases",
       "website",
     ],
@@ -71,17 +71,24 @@ const config = {
         "title_desc",
       ],
     },
-    articlesplus: {
+    primo: {
       default: "relevance",
-      sorts: ["relevance", "date_asc", "date_desc"],
+      sorts: ["relevance", "title", "author", "date"],
     },
     databases: {
       default: "relevance",
       sorts: ["relevance", "title_asc", "title_desc"],
     },
-    journals: {
+    onlinejournals: {
       default: "relevance",
-      sorts: ["relevance", "title_asc", "title_desc"],
+      sorts: [
+        "relevance",
+        "date_asc",
+        "date_desc",
+        "date_added",
+        "title_asc",
+        "title_desc",
+      ],
     },
     website: {
       default: "relevance",
@@ -93,8 +100,8 @@ const config = {
     everything: {
       forcedFields: [
         {
-          uid: "all_fields",
-          name: "All Fields",
+          uid: "keyword",
+          name: "Keyword",
           force: true,
         },
         {
@@ -108,12 +115,12 @@ const config = {
           force: true,
         },
       ],
-      fields: ["all_fields", "title", "author"],
-      defaultFields: ["all_fields", "title", "author"],
+      fields: ["keyword", "title", "author"],
+      defaultFields: ["keyword", "title", "author"],
     },
     mirlyn: {
       fields: [
-        "all_fields",
+        "keyword",
         "title",
         "title_starts_with",
         "author",
@@ -126,7 +133,7 @@ const config = {
         "publication_date",
         "isn",
       ],
-      defaultFields: ["all_fields", "title", "author"],
+      defaultFields: ["keyword", "title", "author"],
       filters: [
         {
           uid: "available_online",
@@ -189,18 +196,18 @@ const config = {
         },
       ],
     },
-    articlesplus: {
+    primo: {
       fields: [
-        "all_fields",
+        "keyword",
         "title",
         "author",
         "publication_title",
         "subject",
-        "series",
         "publication_date",
-        "isn",
+        "issn",
+        "isbn"
       ],
-      defaultFields: ["all_fields", "title", "author"],
+      defaultFields: ["keyword", "title", "author"],
       filters: [
         {
           uid: "available_online",
@@ -253,18 +260,18 @@ const config = {
         {
           uid: "format",
           type: "multiple_select",
-        },
-      ],
+        }
+      ]
     },
     databases: {
       fields: [
-        "all_fields",
+        "keyword",
         "title",
         "title_starts_with",
         "academic_discipline",
         "publisher",
       ],
-      defaultFields: ["all_fields", "title_starts_with"],
+      defaultFields: ["keyword", "title_starts_with"],
       filters: [
         {
           uid: "type",
@@ -280,9 +287,9 @@ const config = {
         },
       ],
     },
-    journals: {
-      fields: [
-        "all_fields",
+    onlinejournals: {
+       fields: [
+        "keyword",
         "title",
         "title_starts_with",
         "subject",
@@ -292,15 +299,27 @@ const config = {
       ],
       filters: [
         {
+          uid: "subject",
+          type: "multiple_select",
+        },
+        {
+          uid: "language",
+          type: "multiple_select",
+        },
+        {
+          uid: "place_of_publication_filter",
+          type: "multiple_select",
+        },
+        {
           uid: "academic_discipline",
           type: "multiple_select",
         },
       ],
-      defaultFields: ["all_fields", "title", "isn"],
+      defaultFields: ["keyword", "title", "subject"],
     },
     website: {
-      fields: ["all_fields", "title"],
-      defaultFields: ["all_fields"],
+      fields: ["keyword", "title"],
+      defaultFields: ["keyword"],
     },
   },
   holdingRewrites: [
