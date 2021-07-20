@@ -3,7 +3,7 @@ import { jsx } from "@emotion/core";
 import React from "react";
 import { connect } from "react-redux";
 import MediaQuery from "react-responsive";
-import { _ } from "underscore";
+import _ from "underscore";
 import { Route, Switch } from "react-router-dom";
 
 import { NoMatch } from "../../../pages";
@@ -16,7 +16,6 @@ import {
   DatastoreNavigation,
   DatastoreInfo,
   Landing,
-  DatastoreAuthenticationAlert,
 } from "../../../datastores";
 
 import { Filters } from "../../../filters";
@@ -131,7 +130,6 @@ class DatastorePageContainer extends React.Component {
                 >
                   <FlintAlerts />
                 </div>
-                <DatastoreAuthenticationAlert />
                 <ConnectedSwitch>
                   <Route
                     path={match.url + `/record/:recordUid/get-this/:barcode`}

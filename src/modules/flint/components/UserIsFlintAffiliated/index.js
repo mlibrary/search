@@ -1,4 +1,4 @@
-import { _ } from 'underscore'
+import _ from 'underscore'
 import { connect } from 'react-redux';
 
 const UserIsFlintAffiliated = ({

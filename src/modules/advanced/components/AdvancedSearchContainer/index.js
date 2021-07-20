@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { _ } from 'underscore'
+import _ from 'underscore'
 import {
   Link
 } from 'react-router-dom';

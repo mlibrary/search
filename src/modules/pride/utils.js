@@ -1,5 +1,5 @@
 import { Pride } from "pride";
-import { _ } from "underscore";
+import _ from "underscore";
 import deepcopy from "deepcopy";
 import qs from "qs";
 import { Validator } from "jsonschema";

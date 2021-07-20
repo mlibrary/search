@@ -1,5 +1,5 @@
 import { Pride } from "pride";
-import { _ } from "underscore";
+import _ from "underscore";
 
 import config from "../../config";
 import store from "../../store";

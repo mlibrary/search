@@ -1,4 +1,4 @@
-import { _ } from 'underscore'
+import _ from 'underscore'
 import store from '../../../../store'
 
 /*
