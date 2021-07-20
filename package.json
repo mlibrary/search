@@ -48,7 +48,7 @@
   },
   "scripts": {
     "reinstall": "rm -rf node_modules && npm install",
-    "start": "REACT_APP_SPECTRUM_BASE_URL=https://search-staging.www.lib.umich.edu/spectrum react-scripts start",
+    "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} react-scripts start",
     "develop": "npm run start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
