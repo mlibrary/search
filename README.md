@@ -28,16 +28,6 @@ Style using [Emotion's CSS object styles](https://emotion.sh/docs/css-prop#objec
 
 We no longer write new Sass for this project.
 
-```sh
-$ npm run watch:css
-```
-
-If you just want to build and not watch, then:
-
-```sh
-$ npm run build:css
-```
-
 ## Local Development
 
 Local development will only work if you have access to the UMich network. This is a requirment for communicating with the backend service (Spectrum).
