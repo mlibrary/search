@@ -24,17 +24,9 @@ $ npm start
 
 ## CSS
 
-If you're editing SASS, run the following command to watch and build those files.
+Style using [Emotion's CSS object styles](https://emotion.sh/docs/css-prop#object-styles). To see examples look to the ResourceAccess or Metadata modules and related components.
 
-```sh
-$ npm run watch:css
-```
-
-If you just want to build and not watch, then:
-
-```sh
-$ npm run build:css
-```
+We no longer write new Sass for this project.
 
 ## Local Development
 

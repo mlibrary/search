@@ -1,5 +1,5 @@
 import * as actions from '../actions';
-import { _ } from 'underscore'
+import _ from 'underscore'
 
 const favoritesReducer = (state = { disabled: false }, action) => {
   if (action.payload) {

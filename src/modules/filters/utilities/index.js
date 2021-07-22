@@ -1,5 +1,5 @@
 import qs from "qs";
-import { _ } from "underscore";
+import _ from "underscore";
 
 /*
   newQuery

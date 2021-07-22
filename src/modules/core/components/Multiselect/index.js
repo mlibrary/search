@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Text } from '@umich-lib/core'
-import { _ } from 'underscore'
+import _ from 'underscore'
 import { Checkbox } from '../../../core'
 
 class Multiselect extends React.Component {

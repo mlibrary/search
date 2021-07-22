@@ -12,7 +12,7 @@ import {
   removeFieldedSearch,
   setFieldedSearch,
 } from "../../../advanced";
-import { _ } from "underscore";
+import _ from "underscore";
 
 class AdvancedSearchForm extends React.Component {
   state = {
