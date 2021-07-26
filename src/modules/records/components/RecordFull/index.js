@@ -67,6 +67,7 @@ class FullRecord extends React.Component {
   componentWillMount() {
     const { recordUid } = this.props.match.params;
     const { datastoreUid } = this.props;
+    const { datastore } = this.props.datastore
 
     requestRecord({ recordUid, datastoreUid });
     prejudiceInstance = prejudice.createVariableStorageDriverInstance();
@@ -75,7 +76,7 @@ class FullRecord extends React.Component {
   }
 
   componentDidUpdate() {
-    const { record, datastoreUid, datastores, history } = this.props;
+    const { record, datastoreUid, datastores, history, datastore } = this.props;
     const { recordUid } = this.props.match.params;
 
     // If the record isn't in state
@@ -86,6 +87,8 @@ class FullRecord extends React.Component {
         } else if (datastoreUid === 'onlinejournals' && recordUid.length === 9) {
             // treat as an aleph id
             history.push(`/onlinejournals/record/${record.uid}`)
+        } else if (_.contains(record.alt_ids, recordUid)) {
+            history.push(`/${datastore.slug}/record/${record.uid}`)
         } else {
             requestRecord({recordUid, datastoreUid});
         }
