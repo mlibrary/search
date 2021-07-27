@@ -145,7 +145,7 @@ class GetThisForm extends React.Component {
               <li>When it is available, we'll hold it for you for 7 days.</li>
             </ul>
 
-            <a href="https://www.lib.umich.edu/my-account/holds-recalls" className="underline">View all your holds</a>
+            <a href="https://account.lib.umich.edu/pending-requests/u-m-library" className="underline">View all your holds</a>
           </article>
         )
       } else {
