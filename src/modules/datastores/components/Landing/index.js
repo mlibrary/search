@@ -53,11 +53,6 @@ const Landing = ({ content, activeDatastore }) => {
               <InstitutionSelect type="switch" />
             </div>
             <p className="landing-extra-info">
-              <a href="http://mirlyn-classic.lib.umich.edu/">
-                Mirlyn Classic Catalog
-              </a>
-            </p>
-            <p className="landing-extra-info">
               <a href="https://lib.umich.edu/find-borrow-request/find-materials/using-other-catalogs">
                 About our other Library Catalogs
               </a>
