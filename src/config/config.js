@@ -73,7 +73,13 @@ const config = {
     },
     primo: {
       default: "relevance",
-      sorts: ["relevance", "title", "author", "date"],
+      sorts: [
+        "relevance",
+        "date_asc",
+        "date_desc",
+        "author",
+        "title",
+      ],
     },
     databases: {
       default: "relevance",
