@@ -155,7 +155,7 @@ class GetThisForm extends React.Component {
 
             <p><b>Status:</b> {response.status}</p>
 
-            <p class="u-margin-bottom-none">Please contact the Graduate Library Circulation Desk at <a href="mailto:glcirc@umich.edu" className="underline">glcirc@umich.edu</a> or <a href="tel:7347640401" className="underline">(734) 764-0401</a> for assistance.</p>
+            <p class="u-margin-bottom-none">Please contact the Graduate Library Circulation Desk at <a href="mailto:circservices@umich.edu" className="underline">circservices@umich.edu</a> or <a href="tel:7347640401" className="underline">(734) 764-0401</a> for assistance.</p>
           </article>
         )
       }

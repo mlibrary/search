@@ -10,11 +10,10 @@ const GetThisFAQ = () => (
 
     <p className="u-margin-top-none">For physical items from our collection that aren't digitized and available through HathiTrust, you'll see an option for "Contactless pickup at the library."</p>
 
-    <p className="u-margin-top-none">Due to copyright limitations, we cannot check out multiple copies of an item that has been digitized, which means the HathiTrust version may be the only option available.</p>
 
     <Heading size="small" level={4}>What should I do if an item has multiple volumes and the one I need isn’t available in HathiTrust or for contactless pickup?</Heading>
     
-    <p className="u-margin-top-none">When titles available through HathiTrust Digital Library have multiple volumes, we have to set the whole group as “Full text available online” even if some volumes are not digitized. If the one you need is not available in HathiTrust, please contact <a href="mailto:glcirc@umich.edu" className="underline">glcirc@umich.edu</a>.</p>
+    <p className="u-margin-top-none">When titles available through HathiTrust Digital Library have multiple volumes, we have to set the whole group as “Full text available online” even if some volumes are not digitized. If the one you need is not available in HathiTrust, please contact <a href="mailto:circservices@umich.edu" className="underline">circservices@umich.edu</a>.</p>
 
   </section>
 )
