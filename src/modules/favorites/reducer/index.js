@@ -114,7 +114,7 @@ const favoritesReducer = (state = { disabled: false }, action) => {
 
 function favoritesHotJarTracking(action_type) {
   try {
-    window.hj('favorites', action_type)
+    window.hj('event', action_type)
   } catch {
     console.log('Unable to track user action with HotJar', action_type)
   }
