@@ -11,6 +11,8 @@ const favoritesReducer = (state = { disabled: false }, action) => {
 
     switch (action.type) {
       case actions.FAVORITE:
+        favoritesHotJarTracking(action.type)
+
         return {
           ...state,
           [datastoreUid]: {
@@ -23,6 +25,8 @@ const favoritesReducer = (state = { disabled: false }, action) => {
           }
         }
       case actions.UNFAVORITE:
+        favoritesHotJarTracking(action.type)
+        
         return {
           ...state,
           [datastoreUid]: {
@@ -35,6 +39,8 @@ const favoritesReducer = (state = { disabled: false }, action) => {
           }
         }
       case actions.TAG_FAVORITE:
+        favoritesHotJarTracking(action.type)
+
         if (true) {
           let tags = 
             state[datastoreUid] &&
@@ -60,8 +66,10 @@ const favoritesReducer = (state = { disabled: false }, action) => {
             }
           }
         }
-        break
+        break;
       case actions.UNTAG_FAVORITE:
+        favoritesHotJarTracking(action.type)
+
         if (true) { // adding a scope to the vars
           let tags = 
             state[datastoreUid] &&
@@ -95,13 +103,21 @@ const favoritesReducer = (state = { disabled: false }, action) => {
             }
           }
         }
-        break
+        break;
       default:
         return state
     }
   }
 
   return state
+}
+
+function favoritesHotJarTracking(action_type) {
+  try {
+    window.hj('favorites', action_type)
+  } catch {
+    console.log('Unable to track user action with HotJar', action_type)
+  }
 }
 
 export default favoritesReducer
