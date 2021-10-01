@@ -11,7 +11,7 @@ const favoritesReducer = (state = { disabled: false }, action) => {
 
     switch (action.type) {
       case actions.FAVORITE:
-        favoritesHotJarTracking(action.type)
+        favoritesHotJarTracking('FAVORITES_FAVORITE')
 
         return {
           ...state,
@@ -25,7 +25,7 @@ const favoritesReducer = (state = { disabled: false }, action) => {
           }
         }
       case actions.UNFAVORITE:
-        favoritesHotJarTracking(action.type)
+        favoritesHotJarTracking('FAVORITES_UNFAVORITE')
         
         return {
           ...state,
@@ -39,7 +39,7 @@ const favoritesReducer = (state = { disabled: false }, action) => {
           }
         }
       case actions.TAG_FAVORITE:
-        favoritesHotJarTracking(action.type)
+        favoritesHotJarTracking('FAVORITES_TAG')
 
         if (true) {
           let tags = 
@@ -68,7 +68,7 @@ const favoritesReducer = (state = { disabled: false }, action) => {
         }
         break;
       case actions.UNTAG_FAVORITE:
-        favoritesHotJarTracking(action.type)
+        favoritesHotJarTracking('FAVORITES_UNTAG')
 
         if (true) { // adding a scope to the vars
           let tags = 
@@ -112,11 +112,11 @@ const favoritesReducer = (state = { disabled: false }, action) => {
   return state
 }
 
-function favoritesHotJarTracking(action_type) {
+function favoritesHotJarTracking(event_name) {
   try {
-    window.hj('event', action_type)
+    window.hj('event', event_name)
   } catch {
-    console.log('Unable to track user action with HotJar', action_type)
+    console.log('Unable to track user action with HotJar', event_name)
   }
 }
 
