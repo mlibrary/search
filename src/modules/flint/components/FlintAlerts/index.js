@@ -32,7 +32,7 @@ class FlintAlerts extends React.Component {
           <UserIsFlintAffiliated>
             <Alert
               type="warning"
-              ><span>U-M Flint users: You may not be able to access U-M Ann Arbor resources. For the best results use <a href={url}>Thompson Library’s Summon</a> to search for articles.</span><Button kind="secondary" small onClick={() => this.handleCloseButtonClick()}>Dismiss</Button></Alert>
+              ><span>U-M Flint users: You may not be able to access U-M Ann Arbor resources. For the best results use <a href={url}>Thompson Library’s Search All</a> to search for articles.</span><Button kind="secondary" small onClick={() => this.handleCloseButtonClick()}>Dismiss</Button></Alert>
           </UserIsFlintAffiliated>
         )
       case 'databases':
