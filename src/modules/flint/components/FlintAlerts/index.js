@@ -42,7 +42,7 @@ class FlintAlerts extends React.Component {
           <UserIsFlintAffiliated>
             <Alert
               type="warning"
-              ><span>We noticed you are affiliated with U-M Flint. For the best results use the <a href="http://th5yk4dg6v.search.serialssolutions.com/">Thompson Library’s journal listing</a>.</span> <Button kind="secondary" small onClick={() => this.handleCloseButtonClick()}>Dismiss</Button></Alert>
+              ><span>We noticed you are affiliated with U-M Flint. For the best results use the <a href="https://umich.primo.exlibrisgroup.com/discovery/jsearch?vid=01UMICH_INST:FLINT">Thompson Library’s Search All</a> to search for articles.</span> <Button kind="secondary" small onClick={() => this.handleCloseButtonClick()}>Dismiss</Button></Alert>
           </UserIsFlintAffiliated>
         )
       case 'website':
