@@ -366,7 +366,7 @@ function FilterGroupFilters({ group, expanded, hidden = false, filters }) {
 }
 
 function FilterContainer({ group, value, count }) {
-  const search = newSearch({ filter: { [group.uid]: value } });
+  const search = newSearch({ filter: { [group.uid]: value }, page: undefined });
   const url = document.location.pathname + "?" + search;
 
   return <Filter url={url} value={value} count={count} />;
