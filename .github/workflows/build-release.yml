@@ -20,6 +20,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          CI: false
           REACT_APP_LOGIN_BASE_URL: https://search-staging.www.lib.umich.edu
           REACT_APP_SPECTRUM_BASE_URL: https://search-staging.www.lib.umich.edu/spectrum
       - name: Package
@@ -39,6 +40,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          CI: false
           REACT_APP_LOGIN_BASE_URL: https://search.lib.umich.edu
           REACT_APP_SPECTRUM_BASE_URL: https://search.lib.umich.edu/spectrum
       - name: Package
@@ -58,6 +60,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          CI: false
           REACT_APP_LOGIN_BASE_URL: http://127.0.0.1:3000
           REACT_APP_SPECTRUM_BASE_URL: http://127.0.0.1:3000/spectrum
       - name: Package
