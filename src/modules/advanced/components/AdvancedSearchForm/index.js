@@ -73,20 +73,7 @@ class AdvancedSearchForm extends React.Component {
           if (memo.length > 0) {
             memo.push(booleanTypes[fieldedSearch.booleanType]);
           }
-
-          // Listed hard-coded fields should have a parentheses
-          // TODO: remove after query parser update
-          if (
-            fieldedSearch.field === "all_fields" ||
-            fieldedSearch.field === "author" ||
-            fieldedSearch.field === "title" ||
-            fieldedSearch.field === "subject" ||
-            (fieldedSearch.field === "series" && datastore.uid === "mirlyn")
-          ) {
-            memo.push(`${fieldedSearch.field}:(${fieldedSearch.query})`);
-          } else {
-            memo.push(`${fieldedSearch.field}:${fieldedSearch.query}`);
-          }
+          memo.push(`${fieldedSearch.field}:(${fieldedSearch.query})`);
         }
 
         return memo;
