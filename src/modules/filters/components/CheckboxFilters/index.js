@@ -69,7 +69,7 @@ function CheckboxFilterContainer({ uid }) {
       return getURLWithFilterRemoved({ group: uid })
     }
 
-    const search = newSearch({ filter: { [uid]: !preSelected } });
+    const search = newSearch({ filter: { [uid]: !preSelected }, page: undefined });
     const url = document.location.pathname + "?" + search;
 
     return url
