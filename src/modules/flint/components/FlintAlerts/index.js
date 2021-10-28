@@ -14,7 +14,7 @@ class FlintAlerts extends React.Component {
   }
 
   render() {
-    const { query, datastore } = this.props
+    const { datastore } = this.props
 
     if (this.state.closed) {
       return null

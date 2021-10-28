@@ -3,7 +3,6 @@ import { jsx } from "@emotion/core";
 import React from 'react'
 import {
   COLORS,
-  SPACING,
   Button,
   Icon
 } from '@umich-lib/core'
@@ -70,7 +69,6 @@ function SearchBox({ history, match }) {
               fontSize: '1rem',
               padding: '0 0.75rem',
               border: `solid 1px ${COLORS.blue['500']}`,
-              borderRadius: '4px',
               background: COLORS.grey['100'],
               height: '100%',
               borderRadius: '4px 0 0 4px',
