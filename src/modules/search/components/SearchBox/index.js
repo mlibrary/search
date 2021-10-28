@@ -9,27 +9,30 @@ import {
 } from '@umich-lib/core'
 import { useSelector } from "react-redux";
 import qs from "qs";
+import { withRouter } from "react-router";
+import VisuallyHidden from "@reach/visually-hidden";
 
-function SearchBox() {
+function SearchBox({ history, match }) {
   const { query } = useSelector((state) => state.search);
   const { fields } = useSelector((state) => state.advanced[state.datastores.active]);
   const [inputQuery, setInputQuery] = React.useState(query)
-  const [field, setField] = React.useState()
+  const [field, setField] = React.useState(fields[0].uid)
 
   function handleSubmitSearch(e) {
     e.preventDefault()
 
-    const newQuery =  field ? `${field}:(${inputQuery})` : inputQuery
+    let newQuery
 
-    console.log('query', query)
-    console.log('newQuery', newQuery)
+    if (field === 'keyword') {
+      newQuery = inputQuery
+    } else if (field) {
+      newQuery = `${field}:(${inputQuery})`
+    }
 
-    if (query === newQuery) return // nothing new here
-
-    console.log('new!')
+    if (query === newQuery) return // no new search to make
 
     const newURL = qs.stringify({
-      // preserve existing URL state
+      // preserve existing URL s tate
       ...qs.parse(document.location.search.substring(1), { allowDots: true }),
       
       // and add new query
@@ -41,7 +44,7 @@ function SearchBox() {
       format: "RFC1738"
     })
 
-    console.log('newURL', newURL)
+    history.push(`/${match.params.datastoreSlug}?${newURL}`)
   }
 
   return (
@@ -53,23 +56,53 @@ function SearchBox() {
       <div class="container container-medium">
         <div css={{
           display: 'grid',
-          gridTemplateColumns: 'auto 1fr auto',
-          gap: '0.5rem'
+          gridTemplateColumns: 'auto 1fr auto'
         }}>
-          <select class="dropdown" onChange={e => setField(e.target.value)}>
+          <div css={{
+            position: 'relative'
+          }}>
+          <select
+            class="dropdown"
+            onChange={e => setField(e.target.value)}
+            css={{
+              appearance: 'unset',
+              fontFamily: 'inherit',
+              fontSize: '1rem',
+              padding: '0 0.75rem',
+              border: `solid 1px ${COLORS.blue['500']}`,
+              borderRadius: '4px',
+              background: COLORS.grey['100'],
+              height: '100%',
+              borderRadius: '4px 0 0 4px',
+              borderRight: 'none',
+              paddingRight: '2rem'
+            }}
+          >
             {fields.map(field => <option value={field.uid}>{field.name}</option>)}
           </select>
-          <input type="text" value={inputQuery} onChange={e => setInputQuery(e.target.value)}></input>
-          <Button css={{
-            display: 'flex',
-            alignItems: 'center',
-          }}><Icon icon="search" css={{
-            marginRight: '0.25rem'
-          }} />Search</Button>
+            <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={24} css={{
+              position: 'absolute',
+              right: '0.5rem',
+              top: '0.6rem'
+            }} />
+          </div>
+          <input type="text" value={inputQuery} onChange={e => setInputQuery(e.target.value)} css={{
+            border: `solid 1px ${COLORS.blue['500']} !important`,
+            borderRadius: '0 4px 4px 0 !important'
+          }}></input>
+          <Button
+            css={{
+              display: 'flex',
+              alignItems: 'center',
+              marginLeft: '0.5rem'
+            }}
+            onClick={handleSubmitSearch}
+          >
+              <Icon icon="search" size={24} /><VisuallyHidden>Search</VisuallyHidden></Button>
         </div>
       </div>
     </form>
   )
 }
 
-export default SearchBox
+export default withRouter(SearchBox)
