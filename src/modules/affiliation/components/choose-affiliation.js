@@ -56,14 +56,15 @@ export default function ChooseAffiliation() {
         css={{
           color: "white",
           border: "none",
-          padding: "0"
+          padding: "0",
+          border: `solid 1px ${COLORS.blue[500]}`,
+          boxShadow: `0 0 0 1px rgb(16 22 26 / 10%), 0 4px 8px rgb(16 22 26 / 20%), 0 18px 46px 6px rgb(16 22 26 / 20%);`
         }}
         onClick={() => setOpen(true)}
       >
         <VisuallyHidden>Choose campus affiliation</VisuallyHidden>
         <div
           css={{
-            marginRight: SPACING["2XS"],
             display: 'grid',
             gridTemplateColumns: 'auto auto',
             borderRadius: '4px',
@@ -81,8 +82,6 @@ export default function ChooseAffiliation() {
             },
             [activeSelector]: {
               background: '#1060aa',
-              border: `solid 1px ${COLORS.blue[500]}`,
-              boxShadow: `0 0 0 1px rgb(16 22 26 / 10%), 0 4px 8px rgb(16 22 26 / 20%), 0 18px 46px 6px rgb(16 22 26 / 20%);`
             }
           }}
         ><div>Ann Arbor</div><div>Flint</div>

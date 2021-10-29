@@ -19,7 +19,7 @@ class SearchHeader extends React.Component {
     let navItems = [
       { text: "Account", href: "https://account.lib.umich.edu/" },
       {
-        text: "My Favorites",
+        text: "Favorites",
         href: "https://apps.lib.umich.edu/my-account/favorites",
       },
       { text: loginText, href: loginHref },
