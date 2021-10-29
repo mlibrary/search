@@ -19,7 +19,7 @@ class SearchHeader extends React.Component {
     let navItems = [
       { text: "Account", href: "https://account.lib.umich.edu/" },
       {
-        text: "Favorites",
+        text: "My Favorites",
         href: "https://apps.lib.umich.edu/my-account/favorites",
       },
       { text: loginText, href: loginHref },
@@ -27,7 +27,7 @@ class SearchHeader extends React.Component {
 
     if (this.props.favoritesDisabled) {
       navItems = [
-        { text: "My Account", href: "https://apps.lib.umich.edu/my-account" },
+        { text: "Account", href: "https://apps.lib.umich.edu/my-account" },
         { text: loginText, href: loginHref },
       ];
     }
