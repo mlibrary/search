@@ -40,7 +40,17 @@ class SearchHeader extends React.Component {
           gridTemplateColumns: 'repeat(4, auto)',
           alignItems: 'baseline'
         }}>
-          {navItems.map(n => <a href={n.href} css={{ color: 'white' }}>{n.text}</a>)}
+          {navItems.map(n => (
+            <a
+              href={n.href}
+              css={{ color: 'white' }}
+              data-ga-action="Click"
+              data-ga-category="Header"
+              data-ga-label={data.text}
+            >
+              {n.text}
+            </a>
+          ))}
           <ChooseAffiliation />
         </nav>
       </m-website-header>
