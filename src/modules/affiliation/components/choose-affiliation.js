@@ -57,6 +57,7 @@ export default function ChooseAffiliation() {
           color: "white",
           padding: "0",
           border: `solid 1px ${COLORS.blue[300]}`,
+          margin: '0',
           boxShadow: `0 0 0 1px rgb(16 22 26 / 10%), 0 4px 8px rgb(16 22 26 / 20%), 0 18px 46px 6px rgb(16 22 26 / 20%);`
         }}
         onClick={() => setOpen(true)}
