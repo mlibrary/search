@@ -72,9 +72,9 @@ export default function ChooseAffiliation() {
             fontSize: '0.75rem',
             textAlign: 'right',
             'div': {
-              display: 'block',
+              display: 'inline-block',
               padding: '0.25rem 0.5rem',
-              borderRadius: '4px',
+              lineHeight: '1.5',
               '&:hover': {
                 textDecoration: 'underline'
               }

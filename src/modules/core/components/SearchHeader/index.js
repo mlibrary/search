@@ -38,7 +38,7 @@ class SearchHeader extends React.Component {
           display: 'grid',
           gap: '1rem',
           gridTemplateColumns: 'repeat(4, auto)',
-          alignContent: 'baseline'
+          alignItems: 'baseline'
         }}>
           {navItems.map(n => <a href={n.href} css={{ color: 'white' }}>{n.text}</a>)}
           <ChooseAffiliation />
