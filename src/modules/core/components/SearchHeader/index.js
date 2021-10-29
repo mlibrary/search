@@ -33,7 +33,7 @@ class SearchHeader extends React.Component {
     }
 
     return (
-      <m-website-header name="Search" variant="dark">
+      <m-website-header name="Search" variant="dark" to="/everything">
         <nav aria-label="utility" css={{
           display: 'grid',
           gap: '1rem',
@@ -43,10 +43,10 @@ class SearchHeader extends React.Component {
           {navItems.map(n => (
             <a
               href={n.href}
-              css={{ color: 'white' }}
+              css={{ color: 'white', '&:hover': { textDecoration: 'underline' } }}
               data-ga-action="Click"
               data-ga-category="Header"
-              data-ga-label={data.text}
+              data-ga-label={n.text}
             >
               {n.text}
             </a>
