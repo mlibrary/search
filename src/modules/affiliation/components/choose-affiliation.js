@@ -8,7 +8,7 @@ import qs from "qs";
 
 import { Button, Heading, Text, MEDIA_QUERIES } from "@umich-lib/core";
 import { Modal } from "../../reusable";
-import { SPACING } from "../../reusable/umich-lib-core-temp";
+import { COLORS, SPACING } from "../../reusable/umich-lib-core-temp";
 
 export default function ChooseAffiliation() {
   const { defaultAffiliation, affiliationOptions } = useSelector(
@@ -73,11 +73,16 @@ export default function ChooseAffiliation() {
             textAlign: 'right',
             'div': {
               display: 'block',
-              padding: '0.25rem 0.75rem',
-              borderRadius: '4px'
+              padding: '0.25rem 0.5rem',
+              borderRadius: '4px',
+              '&:hover': {
+                textDecoration: 'underline'
+              }
             },
             [activeSelector]: {
-              background: '#1060aa'
+              background: '#1060aa',
+              border: `solid 1px ${COLORS.blue[500]}`,
+              boxShadow: `0 0 0 1px rgb(16 22 26 / 10%), 0 4px 8px rgb(16 22 26 / 20%), 0 18px 46px 6px rgb(16 22 26 / 20%);`
             }
           }}
         ><div>Ann Arbor</div><div>Flint</div>
