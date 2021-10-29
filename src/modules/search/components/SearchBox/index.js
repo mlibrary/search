@@ -78,10 +78,19 @@ function SearchBox({ history, match, location }) {
       >
         <div css={{
           display: 'grid',
-          gridTemplateColumns: 'auto 1fr auto auto'
+          gridTemplateColumns: '1fr auto',
+          [MEDIA_QUERIES.LARGESCREEN]: {
+            gridTemplateColumns: 'auto 1fr auto auto'
+          }
         }}>
           <div css={{
-            position: 'relative'
+            position: 'relative',
+            gridColumn: '1/-1',
+            marginBottom: '0.5rem',
+            [MEDIA_QUERIES.LARGESCREEN]: {
+              gridColumn: 'auto',
+              margin: 0
+            }
           }}>
             <select
               class="dropdown"
@@ -90,17 +99,19 @@ function SearchBox({ history, match, location }) {
                 appearance: 'unset',
                 fontFamily: 'inherit',
                 fontSize: '1rem',
-                padding: '0 0.75rem',
+                padding: '0.75rem',
                 border: `solid 1px ${COLORS.blue['500']}`,
                 background: COLORS.grey['100'],
                 height: '100%',
-                borderRadius: '4px 0 0 4px',
-                borderRight: 'none',
+                borderRadius: '4px',
                 paddingRight: '3rem',
-                margin: 0,
                 minWidth: 'auto',
+                width: '100%',
                 [MEDIA_QUERIES.LARGESCREEN]: {
                   minWidth: '15rem',
+                  borderRight: 'none',
+                  borderRadius: '4px 0 0 4px',
+                  margin: 0
                 }
               }}
             >
@@ -115,7 +126,12 @@ function SearchBox({ history, match, location }) {
           </div>
           <input type="text" value={inputQuery} onChange={e => setInputQuery(e.target.value)} css={{
             border: `solid 1px ${COLORS.blue['500']} !important`,
-            borderRadius: '0 4px 4px 0 !important'
+            borderRadius: '4px',
+            gridRow: '2',
+            [MEDIA_QUERIES.LARGESCREEN]: {
+              borderRadius: '0 4px 4px 0 !important',
+              gridRow: 'auto'
+            }
           }} />
           <Button
             css={{
@@ -123,6 +139,10 @@ function SearchBox({ history, match, location }) {
               alignItems: 'center',
               margin: 0,
               marginLeft: '0.5rem',
+              gridRow: '2',
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                gridRow: 'auto'
+              }
             }}
             onClick={handleSubmitSearch}
           >
@@ -134,7 +154,7 @@ function SearchBox({ history, match, location }) {
             className="search-box-advanced-link"
             css={{
               alignSelf: 'center',
-              gridRow: '2',
+              gridRow: '3',
               padding: '0.5rem',
               marginBottom: '-1rem',
               gridColumn: '1/-1',
