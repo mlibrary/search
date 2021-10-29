@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import qs from "qs";
 
 import { Button, Heading, Text, MEDIA_QUERIES } from "@umich-lib/core";
-import { Icon, Modal } from "../../reusable";
+import { Modal } from "../../reusable";
 import { SPACING } from "../../reusable/umich-lib-core-temp";
 
 export default function ChooseAffiliation() {
@@ -47,6 +47,8 @@ export default function ChooseAffiliation() {
       });
   }
 
+  const activeSelector = affiliation === 'aa' ? 'div:first-of-type' : 'div:last-of-type'
+
   return (
     <React.Fragment>
       <Button
@@ -58,15 +60,28 @@ export default function ChooseAffiliation() {
         }}
         onClick={() => setOpen(true)}
       >
-        <VisuallyHidden>Choose campus affiliation: </VisuallyHidden>
-        <span
+        <VisuallyHidden>Choose campus affiliation</VisuallyHidden>
+        <div
           css={{
-            marginRight: SPACING["2XS"]
+            marginRight: SPACING["2XS"],
+            display: 'grid',
+            gridTemplateColumns: 'auto auto',
+            borderRadius: '4px',
+            textTransform: 'uppercase',
+            fontWeight: '800',
+            fontSize: '0.75rem',
+            textAlign: 'right',
+            'div': {
+              display: 'block',
+              padding: '0.25rem 0.75rem',
+              borderRadius: '4px'
+            },
+            [activeSelector]: {
+              background: '#1060aa'
+            }
           }}
-        >
-          {label}
-        </span>
-        <Icon icon="expand_more" />
+        ><div>Ann Arbor</div><div>Flint</div>
+        </div>
       </Button>
       <Modal isOpen={open} onRequestClose={() => setOpen(false)}>
         <div

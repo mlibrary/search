@@ -29,7 +29,7 @@ import {
 import { changeActiveDatastore } from "../../../datastores";
 import { setActiveInstitution } from "../../../institution";
 import { setA11yMessage } from "../../../a11y";
-import { affiliationCookieSetter } from "../../../affiliation";
+import { affiliationCookieSetter, setActiveAffilitation } from "../../../affiliation";
 
 class URLSearchQueryWrapper extends React.Component {
   constructor(props) {
@@ -38,17 +38,18 @@ class URLSearchQueryWrapper extends React.Component {
   }
 
   handleURLState({
-    isSearching,
     datastoreUid,
     query,
     page,
     activeFilters,
     sort,
     location,
-    institution,
+    institution
   }) {
     const urlState = getStateFromURL({ location });
     let shouldRunSearch = false;
+
+    this.props.setActiveAffilitation(urlState.affiliation)
 
     affiliationCookieSetter(urlState.affiliation);
 
@@ -239,6 +240,7 @@ function mapDispatchToProps(dispatch) {
       setActiveInstitution,
       setA11yMessage,
       setParserMessage,
+      setActiveAffilitation
     },
     dispatch
   );
