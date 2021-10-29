@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx, Global } from "@emotion/core";
 import React from 'react'
 import {
   COLORS,
@@ -58,6 +58,14 @@ function SearchBox({ history, match, location }) {
       padding: `1rem 0`,
       borderBottom: `solid 2px ${COLORS.blue['400']}`
     }} onSubmit={handleSubmitSearch}>
+      <Global styles={{
+        '*:focus': {
+          outline: 0,
+          boxShadow: `rgb(255, 203, 5) 0px 0px 0px 2px, rgb(33, 43, 54) 0px 0px 0px 3px !important`,
+          zIndex: '10',
+          borderRadius: '2px !important'
+        }
+      }}/>
       <div
         css={{
           maxWidth: '1280px',
@@ -65,12 +73,6 @@ function SearchBox({ history, match, location }) {
           padding: '0 1rem',
           [MEDIA_QUERIES.LARGESCREEN]: {
             padding: '0 2rem'
-          },
-          '*:focus': {
-            outline: 0,
-            boxShadow: `0 0 0 2px #FFCB05, 0 0 0 3px #212B36`,
-            zIndex: '10',
-            borderRadius: '4px !important'
           }
         }}
       >
