@@ -8,7 +8,7 @@ import qs from "qs";
 
 import { Button, Heading, Text, MEDIA_QUERIES } from "@umich-lib/core";
 import { Modal } from "../../reusable";
-import { COLORS, SPACING } from "../../reusable/umich-lib-core-temp";
+import { COLORS } from "../../reusable/umich-lib-core-temp";
 
 export default function ChooseAffiliation() {
   const { defaultAffiliation, affiliationOptions } = useSelector(
@@ -55,7 +55,6 @@ export default function ChooseAffiliation() {
         kind="secondary"
         css={{
           color: "white",
-          border: "none",
           padding: "0",
           border: `solid 1px ${COLORS.blue[300]}`,
           boxShadow: `0 0 0 1px rgb(16 22 26 / 10%), 0 4px 8px rgb(16 22 26 / 20%), 0 18px 46px 6px rgb(16 22 26 / 20%);`
