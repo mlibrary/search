@@ -1,7 +1,9 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import React from "react";
 import { connect } from "react-redux";
-import Header from "./header";
 import config from "../../../../config";
+import { ChooseAffiliation } from "../../../affiliation";
 
 class SearchHeader extends React.Component {
   render() {
@@ -31,24 +33,16 @@ class SearchHeader extends React.Component {
     }
 
     return (
-      <div role="banner">
-        <Header
-          name="Search"
-          className="search-header"
-          siteUrl="/everything"
-          nav={navItems}
-          renderAnchor={(data) => (
-            <a
-              href={data.to}
-              data-ga-action="Click"
-              data-ga-category="Header"
-              data-ga-label={data.text}
-            >
-              {data.text}
-            </a>
-          )}
-        />
-      </div>
+      <m-website-header name="Search" variant="dark">
+        <nav aria-label="utility" css={{
+          display: 'grid',
+          gap: '1rem',
+          gridTemplateColumns: 'repeat(4, auto)'
+        }}>
+          {navItems.map(n => <a href={n.href} css={{ color: 'white' }}>{n.text}</a>)}
+          <ChooseAffiliation />
+        </nav>
+      </m-website-header>
     );
   }
 }

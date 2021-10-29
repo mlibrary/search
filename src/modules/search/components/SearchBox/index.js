@@ -4,7 +4,8 @@ import React from 'react'
 import {
   COLORS,
   Button,
-  Icon
+  Icon,
+  MEDIA_QUERIES
 } from '@umich-lib/core'
 import { useSelector } from "react-redux";
 import qs from "qs";
@@ -111,7 +112,18 @@ function SearchBox({ history, match, location }) {
             to={`/${match.params.datastoreSlug}/advanced${location.search}`}
             className="search-box-advanced-link"
             css={{
-              alignSelf: 'center'
+              alignSelf: 'center',
+              gridRow: '2',
+              padding: '0.5rem',
+              marginBottom: '-1rem',
+              gridColumn: '1/-1',
+              textAlign: 'center',
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                gridRow: 'auto',
+                gridColumn: 'auto',
+                margin: '0',
+                paddingLeft: '1rem'
+              }
             }}
           >
             <span className="offpage">{activeDatastore.name}</span>
