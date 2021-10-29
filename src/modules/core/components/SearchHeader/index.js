@@ -1,14 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import React from "react";
 import { connect } from "react-redux";
 import config from "../../../../config";
 import { ChooseAffiliation } from "../../../affiliation";
 import { MEDIA_QUERIES } from "../../../reusable/umich-lib-core-temp";
-import { Modal } from "../../../reusable";
 
 function SearchHeader(props) {
-  const [open, setOpen] = React.useState(false);
   const loginRoot = config.loginUrl;
   const loginUrl =
     loginRoot +
