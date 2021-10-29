@@ -55,7 +55,7 @@ function SearchBox({ history, match, location }) {
   return (
     <form css={{
       background: COLORS.blue['300'],
-      padding: `1rem 0`,
+      padding: `0.75rem 0`,
       borderBottom: `solid 2px ${COLORS.blue['400']}`
     }} onSubmit={handleSubmitSearch}>
       <Global styles={{
@@ -99,7 +99,7 @@ function SearchBox({ history, match, location }) {
                 appearance: 'unset',
                 fontFamily: 'inherit',
                 fontSize: '1rem',
-                padding: '0.75rem',
+                padding: '0.5rem 0.75rem',
                 border: `solid 1px ${COLORS.blue['500']}`,
                 background: COLORS.grey['100'],
                 height: '100%',
