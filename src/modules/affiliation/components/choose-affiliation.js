@@ -81,7 +81,7 @@ export default function ChooseAffiliation() {
               }
             },
             [activeSelector]: {
-              background: '#1060aa',
+              background: COLORS.blue['300']
             }
           }}
         ><div>Ann Arbor</div><div>Flint</div>
