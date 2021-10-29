@@ -58,7 +58,22 @@ function SearchBox({ history, match, location }) {
       padding: `1rem 0`,
       borderBottom: `solid 2px ${COLORS.blue['400']}`
     }} onSubmit={handleSubmitSearch}>
-      <div class="container container-medium">
+      <div
+        css={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '0 1rem',
+          [MEDIA_QUERIES.LARGESCREEN]: {
+            padding: '0 2rem'
+          },
+          '*:focus': {
+            outline: 0,
+            boxShadow: `0 0 0 2px #FFCB05, 0 0 0 3px #212B36`,
+            zIndex: '10',
+            borderRadius: '4px !important'
+          }
+        }}
+      >
         <div css={{
           display: 'grid',
           gridTemplateColumns: 'auto 1fr auto auto'
@@ -79,8 +94,12 @@ function SearchBox({ history, match, location }) {
                 height: '100%',
                 borderRadius: '4px 0 0 4px',
                 borderRight: 'none',
-                paddingRight: '2.5rem',
-                margin: 0
+                paddingRight: '3rem',
+                margin: 0,
+                minWidth: 'auto',
+                [MEDIA_QUERIES.LARGESCREEN]: {
+                  minWidth: '15rem',
+                }
               }}
             >
               {fields.map(field => <option value={field.uid}>{field.name}</option>)}
