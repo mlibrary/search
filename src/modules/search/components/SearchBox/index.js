@@ -39,6 +39,10 @@ function SearchBox({ history, match, location }) {
     const newURL = qs.stringify({
       // preserve existing URL s tate
       ...qs.parse(document.location.search.substring(1), { allowDots: true }),
+
+      // If it's a new search, then you want the first page
+      // of new results, always.
+      page: undefined,
       
       // and add new query
       query: newQuery
