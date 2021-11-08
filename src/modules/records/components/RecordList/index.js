@@ -38,7 +38,7 @@ class RecordListContainer extends React.Component {
       return (
         <div id="search-results">
           <div className="results-summary-container">
-            <h2 className="results-summary" aria-live="polite"><b>No results</b> match your search.</h2>
+            <h2 className="results-summary" aria-live="polite"><b>No results</b> match your search.<br/>You searched for: <strong style={{fontWeight: 600}}>{search.query}</strong></h2>
           </div>
 
           <div className="no-results-suggestions">
