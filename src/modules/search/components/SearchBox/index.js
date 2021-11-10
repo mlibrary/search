@@ -120,7 +120,11 @@ function SearchBox({ history, match, location }) {
               }}
             >
               {fields.map(field => <option value={field.uid}>{field.name}</option>)}
-              {activeDatastore.uid === 'mirlyn' && (<option value='browse_by_lc_callnumber'>Browse by LC call number</option>)}
+              {activeDatastore.uid === 'mirlyn' && (
+                <optgroup label={`${activeDatastore.name} Browse`}>
+                  <option value='browse_by_lc_callnumber'>Browse by LC call number</option>
+                </optgroup>
+              )}
             </select>
               <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={24} css={{
                 position: 'absolute',
