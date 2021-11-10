@@ -120,13 +120,15 @@ function SearchBox({ history, match, location }) {
               }}
             >
               {activeDatastore.uid === 'mirlyn' ? (
-                <optgroup label={`Search by`}>
-                  {fields.map(field => <option value={field.uid}>{field.name}</option>)}
-                <optgroup label={`${activeDatastore.name} Browse`}>
-                <optgroup label={`Browse by`}>
-                  <option value='browse_by_lc_callnumber'>Browse by LC call number</option>
-                  <option value='browse_by_lc_callnumber'>Browse by subject (coming soon)</option>
-                </optgroup>
+                <>
+                  <optgroup label={`Search by`}>
+                    {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                  <optgroup label={`${activeDatastore.name} Browse`}>
+                  <optgroup label={`Browse by`}>
+                    <option value='browse_by_lc_callnumber'>Browse by LC call number</option>
+                    <option value='browse_by_lc_callnumber'>Browse by subject (coming soon)</option>
+                  </optgroup>
+                </>
               ) : (
                 {fields.map(field => <option value={field.uid}>{field.name}</option>)}
               )}
