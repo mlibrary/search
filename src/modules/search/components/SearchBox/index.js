@@ -120,15 +120,15 @@ function SearchBox({ history, match, location }) {
               }}
             >
               {activeDatastore.uid === 'mirlyn' ? (
-                <>
+                <React.Fragment>
                   <optgroup label={`Search by`}>
                     {fields.map(field => <option value={field.uid}>{field.name}</option>)}
-                  <optgroup label={`${activeDatastore.name} Browse`}>
+                  </optgroup>
                   <optgroup label={`Browse by`}>
                     <option value='browse_by_lc_callnumber'>Browse by LC call number</option>
                     <option value='browse_by_lc_callnumber'>Browse by subject (coming soon)</option>
                   </optgroup>
-                </>
+                </React.Fragment>
               ) : (
                 {fields.map(field => <option value={field.uid}>{field.name}</option>)}
               )}
