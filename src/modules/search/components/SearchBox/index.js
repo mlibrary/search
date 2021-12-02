@@ -130,7 +130,9 @@ function SearchBox({ history, match, location }) {
                   </optgroup>
                 </React.Fragment>
               ) : (
-                {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                <React.Fragment>
+                  {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                </React.Fragment>
               )}
             </select>
               <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={24} css={{
