@@ -70,7 +70,7 @@ const Footer = () => {
         </ul>
 
         <p>
-          ©2018 Regents of the University of Michigan. For details and
+          &copy;{(new Date().getFullYear())} Regents of the University of Michigan. For details and
           exceptions, see the{" "}
           <a href="https://lib.umich.edu/about-us/policies/copyright-policy">
             Copyright Policy
