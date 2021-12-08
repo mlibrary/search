@@ -126,7 +126,9 @@ function SearchBox({ history, match, location }) {
                   </optgroup>
                   <optgroup label={`Browse by`}>
                     <option value='browse_by_lc_callnumber'>Browse by LC call number</option>
-                    <option value='browse_by_lc_callnumber'>Browse by subject (coming soon)</option>
+                    <option value='browse_by_author' disabled>Browse by author (coming soon)</option>
+                    <option value='browse_by_subject' disabled>Browse by subject (coming soon)</option>
+                    <option value='browse_by_title' disabled>Browse by title (coming soon)</option>
                   </optgroup>
                 </React.Fragment>
               ) : (
