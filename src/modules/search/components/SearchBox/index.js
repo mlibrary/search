@@ -193,7 +193,9 @@ function SearchBox({ history, match, location }) {
               <span className="offpage">Search</span>
             </Link>
           )}
-          <SearchTip field={field} />
+          {activeDatastore.uid === 'mirlyn' &&
+            <SearchTip field={field} />
+          }
         </div>
       </div>
     </form>
