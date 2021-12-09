@@ -12,6 +12,7 @@ import qs from "qs";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import VisuallyHidden from "@reach/visually-hidden";
+import searchOptions from "../../search-options";
 
 function SearchBox({ history, match, location }) {
   const { query } = useSelector((state) => state.search);
@@ -137,12 +138,12 @@ function SearchBox({ history, match, location }) {
                 </React.Fragment>
               )}
             </select>
-              <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={24} css={{
-                position: 'absolute',
-                right: '0.5rem',
-                top: '0.6rem',
-                pointerEvents: 'none'
-              }} />
+            <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={24} css={{
+              position: 'absolute',
+              right: '0.5rem',
+              top: '0.6rem',
+              pointerEvents: 'none'
+            }} />
           </div>
           <input type="text" value={inputQuery} onChange={e => setInputQuery(e.target.value)} css={{
             border: `solid 1px ${COLORS.blue['500']} !important`,
@@ -169,33 +170,44 @@ function SearchBox({ history, match, location }) {
             <Icon icon="search" size={24} /><VisuallyHidden>Search</VisuallyHidden>
           </Button>
           {isAdvanced && (
-          <Link
-            to={`/${match.params.datastoreSlug}/advanced${location.search}`}
-            className="search-box-advanced-link"
-            css={{
-              alignSelf: 'center',
-              gridRow: '3',
-              padding: '0.5rem',
-              marginBottom: '-1rem',
-              gridColumn: '1/-1',
-              textAlign: 'center',
-              [MEDIA_QUERIES.LARGESCREEN]: {
-                gridRow: 'auto',
-                gridColumn: 'auto',
-                margin: '0',
-                paddingLeft: '1rem'
-              }
-            }}
-          >
-            <span className="offpage">{activeDatastore.name}</span>
-            <span>Advanced</span>
-            <span className="offpage">Search</span>
-          </Link>
-        )}
+            <Link
+              to={`/${match.params.datastoreSlug}/advanced${location.search}`}
+              className="search-box-advanced-link"
+              css={{
+                alignSelf: 'center',
+                gridRow: '3',
+                padding: '0.5rem',
+                marginBottom: '-1rem',
+                gridColumn: '1/-1',
+                textAlign: 'center',
+                [MEDIA_QUERIES.LARGESCREEN]: {
+                  gridRow: 'auto',
+                  gridColumn: 'auto',
+                  margin: '0',
+                  paddingLeft: '1rem'
+                }
+              }}
+            >
+              <span className="offpage">{activeDatastore.name}</span>
+              <span>Advanced</span>
+              <span className="offpage">Search</span>
+            </Link>
+          )}
+          <SearchTip field={field} />
         </div>
       </div>
     </form>
   )
+}
+
+function SearchTip ({field}) {
+  const selectOption = searchOptions.find((searchOption) => searchOption.value === field);
+  return (
+    <div>
+      <m-icon name="info-outline" /> 
+      <span dangerouslySetInnerHTML={{__html: selectOption.tip}} />
+    </div>
+  );
 }
 
 export default withRouter(SearchBox)
