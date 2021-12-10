@@ -206,9 +206,28 @@ function SearchBox({ history, match, location }) {
 function SearchTip ({field}) {
   const selectOption = searchOptions.find((searchOption) => searchOption.value === field);
   return (
-    <div>
-      <m-icon name="info-outline" /> 
-      <span dangerouslySetInnerHTML={{__html: selectOption.tip}} />
+    <div
+      css={{
+        display: 'flex',
+        gap: '12px',
+        marginTop: '12px',
+        width: '100%'
+      }}
+    >
+      <m-icon
+        name="info-outline"
+        css={{
+          paddingTop: '4px'
+        }}
+      />
+      <p
+        css={{
+          margin: '0'
+        }}
+      >
+        <span css={{fontWeight: 'bold'}}>{field.includes('browse_by') ? 'Browse' : 'Search'} Tip: </span>
+        <span dangerouslySetInnerHTML={{__html: selectOption.tip}} />
+      </p>
     </div>
   );
 }
