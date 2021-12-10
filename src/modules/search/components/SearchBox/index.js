@@ -23,6 +23,7 @@ function SearchBox({ history, match, location }) {
   )
   const [inputQuery, setInputQuery] = React.useState(query)
   const [field, setField] = React.useState(fields[0].uid)
+  const isCatalog = activeDatastore.uid === 'mirlyn';
 
   function handleSubmitSearch(e) {
     e.preventDefault()
@@ -120,7 +121,7 @@ function SearchBox({ history, match, location }) {
                 }
               }}
             >
-              {activeDatastore.uid === 'mirlyn' ? (
+              {isCatalog ? (
                 <React.Fragment>
                   <optgroup label={`Search by`}>
                     {fields.map(field => <option value={field.uid}>{field.name}</option>)}
@@ -193,7 +194,7 @@ function SearchBox({ history, match, location }) {
               <span className="offpage">Search</span>
             </Link>
           )}
-          {activeDatastore.uid === 'mirlyn' &&
+          {isCatalog &&
             <SearchTip field={field} />
           }
         </div>
