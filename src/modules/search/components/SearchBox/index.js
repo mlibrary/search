@@ -61,7 +61,7 @@ function SearchBox({ history, match, location }) {
   return (
     <form css={{
       background: COLORS.blue['300'],
-      padding: `0.75rem 0`,
+      paddingBottom: `0.75rem`,
       borderBottom: `solid 2px ${COLORS.blue['400']}`
     }} onSubmit={handleSubmitSearch}>
       <Global styles={{
@@ -83,41 +83,39 @@ function SearchBox({ history, match, location }) {
         }}
       >
         <div css={{
-          display: 'grid',
-          gridTemplateColumns: '1fr auto',
+          display: 'flex',
+          flexWrap: 'wrap',
           [MEDIA_QUERIES.LARGESCREEN]: {
-            gridTemplateColumns: 'auto 1fr auto auto'
+            flexWrap: 'nowrap'
           }
         }}>
           <div css={{
+            flex: '1 1 auto',
+            marginTop: '0.75rem',
             position: 'relative',
-            gridColumn: '1/-1',
-            marginBottom: '0.5rem',
+            width: '100%',
             [MEDIA_QUERIES.LARGESCREEN]: {
-              gridColumn: 'auto',
-              margin: 0
+              maxWidth: '280px'
             }
           }}>
             <select
               class="dropdown"
               onChange={e => setField(e.target.value)}
               css={{
-                appearance: 'unset',
-                fontFamily: 'inherit',
-                fontSize: '1rem',
-                padding: '0.5rem 0.75rem',
-                border: `solid 1px ${COLORS.blue['500']}`,
+                all: 'unset',
                 background: COLORS.grey['100'],
-                height: '100%',
+                border: `solid 1px ${COLORS.blue['500']}`,
                 borderRadius: '4px',
+                boxSizing: 'border-box',
+                height: '100%',
+                lineHeight: '1.6 !important',
+                maxWidth: '100%',
+                padding: '0.5rem 0.75rem',
                 paddingRight: '3rem',
-                minWidth: 'auto',
                 width: '100%',
                 [MEDIA_QUERIES.LARGESCREEN]: {
-                  minWidth: '15rem',
-                  borderRight: 'none',
-                  borderRadius: '4px 0 0 4px',
-                  margin: 0
+                  borderBottomRightRadius: '0',
+                  borderTopRightRadius: '0'
                 }
               }}
             >
@@ -147,24 +145,29 @@ function SearchBox({ history, match, location }) {
             }} />
           </div>
           <input type="text" value={inputQuery} onChange={e => setInputQuery(e.target.value)} css={{
-            border: `solid 1px ${COLORS.blue['500']} !important`,
+            all: 'unset',
+            background: 'white',
+            boxSizing: 'border-box',
+            borderColor: `${COLORS.blue['500']} !important`,
             borderRadius: '4px',
-            gridRow: '2',
+            flex: '1 1 auto',
+            lineHeight: '1.6 important!',
+            marginTop: '0.75rem!important',
+            maxWidth: '100%',
+            width: 'auto!important',
             [MEDIA_QUERIES.LARGESCREEN]: {
-              borderRadius: '0 4px 4px 0 !important',
-              gridRow: 'auto'
+              borderLeft: '0 !important',
+              borderBottomLeftRadius: '0 !important',
+              borderTopLeftRadius: '0 !important'
             }
           }} />
           <Button
             css={{
               display: 'flex',
               alignItems: 'center',
-              margin: 0,
-              marginLeft: '0.5rem',
-              gridRow: '2',
-              [MEDIA_QUERIES.LARGESCREEN]: {
-                gridRow: 'auto'
-              }
+              margin: '0.75rem 0 0 0.75rem',
+              minWidth: '44px',
+              padding: '0.5rem 0.75rem'
             }}
             onClick={handleSubmitSearch}
           >
@@ -176,17 +179,9 @@ function SearchBox({ history, match, location }) {
               className="search-box-advanced-link"
               css={{
                 alignSelf: 'center',
-                gridRow: '3',
-                padding: '0.5rem',
-                marginBottom: '-1rem',
-                gridColumn: '1/-1',
-                textAlign: 'center',
-                [MEDIA_QUERIES.LARGESCREEN]: {
-                  gridRow: 'auto',
-                  gridColumn: 'auto',
-                  margin: '0',
-                  paddingLeft: '1rem'
-                }
+                margin: '0.75rem 0.75rem 0 0.75rem',
+                padding: '0.5rem 0',
+                textAlign: 'center'
               }}
             >
               <span className="offpage">{activeDatastore.name}</span>
@@ -194,10 +189,10 @@ function SearchBox({ history, match, location }) {
               <span className="offpage">Search</span>
             </Link>
           )}
-          {isCatalog &&
-            <SearchTip field={field} />
-          }
         </div>
+        {isCatalog &&
+          <SearchTip field={field} />
+        }
       </div>
     </form>
   )
@@ -210,13 +205,14 @@ function SearchTip ({field}) {
       css={{
         display: 'flex',
         gap: '12px',
-        marginTop: '12px',
+        marginTop: '0.75rem',
         width: '100%'
       }}
     >
-      <m-icon
-        name="info-outline"
+      <Icon
+        d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"
         css={{
+          flexShrink: '0',
           paddingTop: '4px'
         }}
       />
