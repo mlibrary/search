@@ -56,7 +56,11 @@ function SearchBox({ history, match, location }) {
       format: "RFC1738"
     })
 
-    history.push(`/${match.params.datastoreSlug}${browseURL}?${newURL}`)
+    if (browseOption) {
+      window.location.href = `/${match.params.datastoreSlug}${browseURL}?${newURL}`;
+    } else {
+      history.push(`/${match.params.datastoreSlug}?${newURL}`)
+    }
   }
 
   return (
