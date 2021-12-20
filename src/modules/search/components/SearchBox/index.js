@@ -28,12 +28,13 @@ function SearchBox({ history, match, location }) {
   function handleSubmitSearch(e) {
     e.preventDefault()
 
-    let newQuery
+    // Check if browse option
+    const browseOption = field.startsWith('browse_by_');
+    const browseURL = browseOption ? `/browse/${field.slice(10)}` : '';
 
-    if (field === 'keyword') {
-      newQuery = inputQuery
-    } else if (field) {
-      newQuery = `${field}:(${inputQuery})`
+    let newQuery;
+    if (field) {
+      newQuery = browseOption || field === 'keyword' ? inputQuery : `${field}:(${inputQuery})`;
     }
 
     if (query === newQuery) return // no new search to make
@@ -55,7 +56,7 @@ function SearchBox({ history, match, location }) {
       format: "RFC1738"
     })
 
-    history.push(`/${match.params.datastoreSlug}?${newURL}`)
+    history.push(`/${match.params.datastoreSlug}${browseURL}?${newURL}`)
   }
 
   return (
@@ -211,6 +212,8 @@ function SearchBox({ history, match, location }) {
 
 function SearchTip ({field}) {
   const selectOption = searchOptions.find((searchOption) => searchOption.value === field);
+  // Check if option and tip exist
+  if (selectOption === undefined || selectOption.tip === undefined) return (null);
   return (
     <div
       css={{
