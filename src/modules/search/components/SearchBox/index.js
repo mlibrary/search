@@ -83,20 +83,29 @@ function SearchBox({ history, match, location }) {
         }}
       >
         <div css={{
-          display: 'flex',
-          flexWrap: 'wrap',
+          display: 'grid',
+          gridTemplateAreas:
+          `'dropdown dropdown'
+           'input button'
+           'advanced advanced'`,
+          gridTemplateColumns: '1fr auto',
+          gridTemplateRows: 'auto',
           [MEDIA_QUERIES.LARGESCREEN]: {
-            flexWrap: 'nowrap'
+            gridTemplateAreas:
+            `'dropdown input button'
+             'advanced advanced advanced'`,
+            gridTemplateColumns: '290px 1fr auto',
+          },
+          '@media only screen and (min-width: 820px)': {
+            gridTemplateAreas: `'dropdown input button advanced'`,
+            gridTemplateColumns: '340px 1fr auto auto',
           }
         }}>
           <div css={{
-            flex: '1 1 auto',
+            gridArea: 'dropdown',
             marginTop: '0.75rem',
             position: 'relative',
             width: '100%',
-            [MEDIA_QUERIES.LARGESCREEN]: {
-              maxWidth: '340px'
-            }
           }}>
             <select
               class="dropdown"
@@ -150,7 +159,7 @@ function SearchBox({ history, match, location }) {
             boxSizing: 'border-box',
             borderColor: `${COLORS.blue['500']} !important`,
             borderRadius: '4px',
-            flex: '1 1 auto',
+            gridArea: 'input',
             lineHeight: '1.6 important!',
             marginTop: '0.75rem!important',
             maxWidth: '100%',
@@ -163,8 +172,9 @@ function SearchBox({ history, match, location }) {
           }} />
           <Button
             css={{
-              display: 'flex',
               alignItems: 'center',
+              display: 'flex',
+              gridArea: 'button',
               margin: '0.75rem 0 0 0.75rem',
               minWidth: '44px',
               padding: '0.5rem 0.75rem'
@@ -179,6 +189,7 @@ function SearchBox({ history, match, location }) {
               className="search-box-advanced-link"
               css={{
                 alignSelf: 'center',
+                gridArea: 'advanced',
                 margin: '0.75rem 0.75rem 0 0.75rem',
                 padding: '0.5rem 0',
                 textAlign: 'center'
