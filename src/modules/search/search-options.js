@@ -10,6 +10,11 @@ const searchOptions = [
     "tip": "Enter the first words in a title. Use quotes to search a phrase. (e.g. One Hundred Years of Solitude; “The Fourth World”; Disability Visibility)"
   },
   {
+    "label": "Title starts with",
+    "value": "title_starts_with",
+    "tip": "Search for titles that begin with a word or phrase. (e.g., introduction to chemistry; history of Mexico; Asian art)"
+  },
+  {
     "label": "Author",
     "value": "author",
     "tip": "Search for items by author or contributor. Also search organizations or corporate authors. (e.g. Kimmerer, Robin Wall; American Medical Association; 小川 洋子)"
@@ -18,6 +23,11 @@ const searchOptions = [
     "label": "Journal/Serial Title",
     "value": "journal_title",
     "tip": "Search the title of a journal or serial publication. (e.g. Detroit Free Press; “journal of the american medical association”; African-American newspapers)"
+  },
+  {
+    "label": "Subject",
+    "value": "subject",
+    "tip": "Use words or phrases to search subject headings. (e.g., public health; radicalism--united states; Baldwin, James)"
   },
   {
     "label": "Academic Discipline",
