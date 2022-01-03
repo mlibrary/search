@@ -1,161 +1,249 @@
-import React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+/** @jsx jsx */
+import { jsx, Global } from "@emotion/core";
+import React from 'react'
+import {
+  COLORS,
+  Button,
+  Icon,
+  MEDIA_QUERIES
+} from '@umich-lib/core'
+import { useSelector } from "react-redux";
 import qs from "qs";
-import { withRouter, Link } from "react-router-dom";
-import _ from "underscore";
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
+import VisuallyHidden from "@reach/visually-hidden";
+import searchOptions from "../../search-options";
 
-import { setSearchQueryInput, searching } from "../../actions";
-import { Icon } from "../../../core";
-import ReactGA from "react-ga";
+function SearchBox({ history, match, location }) {
+  const { query } = useSelector((state) => state.search);
+  const { fields } = useSelector((state) => state.advanced[state.datastores.active]);
+  const isAdvanced = useSelector((state) => state.advanced[state.datastores.active] ? true : false)
+  const activeDatastore = useSelector(
+    (state) => state.datastores.datastores.find(ds => ds.uid === state.datastores.active)
+  )
+  const [inputQuery, setInputQuery] = React.useState(query)
+  const [field, setField] = React.useState(fields[0].uid)
+  const isCatalog = activeDatastore.uid === 'mirlyn';
 
-class SearchBox extends React.Component {
-  constructor(props) {
-    super(props);
+  function handleSubmitSearch(e) {
+    e.preventDefault()
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.onBackButtonEvent = this.onBackButtonEvent.bind(this);
-  }
+    // Check if browse option
+    const browseOption = field.startsWith('browse_by_');
+    const browseURL = browseOption ? `/browse/${field.slice(10)}` : '';
 
-  handleChange(query) {
-    this.props.setSearchQueryInput(query);
-  }
+    let newQuery;
+    if (field) {
+      newQuery = browseOption || field === 'keyword' ? inputQuery : `${field}:(${inputQuery})`;
+    }
 
-  onBackButtonEvent(e) {
-    const { query } = this.props;
-    this.handleChange(query);
-  }
+    if (query === newQuery) return // no new search to make
 
-  componentDidMount() {
-    window.onpopstate = this.onBackButtonEvent;
-  }
+    const newURL = qs.stringify({
+      // preserve existing URL s tate
+      ...qs.parse(document.location.search.substring(1), { allowDots: true }),
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const {
-      match,
-      history,
-      queryInput,
-      activeFilters,
-      institution,
-      sort,
-      activeDatastore,
-    } = this.props;
+      // If it's a new search, then you want the first page
+      // of new results, always.
+      page: undefined,
+      
+      // and add new query
+      query: newQuery
+    }, {
+      arrayFormat: "repeat",
+      encodeValuesOnly: true,
+      allowDots: true,
+      format: "RFC1738"
+    })
 
-    ReactGA.event({
-      action: "Click",
-      category: "Search Button",
-      label: `Search ${activeDatastore.name}`,
-    });
-
-    const library =
-      activeDatastore.uid === "mirlyn" ? institution.active : undefined;
-
-    // Query is not empty
-    if (queryInput.length > 0) {
-      const queryString = qs.stringify(
-        {
-          query: queryInput,
-          filter: activeFilters,
-          library,
-          sort,
-        },
-        {
-          arrayFormat: "repeat",
-          encodeValuesOnly: true,
-          allowDots: true,
-          format: "RFC1738",
-        }
-      );
-
-      const url = `/${match.params.datastoreSlug}?${queryString}`;
-
-      history.push(url);
+    if (browseOption) {
+      window.location.href = `/${match.params.datastoreSlug}${browseURL}?${newURL}`;
+    } else {
+      history.push(`/${match.params.datastoreSlug}?${newURL}`)
     }
   }
 
-  render() {
-    const {
-      match,
-      location,
-      queryInput,
-      isAdvanced,
-      activeDatastore,
-    } = this.props;
-
-    return (
-      <div className="search-box-container-full">
-        <div className="search-box-container">
-          <form
-            className="search-box-form"
-            onSubmit={this.handleSubmit}
-            role="search"
-            id="search-box"
+  return (
+    <form css={{
+      background: COLORS.blue['300'],
+      paddingBottom: `0.75rem`,
+      borderBottom: `solid 2px ${COLORS.blue['400']}`
+    }} onSubmit={handleSubmitSearch}>
+      <Global styles={{
+        '*:focus': {
+          outline: 0,
+          boxShadow: `rgb(255, 203, 5) 0px 0px 0px 2px, rgb(33, 43, 54) 0px 0px 0px 3px !important`,
+          zIndex: '10',
+          borderRadius: '2px !important'
+        }
+      }}/>
+      <div
+        css={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '0 1rem',
+          [MEDIA_QUERIES.LARGESCREEN]: {
+            padding: '0 2rem'
+          }
+        }}
+      >
+        <div css={{
+          display: 'grid',
+          gridTemplateAreas:
+          `'dropdown dropdown'
+           'input button'
+           'advanced advanced'`,
+          gridTemplateColumns: '1fr auto',
+          gridTemplateRows: 'auto',
+          [MEDIA_QUERIES.LARGESCREEN]: {
+            gridTemplateAreas:
+            `'dropdown input button'
+             'advanced advanced advanced'`,
+            gridTemplateColumns: '290px 1fr auto',
+          },
+          '@media only screen and (min-width: 820px)': {
+            gridTemplateAreas: `'dropdown input button advanced'`,
+            gridTemplateColumns: '340px 1fr auto auto',
+          }
+        }}>
+          <div css={{
+            gridArea: 'dropdown',
+            marginTop: '0.75rem',
+            position: 'relative',
+            width: '100%',
+          }}>
+            <select
+              class="dropdown"
+              onChange={e => setField(e.target.value)}
+              css={{
+                all: 'unset',
+                background: COLORS.grey['100'],
+                border: `solid 1px ${COLORS.blue['500']}`,
+                borderRadius: '4px',
+                boxSizing: 'border-box',
+                height: '100%',
+                lineHeight: '1.6 !important',
+                maxWidth: '100%',
+                padding: '0.5rem 0.75rem',
+                paddingRight: '3rem',
+                width: '100%',
+                [MEDIA_QUERIES.LARGESCREEN]: {
+                  borderBottomRightRadius: '0',
+                  borderTopRightRadius: '0'
+                }
+              }}
+            >
+              {isCatalog ? (
+                <React.Fragment>
+                  <optgroup label={`Search by`}>
+                    {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                  </optgroup>
+                  <optgroup label={`Browse by`}>
+                    <option value='browse_by_callnumber'>Browse by call number (LC and Dewey)</option>
+                    <option value='browse_by_author' disabled>Browse by author (coming soon)</option>
+                    <option value='browse_by_subject' disabled>Browse by subject (coming soon)</option>
+                    <option value='browse_by_title' disabled>Browse by title (coming soon)</option>
+                  </optgroup>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                </React.Fragment>
+              )}
+            </select>
+            <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={24} css={{
+              position: 'absolute',
+              right: '0.5rem',
+              top: '0.6rem',
+              pointerEvents: 'none'
+            }} />
+          </div>
+          <input type="text" value={inputQuery} onChange={e => setInputQuery(e.target.value)} css={{
+            all: 'unset',
+            background: 'white',
+            boxSizing: 'border-box',
+            borderColor: `${COLORS.blue['500']} !important`,
+            borderRadius: '4px',
+            gridArea: 'input',
+            lineHeight: '1.6 important!',
+            marginTop: '0.75rem!important',
+            maxWidth: '100%',
+            width: 'auto!important',
+            [MEDIA_QUERIES.LARGESCREEN]: {
+              borderLeft: '0 !important',
+              borderBottomLeftRadius: '0 !important',
+              borderTopLeftRadius: '0 !important'
+            }
+          }} />
+          <Button
+            css={{
+              alignItems: 'center',
+              display: 'flex',
+              gridArea: 'button',
+              margin: '0.75rem 0 0 0.75rem',
+              minWidth: '44px',
+              padding: '0.5rem 0.75rem'
+            }}
+            onClick={handleSubmitSearch}
           >
-            <div className="search-box">
-              <input
-                id="search-query"
-                className="search-box-input"
-                type="search"
-                aria-label="search text"
-                value={queryInput}
-                spellCheck="false"
-                data-hj-allow
-                onChange={(event) => this.handleChange(event.target.value)}
-              />
-              <button className="button search-box-button" type="submit">
-                <Icon name="search" />
-                <span className="search-box-button-text">Search</span>
-              </button>
-            </div>
-
-            {isAdvanced && (
-              <div className="search-box-advanced">
-                <Link
-                  to={`/${match.params.datastoreSlug}/advanced${location.search}`}
-                  className="search-box-advanced-link"
-                >
-                  <span className="offpage">{activeDatastore.name}</span>
-                  <span>Advanced</span>
-                  <span className="offpage">Search</span>
-                </Link>
-              </div>
-            )}
-          </form>
+            <Icon icon="search" size={24} /><VisuallyHidden>Search</VisuallyHidden>
+          </Button>
+          {isAdvanced && (
+            <Link
+              to={`/${match.params.datastoreSlug}/advanced${location.search}`}
+              className="search-box-advanced-link"
+              css={{
+                alignSelf: 'center',
+                gridArea: 'advanced',
+                margin: '0.75rem 0.75rem 0 0.75rem',
+                padding: '0.5rem 0',
+                textAlign: 'center'
+              }}
+            >
+              <span className="offpage">{activeDatastore.name}</span>
+              <span>Advanced</span>
+              <span className="offpage">Search</span>
+            </Link>
+          )}
         </div>
+        {isCatalog &&
+          <SearchTip field={field} />
+        }
       </div>
-    );
-  }
+    </form>
+  )
 }
 
-function mapStateToProps(state) {
-  return {
-    isSearching: state.search.searching,
-    query: state.search.query,
-    queryInput: state.search.queryInput,
-    activeFilters: state.filters.active[state.datastores.active],
-    activeDatastore: _.findWhere(state.datastores.datastores, {
-      uid: state.datastores.active,
-    }),
-    location: state.router.location,
-    isAdvanced: state.advanced[state.datastores.active] ? true : false,
-    institution: state.institution,
-    datastores: state.datastores,
-    sort: state.search.sort[state.datastores.active],
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      setSearchQueryInput,
-      searching,
-    },
-    dispatch
+function SearchTip ({field}) {
+  const selectOption = searchOptions.find((searchOption) => searchOption.value === field);
+  // Check if option and tip exist
+  if (selectOption === undefined || selectOption.tip === undefined) return (null);
+  return (
+    <div
+      css={{
+        display: 'flex',
+        gap: '12px',
+        marginTop: '0.75rem',
+        width: '100%'
+      }}
+    >
+      <Icon
+        d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"
+        css={{
+          flexShrink: '0',
+          paddingTop: '4px'
+        }}
+      />
+      <p
+        css={{
+          margin: '0'
+        }}
+      >
+        <span css={{fontWeight: 'bold'}}>{field.includes('browse_by') ? 'Browse' : 'Search'} Tip: </span>
+        <span dangerouslySetInnerHTML={{__html: selectOption.tip}} />
+      </p>
+    </div>
   );
 }
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SearchBox)
-);
+export default withRouter(SearchBox)

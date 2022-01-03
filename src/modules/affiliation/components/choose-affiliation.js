@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 import qs from "qs";
 
 import { Button, Heading, Text, MEDIA_QUERIES } from "@umich-lib/core";
-import { Icon, Modal } from "../../reusable";
-import { SPACING } from "../../reusable/umich-lib-core-temp";
+import { Modal } from "../../reusable";
+import { COLORS } from "../../reusable/umich-lib-core-temp";
 
 export default function ChooseAffiliation() {
   const { defaultAffiliation, affiliationOptions } = useSelector(
@@ -47,26 +47,45 @@ export default function ChooseAffiliation() {
       });
   }
 
+  const activeSelector = affiliation === 'aa' ? 'div:first-of-type' : 'div:last-of-type'
+
   return (
     <React.Fragment>
       <Button
         kind="secondary"
         css={{
           color: "white",
-          border: "none",
-          padding: "0"
+          padding: "0",
+          border: `solid 1px ${COLORS.blue[300]}`,
+          margin: '0',
+          boxShadow: `0 0 0 1px rgb(16 22 26 / 10%), 0 4px 8px rgb(16 22 26 / 20%), 0 18px 46px 6px rgb(16 22 26 / 20%);`
         }}
         onClick={() => setOpen(true)}
       >
-        <VisuallyHidden>Choose campus affiliation: </VisuallyHidden>
-        <span
+        <VisuallyHidden>Choose campus affiliation</VisuallyHidden>
+        <div
           css={{
-            marginRight: SPACING["2XS"]
+            display: 'grid',
+            gridTemplateColumns: 'auto auto',
+            borderRadius: '4px',
+            textTransform: 'uppercase',
+            fontWeight: '800',
+            fontSize: '0.75rem',
+            textAlign: 'right',
+            'div': {
+              display: 'inline-block',
+              padding: '0.25rem 0.5rem',
+              lineHeight: '1.5',
+              '&:hover': {
+                textDecoration: 'underline'
+              }
+            },
+            [activeSelector]: {
+              background: COLORS.blue['300']
+            }
           }}
-        >
-          {label}
-        </span>
-        <Icon icon="expand_more" />
+        ><div>Ann Arbor</div><div>Flint</div>
+        </div>
       </Button>
       <Modal isOpen={open} onRequestClose={() => setOpen(false)}>
         <div

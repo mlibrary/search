@@ -67,7 +67,6 @@ class FullRecord extends React.Component {
   componentWillMount() {
     const { recordUid } = this.props.match.params;
     const { datastoreUid } = this.props;
-    const { datastore } = this.props.datastore
 
     requestRecord({ recordUid, datastoreUid });
     prejudiceInstance = prejudice.createVariableStorageDriverInstance();
