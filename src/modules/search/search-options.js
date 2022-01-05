@@ -55,7 +55,7 @@ const searchOptions = [
     "tip": "Search by ISSN (8-digit code), ISBN (13- or 10-digit code), or OCLC number. (e.g.  0040-781X; 0747581088; 921446069)"
   },
   {
-    "label": "Browse by call number (LC and Dewey)",
+    "label": "Browse by call number (LC and Dewey) [BETA]",
     "value": "browse_by_callnumber",
     "tip": "Browse by Library of Congress (LC) and Dewey call numbers, sorted alphanumerically. Learn about the meaning of call numbers. (e.g. RC662.4 .H38 2016; QH 105) <a href=\"https://www.loc.gov/catdir/cpso/lcco/\">Learn about the meaning of call numbers<span class=\"visually-hidden\"> (link points to external site)</span></a>.",
     "selected": "selected"

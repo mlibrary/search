@@ -139,7 +139,7 @@ function SearchBox({ history, match, location }) {
                     {fields.map(field => <option value={field.uid}>{field.name}</option>)}
                   </optgroup>
                   <optgroup label={`Browse by`}>
-                    <option value='browse_by_callnumber'>Browse by call number (LC and Dewey)</option>
+                    <option value='browse_by_callnumber'>Browse by call number (LC and Dewey) [BETA]</option>
                     <option value='browse_by_author' disabled>Browse by author (coming soon)</option>
                     <option value='browse_by_subject' disabled>Browse by subject (coming soon)</option>
                     <option value='browse_by_title' disabled>Browse by title (coming soon)</option>
