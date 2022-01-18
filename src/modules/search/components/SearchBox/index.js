@@ -106,12 +106,15 @@ function SearchBox({ history, match, location }) {
             gridTemplateColumns: '340px 1fr auto auto',
           }
         }}>
-          <div css={{
-            gridArea: 'dropdown',
-            marginTop: '0.75rem',
-            position: 'relative',
-            width: '100%',
-          }}>
+          <div 
+            className="search-box-dropdown" 
+            css={{
+              gridArea: 'dropdown',
+              marginTop: '0.75rem',
+              position: 'relative',
+              width: '100%',
+            }}
+            >
             <select
               class="dropdown"
               onChange={e => setField(e.target.value)}
