@@ -54,13 +54,14 @@ function SearchHeader(props) {
           }
         }
       }}>
-        {navItems.map(n => (
+        {navItems.map((n, i) => (
           <a
             href={n.href}
             css={{ color: 'white', '&:hover': { textDecoration: 'underline' } }}
             data-ga-action="Click"
             data-ga-category="Header"
             data-ga-label={n.text}
+            key={i}
           >
             {n.text}
           </a>

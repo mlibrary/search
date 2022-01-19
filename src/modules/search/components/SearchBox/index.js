@@ -4,9 +4,9 @@ import React from 'react'
 import {
   COLORS,
   Button,
-  Icon,
   MEDIA_QUERIES
-} from '@umich-lib/core'
+} from '@umich-lib/core';
+import Icon from "../../../reusable/components/Icon";
 import { useSelector } from "react-redux";
 import qs from "qs";
 import { withRouter } from "react-router";
@@ -116,7 +116,7 @@ function SearchBox({ history, match, location }) {
             }}
             >
             <select
-              class="dropdown"
+              className="dropdown"
               onChange={e => setField(e.target.value)}
               css={{
                 all: 'unset',
@@ -139,18 +139,18 @@ function SearchBox({ history, match, location }) {
               {isCatalog ? (
                 <React.Fragment>
                   <optgroup label={`Search by`}>
-                    {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                    {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
                   </optgroup>
                   <optgroup label={`Browse by`}>
-                    <option value='browse_by_callnumber'>Browse by call number (LC and Dewey) [BETA]</option>
-                    <option value='browse_by_author' disabled>Browse by author (coming soon)</option>
-                    <option value='browse_by_subject' disabled>Browse by subject (coming soon)</option>
-                    <option value='browse_by_title' disabled>Browse by title (coming soon)</option>
+                    <option value='browse_by_callnumber' key='browse_by_callnumber'>Browse by call number (LC and Dewey) [BETA]</option>
+                    <option value='browse_by_author' key='browse_by_author' disabled>Browse by author (coming soon)</option>
+                    <option value='browse_by_subject' key='browse_by_subject' disabled>Browse by subject (coming soon)</option>
+                    <option value='browse_by_title' key='browse_by_title' disabled>Browse by title (coming soon)</option>
                   </optgroup>
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                  {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
                 </React.Fragment>
               )}
             </select>
