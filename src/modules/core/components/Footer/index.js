@@ -37,33 +37,18 @@ const Footer = () => {
           {footer_links.map((item, i) => (
             <li key={i}>
               {item.to ? (
-                <Link
-                  to={item.to}
-                  data-ga-action="Click"
-                  data-ga-category="Footer"
-                  data-ga-label={item.text}
-                >
+                <Link to={item.to}>
                   {item.text}
                 </Link>
               ) : (
-                <a
-                  href={item.href}
-                  data-ga-action="Click"
-                  data-ga-category="Footer"
-                  data-ga-label={item.text}
-                >
+                <a href={item.href}>
                   {item.text}
                 </a>
               )}
             </li>
           ))}
           <li>
-            <a
-              href="https://ill.lib.umich.edu/"
-              data-ga-action="Click"
-              data-ga-category="Footer"
-              data-ga-label="Make an I.L.L. Request"
-            >
+            <a href="https://ill.lib.umich.edu/">
               Make an <abbr title="Interlibrary Loan">I.L.L.</abbr> Request
             </a>
           </li>
