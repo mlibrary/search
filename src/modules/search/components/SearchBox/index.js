@@ -122,7 +122,7 @@ function SearchBox({ history, match, location }) {
               position: 'relative',
               width: '100%',
             }}
-            >
+          >
             <select
               className="dropdown"
               onChange={e => setOption(e.target)}
