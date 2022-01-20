@@ -4,9 +4,9 @@ import React from 'react'
 import {
   COLORS,
   Button,
-  Icon,
   MEDIA_QUERIES
-} from '@umich-lib/core'
+} from '@umich-lib/core';
+import Icon from "../../../reusable/components/Icon";
 import { useSelector } from "react-redux";
 import qs from "qs";
 import { withRouter } from "react-router";
@@ -24,6 +24,14 @@ function SearchBox({ history, match, location }) {
   const [inputQuery, setInputQuery] = React.useState(query)
   const [field, setField] = React.useState(fields[0].uid)
   const isCatalog = activeDatastore.uid === 'mirlyn';
+
+  function setOption(target) {
+    window.dataLayer.push({
+      event: 'selectionMade',
+      selectedElement: target.options[target.selectedIndex]
+    });
+    return setField(target.value)
+  }
 
   function handleSubmitSearch(e) {
     e.preventDefault()
@@ -106,15 +114,18 @@ function SearchBox({ history, match, location }) {
             gridTemplateColumns: '340px 1fr auto auto',
           }
         }}>
-          <div css={{
-            gridArea: 'dropdown',
-            marginTop: '0.75rem',
-            position: 'relative',
-            width: '100%',
-          }}>
+          <div 
+            className="search-box-dropdown" 
+            css={{
+              gridArea: 'dropdown',
+              marginTop: '0.75rem',
+              position: 'relative',
+              width: '100%',
+            }}
+          >
             <select
-              class="dropdown"
-              onChange={e => setField(e.target.value)}
+              className="dropdown"
+              onChange={e => setOption(e.target)}
               css={{
                 all: 'unset',
                 background: COLORS.grey['100'],
@@ -136,18 +147,18 @@ function SearchBox({ history, match, location }) {
               {isCatalog ? (
                 <React.Fragment>
                   <optgroup label={`Search by`}>
-                    {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                    {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
                   </optgroup>
                   <optgroup label={`Browse by`}>
-                    <option value='browse_by_callnumber'>Browse by call number (LC and Dewey) [BETA]</option>
-                    <option value='browse_by_author' disabled>Browse by author (coming soon)</option>
-                    <option value='browse_by_subject' disabled>Browse by subject (coming soon)</option>
-                    <option value='browse_by_title' disabled>Browse by title (coming soon)</option>
+                    <option value='browse_by_callnumber' key='browse_by_callnumber'>Browse by call number (LC and Dewey) [BETA]</option>
+                    <option value='browse_by_author' key='browse_by_author' disabled>Browse by author (coming soon)</option>
+                    <option value='browse_by_subject' key='browse_by_subject' disabled>Browse by subject (coming soon)</option>
+                    <option value='browse_by_title' key='browse_by_title' disabled>Browse by title (coming soon)</option>
                   </optgroup>
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  {fields.map(field => <option value={field.uid}>{field.name}</option>)}
+                  {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
                 </React.Fragment>
               )}
             </select>
