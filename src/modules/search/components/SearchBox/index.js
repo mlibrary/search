@@ -25,6 +25,14 @@ function SearchBox({ history, match, location }) {
   const [field, setField] = React.useState(fields[0].uid)
   const isCatalog = activeDatastore.uid === 'mirlyn';
 
+  function setOption(target) {
+    window.dataLayer.push({
+      event: 'selectionMade',
+      selectedElement: target.options[target.selectedIndex]
+    });
+    return setField(target.value)
+  }
+
   function handleSubmitSearch(e) {
     e.preventDefault()
 
@@ -117,7 +125,7 @@ function SearchBox({ history, match, location }) {
             >
             <select
               className="dropdown"
-              onChange={e => setField(e.target.value)}
+              onChange={e => setOption(e.target)}
               css={{
                 all: 'unset',
                 background: COLORS.grey['100'],
