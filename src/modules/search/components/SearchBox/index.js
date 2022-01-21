@@ -25,12 +25,14 @@ function SearchBox({ history, match, location }) {
   const [field, setField] = React.useState(fields[0].uid)
   const isCatalog = activeDatastore.uid === 'mirlyn';
 
-  function setOption(target) {
+  function setOption(e) {
+    e.preventDefault()
+    if (!e.target.value) return
     window.dataLayer.push({
       event: 'selectionMade',
-      selectedElement: target.options[target.selectedIndex]
+      selectedElement: e.target.options[e.target.selectedIndex]
     });
-    return setField(target.value)
+    return setField(e.target.value)
   }
 
   function handleSubmitSearch(e) {
@@ -125,7 +127,8 @@ function SearchBox({ history, match, location }) {
           >
             <select
               className="dropdown"
-              onChange={e => setOption(e.target)}
+              value={field}
+              onChange={e => setOption(e)}
               css={{
                 all: 'unset',
                 background: COLORS.grey['100'],
@@ -143,25 +146,21 @@ function SearchBox({ history, match, location }) {
                   borderTopRightRadius: '0'
                 }
               }}
-              value={field}
             >
-              {isCatalog ? (
-                <React.Fragment>
-                  <optgroup label={`Search by`}>
-                    {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
-                  </optgroup>
+              <React.Fragment>
+                <option value="">- Please select an option -</option>
+                <optgroup label={`Search by`}>
+                  {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
+                </optgroup>
+                {isCatalog && (
                   <optgroup label={`Browse by`}>
                     <option value='browse_by_callnumber' key='browse_by_callnumber'>Browse by call number (LC and Dewey) [BETA]</option>
                     <option value='browse_by_author' key='browse_by_author' disabled>Browse by author (coming soon)</option>
                     <option value='browse_by_subject' key='browse_by_subject' disabled>Browse by subject (coming soon)</option>
                     <option value='browse_by_title' key='browse_by_title' disabled>Browse by title (coming soon)</option>
                   </optgroup>
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
-                </React.Fragment>
-              )}
+                )}
+              </React.Fragment>
             </select>
             <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={24} css={{
               position: 'absolute',
