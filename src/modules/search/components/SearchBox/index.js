@@ -126,9 +126,11 @@ function SearchBox({ history, match, location }) {
             }}
           >
             <select
+              aria-label="Select an option"
               className="dropdown"
               value={field}
               onChange={e => setOption(e)}
+              autoComplete="off"
               css={{
                 all: 'unset',
                 background: COLORS.grey['100'],
@@ -169,23 +171,30 @@ function SearchBox({ history, match, location }) {
               pointerEvents: 'none'
             }} />
           </div>
-          <input type="text" value={inputQuery} onChange={e => setInputQuery(e.target.value)} css={{
-            all: 'unset',
-            background: 'white',
-            boxSizing: 'border-box',
-            borderColor: `${COLORS.blue['500']} !important`,
-            borderRadius: '4px',
-            gridArea: 'input',
-            lineHeight: '1.6 important!',
-            marginTop: '0.75rem!important',
-            maxWidth: '100%',
-            width: 'auto!important',
-            [MEDIA_QUERIES.LARGESCREEN]: {
-              borderLeft: '0 !important',
-              borderBottomLeftRadius: '0 !important',
-              borderTopLeftRadius: '0 !important'
-            }
-          }} />
+          <input
+            type="text"
+            aria-label={field.startsWith('browse_by_') ? `Browse for` : `Search for`}
+            value={inputQuery}
+            onChange={e => setInputQuery(e.target.value)}
+            autoComplete="on"
+            css={{
+              all: 'unset',
+              background: 'white',
+              boxSizing: 'border-box',
+              borderColor: `${COLORS.blue['500']} !important`,
+              borderRadius: '4px',
+              gridArea: 'input',
+              lineHeight: '1.6 important!',
+              marginTop: '0.75rem!important',
+              maxWidth: '100%',
+              width: 'auto!important',
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                borderLeft: '0 !important',
+                borderBottomLeftRadius: '0 !important',
+                borderTopLeftRadius: '0 !important'
+              }
+            }}
+          />
           <Button
             css={{
               alignItems: 'center',
