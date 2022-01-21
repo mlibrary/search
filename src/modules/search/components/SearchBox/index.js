@@ -164,12 +164,16 @@ function SearchBox({ history, match, location }) {
                 )}
               </React.Fragment>
             </select>
-            <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={24} css={{
-              position: 'absolute',
-              right: '0.5rem',
-              top: '0.6rem',
-              pointerEvents: 'none'
-            }} />
+            <Icon
+              icon="expand_more"
+              size={24}
+              css={{
+                position: 'absolute',
+                right: '0.5rem',
+                top: '0.6rem',
+                pointerEvents: 'none'
+              }} 
+            />
           </div>
           <input
             type="text"
