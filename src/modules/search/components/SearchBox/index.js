@@ -22,7 +22,7 @@ function SearchBox({ history, match, location }) {
     (state) => state.datastores.datastores.find(ds => ds.uid === state.datastores.active)
   )
   const [inputQuery, setInputQuery] = React.useState(query)
-  const [field, setField] = React.useState(fields[0].uid)
+  const [field, setField] = React.useState('')
   const isCatalog = activeDatastore.uid === 'mirlyn';
 
   function setOption(e) {
