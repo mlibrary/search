@@ -22,7 +22,8 @@ function SearchBox({ history, match, location }) {
     (state) => state.datastores.datastores.find(ds => ds.uid === state.datastores.active)
   )
   const [inputQuery, setInputQuery] = React.useState(query)
-  const [field, setField] = React.useState('')
+  const defaultField = fields[0].uid;
+  const [field, setField] = React.useState(defaultField)
   const isCatalog = activeDatastore.uid === 'mirlyn';
 
   function setOption(e) {
@@ -44,7 +45,7 @@ function SearchBox({ history, match, location }) {
 
     let newQuery;
     if (field) {
-      newQuery = browseOption || field === 'keyword' ? inputQuery : `${field}:(${inputQuery})`;
+      newQuery = browseOption || field === defaultField ? inputQuery : `${field}:(${inputQuery})`;
     }
 
     if (query === newQuery) return // no new search to make
@@ -150,7 +151,6 @@ function SearchBox({ history, match, location }) {
               }}
             >
               <React.Fragment>
-                <option value="">- Please select an option -</option>
                 <optgroup label={`Search by`}>
                   {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
                 </optgroup>
