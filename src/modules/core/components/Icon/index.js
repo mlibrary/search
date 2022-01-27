@@ -4,7 +4,7 @@ const Icon = ({ name }) => {
   switch (name) {
     case "account":
       return (
-        <svg viewBox="0 0 16 16" version="1.1" className="icon">
+        <svg viewBox="0 0 16 16" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-519.000000, -909.000000)" fill="#000000">
               <g transform="translate(519.000000, 909.000000)">
@@ -16,7 +16,7 @@ const Icon = ({ name }) => {
       );
     case "alert":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-857.000000, -61.000000)" fill="#000000">
               <g transform="translate(822.000000, 60.000000)">
@@ -30,7 +30,7 @@ const Icon = ({ name }) => {
       );
     case "auto-fix":
       return (
-        <svg viewBox="0 0 21 21" version="1.1" className="icon">
+        <svg viewBox="0 0 21 21" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-1.000000, -1.000000)" fill="#000000">
               <path d="M7.49936,4.59817 L4.99936,5.99815 L6.39936,3.49815 L4.99936,0.99815 L7.49936,2.39815 L9.99936,0.99815 L8.59936,3.49815 L9.99936,5.99815 L7.49936,4.59817 L7.49936,4.59817 Z M19.4994,14.398 L21.9994,12.998 L20.5994,15.498 L21.9994,17.998 L19.4994,16.598 L16.9994,17.998 L18.3994,15.498 L16.9994,12.998 L19.4994,14.398 L19.4994,14.398 Z M21.9994,0.99807 L20.5994,3.49807 L21.9994,5.99807 L19.4994,4.59809 L16.9994,5.99807 L18.3994,3.49807 L16.9994,0.99807 L19.4994,2.39805 L21.9994,0.99807 L21.9994,0.99807 Z M13.3424,11.7764 L15.7774,9.3414 L13.6564,7.21936 L11.2214,9.6554 L13.3424,11.7764 L13.3424,11.7764 Z M14.3704,6.29136 L16.7064,8.62738 C17.0974,9.0174 17.0974,9.6504 16.7064,10.0414 L5.04236,21.7054 C4.65136,22.0954 4.01836,22.0954 3.62836,21.7054 L1.29236,19.3694 C0.901362,18.9784 0.901362,18.3454 1.29236,17.9554 L12.9564,6.29136 C13.3474,5.90037 13.9804,5.90037 14.3704,6.29136 L14.3704,6.29136 Z"></path>
@@ -40,7 +40,7 @@ const Icon = ({ name }) => {
       );
     case "calendar-clock":
       return (
-        <svg viewBox="0 0 20 22" version="1.1" className="icon">
+        <svg viewBox="0 0 20 22" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-627.000000, -364.000000)" fill="#000000">
               <g transform="translate(627.000000, 364.000000)">
@@ -52,7 +52,7 @@ const Icon = ({ name }) => {
       );
     case "procite":
       return (
-        <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <svg viewBox="0 0 16 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-28.000000, -11.000000)">
               <g transform="translate(28.000000, 11.000000)">
@@ -74,7 +74,7 @@ const Icon = ({ name }) => {
       );
     case "calendar-multiple-check":
       return (
-        <svg viewBox="0 0 22 22" version="1.1" className="icon">
+        <svg viewBox="0 0 22 22" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-35.000000, -74.000000)" fill="#000000">
               <g transform="translate(35.000000, 74.000000)">
@@ -86,7 +86,7 @@ const Icon = ({ name }) => {
       );
     case "comment":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g
               transform="translate(10.000000, 9.500000) scale(-1, 1) translate(-10.000000, -9.500000) translate(0.000000, -1.000000)"
@@ -99,7 +99,7 @@ const Icon = ({ name }) => {
       );
     case "comment-outline":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g
               transform="translate(10.000000, 9.500000) scale(-1, 1) translate(-10.000000, -9.500000) translate(0.000000, -1.000000)"
@@ -112,7 +112,7 @@ const Icon = ({ name }) => {
       );
     case "comment-remove-outline":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g
               transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000)"
@@ -125,7 +125,7 @@ const Icon = ({ name }) => {
       );
     case "document":
       return (
-        <svg viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-211.000000, -136.000000)" fill="#000000">
               <g transform="translate(211.000000, 136.000000)">
@@ -137,7 +137,7 @@ const Icon = ({ name }) => {
       );
     case "email":
       return (
-        <svg viewBox="0 0 20 16" version="1.1" className="icon">
+        <svg viewBox="0 0 20 16" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-213.000000, -76.000000)" fill="#000000">
               <g transform="translate(212.000000, 75.000000)">
@@ -149,7 +149,7 @@ const Icon = ({ name }) => {
       );
     case "endnote":
       return (
-        <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <svg viewBox="0 0 16 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-28.000000, -11.000000)">
               <g transform="translate(28.000000, 11.000000)">
@@ -173,7 +173,7 @@ const Icon = ({ name }) => {
       );
     case "newspaper":
       return (
-        <svg viewBox="0 0 20 18" version="1.1" className="icon">
+        <svg viewBox="0 0 20 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-131.000000, -627.000000)">
               <g transform="translate(131.000000, 627.000000)">
@@ -185,7 +185,7 @@ const Icon = ({ name }) => {
       );
     case "book-multiple-variant":
       return (
-        <svg viewBox="0 0 18 20" version="1.1" className="icon">
+        <svg viewBox="0 0 18 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-135.000000, -61.000000)" fill="#000000">
               <g transform="translate(135.000000, 61.000000)">
@@ -197,7 +197,7 @@ const Icon = ({ name }) => {
       );
     case "file-find":
       return (
-        <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <svg viewBox="0 0 16 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-235.000000, -173.000000)" fill="#000000">
               <g transform="translate(235.000000, 173.000000)">
@@ -209,7 +209,7 @@ const Icon = ({ name }) => {
       );
     case "volume":
       return (
-        <svg viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-233.000000, -592.000000)">
               <g transform="translate(232.000000, 592.000000)">
@@ -239,7 +239,7 @@ const Icon = ({ name }) => {
       );
     case "archive":
       return (
-        <svg viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-234.000000, -1219.000000)">
               <g transform="translate(234.000000, 1219.000000)">
@@ -251,7 +251,7 @@ const Icon = ({ name }) => {
       );
     case "eye":
       return (
-        <svg viewBox="0 0 22 15" version="1.1" className="icon">
+        <svg viewBox="0 0 22 15" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-230.000000, -1031.000000)">
               <path d="M240.99999,1035.5 C239.34299,1035.5 238,1036.84297 238,1038.49997 C238,1040.15697 239.34299,1041.49997 240.99999,1041.49997 C242.65699,1041.49997 243.99999,1040.15697 243.99999,1038.49997 C243.99999,1036.84297 242.65699,1035.5 240.99999,1035.5 L240.99999,1035.5 Z M240.99999,1043.49997 C238.239,1043.49997 236,1041.26097 236,1038.49997 C236,1035.73901 238.239,1033.5 240.99999,1033.5 C243.76099,1033.5 245.99999,1035.73901 245.99999,1038.49997 C245.99999,1041.26097 243.76099,1043.49997 240.99999,1043.49997 L240.99999,1043.49997 Z M240.99999,1031 C235.998,1031 231.728,1034.11102 230,1038.49997 C231.728,1042.88897 235.998,1045.99997 240.99999,1045.99997 C246.00299,1045.99997 250.27199,1042.88897 251.99999,1038.49997 C250.27199,1034.11102 246.00299,1031 240.99999,1031 L240.99999,1031 Z"></path>
@@ -261,7 +261,7 @@ const Icon = ({ name }) => {
       );
     case "database":
       return (
-        <svg viewBox="0 0 16 18" version="1.1" className="icon">
+        <svg viewBox="0 0 16 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-557.000000, -635.000000)">
               <g transform="translate(519.000000, 562.000000)">
@@ -275,7 +275,7 @@ const Icon = ({ name }) => {
       );
     case "forum":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
             <g transform="translate(-72.000000, -75.000000)" fill="#000000">
               <g transform="translate(72.000000, 75.000000)">
@@ -287,7 +287,7 @@ const Icon = ({ name }) => {
       );
     case "multi-result":
       return (
-        <svg viewBox="0 0 16 16" version="1.1" className="icon">
+        <svg viewBox="0 0 16 16" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-372.000000, -16.000000)">
               <g transform="translate(372.000000, 12.000000)">
@@ -299,7 +299,7 @@ const Icon = ({ name }) => {
       );
     case "search":
       return (
-        <svg viewBox="0 0 16 16" version="1.1" className="icon">
+        <svg viewBox="0 0 16 16" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-950.000000, -28.000000)">
               <g transform="translate(934.000000, 16.000000)">
@@ -313,7 +313,7 @@ const Icon = ({ name }) => {
       );
     case "timetable":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-658.000000, -480.000000)">
               <g transform="translate(519.000000, 289.000000)">
@@ -327,7 +327,7 @@ const Icon = ({ name }) => {
       );
     case "book-variant":
       return (
-        <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <svg viewBox="0 0 16 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-279.000000, -61.000000)">
               <g transform="translate(68.000000, 61.000000)">
@@ -341,7 +341,7 @@ const Icon = ({ name }) => {
       );
     case "file":
       return (
-        <svg viewBox="0 0 32 40" version="1.1" className="icon">
+        <svg viewBox="0 0 32 40" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-670.000000, -224.000000)">
               <g transform="translate(670.000000, 224.000000)">
@@ -353,7 +353,7 @@ const Icon = ({ name }) => {
       );
     case "filmstrip":
       return (
-        <svg viewBox="0 0 16 19" version="1.1" className="icon">
+        <svg viewBox="0 0 16 19" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-236.000000, -1142.000000)">
               <g transform="translate(235.000000, 1142.000000)">
@@ -365,7 +365,7 @@ const Icon = ({ name }) => {
       );
     case "launch":
       return (
-        <svg viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-201.000000, -662.000000)" fill="#000000">
               <g transform="translate(200.000000, 661.000000)">
@@ -377,7 +377,7 @@ const Icon = ({ name }) => {
       );
     case "music-note":
       return (
-        <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <svg viewBox="0 0 16 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-236.000000, -1104.000000)">
               <g transform="translate(236.000000, 1104.000000)">
@@ -389,7 +389,7 @@ const Icon = ({ name }) => {
       );
     case "script":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-232.000000, -1067.000000)">
               <g transform="translate(232.000000, 1067.000000)">
@@ -401,7 +401,7 @@ const Icon = ({ name }) => {
       );
     case "disc":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-230.000000, -652.000000)">
               <g transform="translate(230.000000, 652.000000)">
@@ -417,7 +417,7 @@ const Icon = ({ name }) => {
       );
     case "map":
       return (
-        <svg viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-234.000000, -1183.000000)">
               <g transform="translate(233.000000, 1182.000000)">
@@ -429,7 +429,7 @@ const Icon = ({ name }) => {
       );
     case "map-marker-radius":
       return (
-        <svg viewBox="0 0 16 21" version="1.1" className="icon">
+        <svg viewBox="0 0 16 21" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(0.000000, -1.000000)" fill="#000000">
               <path d="M7.9993,0.99809 C11.3122,0.99809 13.9993,3.66195 13.9993,6.94808 C13.9993,11.4106 7.9993,17.9981 7.9993,17.9981 C7.9993,17.9981 1.99931,11.4106 1.99931,6.94808 C1.99931,3.66195 4.68645,0.99809 7.9993,0.99809 L7.9993,0.99809 Z M8,5 C6.8954,5 6,5.89543 6,7 C6,8.10457 6.8954,9 8,9 C9.1046,9 10,8.10457 10,7 C10,5.89543 9.1046,5 8,5 L8,5 Z M16,18 C16,20.2091 12.4183,22 8,22 C3.58172,22 0,20.2091 0,18 C0,16.7111 1.21924,15.5646 3.11252,14.833 L3.74559,15.7372 C2.66672,16.1892 2,16.8121 2,17.5 C2,18.8807 4.68629,20 8,20 C11.3137,20 14,18.8807 14,17.5 C14,16.8121 13.3333,16.1892 12.2544,15.7371 L12.8875,14.833 C14.7807,15.5646 16,16.7111 16,18 L16,18 Z"></path>
@@ -439,7 +439,7 @@ const Icon = ({ name }) => {
       );
     case "image":
       return (
-        <svg viewBox="0 0 40 40" version="1.1" className="icon">
+        <svg viewBox="0 0 40 40" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-806.000000, -224.000000)">
               <g transform="translate(806.000000, 224.000000)">
@@ -451,7 +451,7 @@ const Icon = ({ name }) => {
       );
     case "image-multiple":
       return (
-        <svg viewBox="0 0 20 20" className="icon">
+        <svg viewBox="0 0 20 20" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-250.000000, -323.000000)" fill="#000000">
               <g transform="translate(68.000000, 61.000000)">
@@ -465,7 +465,7 @@ const Icon = ({ name }) => {
       );
     case "website":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-696.000000, -711.000000)">
               <g transform="translate(519.000000, 562.000000)">
@@ -479,7 +479,7 @@ const Icon = ({ name }) => {
       );
     case "chevron-down":
       return (
-        <svg viewBox="0 0 12 8" version="1.1" className="icon">
+        <svg viewBox="0 0 12 8" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-353.000000, -585.000000)">
               <g transform="translate(60.000000, 477.000000)">
@@ -493,7 +493,7 @@ const Icon = ({ name }) => {
       );
     case "chevron-right":
       return (
-        <svg viewBox="0 0 8 12" version="1.1" className="icon">
+        <svg viewBox="0 0 8 12" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(0.000000, -1.000000)" fill="#000000">
               <polygon points="0.58527 11.584 5.1713 6.998 0.58527 2.41198 1.99927 0.99798 7.9993 6.998 1.99927 12.998"></polygon>
@@ -503,7 +503,7 @@ const Icon = ({ name }) => {
       );
     case "minus":
       return (
-        <svg viewBox="0 0 14 2" version="1.1" className="icon">
+        <svg viewBox="0 0 14 2" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-823.000000, -212.000000)">
               <g transform="translate(822.000000, 60.000000)">
@@ -517,7 +517,7 @@ const Icon = ({ name }) => {
       );
     case "content-save":
       return (
-        <svg viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-203.000000, -1302.000000)">
               <g transform="translate(203.000000, 1302.000000)">
@@ -529,7 +529,7 @@ const Icon = ({ name }) => {
       );
     case "chart-line":
       return (
-        <svg viewBox="0 0 20 18" version="1.1" className="icon">
+        <svg viewBox="0 0 20 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-140.000000, -37.000000)">
               <g transform="translate(140.000000, 37.000000)">
@@ -541,7 +541,7 @@ const Icon = ({ name }) => {
       );
     case "close":
       return (
-        <svg viewBox="0 0 14 14" version="1.1" className="icon">
+        <svg viewBox="0 0 14 14" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-274.000000, -993.000000)">
               <g transform="translate(60.000000, 918.000000)">
@@ -555,7 +555,7 @@ const Icon = ({ name }) => {
       );
     case "arrow-forward":
       return (
-        <svg viewBox="0 0 16 16" version="1.1" className="icon">
+        <svg viewBox="0 0 16 16" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-164.000000, -549.000000)" fill="#000000">
               <g transform="translate(164.000000, 549.000000)">
@@ -567,7 +567,7 @@ const Icon = ({ name }) => {
       );
     case "arrow-left":
       return (
-        <svg viewBox="0 0 16 16" version="1.1" className="icon">
+        <svg viewBox="0 0 16 16" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g>
               <polygon points="16 7 16 9 3.98958 9 9.4948 14.5052 8.0806 15.9194 0.16116 8 8.0806 0.08058 9.4948 1.49479 3.98958 7"></polygon>
@@ -577,7 +577,7 @@ const Icon = ({ name }) => {
       );
     case "arrow-right-drop-circle":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-231.000000, -692.000000)">
               <g transform="translate(231.000000, 692.000000)">
@@ -589,7 +589,7 @@ const Icon = ({ name }) => {
       );
     case "checkbox-checked":
       return (
-        <svg viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-240.000000, -957.000000)">
               <g transform="translate(60.000000, 918.000000)">
@@ -603,7 +603,7 @@ const Icon = ({ name }) => {
       );
     case "checkbox-unchecked":
       return (
-        <svg viewBox="0 0 18 18" version="1.1" className="icon">
+        <svg viewBox="0 0 18 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-61.000000, -957.000000)">
               <g transform="translate(60.000000, 918.000000)">
@@ -617,7 +617,7 @@ const Icon = ({ name }) => {
       );
     case "checkbox-marked-circle":
       return (
-        <svg viewBox="0 0 20 20" className="icon">
+        <svg viewBox="0 0 20 20" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-168.000000, -957.000000)" fill="#000000">
               <g transform="translate(167.000000, 956.000000)">
@@ -629,7 +629,7 @@ const Icon = ({ name }) => {
       );
     case "xml":
       return (
-        <svg viewBox="0 0 22 18" version="1.1" className="icon">
+        <svg viewBox="0 0 22 18" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-109.000000, -104.000000)">
               <g transform="translate(109.000000, 103.000000)">
@@ -641,7 +641,7 @@ const Icon = ({ name }) => {
       );
     case "gesture-double-tap":
       return (
-        <svg viewBox="0 0 14 20" version="1.1" className="icon">
+        <svg viewBox="0 0 14 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g
               transform="translate(-136.000000, -1089.000000)"
@@ -657,7 +657,7 @@ const Icon = ({ name }) => {
       );
     case "shape-plus":
       return (
-        <svg viewBox="0 0 20 20" className="icon">
+        <svg viewBox="0 0 20 20" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-393.000000, -303.000000)" fill="#000000">
               <g transform="translate(393.000000, 303.000000)">
@@ -669,7 +669,7 @@ const Icon = ({ name }) => {
       );
     case "view-list":
       return (
-        <svg viewBox="0 0 17 14" className="icon">
+        <svg viewBox="0 0 17 14" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(0.000000, -110.000000)" fill="#000000">
               <g transform="translate(0.000000, 110.000000)">
@@ -681,7 +681,7 @@ const Icon = ({ name }) => {
       );
     case "message":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-223.000000, -113.000000)" fill="#000000">
               <g transform="translate(222.000000, 112.000000)">
@@ -693,7 +693,7 @@ const Icon = ({ name }) => {
       );
     case "text-message":
       return (
-        <svg viewBox="0 0 20 20" version="1.1" className="icon">
+        <svg viewBox="0 0 20 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-22.000000, -11.000000)" fill="#6E6E6E">
               <g transform="translate(22.000000, 11.000000)">
@@ -705,7 +705,7 @@ const Icon = ({ name }) => {
       );
     case "motion-picture":
       return (
-        <svg viewBox="0 0 21 20" version="1.1" className="icon">
+        <svg viewBox="0 0 21 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-974.000000, -677.000000)" fill="#000000">
               <g transform="translate(974.000000, 677.000000)">
@@ -721,7 +721,7 @@ const Icon = ({ name }) => {
       );
     case "export-ris":
       return (
-        <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <svg viewBox="0 0 16 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-32.000000, -11.000000)" fill="#6E6E6E">
               <g transform="translate(0.000000, 11.000000)">
@@ -745,7 +745,7 @@ const Icon = ({ name }) => {
       );
     case "plus":
       return (
-        <svg viewBox="0 0 14 15" version="1.1" className="icon">
+        <svg viewBox="0 0 14 15" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-75.000000, -225.000000)" fill="#000000">
               <g transform="translate(74.000000, 225.000000)">
@@ -767,7 +767,7 @@ const Icon = ({ name }) => {
       );
     case "window-close":
       return (
-        <svg viewBox="0 0 14 14" version="1.1" className="icon">
+        <svg viewBox="0 0 14 14" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-283.000000, -264.000000)" fill="#000000">
               <g transform="translate(283.000000, 264.000000)">
@@ -779,7 +779,7 @@ const Icon = ({ name }) => {
       );
     case "zotero":
       return (
-        <svg viewBox="0 0 16 20" version="1.1" className="icon">
+        <svg viewBox="0 0 16 20" version="1.1" className="icon" focusable="false" role="presentation">
           <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-28.000000, -11.000000)">
               <g transform="translate(28.000000, 11.000000)">

@@ -22,52 +22,59 @@ function SearchBox({ history, match, location }) {
     (state) => state.datastores.datastores.find(ds => ds.uid === state.datastores.active)
   )
   const [inputQuery, setInputQuery] = React.useState(query)
-  const [field, setField] = React.useState(fields[0].uid)
+  const defaultField = fields[0].uid;
+  const [field, setField] = React.useState(defaultField)
   const isCatalog = activeDatastore.uid === 'mirlyn';
 
-  function setOption(target) {
+  function setOption(e) {
     window.dataLayer.push({
       event: 'selectionMade',
-      selectedElement: target.options[target.selectedIndex]
+      selectedElement: e.target.options[e.target.selectedIndex]
     });
-    return setField(target.value)
+    return setField(e.target.value);
   }
 
   function handleSubmitSearch(e) {
-    e.preventDefault()
+    e.preventDefault();
+
+    // Get the dropdown's current value because `field` does not change
+    // when switching to a different datastore, and the active datastore does not have the queried option
+    const dropdown = document.querySelector('.search-box-dropdown > select.dropdown');
+    const dropdownOption = dropdown.value;
+
+    // Change `field` to current dropdown value
+    dropdown.dispatchEvent(new Event('change', setField(dropdownOption)));
 
     // Check if browse option
-    const browseOption = field.startsWith('browse_by_');
-    const browseURL = browseOption ? `/browse/${field.slice(10)}` : '';
+    const browseOption = dropdownOption.startsWith('browse_by_');
+    const browseURL = browseOption ? `/browse/${dropdownOption.slice(10)}` : '';
 
-    let newQuery;
-    if (field) {
-      newQuery = browseOption || field === 'keyword' ? inputQuery : `${field}:(${inputQuery})`;
-    }
+    // Set new query
+    const newQuery = (browseOption || dropdownOption === defaultField) ? inputQuery : `${dropdownOption}:(${inputQuery})`;
 
-    if (query === newQuery) return // no new search to make
+    // Check if new search
+    if (query === newQuery) return;
 
+    // Set new URL
     const newURL = qs.stringify({
-      // preserve existing URL s tate
+      // Preserve existing URL's tate
       ...qs.parse(document.location.search.substring(1), { allowDots: true }),
-
-      // If it's a new search, then you want the first page
-      // of new results, always.
+      // If new search, return the first page
       page: undefined,
-      
-      // and add new query
+      // Add new query
       query: newQuery
     }, {
       arrayFormat: "repeat",
       encodeValuesOnly: true,
       allowDots: true,
       format: "RFC1738"
-    })
+    });
 
+    // Redirect users if browse option has been submitted
     if (browseOption) {
       window.location.href = `/${match.params.datastoreSlug}${browseURL}?${newURL}`;
     } else {
-      history.push(`/${match.params.datastoreSlug}?${newURL}`)
+      history.push(`/${match.params.datastoreSlug}?${newURL}`);
     }
   }
 
@@ -124,8 +131,11 @@ function SearchBox({ history, match, location }) {
             }}
           >
             <select
+              aria-label="Select an option"
               className="dropdown"
-              onChange={e => setOption(e.target)}
+              value={field}
+              onChange={e => setOption(e)}
+              autoComplete="off"
               css={{
                 all: 'unset',
                 background: COLORS.grey['100'],
@@ -144,48 +154,55 @@ function SearchBox({ history, match, location }) {
                 }
               }}
             >
-              {isCatalog ? (
-                <React.Fragment>
-                  <optgroup label={`Search by`}>
-                    {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
-                  </optgroup>
+              <React.Fragment>
+                <optgroup label={`Search by`}>
+                  {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
+                </optgroup>
+                {isCatalog && (
                   <optgroup label={`Browse by`}>
                     <option value='browse_by_callnumber' key='browse_by_callnumber'>Browse by call number (LC and Dewey) [BETA]</option>
                     <option value='browse_by_author' key='browse_by_author' disabled>Browse by author (coming soon)</option>
                     <option value='browse_by_subject' key='browse_by_subject' disabled>Browse by subject (coming soon)</option>
                     <option value='browse_by_title' key='browse_by_title' disabled>Browse by title (coming soon)</option>
                   </optgroup>
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
-                </React.Fragment>
-              )}
+                )}
+              </React.Fragment>
             </select>
-            <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={24} css={{
-              position: 'absolute',
-              right: '0.5rem',
-              top: '0.6rem',
-              pointerEvents: 'none'
-            }} />
+            <Icon
+              icon="expand_more"
+              size={24}
+              css={{
+                position: 'absolute',
+                right: '0.5rem',
+                top: '0.6rem',
+                pointerEvents: 'none'
+              }} 
+            />
           </div>
-          <input type="text" value={inputQuery} onChange={e => setInputQuery(e.target.value)} css={{
-            all: 'unset',
-            background: 'white',
-            boxSizing: 'border-box',
-            borderColor: `${COLORS.blue['500']} !important`,
-            borderRadius: '4px',
-            gridArea: 'input',
-            lineHeight: '1.6 important!',
-            marginTop: '0.75rem!important',
-            maxWidth: '100%',
-            width: 'auto!important',
-            [MEDIA_QUERIES.LARGESCREEN]: {
-              borderLeft: '0 !important',
-              borderBottomLeftRadius: '0 !important',
-              borderTopLeftRadius: '0 !important'
-            }
-          }} />
+          <input
+            type="text"
+            aria-label={field.startsWith('browse_by_') ? `Browse for` : `Search for`}
+            value={inputQuery}
+            onChange={e => setInputQuery(e.target.value)}
+            autoComplete="on"
+            css={{
+              all: 'unset',
+              background: 'white',
+              boxSizing: 'border-box',
+              borderColor: `${COLORS.blue['500']} !important`,
+              borderRadius: '4px',
+              gridArea: 'input',
+              lineHeight: '1.6 important!',
+              marginTop: '0.75rem!important',
+              maxWidth: '100%',
+              width: 'auto!important',
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                borderLeft: '0 !important',
+                borderBottomLeftRadius: '0 !important',
+                borderTopLeftRadius: '0 !important'
+              }
+            }}
+          />
           <Button
             css={{
               alignItems: 'center',
@@ -232,6 +249,7 @@ function SearchTip ({field}) {
   return (
     <div
       css={{
+        alignItems: 'flex-start',
         display: 'flex',
         gap: '12px',
         marginTop: '0.75rem',
@@ -242,7 +260,8 @@ function SearchTip ({field}) {
         d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"
         css={{
           flexShrink: '0',
-          paddingTop: '4px'
+          paddingTop: '4px',
+          height: 'auto'
         }}
       />
       <p

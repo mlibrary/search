@@ -62,16 +62,14 @@ const Icon = ({
   d,
   ...other
 }) => {
-  // If no title, then hide for AD.
-  let isHidden = !title
-
   return (
     <StyledSVG
       width={`${size}px`}
       height={`${size}px`}
       viewBox="0 0 24 24"
       className={className}
-      aria-hidden={isHidden}
+      focusable="false"
+      role={title ? `img` : `presentation`}
       {...other}
     >
       {title && <title>{title}</title>}
