@@ -27,50 +27,54 @@ function SearchBox({ history, match, location }) {
   const isCatalog = activeDatastore.uid === 'mirlyn';
 
   function setOption(e) {
-    e.preventDefault()
-    if (!e.target.value) return
     window.dataLayer.push({
       event: 'selectionMade',
       selectedElement: e.target.options[e.target.selectedIndex]
     });
-    return setField(e.target.value)
+    return setField(e.target.value);
   }
 
   function handleSubmitSearch(e) {
-    e.preventDefault()
+    e.preventDefault();
+
+    // Get the dropdown's current value because `field` does not change
+    // when switching to a different datastore, and the active datastore does not have the queried option
+    const dropdown = document.querySelector('.search-box-dropdown > select.dropdown');
+    const dropdownOption = dropdown.value;
+
+    // Change `field` to current dropdown value
+    dropdown.dispatchEvent(new Event('change', setField(dropdownOption)));
 
     // Check if browse option
-    const browseOption = field.startsWith('browse_by_');
-    const browseURL = browseOption ? `/browse/${field.slice(10)}` : '';
+    const browseOption = dropdownOption.startsWith('browse_by_');
+    const browseURL = browseOption ? `/browse/${dropdownOption.slice(10)}` : '';
 
-    let newQuery;
-    if (field) {
-      newQuery = browseOption || field === defaultField ? inputQuery : `${field}:(${inputQuery})`;
-    }
+    // Set new query
+    const newQuery = (browseOption || dropdownOption === defaultField) ? inputQuery : `${dropdownOption}:(${inputQuery})`;
 
-    if (query === newQuery) return // no new search to make
+    // Check if new search
+    if (query === newQuery) return;
 
+    // Set new URL
     const newURL = qs.stringify({
-      // preserve existing URL s tate
+      // Preserve existing URL's tate
       ...qs.parse(document.location.search.substring(1), { allowDots: true }),
-
-      // If it's a new search, then you want the first page
-      // of new results, always.
+      // If new search, return the first page
       page: undefined,
-      
-      // and add new query
+      // Add new query
       query: newQuery
     }, {
       arrayFormat: "repeat",
       encodeValuesOnly: true,
       allowDots: true,
       format: "RFC1738"
-    })
+    });
 
+    // Redirect users if browse option has been submitted
     if (browseOption) {
       window.location.href = `/${match.params.datastoreSlug}${browseURL}?${newURL}`;
     } else {
-      history.push(`/${match.params.datastoreSlug}?${newURL}`)
+      history.push(`/${match.params.datastoreSlug}?${newURL}`);
     }
   }
 
