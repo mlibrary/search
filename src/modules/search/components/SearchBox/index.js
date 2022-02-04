@@ -159,8 +159,8 @@ function SearchBox({ history, match, location }) {
                   {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
                 </optgroup>
                 {isCatalog && (
-                  <optgroup label={`Browse by`}>
-                    <option value='browse_by_callnumber' key='browse_by_callnumber'>Browse by call number (LC and Dewey) [BETA]</option>
+                  <optgroup label={`Browse by [BETA]`}>
+                    <option value='browse_by_callnumber' key='browse_by_callnumber'>Browse by call number (LC and Dewey)</option>
                     <option value='browse_by_author' key='browse_by_author' disabled>Browse by author (coming soon)</option>
                     <option value='browse_by_subject' key='browse_by_subject' disabled>Browse by subject (coming soon)</option>
                     <option value='browse_by_title' key='browse_by_title' disabled>Browse by title (coming soon)</option>
