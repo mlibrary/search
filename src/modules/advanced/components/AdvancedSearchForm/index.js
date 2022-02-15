@@ -73,7 +73,8 @@ class AdvancedSearchForm extends React.Component {
           if (memo.length > 0) {
             memo.push(booleanTypes[fieldedSearch.booleanType]);
           }
-          memo.push(`${fieldedSearch.field}:(${fieldedSearch.query})`);
+          const input = fieldedSearch.field === 'keyword' ? fieldedSearch.query : `${fieldedSearch.field}:(${fieldedSearch.query})`;
+          memo.push(input);
         }
 
         return memo;
