@@ -9,7 +9,6 @@ import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
 import { ContextProvider } from '../../../reusable'
 import { Alert, Icon } from '@umich-lib/core'
-import ReactGA from 'react-ga'
 
 class ActionsList extends Component {
   state = {
@@ -78,24 +77,10 @@ class ActionsList extends Component {
       setActive(undefined)
     } else {
       setActive(type)
-      
-      ReactGA.event({
-        action: 'Click',
-        category: 'Actions',
-        label: `Activated ${type.uid} from ${view}`
-      })
     }
 
     // also reset Alert
     this.setState({ alert: null })
-  }
-
-  handleUse = (action, view) => {
-    ReactGA.event({
-      action: 'Click',
-      category: 'Actions',
-      label: `Use ${action} from ${view}`
-    })
   }
 
   renderActionDetails = () => {
@@ -114,7 +99,6 @@ class ActionsList extends Component {
             <AuthenticationRequired>
               <EmailAction
                 action={active}
-                onUsed={() => this.handleUse(active.uid, data.viewType)}
                 {...this.props}
               />
             </AuthenticationRequired>
@@ -123,7 +107,6 @@ class ActionsList extends Component {
             <AuthenticationRequired>
               <TextAction
                 action={active}
-                onUsed={() => this.handleUse(active.uid, data.viewType)}
                 {...this.props}
               />
             </AuthenticationRequired>
@@ -132,7 +115,6 @@ class ActionsList extends Component {
             <AuthenticationRequired>
               <FavoriteAction
                 action={active}
-                onUsed={() => this.handleUse(active.uid, data.viewType)}
                 {...this.props}
               />
             </AuthenticationRequired>
@@ -140,7 +122,6 @@ class ActionsList extends Component {
           {active.action === 'permalink' && (
             <PermalinkAction
               action={active}
-              onUsed={() => this.handleUse(active.uid, data.viewType)}
               setAlert={this.setAlert}
               {...this.props}
             />
@@ -150,7 +131,6 @@ class ActionsList extends Component {
             <CitationAction
               {...data}
               action={active}
-              onUsed={() => this.handleUse(active.uid, data.viewType)}
               setAlert={this.setAlert}
               {...this.props}
             />
@@ -158,7 +138,6 @@ class ActionsList extends Component {
           {active.action === 'file' && (
             <FileAction
               action={active}
-              onUsed={() => this.handleUse(active.uid, data.viewType)}
               {...this.props}
             />
           )}
