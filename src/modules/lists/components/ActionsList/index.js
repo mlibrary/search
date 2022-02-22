@@ -78,12 +78,6 @@ class ActionsList extends Component {
       setActive(undefined)
     } else {
       setActive(type)
-      
-      ReactGA.event({
-        action: 'Click',
-        category: 'Actions',
-        label: `Activated ${type.uid} from ${view}`
-      })
     }
 
     // also reset Alert
