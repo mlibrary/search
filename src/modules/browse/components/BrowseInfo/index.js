@@ -16,10 +16,8 @@ class BrowseInfo extends React.Component {
           <Link
             className="underline"
             to={`/${datastore.slug}/browse${document.location.search}`}
-            data-ga-action="Click"
-            data-ga-category="Browse"
-            data-ga-label={`Go to ${datastore.name} Browse`}
-          >Browse all {datastore.name}</Link> alphabetically or by academic discipline.</p>
+          >Browse all {datastore.name}</Link> alphabetically or by academic discipline.
+        </p>
       )
     }
 
