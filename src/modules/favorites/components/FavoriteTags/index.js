@@ -96,7 +96,7 @@ class FavoriteTags extends React.Component {
         <span className="favorite-tags-label">My Tags:</span>
         <ul className="favorite-tags">
           {tags.map((tag, i) => (
-            <li key={i}><Tag onRemove={() => this.handleTag(tag, 'untag')}>{tag} Beep</Tag></li>
+            <li key={i}><Tag onRemove={() => this.handleTag(tag, 'untag')}>{tag}</Tag></li>
           ))}
           <li>
             <Button
