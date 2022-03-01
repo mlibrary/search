@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import _ from 'underscore'
 import { Button } from '@umich-lib/core'
-import ReactGA from 'react-ga'
 import { FavoriteInputTag } from '../../../favorites';
 import favorite from '../../favorite'
 import {
@@ -43,14 +42,6 @@ class FavoriteTags extends React.Component {
           - Have a long optimisitic timeout so the record looks favorited until we hear back.
       */
     }
-
-    const ga_add_or_remove = intent === 'tag' ? 'add' : 'remove'
-    const ga_record_type = this.props.match.path === '/:datastoreSlug' ? 'medium' : 'full'
-    ReactGA.event({
-      action: 'Click',
-      category: 'Favorites',
-      label: `${ga_add_or_remove} tag ${datastore.name} ${ga_record_type} view`
-    })
 
     const data = {
       intent,
@@ -105,7 +96,7 @@ class FavoriteTags extends React.Component {
         <span className="favorite-tags-label">My Tags:</span>
         <ul className="favorite-tags">
           {tags.map((tag, i) => (
-            <li key={i}><Tag onRemove={() => this.handleTag(tag, 'untag')}>{tag}</Tag></li>
+            <li key={i}><Tag onRemove={() => this.handleTag(tag, 'untag')}>{tag} Beep</Tag></li>
           ))}
           <li>
             <Button
