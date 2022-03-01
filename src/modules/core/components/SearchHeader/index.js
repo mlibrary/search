@@ -58,9 +58,6 @@ function SearchHeader(props) {
           <a
             href={n.href}
             css={{ color: 'white', '&:hover': { textDecoration: 'underline' } }}
-            data-ga-action="Click"
-            data-ga-category="Header"
-            data-ga-label={n.text}
             key={i}
           >
             {n.text}
