@@ -8,7 +8,6 @@ import { RecommendedResource, RecordMetadata } from "../../../records";
 import { getDatastoreSlugByUid } from "../../../pride";
 import { getField, getFieldValue } from "../../utilities";
 import { AddToListButton, isInList } from "../../../lists";
-import ReactGA from "react-ga";
 import { FavoriteRecord, FavoriteTags } from "../../../favorites";
 import Zotero from "../Zotero";
 import {
@@ -58,13 +57,6 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
         <Link
           to={recordTitleLink}
           className="record-title-link"
-          onClick={() => {
-            ReactGA.event({
-              action: "Click",
-              category: "Medium View",
-              label: `Full view from medium ${datastoreUid}`
-            });
-          }}
         >
           {[].concat(record.names).map((title, index) => (
             <span key={index}>
@@ -77,13 +69,6 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
           <a
             href={recordTitleLink}
             className="record-title-link"
-            onClick={() => {
-              ReactGA.event({
-                action: "Click",
-                category: "Medium View",
-                label: `Full view from medium ${datastoreUid}`
-              });
-            }}
           >
             {[].concat(record.names).map((title, index) => (
               <span key={index}>
