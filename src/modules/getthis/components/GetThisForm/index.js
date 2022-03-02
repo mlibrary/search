@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import ReactGA from 'react-ga'
 import {
   getField,
   getFieldValue,
@@ -90,14 +89,8 @@ class GetThisForm extends React.Component {
   }
 
   handleSubmit = (event) => {
-    const { datastoreUid, recordId, form, label } = this.props;
-    const { loading, fields } = this.state
-
-    ReactGA.event({
-      action: 'Catalog Get This',
-      category: 'Item Request',
-      label: `Submit Get This ${label}`
-    })
+    const { datastoreUid, recordId, form } = this.props;
+    const { loading, fields } = this.state;
 
     // Submitted form is type ajax and not already loading.
     if (form.type === 'ajax' && !loading) {
