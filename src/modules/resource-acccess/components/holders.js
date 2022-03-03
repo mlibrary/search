@@ -23,7 +23,6 @@ import { COLORS, SPACING } from "../../reusable/umich-lib-core-temp/index";
 export default function Holders({
   record,
   preExpandedIds,
-  handleChange,
   createId,
   context,
 }) {
@@ -37,7 +36,6 @@ export default function Holders({
           background: COLORS.blue["100"],
         },
       }}
-      onChange={(ids) => handleChange(ids)}
       key={record.type + record.uid}
     >
       {record.resourceAccess.map((data, i) => (

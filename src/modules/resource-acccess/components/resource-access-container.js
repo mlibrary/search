@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import ResourceAccessLoading from './resource-access-loading'
 import Holders from './holders'
 import { ContextProvider } from '../../reusable'
-import ReactGA from 'react-ga';
 
 function ResourceAccessContainer({ record }) {
   /*
@@ -37,49 +36,11 @@ function ResourceAccessContainer({ record }) {
   )
 }
 
-/*
-  Basically a container to handle the logic for
-  sending a Google Analytics event related to
-  expanding accordion items.
-*/
 function ResourceAccess({ record, context }) {
-  const [expandedIds, setExpandedIds] = useState(() => preExpandedIds(record))
-
-  function handleChange(ids) {
-    // Difference between the two arrays
-    const id = expandedIds
-      .filter(x => !ids.includes(x))
-      .concat(ids.filter(x => !expandedIds.includes(x)))[0]
-
-    // Was the id expanded or collapsed
-    const expanded = !expandedIds.includes(id)
-    const resourceAccessIndex = id[id.length - 1]
-    const resourceAccessData = record.resourceAccess[resourceAccessIndex]
-    const caption = resourceAccessData.caption ? resourceAccessData.caption : 'Availability'
-    const label = (expanded ? 'Expand ' : 'Collapse ')
-      + caption + ' from '
-      + context.datastore.name + ' ' + context.viewType
-
-    const event = {
-      action: 'Click',
-      category: 'Resource Access',
-      label
-    }
-
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.event(event)
-    } else {
-      console.log('[development] Google Analytics Event', event)
-    }
-
-    setExpandedIds(ids)
-  }
-
   return (
     <Holders
       record={record}
       preExpandedIds={preExpandedIds(record)}
-      handleChange={handleChange}
       createId={createId}
       context={context}
     />
