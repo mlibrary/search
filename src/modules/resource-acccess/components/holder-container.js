@@ -34,23 +34,6 @@ function handleHolderAnalytics(e, context, caption = 'Availability') {
     React refs.
   */
 
-  // Track when users click an anchor tag.
-  if (target.tagName === 'A') {
-    // i.e. "Get this Catalog Medium"
-    const label = e.target.innerText + ' from '
-      + caption + ' in '
-      + context.datastore.name + ' '
-      + context.viewType
-
-    const event = {
-      action: 'Click',
-      category: 'Resource Access',
-      label
-    }
-
-    sendEvent(event)
-  }
-
   // Track when users click the show all or fewer button.
   if (target.tagName === 'BUTTON' && target.innerText.startsWith('Show')) {
     const fewer = target.innerText.startsWith('Show fewer')
