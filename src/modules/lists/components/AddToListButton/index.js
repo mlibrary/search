@@ -3,7 +3,6 @@ import { jsx } from '@emotion/core'
 import { Component } from 'react';
 import { connect } from 'react-redux'
 import _ from 'underscore';
-import ReactGA from 'react-ga'
 import {
   Checkbox
 } from '../../../core'
@@ -36,19 +35,9 @@ class AddToListButton extends Component {
   handleClick = (inList, item) => {
     if (!this.state.waitingToBeAddedToList) {
       if (inList) {
-        ReactGA.event({
-          action: 'Click',
-          category: 'Select',
-          label: 'List Remove'
-        })
         prejudice.removeRecord(item)
       } else {
         this.setState({ waitingToBeAddedToList: true })
-        ReactGA.event({
-          action: 'Click',
-          category: 'Select',
-          label: 'List Add'
-        })
         prejudice.addRecord(item)
       }
     }
