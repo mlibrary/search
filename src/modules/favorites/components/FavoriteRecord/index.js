@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ReactGA from 'react-ga'
 import styled from '@emotion/styled'
 import { withRouter } from 'react-router-dom'
 import _ from 'underscore'
@@ -22,8 +21,7 @@ class FavoriteRecord extends React.Component {
     const {
       record,
       datastore,
-      isFavorited,
-      match
+      isFavorited
     } = this.props
 
     if (!login.authenticated) {
