@@ -4,7 +4,6 @@ import _ from 'underscore'
 import {
   withRouter
 } from 'react-router-dom'
-import ReactGA from 'react-ga'
 
 import config from '../../../../config'
 import {
@@ -42,11 +41,10 @@ class Sorts extends React.Component {
     const { match, history, query, activeFilters, datastoreUid, institution } = this.props
     const library = datastoreUid === 'mirlyn' ? institution.active : undefined
 
-    ReactGA.event({
-      action: 'Select',
-      category: 'Sort by',
-      label: `Change sort to ${event.target.value}`
-    })
+    window.dataLayer.push({
+      event: 'sortBySelection',
+      sortByElement: event.target.options[event.target.selectedIndex]
+    });
 
     const queryString = stringifySearchQueryForURL({
       query,
