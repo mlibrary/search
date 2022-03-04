@@ -47,7 +47,12 @@ const searchOptions = [
   {
     "label": "Year of Publication",
     "value": "publication_date",
-    "tip": "Search by year (YYYY) (e.g. 2021, 1942)"
+    "tip": "Search by year (YYYY) (e.g. 2021; 1942)."
+  },
+  {
+    "label": "Date",
+    "value": "publication_date",
+    "tip": "Search by year (YYYY) (e.g. 2021; 1942)."
   },
   {
     "label": "ISBN/ISSN/OCLC/etc",
@@ -55,7 +60,17 @@ const searchOptions = [
     "tip": "Search by ISSN (8-digit code), ISBN (13- or 10-digit code), or OCLC number (e.g.  0040-781X; 0747581088; 921446069)."
   },
   {
-    "label": "Browse by call number (LC and Dewey) [BETA]",
+    "label": "ISSN",
+    "value": "issn",
+    "tip": "Search by ISSN (8-digit code) (e.g., 0040-781X)."
+  },
+  {
+    "label": "ISBN",
+    "value": "isbn",
+    "tip": "Search by ISBN (13 or 10-digit code) (e.g., 0747581088)."
+  },
+  {
+    "label": "Browse by call number (LC and Dewey)",
     "value": "browse_by_callnumber",
     "tip": "Browse by Library of Congress (LC) and Dewey call numbers, sorted alphanumerically. Learn about the meaning of call numbers (e.g. RC662.4 .H38 2016; QH 105). <a href=\"https://www.loc.gov/catdir/cpso/lcco/\">Learn about the meaning of call numbers<span class=\"visually-hidden\"> (link points to external site)</span></a>.",
     "selected": "selected"
