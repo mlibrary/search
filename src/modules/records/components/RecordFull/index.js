@@ -190,6 +190,7 @@ class FullRecord extends React.Component {
 
             <h2 className="full-record__record-info">Record info:</h2>
             <RecordMetadata record={record} />
+            <HarmfulLanguage datastore={datastore.slug} />
           </div>
 
           <section aria-labelledby="available-at">
@@ -227,6 +228,19 @@ class FullRecord extends React.Component {
       </div>
     );
   }
+}
+
+function HarmfulLanguage ({datastore}) {
+  // Check if in correct datastore
+  if (!['catalog', 'onlinejournals'].includes(datastore)) return (null);
+  return (
+    <p>The University of Michigan Library aims to describe library materials in a
+      way that respects the people and communities who create, use, and are
+      represented in our collections. Report harmful or offensive language in catalog
+      records, finding aids, or elsewhere in our collections anonymously through
+      our <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform">metadata feedback form</a>.
+      More information at <a href="https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata">Remediation of Harmful Language.</a></p>
+  );
 }
 
 function mapStateToProps(state) {
