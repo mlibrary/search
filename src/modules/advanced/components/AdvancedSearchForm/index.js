@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Button, Icon, Alert, Heading } from "@umich-lib/core";
 import { withRouter } from "react-router-dom";
-import ReactGA from "react-ga";
 import FieldInput from "../FieldInput";
 import FiltersContainer from "../FiltersContainer";
 import { stringifySearchQueryForURL } from "../../../pride";
@@ -59,12 +58,6 @@ class AdvancedSearchForm extends React.Component {
       activeFilters,
     } = this.props;
 
-    ReactGA.event({
-      action: "Click",
-      category: "Search Button",
-      label: `Advanced Search ${datastore.name}`,
-    });
-
     // Build the query
     // example: 'title:parrots AND author:charles'
     const query = fieldedSearches
@@ -73,7 +66,8 @@ class AdvancedSearchForm extends React.Component {
           if (memo.length > 0) {
             memo.push(booleanTypes[fieldedSearch.booleanType]);
           }
-          memo.push(`${fieldedSearch.field}:(${fieldedSearch.query})`);
+          const input = fieldedSearch.field === 'keyword' ? fieldedSearch.query : `${fieldedSearch.field}:(${fieldedSearch.query})`;
+          memo.push(input);
         }
 
         return memo;
@@ -152,6 +146,7 @@ class AdvancedSearchForm extends React.Component {
 
     return (
       <form className="y-spacing" onSubmit={this.handleSubmit}>
+        <h1>{datastore.name} asdf</h1>
         {this.renderErrors()}
 
         <Heading className="offscreen">Fielded search options</Heading>

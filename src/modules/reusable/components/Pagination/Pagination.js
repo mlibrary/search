@@ -2,7 +2,6 @@ import React from 'react'
 import numeral from 'numeral'
 import './Pagination.css'
 import { Link } from 'react-router-dom'
-import ReactGA from 'react-ga'
 
 class Pagination extends React.Component {
   state = {
@@ -25,11 +24,6 @@ class Pagination extends React.Component {
 
     if (Number.isInteger(page) && page > 0 && page <= total) {
       onPageChange(page)
-      ReactGA.event({
-        action: 'Click',
-        category: 'Page Change',
-        label: `Page Number ${page}`
-      })
     }
   }
 
@@ -55,9 +49,6 @@ class Pagination extends React.Component {
             <Link
               to={toPreviousPage}
               className="underline"
-              data-ga-action="Click"
-              data-ga-category="Change Page"
-              data-ga-label="Previous Page"
             >Previous page</Link>
           )}
         </div>
@@ -79,9 +70,6 @@ class Pagination extends React.Component {
             <Link
               to={toNextPage}
               className="underline"
-              data-ga-action="Click"
-              data-ga-category="Change Page"
-              data-ga-label="Next Page"
             >Next page</Link>
           )}
         </div>

@@ -3,7 +3,6 @@ import {
   withRouter,
   Link
 } from 'react-router-dom'
-import ReactGA from 'react-ga'
 
 class GoToList extends Component {
   render() {
@@ -22,13 +21,6 @@ class GoToList extends Component {
           <Link
             to={`/${datastore.slug}/list${location.search}`}
             className="lists-link"
-            onClick={() => {
-              ReactGA.event({
-                action: 'Click',
-                category: 'My List',
-                label: 'Access My List'
-              })
-            }}
           >
             <div className="list-info">
               <p className="lists-content">Go to <span className="underline">My Temporary {datastore.name} List</span> to email, text, and export citations, or to save items to your favorites.</p>

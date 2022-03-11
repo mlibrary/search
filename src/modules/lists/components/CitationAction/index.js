@@ -12,7 +12,6 @@ import {
 import * as clipboard from 'clipboard-polyfill';
 import { Modal } from '../../../reusable'
 import { cite } from '../../../citations'
-import ReactGA from 'react-ga'
 
 class CitationArea extends React.Component {
   render() {
@@ -67,23 +66,10 @@ class CitationAction extends Component {
     modalIsOpen: false
   }
 
-  handleTabClick = (label) => {
-    ReactGA.event({
-      action: 'Tab',
-      category: 'Cite This',
-      label: `${label} ${this.props.viewType}`
-    })
-  }
-
   handleCloseModal = () => {
     this.setState({ modalIsOpen: false })
     // Unselects the citation button from the actions lists.
     this.props.setActive(undefined)
-    ReactGA.event({
-      action: 'Click',
-      category: 'Cite This',
-      label: `Close`
-    })
   }
 
   handleOpenModal = () => {
@@ -161,7 +147,6 @@ class CitationAction extends Component {
               {citation_options.map(co => (
                 <Tab
                   key={co.name}
-                  onClick={() => this.handleTabClick(co.name)}
                 >{co.name}</Tab>
               ))}
             </TabList>

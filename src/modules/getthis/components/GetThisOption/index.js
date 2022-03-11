@@ -3,7 +3,6 @@ import GetThisFindIt from '../GetThisFindIt'
 import {
   GetThisForm
 } from '../../../getthis'
-import ReactGA from 'react-ga'
 
 const createMarkup = (html) => {
   return { __html: html };
@@ -11,19 +10,10 @@ const createMarkup = (html) => {
 
 function GetThisOption({ option }) {
   const detailsRef = useRef(null);
-  const onSummaryClick = () => {
-    // If <details> was not open, then the user selected to open it.
-    const userIntent = detailsRef.current.hasAttribute('open') ? 'Close' : 'Open'
-    ReactGA.event({
-      action: 'Get This Options',
-      category: 'Item Request',
-      label: `${option.label} -- ${userIntent}`
-    })
-  }
 
   return (
     <details className="get-this-option" ref={detailsRef}>
-      <summary className="get-this-option-summary" onClick={onSummaryClick}>
+      <summary className="get-this-option-summary">
         <h3 className="get-this-option-heading"><span className="get-this-option-heading-text">{option.label}</span><span className="get-this-option-subheading">{option.service_type && (<span> {option.service_type} </span>)}({option.duration})</span></h3>
       </summary>
 

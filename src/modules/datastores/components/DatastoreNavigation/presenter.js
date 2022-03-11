@@ -82,9 +82,6 @@ const DatastoreNavigationItem = ({
         onClick={() => history.push(url)}
         aria-pressed={active}
         className={classNames}
-        data-ga-action="Click"
-        data-ga-category="Datastore Navigation"
-        data-ga-label={datastore.name}
       >
           <React.Fragment>
             {datastore.isMultisearch && <Icon name="multi-result" />}

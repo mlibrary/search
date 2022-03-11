@@ -25,6 +25,7 @@ function SearchBox({ history, match, location }) {
   const defaultField = fields[0].uid;
   const [field, setField] = React.useState(defaultField)
   const isCatalog = activeDatastore.uid === 'mirlyn';
+  const isArticles = activeDatastore.uid === 'primo';
 
   function setOption(e) {
     window.dataLayer.push({
@@ -234,7 +235,7 @@ function SearchBox({ history, match, location }) {
             </Link>
           )}
         </div>
-        {isCatalog &&
+        {(isCatalog || isArticles) &&
           <SearchTip field={field} />
         }
       </div>

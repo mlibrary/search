@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReactGA from "react-ga";
 import { Icon, INTENT_COLORS } from "@umich-lib/core";
 
 import { Icon as SearchIcon, TrimString } from "../../../core";
@@ -29,18 +28,9 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
           <Link
             to={recordTitleLink}
             className="record-title-link"
-            onClick={() => {
-              ReactGA.event({
-                action: "Click",
-                category: "Brief View",
-                label: `Full view from brief ${datastoreUid}`
-              });
-            }}
           >
             {[].concat(record.names).map((title, index) => (
-              <span key={index}>
-                <TrimString string={title} />
-              </span>
+              <TrimString key={index} string={title} />
             ))}
           </Link>
         ) : (
@@ -48,18 +38,9 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
             <a
               href={recordTitleLink}
               className="record-title-link"
-              onClick={() => {
-                ReactGA.event({
-                  action: "Click",
-                  category: "Brief View",
-                  label: `Full view from brief ${datastoreUid}`
-                });
-              }}
             >
               {[].concat(record.names).map((title, index) => (
-                <span key={index}>
-                  <TrimString string={title} />
-                </span>
+                <TrimString key={index} string={title} />
               ))}
             </a>
             <SearchIcon name="launch" />
@@ -97,9 +78,6 @@ const Footer = ({ record, datastoreUid }) => {
         <a
           className="record-preview-link"
           href={accessCell.href}
-          data-ga-action="Click"
-          data-ga-category="Brief View"
-          data-ga-label={`${datastoreUid} Item Access`}
         >
           {accessCell.text}
         </a>

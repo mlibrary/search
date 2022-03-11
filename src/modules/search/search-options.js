@@ -47,12 +47,27 @@ const searchOptions = [
   {
     "label": "Year of Publication",
     "value": "publication_date",
-    "tip": "Search by year (YYYY) (e.g. 2021, 1942)"
+    "tip": "Search by year (YYYY) (e.g. 2021; 1942)."
+  },
+  {
+    "label": "Date",
+    "value": "publication_date",
+    "tip": "Search by year (YYYY) (e.g. 2021; 1942)."
   },
   {
     "label": "ISBN/ISSN/OCLC/etc",
     "value": "isn",
     "tip": "Search by ISSN (8-digit code), ISBN (13- or 10-digit code), or OCLC number (e.g.  0040-781X; 0747581088; 921446069)."
+  },
+  {
+    "label": "ISSN",
+    "value": "issn",
+    "tip": "Search by ISSN (8-digit code) (e.g., 0040-781X)."
+  },
+  {
+    "label": "ISBN",
+    "value": "isbn",
+    "tip": "Search by ISBN (13 or 10-digit code) (e.g., 0747581088)."
   },
   {
     "label": "Browse by call number (LC and Dewey)",

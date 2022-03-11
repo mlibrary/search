@@ -7,7 +7,6 @@ import { Icon } from '../../../core'
 import { getMultiSearchRecords } from '../../../pride'
 import RecordPreview from '../RecordPreview'
 import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder'
-import ReactGA from 'react-ga'
 
 
 import {
@@ -69,13 +68,6 @@ const BentoHeading = ({
     <Link
       className="bentobox-heading-container"
       to={url}
-      onClick={() => {
-        ReactGA.event({
-          action: 'Click',
-          category: 'Brief View',
-          label: `All ${bentobox.name} Results header`
-        })
-      }}
     >
       <h2 className="bentobox-heading">{ bentobox.name }</h2>
       <BentoboxResultsNum bentobox={bentobox} search={search} totalResults={totalResults}/>
@@ -105,13 +97,6 @@ const BentoFooter = ({
     <Link
       className="bentobox-footer-container"
       to={url}
-      onClick={() => {
-        ReactGA.event({
-          action: 'Click',
-          category: 'Brief View',
-          label: `All ${bentobox.name} Results footer`
-        })
-      }}
     >
       <span>{footerText}</span><Icon name="arrow-forward" />
     </Link>
