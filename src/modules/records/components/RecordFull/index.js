@@ -234,11 +234,12 @@ function HarmfulLanguage ({datastore}) {
   // Check if in correct datastore
   if (!['catalog', 'onlinejournals'].includes(datastore)) return (null);
   return (
-    <p>University of Michigan Library acknowledges that the language and structure 
-      used in collection descriptions and metadata often uphold and perpetuate 
-      oppression and bias. Please use this <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform">metadata feedback form</a> to 
-      anonymously report harmful or offensive language in catalog records, 
-      finding aids, or elsewhere in our collections.</p>
+    <p>The University of Michigan Library aims to describe library materials in a
+      way that respects the people and communities who create, use, and are
+      represented in our collections. Report harmful or offensive language in catalog
+      records, finding aids, or elsewhere in our collections anonymously through
+      our <a href="https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform">metadata feedback form</a>.
+      More information at <a href="https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata">Remediation of Harmful Language.</a></p>
   );
 }
 
