@@ -23,7 +23,7 @@
     "install": "^0.12.2",
     "jsonschema": "^1.2.4",
     "numeral": "^2.0.4",
-    "object-path": "^0.11.5",
+    "object-path": "^0.11.8",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
     "pride": "git+https://github.com/mlibrary/pride.git",
     "prop-types": "^15.7.2",
