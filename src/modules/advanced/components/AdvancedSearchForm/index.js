@@ -146,7 +146,7 @@ class AdvancedSearchForm extends React.Component {
 
     return (
       <form className="y-spacing" onSubmit={this.handleSubmit}>
-        <h1>{datastore.name} asdf</h1>
+        <h1>{datastore.name} Search</h1>
         {this.renderErrors()}
 
         <Heading className="offscreen">Fielded search options</Heading>
