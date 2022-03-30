@@ -27,7 +27,7 @@
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
     "pride": "git+https://github.com/mlibrary/pride.git",
     "prop-types": "^15.7.2",
-    "qs": "^6.9.0",
+    "qs": "^6.10.3",
     "react": "^16.13.1",
     "react-accessible-accordion": "^3.0.0",
     "react-app-polyfill": "^1.0.4",
