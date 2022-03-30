@@ -21,7 +21,7 @@
     "deepcopy": "^0.6.3",
     "history": "^4.10.1",
     "install": "^0.12.2",
-    "jsonschema": "^1.2.4",
+    "jsonschema": "^1.4.0",
     "numeral": "^2.0.6",
     "object-path": "^0.11.8",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
