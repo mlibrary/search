@@ -15,7 +15,6 @@
     "axios": "^0.26.1",
     "citeproc": "^2.4.62",
     "classnames": "^2.3.1",
-    "clipboard-polyfill": "^2.7.0",
     "connected-react-router": "^6.9.2",
     "core-js": "^3.21.1",
     "deepcopy": "^0.6.3",

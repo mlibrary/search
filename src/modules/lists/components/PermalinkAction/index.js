@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Modal } from '../../../reusable'
 import { Button, Heading, COLORS, TextInput } from '@umich-lib/core'
-import * as clipboard from 'clipboard-polyfill';
 
 class CitationAction extends Component {
   state = {
@@ -30,10 +29,7 @@ class CitationAction extends Component {
   }
 
   handleCopy = () => {
-    var dt = new clipboard.DT();
-    dt.setData("text/plain", this.state.permalink);
-    clipboard.write(dt);
-
+    navigator.clipboard.writeText(this.state.permalink)
     this.handleCopied()
   }
 
@@ -43,8 +39,6 @@ class CitationAction extends Component {
       intent: 'success',
       text: 'Link copied!'
     })
-
-    this.props.onUsed()
   }
 
   render() {

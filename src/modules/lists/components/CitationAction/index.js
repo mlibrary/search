@@ -9,7 +9,6 @@ import {
   TabPanel,
   Button
 } from '@umich-lib/core'
-import * as clipboard from 'clipboard-polyfill';
 import { Modal } from '../../../reusable'
 import { cite } from '../../../citations'
 
@@ -27,7 +26,7 @@ class CitationArea extends React.Component {
           maxHeight: '40vh'
         }}
         className="y-spacing"
-        contenteditable="true"
+        contentEditable="true"
         {...this.props}
       />
     )
@@ -74,21 +73,6 @@ class CitationAction extends Component {
 
   handleOpenModal = () => {
     this.setState({ modalIsOpen: true })
-  }
-
-  handleCopyToClipboard = (id) => {
-    const citation = this.state[id]
-
-    var dt = new clipboard.DT();
-    dt.setData("text/plain", citation);
-    clipboard.write(dt);
-
-    this.props.setAlert({
-      intent: 'success',
-      text: 'Citation copied to clipboard!'
-    })
-    
-    this.handleCloseModal()
   }
 
   handleCitationsData = (chosenStyleID, data) => {
@@ -152,7 +136,7 @@ class CitationAction extends Component {
             </TabList>
 
             {citation_options.map(co => (
-              <TabPanel>
+              <TabPanel key={`${co.name}-panel`}>
                 {this.state[co.id] ? (
                   <div className="y-spacing">
                     <CitationArea
