@@ -17,7 +17,7 @@
     "classnames": "^2.2.6",
     "clipboard-polyfill": "^2.7.0",
     "connected-react-router": "^6.5.0",
-    "core-js": "^3.3.5",
+    "core-js": "^3.21.1",
     "deepcopy": "^0.6.3",
     "history": "^4.10.1",
     "install": "^0.13.0",
