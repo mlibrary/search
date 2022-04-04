@@ -7,7 +7,6 @@
     "react-scripts": "^3.4.4"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.6.0",
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
     "@reach/visually-hidden": "^0.16.0",
@@ -39,6 +38,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.8",
+    "regenerator-runtime": "^0.13.9",
     "remark": "^10.0.1",
     "remark-react": "^5.0.1",
     "underscore": "^1.13.2"
