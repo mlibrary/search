@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import React, { useState } from "react";
-import VisuallyHidden from "@reach/visually-hidden";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import qs from "qs";
@@ -62,7 +61,18 @@ export default function ChooseAffiliation() {
         }}
         onClick={() => setOpen(true)}
       >
-        <VisuallyHidden>Choose campus affiliation</VisuallyHidden>
+        <span css={{
+          border: '0px',
+          clip: 'rect(0px, 0px, 0px, 0px)',
+          height: '1px',
+          margin: '-1px',
+          overflow: 'hidden',
+          padding: '0px',
+          position: 'absolute',
+          width: '1px',
+          whiteSpace: 'nowrap',
+          overflowWrap: 'normal'
+        }}>Choose campus affiliation</span>
         <div
           css={{
             display: 'grid',

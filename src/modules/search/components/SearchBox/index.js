@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import qs from "qs";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import VisuallyHidden from "@reach/visually-hidden";
 import searchOptions from "../../search-options";
 
 function SearchBox({ history, match, location }) {
@@ -215,7 +214,19 @@ function SearchBox({ history, match, location }) {
             }}
             onClick={handleSubmitSearch}
           >
-            <Icon icon="search" size={24} /><VisuallyHidden>Search</VisuallyHidden>
+            <Icon icon="search" size={24} />
+            <span css={{
+              border: '0px',
+              clip: 'rect(0px, 0px, 0px, 0px)',
+              height: '1px',
+              margin: '-1px',
+              overflow: 'hidden',
+              padding: '0px',
+              position: 'absolute',
+              width: '1px',
+              whiteSpace: 'nowrap',
+              overflowWrap: 'normal'
+            }}>Search</span>
           </Button>
           {isAdvanced && (
             <Link
