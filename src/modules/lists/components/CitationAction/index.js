@@ -12,7 +12,7 @@ import {
 import { Modal } from '../../../reusable'
 import { cite } from '../../../citations'
 
-class CitationArea extends React.Component {
+class CitationArea extends Component {
   render() {
     return (
       <div
@@ -110,6 +110,17 @@ class CitationAction extends Component {
     this.handleOpenModal();
   }
 
+  handleCopyToClipboard = (citation) => {
+    navigator.clipboard.writeText(citation)
+
+    this.handleCloseModal()
+
+    this.props.setAlert({
+      intent: 'success',
+      text: 'Citation copied to clipboard!'
+    })
+  }
+
   render() {
     return (
       <div style={{
@@ -145,11 +156,14 @@ class CitationAction extends Component {
                         __html: this.state[co.id]
                       }}
                     />
-
                     <Text
                       small
                       id={`${co.id}-disclaimer`}
                     >These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</Text>
+                    <Button
+                      onClick={() => this.handleCopyToClipboard(this.state[co.id])}
+                      style={{ marginRight: '1rem' }}
+                    >Copy citation</Button>
                     <Button kind="secondary" onClick={this.handleCloseModal}>Close</Button>
                   </div>
                 ) : (
