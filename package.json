@@ -7,8 +7,8 @@
     "react-scripts": "^3.4.4"
   },
   "dependencies": {
-    "@emotion/core": "^10.0.35",
-    "@emotion/styled": "^10.0.27",
+    "@emotion/core": "^10.3.1",
+    "@emotion/styled": "^10.3.0",
     "@umich-lib/core": "^0.1.1",
     "citeproc": "^2.4.62",
     "classnames": "^2.3.1",
@@ -27,11 +27,11 @@
     "react-autosuggest": "^9.4.3",
     "react-cookie": "^4.1.1",
     "react-dom": "^16.13.1",
-    "react-ga": "^2.7.0",
+    "react-ga": "^3.3.0",
     "react-modal": "^3.14.4",
-    "react-redux": "^7.2.6",
+    "react-redux": "^7.2.8",
     "react-router-dom": "^4.3.1",
-    "redux": "^3.6.0",
+    "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.8",
     "regenerator-runtime": "^0.13.9",
     "underscore": "^1.13.2"
