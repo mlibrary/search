@@ -2,7 +2,6 @@
 import { jsx } from "@emotion/core";
 import React from "react";
 import { connect } from "react-redux";
-import MediaQuery from "react-responsive";
 import _ from "underscore";
 import { Route, Switch } from "react-router-dom";
 
@@ -187,6 +186,11 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
     return <MultisearchSearching activeDatastore={activeDatastore} />;
   }
 
+  const hasActiveFilters = activeFilterCount > 0;
+  const summaryClassName = hasActiveFilters
+    ? "small-screen-filter-summary small-screen-filter-summary--active-filters"
+    : "small-screen-filter-summary";
+
   return (
     <div
       className="container container-medium flex-container"
@@ -194,45 +198,42 @@ const Results = ({ searching, activeDatastore, activeFilterCount }) => {
     >
       {!activeDatastore.isMultisearch ? (
         <div className="side-container">
-          <MediaQuery minWidth={980}>
-            {(matches) => {
-              if (matches) {
-                return (
-                  <React.Fragment>
-                    {searching ? (
-                      <React.Fragment>
-                        <InstitutionSelect />
-                        <Filters />
-                        <BrowseInfo datastore={activeDatastore} />
-                      </React.Fragment>
-                    ) : null}
-                  </React.Fragment>
-                );
-              } else {
-                const hasActiveFilters = activeFilterCount > 0;
-                const summaryClassName = hasActiveFilters
-                  ? "small-screen-filter-summary small-screen-filter-summary--active-filters"
-                  : "small-screen-filter-summary";
-
-                return (
-                  <details className="small-screen-filter-details">
-                    <summary className={summaryClassName}>
-                      Filters{" "}
-                      {hasActiveFilters ? `(${activeFilterCount})` : null}
-                    </summary>
-
-                    {searching ? (
-                      <React.Fragment>
-                        <InstitutionSelect />
-                        <Filters />
-                        <BrowseInfo datastore={activeDatastore} />
-                      </React.Fragment>
-                    ) : null}
-                  </details>
-                );
+          <div
+            css={{
+              [`@media (min-width: 980px)`]: {
+                display: 'none'
               }
             }}
-          </MediaQuery>
+          >
+            <details className="small-screen-filter-details">
+              <summary className={summaryClassName}>
+                Filters{" "}
+                {hasActiveFilters ? `(${activeFilterCount})` : null}
+              </summary>
+              {searching ? (
+                <React.Fragment>
+                  <InstitutionSelect />
+                  <Filters />
+                  <BrowseInfo datastore={activeDatastore} />
+                </React.Fragment>
+              ) : null}
+            </details>
+          </div>
+          <div
+            css={{
+              [`@media (max-width: 979px)`]: {
+                display: 'none'
+              }
+            }}
+          >
+            {searching ? (
+              <React.Fragment>
+                <InstitutionSelect />
+                <Filters />
+                <BrowseInfo datastore={activeDatastore} />
+              </React.Fragment>
+            ) : null}
+          </div>
         </div>
       ) : null}
 

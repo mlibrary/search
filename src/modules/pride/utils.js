@@ -1,6 +1,5 @@
 import { Pride } from "pride";
 import _ from "underscore";
-import deepcopy from "deepcopy";
 import qs from "qs";
 import { Validator } from "jsonschema";
 
@@ -137,10 +136,10 @@ const isValidURLSearchQuery = ({ urlState }) => {
  * in the URL (from the location {Object}).
  */
 const getStateFromURL = ({ location }) => {
-  const urlStateString = deepcopy(location).search;
+  const urlStateString = _.clone(location).search;
 
   if (urlStateString.length) {
-    const parsed = deepcopy(
+    const parsed = _.clone(
       qs.parse(urlStateString.substring(1), { allowDots: true })
     );
     const isValid = isValidURLSearchQuery({ urlState: parsed });
