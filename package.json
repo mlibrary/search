@@ -35,8 +35,6 @@
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.8",
     "regenerator-runtime": "^0.13.9",
-    "remark": "^10.0.1",
-    "remark-react": "^5.0.1",
     "underscore": "^1.13.2"
   },
   "scripts": {
