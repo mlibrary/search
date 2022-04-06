@@ -3,7 +3,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import {
   connect,
   Provider
@@ -115,19 +115,17 @@ class App extends React.Component {
 }
 
 const renderApp = () => {
-  ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-  )
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(<App />);
 }
 
 const renderPrideFailedToLoad = () => {
-  ReactDOM.render(
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(
     <Alert intent="error">
       U-M Library Search is not available. We will fix this issue as soon as we can.
-    </Alert>,
-    document.getElementById('root')
-  )
+    </Alert>
+  );
 }
 
 initializePride()
