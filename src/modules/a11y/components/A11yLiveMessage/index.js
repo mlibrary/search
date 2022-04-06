@@ -11,7 +11,7 @@ class A11yLiveMessage extends Component {
     currentA11yMessage: ''
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.a11yMessage) {
       // Delay the message slightly to allow for the transition.
       setTimeout(() => {this.setState({

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Alert, Icon, Heading } from '@umich-lib/core'
+import { Alert, Heading } from '@umich-lib/core'
+import Icon from '../../../reusable/components/Icon'
 import config from '../../../../config'
 import { DetailsList } from '../../../core'
 import GetThisOption from '../GetThisOption'

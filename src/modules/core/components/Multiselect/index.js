@@ -18,7 +18,7 @@ class Multiselect extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { showOnlySelectedOptions } = this.state
 
     // Reset show only selected toggle when unchecking the last checked option

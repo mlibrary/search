@@ -1,5 +1,6 @@
 import React from "react";
-import { Icon, MEDIA_QUERIES, TextInput } from "@umich-lib/core";
+import { MEDIA_QUERIES, TextInput } from "@umich-lib/core";
+import Icon from "../../../reusable/components/Icon";
 import { MultipleChoice } from "../../../core";
 import styled from "@emotion/styled";
 

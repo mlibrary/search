@@ -3,9 +3,8 @@ import { jsx } from "@emotion/core";
 // eslint-disable-next-line
 import React from "react";
 import { Link } from "react-router-dom";
-import { Icon } from "@umich-lib/core";
 import { useSelector } from "react-redux";
-import { icons } from "../../../reusable/components/Icon";
+import Icon from "../../../reusable/components/Icon";
 import {
   SPACING,
   MEDIA_QUERIES,
@@ -86,13 +85,14 @@ export default function Metadata({ data, kind }) {
             {d.term}
           </dt>
           <ExpandableChildren show={expandable(d.description).show}>
-            {d.description.map((d) => (
+            {d.description.map((d, i) => (
               <dd
                 css={{
                   gridColumnStart: "2",
                   display: "flex",
                   alignItems: "top",
                 }}
+                key={"metadata-dd-" + i}
               >
                 <Description data={d} />
               </dd>
@@ -138,6 +138,7 @@ function Description({ data }) {
             css={{
               display: "inline-block",
             }}
+            key={"description-li-" + i}
           >
             {i > 0 && (
               <span
@@ -145,7 +146,7 @@ function Description({ data }) {
                   color: COLORS.neutral["300"],
                 }}
               >
-                <Icon d={icons["navigate_next"]} />
+                <Icon icon="navigate_next" />
               </span>
             )}
             <Description data={d} />

@@ -64,7 +64,7 @@ class FullRecord extends React.Component {
     this.setState({ activeAction });
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const { recordUid } = this.props.match.params;
     const { datastoreUid } = this.props;
 

@@ -8,7 +8,8 @@ import PermalinkAction from '../PermalinkAction'
 import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
 import { ContextProvider } from '../../../reusable'
-import { Alert, Icon } from '@umich-lib/core'
+import { Alert } from '@umich-lib/core'
+import Icon from '../../../reusable/components/Icon'
 
 class ActionsList extends Component {
   state = {
