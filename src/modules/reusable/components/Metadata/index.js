@@ -3,9 +3,8 @@ import { jsx } from "@emotion/core";
 // eslint-disable-next-line
 import React from "react";
 import { Link } from "react-router-dom";
-import { Icon } from "@umich-lib/core";
 import { useSelector } from "react-redux";
-import { icons } from "../../../reusable/components/Icon";
+import Icon from "../../../reusable/components/Icon";
 import {
   SPACING,
   MEDIA_QUERIES,
@@ -147,7 +146,7 @@ function Description({ data }) {
                   color: COLORS.neutral["300"],
                 }}
               >
-                <Icon d={icons["navigate_next"]} />
+                <Icon icon="navigate_next" />
               </span>
             )}
             <Description data={d} />

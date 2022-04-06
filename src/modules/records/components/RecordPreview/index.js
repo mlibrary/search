@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Icon, INTENT_COLORS } from "@umich-lib/core";
-
+import { INTENT_COLORS } from "@umich-lib/core";
+import Icon from "../../../reusable/components/Icon"
 import { Icon as SearchIcon, TrimString } from "../../../core";
 import { getField, getFieldValue } from "../../utilities";
 import { getDatastoreSlugByUid } from "../../../pride";

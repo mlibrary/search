@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Button, Icon, Alert, Heading } from "@umich-lib/core";
+import { Button, Alert, Heading } from "@umich-lib/core";
+import Icon from "../../../reusable/components/Icon";
 import { withRouter } from "react-router-dom";
 import FieldInput from "../FieldInput";
 import FiltersContainer from "../FiltersContainer";

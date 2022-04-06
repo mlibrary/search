@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { useSelector } from "react-redux";
-import { Icon } from "@umich-lib/core";
+import Icon from "../../../reusable/components/Icon";
 import { COLORS } from "../../../reusable/umich-lib-core-temp";
 
 export default function SearchResultsMessage() {

@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Icon, Heading } from '@umich-lib/core'
+import { Button, Heading } from '@umich-lib/core'
+import Icon from "../../../reusable/components/Icon"
 import getFilters from './getFilters'
 import AdvancedFilter from '../AdvancedFilter'
 import {
