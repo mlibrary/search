@@ -10,7 +10,7 @@ import { changeActiveDatastore } from '../../actions'
 import DatastoreNavigationPresenter from './presenter';
 
 class DatastoreNavigationContainer extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     const { datastores, match } = this.props;
     const routeDatastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug)
     const activeDatastoreUid = datastores.active

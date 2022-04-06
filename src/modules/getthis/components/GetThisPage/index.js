@@ -45,7 +45,7 @@ class GetThisPageTemplate extends React.Component {
 
 
 class GetThisPage extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     const {
       recordUid,
       barcode

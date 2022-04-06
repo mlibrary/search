@@ -43,7 +43,7 @@ import { FlintAlerts } from "../../../flint";
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class DatastorePageContainer extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     // Switch Pride to the appropriate datastore
     const { datastoreSlug } = this.props.match.params;
     switchPrideToDatastore(datastoreSlug);
