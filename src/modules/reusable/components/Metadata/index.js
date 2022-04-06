@@ -86,13 +86,14 @@ export default function Metadata({ data, kind }) {
             {d.term}
           </dt>
           <ExpandableChildren show={expandable(d.description).show}>
-            {d.description.map((d) => (
+            {d.description.map((d, i) => (
               <dd
                 css={{
                   gridColumnStart: "2",
                   display: "flex",
                   alignItems: "top",
                 }}
+                key={"metadata-dd-" + i}
               >
                 <Description data={d} />
               </dd>
@@ -138,6 +139,7 @@ function Description({ data }) {
             css={{
               display: "inline-block",
             }}
+            key={"description-li-" + i}
           >
             {i > 0 && (
               <span
