@@ -1,6 +1,4 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
 import store from "./../../../../store";
 import { setParserMessage } from "../../../search";
 import { useSelector } from "react-redux";

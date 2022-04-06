@@ -1,6 +1,4 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
 import { useSelector } from "react-redux";
 import React from "react";
 import { Link } from "react-router-dom";

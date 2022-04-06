@@ -1,6 +1,4 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
+/** @jsxImportSource @emotion/react */
 import { Component } from 'react';
 import { connect } from 'react-redux'
 import _ from 'underscore';

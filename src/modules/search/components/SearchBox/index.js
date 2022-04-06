@@ -1,6 +1,5 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx, Global } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { Global } from "@emotion/react";
 import React from 'react'
 import {
   COLORS,

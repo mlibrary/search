@@ -1,6 +1,4 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
 import { useSelector } from "react-redux";
 import Icon from "../../../reusable/components/Icon";
 import { COLORS } from "../../../reusable/umich-lib-core-temp";

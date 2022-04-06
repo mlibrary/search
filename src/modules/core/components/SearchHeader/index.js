@@ -1,6 +1,4 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
 import { connect } from "react-redux";
 import config from "../../../../config";
 import { ChooseAffiliation } from "../../../affiliation";
