@@ -183,7 +183,7 @@ class URLSearchQueryWrapper extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const datastoreUid = getDatastoreUidBySlug(
       nextProps.match.params.datastoreSlug
     );

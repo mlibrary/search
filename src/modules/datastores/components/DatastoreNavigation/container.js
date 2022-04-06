@@ -20,7 +20,7 @@ class DatastoreNavigationContainer extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { datastores, match } = nextProps;
     const routeDatastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug)
     const activeDatastoreUid = datastores.active
