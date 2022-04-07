@@ -1,6 +1,6 @@
-import React from 'react';
-import { Heading, Text, List } from "@umich-lib/core";
-
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
+import { Heading, Text } from "@umich-lib/core";
 import {
   Link
 } from 'react-router-dom'
@@ -23,7 +23,13 @@ const NoMatch = function NoMatch() {
         <Heading size="medium" level={2}>
           Try these options instead
         </Heading>
-        <List type="bulleted" style={{ maxWidth: '32em' }}>
+
+        <ul css={{
+          margin: '0',
+          padding: '0',
+          marginLeft: '1.5rem',
+          maxWidth: '32em'
+        }}>
           <li>
             <Text>Start over from <Link to="/everything" className="underline">the homepage</Link>.</Text>
           </li>
@@ -41,7 +47,7 @@ const NoMatch = function NoMatch() {
             <a href="https://www.lib.umich.edu/ask-librarian" className="underline">Ask a librarian</a> and we'll help you find what you're
             looking for!</Text>
           </li>
-        </List>
+        </ul>
       </div>
     </div>
   );
