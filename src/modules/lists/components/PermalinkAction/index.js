@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
+import { Component } from 'react';
 import { Modal } from '../../../reusable'
-import { Button, TextInput } from '@umich-lib/core'
+import { Button } from '@umich-lib/core'
 import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
 
 class CitationAction extends Component {
@@ -57,22 +59,33 @@ class CitationAction extends Component {
             style={{ marginTop: '0' }}
           >Copy link</h2>
 
-          <TextInput
-            id="permalink-action"
-            hideLabel
-            labelText="Permalink"
-            type="text"
-            style={{
-              marginBottom: '0.5rem',
+          <div
+            css={{
               width: '100%',
-              padding: '0.5rem 0.75rem',
-              color: '#333',
-              cursor: 'pointer'
+              boxSizing: 'border-box'
             }}
-            value={this.state.permalink}
-            onFocus={(e) => e.target.select()}
-            readOnly
-          />
+          >
+            <label
+              htmlFor="permalink-action"
+              className="offscreen"
+            >
+              Permalink
+            </label>
+            <input
+              type="text"
+              id="permalink-action"
+              value={this.state.permalink}
+              onFocus={(e) => e.target.select()}
+              readOnly
+              css={{
+                marginBottom: '0.5rem',
+                width: '100%',
+                padding: '0.5rem 0.75rem',
+                color: '#333',
+                cursor: 'pointer'
+              }}
+            />
+          </div>
 
           <div className="y-spacing">
             <div className="x-spacing" style={{
