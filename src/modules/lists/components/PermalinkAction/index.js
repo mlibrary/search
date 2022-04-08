@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal } from '../../../reusable'
-import { Button, Heading, COLORS, TextInput } from '@umich-lib/core'
+import { Button, Heading, TextInput } from '@umich-lib/core'
+import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
 
 class CitationAction extends Component {
   state = {
@@ -44,7 +45,7 @@ class CitationAction extends Component {
   render() {
     return (
       <div style={{
-        background: COLORS.grey[100]
+        background: SEARCH_COLORS.grey[100]
       }}>
         <Modal
           isOpen={this.state.modalIsOpen}

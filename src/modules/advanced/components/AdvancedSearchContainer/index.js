@@ -13,9 +13,9 @@ import {
   Tab,
   TabPanel,
   Heading,
-  COLORS,
   MEDIA_QUERIES
 } from '@umich-lib/core'
+import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
 import {
   Breadcrumb
 } from '../../../reusable'
@@ -43,8 +43,8 @@ Structure of the AdvancedSearch components:
 
 const StyledTab = styled(Tab)(props => ({
   [MEDIA_QUERIES.LARGESCREEN]: {
-    background: props.selected ? COLORS.grey[100] : 'inherit',
-    borderBottomColor: props.selected ? COLORS.grey[100] : 'none'
+    background: props.selected ? SEARCH_COLORS.grey[100] : 'inherit',
+    borderBottomColor: props.selected ? SEARCH_COLORS.grey[100] : 'none'
   }
 }))
 
@@ -57,7 +57,7 @@ const StyledContainer = styled('div')({
 const StyledTabPanelContainer = styled('div')({
   ...CARD,
   padding: '1rem',
-  background: COLORS.grey[100],
+  background: SEARCH_COLORS.grey[100],
   borderRadius: '0 0 4px 4px',
   [MEDIA_QUERIES.LARGESCREEN]: {
     padding: '2rem'
