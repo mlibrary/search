@@ -2,8 +2,8 @@
 import { jsx } from '@emotion/core'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { SPACING } from '../../reusable/umich-lib-core-temp'
-import { Button, INTENT_COLORS } from '@umich-lib/core'
+import { SPACING, INTENT_COLORS } from '../../reusable/umich-lib-core-temp'
+import { Button } from '@umich-lib/core'
 import Icon from '../../reusable/components/Icon'
 
 function RenderAnchor({ data }) {
