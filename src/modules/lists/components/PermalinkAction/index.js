@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import { Component } from 'react';
-import { Modal } from '../../../reusable'
-import { Button } from '@umich-lib/core'
+import { Modal, Button } from '../../../reusable'
 import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
 
 class CitationAction extends Component {

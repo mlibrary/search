@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@umich-lib/core'
+import { Button } from '../../../reusable'
 import styled from '@emotion/styled'
 
 const StyledFavoriteButton = styled(Button)({

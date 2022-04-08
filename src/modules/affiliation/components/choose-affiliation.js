@@ -4,11 +4,8 @@ import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import qs from "qs";
-
-import { Button } from "@umich-lib/core";
-import { MEDIA_QUERIES } from "../../reusable/umich-lib-core-temp";
-import { Modal } from "../../reusable";
-import { COLORS } from "../../reusable/umich-lib-core-temp";
+import { MEDIA_QUERIES, COLORS } from "../../reusable/umich-lib-core-temp";
+import { Modal, Button } from "../../reusable";
 
 export default function ChooseAffiliation() {
   const { defaultAffiliation, affiliationOptions } = useSelector(

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ActionStatusMessage from '../ActionStatusMessage'
-import { Button } from '@umich-lib/core'
+import { Button } from '../../../reusable'
 
 class EmailAction extends Component {
   state = {
@@ -48,7 +48,7 @@ class EmailAction extends Component {
             <label htmlFor="emailAddress">Email address</label>
             <input id="emailAddress" type="email" required placeholder="uniqname@umich.edu" value={this.state.email} onChange={this.handleChange}/>
           </div>
-          <Button type="submit"  style={{ whiteSpace: 'nowrap' }}>Send email</Button>
+          <Button type="submit" style={{ whiteSpace: 'nowrap' }}>Send email</Button>
         </form>
       )
     }

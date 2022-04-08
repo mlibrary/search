@@ -3,11 +3,10 @@ import {
   Tabs,
   TabList,
   Tab,
-  TabPanel,
-  Button
+  TabPanel
 } from '@umich-lib/core'
 import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
-import { Modal } from '../../../reusable'
+import { Modal, Button } from '../../../reusable'
 import { cite } from '../../../citations'
 
 class CitationArea extends Component {

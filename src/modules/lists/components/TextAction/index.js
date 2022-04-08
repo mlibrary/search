@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ActionStatusMessage from '../ActionStatusMessage'
-import { Button } from '@umich-lib/core'
+import { Button } from '../../../reusable'
 
 class TextAction extends Component {
   state = {
