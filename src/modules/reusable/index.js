@@ -7,6 +7,7 @@ import Pagination from "./components/Pagination";
 import ContextProvider from "./components/ContextProvider";
 import Metadata from "./components/Metadata";
 import Icon from "./components/Icon";
+import { Tab, TabList, Tabs, TabPanel } from "./components/Tabs";
 
 export {
   Alert,
@@ -17,5 +18,9 @@ export {
   Pagination,
   ContextProvider,
   Icon,
-  Metadata
+  Metadata,
+  Tab,
+  TabList,
+  Tabs,
+  TabPanel
 };

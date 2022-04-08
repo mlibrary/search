@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import {
-  Tabs,
-  TabList,
-  Tab,
-  TabPanel
-} from '@umich-lib/core'
 import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
-import { Modal, Button } from '../../../reusable'
+import { Modal, Button, Tabs, TabList, Tab, TabPanel } from '../../../reusable'
 import { cite } from '../../../citations'
 
 class CitationArea extends Component {

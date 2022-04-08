@@ -32,6 +32,7 @@
     "react-modal": "^3.14.4",
     "react-redux": "^7.2.8",
     "react-router-dom": "^4.3.1",
+    "react-tabs": "^3.2.3",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.8",
     "regenerator-runtime": "^0.13.9",
