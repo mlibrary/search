@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import qs from "qs";
 
-import { Button, Heading, Text, MEDIA_QUERIES } from "@umich-lib/core";
+import { Button, Heading, MEDIA_QUERIES } from "@umich-lib/core";
 import { Modal } from "../../reusable";
 import { COLORS } from "../../reusable/umich-lib-core-temp";
 
@@ -126,10 +126,10 @@ export default function ChooseAffiliation() {
           >
             Choose campus affiliation
           </Heading>
-          <Text>
+          <p>
             Selecting an affiliation helps us connect you to available online
             materials licensed for your campus.
-          </Text>
+          </p>
 
           <Button onClick={() => setOpen(false)}>Continue as {label}</Button>
           <span
@@ -148,10 +148,10 @@ export default function ChooseAffiliation() {
             Change to {alternativeLabel}
           </Button>
 
-          <Text css={{ marginBottom: "0" }} small>
+          <p className="font-small" css={{ marginBottom: "0" }}>
             You can still use Library Search if you're not affiliated with
             either campus.
-          </Text>
+          </p>
         </div>
       </Modal>
     </React.Fragment>

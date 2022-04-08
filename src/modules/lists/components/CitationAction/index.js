@@ -5,7 +5,6 @@ import {
   Tabs,
   TabList,
   Tab,
-  Text,
   TabPanel,
   Button
 } from '@umich-lib/core'
@@ -156,10 +155,10 @@ class CitationAction extends Component {
                         __html: this.state[co.id]
                       }}
                     />
-                    <Text
-                      small
+                    <p
+                      className="font-small"
                       id={`${co.id}-disclaimer`}
-                    >These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</Text>
+                    >These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</p>
                     <Button
                       onClick={() => this.handleCopyToClipboard(this.state[co.id])}
                       style={{ marginRight: '1rem' }}

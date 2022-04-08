@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
@@ -10,7 +12,6 @@ import {
   TabList,
   Tab,
   TabPanel,
-  Text,
   Heading,
   COLORS,
   MEDIA_QUERIES
@@ -82,7 +83,7 @@ class AdvancedSearchContainer extends React.Component {
         />
 
         <Heading size="xlarge" level={1}>Advanced Search</Heading>
-        <Text lede>Select a search category below for associated advanced search options.</Text>
+        <p className="font-lede">Select a search category below for associated advanced search options.</p>
         
         <Tabs defaultIndex={activeDatastoreIndex}>
           <TabList>

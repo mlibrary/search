@@ -2544,6 +2544,9 @@ input.get-this-field-input-year {
 .font-small {
   font-size: 0.85rem; }
 
+.font-lede {
+  font-size: 1.125rem; }
+
 .y-spacing > *:not(:last-child) {
   margin-bottom: 1rem; }
 

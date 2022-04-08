@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { Heading, Text } from '@umich-lib/core'
+import { Heading } from '@umich-lib/core'
 import {
   withRouter,
   Link
@@ -105,7 +105,7 @@ class List extends Component {
             <p className="lists-count-tag"><b>{this.getListLength()}</b> in list</p>
           </div>
         </header>
-        <Text lede style={{ marginTop: '0' }}>Items in this list are stored temporarily (within a single session).</Text>
+        <p className="font-lede" style={{ marginTop: '0' }}>Items in this list are stored temporarily (within a single session).</p>
         <section className="lists-section">
           <h2 className="lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none">Actions</h2>
           <span className="text-small">Select what to do with this list.</span>
