@@ -1,17 +1,16 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import React, { useState } from "react";
-
 import Holding from "./holding";
 import { COLORS, SPACING } from "../../reusable/umich-lib-core-temp";
 import {
+  Icon,
+  Button,
   Expandable,
   ExpandableProvider,
   ExpandableChildren,
-  ExpandableButton,
-  Button,
-} from "@umich-lib/core";
-import Icon from "../../reusable/components/Icon";
+  ExpandableButton
+} from "../../reusable";
 
 const cell_padding = {
   paddingTop: SPACING["XS"],

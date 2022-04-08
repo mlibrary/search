@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Button } from '@umich-lib/core'
+import { Button } from '../../../reusable'
 import ActionStatusMessage from '../ActionStatusMessage'
 import {
   favoriteRecord,

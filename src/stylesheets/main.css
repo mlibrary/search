@@ -123,6 +123,34 @@ h5, h6 {
 h1, h2, h3, h4, h5, h6 {
   margin: 1rem 0; }
 
+.heading-xlarge,
+.heading-large,
+.heading-medium,
+.heading-small,
+.heading-xsmall {
+  display: block;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 0.25em;
+  margin-top: 1.5em;
+  font-size: 1rem;
+}
+.heading-xlarge {
+  margin-bottom: 0.625em;
+  margin-top: 1.25em;
+  font-size: 2.4rem;
+}
+.heading-large {
+  margin-bottom: 0.555em;
+  margin-top: 1.25em;
+  font-size: 1.5rem;
+}
+.heading-medium {
+  margin-bottom: 0.83333em;
+  margin-top: 1.875em;
+  font-size: 1.2rem;
+}
+
 /*
   Typography and Elements
 */
@@ -2397,6 +2425,12 @@ input.get-this-field-input-year {
   margin-top: 1rem; }
   .lists-action .react-tabs__tab--selected {
     border-bottom-color: #FAFAFA; }
+@media only screen and (min-width: 641px) {
+  .advanced-tabs .react-tabs__tab--selected {
+    background: #FAFAFA;
+    border-bottom-color: #FAFAFA;
+  }
+}
 
 .full-record__actions-container {
   background: #FAFAFA;
@@ -2543,6 +2577,9 @@ input.get-this-field-input-year {
 
 .font-small {
   font-size: 0.85rem; }
+
+.font-lede {
+  font-size: 1.125rem; }
 
 .y-spacing > *:not(:last-child) {
   margin-bottom: 1rem; }

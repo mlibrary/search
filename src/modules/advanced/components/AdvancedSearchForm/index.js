@@ -1,8 +1,9 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Button, Alert, Heading } from "@umich-lib/core";
-import Icon from "../../../reusable/components/Icon";
+import { Icon, Button, Alert } from "../../../reusable";
 import { withRouter } from "react-router-dom";
 import FieldInput from "../FieldInput";
 import FiltersContainer from "../FiltersContainer";
@@ -123,7 +124,7 @@ class AdvancedSearchForm extends React.Component {
       return (
         <React.Fragment>
           {errors.map((error, i) => (
-            <Alert intent="error" key={i}>
+            <Alert type="error" key={i}>
               <div
                 className="x-spacing"
                 style={{
@@ -147,10 +148,10 @@ class AdvancedSearchForm extends React.Component {
 
     return (
       <form className="y-spacing" onSubmit={this.handleSubmit}>
-        <h1>{datastore.name} Search</h1>
+        <h2 css={{ fontSize: '1.87rem' }}>{datastore.name} Search</h2>
         {this.renderErrors()}
 
-        <Heading className="offscreen">Fielded search options</Heading>
+        <h3 className="offscreen">Fielded search options</h3>
 
         {fieldedSearches.map((fs, i) => (
           <FieldInput

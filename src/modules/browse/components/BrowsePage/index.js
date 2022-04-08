@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Text, Heading } from '@umich-lib/core'
 import _ from 'underscore'
 import {
   setDocumentTitle
@@ -34,8 +33,8 @@ class BrowsePage extends React.Component {
           renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
         />
 
-        <Heading size="xlarge" level={1}>Browse all {datastore.name}</Heading>
-        <Text lede>When you're stuck looking for specific {datastore.name.toLowerCase()} or just want to see what's out there, the browse page makes finding the right {datastore.name.toLowerCase()} easy. Browse all {datastore.name.toLowerCase()} titles alphabetically or by academic discipline.</Text>
+        <h1 className="heading-xlarge">Browse all {datastore.name}</h1>
+        <p className="font-lede">When you're stuck looking for specific {datastore.name.toLowerCase()} or just want to see what's out there, the browse page makes finding the right {datastore.name.toLowerCase()} easy. Browse all {datastore.name.toLowerCase()} titles alphabetically or by academic discipline.</p>
         <BrowseAtoZ />
 
         <BrowseByFilters filters={browse} />

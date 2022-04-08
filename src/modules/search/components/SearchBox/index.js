@@ -1,12 +1,8 @@
 /** @jsx jsx */
 import { jsx, Global } from "@emotion/core";
 import React from 'react'
-import {
-  COLORS,
-  Button,
-  MEDIA_QUERIES
-} from '@umich-lib/core';
-import Icon from "../../../reusable/components/Icon";
+import { MEDIA_QUERIES, SEARCH_COLORS } from "../../../reusable/umich-lib-core-temp";
+import { Icon, Button } from "../../../reusable";
 import { useSelector } from "react-redux";
 import qs from "qs";
 import { withRouter } from "react-router";
@@ -80,9 +76,9 @@ function SearchBox({ history, match, location }) {
 
   return (
     <form css={{
-      background: COLORS.blue['300'],
+      background: SEARCH_COLORS.blue['300'],
       paddingBottom: `0.75rem`,
-      borderBottom: `solid 2px ${COLORS.blue['400']}`
+      borderBottom: `solid 2px ${SEARCH_COLORS.blue['400']}`
     }} onSubmit={handleSubmitSearch}>
       <Global styles={{
         '*:focus': {
@@ -138,8 +134,8 @@ function SearchBox({ history, match, location }) {
               autoComplete="off"
               css={{
                 all: 'unset',
-                background: COLORS.grey['100'],
-                border: `solid 1px ${COLORS.blue['500']}`,
+                background: SEARCH_COLORS.grey['100'],
+                border: `solid 1px ${SEARCH_COLORS.blue['500']}`,
                 borderRadius: '4px',
                 boxSizing: 'border-box',
                 height: '100%',
@@ -189,7 +185,7 @@ function SearchBox({ history, match, location }) {
               all: 'unset',
               background: 'white',
               boxSizing: 'border-box',
-              borderColor: `${COLORS.blue['500']} !important`,
+              borderColor: `${SEARCH_COLORS.blue['500']} !important`,
               borderRadius: '4px',
               gridArea: 'input',
               lineHeight: '1.6 important!',

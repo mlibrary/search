@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from '@umich-lib/core'
+import { Button } from '../../../reusable'
 
 class FileAction extends Component {
   state = {
