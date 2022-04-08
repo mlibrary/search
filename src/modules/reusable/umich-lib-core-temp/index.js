@@ -198,9 +198,9 @@ export const FONT_COLOR = COLORS.blue[500];
 
 export const INTENT_COLORS = {
   informational: COLORS.blue[400],
-  success: COLORS.teal[400],
+  success: SEARCH_COLORS.green[600],
   warning: COLORS.maize[400],
-  error: COLORS.orange[400]
+  error: SEARCH_COLORS.orange[400]
 };
 
 export function GlobalStyleSheet() {
