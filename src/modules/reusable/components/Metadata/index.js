@@ -4,7 +4,12 @@ import { jsx } from "@emotion/core";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Icon from "../../../reusable/components/Icon";
+import {
+  Icon,
+  Expandable,
+  ExpandableChildren,
+  ExpandableButton
+} from "../../../reusable";
 import {
   SPACING,
   MEDIA_QUERIES,
@@ -12,11 +17,6 @@ import {
   LINK_STYLES,
 } from "../../umich-lib-core-temp";
 import { stringifySearchQueryForURL } from "../../../pride";
-import {
-  Expandable,
-  ExpandableChildren,
-  ExpandableButton,
-} from "@umich-lib/core";
 
 const visuallyHiddenCSS = {
   border: 0,

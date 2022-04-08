@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import React from "react";
 import { Link } from "react-router-dom";
 import numeral from "numeral";
-
 import {
   Accordion,
   AccordionItem,
@@ -13,15 +12,13 @@ import {
   AccordionItemButton,
   AccordionItemPanel
 } from "react-accessible-accordion";
-
 import {
   Expandable,
   ExpandableChildren,
-  ExpandableButton
-} from "@umich-lib/core";
-
+  ExpandableButton,
+  Icon
+} from "../../../reusable";
 import { SPACING, COLORS } from "../../../reusable/umich-lib-core-temp";
-import Icon from "../../../reusable/components/Icon";
 import CheckboxFilters from "../CheckboxFilters";
 
 import {

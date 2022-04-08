@@ -8,6 +8,7 @@ import ContextProvider from "./components/ContextProvider";
 import Metadata from "./components/Metadata";
 import Icon from "./components/Icon";
 import { Tab, TabList, Tabs, TabPanel } from "./components/Tabs";
+import { Expandable, ExpandableButton, ExpandableChildren, ExpandableProvider } from "./components/Expandable";
 
 export {
   Alert,
@@ -22,5 +23,9 @@ export {
   Tab,
   TabList,
   Tabs,
-  TabPanel
+  TabPanel,
+  Expandable,
+  ExpandableButton,
+  ExpandableChildren,
+  ExpandableProvider
 };
