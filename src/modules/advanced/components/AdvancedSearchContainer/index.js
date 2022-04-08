@@ -12,10 +12,9 @@ import {
   TabList,
   Tab,
   TabPanel,
-  Heading,
-  MEDIA_QUERIES
+  Heading
 } from '@umich-lib/core'
-import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
+import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
 import {
   Breadcrumb
 } from '../../../reusable'

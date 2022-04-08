@@ -5,7 +5,8 @@ import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import qs from "qs";
 
-import { Button, Heading, MEDIA_QUERIES } from "@umich-lib/core";
+import { Button, Heading } from "@umich-lib/core";
+import { MEDIA_QUERIES } from "../../reusable/umich-lib-core-temp";
 import { Modal } from "../../reusable";
 import { COLORS } from "../../reusable/umich-lib-core-temp";
 

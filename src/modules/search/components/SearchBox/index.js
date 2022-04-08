@@ -1,11 +1,8 @@
 /** @jsx jsx */
 import { jsx, Global } from "@emotion/core";
 import React from 'react'
-import {
-  Button,
-  MEDIA_QUERIES
-} from '@umich-lib/core';
-import { SEARCH_COLORS } from "../../../reusable/umich-lib-core-temp";
+import { Button } from '@umich-lib/core';
+import { MEDIA_QUERIES, SEARCH_COLORS } from "../../../reusable/umich-lib-core-temp";
 import Icon from "../../../reusable/components/Icon";
 import { useSelector } from "react-redux";
 import qs from "qs";
