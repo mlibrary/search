@@ -9,7 +9,6 @@
   "dependencies": {
     "@emotion/core": "^10.3.1",
     "@emotion/styled": "^10.3.0",
-    "@umich-lib/core": "^0.1.1",
     "citeproc": "^2.4.62",
     "classnames": "^2.3.1",
     "connected-react-router": "^6.9.2",
