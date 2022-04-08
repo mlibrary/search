@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Alert } from '@umich-lib/core'
-import Icon from '../../../reusable/components/Icon'
+import { Icon, Alert } from '../../../reusable'
 import config from '../../../../config'
 import { DetailsList } from '../../../core'
 import GetThisOption from '../GetThisOption'
@@ -25,7 +24,7 @@ class GetThisOptions extends React.Component {
         if (options.length === 0) {
           return (
             <Section>
-              <Alert kind="error">
+              <Alert type="error">
                 <div class="x-spacing"><Icon icon="error" /><span>No options available.</span></div>
               </Alert>
             </Section>

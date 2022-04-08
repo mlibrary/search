@@ -3,8 +3,7 @@ import { jsx } from "@emotion/core";
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Alert } from "@umich-lib/core";
-import { Icon, Button } from "../../../reusable";
+import { Icon, Button, Alert } from "../../../reusable";
 import { withRouter } from "react-router-dom";
 import FieldInput from "../FieldInput";
 import FiltersContainer from "../FiltersContainer";
@@ -125,7 +124,7 @@ class AdvancedSearchForm extends React.Component {
       return (
         <React.Fragment>
           {errors.map((error, i) => (
-            <Alert intent="error" key={i}>
+            <Alert type="error" key={i}>
               <div
                 className="x-spacing"
                 style={{

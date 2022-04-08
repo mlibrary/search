@@ -16,7 +16,7 @@ import {
 import {
   ConnectedRouter,
 } from 'connected-react-router'
-import { Alert } from '@umich-lib/core'
+import { Alert } from './modules/reusable'
 import {
   initializePride,
   isSlugADatastore,
@@ -126,7 +126,7 @@ const renderApp = () => {
 
 const renderPrideFailedToLoad = () => {
   ReactDOM.render(
-    <Alert intent="error">
+    <Alert type="error">
       U-M Library Search is not available. We will fix this issue as soon as we can.
     </Alert>,
     document.getElementById('root')

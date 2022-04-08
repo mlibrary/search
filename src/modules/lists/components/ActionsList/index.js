@@ -7,9 +7,7 @@ import FavoriteAction from '../FavoriteAction'
 import PermalinkAction from '../PermalinkAction'
 import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
-import { ContextProvider } from '../../../reusable'
-import { Alert } from '@umich-lib/core'
-import Icon from '../../../reusable/components/Icon'
+import { ContextProvider, Icon, Alert } from '../../../reusable'
 
 class ActionsList extends Component {
   state = {
@@ -191,7 +189,7 @@ class ActionsList extends Component {
           </ul>
           {this.renderActionDetails()}
           {this.state.alert && (
-            <Alert intent={this.state.alert.intent}>{this.state.alert.text}</Alert>
+            <Alert type={this.state.alert.intent}>{this.state.alert.text}</Alert>
           )}
         </div>
       )}>

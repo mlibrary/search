@@ -3,8 +3,7 @@ import { jsx } from "@emotion/core";
 import store from "./../../../../store";
 import { setParserMessage } from "../../../search";
 import { useSelector } from "react-redux";
-import { Modal, Button } from "../../../reusable";
-import { Alert } from "@umich-lib/core";
+import { Modal, Button, Alert } from "../../../reusable";
 import { SPACING } from "../../../reusable/umich-lib-core-temp";
 
 export default function SearchParserMessage() {
