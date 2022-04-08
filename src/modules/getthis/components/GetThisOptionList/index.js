@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Alert, Heading } from '@umich-lib/core'
+import { Alert } from '@umich-lib/core'
 import Icon from '../../../reusable/components/Icon'
 import config from '../../../../config'
 import { DetailsList } from '../../../core'
@@ -8,7 +8,7 @@ import GetThisOption from '../GetThisOption'
 
 const Section = ({children}) => (
   <section className="card get-this-section y-spacing">
-    <Heading size="large" level={2} style={{ marginTop: '0' }}>How would you like to get this item?</Heading>
+    <h2 className="heading-large" style={{ marginTop: '0' }}>How would you like to get this item?</h2>
     {children}
   </section>
 )

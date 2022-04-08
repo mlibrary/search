@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import qs from "qs";
 
-import { Button, Heading } from "@umich-lib/core";
+import { Button } from "@umich-lib/core";
 import { MEDIA_QUERIES } from "../../reusable/umich-lib-core-temp";
 import { Modal } from "../../reusable";
 import { COLORS } from "../../reusable/umich-lib-core-temp";
@@ -118,15 +118,15 @@ export default function ChooseAffiliation() {
           >
             Dismiss
           </Button>
-          <Heading
-            size="large"
+          <h2
+            className="heading-large"
             css={{
               marginTop: "0",
               marginRight: "4rem"
             }}
           >
             Choose campus affiliation
-          </Heading>
+          </h2>
           <p>
             Selecting an affiliation helps us connect you to available online
             materials licensed for your campus.

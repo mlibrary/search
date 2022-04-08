@@ -4,7 +4,7 @@ import store from "./../../../../store";
 import { setParserMessage } from "../../../search";
 import { useSelector } from "react-redux";
 import { Modal } from "../../../reusable";
-import { Button, Heading, Alert } from "@umich-lib/core";
+import { Button, Alert } from "@umich-lib/core";
 import { SPACING } from "../../../reusable/umich-lib-core-temp";
 
 export default function SearchParserMessage() {
@@ -40,15 +40,15 @@ export default function SearchParserMessage() {
         >
           Dismiss
         </Button>
-        <Heading
-          size="large"
+        <h2
+          className="heading-large"
           css={{
             marginTop: "0",
             marginRight: "4rem",
           }}
         >
           Query parser message
-        </Heading>
+        </h2>
         <div
           css={{
             margin: `${SPACING["M"]} 0`,

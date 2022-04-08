@@ -7,7 +7,6 @@ import {
   COLORS,
   Margins,
 } from "../../../reusable/umich-lib-core-temp";
-import { Heading } from "@umich-lib/core";
 import { Button, Icon } from "../../../reusable/";
 
 function COVIDAlert() {
@@ -33,9 +32,8 @@ function COVIDAlert() {
         role="alert"
       >
         <Margins>
-          <Heading
-            level={2}
-            size="XL"
+          <h2
+            className="heading-xlarge"
             css={{
               display: "flex",
               alignItems: "center",
@@ -47,7 +45,7 @@ function COVIDAlert() {
               css={{ marginRight: SPACING["XS"], color: COLORS.orange["400"] }}
             />
             <span>Important message</span>
-          </Heading>
+          </h2>
           <p>
 	    Log in to view Get This options for items in our catalog while
 	    building access is limited. <a

@@ -1,7 +1,9 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Button, Alert, Heading } from "@umich-lib/core";
+import { Button, Alert } from "@umich-lib/core";
 import Icon from "../../../reusable/components/Icon";
 import { withRouter } from "react-router-dom";
 import FieldInput from "../FieldInput";
@@ -147,10 +149,10 @@ class AdvancedSearchForm extends React.Component {
 
     return (
       <form className="y-spacing" onSubmit={this.handleSubmit}>
-        <h1>{datastore.name} Search</h1>
+        <h2 css={{ fontSize: '1.87rem' }}>{datastore.name} Search</h2>
         {this.renderErrors()}
 
-        <Heading className="offscreen">Fielded search options</Heading>
+        <h3 className="offscreen">Fielded search options</h3>
 
         {fieldedSearches.map((fs, i) => (
           <FieldInput

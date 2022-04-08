@@ -1,13 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Button, Heading } from '@umich-lib/core'
+import { Button } from '@umich-lib/core'
 import Icon from "../../../reusable/components/Icon"
 import getFilters from './getFilters'
 import AdvancedFilter from '../AdvancedFilter'
-import {
-  setAdvancedFilter
-} from '../../../advanced'
+import { setAdvancedFilter } from '../../../advanced'
 
 class FiltersContainer extends React.Component {
   handleAdvancedFilterChange = ({
@@ -101,7 +99,7 @@ class FiltersContainer extends React.Component {
 
     return (
       <React.Fragment>
-        <Heading size="large" level={2}>Additional search options</Heading>
+        <h2 className="heading-large">Additional search options</h2>
         <div className="advanced-filters-inner-container">
           {filterGroups.map((filterGroup, groupIndex) => (
             <React.Fragment key={groupIndex}>

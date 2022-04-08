@@ -11,8 +11,7 @@ import {
   Tabs,
   TabList,
   Tab,
-  TabPanel,
-  Heading
+  TabPanel
 } from '@umich-lib/core'
 import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
 import {
@@ -81,7 +80,7 @@ class AdvancedSearchContainer extends React.Component {
           renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
         />
 
-        <Heading size="xlarge" level={1}>Advanced Search</Heading>
+        <h1 className="heading-xlarge">Advanced Search</h1>
         <p className="font-lede">Select a search category below for associated advanced search options.</p>
         
         <Tabs defaultIndex={activeDatastoreIndex}>

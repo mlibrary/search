@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal } from '../../../reusable'
-import { Button, Heading, TextInput } from '@umich-lib/core'
+import { Button, TextInput } from '@umich-lib/core'
 import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
 
 class CitationAction extends Component {
@@ -52,11 +52,10 @@ class CitationAction extends Component {
           onRequestClose={this.handleCloseModal}
           className={this.props.className}
         >
-          <Heading
-            size="medium"
-            level={2}
+          <h2
+            className="heading-medium"
             style={{ marginTop: '0' }}
-          >Copy link</Heading>
+          >Copy link</h2>
 
           <TextInput
             id="permalink-action"

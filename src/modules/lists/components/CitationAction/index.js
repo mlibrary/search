@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Heading,
   Tabs,
   TabList,
   Tab,
@@ -130,11 +129,10 @@ class CitationAction extends Component {
           onRequestClose={this.handleCloseModal}
           className={this.props.className}
         >
-          <Heading
-            size="medium"
-            level={2}
+          <h2
+            className="heading-medium"
             style={{ marginTop: '0' }}
-          >Select a citation format</Heading>
+          >Select a citation format</h2>
 
           <Tabs>
             <TabList>

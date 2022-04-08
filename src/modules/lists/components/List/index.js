@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { Heading } from '@umich-lib/core'
 import {
   withRouter,
   Link
@@ -99,7 +98,7 @@ class List extends Component {
         />
 
         <header className="lists-header">
-          <Heading size="xlarge" level={1}>My Temporary {datastore.name} List</Heading>
+          <h1 className="heading-xlarge">My Temporary {datastore.name} List</h1>
           <div className="lists-header-info">
             {this.renderRemoveAllFromListButton(list, datastore)}
             <p className="lists-count-tag"><b>{this.getListLength()}</b> in list</p>

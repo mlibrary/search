@@ -1,7 +1,6 @@
 import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import qs from 'qs'
-import { Heading } from '@umich-lib/core'
 
 class NestedList extends React.Component {
   render() {
@@ -46,7 +45,7 @@ class BrowseFilter extends React.Component {
     }
 
     return (
-      <Heading size="medium" level={3} style={{ marginTop: '0' }}>{name}</Heading>
+      <h3 className="heading-medium" style={{ marginTop: '0' }}>{name}</h3>
     )
   }
 }
@@ -119,7 +118,7 @@ class BrowseByFilters extends React.Component {
 
         return (
           <section key={uid} className="browse u-margin-top-1">
-            <Heading size="large" level={2} style={{ marginTop: '0' }}>{name}</Heading>
+            <h2 className="heading-large" style={{ marginTop: '0' }}>{name}</h2>
 
             <NestedList items={filters[uid].filters} browserFilterTo={(value) => this.handleBrowserFilterTo(uid, value)} />
           </section>

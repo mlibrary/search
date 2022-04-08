@@ -4,7 +4,6 @@ import {
   withRouter,
   Link
 } from 'react-router-dom'
-import { Heading } from '@umich-lib/core'
 
 import {
   requestRecord,
@@ -34,7 +33,7 @@ class GetThisPageTemplate extends React.Component {
           />
         </div>
         <section>
-          <Heading size="xlarge" level={1}>Get This</Heading>
+          <h1 className="heading-xlarge">Get This</h1>
         </section>
 
         {this.props.children}

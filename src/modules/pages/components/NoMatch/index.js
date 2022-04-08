@@ -1,12 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import { Heading } from "@umich-lib/core";
-import {
-  Link
-} from 'react-router-dom'
-import {
-  setDocumentTitle
-} from '../../../a11y'
+import { Link } from 'react-router-dom'
+import { setDocumentTitle } from '../../../a11y'
 
 const NoMatch = function NoMatch() {
   setDocumentTitle(['404'])
@@ -14,16 +9,13 @@ const NoMatch = function NoMatch() {
   return (
     <div className="container container-narrow">
       <div className="page-not-found-container">
-        <Heading size="xlarge" level={1}>
+        <h1 className="heading-xlarge">
           Page not found - 404
-        </Heading>
-
+        </h1>
         <p className="font-lede">We can't find the page you're looking for.</p>
-
-        <Heading size="medium" level={2}>
+        <h2 className="heading-medium">
           Try these options instead
-        </Heading>
-
+        </h2>
         <ul css={{
           margin: '0',
           padding: '0',
