@@ -2,12 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import _ from 'underscore'
-import { Button } from '@umich-lib/core'
 import { FavoriteInputTag } from '../../../favorites';
 import favorite from '../../favorite'
 import {
   Tag,
-  Modal
+  Modal,
+  Button
 } from '../../../reusable'
 
 class FavoriteTags extends React.Component {

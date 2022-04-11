@@ -1,5 +1,5 @@
-import React from "react";
-import { MEDIA_QUERIES, TextInput } from "@umich-lib/core";
+/** @jsxImportSource @emotion/react */
+import { MEDIA_QUERIES } from "../../../reusable/umich-lib-core-temp";
 import Icon from "../../../reusable/components/Icon";
 import { MultipleChoice } from "../../../core";
 import styled from "@emotion/styled";
@@ -72,20 +72,32 @@ const FieldInput = ({
         handleOnFieldChange={handleFieldedSearchChange}
       />
       <div className="advanced-input-remove-container">
-        <TextInput
-          id={`fielded-search-text-input-${fieldedSearchIndex + 1}`}
-          placeholder={`Search Term ${fieldedSearchIndex + 1}`}
-          value={fieldedSearch.query}
-          labelText={`Search Term ${fieldedSearchIndex + 1}`}
-          hideLabel
-          data-hj-allow
-          onChange={(event) =>
-            handleFieldedSearchChange({
-              fieldedSearchIndex,
-              query: event.target.value,
-            })
-          }
-        />
+        <div
+          css={{
+            width: '100%',
+            boxSizing: 'border-box'
+          }}
+        >
+          <label
+            htmlFor={`fielded-search-text-input-${fieldedSearchIndex + 1}`}
+            className="offscreen"
+          >
+            Search Term {fieldedSearchIndex + 1}
+          </label>
+          <input
+            type="text"
+            id={`fielded-search-text-input-${fieldedSearchIndex + 1}`}
+            placeholder={`Search Term ${fieldedSearchIndex + 1}`}
+            value={fieldedSearch.query}
+            data-hj-allow
+            onChange={(event) =>
+              handleFieldedSearchChange({
+                fieldedSearchIndex,
+                query: event.target.value,
+              })
+            }
+          />
+        </div>
         {fieldedSearchIndex > 0 ? (
           <button
             className="advanced-input-remove-button"

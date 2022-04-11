@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { INTENT_COLORS } from "@umich-lib/core";
+import { INTENT_COLORS } from "../../../reusable/umich-lib-core-temp";
 import Icon from "../../../reusable/components/Icon"
 import { Icon as SearchIcon, TrimString } from "../../../core";
 import { getField, getFieldValue } from "../../utilities";

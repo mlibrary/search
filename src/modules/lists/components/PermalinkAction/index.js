@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { Modal } from '../../../reusable'
-import { Button, Heading, COLORS, TextInput } from '@umich-lib/core'
+/** @jsxImportSource @emotion/react */
+import { Component } from 'react';
+import { Modal, Button } from '../../../reusable'
+import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
 
 class CitationAction extends Component {
   state = {
@@ -44,35 +45,45 @@ class CitationAction extends Component {
   render() {
     return (
       <div style={{
-        background: COLORS.grey[100]
+        background: SEARCH_COLORS.grey[100]
       }}>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.handleCloseModal}
           className={this.props.className}
         >
-          <Heading
-            size="medium"
-            level={2}
+          <h2
+            className="heading-medium"
             style={{ marginTop: '0' }}
-          >Copy link</Heading>
+          >Copy link</h2>
 
-          <TextInput
-            id="permalink-action"
-            hideLabel
-            labelText="Permalink"
-            type="text"
-            style={{
-              marginBottom: '0.5rem',
+          <div
+            css={{
               width: '100%',
-              padding: '0.5rem 0.75rem',
-              color: '#333',
-              cursor: 'pointer'
+              boxSizing: 'border-box'
             }}
-            value={this.state.permalink}
-            onFocus={(e) => e.target.select()}
-            readOnly
-          />
+          >
+            <label
+              htmlFor="permalink-action"
+              className="offscreen"
+            >
+              Permalink
+            </label>
+            <input
+              type="text"
+              id="permalink-action"
+              value={this.state.permalink}
+              onFocus={(e) => e.target.select()}
+              readOnly
+              css={{
+                marginBottom: '0.5rem',
+                width: '100%',
+                padding: '0.5rem 0.75rem',
+                color: '#333',
+                cursor: 'pointer'
+              }}
+            />
+          </div>
 
           <div className="y-spacing">
             <div className="x-spacing" style={{

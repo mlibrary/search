@@ -7,6 +7,9 @@ import Pagination from "./components/Pagination";
 import ContextProvider from "./components/ContextProvider";
 import Metadata from "./components/Metadata";
 import Icon from "./components/Icon";
+import { Tab, TabList, Tabs, TabPanel } from "./components/Tabs";
+import { Expandable, ExpandableButton, ExpandableChildren, ExpandableProvider } from "./components/Expandable";
+import ResourceAccess from "./components/ResourceAccess";
 
 export {
   Alert,
@@ -17,5 +20,14 @@ export {
   Pagination,
   ContextProvider,
   Icon,
-  Metadata
+  Metadata,
+  Tab,
+  TabList,
+  Tabs,
+  TabPanel,
+  Expandable,
+  ExpandableButton,
+  ExpandableChildren,
+  ExpandableProvider,
+  ResourceAccess
 };

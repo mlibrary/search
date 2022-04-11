@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
-import {
-  COLORS,
-  Heading,
-  Tabs,
-  TabList,
-  Tab,
-  Text,
-  TabPanel,
-  Button
-} from '@umich-lib/core'
-import { Modal } from '../../../reusable'
+import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
+import { Modal, Button, Tabs, TabList, Tab, TabPanel } from '../../../reusable'
 import { cite } from '../../../citations'
 
 class CitationArea extends Component {
@@ -124,18 +115,17 @@ class CitationAction extends Component {
   render() {
     return (
       <div style={{
-        background: COLORS.grey[100]
+        background: SEARCH_COLORS.grey[100]
       }}>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.handleCloseModal}
           className={this.props.className}
         >
-          <Heading
-            size="medium"
-            level={2}
+          <h2
+            className="heading-medium"
             style={{ marginTop: '0' }}
-          >Select a citation format</Heading>
+          >Select a citation format</h2>
 
           <Tabs>
             <TabList>
@@ -156,10 +146,10 @@ class CitationAction extends Component {
                         __html: this.state[co.id]
                       }}
                     />
-                    <Text
-                      small
+                    <p
+                      className="font-small"
                       id={`${co.id}-disclaimer`}
-                    >These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</Text>
+                    >These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</p>
                     <Button
                       onClick={() => this.handleCopyToClipboard(this.state[co.id])}
                       style={{ marginRight: '1rem' }}

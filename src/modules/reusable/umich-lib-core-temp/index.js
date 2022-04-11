@@ -146,15 +146,61 @@ export const COLORS = {
   }
 };
 
+export const SEARCH_COLORS = {
+  brand: {
+    maize: '#FFCB05',
+    blue: '#00274C'
+  },
+  grey: {
+    '600': '#262626',
+    '500': '#4E4E4E',
+    '400': '#CCC',
+    '300': '#E5E5E5',
+    '200': '#F2F2F2',
+    '100': '#FAFAFA'
+  },
+  blue: {
+    '700': '#00274C',
+    '600': '#0C5292',
+    '500': '#126DC1',
+    '400': '#CCE6FF',
+    '300': '#E6F3FF',
+    '200': '#F2F9FF'
+  },
+  green: {
+    '600': '#057C42',
+    '500': '#05A657',
+    '400': '#E2F4EB'
+  },
+  orange: {
+    '600': '#AA5600',
+    '500': '#E77504',
+    '400': '#FFEEDD'
+  },
+  red: {
+    '600': '#C53B26',
+    '500': '#ED5D47',
+    '400': '#FFEAE7'
+  },
+  teal: {
+    '600': '#AA5600',
+    '500': '#E77504',
+    '400': '#FFEEDD'
+  },
+  purple: {
+    '600': '#4c2c92'
+  }
+}
+
 export const LINK_COLOR = COLORS.teal[400];
 
 export const FONT_COLOR = COLORS.blue[500];
 
 export const INTENT_COLORS = {
   informational: COLORS.blue[400],
-  success: COLORS.teal[400],
+  success: SEARCH_COLORS.green[600],
   warning: COLORS.maize[400],
-  error: COLORS.orange[400]
+  error: SEARCH_COLORS.orange[400]
 };
 
 export function GlobalStyleSheet() {
