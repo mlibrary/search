@@ -11,7 +11,7 @@ import {
 import {
   Route,
   Switch,
-  Redirect
+  Navigate
 } from 'react-router-dom'
 import {
   ConnectedRouter,
@@ -76,7 +76,7 @@ class App extends React.Component {
               <Main>
                 <ConnectedSwitch>
                   <Route path="/librarywebsite" render={({location}) => (
-                    <Redirect 
+                    <Navigate 
                     to={{
                         ...location,
                         pathname: location.pathname.replace(/librarywebsite/, 'guidesandmore'),
@@ -85,7 +85,7 @@ class App extends React.Component {
                   <Route path="/technical-overview" exact component={TechnicalOverview}/>
                   <Route path="/accessibility" exact component={AccessibilityPage}/>
                   <Route path="/" exact render={() => (
-                    <Redirect to={`/everything`} />
+                    <Navigate to={`/everything`} />
                   )}/>
                   <Route path={`/:datastoreSlug`} render={(props) => {
                     const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
