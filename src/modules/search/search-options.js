@@ -72,7 +72,7 @@ const searchOptions = [
   {
     "label": "Browse by call number (LC and Dewey)",
     "value": "browse_by_callnumber",
-    "tip": "Browse by Library of Congress (LC) and Dewey call numbers, sorted alphanumerically. Learn about the meaning of call numbers (e.g. RC662.4 .H38 2016; QH 105). <a href=\"https://www.loc.gov/catdir/cpso/lcco/\">Learn about the meaning of call numbers<span class=\"visually-hidden\"> (link points to external site)</span></a>.",
+    "tip": "Browse by Library of Congress (LC) or Dewey call number, sorted alphanumerically (e.g. RC662.4 .H38 2016; QH 105, 880 J375re). <a href=\"https://www.loc.gov/catdir/cpso/lcco/\">Learn about the meaning of call numbers<span class=\"visually-hidden\"> (link points to external site)</span></a>.",
     "selected": "selected"
   },
   {
