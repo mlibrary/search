@@ -85,6 +85,9 @@ class App extends React.Component {
                       }} />
                     )} />
                     <Route path="/about-library-search" exact component={AboutLibrarySearch}/>
+                    <Route path="/technical-overview" exact render={() => (
+                      <Redirect to={`/about-library-search`} />
+                    )}/>
                     <Route path="/accessibility" exact component={AccessibilityPage}/>
                     <Route path="/" exact render={() => (
                       <Redirect to={`/everything`} />
