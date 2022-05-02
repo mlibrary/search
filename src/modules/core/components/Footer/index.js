@@ -20,8 +20,8 @@ const footer_links = [
       "https://lib.umich.edu/research-and-scholarship/help-research/how-we-can-help",
   },
   {
-    text: "Technical overview",
-    to: "/technical-overview",
+    text: "About Library Search",
+    to: "/about-library-search",
   },
 ];
 
