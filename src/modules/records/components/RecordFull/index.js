@@ -100,7 +100,7 @@ class FullRecord extends React.Component {
       // Set page title
 
       setDocumentTitle([
-        [].concat(record.names).join().slice(0, 120),
+        [...record.names].join().slice(0, 120),
         "Record",
         activeDatastore.name,
       ]);
@@ -172,11 +172,19 @@ class FullRecord extends React.Component {
           <div className="record-container">
             <div className="full-record-title-and-actions-container">
               <h1 className="full-record-title">
-                {[].concat(record.names).map((title, index) => (
-                  <span key={index}>
-                    <TrimString string={title} expandable={true} />
-                  </span>
-                ))}
+                {[...record.names].map((title, index) => {
+                  if(index > 0) {
+                    return (
+                      <span className="vernacular vernacular-record-title" key={index}>
+                        {index} 
+                        <TrimString string={title} expandable={true} />
+                      </span>
+                    )
+                  }
+                  return (
+                    <TrimString string={title} expandable={true} key={index} />
+                  )
+                })}
                 <RecommendedResource record={record} />
               </h1>
 

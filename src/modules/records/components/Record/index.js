@@ -58,11 +58,18 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
           to={recordTitleLink}
           className="record-title-link"
         >
-          {[].concat(record.names).map((title, index) => (
-            <span key={index}>
-              <TrimString string={title} />
-            </span>
-          ))}
+          {[...record.names].map((title, index) => {
+            if(index > 0) {
+              return (
+                <span className="vernacular vernacular-record-title" key={index}>
+                  <TrimString string={title} />
+                </span>
+              )
+            }
+            return (
+              <TrimString string={title} key={index} />
+            )
+          })}
         </Link>
       ) : (
         <span>
@@ -70,11 +77,18 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
             href={recordTitleLink}
             className="record-title-link"
           >
-            {[].concat(record.names).map((title, index) => (
-              <span key={index}>
-                <TrimString string={title} />
-              </span>
-            ))}
+            {[...record.names].map((title, index) => {
+              if(index > 0) {
+                return (
+                  <span className="vernacular vernacular-record-title" key={index}>
+                    <TrimString string={title} />
+                  </span>
+                )
+              }
+              return (
+                <TrimString string={title} key={index} />
+              )
+            })}
           </a>
           <Icon name="launch" />
         </span>
