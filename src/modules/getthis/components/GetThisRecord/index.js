@@ -115,7 +115,7 @@ class GetThisRecord extends React.Component {
         <RecordFullFormats formats={record.formats} />
         <div className="record-container">
           <h1 className="full-record-title u-margin-bottom-none">
-            {[...record.names].map((title, index) => {
+            {[].concat(record.names).map((title, index) => {
               if(index > 0) {
                 return (
                   <span className="vernacular vernacular-record-title" key={index}>

@@ -29,7 +29,7 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
             to={recordTitleLink}
             className="record-title-link"
           >
-            {[...record.names].map((title, index) => {
+            {[].concat(record.names).map((title, index) => {
               if(index > 0) {
                 return (
                   <span className="vernacular vernacular-record-title" key={index}>
@@ -48,7 +48,7 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
               href={recordTitleLink}
               className="record-title-link"
             >
-              {[...record.names].map((title, index) => {
+              {[].concat(record.names).map((title, index) => {
                 if(index > 0) {
                   return (
                     <span className="vernacular vernacular-record-title" key={index}>
