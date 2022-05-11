@@ -1051,6 +1051,14 @@ body {
     width: 0.85rem;
     color: #4E4E4E; }
 
+.vernacular {
+  color: #6e6e6e;
+}
+
+.vernacular-record-title {
+  display: block;
+}
+
 .record-title-link {
   border-bottom: solid 2px rgba(18, 109, 193, 0.4); }
   .record-title-link:hover {

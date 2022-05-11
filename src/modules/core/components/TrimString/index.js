@@ -23,9 +23,7 @@ class TrimString extends React.Component {
     const { string } = this.props
 
     if (string.length < this.state.trimLength) {
-      return (
-        <span>{string}</span>
-      )
+      return string
     }
 
     let displayString = null
@@ -42,7 +40,7 @@ class TrimString extends React.Component {
     }
 
     return (
-      <span>
+      <span className="trim-string-expandable">
         <span className="trim-string-text">{displayString}</span>
         {this.props.expandable && (
           <button

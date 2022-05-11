@@ -53,32 +53,37 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
       >
         {record.position + 1}.
       </span>
-      {datastoreUid !== "website" ? (
-        <Link
-          to={recordTitleLink}
-          className="record-title-link"
-        >
-          {[].concat(record.names).map((title, index) => (
-            <span key={index}>
+      {[].concat(record.names).map((title, index) => {
+        if(index > 0) {
+          return (
+            <span className="vernacular vernacular-record-title" key={index}>
               <TrimString string={title} />
             </span>
-          ))}
-        </Link>
-      ) : (
-        <span>
-          <a
-            href={recordTitleLink}
-            className="record-title-link"
-          >
-            {[].concat(record.names).map((title, index) => (
-              <span key={index}>
-                <TrimString string={title} />
-              </span>
-            ))}
-          </a>
-          <Icon name="launch" />
-        </span>
-      )}
+          )
+        }
+        if (datastoreUid !== "website") {
+          return (
+            <Link
+              to={recordTitleLink}
+              className="record-title-link"
+              key={index}
+            >
+              <TrimString string={title} />
+            </Link>
+          )
+        }
+        return (
+          <span key={index}>
+            <a
+              href={recordTitleLink}
+              className="record-title-link"
+            >
+              <TrimString string={title} />
+            </a>
+            <Icon name="launch" />
+          </span>
+        )
+      })}
       <RecommendedResource record={record} />
     </h3>
   );
