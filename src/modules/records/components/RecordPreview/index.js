@@ -24,46 +24,37 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
   return (
     <header>
       <h3 className="record-preview-heading">
-        {hasFullView ? (
-          <Link
-            to={recordTitleLink}
-            className="record-title-link"
-          >
-            {[].concat(record.names).map((title, index) => {
-              if(index > 0) {
-                return (
-                  <span className="vernacular vernacular-record-title" key={index}>
-                    <TrimString string={title} />
-                  </span>
-                )
-              }
-              return (
-                <TrimString string={title} key={index} />
-              )
-            })}
-          </Link>
-        ) : (
-          <span>
-            <a
-              href={recordTitleLink}
-              className="record-title-link"
-            >
-              {[].concat(record.names).map((title, index) => {
-                if(index > 0) {
-                  return (
-                    <span className="vernacular vernacular-record-title" key={index}>
-                      <TrimString string={title} />
-                    </span>
-                  )
-                }
-                return (
-                  <TrimString string={title} key={index} />
-                )
-              })}
-            </a>
-            <SearchIcon name="launch" />
-          </span>
-        )}
+        {[].concat(record.names).map((title, index) => {
+          if(index > 0) {
+            return (
+              <span className="vernacular vernacular-record-title" key={index}>
+                <TrimString string={title} />
+              </span>
+            )
+          }
+          if (hasFullView) {
+            return (
+              <Link
+                to={recordTitleLink}
+                className="record-title-link"
+                key={index}
+              >
+                <TrimString string={title} />
+              </Link>
+            )
+          }
+          return (
+            <span key={index}>
+              <a
+                href={recordTitleLink}
+                className="record-title-link"
+              >
+                <TrimString string={title} />
+              </a>
+              <SearchIcon name="launch" />
+            </span>
+          )
+        })}
         <RecommendedResource record={record} />
       </h3>
     </header>
