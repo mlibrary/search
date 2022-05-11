@@ -176,7 +176,6 @@ class FullRecord extends React.Component {
                   if(index > 0) {
                     return (
                       <span className="vernacular vernacular-record-title" key={index}>
-                        {index} 
                         <TrimString string={title} expandable={true} />
                       </span>
                     )
