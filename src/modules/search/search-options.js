@@ -1,8 +1,13 @@
 const searchOptions = [
   {
-    "label": "Keyword",
+    "label": "Keyword (is exact)",
     "value": "keyword",
-    "tip": "Enter one or more keywords. Use quotes to search for a phrase (e.g. solar power; polar bears; “systems of oppression”). See tips about <a href=\"https://guides.lib.umich.edu/c.php?g=914690&p=6590011\">Basic Keyword Searching</a>."
+    "tip": "Enter an exact phrase to search (e.g., solar power). Use AND to separate concepts or phrases (e.g., Black Women Scientists AND Chanda Prescod). See tips about <a href=\"https://guides.lib.umich.edu/c.php?g=914690&p=6590011\">Basic Keyword Searching</a>.<br /><br />Using exact match will return results for records that contain only these exact keywords in the same metadata field of a record."
+  },
+  {
+    "label": "Keyword (contains)",
+    "value": "contains",
+    "tip": "Enter one or more keywords to search broadly. (e.g., Black Women Scientists) Use quotes to search for a specific phrase. (e.g., “systems of oppression”) See tips about <a href=\"https://guides.lib.umich.edu/c.php?g=914690&p=6590011\">Basic Keyword Searching</a>.<br /><br />Search will return results for all records that contain one or more of your keywords in the record's metadata. It also searches across all metadata fields. It will not consider which fields the keywords are located in."
   },
   {
     "label": "Title",
