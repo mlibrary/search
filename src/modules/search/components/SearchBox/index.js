@@ -181,6 +181,7 @@ function SearchBox({ history, match, location }) {
             value={inputQuery}
             onChange={e => setInputQuery(e.target.value)}
             autoComplete="on"
+            name="query"
             css={{
               all: 'unset',
               background: 'white',
