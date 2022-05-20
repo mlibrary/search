@@ -91,21 +91,21 @@ const searchOptions = [
     "datastore": "mirlyn"
   },
   {
-    "label": "Browse by author",
+    "label": "Browse by author (coming soon)",
     "value": "browse_by_author",
     "tip": "Browse an alphabetical list of authors. Authors can be people (put last names first), organizations, or events (e.g. Kingston, Maxine Hong; United Nations Development Programme; Pong, Chun-ho).",
     "disabled": "disabled",
     "datastore": "mirlyn"
   },
   {
-    "label": "Browse by subject",
+    "label": "Browse by subject (coming soon)",
     "value": "browse_by_subject",
     "tip": "Browse an A-Z list of subjects (e.g. motion pictures; history--United States; Eliot, George).",
     "disabled": "disabled",
     "datastore": "mirlyn"
   },
   {
-    "label": "Browse by title",
+    "label": "Browse by title (coming soon)",
     "value": "browse_by_title",
     "tip": "Browse an alphabetical list of titles for books, online journals, serials, media, etc (e.g. Nine stories; Tom Swift).",
     "disabled": "disabled",
