@@ -19,8 +19,6 @@ function SearchBox({ history, match, location }) {
   const [inputQuery, setInputQuery] = React.useState(query)
   const defaultField = fields[0].uid;
   const [field, setField] = React.useState(defaultField)
-  const isCatalog = activeDatastore.uid === 'mirlyn';
-  const isArticles = activeDatastore.uid === 'primo';
 
   function setOption(e) {
     window.dataLayer.push({
@@ -150,19 +148,7 @@ function SearchBox({ history, match, location }) {
                 }
               }}
             >
-              <React.Fragment>
-                <optgroup label={`Search by`}>
-                  {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
-                </optgroup>
-                {isCatalog && (
-                  <optgroup label={`Browse by [BETA]`}>
-                    <option value='browse_by_callnumber' key='browse_by_callnumber'>Browse by call number (LC and Dewey)</option>
-                    <option value='browse_by_author' key='browse_by_author' disabled>Browse by author (coming soon)</option>
-                    <option value='browse_by_subject' key='browse_by_subject' disabled>Browse by subject (coming soon)</option>
-                    <option value='browse_by_title' key='browse_by_title' disabled>Browse by title (coming soon)</option>
-                  </optgroup>
-                )}
-              </React.Fragment>
+              <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
             </select>
             <Icon
               icon="expand_more"
@@ -243,16 +229,47 @@ function SearchBox({ history, match, location }) {
             </Link>
           )}
         </div>
-        {(isCatalog || isArticles) &&
-          <SearchTip field={field} />
-        }
+        <SearchTip activeDatastore={activeDatastore} field={field} />
       </div>
     </form>
   )
 }
 
-function SearchTip ({field}) {
-  const selectOption = searchOptions.find((searchOption) => searchOption.value === field);
+function searchOptionsDatastores () {
+  const getAllSearchOptionsDatastores = searchOptions.map((searchOption) => searchOption.datastore).flat();
+  const availableSearchOptionsDatastores = [...new Set(getAllSearchOptionsDatastores)];
+  return availableSearchOptionsDatastores;
+}
+
+function SearchByOptions ({activeDatastore, fields}) {
+  if (searchOptionsDatastores().includes(activeDatastore.uid)) {
+    const getAllSearchOptions = searchOptions.filter((searchOption) => searchOption.datastore.includes(activeDatastore.uid));
+    const searchByOptions = getAllSearchOptions.filter((getSearchOption) => !getSearchOption.value.includes('browse_by'));
+    const browseByOptions = getAllSearchOptions.filter((getSearchOption) => getSearchOption.value.includes('browse_by'));
+    return (
+      <>
+        <optgroup label='Search by'>
+          {searchByOptions.map(searchByOption => <option value={searchByOption.value} key={searchByOption.value} disabled={searchByOption.disabled && searchByOption.disabled === 'disabled'}>{searchByOption.label}</option>)}
+        </optgroup>
+        {browseByOptions.length > 0 &&
+          <optgroup label='Browse by [BETA]'>
+            {browseByOptions.map(browseByOption => <option value={browseByOption.value} key={browseByOption.value} disabled={browseByOption.disabled && browseByOption.disabled === 'disabled'}>{browseByOption.label}</option>)}
+          </optgroup>
+        }
+      </>
+    );
+  }
+  return (
+    <optgroup label='Search by'>
+      {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
+    </optgroup>
+  );
+}
+
+function SearchTip ({activeDatastore, field}) {
+  // Check if current datastore is found in any of the search options
+  if (!searchOptionsDatastores().includes(activeDatastore.uid)) return (null);
+  const selectOption = searchOptions.find((searchOption) => searchOption.datastore.includes(activeDatastore.uid) && searchOption.value === field);
   // Check if option and tip exist
   if (selectOption === undefined || selectOption.tip === undefined) return (null);
   return (
