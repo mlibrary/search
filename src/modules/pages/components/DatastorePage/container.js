@@ -201,41 +201,39 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
       className="container container-medium flex-container"
       style={{ marginTop: "0.75rem" }}
     >
-      {!activeDatastore.isMultisearch ? (
-        <div className="side-container">
-          <details
-            className="small-screen-filter-details"
-            css={{
-              [`@media (min-width: 980px)`]: {
-                display: 'none'
-              }
-            }}
-          >
-            <summary className={summaryClassName}>
-              Filters
-              {hasActiveFilters ? ` (${activeFilterCount})` : null}
-            </summary>
-            <React.Fragment>
-              <InstitutionSelect />
-              <Filters />
-              <BrowseInfo datastore={activeDatastore} />
-            </React.Fragment>
-          </details>
-          <div
-            css={{
-              [`@media (max-width: 979px)`]: {
-                display: 'none'
-              }
-            }}
-          >
-            <React.Fragment>
-              <InstitutionSelect />
-              <Filters />
-              <BrowseInfo datastore={activeDatastore} />
-            </React.Fragment>
-          </div>
+      <div className="side-container">
+        <details
+          className="small-screen-filter-details"
+          css={{
+            [`@media (min-width: 980px)`]: {
+              display: 'none'
+            }
+          }}
+        >
+          <summary className={summaryClassName}>
+            Filters
+            {hasActiveFilters ? ` (${activeFilterCount})` : null}
+          </summary>
+          <React.Fragment>
+            <InstitutionSelect />
+            <Filters />
+            <BrowseInfo datastore={activeDatastore} />
+          </React.Fragment>
+        </details>
+        <div
+          css={{
+            [`@media (max-width: 979px)`]: {
+              display: 'none'
+            }
+          }}
+        >
+          <React.Fragment>
+            <InstitutionSelect />
+            <Filters />
+            <BrowseInfo datastore={activeDatastore} />
+          </React.Fragment>
         </div>
-      ) : null}
+      </div>
       <div className="results-container">
         <RecordList />
         <Pagination />
