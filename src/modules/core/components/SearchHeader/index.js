@@ -13,23 +13,13 @@ function SearchHeader(props) {
     encodeURIComponent(document.location.pathname + document.location.search);
   const logoutUrl =
     "https://weblogin.umich.edu/cgi-bin/logout?" + document.location;
-  const loginText = props.isAuthenticated ? "Log out" : "Log in";
-  const loginHref = props.isAuthenticated ? logoutUrl : loginUrl;
-  let navItems = [
+  const navItems = [
     { text: "Account", href: "https://account.lib.umich.edu/" },
     {
-      text: "My Favorites",
-      href: "https://apps.lib.umich.edu/my-account/favorites",
-    },
-    { text: loginText, href: loginHref },
+      text: `Log ${props.isAuthenticated ? 'out' : 'in'}`,
+      href: `${props.isAuthenticated ? logoutUrl : loginUrl}`
+    }
   ];
-
-  if (props.favoritesDisabled) {
-    navItems = [
-      { text: "Account", href: "https://apps.lib.umich.edu/my-account" },
-      { text: loginText, href: loginHref },
-    ];
-  }
 
   return (
     <m-website-header name="Search" variant="dark" to="/everything">
@@ -74,7 +64,6 @@ function mapStateToProps(state) {
     isAuthenticated: state.profile.status === "Logged in",
     datastore: state.datastores.active,
     search: state.search,
-    favoritesDisabled: state.favorites.disabled === true,
   };
 }
 
