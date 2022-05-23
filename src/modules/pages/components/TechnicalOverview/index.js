@@ -69,11 +69,6 @@ const TechnicalOverview = function NoMatch() {
               <li>Used to verify access to U-M only content</li>
             </ul>
           </li>
-          <li>Favorites
-            <ul>
-              <li>Drupal module for maintaining user information and saved items</li>
-            </ul>
-          </li>
           <li>getHoldings API
             <ul>
               <li>The Aleph APIs provided by ExLibris originally did not provide the functionality needed for the catalog, so over a decade ago we wrote our own API that reads the Aleph Oracle tables directly to provide holdings information. The API is a Perl CGI that returns its results as JSON encoded data.</li>
