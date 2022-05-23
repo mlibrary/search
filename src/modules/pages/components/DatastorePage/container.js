@@ -192,9 +192,10 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
   }
 
   const hasActiveFilters = activeFilterCount > 0;
-  const summaryClassName = hasActiveFilters
-    ? "small-screen-filter-summary small-screen-filter-summary--active-filters"
-    : "small-screen-filter-summary";
+  let summaryClassName = 'small-screen-filter-summary';
+  if (hasActiveFilters) {
+    summaryClassName += ' small-screen-filter-summary--active-filters';
+  }
 
   return (
     <div
