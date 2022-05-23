@@ -32,7 +32,6 @@ import {
   GoToList,
 } from "../../../lists";
 import { NoMatch } from "../../../pages";
-import { FavoriteRecord, FavoriteTags } from "../../../favorites";
 import ResourceAccess from "../../../resource-acccess";
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance();
@@ -186,15 +185,10 @@ class FullRecord extends React.Component {
                 })}
                 <RecommendedResource record={record} />
               </h1>
-
-              <FavoriteRecord record={record} datastore={datastoreUid} />
               <AddToListButton item={record} />
             </div>
-
-            <FavoriteTags record={record} datastore={datastoreUid} />
             <RecordDescription record={record} />
             <Zotero record={record} />
-
             <h2 className="full-record__record-info">Record info:</h2>
             <RecordMetadata record={record} />
             <HarmfulLanguage datastore={datastore.slug} />

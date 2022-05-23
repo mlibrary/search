@@ -2,13 +2,11 @@
 import { jsx } from "@emotion/core";
 import React from "react";
 import { Link } from "react-router-dom";
-
 import { TrimString, Icon } from "../../../core";
 import { RecommendedResource, RecordMetadata } from "../../../records";
 import { getDatastoreSlugByUid } from "../../../pride";
 import { getField, getFieldValue } from "../../utilities";
 import { AddToListButton, isInList } from "../../../lists";
-import { FavoriteRecord, FavoriteTags } from "../../../favorites";
 import Zotero from "../Zotero";
 import {
   COLORS,
@@ -107,10 +105,8 @@ class Record extends React.Component {
                 searchQuery={searchQuery}
               />
               <AddToListButton item={record} />
-              <FavoriteRecord record={record} datastore={datastoreUid} />
             </div>
             <Zotero record={record} />
-            <FavoriteTags record={record} datastore={datastoreUid} />
             <RecordMetadata record={record} />
           </div>
 

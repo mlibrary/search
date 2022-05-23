@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import EmailAction from '../EmailAction'
 import TextAction from '../TextAction'
 import FileAction from '../FileAction'
-import FavoriteAction from '../FavoriteAction'
 import PermalinkAction from '../PermalinkAction'
 import CitationAction from '../CitationAction'
 import { AuthenticationRequired } from '../../../profile'
@@ -41,12 +40,6 @@ class ActionsList extends Component {
         action: 'file',
         name: 'Export Citation (RIS)',
         icon: 'insert_drive_file'
-      },
-      {
-        uid: 'favorite',
-        action: 'favorite',
-        name: 'Favorite',
-        icon: 'star_border'
       },
       {
         uid: 'permalink',
@@ -110,14 +103,6 @@ class ActionsList extends Component {
               />
             </AuthenticationRequired>
           )}
-          {active.action === 'favorite' && (
-            <AuthenticationRequired>
-              <FavoriteAction
-                action={active}
-                {...this.props}
-              />
-            </AuthenticationRequired>
-          )}
           {active.action === 'permalink' && (
             <PermalinkAction
               action={active}
@@ -147,11 +132,7 @@ class ActionsList extends Component {
   }
 
   render() {
-    const {
-      active,
-      favoritesDisabled
-    } = this.props
-
+    const { active } = this.props
     const activeUid = active ? active.uid : null
 
     return (
@@ -159,9 +140,6 @@ class ActionsList extends Component {
         <div className="y-spacing">
           <ul className="lists-actions-list">
             {this.state.actions.map(action => {
-              if (action.uid === 'favorite' && favoritesDisabled) {
-                return null
-              }
               if (action.uid === 'permalink' && data.viewType !== 'Full') {
                 return null
               }
@@ -200,8 +178,7 @@ class ActionsList extends Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.profile,
-    favoritesDisabled: state.favorites.disabled === true
+    profile: state.profile
   };
 }
 

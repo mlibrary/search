@@ -9,14 +9,6 @@ class ActionStatusMessage extends Component {
       return null
     }
 
-    if (action.uid === 'favorite' && status.status === 'success') {
-      return (
-        <Alert type='success' className="u-margin-top-1">
-          <span>Item(s) successfully favorited.</span>
-        </Alert>
-      )
-    }
-
     switch (status.status_code) {
       case 'action.response.success':
         return (

@@ -1,39 +1,36 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
-import { connect } from "react-redux";
-import config from "../../../../config";
-import { ChooseAffiliation } from "../../../affiliation";
-import { MEDIA_QUERIES } from "../../../reusable/umich-lib-core-temp";
+import { jsx } from '@emotion/core';
+import { connect } from 'react-redux';
+import config from '../../../../config';
+import { ChooseAffiliation } from '../../../affiliation';
+import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
 
 function SearchHeader(props) {
   const loginRoot = config.loginUrl;
   const loginUrl =
     loginRoot +
-    "?dest=" +
+    '?dest=' +
     encodeURIComponent(document.location.pathname + document.location.search);
   const logoutUrl =
-    "https://weblogin.umich.edu/cgi-bin/logout?" + document.location;
-  const loginText = props.isAuthenticated ? "Log out" : "Log in";
-  const loginHref = props.isAuthenticated ? logoutUrl : loginUrl;
-  let navItems = [
-    { text: "Account", href: "https://account.lib.umich.edu/" },
+    'https://weblogin.umich.edu/cgi-bin/logout?' + document.location;
+  const navItems = [
     {
-      text: "My Favorites",
-      href: "https://apps.lib.umich.edu/my-account/favorites",
+      text: 'Account',
+      href: 'https://account.lib.umich.edu/'
     },
-    { text: loginText, href: loginHref },
+    {
+      text: 'My Favorites',
+      href: 'https://apps.lib.umich.edu/my-account/favorites',
+    },
+    {
+      text: `Log ${props.isAuthenticated ? 'out' : 'in'}`,
+      href: `${props.isAuthenticated ? logoutUrl : loginUrl}`
+    }
   ];
 
-  if (props.favoritesDisabled) {
-    navItems = [
-      { text: "Account", href: "https://apps.lib.umich.edu/my-account" },
-      { text: loginText, href: loginHref },
-    ];
-  }
-
   return (
-    <m-website-header name="Search" variant="dark" to="/everything">
-      <nav aria-label="utility" css={{
+    <m-website-header name='Search' variant='dark' to='/everything'>
+      <nav aria-label='utility' css={{
         gridTemplateColumns: 'repeat(4, auto)',
         alignItems: 'baseline',
         display: 'block',
@@ -71,10 +68,9 @@ function SearchHeader(props) {
 
 function mapStateToProps(state) {
   return {
-    isAuthenticated: state.profile.status === "Logged in",
+    isAuthenticated: state.profile.status === 'Logged in',
     datastore: state.datastores.active,
     search: state.search,
-    favoritesDisabled: state.favorites.disabled === true,
   };
 }
 

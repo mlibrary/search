@@ -17,7 +17,6 @@ import { specialistsReducer } from './modules/specialists'
 import { listsReducer } from './modules/lists'
 import { a11yReducer } from './modules/a11y'
 import { profileReducer } from './modules/profile'
-import { favoritesReducer } from './modules/favorites'
 import { affiliationReducer } from './modules/affiliation'
 
 import history from './history'
@@ -35,7 +34,6 @@ const rootReducer = combineReducers({
   lists: listsReducer,
   a11y: a11yReducer,
   profile: profileReducer,
-  favorites: favoritesReducer,
   affiliation: affiliationReducer
 })
 
