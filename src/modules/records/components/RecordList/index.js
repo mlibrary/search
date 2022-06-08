@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { withRouter } from 'react-router-dom'
 import Record from '../Record';
+import KeywordSwitch from '../KeywordSwitch';
 import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
 import { SearchResultsMessage } from "../../../search";
@@ -47,7 +48,7 @@ class RecordListContainer extends React.Component {
               <li>Check your spelling.</li>
               <li>Try more general keywords.</li>
               <li>Try different keywords that mean the same thing.</li>
-               <li>Try using <a href={`${datastore.slug}/advanced`} className="underline">Advanced Search</a> to construct a targeted query.</li>
+              <li>Try using <a href={`${datastore.slug}/advanced`} className="underline">Advanced Search</a> to construct a targeted query.</li>
               <li>Use <a href="https://www.lib.umich.edu/ask-librarian" className="underline">Ask a Librarian</a> and we will help you find what you're looking for.</li>
             </ul>
           </div>
@@ -94,16 +95,36 @@ class RecordListContainer extends React.Component {
         <div className="results-list results-list-border search-results" id="search-results">
           {(pageNumber === 1) ? (
             <SpecialistsWrapper position={3}>
-              {activeRecords.map((record, index) =>
-                <Record
-                  record={record}
-                  datastoreUid={datastoreUid}
-                  key={index}
-                  type='medium'
-                  searchQuery={searchQuery}
-                  institution={institution}
-                  list={list}/>
-              )}
+              {activeRecords.map((record, index) => {
+                const resultsPosition = activeRecords.length < 3 ? activeRecords.length - 1 : 2;
+                if(
+                  index === resultsPosition
+                ) {
+                  return (
+                    <div key={index + 'keyword-switch'}>
+                      <KeywordSwitch datastore={datastore} query={search.query} />
+                      <Record
+                        record={record}
+                        datastoreUid={datastoreUid}
+                        type='medium'
+                        searchQuery={searchQuery}
+                        institution={institution}
+                        list={list}/>
+                    </div>
+                  )
+                } else {
+                  return (
+                    <Record
+                      record={record}
+                      datastoreUid={datastoreUid}
+                      key={index}
+                      type='medium'
+                      searchQuery={searchQuery}
+                      institution={institution}
+                      list={list}/>
+                  )
+                }
+              })}
             </SpecialistsWrapper>
           ) : (
             <React.Fragment>
