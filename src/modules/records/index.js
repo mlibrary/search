@@ -13,6 +13,7 @@ import RecommendedResource from "./components/RecommendedResource";
 import RecordDescription from "./components/RecordDescription";
 import Zotero from "./components/Zotero";
 import RecordMetadata from "./components/RecordMetadata";
+import KeywordSwitch from "./components/KeywordSwitch";
 import recordsReducer from "./reducer";
 import {
   addRecords,
@@ -51,5 +52,6 @@ export {
   RecommendedResource,
   RecordDescription,
   Zotero,
-  RecordMetadata
+  RecordMetadata,
+  KeywordSwitch
 };
