@@ -88,9 +88,7 @@ class RecordListContainer extends React.Component {
             <SpecialistsWrapper position={3}>
               {activeRecords.map((record, index) => {
                 const resultsPosition = activeRecords.length < 3 ? activeRecords.length - 1 : 2;
-                if(
-                  index === resultsPosition
-                ) {
+                if (index === resultsPosition) {
                   return (
                     <div key={index + 'keyword-switch'}>
                       <KeywordSwitch datastore={datastore} query={search.query} />
@@ -103,18 +101,17 @@ class RecordListContainer extends React.Component {
                         list={list}/>
                     </div>
                   )
-                } else {
-                  return (
-                    <Record
-                      record={record}
-                      datastoreUid={datastoreUid}
-                      key={index}
-                      type='medium'
-                      searchQuery={searchQuery}
-                      institution={institution}
-                      list={list}/>
-                  )
                 }
+                return (
+                  <Record
+                    record={record}
+                    datastoreUid={datastoreUid}
+                    key={index}
+                    type='medium'
+                    searchQuery={searchQuery}
+                    institution={institution}
+                    list={list}/>
+                )
               })}
             </SpecialistsWrapper>
           ) : (
