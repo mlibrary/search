@@ -65,16 +65,7 @@ class RecordListContainer extends React.Component {
           </div>
           <GoToList list={list} datastore={datastore} />
           <section className="results-list results-list-border">
-            <RecordPlaceholder />
-            <RecordPlaceholder />
-            <RecordPlaceholder />
-            <RecordPlaceholder />
-            <RecordPlaceholder />
-            <RecordPlaceholder />
-            <RecordPlaceholder />
-            <RecordPlaceholder />
-            <RecordPlaceholder />
-            <RecordPlaceholder />
+            {[...Array(10)].map((elementInArray, index) => <RecordPlaceholder key={index} />)}
           </section>
         </div>
       )

@@ -148,9 +148,7 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
   if (bentobox.records.length === 0) {
     return (
       <div className="results-list results-list-border">
-        <RecordPreviewPlaceholder />
-        <RecordPreviewPlaceholder />
-        <RecordPreviewPlaceholder />
+        {[...Array(3)].map((elementInArray, index) => <RecordPreviewPlaceholder key={index} />)}
       </div>
     )
   }
