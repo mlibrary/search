@@ -7,6 +7,7 @@ import { Icon } from '../../../core'
 import { getMultiSearchRecords } from '../../../pride'
 import RecordPreview from '../RecordPreview'
 import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder'
+import KeywordSwitch from '../KeywordSwitch'
 
 
 import {
@@ -139,6 +140,11 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
 
   // No results
   if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
+    if (bentobox.uid ==='primo') {
+      return (
+        <KeywordSwitch datastore={bentobox} query={search.query} />
+      )
+    }
     return (
       <BentoboxNoResults bentobox={bentobox} />
     )
@@ -157,6 +163,19 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
   return (
     <div className="results-list results-list-border">
       {bentobox.records.map((record, index) => {
+        if (index === 0) {
+          return (
+            <div key={index + 'keyword-switch'}>
+              <KeywordSwitch datastore={bentobox} query={search.query} />
+              <RecordPreview
+                key={index}
+                datastoreUid={bentobox.uid}
+                record={record}
+                searchQuery={searchQuery}
+              />
+            </div>
+          )
+        }
         return (
           <RecordPreview
             key={index}
