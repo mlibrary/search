@@ -39,9 +39,9 @@
   },
   "scripts": {
     "reinstall": "rm -rf node_modules && npm install",
-    "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} react-scripts --openssl-legacy-provider start",
+    "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} react-scripts start",
     "develop": "npm run start",
-    "build": "react-scripts --openssl-legacy-provider build",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
