@@ -1051,6 +1051,14 @@ body {
     width: 0.85rem;
     color: #4E4E4E; }
 
+.vernacular {
+  color: #6e6e6e;
+}
+
+.vernacular-record-title {
+  display: block;
+}
+
 .record-title-link {
   border-bottom: solid 2px rgba(18, 109, 193, 0.4); }
   .record-title-link:hover {
@@ -2257,8 +2265,6 @@ input.get-this-field-input-year {
 
 .record-container {
   position: relative; }
-  .record-container .record-title {
-    margin-right: 2.25rem; }
 
 .record--highlight {
   outline: solid 2px rgba(18, 109, 193, 0.6); }
@@ -2282,14 +2288,6 @@ input.get-this-field-input-year {
     display: flex;
     justify-content: space-between;
     align-items: baseline; } }
-
-.favorite-button {
-  white-space: nowrap; }
-  .favorite-button .icon {
-    width: 1.1rem;
-    height: 1.1rem;
-    margin-right: 0.25rem;
-    margin-bottom: -0.1rem; }
 
 .lists-link-container {
   outline: solid 2px rgba(18, 109, 193, 0.6);
@@ -2586,44 +2584,6 @@ input.get-this-field-input-year {
 
 .x-spacing > *:not(:last-child) {
   margin-right: 1rem; }
-
-.favorites-authentication {
-  display: flex;
-  white-space: nowrap; }
-
-.favorite-icon {
-  margin-right: 0.25rem;
-  margin-bottom: -2px;
-  width: 1.2rem;
-  height: 1.2rem; }
-
-.favorite-tags-label {
-  margin-right: 0.5rem;
-  font-weight: 600; }
-
-.favorite-tags {
-  display: inline-block;
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-  .favorite-tags li {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem; }
-
-.favorites-add-tag svg {
-  width: 0.6rem;
-  margin-bottom: -2px;
-  margin-right: 0.25rem; }
-
-.favorite__add-tag-modal {
-  border-radius: 4px;
-  background: white;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
-  padding: 1rem;
-  border: solid 1px #CCC; }
 
 .add-tag-heading {
   display: block;

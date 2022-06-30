@@ -27,7 +27,7 @@ import {
   NoMatch,
   DatastorePage,
   AccessibilityPage,
-  TechnicalOverview
+  AboutLibrarySearch
 } from './modules/pages'
 import store from './store'
 import history from './history'
@@ -82,7 +82,10 @@ class App extends React.Component {
                         pathname: location.pathname.replace(/librarywebsite/, 'guidesandmore'),
                     }} />
                   )} />
-                  <Route path="/technical-overview" exact component={TechnicalOverview}/>
+                  <Route path="/about-library-search" exact component={AboutLibrarySearch}/>
+                  <Route path="/technical-overview" exact render={() => (
+                    <Redirect to={`/about-library-search`} />
+                  )}/>
                   <Route path="/accessibility" exact component={AccessibilityPage}/>
                   <Route path="/" exact render={() => (
                     <Redirect to={`/everything`} />

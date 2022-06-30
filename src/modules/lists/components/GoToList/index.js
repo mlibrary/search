@@ -23,7 +23,7 @@ class GoToList extends Component {
             className="lists-link"
           >
             <div className="list-info">
-              <p className="lists-content">Go to <span className="underline">My Temporary {datastore.name} List</span> to email, text, and export citations, or to save items to your favorites.</p>
+              <p className="lists-content">Go to <span className="underline">My Temporary {datastore.name} List</span> to email, text, and export citations.</p>
             </div>
             <p className="lists-count-tag"><b>{listLength}</b> in list</p>
           </Link>

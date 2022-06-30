@@ -1,10 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from "react";
+import React from "react";
 import Holding from "./holding";
 import { COLORS, SPACING } from "../../reusable/umich-lib-core-temp";
 import {
-  Icon,
-  Button,
   Expandable,
   ExpandableProvider,
   ExpandableChildren,
@@ -43,14 +41,27 @@ export default function Holder({
             css={{
               color: COLORS.neutral["400"],
               display: "inline-block",
-              paddingBottom: SPACING["S"],
             }}
           >
             {captionLink.text}
           </a>
         </p>
       )}
-      <Notes notes={notes} />
+      {notes && (
+        <ul>
+          {notes.map((note, i) => (
+            <li
+              key={note + i}
+              css={{
+                paddingBottom: SPACING["XS"],
+                color: COLORS.neutral["300"],
+              }}
+            >
+              {note}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {rows && (
         <Expandable>
@@ -95,53 +106,6 @@ export default function Holder({
         </Expandable>
       )}
     </div>
-  );
-}
-
-function Notes({ notes }) {
-  const [expanded, setExpanded] = useState(true);
-
-  if (!notes) {
-    return null;
-  }
-
-  return (
-    <React.Fragment>
-      <Button
-        kind="secondary"
-        small
-        aria-expanded={expanded}
-        onClick={() => setExpanded(!expanded)}
-        css={{
-          display: "flex",
-          alignItems: "center",
-          marginBottom: SPACING["S"],
-        }}
-      >
-        <span css={{ paddingRight: "0.25rem" }}>Location has:</span>
-        {expanded ? (
-          <Icon d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" size={19} />
-        ) : (
-          <Icon d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" size={19} />
-        )}
-      </Button>
-
-      {expanded && (
-        <ul>
-          {notes.map((note, i) => (
-            <li
-              key={note + i}
-              css={{
-                paddingBottom: SPACING["XS"],
-                color: COLORS.neutral["300"],
-              }}
-            >
-              {note}
-            </li>
-          ))}
-        </ul>
-      )}
-    </React.Fragment>
   );
 }
 
