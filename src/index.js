@@ -3,7 +3,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import {
   connect,
   Provider
@@ -41,7 +41,6 @@ import {
   A11yLiveMessage
 } from './modules/a11y'
 import {
-  GAListener,
   handleGAClick
 } from './modules/analytics'
 import ReactGA from 'react-ga'
@@ -73,46 +72,44 @@ class App extends React.Component {
         <div className="site-wrapper" onClick={handleGAClick}>
           <A11yLiveMessage />
           <ConnectedRouter history={history}>
-            <GAListener>
-              <ScrollToTop>
-                <Main>
-                  <ConnectedSwitch>
-                    <Route path="/librarywebsite" render={({location}) => (
-                      <Redirect 
-                      to={{
-                          ...location,
-                          pathname: location.pathname.replace(/librarywebsite/, 'guidesandmore'),
-                      }} />
-                    )} />
-                    <Route path="/about-library-search" exact component={AboutLibrarySearch}/>
-                    <Route path="/technical-overview" exact render={() => (
-                      <Redirect to={`/about-library-search`} />
-                    )}/>
-                    <Route path="/accessibility" exact component={AccessibilityPage}/>
-                    <Route path="/" exact render={() => (
-                      <Redirect to={`/everything`} />
-                    )}/>
-                    <Route path={`/:datastoreSlug`} render={(props) => {
-                      const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
-                      const urlState = getStateFromURL({
-                        location: props.location
-                      })
+            <ScrollToTop>
+              <Main>
+                <ConnectedSwitch>
+                  <Route path="/librarywebsite" render={({location}) => (
+                    <Redirect 
+                    to={{
+                        ...location,
+                        pathname: location.pathname.replace(/librarywebsite/, 'guidesandmore'),
+                    }} />
+                  )} />
+                  <Route path="/about-library-search" exact component={AboutLibrarySearch}/>
+                  <Route path="/technical-overview" exact render={() => (
+                    <Redirect to={`/about-library-search`} />
+                  )}/>
+                  <Route path="/accessibility" exact component={AccessibilityPage}/>
+                  <Route path="/" exact render={() => (
+                    <Redirect to={`/everything`} />
+                  )}/>
+                  <Route path={`/:datastoreSlug`} render={(props) => {
+                    const isDatastore = isSlugADatastore(props.match.params.datastoreSlug)
+                    const urlState = getStateFromURL({
+                      location: props.location
+                    })
 
-                      return (
-                        isDatastore && urlState ? (
-                          <URLSearchQueryWrapper>
-                            <DatastorePage {...props} />
-                          </URLSearchQueryWrapper>
-                        ) : (
-                          <NoMatch />
-                        )
+                    return (
+                      isDatastore && urlState ? (
+                        <URLSearchQueryWrapper>
+                          <DatastorePage {...props} />
+                        </URLSearchQueryWrapper>
+                      ) : (
+                        <NoMatch />
                       )
-                    }}/>
-                    <Route component={NoMatch} />
-                  </ConnectedSwitch>
-                </Main>
-              </ScrollToTop>
-            </GAListener>
+                    )
+                  }}/>
+                  <Route component={NoMatch} />
+                </ConnectedSwitch>
+              </Main>
+            </ScrollToTop>
           </ConnectedRouter>
         </div>
       </Provider>
@@ -121,19 +118,17 @@ class App extends React.Component {
 }
 
 const renderApp = () => {
-  ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-  )
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(<App />);
 }
 
 const renderPrideFailedToLoad = () => {
-  ReactDOM.render(
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(
     <Alert type="error">
       U-M Library Search is not available. We will fix this issue as soon as we can.
-    </Alert>,
-    document.getElementById('root')
-  )
+    </Alert>
+  );
 }
 
 initializePride()

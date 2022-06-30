@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx, Global } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { Global } from "@emotion/react";
 import React from 'react'
 import { MEDIA_QUERIES, SEARCH_COLORS } from "../../../reusable/umich-lib-core-temp";
 import { Icon, Button } from "../../../reusable";

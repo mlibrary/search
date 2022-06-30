@@ -1,10 +1,9 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
-import { Component } from 'react';
+/** @jsxImportSource @emotion/react */
+import React from 'react';
 import { Modal, Button } from '../../../reusable'
 import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
 
-class CitationAction extends Component {
+class CitationAction extends React.Component {
   state = {
     modalIsOpen: false,
     copied: false,
