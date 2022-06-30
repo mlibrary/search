@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
-import Holding from "./holding";
-import { COLORS, SPACING } from "../../reusable/umich-lib-core-temp";
+import React from 'react';
+import Holding from './holding';
+import { COLORS, SPACING } from '../../reusable/umich-lib-core-temp';
 import {
   Expandable,
   ExpandableProvider,
