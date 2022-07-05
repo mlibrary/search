@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import { jsx, Global } from "@emotion/core";
-import React from 'react'
+import React from 'react';
 import { MEDIA_QUERIES, SEARCH_COLORS } from "../../../reusable/umich-lib-core-temp";
 import { Icon, Button } from "../../../reusable";
 import { useSelector } from "react-redux";
 import qs from "qs";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import searchOptions from "../../search-options";
+import SearchByOptions from "../SearchByOptions";
+import SearchTip from "../SearchTip";
 
 function SearchBox({ history, match, location }) {
   const { query } = useSelector((state) => state.search);
@@ -235,71 +236,4 @@ function SearchBox({ history, match, location }) {
   )
 }
 
-function searchOptionsDatastores () {
-  const getAllSearchOptionsDatastores = searchOptions.map((searchOption) => searchOption.datastore).flat();
-  const availableSearchOptionsDatastores = [...new Set(getAllSearchOptionsDatastores)];
-  return availableSearchOptionsDatastores;
-}
-
-function SearchByOptions ({activeDatastore, fields}) {
-  if (searchOptionsDatastores().includes(activeDatastore.uid)) {
-    const getAllSearchOptions = searchOptions.filter((searchOption) => searchOption.datastore.includes(activeDatastore.uid));
-    const searchByOptions = getAllSearchOptions.filter((getSearchOption) => !getSearchOption.value.includes('browse_by'));
-    const browseByOptions = getAllSearchOptions.filter((getSearchOption) => getSearchOption.value.includes('browse_by'));
-    return (
-      <>
-        <optgroup label='Search by'>
-          {searchByOptions.map(searchByOption => <option value={searchByOption.value} key={searchByOption.value} disabled={searchByOption.disabled && searchByOption.disabled === 'disabled'}>{searchByOption.label}</option>)}
-        </optgroup>
-        {browseByOptions.length > 0 &&
-          <optgroup label='Browse by [BETA]'>
-            {browseByOptions.map(browseByOption => <option value={browseByOption.value} key={browseByOption.value} disabled={browseByOption.disabled && browseByOption.disabled === 'disabled'}>{browseByOption.label}</option>)}
-          </optgroup>
-        }
-      </>
-    );
-  }
-  return (
-    <optgroup label='Search by'>
-      {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
-    </optgroup>
-  );
-}
-
-function SearchTip ({activeDatastore, field}) {
-  // Check if current datastore is found in any of the search options
-  if (!searchOptionsDatastores().includes(activeDatastore.uid)) return (null);
-  const selectOption = searchOptions.find((searchOption) => searchOption.datastore.includes(activeDatastore.uid) && searchOption.value === field);
-  // Check if option and tip exist
-  if (selectOption === undefined || selectOption.tip === undefined) return (null);
-  return (
-    <div
-      css={{
-        alignItems: 'flex-start',
-        display: 'flex',
-        gap: '12px',
-        marginTop: '0.75rem',
-        width: '100%'
-      }}
-    >
-      <Icon
-        d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"
-        css={{
-          flexShrink: '0',
-          paddingTop: '4px',
-          height: 'auto'
-        }}
-      />
-      <p
-        css={{
-          margin: '0'
-        }}
-      >
-        <span css={{fontWeight: 'bold'}}>{field.includes('browse_by') ? 'Browse' : 'Search'} Tip: </span>
-        <span dangerouslySetInnerHTML={{__html: selectOption.tip}} />
-      </p>
-    </div>
-  );
-}
-
-export default withRouter(SearchBox)
+export default withRouter(SearchBox);
