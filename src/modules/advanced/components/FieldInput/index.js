@@ -11,34 +11,6 @@ const StyledFieldSet = styled("fieldset")({
   },
 });
 
-const Dropdown = ({
-  labelText,
-  fieldedSearchIndex,
-  options,
-  selectedOption,
-  handleOnFieldChange,
-  multiple,
-}) => (
-  <select
-    aria-label={labelText ? labelText : "dropdown"}
-    className="dropdown advanced-field-select"
-    value={selectedOption}
-    multiple={multiple ? multiple : false}
-    onChange={(event) =>
-      handleOnFieldChange({
-        fieldedSearchIndex,
-        selectedFieldUid: event.target.value,
-      })
-    }
-  >
-    {options.map((option, index) => (
-      <option value={option.uid} key={index}>
-        {option.name}
-      </option>
-    ))}
-  </select>
-);
-
 const FieldInput = ({
   fieldedSearchIndex,
   fieldedSearch,
@@ -65,13 +37,23 @@ const FieldInput = ({
       />
     )}
     <div className="advanced-input-container">
-      <Dropdown
-        labelText={`Selected field ${fieldedSearchIndex + 1}`}
-        options={fields}
-        selectedOption={fieldedSearch.field}
-        fieldedSearchIndex={fieldedSearchIndex}
-        handleOnFieldChange={handleFieldedSearchChange}
-      />
+      <select
+        aria-label={`Selected field ${fieldedSearchIndex + 1}`}
+        className="dropdown advanced-field-select"
+        value={fieldedSearch.field}
+        onChange={(event) =>
+          handleFieldedSearchChange({
+            fieldedSearchIndex,
+            selectedFieldUid: event.target.value,
+          })
+        }
+      >
+        {fields.map((option, index) => (
+          <option value={option.uid} key={index}>
+            {option.name}
+          </option>
+        ))}
+      </select>
       <div className="advanced-input-remove-container">
         <div
           css={{
