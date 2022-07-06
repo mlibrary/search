@@ -196,7 +196,7 @@ function SearchBox({ history, match, location }) {
               minWidth: '44px',
               padding: '0.5rem 0.75rem'
             }}
-            onClick={handleSubmitSearch}
+            type='submit'
           >
             <Icon icon="search" size={24} />
             <span css={{

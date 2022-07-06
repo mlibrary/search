@@ -1,7 +1,7 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
-import Icon from "../../../reusable/components/Icon";
-import { SPACING } from "../../../reusable/umich-lib-core-temp";
+/** @jsxImportSource @emotion/react */
+import React from 'react';
+import Icon from '../../../reusable/components/Icon';
+import { SPACING } from '../../../reusable/umich-lib-core-temp';
 
 export default function RecordFullFormats({ formats }) {
 

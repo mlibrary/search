@@ -1,20 +1,19 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
-import React from 'react'
-import { connect } from 'react-redux'
-import _ from 'underscore'
+/** @jsxImportSource @emotion/react */
+import React from 'react';
+import { connect } from 'react-redux';
+import _ from 'underscore';
 import {
   Link
 } from 'react-router-dom';
-import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
+import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
 import {
   Breadcrumb,
   Tabs,
   TabList,
   TabPanel,
   Tab
-} from '../../../reusable'
-import AdvancedSearchForm from '../AdvancedSearchForm'
+} from '../../../reusable';
+import AdvancedSearchForm from '../AdvancedSearchForm';
 
 /*
 Structure of the AdvancedSearch components:
