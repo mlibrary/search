@@ -121,7 +121,15 @@ const searchOptionsDatastores = () => {
   return availableSearchOptionsDatastores;
 }
 
+const filterOptions = (fields, browse = false) => {
+  if (browse) {
+    return fields.filter((field) => field.uid.includes('browse_by'));
+  }
+  return fields.filter((field) => !field.uid.includes('browse_by'));
+}
+
 export {
   searchOptions,
-  searchOptionsDatastores
+  searchOptionsDatastores,
+  filterOptions
 };
