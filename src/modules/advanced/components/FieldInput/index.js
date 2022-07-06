@@ -4,6 +4,7 @@ import { MEDIA_QUERIES } from "../../../reusable/umich-lib-core-temp";
 import Icon from "../../../reusable/components/Icon";
 import { MultipleChoice } from "../../../core";
 import styled from "@emotion/styled";
+import SearchByOptions from "../../../search/components/SearchByOptions";
 
 const StyledFieldSet = styled("fieldset")({
   [MEDIA_QUERIES.LARGESCREEN]: {
@@ -17,6 +18,7 @@ const FieldInput = ({
   fields,
   handleFieldedSearchChange,
   handleRemoveFieldedSearch,
+  activeDatastore
 }) => (
   <StyledFieldSet className="y-spacing">
     <legend className="offpage">Search field {fieldedSearchIndex + 1}</legend>
@@ -48,11 +50,7 @@ const FieldInput = ({
           })
         }
       >
-        {fields.map((option, index) => (
-          <option value={option.uid} key={index}>
-            {option.name}
-          </option>
-        ))}
+        <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
       </select>
       <div className="advanced-input-remove-container">
         <div
