@@ -1,28 +1,42 @@
 import React from 'react';
-import { searchOptions, searchOptionsDatastores } from '../../utilities';
+import { searchOptions, searchOptionsDatastores, filterOptions } from '../../utilities';
+
+const listOptions = (options) => {
+  return options.map((option) => {
+    // Set template for the `option` element
+    return (
+      <option
+        value={option.uid}
+        key={option.uid}
+        disabled={option.disabled && option.disabled === 'disabled'}
+      >
+        {option.name}
+      </option>
+    );
+  });
+};
 
 const SearchByOptions = ({activeDatastore, fields}) => {
+  let setFields = fields;
+  // Override fields if custom options exist for current datastore
   if (searchOptionsDatastores().includes(activeDatastore.uid)) {
-    const getAllSearchOptions = searchOptions().filter((searchOption) => searchOption.datastore.includes(activeDatastore.uid));
-    const searchByOptions = getAllSearchOptions.filter((getSearchOption) => !getSearchOption.value.includes('browse_by'));
-    const browseByOptions = getAllSearchOptions.filter((getSearchOption) => getSearchOption.value.includes('browse_by'));
-    return (
-      <>
-        <optgroup label='Search by'>
-          {searchByOptions.map(searchByOption => <option value={searchByOption.value} key={searchByOption.value} disabled={searchByOption.disabled && searchByOption.disabled === 'disabled'}>{searchByOption.label}</option>)}
-        </optgroup>
-        {browseByOptions.length > 0 &&
-          <optgroup label='Browse by [BETA]'>
-            {browseByOptions.map(browseByOption => <option value={browseByOption.value} key={browseByOption.value} disabled={browseByOption.disabled && browseByOption.disabled === 'disabled'}>{browseByOption.label}</option>)}
-          </optgroup>
-        }
-      </>
-    );
+    setFields = searchOptions().filter((searchOption) => searchOption.datastore.includes(activeDatastore.uid));
+  }
+  const searchByOptions = filterOptions(setFields);
+  const browseByOptions = filterOptions(setFields, true);
+  // Return only search options if browse options do not exist or in advanced search
+  if (browseByOptions.length === 0 || window.location.pathname.split('/').pop() === 'advanced') {
+    return listOptions(searchByOptions);
   }
   return (
-    <optgroup label='Search by'>
-      {fields.map(field => <option value={field.uid} key={field.uid}>{field.name}</option>)}
-    </optgroup>
+    <>
+      <optgroup label='Search by'>
+        {listOptions(searchByOptions)}
+      </optgroup>
+      <optgroup label='Browse by [BETA]'>
+        {listOptions(browseByOptions)}
+      </optgroup>
+    </>
   );
 }
 
