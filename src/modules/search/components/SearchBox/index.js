@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx, Global } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import { Global } from "@emotion/react";
 import React from 'react'
 import { MEDIA_QUERIES, SEARCH_COLORS } from "../../../reusable/umich-lib-core-temp";
 import { Icon, Button } from "../../../reusable";
@@ -195,7 +195,7 @@ function SearchBox({ history, match, location }) {
               minWidth: '44px',
               padding: '0.5rem 0.75rem'
             }}
-            onClick={handleSubmitSearch}
+            type='submit'
           >
             <Icon icon="search" size={24} />
             <span css={{

@@ -1,5 +1,5 @@
 import React from "react";
-import { Global, css } from "@emotion/core";
+import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const SPACING = {
@@ -197,10 +197,10 @@ export const LINK_COLOR = COLORS.teal[400];
 export const FONT_COLOR = COLORS.blue[500];
 
 export const INTENT_COLORS = {
-  informational: COLORS.blue[400],
+  informational: SEARCH_COLORS.blue[400],
   success: SEARCH_COLORS.green[600],
-  warning: COLORS.maize[400],
-  error: SEARCH_COLORS.orange[400]
+  warning: SEARCH_COLORS.orange[600],
+  error: SEARCH_COLORS.red[600]
 };
 
 export function GlobalStyleSheet() {

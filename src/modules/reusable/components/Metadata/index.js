@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
 // eslint-disable-next-line
 import React from "react";
 import { Link } from "react-router-dom";
