@@ -162,6 +162,7 @@ class AdvancedSearchForm extends React.Component {
             handleRemoveFieldedSearch={() =>
               this.handleRemoveFieldedSearch({ removeIndex: i })
             }
+            activeDatastore={datastore}
           />
         ))}
         <div
