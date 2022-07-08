@@ -11,7 +11,14 @@ class KeywordSwitch extends React.Component {
 
     const querySearch = containsKeyword? query.slice(10, -1) : `contains:(${query})`;
     const linkURL = `${datastore.slug}?query=${querySearch}`;
-    const linkText = containsKeyword ? 'Try an exact phrase Articles search.' : 'Try an Articles search that contains these terms.';
+    const briefView = window.location.pathname.split('/').pop() === 'everything';
+    const descriptionText = !briefView && containsKeyword ? 'Seeing less precise results than you expected?' : 'Not seeing the results you expected?';
+    const linkText = () => {
+      if (containsKeyword) {
+        return briefView ? 'Try an exact phrase Articles search.' : 'Try your search as an exact phrase search.';
+      }
+      return briefView ? 'Try an Articles search that contains these terms.' : 'Broaden your search to include items that contain these terms and related words.';
+    }
 
     return (
       <div className='keyword-switch'>
@@ -19,7 +26,7 @@ class KeywordSwitch extends React.Component {
           d='M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z'
           size={24}
         />
-        <p>Not seeing the results you expected?</p>
+        <p>{descriptionText}</p>
         <p>
           <a
             href={linkURL}
@@ -27,7 +34,7 @@ class KeywordSwitch extends React.Component {
               textDecoration: 'underline'
             }}
           >
-            {linkText}
+            {linkText()}
           </a>
         </p>
       </div>
