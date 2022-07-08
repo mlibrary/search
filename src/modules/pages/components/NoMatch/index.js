@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
+import React from 'react';
 import { Link } from 'react-router-dom'
 import { setDocumentTitle } from '../../../a11y'
 

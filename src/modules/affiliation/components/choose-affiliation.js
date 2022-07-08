@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";

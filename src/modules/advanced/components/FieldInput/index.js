@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
+/** @jsxImportSource @emotion/react */
 import { MEDIA_QUERIES } from "../../../reusable/umich-lib-core-temp";
 import Icon from "../../../reusable/components/Icon";
 import { MultipleChoice } from "../../../core";

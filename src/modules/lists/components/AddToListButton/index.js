@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { Component } from 'react';
+/** @jsxImportSource @emotion/react */
+import React from 'react';
 import { connect } from 'react-redux'
 import _ from 'underscore';
 import {
@@ -18,7 +17,7 @@ import {
 } from '../../../reusable/umich-lib-core-temp'
 import prejudice from '../../prejudice'
 
-class AddToListButton extends Component {
+class AddToListButton extends React.Component {
   state = {
     waitingToBeAddedToList: false
   }
