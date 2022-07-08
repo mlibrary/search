@@ -1,6 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Icon } from '../../../reusable';
+import {
+  COLORS
+} from '../../../reusable/umich-lib-core-temp'
 
 class KeywordSwitch extends React.Component {
   render() {
@@ -21,22 +24,50 @@ class KeywordSwitch extends React.Component {
     }
 
     return (
-      <div className='keyword-switch'>
-        <Icon
-          d='M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z'
-          size={24}
-        />
-        <p>{descriptionText}</p>
-        <p>
-          <a
-            href={linkURL}
+      <div
+        className={`keyword-switch ${briefView ? 'record-preview' : 'record'}`}
+        css={{
+          borderLeft: `4px solid ${COLORS.maize[400]}`
+        }}
+      >
+        <div
+          className={`keyword-switch ${!briefView  && 'record-container'}`}
+          css={{
+            position: 'relative'
+          }}
+        >
+          <Icon
+            d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'
+            size={24}
             css={{
-              textDecoration: 'underline'
+              color: `${COLORS.maize[500]}`,
+              position: 'absolute'
+            }}
+          />
+          <p
+            className='no-margin'
+            css={{
+              paddingLeft: '36px'
             }}
           >
-            {linkText()}
-          </a>
-        </p>
+            {descriptionText}
+          </p>
+          <p
+            className='u-margin-bottom-none'
+            css={{
+              paddingLeft: '36px'
+            }}
+          >
+            <a
+              href={linkURL}
+              css={{
+                textDecoration: 'underline'
+              }}
+            >
+              {linkText()}
+            </a>
+          </p>
+        </div>
       </div>
     );
   }
