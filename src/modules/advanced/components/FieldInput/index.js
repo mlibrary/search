@@ -3,6 +3,7 @@ import { MEDIA_QUERIES } from "../../../reusable/umich-lib-core-temp";
 import Icon from "../../../reusable/components/Icon";
 import { MultipleChoice } from "../../../core";
 import styled from "@emotion/styled";
+import SearchByOptions from "../../../search/components/SearchByOptions";
 
 const StyledFieldSet = styled("fieldset")({
   [MEDIA_QUERIES.LARGESCREEN]: {
@@ -10,40 +11,13 @@ const StyledFieldSet = styled("fieldset")({
   },
 });
 
-const Dropdown = ({
-  labelText,
-  fieldedSearchIndex,
-  options,
-  selectedOption,
-  handleOnFieldChange,
-  multiple,
-}) => (
-  <select
-    aria-label={labelText ? labelText : "dropdown"}
-    className="dropdown advanced-field-select"
-    value={selectedOption}
-    multiple={multiple ? multiple : false}
-    onChange={(event) =>
-      handleOnFieldChange({
-        fieldedSearchIndex,
-        selectedFieldUid: event.target.value,
-      })
-    }
-  >
-    {options.map((option, index) => (
-      <option value={option.uid} key={index}>
-        {option.name}
-      </option>
-    ))}
-  </select>
-);
-
 const FieldInput = ({
   fieldedSearchIndex,
   fieldedSearch,
   fields,
   handleFieldedSearchChange,
   handleRemoveFieldedSearch,
+  activeDatastore
 }) => (
   <StyledFieldSet className="y-spacing">
     <legend className="offpage">Search field {fieldedSearchIndex + 1}</legend>
@@ -64,13 +38,19 @@ const FieldInput = ({
       />
     )}
     <div className="advanced-input-container">
-      <Dropdown
-        labelText={`Selected field ${fieldedSearchIndex + 1}`}
-        options={fields}
-        selectedOption={fieldedSearch.field}
-        fieldedSearchIndex={fieldedSearchIndex}
-        handleOnFieldChange={handleFieldedSearchChange}
-      />
+      <select
+        aria-label={`Selected field ${fieldedSearchIndex + 1}`}
+        className="dropdown advanced-field-select"
+        value={fieldedSearch.field}
+        onChange={(event) =>
+          handleFieldedSearchChange({
+            fieldedSearchIndex,
+            selectedFieldUid: event.target.value,
+          })
+        }
+      >
+        <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
+      </select>
       <div className="advanced-input-remove-container">
         <div
           css={{
