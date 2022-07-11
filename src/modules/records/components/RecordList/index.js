@@ -41,6 +41,8 @@ class RecordListContainer extends React.Component {
             <h2 className="results-summary" aria-live="polite"><b>No results</b> match your search: <span style={{fontWeight: 600}}>{search.query}</span></h2>
           </div>
 
+          <KeywordSwitch datastore={datastore} query={search.query} />
+
           <div className="no-results-suggestions">
             <h2 className="heading-small" style={{ marginTop: '0' }}>Other suggestions</h2>
             <ul style={{ marginBottom: 0 }}>
