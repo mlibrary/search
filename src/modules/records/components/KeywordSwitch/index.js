@@ -53,7 +53,7 @@ class KeywordSwitch extends React.Component {
             {descriptionText}
           </p>
           <p
-            className='u-margin-bottom-none'
+            className='no-margin'
             css={{
               paddingLeft: '36px'
             }}
