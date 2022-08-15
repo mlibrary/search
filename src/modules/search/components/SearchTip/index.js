@@ -5,7 +5,7 @@ import { searchOptions, searchOptionsDatastores } from '../../utilities';
 const SearchTip = ({activeDatastore, field}) => {
   // Check if current datastore is found in any of the search options
   if (!searchOptionsDatastores().includes(activeDatastore.uid)) return (null);
-  const selectOption = searchOptions().find((searchOption) => searchOption.datastore.includes(activeDatastore.uid) && searchOption.value === field);
+  const selectOption = searchOptions().find((searchOption) => searchOption.datastore.includes(activeDatastore.uid) && searchOption.uid === field);
   // Check if option and tip exist
   if (selectOption === undefined || selectOption.tip === undefined) return (null);
   return (
