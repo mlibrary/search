@@ -29,14 +29,14 @@ function SearchBox({ history, match, location }) {
     let getInput = query;
     // Check if the query is a fielded search
     if(query.includes(':(')) {
-      // Get current search field uid
-      const currentQuery = inputQuery.slice(0, inputQuery.indexOf(':'));
+      // Get current search field uid from query
+      const currentQuery = query.slice(0, query.indexOf(':'));
       // Check if current query exists in active datastore's field options
       if (fields.map(field => field.uid).includes(currentQuery)) {
         // Update field to current query
         getField = currentQuery;
         // Remove field wrap from input value
-        getInput = inputQuery.slice((inputQuery.indexOf('(') + 1), -1);
+        getInput = query.slice((query.indexOf('(') + 1), -1);
       }
     }
     // Set field value
