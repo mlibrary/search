@@ -21,14 +21,14 @@ function SearchBox({ history, match, location }) {
   const defaultField = fields[0].uid;
   const [field, setField] = React.useState(defaultField);
 
-  // Set field and input when `activeDatastore` changes
+  // Set field and input when `activeDatastore` or `query` changes
   React.useEffect(() => {
     // Set default value of field
     let getField = defaultField;
     // Set default value of input
     let getInput = query;
-    // Check if the query is a fielded search
-    if(query.includes(':(')) {
+    // Check if the query is a single fielded search
+    if(query.includes(':(') && ![' AND ', ' OR ', ' NOT '].some((boolean) => query.includes(boolean))) {
       // Get current search field uid from query
       const currentQuery = query.slice(0, query.indexOf(':'));
       // Check if current query exists in active datastore's field options
@@ -43,7 +43,7 @@ function SearchBox({ history, match, location }) {
     setField(getField);
     // Set input value
     setInputQuery(getInput);
-  }, [activeDatastore]);
+  }, [activeDatastore, query]);
   
   function setOption(e) {
     window.dataLayer.push({
