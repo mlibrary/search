@@ -21,7 +21,7 @@ function SearchBox({ history, match, location }) {
   const defaultField = fields[0].uid;
   const [field, setField] = React.useState(defaultField);
 
-  // Set field and input based on URL
+  // Set field and input when `activeDatastore` changes
   React.useEffect(() => {
     // Set default value of field
     let getField = defaultField;
