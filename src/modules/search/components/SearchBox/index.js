@@ -16,46 +16,34 @@ function SearchBox({ history, match, location }) {
   const isAdvanced = useSelector((state) => state.advanced[state.datastores.active] ? true : false)
   const activeDatastore = useSelector(
     (state) => state.datastores.datastores.find(ds => ds.uid === state.datastores.active)
-  )
+  );
   const [inputQuery, setInputQuery] = React.useState(query);
   const defaultField = fields[0].uid;
   const [field, setField] = React.useState(defaultField);
 
   // Set field and input based on URL
   React.useEffect(() => {
-    // Get the field values of the active datastore
-    const fieldValues = fields.map(field => field.uid);
     // Set default value of field
     let getField = defaultField;
     // Set default value of input
     let getInput = query;
     // Check if the query is a fielded search
-    if(inputQuery.includes(':(')) {
+    if(query.includes(':(')) {
       // Get current search field uid
       const currentQuery = inputQuery.slice(0, inputQuery.indexOf(':'));
       // Check if current query exists in active datastore's field options
-      if (fieldValues.includes(currentQuery)) {
+      if (fields.map(field => field.uid).includes(currentQuery)) {
         // Update field to current query
         getField = currentQuery;
         // Remove field wrap from input value
         getInput = inputQuery.slice((inputQuery.indexOf('(') + 1), -1);
       }
     }
-
-    const onPageLoad = () => {
-      setField(getField);
-      setInputQuery(getInput);
-    };
-
-    // Check if the page has already loaded
-    if (document.readyState === 'complete') {
-      onPageLoad();
-    } else {
-      window.addEventListener('load', onPageLoad);
-      // Remove the event listener when component unmounts
-      return () => window.removeEventListener('load', onPageLoad);
-    }
-  }, []);
+    // Set field value
+    setField(getField);
+    // Set input value
+    setInputQuery(getInput);
+  }, [activeDatastore]);
   
   function setOption(e) {
     window.dataLayer.push({
