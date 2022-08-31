@@ -253,7 +253,10 @@ function SearchLink({ children, search }) {
 }
 
 function createSearchURL({ type, scope, value, institution, datastoreUid }) {
-  const query = type === "fielded" ? `${scope}:${value}` : {};
+  const query =
+    type === "fielded" ? `${scope}:${value}` :
+    type === "specified" ? value :
+    {};
   const filter = type === "filtered" ? { [scope]: value } : {};
   let library = {};
 
