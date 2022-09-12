@@ -41,7 +41,7 @@
     "underscore": "^1.13.4"
   },
   "scripts": {
-    "build": "react-scripts build",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "develop": "npm run start",
     "eject": "react-scripts eject",
     "lint": "npx eslint src/**/*.js",
