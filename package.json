@@ -27,7 +27,6 @@
     "react-accessible-accordion": "^5.0.0",
     "react-app-polyfill": "^3.0.0",
     "react-autosuggest": "^10.1.0",
-    "react-codemod": "^5.4.3",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-ga": "^3.3.1",
