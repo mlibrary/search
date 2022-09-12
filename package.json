@@ -4,17 +4,18 @@
   "private": true,
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
-    "eslint": "^8.18.0",
+    "eslint": "^8.23.0",
+    "eslint-plugin-react": "^7.31.8",
     "react-scripts": "^5.0.1",
     "url": "^0.11.0"
   },
   "dependencies": {
-    "@emotion/react": "^11.9.3",
-    "@emotion/styled": "^11.9.3",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "citeproc": "^2.4.62",
     "classnames": "^2.3.1",
-    "connected-react-router": "^6.9.2",
-    "core-js": "^3.23.3",
+    "connected-react-router": "^6.9.3",
+    "core-js": "^3.25.1",
     "history": "^4.10.1",
     "jsonschema": "^1.4.1",
     "numeral": "^2.0.6",
@@ -40,9 +41,10 @@
     "underscore": "^1.13.4"
   },
   "scripts": {
-    "build": "react-scripts build",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "develop": "npm run start",
     "eject": "react-scripts eject",
+    "lint": "npx eslint src/**/*.js",
     "reinstall": "rm -rf node_modules && npm install",
     "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} react-scripts start",
     "test": "react-scripts test --env=jsdom"
