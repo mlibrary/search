@@ -13,7 +13,7 @@ $ git clone https://github.com/mlibrary/search.git
 ### 2. Install
 
 ```bash
-$ npm install
+$ npm install --legacy-peer-deps
 ```
 
 ### 3. Run Locally
