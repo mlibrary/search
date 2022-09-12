@@ -16,11 +16,35 @@ function SearchBox({ history, match, location }) {
   const isAdvanced = useSelector((state) => state.advanced[state.datastores.active] ? true : false)
   const activeDatastore = useSelector(
     (state) => state.datastores.datastores.find(ds => ds.uid === state.datastores.active)
-  )
-  const [inputQuery, setInputQuery] = React.useState(query)
+  );
+  const [inputQuery, setInputQuery] = React.useState(query);
   const defaultField = fields[0].uid;
-  const [field, setField] = React.useState(defaultField)
+  const [field, setField] = React.useState(defaultField);
 
+  // Set field and input when `activeDatastore` or `query` changes
+  React.useEffect(() => {
+    // Set default value of field
+    let getField = defaultField;
+    // Set default value of input
+    let getInput = query;
+    // Check if the query is a single fielded search
+    if(query.includes(':(') && ![' AND ', ' OR ', ' NOT '].some((boolean) => query.includes(boolean))) {
+      // Get current search field uid from query
+      const currentQuery = query.slice(0, query.indexOf(':'));
+      // Check if current query exists in active datastore's field options
+      if (fields.map(field => field.uid).includes(currentQuery)) {
+        // Update field to current query
+        getField = currentQuery;
+        // Remove field wrap from input value
+        getInput = query.slice((query.indexOf('(') + 1), -1);
+      }
+    }
+    // Set field value
+    setField(getField);
+    // Set input value
+    setInputQuery(getInput);
+  }, [activeDatastore, query]);
+  
   function setOption(e) {
     window.dataLayer.push({
       event: 'selectionMade',
