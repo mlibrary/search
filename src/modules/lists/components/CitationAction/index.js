@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
-import { Modal, Button, Tabs, TabList, Tab, TabPanel } from '../../../reusable'
-import { cite } from '../../../citations'
+import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
+import { Modal, Button, Tabs, TabList, Tab, TabPanel } from '../../../reusable';
+import { cite } from '../../../citations';
 
 class CitationArea extends Component {
   render() {
@@ -20,7 +20,7 @@ class CitationArea extends Component {
         contentEditable="true"
         {...this.props}
       />
-    )
+    );
   }
 }
 
@@ -49,33 +49,35 @@ const citation_options = [
     id: 'bibtex',
     name: 'BibTex'
   }
-]
+];
 
 class CitationAction extends Component {
   state = {
     modalIsOpen: false
-  }
+  };
 
   handleCloseModal = () => {
-    this.setState({ modalIsOpen: false })
+    this.setState({ modalIsOpen: false });
     // Unselects the citation button from the actions lists.
-    this.props.setActive(undefined)
-  }
+    this.props.setActive(undefined);
+  };
 
   handleOpenModal = () => {
-    this.setState({ modalIsOpen: true })
-  }
+    this.setState({ modalIsOpen: true });
+  };
 
   handleCitationsData = (chosenStyleID, data) => {
     this.setState({
       ...this.state,
       [chosenStyleID]: data
-    })
-  }
+    });
+  };
 
   generateCitations = (records) => {
-    citation_options.forEach(co => cite(records, co.id, this.handleCitationsData))
-  }
+    citation_options.forEach((co) => {
+      return cite(records, co.id, this.handleCitationsData);
+    });
+  };
 
   componentDidMount() {
     const {
@@ -83,34 +85,36 @@ class CitationAction extends Component {
       record,
       viewType,
       list
-    } = this.props
+    } = this.props;
 
     if (viewType === 'Full') {
       const records = [
         { recordUid: record.uid, datastoreUid: datastore.uid }
-      ]
-      this.generateCitations(records)
+      ];
+      this.generateCitations(records);
     } else if (viewType === 'List' && list && list.length > 0) {
-      const records = list.map(r => ({
-        recordUid: r.uid,
-        datastoreUid: datastore.uid
-      }))
-      this.generateCitations(records)
+      const records = list.map((r) => {
+        return {
+                recordUid: r.uid,
+                datastoreUid: datastore.uid
+              };
+      });
+      this.generateCitations(records);
     }
 
     this.handleOpenModal();
   }
 
-  handleCopyToClipboard = (citation) => {
-    navigator.clipboard.writeText(citation)
+  handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(document.querySelector('.csl-entry').innerText);
 
-    this.handleCloseModal()
+    this.handleCloseModal();
 
     this.props.setAlert({
       intent: 'success',
       text: 'Citation copied to clipboard!'
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -129,42 +133,48 @@ class CitationAction extends Component {
 
           <Tabs>
             <TabList>
-              {citation_options.map(co => (
-                <Tab
-                  key={co.name}
-                >{co.name}</Tab>
-              ))}
+              {citation_options.map((co) => {
+                return (
+                  <Tab
+                    key={co.name}
+                  >{co.name}</Tab>
+                );
+              })}
             </TabList>
 
-            {citation_options.map(co => (
-              <TabPanel key={`${co.name}-panel`}>
-                {this.state[co.id] ? (
-                  <div className="y-spacing">
-                    <CitationArea
-                      aria-describedby={`${co.id}-disclaimer`}
-                      dangerouslySetInnerHTML={{
-                        __html: this.state[co.id]
-                      }}
-                    />
-                    <p
-                      className="font-small"
-                      id={`${co.id}-disclaimer`}
-                    >These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</p>
-                    <Button
-                      onClick={() => this.handleCopyToClipboard(this.state[co.id])}
-                      style={{ marginRight: '1rem' }}
-                    >Copy citation</Button>
-                    <Button kind="secondary" onClick={this.handleCloseModal}>Close</Button>
-                  </div>
-                ) : (
-                  <p>Loading ...</p>
-                )}
-              </TabPanel>
-            ))}
+            {citation_options.map((co) => {
+              return (
+                <TabPanel key={`${co.name}-panel`}>
+                  {this.state[co.id] ? (
+                    <div className="y-spacing">
+                      <CitationArea
+                        aria-describedby={`${co.id}-disclaimer`}
+                        dangerouslySetInnerHTML={{
+                          __html: this.state[co.id]
+                        }}
+                      />
+                      <p
+                        className="font-small"
+                        id={`${co.id}-disclaimer`}
+                      >These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.</p>
+                      <Button
+                        onClick={() => {
+                          return this.handleCopyToClipboard();
+                        }}
+                        style={{ marginRight: '1rem' }}
+                      >Copy citation</Button>
+                      <Button kind="secondary" onClick={this.handleCloseModal}>Close</Button>
+                    </div>
+                  ) : (
+                    <p>Loading ...</p>
+                  )}
+                </TabPanel>
+              );
+            })}
           </Tabs>
         </Modal>
       </div>
-    )
+    );
   }
 }
 
