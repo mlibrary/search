@@ -59,7 +59,7 @@ const Dropdown = ({ option, label, options, selected, handleChange }) => {
 Dropdown.propTypes = {
   option: PropTypes.object,
   label: PropTypes.string,
-  options: PropTypes.object,
+  options: PropTypes.array,
   selected: PropTypes.string,
   handleChange: PropTypes.func
 };
