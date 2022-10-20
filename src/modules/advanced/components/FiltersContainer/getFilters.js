@@ -1,5 +1,5 @@
-import _ from 'underscore'
-import store from '../../../../store'
+import _ from 'underscore';
+import store from '../../../../store';
 
 /*
 // Example of what to return:
@@ -36,45 +36,48 @@ import store from '../../../../store'
 const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
   function getActiveFilter({ uid, defaultFilter, filters }) {
     if (activeFilters && activeFilters[uid]) {
-      return activeFilters[uid][0]
+      return activeFilters[uid][0];
     }
-
     if (_.contains(filters, defaultFilter)) {
-      return defaultFilter
+      return defaultFilter;
     }
-
-    return filters[0]
+    return filters[0];
   }
 
-  const state = store.getState()
-  const library = state.institution.active
-    ? state.institution.active : state.institution.defaultInstitution
+  const state = store.getState();
+  const library = state.institution.active ? state.institution.active : state.institution.defaultInstitution;
 
-  const inst = _.findWhere(data.filters, { uid: 'institution' })
-  const instFilterLabels = inst.values.map(filter => filter.label)
+  const inst = _.findWhere(data.filters, { uid: 'institution' });
+  const instFilterLabels = inst.values.map((filter) => {
+    return filter.label;
+  });
   const instActiveFilter = getActiveFilter({
     uid: 'institution',
     defaultFilter: library,
     filters: instFilterLabels
-  })
+  });
 
-  const location = _.findWhere(inst.values, { label: instActiveFilter })
-  const locationFilterLabels = location.values.map(value => value.label)
-  const locationDefault = _.findWhere(data.defaults, { uid: 'location' })
+  const location = _.findWhere(inst.values, { label: instActiveFilter });
+  const locationFilterLabels = location.values.map((value) => {
+    return value.label;
+  });
+  const locationDefault = _.findWhere(data.defaults, { uid: 'location' });
   const locationActiveFilter = getActiveFilter({
     uid: 'location',
     defaultFilter: locationDefault.value,
     filters: locationFilterLabels
-  })
+  });
 
-  const collection = _.findWhere(location.values, { label: locationActiveFilter })
-  const collectionFilterLabels = collection.values.map(value => value.label)
-  const collectionDefault = _.findWhere(data.defaults, { uid: 'collection' })
+  const collection = _.findWhere(location.values, { label: locationActiveFilter });
+  const collectionFilterLabels = collection.values.map((value) => {
+    return value.label;
+  });
+  const collectionDefault = _.findWhere(data.defaults, { uid: 'collection' });
   const collectionActiveFilter = getActiveFilter({
     uid: 'collection',
     defaultFilter: collectionDefault.value,
     filters: collectionFilterLabels
-  })
+  });
 
   const options = [
     {
@@ -95,46 +98,46 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
       filters: collectionFilterLabels,
       activeFilter: collectionActiveFilter
     },
-  ]
+  ];
 
-  return options
-}
+  return options;
+};
 
 const getFilters = ({ filterGroups, activeFilters }) => {
   if (!filterGroups) {
-    return []
+    return [];
   }
 
-  const advancedFilters = filterGroups.map(filterGroup => {
+  const advancedFilters = filterGroups.map((filterGroup) => {
 
     // Special case for narrowing search...
     if (filterGroup.uid === 'narrow_search') {
-      const options = getCatalogNarrowSearchToOptions(filterGroup, activeFilters)
+      const options = getCatalogNarrowSearchToOptions(filterGroup, activeFilters);
       return {
         ...filterGroup,
         options
-      }
+      };
     }
 
     return {
       ...filterGroup,
-      filters: filterGroup.filters.map(filterValue => {
-        let isActive = false
+      filters: filterGroup.filters.map((filterValue) => {
+        let isActive = false;
 
         if (activeFilters && activeFilters[filterGroup.uid]) {
-          isActive = _.contains(activeFilters[filterGroup.uid], filterValue)
+          isActive = _.contains(activeFilters[filterGroup.uid], filterValue);
         }
 
         return {
           value: filterValue,
           isActive
-        }
+        };
       }),
       activeFilters: activeFilters ? activeFilters[filterGroup.uid] : [],
-    }
-  })
+    };
+  });
 
-  return _.groupBy(advancedFilters, 'groupBy')
-}
+  return _.groupBy(advancedFilters, 'groupBy');
+};
 
-export default getFilters
+export default getFilters;
