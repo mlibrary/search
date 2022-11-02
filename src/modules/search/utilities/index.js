@@ -105,13 +105,6 @@ const searchOptions = () => {
       "disabled": "disabled",
       "datastore": "mirlyn"
     },
-    {
-      "name": "Browse by title (coming soon)",
-      "uid": "browse_by_title",
-      "tip": "Browse an alphabetical list of titles for books, online journals, serials, media, etc (e.g. Nine stories; Tom Swift).",
-      "disabled": "disabled",
-      "datastore": "mirlyn"
-    }
   ];
 };
 
