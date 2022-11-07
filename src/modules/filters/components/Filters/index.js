@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { useSelector } from "react-redux";
-import React from "react";
-import { Link } from "react-router-dom";
-import numeral from "numeral";
+import { useSelector } from 'react-redux';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import numeral from 'numeral';
 import {
   Accordion,
   AccordionItem,
@@ -10,30 +10,30 @@ import {
   AccordionItemHeading,
   AccordionItemButton,
   AccordionItemPanel
-} from "react-accessible-accordion";
+} from 'react-accessible-accordion';
 import {
   Expandable,
   ExpandableChildren,
   ExpandableButton,
   Icon
-} from "../../../reusable";
-import { SPACING, COLORS } from "../../../reusable/umich-lib-core-temp";
-import CheckboxFilters from "../CheckboxFilters";
+} from '../../../reusable';
+import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
+import CheckboxFilters from '../CheckboxFilters';
 
 import {
   filterOutActiveFilters,
   newSearch
-} from "../../utilities";
+} from '../../utilities';
 
-import ActiveFilterItem from "../ActiveFilterItem";
-import ClearActiveFiltersLink from "../ClearActiveFiltersLink";
+import ActiveFilterItem from '../ActiveFilterItem';
+import ClearActiveFiltersLink from '../ClearActiveFiltersLink';
 
 const filterGroupStyles = {
-  padding: `0 ${SPACING["M"]}`,
-  borderBottom: `solid 1px ${COLORS.neutral["100"]}`
+  padding: `0 ${SPACING.M}`,
+  borderBottom: `solid 1px ${COLORS.neutral['100']}`
 };
 
-function FiltersLoadingContainer({ children }) {
+function FiltersLoadingContainer ({ children }) {
   const { datastores, search, records } = useSelector((state) => {
     return state;
   });
@@ -46,7 +46,7 @@ function FiltersLoadingContainer({ children }) {
   return children;
 }
 
-export default function Filters() {
+export default function Filters () {
   const { datastores, filters } = useSelector((state) => {
     return state;
   });
@@ -58,7 +58,7 @@ export default function Filters() {
 
   const preExpandedFilterGroups = order.reduce((memo, uid) => {
     if (groups[uid] && groups[uid].preExpanded) {
-      memo = memo.concat(datastores.active + "-" + uid);
+      memo = memo.concat(datastores.active + '-' + uid);
     }
 
     return memo;
@@ -66,9 +66,9 @@ export default function Filters() {
 
   return (
     <section
-      aria-label="filters"
+      aria-label='filters'
       css={{
-        background: "#FAFAFA"
+        background: '#FAFAFA'
       }}
     >
       <ActiveFilters />
@@ -76,13 +76,13 @@ export default function Filters() {
       <FiltersLoadingContainer>
         <Accordion
           preExpanded={preExpandedFilterGroups}
-          key={preExpandedFilterGroups.join("-")}
+          key={preExpandedFilterGroups.join('-')}
           allowMultipleExpanded
           allowZeroExpanded
           css={{
             margin: 0,
             padding: 0,
-            "& > *": {
+            '& > *': {
               ...filterGroupStyles
             }
           }}
@@ -98,7 +98,7 @@ export default function Filters() {
   );
 }
 
-function ActiveFilters() {
+function ActiveFilters () {
   const { datastores, filters } = useSelector((state) => {
     return state;
   });
@@ -125,7 +125,7 @@ function ActiveFilters() {
   */
   const items = Object.keys(active).reduce((acc, group) => {
     // Just don't show the checkbox filters as active filter items.
-    if (!filters.groups[group] || filters.groups[group].type !== "checkbox") {
+    if (!filters.groups[group] || filters.groups[group].type !== 'checkbox') {
       const activeFiltersToAdd = active[group].map((value) => {
         return { group, value };
       });
@@ -142,18 +142,18 @@ function ActiveFilters() {
 
   return (
     <section
-      aria-label="active-filters"
+      aria-label='active-filters'
       css={{
         ...filterGroupStyles,
-        padding: `${SPACING["S"]} ${SPACING["M"]}`
+        padding: `${SPACING.S} ${SPACING.M}`
       }}
     >
       <h2
-        id="active-filters"
+        id='active-filters'
         css={{
-          fontSize: "1rem",
-          marginTop: "0",
-          marginBottom: SPACING["XS"]
+          fontSize: '1rem',
+          marginTop: '0',
+          marginBottom: SPACING.XS
         }}
       >
         Active filters
@@ -162,7 +162,7 @@ function ActiveFilters() {
       <ul
         css={{
           margin: 0,
-          listStyle: "none"
+          listStyle: 'none'
         }}
       >
         {items.map((item, i) => {
@@ -170,8 +170,8 @@ function ActiveFilters() {
             <li
               key={i + item.group + item.value}
               css={{
-                marginBottom: SPACING["XS"],
-                ":last-of-type": {
+                marginBottom: SPACING.XS,
+                ':last-of-type': {
                   marginBottom: 0
                 }
               }}
@@ -187,7 +187,7 @@ function ActiveFilters() {
   );
 }
 
-function FilterGroupContainer({ uid }) {
+function FilterGroupContainer ({ uid }) {
   const { datastores, filters } = useSelector((state) => {
     return state;
   });
@@ -201,7 +201,7 @@ function FilterGroupContainer({ uid }) {
     ? filters.active[datastores.active][uid]
     : null;
 
-  const uuid = datastores.active + "-" + uid;
+  const uuid = datastores.active + '-' + uid;
 
   const props = {
     uid,
@@ -212,14 +212,14 @@ function FilterGroupContainer({ uid }) {
     activeFilters
   };
 
-  if (group.type === "multiselect") {
+  if (group.type === 'multiselect') {
     return <FilterGroupMultiselect {...props} />;
   }
 
   return null;
 }
 
-function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
+function FilterGroupMultiselect ({ filters, group, uid, uuid, activeFilters }) {
   const filtersWithoutActive = filterOutActiveFilters({
     active: activeFilters,
     filters: filters.groups[uid].filters
@@ -234,39 +234,41 @@ function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
       <AccordionItemState>
         {({ expanded }) => {
           return (
-            <React.Fragment>
+            <>
               <AccordionItemHeading>
                 <AccordionItemButton
                   css={{
-                    padding: SPACING["S"],
-                    margin: `0 -${SPACING["S"]}`,
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    ":hover": {
-                      textDecoration: "underline"
+                    padding: SPACING.S,
+                    margin: `0 -${SPACING.S}`,
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    ':hover': {
+                      textDecoration: 'underline'
                     },
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center"
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
                   }}
                 >
                   <span>{group.metadata.name}</span>
                   <span
                     css={{
-                      color: COLORS.neutral["300"]
+                      color: COLORS.neutral['300']
                     }}
                   >
-                    {expanded ? (
-                      <Icon
-                        size={24}
-                        d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
-                      />
-                    ) : (
-                      <Icon
-                        size={24}
-                        d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                      />
-                    )}
+                    {expanded
+                      ? (
+                        <Icon
+                          size={24}
+                          d='M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z'
+                        />
+                        )
+                      : (
+                        <Icon
+                          size={24}
+                          d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z'
+                        />
+                        )}
                   </span>
                 </AccordionItemButton>
               </AccordionItemHeading>
@@ -275,7 +277,7 @@ function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
                 expanded={expanded}
                 filters={filtersWithoutActive}
               />
-            </React.Fragment>
+            </>
           );
         }}
       </AccordionItemState>
@@ -283,7 +285,7 @@ function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
   );
 }
 
-function FilterGroupFilters({ group, expanded, hidden = false, filters }) {
+function FilterGroupFilters ({ group, expanded, hidden = false, filters }) {
   if (hidden || !expanded || filters.length === 0) {
     return null;
   }
@@ -293,8 +295,8 @@ function FilterGroupFilters({ group, expanded, hidden = false, filters }) {
       <Expandable>
         <ul
           css={{
-            listStyle: "none",
-            margin: "0"
+            listStyle: 'none',
+            margin: '0'
           }}
         >
           <ExpandableChildren show={5}>
@@ -310,16 +312,16 @@ function FilterGroupFilters({ group, expanded, hidden = false, filters }) {
 
         <div
           css={{
-            padding: `${SPACING["2XS"]} 0`
+            padding: `${SPACING['2XS']} 0`
           }}
         >
           <ExpandableButton
-            name={group.metadata.name + " filters"}
+            name={group.metadata.name + ' filters'}
             count={filters.length}
-            kind="secondary"
+            kind='secondary'
             small
             css={{
-              marginBottom: SPACING["XS"]
+              marginBottom: SPACING.XS
             }}
           />
         </div>
@@ -328,30 +330,30 @@ function FilterGroupFilters({ group, expanded, hidden = false, filters }) {
   );
 }
 
-function FilterContainer({ group, value, count }) {
+function FilterContainer ({ group, value, count }) {
   const search = newSearch({ filter: { [group.uid]: value }, page: undefined });
-  const url = document.location.pathname + "?" + search;
+  const url = document.location.pathname + '?' + search;
 
   return <Filter url={url} value={value} count={count} />;
 }
 
-function Filter({ value, count, url }) {
+function Filter ({ value, count, url }) {
   return (
     <Link
       to={url}
       css={{
-        display: "flex",
-        justifyContent: "space-between",
-        padding: `${SPACING["2XS"]} 0`,
-        ":hover": {
-          "span:first-of-type": {
-            textDecoration: "underline"
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: `${SPACING['2XS']} 0`,
+        ':hover': {
+          'span:first-of-type': {
+            textDecoration: 'underline'
           }
         }
       }}
     >
-      <span css={{ marginRight: SPACING["XS"] }}>{value}</span>
-      <span css={{ color: COLORS.neutral["400"] }}>
+      <span css={{ marginRight: SPACING.XS }}>{value}</span>
+      <span css={{ color: COLORS.neutral['400'] }}>
         {numeral(count).format(0, 0)}
       </span>
     </Link>
