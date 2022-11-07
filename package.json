@@ -5,7 +5,14 @@
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
     "eslint": "^8.23.1",
-    "eslint-plugin-react": "^7.31.8",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-config-standard-jsx": "^11.0.0",
+    "eslint-config-standard-react": "^12.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.31.10",
     "react-scripts": "^5.0.1",
     "url": "^0.11.0"
   },
