@@ -22,7 +22,8 @@
         "arrow-parens": ["error", "always"], // Requires () around arrow function arguments
         "brace-style": ["error", "1tbs"], // Requires one true brace style
         "no-empty-function": "error", // Require an empty function to at least have a comment explaining why
-        "no-var": "error", // Discourages using `var` and recommends using `let` or `const` instead
+        "no-var": "error", // Discourages using `var` and recommends using `let` or `const` instead,
+        "react/no-unknown-property": ["error", { "ignore": ["css"] }], // Ignores `css` property from `@emotion`
         "semi": ["error", "always"] // Requires a semicolon wherever necessary
     }
 }

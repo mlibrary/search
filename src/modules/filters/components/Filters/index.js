@@ -22,10 +22,11 @@ import CheckboxFilters from "../CheckboxFilters";
 
 import {
   getURLWithoutFilters,
-  getURLWithFilterRemoved,
   filterOutActiveFilters,
   newSearch
 } from "../../utilities";
+
+import ActiveFilterItem from "../ActiveFilterItem";
 
 const filterGroupStyles = {
   padding: `0 ${SPACING["M"]}`,
@@ -33,7 +34,9 @@ const filterGroupStyles = {
 };
 
 function FiltersLoadingContainer({ children }) {
-  const { datastores, search, records } = useSelector(state => state);
+  const { datastores, search, records } = useSelector((state) => {
+    return state;
+  });
   const isLoading = search.searching && records.loading[datastores.active];
 
   if (isLoading) {
@@ -44,7 +47,9 @@ function FiltersLoadingContainer({ children }) {
 }
 
 export default function Filters() {
-  const { datastores, filters } = useSelector(state => state);
+  const { datastores, filters } = useSelector((state) => {
+    return state;
+  });
   const { order, groups } = filters;
 
   if (!order) {
@@ -82,9 +87,11 @@ export default function Filters() {
             }
           }}
         >
-          {order.map(uid => (
-            <FilterGroupContainer uid={uid} key={datastores.active + uid} />
-          ))}
+          {order.map((uid) => {
+            return (
+              <FilterGroupContainer uid={uid} key={datastores.active + uid} />
+            );
+          })}
         </Accordion>
       </FiltersLoadingContainer>
     </section>
@@ -92,7 +99,9 @@ export default function Filters() {
 }
 
 function ActiveFilters() {
-  const { datastores, filters } = useSelector(state => state);
+  const { datastores, filters } = useSelector((state) => {
+return state;
+});
   const active = filters.active[datastores.active];
 
   if (!active) {
@@ -117,7 +126,7 @@ function ActiveFilters() {
   const items = Object.keys(active).reduce((acc, group) => {
     // Just don't show the checkbox filters as active filter items.
     if (!filters.groups[group] || filters.groups[group].type !== "checkbox") {
-      const activeFiltersToAdd = active[group].map(value => {
+      const activeFiltersToAdd = active[group].map((value) => {
         return { group, value };
       });
 
@@ -156,19 +165,21 @@ function ActiveFilters() {
           listStyle: "none"
         }}
       >
-        {items.map((item, i) => (
-          <li
-            key={i + item.group + item.value}
-            css={{
-              marginBottom: SPACING["XS"],
-              ":last-of-type": {
-                marginBottom: 0
-              }
-            }}
-          >
-            <ActiveFilterItem {...item} />
-          </li>
-        ))}
+        {items.map((item, i) => {
+          return (
+            <li
+              key={i + item.group + item.value}
+              css={{
+                marginBottom: SPACING["XS"],
+                ":last-of-type": {
+                  marginBottom: 0
+                }
+              }}
+            >
+              <ActiveFilterItem {...item} />
+            </li>
+          );
+        })}
       </ul>
 
       {items.length > 1 && <ClearActiveFiltersLink />}
@@ -194,40 +205,10 @@ function ClearActiveFiltersLink() {
   );
 }
 
-function ActiveFilterItem({ group, value }) {
-  const { groups } = useSelector(state => state.filters);
-  const url = getURLWithFilterRemoved({ group, value });
-  const name = groups[group] ? groups[group].metadata.name : group;
-
-  return (
-    <Link
-      to={url}
-      css={{
-        padding: `${SPACING["XS"]} ${SPACING["S"]}`,
-        color: COLORS.green["500"],
-        background: COLORS.green["100"],
-        border: `solid 1px ${COLORS.green["200"]}`,
-        borderRadius: "4px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        ":hover": {
-          textDecoration: "underline"
-        }
-      }}
-    >
-      <span>
-        {name}: {value}
-      </span>
-      <span>
-        <Icon icon="close" />
-      </span>
-    </Link>
-  );
-}
-
 function FilterGroupContainer({ uid }) {
-  const { datastores, filters } = useSelector(state => state);
+  const { datastores, filters } = useSelector((state) => {
+    return state;
+  });
   const group = filters.groups[uid];
 
   if (!group || group.filters.length === 0) {
@@ -269,50 +250,52 @@ function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
   return (
     <AccordionItem uuid={uuid} key={uuid}>
       <AccordionItemState>
-        {({ expanded }) => (
-          <React.Fragment>
-            <AccordionItemHeading>
-              <AccordionItemButton
-                css={{
-                  padding: SPACING["S"],
-                  margin: `0 -${SPACING["S"]}`,
-                  fontWeight: "600",
-                  cursor: "pointer",
-                  ":hover": {
-                    textDecoration: "underline"
-                  },
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center"
-                }}
-              >
-                <span>{group.metadata.name}</span>
-                <span
+        {({ expanded }) => {
+          return (
+            <React.Fragment>
+              <AccordionItemHeading>
+                <AccordionItemButton
                   css={{
-                    color: COLORS.neutral["300"]
+                    padding: SPACING["S"],
+                    margin: `0 -${SPACING["S"]}`,
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    ":hover": {
+                      textDecoration: "underline"
+                    },
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center"
                   }}
                 >
-                  {expanded ? (
-                    <Icon
-                      size={24}
-                      d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
-                    />
-                  ) : (
-                    <Icon
-                      size={24}
-                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                    />
-                  )}
-                </span>
-              </AccordionItemButton>
-            </AccordionItemHeading>
-            <FilterGroupFilters
-              group={group}
-              expanded={expanded}
-              filters={filtersWithoutActive}
-            />
-          </React.Fragment>
-        )}
+                  <span>{group.metadata.name}</span>
+                  <span
+                    css={{
+                      color: COLORS.neutral["300"]
+                    }}
+                  >
+                    {expanded ? (
+                      <Icon
+                        size={24}
+                        d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
+                      />
+                    ) : (
+                      <Icon
+                        size={24}
+                        d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                      />
+                    )}
+                  </span>
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <FilterGroupFilters
+                group={group}
+                expanded={expanded}
+                filters={filtersWithoutActive}
+              />
+            </React.Fragment>
+          );
+        }}
       </AccordionItemState>
     </AccordionItem>
   );
@@ -333,11 +316,13 @@ function FilterGroupFilters({ group, expanded, hidden = false, filters }) {
           }}
         >
           <ExpandableChildren show={5}>
-            {filters.map((f, i) => (
-              <li key={group.metadata.name + f.value + i}>
-                <FilterContainer group={group} {...f} />
-              </li>
-            ))}
+            {filters.map((f, i) => {
+              return (
+                <li key={group.metadata.name + f.value + i}>
+                  <FilterContainer group={group} {...f} />
+                </li>
+              );
+            })}
           </ExpandableChildren>
         </ul>
 
