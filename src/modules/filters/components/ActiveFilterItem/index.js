@@ -7,7 +7,7 @@ import { Icon } from '../../../reusable';
 import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
 import { getURLWithFilterRemoved } from '../../utilities';
 
-export default function ActiveFilterItem({ group, value }) {
+export default function ActiveFilterItem ({ group, value }) {
   const { groups } = useSelector((state) => {
     return state.filters;
   });
@@ -18,24 +18,24 @@ export default function ActiveFilterItem({ group, value }) {
     <Link
       to={url}
       css={{
-        padding: `${SPACING["XS"]} ${SPACING["S"]}`,
-        color: COLORS.green["500"],
-        background: COLORS.green["100"],
-        border: `solid 1px ${COLORS.green["200"]}`,
-        borderRadius: "4px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        ":hover": {
-          textDecoration: "underline"
+        padding: `${SPACING.XS} ${SPACING.S}`,
+        color: COLORS.green['500'],
+        background: COLORS.green['100'],
+        border: `solid 1px ${COLORS.green['200']}`,
+        borderRadius: '4px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        ':hover': {
+          textDecoration: 'underline'
         }
       }}
     >
-      <span> 
+      <span>
         {name}: {value}
       </span>
       <span>
-        <Icon icon="close" />
+        <Icon icon='close' />
       </span>
     </Link>
   );
