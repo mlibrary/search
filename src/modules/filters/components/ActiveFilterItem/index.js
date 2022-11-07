@@ -24,6 +24,7 @@ export default function ActiveFilterItem ({ group, value }) {
         border: `solid 1px ${COLORS.green['200']}`,
         borderRadius: '4px',
         display: 'flex',
+        gap: SPACING.XS,
         justifyContent: 'space-between',
         alignItems: 'center',
         ':hover': {
@@ -34,9 +35,7 @@ export default function ActiveFilterItem ({ group, value }) {
       <span>
         {name}: {value}
       </span>
-      <span>
-        <Icon icon='close' />
-      </span>
+      <Icon icon='close' css={{ flexShrink: 0 }} />
     </Link>
   );
 }
