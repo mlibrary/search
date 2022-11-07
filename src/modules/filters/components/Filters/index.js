@@ -21,12 +21,12 @@ import { SPACING, COLORS } from "../../../reusable/umich-lib-core-temp";
 import CheckboxFilters from "../CheckboxFilters";
 
 import {
-  getURLWithoutFilters,
   filterOutActiveFilters,
   newSearch
 } from "../../utilities";
 
 import ActiveFilterItem from "../ActiveFilterItem";
+import ClearActiveFiltersLink from "../ClearActiveFiltersLink";
 
 const filterGroupStyles = {
   padding: `0 ${SPACING["M"]}`,
@@ -100,8 +100,8 @@ export default function Filters() {
 
 function ActiveFilters() {
   const { datastores, filters } = useSelector((state) => {
-return state;
-});
+    return state;
+  });
   const active = filters.active[datastores.active];
 
   if (!active) {
@@ -184,24 +184,6 @@ return state;
 
       {items.length > 1 && <ClearActiveFiltersLink />}
     </section>
-  );
-}
-
-function ClearActiveFiltersLink() {
-  const url = getURLWithoutFilters();
-
-  return (
-    <Link
-      to={url}
-      css={{
-        display: "inline-block",
-        paddingTop: SPACING["XS"],
-        textDecoration: "underline",
-        color: COLORS.neutral["300"]
-      }}
-    >
-      Clear all active filters
-    </Link>
   );
 }
 
