@@ -111,15 +111,17 @@ function ActiveFilters () {
       aria-label='active-filters'
       css={{
         ...filterGroupStyles,
-        padding: `${SPACING.S} ${SPACING.M}`
+        padding: `${SPACING.S} ${SPACING.M}`,
+        '& > * + *': {
+          marginTop: SPACING.XS
+        }
       }}
     >
       <h2
         id='active-filters'
         css={{
           fontSize: '1rem',
-          marginTop: '0',
-          marginBottom: SPACING.XS
+          margin: '0'
         }}
       >
         Active filters

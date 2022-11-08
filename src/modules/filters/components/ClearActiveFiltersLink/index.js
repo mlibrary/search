@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getURLWithoutFilters } from '../../utilities';
-import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
+import { COLORS } from '../../../reusable/umich-lib-core-temp';
 
 export default function ClearActiveFiltersLink () {
   const url = getURLWithoutFilters();
@@ -12,7 +12,6 @@ export default function ClearActiveFiltersLink () {
       to={url}
       css={{
         display: 'inline-block',
-        paddingTop: SPACING.XS,
         textDecoration: 'underline',
         color: COLORS.neutral['300']
       }}

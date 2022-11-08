@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Icon, Button, Alert } from '../../../reusable';
 import { withRouter } from 'react-router-dom';
@@ -13,7 +13,7 @@ import {
   setFieldedSearch
 } from '../../../advanced';
 import _ from 'underscore';
-import { SPACING } from '../../../reusable/umich-lib-core-temp';
+import { COLORS, MEDIA_QUERIES, SPACING } from '../../../reusable/umich-lib-core-temp';
 import { getActiveFilters } from '../../../filters/utilities';
 import ActiveFilterItem from '../../../filters/components/ActiveFilterItem';
 import ClearActiveFiltersLink from '../../../filters/components/ClearActiveFiltersLink';
@@ -188,11 +188,11 @@ class AdvancedSearchForm extends React.Component {
           </Button>
         </div>
 
+        <ActiveFilters />
+
         <Button style={{ marginTop: '1rem' }} type='submit'>
           <Icon icon='search' size={24} /> Advanced Search
         </Button>
-
-        <ActiveFilters />
 
         <FiltersContainer datastore={datastore} />
       </form>
@@ -210,21 +210,44 @@ function ActiveFilters () {
   return (
     <section
       aria-label='active-filters'
+      css={{
+        marginTop: SPACING.XL
+      }}
     >
-      <h2
-        id='active-filters'
+      <div
         css={{
-          fontSize: '1rem',
-          marginTop: '0',
-          marginBottom: SPACING.XS
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: SPACING.XS
         }}
       >
-        Active filters ({items.length}) {items.length > 1 && <ClearActiveFiltersLink />}
-      </h2>
+        <h2
+          id='active-filters'
+          css={{
+            fontSize: '1rem',
+            margin: '0'
+          }}
+        >
+          Active filters
+          <span
+            css={{
+              color: COLORS.neutral['300'],
+              fontWeight: 'normal'
+            }}
+          >
+            &nbsp;({items.length})
+          </span>
+        </h2>
+        {items.length > 1 && <ClearActiveFiltersLink />}
+      </div>
 
       <ul
         css={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: SPACING.XS,
           margin: 0,
+          marginTop: SPACING.XS,
           listStyle: 'none'
         }}
       >
@@ -233,9 +256,13 @@ function ActiveFilters () {
             <li
               key={i + item.group + item.value}
               css={{
-                marginBottom: SPACING.XS,
-                ':last-of-type': {
-                  marginBottom: 0
+                flex: '1 1 100%',
+                maxWidth: `calc(100 - ${SPACING.XS})%`,
+                [MEDIA_QUERIES.LARGESCREEN]: {
+                  maxWidth: `calc(50% - ${SPACING.XS})`
+                },
+                [MEDIA_QUERIES.XLSCREEN]: {
+                  maxWidth: `calc(33% - ${SPACING.XS})`
                 }
               }}
             >
