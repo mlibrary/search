@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useSelector } from 'react-redux';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 import {
@@ -46,6 +47,10 @@ function FiltersLoadingContainer ({ children }) {
 
   return children;
 }
+
+FiltersLoadingContainer.propTypes = {
+  children: PropTypes.object
+};
 
 export default function Filters () {
   const { datastores, filters } = useSelector((state) => {
@@ -187,6 +192,10 @@ function FilterGroupContainer ({ uid }) {
   return null;
 }
 
+FilterGroupContainer.propTypes = {
+  uid: PropTypes.string
+};
+
 function FilterGroupMultiselect ({ filters, group, uid, uuid, activeFilters }) {
   const filtersWithoutActive = filterOutActiveFilters({
     active: activeFilters,
@@ -253,6 +262,14 @@ function FilterGroupMultiselect ({ filters, group, uid, uuid, activeFilters }) {
   );
 }
 
+FilterGroupMultiselect.propTypes = {
+  filters: PropTypes.object,
+  group: PropTypes.object,
+  uid: PropTypes.string,
+  uuid: PropTypes.string,
+  activeFilters: PropTypes.array
+};
+
 function FilterGroupFilters ({ group, expanded, hidden = false, filters }) {
   if (hidden || !expanded || filters.length === 0) {
     return null;
@@ -298,12 +315,25 @@ function FilterGroupFilters ({ group, expanded, hidden = false, filters }) {
   );
 }
 
+FilterGroupFilters.propTypes = {
+  group: PropTypes.object,
+  expanded: PropTypes.bool,
+  hidden: PropTypes.bool,
+  filters: PropTypes.array
+};
+
 function FilterContainer ({ group, value, count }) {
   const search = newSearch({ filter: { [group.uid]: value }, page: undefined });
   const url = document.location.pathname + '?' + search;
 
   return <Filter url={url} value={value} count={count} />;
 }
+
+FilterContainer.propTypes = {
+  group: PropTypes.object,
+  value: PropTypes.string,
+  count: PropTypes.number
+};
 
 function Filter ({ value, count, url }) {
   return (
@@ -327,3 +357,9 @@ function Filter ({ value, count, url }) {
     </Link>
   );
 }
+
+Filter.propTypes = {
+  value: PropTypes.string,
+  count: PropTypes.number,
+  url: PropTypes.string
+};

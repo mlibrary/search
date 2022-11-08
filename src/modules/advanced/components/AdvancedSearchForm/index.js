@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import { Icon, Button, Alert } from '../../../reusable';
 import { withRouter } from 'react-router-dom';
 import FieldInput from '../FieldInput';
@@ -173,6 +174,7 @@ class AdvancedSearchForm extends React.Component {
             />
           );
         })}
+
         <div
           style={{
             display: 'flex',
@@ -199,6 +201,19 @@ class AdvancedSearchForm extends React.Component {
     );
   }
 }
+
+AdvancedSearchForm.propTypes = {
+  setFieldedSearch: PropTypes.func,
+  addFieldedSearch: PropTypes.func,
+  removeFieldedSearch: PropTypes.func,
+  datastore: PropTypes.object,
+  fields: PropTypes.array,
+  fieldedSearches: PropTypes.array,
+  booleanTypes: PropTypes.array,
+  institution: PropTypes.object,
+  activeFilters: PropTypes.object,
+  history: PropTypes.object
+};
 
 function ActiveFilters () {
   const items = getActiveFilters();
@@ -257,7 +272,7 @@ function ActiveFilters () {
               key={i + item.group + item.value}
               css={{
                 flex: '1 1 100%',
-                maxWidth: `calc(100 - ${SPACING.XS})%`,
+                maxWidth: `calc(100% - ${SPACING.XS})%`,
                 [MEDIA_QUERIES.LARGESCREEN]: {
                   maxWidth: `calc(50% - ${SPACING.XS})`
                 },
