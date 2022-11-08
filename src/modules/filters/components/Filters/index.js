@@ -21,6 +21,7 @@ import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
 import CheckboxFilters from '../CheckboxFilters';
 
 import {
+  getActiveFilters,
   filterOutActiveFilters,
   newSearch
 } from '../../utilities';
@@ -99,44 +100,9 @@ export default function Filters () {
 }
 
 function ActiveFilters () {
-  const { datastores, filters } = useSelector((state) => {
-    return state;
-  });
-  const active = filters.active[datastores.active];
+  const items = getActiveFilters();
 
-  if (!active) {
-    return null;
-  }
-
-  /*
-    input:
-    {
-      subject: ['Birds', 'Birds North America'],
-      format: ['Science', 'Biology']
-    }
-
-    expected output:
-    [
-      { group: 'subject', value: 'Birds' },
-      { group: 'subject', value: 'Birds North America' },
-      { group: 'format', value: 'Science' },
-      { group: 'format', value: 'Biology' }
-    ]
-  */
-  const items = Object.keys(active).reduce((acc, group) => {
-    // Just don't show the checkbox filters as active filter items.
-    if (!filters.groups[group] || filters.groups[group].type !== 'checkbox') {
-      const activeFiltersToAdd = active[group].map((value) => {
-        return { group, value };
-      });
-
-      acc = acc.concat(activeFiltersToAdd);
-    }
-
-    return acc;
-  }, []);
-
-  if (items.length === 0) {
+  if (!items) {
     return null;
   }
 
