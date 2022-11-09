@@ -92,10 +92,9 @@ const searchOptions = () => {
       "datastore": "mirlyn"
     },
     {
-      "name": "Browse by author (coming soon)",
+      "name": "Browse by author",
       "uid": "browse_by_author",
       "tip": "Browse an alphabetical list of authors. Authors can be people (put last names first), organizations, or events (e.g. Kingston, Maxine Hong; United Nations Development Programme; Pong, Chun-ho).",
-      "disabled": "disabled",
       "datastore": "mirlyn"
     },
     {
@@ -104,29 +103,28 @@ const searchOptions = () => {
       "tip": "Browse an A-Z list of subjects (e.g. motion pictures; history--United States; Eliot, George).",
       "disabled": "disabled",
       "datastore": "mirlyn"
-    },
-    {
-      "name": "Browse by title (coming soon)",
-      "uid": "browse_by_title",
-      "tip": "Browse an alphabetical list of titles for books, online journals, serials, media, etc (e.g. Nine stories; Tom Swift).",
-      "disabled": "disabled",
-      "datastore": "mirlyn"
     }
   ];
 };
 
 const searchOptionsDatastores = () => {
-  const getAllSearchOptionsDatastores = searchOptions().map((searchOption) => searchOption.datastore).flat();
+  const getAllSearchOptionsDatastores = searchOptions().map((searchOption) => {
+    return searchOption.datastore;
+  }).flat();
   const availableSearchOptionsDatastores = [...new Set(getAllSearchOptionsDatastores)];
   return availableSearchOptionsDatastores;
-}
+};
 
 const filterOptions = (fields, browse = false) => {
   if (browse) {
-    return fields.filter((field) => field.uid.includes('browse_by'));
+    return fields.filter((field) => {
+      return field.uid.includes('browse_by');
+    });
   }
-  return fields.filter((field) => !field.uid.includes('browse_by'));
-}
+  return fields.filter((field) => {
+    return !field.uid.includes('browse_by');
+  });
+};
 
 export {
   searchOptions,
