@@ -22,18 +22,11 @@ import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
 import CheckboxFilters from '../CheckboxFilters';
 
 import {
-  getActiveFilters,
   filterOutActiveFilters,
   newSearch
 } from '../../utilities';
 
-import ActiveFilterItem from '../ActiveFilterItem';
-import ClearActiveFiltersLink from '../ClearActiveFiltersLink';
-
-const filterGroupStyles = {
-  padding: `0 ${SPACING.M}`,
-  borderBottom: `solid 1px ${COLORS.neutral['100']}`
-};
+import ActiveFilters from '../ActiveFilters';
 
 function FiltersLoadingContainer ({ children }) {
   const { datastores, search, records } = useSelector((state) => {
@@ -89,7 +82,8 @@ export default function Filters () {
             margin: 0,
             padding: 0,
             '& > *': {
-              ...filterGroupStyles
+              padding: `0 ${SPACING.M}`,
+              borderBottom: `solid 1px ${COLORS.neutral['100']}`
             }
           }}
         >
@@ -100,62 +94,6 @@ export default function Filters () {
           })}
         </Accordion>
       </FiltersLoadingContainer>
-    </section>
-  );
-}
-
-function ActiveFilters () {
-  const items = getActiveFilters();
-
-  if (!items) {
-    return null;
-  }
-
-  return (
-    <section
-      aria-label='active-filters'
-      css={{
-        ...filterGroupStyles,
-        padding: `${SPACING.S} ${SPACING.M}`,
-        '& > * + *': {
-          marginTop: SPACING.XS
-        }
-      }}
-    >
-      <h2
-        id='active-filters'
-        css={{
-          fontSize: '1rem',
-          margin: '0'
-        }}
-      >
-        Active filters
-      </h2>
-
-      <ul
-        css={{
-          margin: 0,
-          listStyle: 'none'
-        }}
-      >
-        {items.map((item, i) => {
-          return (
-            <li
-              key={i + item.group + item.value}
-              css={{
-                marginBottom: SPACING.XS,
-                ':last-of-type': {
-                  marginBottom: 0
-                }
-              }}
-            >
-              <ActiveFilterItem {...item} />
-            </li>
-          );
-        })}
-      </ul>
-
-      {items.length > 1 && <ClearActiveFiltersLink />}
     </section>
   );
 }

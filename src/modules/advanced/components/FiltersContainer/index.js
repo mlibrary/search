@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { Icon, Button } from '../../../reusable';
 import getFilters from './getFilters';
 import AdvancedFilter from '../AdvancedFilter';
 import { setAdvancedFilter } from '../../../advanced';
+import SearchButton from '../../../search/components/SearchButton';
 
 class FiltersContainer extends React.Component {
   handleAdvancedFilterChange = ({
@@ -99,6 +99,7 @@ class FiltersContainer extends React.Component {
 
     return (
       <>
+        <SearchButton advanced />
         <h2 className='heading-large'>Additional search options</h2>
         <div className='advanced-filters-inner-container'>
           {filterGroups.map((filterGroup, groupIndex) => {
@@ -140,12 +141,7 @@ class FiltersContainer extends React.Component {
             );
           })}
         </div>
-
-        <Button
-          style={{ marginTop: '1rem' }}
-          type='submit'
-        ><Icon icon='search' size={24} /> Advanced Search
-        </Button>
+        <SearchButton advanced />
       </>
     );
   }

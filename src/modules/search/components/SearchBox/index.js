@@ -1,21 +1,32 @@
 /** @jsxImportSource @emotion/react */
-import { Global } from "@emotion/react";
-import React from 'react'
-import { MEDIA_QUERIES, SEARCH_COLORS } from "../../../reusable/umich-lib-core-temp";
-import { Icon, Button } from "../../../reusable";
-import { useSelector } from "react-redux";
-import qs from "qs";
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
-import SearchByOptions from "../SearchByOptions";
-import SearchTip from "../SearchTip";
+import { Global } from '@emotion/react';
+import React from 'react';
+import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
+import { Icon } from '../../../reusable';
+import { useSelector } from 'react-redux';
+import qs from 'qs';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import SearchByOptions from '../SearchByOptions';
+import SearchButton from '../SearchButton';
+import SearchTip from '../SearchTip';
 
-function SearchBox({ history, match, location }) {
-  const { query } = useSelector((state) => state.search);
-  const { fields } = useSelector((state) => state.advanced[state.datastores.active]);
-  const isAdvanced = useSelector((state) => state.advanced[state.datastores.active] ? true : false)
+function SearchBox ({ history, match, location }) {
+  const { query } = useSelector((state) => {
+    return state.search;
+  });
+  const { fields } = useSelector((state) => {
+    return state.advanced[state.datastores.active];
+  });
+  const isAdvanced = useSelector((state) => {
+    return !!state.advanced[state.datastores.active];
+  });
   const activeDatastore = useSelector(
-    (state) => state.datastores.datastores.find(ds => ds.uid === state.datastores.active)
+    (state) => {
+      return state.datastores.datastores.find((ds) => {
+        return ds.uid === state.datastores.active;
+      });
+    }
   );
   const [inputQuery, setInputQuery] = React.useState(query);
   const defaultField = fields[0].uid;
@@ -28,11 +39,15 @@ function SearchBox({ history, match, location }) {
     // Set default value of input
     let getInput = query;
     // Check if the query is a single fielded search
-    if(query.includes(':(') && ![' AND ', ' OR ', ' NOT '].some((boolean) => query.includes(boolean))) {
+    if (query.includes(':(') && ![' AND ', ' OR ', ' NOT '].some((boolean) => {
+      return query.includes(boolean);
+    })) {
       // Get current search field uid from query
       const currentQuery = query.slice(0, query.indexOf(':'));
       // Check if current query exists in active datastore's field options
-      if (fields.map(field => field.uid).includes(currentQuery)) {
+      if (fields.map((field) => {
+        return field.uid;
+      }).includes(currentQuery)) {
         // Update field to current query
         getField = currentQuery;
         // Remove field wrap from input value
@@ -44,8 +59,8 @@ function SearchBox({ history, match, location }) {
     // Set input value
     setInputQuery(getInput);
   }, [activeDatastore, query]);
-  
-  function setOption(e) {
+
+  function setOption (e) {
     window.dataLayer.push({
       event: 'selectionMade',
       selectedElement: e.target.options[e.target.selectedIndex]
@@ -53,7 +68,7 @@ function SearchBox({ history, match, location }) {
     return setField(e.target.value);
   }
 
-  function handleSubmitSearch(e) {
+  function handleSubmitSearch (e) {
     e.preventDefault();
 
     // Get the dropdown's current value because `field` does not change
@@ -83,10 +98,10 @@ function SearchBox({ history, match, location }) {
       // Add new query
       query: newQuery
     }, {
-      arrayFormat: "repeat",
+      arrayFormat: 'repeat',
       encodeValuesOnly: true,
       allowDots: true,
-      format: "RFC1738"
+      format: 'RFC1738'
     });
 
     // Redirect users if browse option has been submitted
@@ -98,19 +113,23 @@ function SearchBox({ history, match, location }) {
   }
 
   return (
-    <form css={{
-      background: SEARCH_COLORS.blue['300'],
-      paddingBottom: `0.75rem`,
-      borderBottom: `solid 2px ${SEARCH_COLORS.blue['400']}`
-    }} onSubmit={handleSubmitSearch}>
+    <form
+      css={{
+        background: SEARCH_COLORS.blue['300'],
+        paddingBottom: '0.75rem',
+        borderBottom: `solid 2px ${SEARCH_COLORS.blue['400']}`
+      }}
+      onSubmit={handleSubmitSearch}
+    >
       <Global styles={{
         '*:focus': {
           outline: 0,
-          boxShadow: `rgb(255, 203, 5) 0px 0px 0px 2px, rgb(33, 43, 54) 0px 0px 0px 3px !important`,
+          boxShadow: 'rgb(255, 203, 5) 0px 0px 0px 2px, rgb(33, 43, 54) 0px 0px 0px 3px !important',
           zIndex: '10',
           borderRadius: '2px !important'
         }
-      }}/>
+      }}
+      />
       <div
         css={{
           maxWidth: '1280px',
@@ -133,28 +152,31 @@ function SearchBox({ history, match, location }) {
             gridTemplateAreas:
             `'dropdown input button'
              'advanced advanced advanced'`,
-            gridTemplateColumns: '290px 1fr auto',
+            gridTemplateColumns: '290px 1fr auto'
           },
           '@media only screen and (min-width: 820px)': {
-            gridTemplateAreas: `'dropdown input button advanced'`,
-            gridTemplateColumns: '340px 1fr auto auto',
+            gridTemplateAreas: '\'dropdown input button advanced\'',
+            gridTemplateColumns: '340px 1fr auto auto'
           }
-        }}>
-          <div 
-            className="search-box-dropdown" 
+        }}
+        >
+          <div
+            className='search-box-dropdown'
             css={{
               gridArea: 'dropdown',
               marginTop: '0.75rem',
               position: 'relative',
-              width: '100%',
+              width: '100%'
             }}
           >
             <select
-              aria-label="Select an option"
-              className="dropdown"
+              aria-label='Select an option'
+              className='dropdown'
               value={field}
-              onChange={e => setOption(e)}
-              autoComplete="off"
+              onChange={(e) => {
+                return setOption(e);
+              }}
+              autoComplete='off'
               css={{
                 all: 'unset',
                 background: SEARCH_COLORS.grey['100'],
@@ -176,23 +198,25 @@ function SearchBox({ history, match, location }) {
               <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
             </select>
             <Icon
-              icon="expand_more"
+              icon='expand_more'
               size={24}
               css={{
                 position: 'absolute',
                 right: '0.5rem',
                 top: '0.6rem',
                 pointerEvents: 'none'
-              }} 
+              }}
             />
           </div>
           <input
-            type="text"
-            aria-label={field.startsWith('browse_by_') ? `Browse for` : `Search for`}
+            type='text'
+            aria-label={field.startsWith('browse_by_') ? 'Browse for' : 'Search for'}
             value={inputQuery}
-            onChange={e => setInputQuery(e.target.value)}
-            autoComplete="on"
-            name="query"
+            onChange={(e) => {
+              return setInputQuery(e.target.value);
+            }}
+            autoComplete='on'
+            name='query'
             css={{
               all: 'unset',
               background: 'white',
@@ -211,35 +235,16 @@ function SearchBox({ history, match, location }) {
               }
             }}
           />
-          <Button
-            css={{
-              alignItems: 'center',
-              display: 'flex',
+          <SearchButton
+            styles={{
               gridArea: 'button',
-              margin: '0.75rem 0 0 0.75rem',
-              minWidth: '44px',
-              padding: '0.5rem 0.75rem'
+              margin: '0.75rem 0 0 0.75rem'
             }}
-            type='submit'
-          >
-            <Icon icon="search" size={24} />
-            <span css={{
-              border: '0px',
-              clip: 'rect(0px, 0px, 0px, 0px)',
-              height: '1px',
-              margin: '-1px',
-              overflow: 'hidden',
-              padding: '0px',
-              position: 'absolute',
-              width: '1px',
-              whiteSpace: 'nowrap',
-              overflowWrap: 'normal'
-            }}>Search</span>
-          </Button>
+          />
           {isAdvanced && (
             <Link
               to={`/${match.params.datastoreSlug}/advanced${location.search}`}
-              className="search-box-advanced-link"
+              className='search-box-advanced-link'
               css={{
                 alignSelf: 'center',
                 gridArea: 'advanced',
@@ -248,16 +253,16 @@ function SearchBox({ history, match, location }) {
                 textAlign: 'center'
               }}
             >
-              <span className="offpage">{activeDatastore.name}</span>
+              <span className='offpage'>{activeDatastore.name}</span>
               <span>Advanced</span>
-              <span className="offpage">Search</span>
+              <span className='offpage'>Search</span>
             </Link>
           )}
         </div>
         <SearchTip activeDatastore={activeDatastore} field={field} />
       </div>
     </form>
-  )
+  );
 }
 
 export default withRouter(SearchBox);

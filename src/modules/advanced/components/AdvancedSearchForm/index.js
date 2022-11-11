@@ -14,10 +14,7 @@ import {
   setFieldedSearch
 } from '../../../advanced';
 import _ from 'underscore';
-import { COLORS, MEDIA_QUERIES, SPACING } from '../../../reusable/umich-lib-core-temp';
-import { getActiveFilters } from '../../../filters/utilities';
-import ActiveFilterItem from '../../../filters/components/ActiveFilterItem';
-import ClearActiveFiltersLink from '../../../filters/components/ClearActiveFiltersLink';
+import ActiveFilters from '../../../filters/components/ActiveFilters';
 
 class AdvancedSearchForm extends React.Component {
   state = {
@@ -190,11 +187,7 @@ class AdvancedSearchForm extends React.Component {
           </Button>
         </div>
 
-        <ActiveFilters />
-
-        <Button style={{ marginTop: '1rem' }} type='submit'>
-          <Icon icon='search' size={24} /> Advanced Search
-        </Button>
+        <ActiveFilters advanced />
 
         <FiltersContainer datastore={datastore} />
       </form>
@@ -214,81 +207,6 @@ AdvancedSearchForm.propTypes = {
   activeFilters: PropTypes.object,
   history: PropTypes.object
 };
-
-function ActiveFilters () {
-  const items = getActiveFilters();
-
-  if (!items) {
-    return null;
-  }
-
-  return (
-    <section
-      aria-label='active-filters'
-      css={{
-        marginTop: SPACING.XL
-      }}
-    >
-      <div
-        css={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: SPACING.XS
-        }}
-      >
-        <h2
-          id='active-filters'
-          css={{
-            fontSize: '1rem',
-            margin: '0'
-          }}
-        >
-          Active filters
-          <span
-            css={{
-              color: COLORS.neutral['300'],
-              fontWeight: 'normal'
-            }}
-          >
-            &nbsp;({items.length})
-          </span>
-        </h2>
-        {items.length > 1 && <ClearActiveFiltersLink />}
-      </div>
-
-      <ul
-        css={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: SPACING.XS,
-          margin: 0,
-          marginTop: SPACING.XS,
-          listStyle: 'none'
-        }}
-      >
-        {items.map((item, i) => {
-          return (
-            <li
-              key={i + item.group + item.value}
-              css={{
-                flex: '1 1 100%',
-                maxWidth: `calc(100% - ${SPACING.XS})%`,
-                [MEDIA_QUERIES.LARGESCREEN]: {
-                  maxWidth: `calc(50% - ${SPACING.XS})`
-                },
-                [MEDIA_QUERIES.XLSCREEN]: {
-                  maxWidth: `calc(33% - ${SPACING.XS})`
-                }
-              }}
-            >
-              <ActiveFilterItem {...item} />
-            </li>
-          );
-        })}
-      </ul>
-    </section>
-  );
-}
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators(
