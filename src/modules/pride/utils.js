@@ -1,20 +1,20 @@
-import { Pride } from "pride";
-import _ from "underscore";
-import qs from "qs";
-import { Validator } from "jsonschema";
+import { Pride } from 'pride';
+import _ from 'underscore';
+import qs from 'qs';
+import { Validator } from 'jsonschema';
 
-import store from "../../store";
-import config from "../../config";
+import store from '../../store';
+import config from '../../config';
 
-import { setRecord, setRecordHoldings, setRecordGetThis } from "../records";
+import { setRecord, setRecordHoldings, setRecordGetThis } from '../records';
 
-import { getField, getFieldValue } from "../records/utilities";
+import { getField, getFieldValue } from '../records/utilities';
 
-const isSlugADatastore = slug => {
-  const slugDs = _.findWhere(config.datastores.list, { slug: slug });
+const isSlugADatastore = (slug) => {
+  const slugDs = _.findWhere(config.datastores.list, { slug });
   const uidDs = _.findWhere(config.datastores.list, { uid: slug });
 
-  return slugDs || uidDs ? true : false;
+  return !!(slugDs || uidDs);
 };
 
 /**
@@ -23,13 +23,13 @@ const isSlugADatastore = slug => {
  * matching datastore Object or undefined if not found.
  */
 const getDatastore = ({ uid, datastores }) => {
-  return datastores.filter(ds => {
+  return datastores.filter((ds) => {
     return ds.uid === uid;
   })[0];
 };
 
-const getDatastoreName = uid => {
-  const ds = _.findWhere(config.datastores.list, { uid: uid });
+const getDatastoreName = (uid) => {
+  const ds = _.findWhere(config.datastores.list, { uid });
 
   if (ds && ds.name) {
     return ds.name;
@@ -38,8 +38,8 @@ const getDatastoreName = uid => {
   return undefined;
 };
 
-const getDatastoreSlug = uid => {
-  const ds = _.findWhere(config.datastores.list, { uid: uid });
+const getDatastoreSlug = (uid) => {
+  const ds = _.findWhere(config.datastores.list, { uid });
 
   if (ds && ds.slug) {
     return ds.slug;
@@ -52,7 +52,7 @@ const getDatastoreSlug = uid => {
   return undefined;
 };
 
-const getDatastoreUidBySlug = slugParam => {
+const getDatastoreUidBySlug = (slugParam) => {
   const slugDs = _.findWhere(config.datastores.list, { slug: slugParam });
   const uidDs = _.findWhere(config.datastores.list, { uid: slugParam });
   const ds = slugDs || uidDs;
@@ -70,7 +70,7 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
   });
 
   if (!configDs) {
-    console.log("Config error: getMultiSearchRecords");
+    console.log('Config error: getMultiSearchRecords');
     return undefined;
   }
 
@@ -78,13 +78,13 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
   const bentoBoxes = _.reduce(
     configDs.datastores,
     (memo, ds) => {
-      let records = _.values(multiSearchRecords[ds]).splice(0, 3);
+      const records = _.values(multiSearchRecords[ds]).splice(0, 3);
 
       memo.push({
         uid: ds,
         name: getDatastoreName(ds),
         slug: getDatastoreSlug(ds),
-        records: records
+        records
       });
 
       return memo;
@@ -95,8 +95,8 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
   return bentoBoxes;
 };
 
-const getDatastoreSlugByUid = uid => {
-  const ds = _.findWhere(config.datastores.list, { uid: uid });
+const getDatastoreSlugByUid = (uid) => {
+  const ds = _.findWhere(config.datastores.list, { uid });
 
   return ds.slug || ds.uid;
 };
@@ -104,24 +104,24 @@ const getDatastoreSlugByUid = uid => {
 const isValidURLSearchQuery = ({ urlState }) => {
   const v = new Validator();
   const schema = {
-    type: "object",
+    type: 'object',
     properties: {
       filter: {
-        type: "object",
+        type: 'object',
         patternProperties: {
-          "^([A-Za-z0-9_])+$": {
-            type: ["string", "array"]
+          '^([A-Za-z0-9_])+$': {
+            type: ['string', 'array']
           }
         }
       },
       query: {
-        type: "string"
+        type: 'string'
       },
       page: {
-        type: "string"
+        type: 'string'
       },
       sort: {
-        type: "string"
+        type: 'string'
       }
     }
   };
@@ -148,6 +148,10 @@ const getStateFromURL = ({ location }) => {
       return undefined;
     } else {
       if (parsed.filter) {
+        // Do not filter for "All collections" if queried (LIBSEARCH-796)
+        if (parsed.filter.collection === 'All collections') {
+          delete parsed.filter.collection;
+        }
         const filterUids = Object.keys(parsed.filter);
         const filterValuesAreArrays = Object.assign(parsed, {
           filter: filterUids.reduce((obj, filterUid) => {
@@ -183,9 +187,9 @@ const requestRecord = ({ datastoreUid, recordUid }) => {
   if (recordFromState) {
     store.dispatch(setRecord(recordFromState));
   } else {
-    const callback = record => {
+    const callback = (record) => {
       const resourceAccess = getFieldValue(
-        getField(record.fields, "resource_access")
+        getField(record.fields, 'resource_access')
       );
 
       store.dispatch(
@@ -200,8 +204,8 @@ const requestRecord = ({ datastoreUid, recordUid }) => {
 
     // We only want to send holdings requests for
     // record types that have holdings (e.g. the catalog)
-    if (datastoreUid === "mirlyn") {
-      record.getHoldings(data => {
+    if (datastoreUid === 'mirlyn') {
+      record.getHoldings((data) => {
         store.dispatch(setRecordHoldings(data));
       });
     }
@@ -209,7 +213,7 @@ const requestRecord = ({ datastoreUid, recordUid }) => {
 };
 
 const requestGetThis = ({ datastoreUid, recordUid, barcode }) => {
-  const callback = data => {
+  const callback = (data) => {
     store.dispatch(setRecordGetThis(data));
   };
 
@@ -221,17 +225,17 @@ const requestGetThis = ({ datastoreUid, recordUid, barcode }) => {
 const stringifySearchQueryForURL = ({ query, filter, library, page, sort }) => {
   const SearchQueryString = qs.stringify(
     {
-      query: query === "" ? undefined : query,
+      query: query === '' ? undefined : query,
       filter,
       library,
       page: page && page > 1 ? page : undefined,
       sort
     },
     {
-      arrayFormat: "repeat",
+      arrayFormat: 'repeat',
       encodeValuesOnly: true,
       allowDots: true,
-      format: "RFC1738"
+      format: 'RFC1738'
     }
   );
 
