@@ -167,7 +167,10 @@ function mapStateToProps (state, props) {
   return {
     filters: getFilters({
       filterGroups: state.advanced[datastore.uid].filters,
-      activeFilters: state.advanced[datastore.uid].activeFilters
+      activeFilters: {
+        ...state.filters.active[datastore.uid],
+        ...state.advanced[datastore.uid].activeFilters
+      }
     })
   };
 }
