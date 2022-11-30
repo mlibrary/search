@@ -2,6 +2,7 @@
 import React from 'react';
 import { useSelector, connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Icon, Button } from '../../../reusable';
 import getFilters from './getFilters';
@@ -186,6 +187,12 @@ function ActiveAdvancedFilters () {
     return null;
   }
 
+  const titleCase = (string) => {
+    return string.toLowerCase().split('_').map((word) => {
+      return word.replace(word[0], word[0].toUpperCase());
+    }).join(' ');
+  };
+
   return (
     <section aria-label='active-filters'>
       <div
@@ -207,12 +214,23 @@ function ActiveAdvancedFilters () {
         </h2>
         <span
           css={{
-            color: COLORS.neutral['300']
+            color: COLORS.neutral['300'],
+            paddingRight: '0.5em'
           }}
         >
           ({items.length})
         </span>
-        {/* {items.length > 1 && <ClearActiveFiltersLink />} */}
+        {/* {items.length > 1 &&
+          <Link
+            to={location.href.replace(location.origin, '')}
+            css={{
+              display: 'inline-block',
+              textDecoration: 'underline',
+              color: COLORS.neutral['300']
+            }}
+          >
+            Clear all active filters
+          </Link>} */}
       </div>
 
       <ul
@@ -261,7 +279,7 @@ function ActiveAdvancedFilters () {
                 }}
                 kind='secondary'
               >
-                <span>{filterGroups[item.group].name}: {item.value}</span>
+                <span>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}: {item.value}</span>
                 {/* <Icon icon='close' /> */}
               </Button>
             </li>
