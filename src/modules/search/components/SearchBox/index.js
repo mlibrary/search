@@ -29,18 +29,18 @@ function SearchBox ({ history, match, location }) {
     }
   );
   const [inputQuery, setInputQuery] = React.useState(query);
-  const defaultField = fields[0].uid;
+  const defaultField = fields[activeDatastore.uid === 'primo' && !query ? 1 : 0].uid;
   const [field, setField] = React.useState(defaultField);
 
   // Set field and input when `activeDatastore` or `query` changes
   React.useEffect(() => {
-    // Set default value of field
-    let getField = defaultField;
+    // Set default value of field based on the query
+    let getField = query && !query.includes(':(') ? fields[0].uid : defaultField;
     // Set default value of input
     let getInput = query;
     // Check if the query is a single fielded search
-    if (query.includes(':(') && ![' AND ', ' OR ', ' NOT '].some((boolean) => {
-      return query.includes(boolean);
+    if (query && query.includes(':(') && ![' AND ', ' OR ', ' NOT '].some((operator) => {
+      return query.includes(operator);
     })) {
       // Get current search field uid from query
       const currentQuery = query.slice(0, query.indexOf(':'));
@@ -84,7 +84,7 @@ function SearchBox ({ history, match, location }) {
     const browseURL = browseOption ? `/browse/${dropdownOption.slice(10)}` : '';
 
     // Set new query
-    const newQuery = (browseOption || dropdownOption === defaultField) ? inputQuery : `${dropdownOption}:(${inputQuery})`;
+    const newQuery = (browseOption || dropdownOption === 'keyword') ? inputQuery : `${dropdownOption}:(${inputQuery})`;
 
     // Check if new search
     if (query === newQuery) return;
@@ -119,8 +119,8 @@ function SearchBox ({ history, match, location }) {
         paddingBottom: '0.75rem',
         borderBottom: `solid 2px ${SEARCH_COLORS.blue['400']}`
       }}
-      onSubmit={() => {
-        return handleSubmitSearch;
+      onSubmit={(e) => {
+        return handleSubmitSearch(e);
       }}
     >
       <Global styles={{

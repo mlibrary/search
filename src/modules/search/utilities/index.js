@@ -7,15 +7,15 @@ const searchOptions = () => {
       datastore: 'mirlyn'
     },
     {
-      name: 'Keyword (is exact)',
-      uid: 'keyword',
-      tip: 'Enter an exact phrase to search (e.g., solar power). Use AND to separate concepts or phrases (e.g., Black Women Scientists AND Chanda Prescod). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011">Basic Keyword Searching</a>.',
-      datastore: 'primo'
-    },
-    {
       name: 'Keyword (contains)',
       uid: 'contains',
       tip: 'Enter one or more keywords to search broadly. (e.g., Black Women Scientists) Use quotes to search for a specific phrase. (e.g., “systems of oppression”) See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011">Basic Keyword Searching</a>.',
+      datastore: 'primo'
+    },
+    {
+      name: 'Keyword (is exact)',
+      uid: 'keyword',
+      tip: 'Enter an exact phrase to search (e.g., solar power). Use AND to separate concepts or phrases (e.g., Black Women Scientists AND Chanda Prescod). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011">Basic Keyword Searching</a>.',
       datastore: 'primo'
     },
     {
