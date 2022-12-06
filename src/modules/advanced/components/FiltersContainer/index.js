@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { useSelector, connect } from 'react-redux';
+import { useSelector, useStore, connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -261,7 +261,7 @@ function ActiveAdvancedFilters () {
                 }
               }}
             >
-              <Button
+              <div
                 css={{
                   alignItems: 'center',
                   color: COLORS.green['500'],
@@ -274,17 +274,17 @@ function ActiveAdvancedFilters () {
                   justifyContent: 'space-between',
                   padding: `${SPACING.XS} ${SPACING.S}`,
                   textAlign: 'left',
-                  width: '100%',
-                  ':hover': {
-                    border: `solid 1px ${COLORS.green['400']}`,
-                    textDecoration: 'underline'
-                  }
+                  width: '100%'
+                  // ':hover': {
+                  //   border: `solid 1px ${COLORS.green['400']}`,
+                  //   textDecoration: 'underline'
+                  // }
                 }}
                 kind='secondary'
               >
                 <span>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}: {item.value}</span>
                 {/* <Icon icon='close' /> */}
-              </Button>
+              </div>
             </li>
           );
         })}
