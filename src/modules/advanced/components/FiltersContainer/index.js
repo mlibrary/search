@@ -142,7 +142,10 @@ class FiltersContainer extends React.Component {
 FiltersContainer.propTypes = {
   setAdvancedFilter: PropTypes.func,
   datastore: PropTypes.object,
-  filters: PropTypes.object
+  filters: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ])
 };
 
 function mapDispatchToProps (dispatch) {
