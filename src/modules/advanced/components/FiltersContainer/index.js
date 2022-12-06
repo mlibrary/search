@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { useSelector, useStore, connect } from 'react-redux';
+import { useSelector, connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -75,7 +75,8 @@ class FiltersContainer extends React.Component {
 
   render () {
     const {
-      filters
+      filters,
+      datastore
     } = this.props;
 
     if (!filters || filters.length === 0) {
@@ -86,7 +87,7 @@ class FiltersContainer extends React.Component {
 
     return (
       <>
-        <ActiveAdvancedFilters />
+        <ActiveAdvancedFilters datastore={datastore} />
         <h2 className='heading-large'>Additional search options</h2>
         <div className='advanced-filters-inner-container'>
           {filterGroups.map((filterGroup, groupIndex) => {
@@ -154,11 +155,12 @@ function mapDispatchToProps (dispatch) {
   }, dispatch);
 }
 
-function ActiveAdvancedFilters () {
-  const { datastores, advanced } = useSelector((state) => {
+function ActiveAdvancedFilters (datastore) {
+  const currentDatastore = datastore.datastore.uid;
+  const { advanced } = useSelector((state) => {
     return state;
   });
-  const activeAdditionalSearchOptions = advanced[datastores.active].activeFilters;
+  const activeAdditionalSearchOptions = advanced[currentDatastore].activeFilters;
   // Check if object exists
   if (!activeAdditionalSearchOptions) {
     return null;
@@ -171,7 +173,7 @@ function ActiveAdvancedFilters () {
   });
 
   const filterGroups = {};
-  advanced[datastores.active].filters.forEach((filterGroup) => {
+  advanced[currentDatastore].filters.forEach((filterGroup) => {
     filterGroups[filterGroup.uid] = { ...filterGroup };
   });
 
