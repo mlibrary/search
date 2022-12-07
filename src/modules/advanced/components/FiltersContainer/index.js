@@ -238,6 +238,15 @@ function ActiveAdvancedFilters (datastore) {
           </Link>} */}
       </div>
 
+      <p
+        className='font-small'
+        css={{
+          marginTop: '0'
+        }}
+      >
+        Unselect active filters through the options below.
+      </p>
+
       <ul
         css={{
           display: 'flex',
