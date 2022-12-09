@@ -249,12 +249,15 @@ function ActiveAdvancedFilters (datastore) {
 
       <ul
         css={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: SPACING.XS,
-          margin: 0,
-          marginTop: SPACING.XS,
-          listStyle: 'none'
+          // display: 'flex',
+          // flexWrap: 'wrap',
+          // gap: SPACING.XS,
+          // margin: 0,
+          // marginTop: SPACING.XS,
+          // listStyle: 'none'
+          fontSize: '0.9rem',
+          marginLeft: '2.5rem',
+          marginTop: '0'
         }}
       >
         {items.map((item, i) => {
@@ -262,30 +265,30 @@ function ActiveAdvancedFilters (datastore) {
             <li
               key={i + item.group + item.value}
               css={{
-                flex: '1 1 100%',
-                maxWidth: `calc(100% - ${SPACING.XS})%`,
-                [MEDIA_QUERIES.LARGESCREEN]: {
-                  maxWidth: `calc(50% - ${SPACING.XS})`
-                },
-                [MEDIA_QUERIES.XLSCREEN]: {
-                  maxWidth: `calc(33% - ${SPACING.XS})`
-                }
+                // flex: '1 1 100%',
+                // maxWidth: `calc(100% - ${SPACING.XS})%`,
+                // [MEDIA_QUERIES.LARGESCREEN]: {
+                //   maxWidth: `calc(50% - ${SPACING.XS})`
+                // },
+                // [MEDIA_QUERIES.XLSCREEN]: {
+                //   maxWidth: `calc(33% - ${SPACING.XS})`
+                // }
               }}
             >
               <div
                 css={{
-                  alignItems: 'center',
-                  color: COLORS.green['500'],
-                  background: COLORS.green['100'],
-                  border: `solid 1px ${COLORS.green['200']}`,
-                  borderRadius: '4px',
-                  display: 'flex',
-                  gap: '0.25em',
-                  height: '100%',
-                  justifyContent: 'space-between',
-                  padding: `${SPACING.XS} ${SPACING.S}`,
-                  textAlign: 'left',
-                  width: '100%'
+                  // alignItems: 'center',
+                  // color: COLORS.green['500'],
+                  // background: COLORS.green['100'],
+                  // border: `solid 1px ${COLORS.green['200']}`,
+                  // borderRadius: '4px',
+                  // display: 'flex',
+                  // gap: '0.25em',
+                  // height: '100%',
+                  // justifyContent: 'space-between',
+                  // padding: `${SPACING.XS} ${SPACING.S}`,
+                  // textAlign: 'left',
+                  // width: '100%'
                   // ':hover': {
                   //   border: `solid 1px ${COLORS.green['400']}`,
                   //   textDecoration: 'underline'
@@ -293,7 +296,7 @@ function ActiveAdvancedFilters (datastore) {
                 }}
                 kind='secondary'
               >
-                <span>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}: {item.value}</span>
+                <span><span css={{fontWeight: 600}}>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}:</span> {item.value}</span>
                 {/* <Icon icon='close' /> */}
               </div>
             </li>
