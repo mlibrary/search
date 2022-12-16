@@ -205,6 +205,7 @@ const config = {
     primo: {
       fields: [
         'keyword',
+        'contains',
         'exact',
         'title',
         'author',
