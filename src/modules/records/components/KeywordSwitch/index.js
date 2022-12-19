@@ -13,7 +13,8 @@ class KeywordSwitch extends React.Component {
 
     if (datastore.uid !== 'primo' || (!isExactSearch && !isContainsSearch)) return null;
 
-    const querySearch = isExactSearch ? query.slice(exactQuery.length, -1) : `${exactQuery}${query})`;
+    const strippedQuery = query.includes(':(') ? query.slice((query.indexOf('(') + 1), -1) : query;
+    const querySearch = isExactSearch ? strippedQuery : `${exactQuery}${strippedQuery})`;
     const linkURL = `${datastore.slug}?query=${querySearch}`;
     const briefView = window.location.pathname.split('/').pop() === 'everything';
     const descriptionText = !briefView && isContainsSearch ? 'Seeing less precise results than you expected?' : 'Not seeing the results you expected?';
