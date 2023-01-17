@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { Breadcrumb } from '../../../reusable';
 import {
   COLORS,
+  SEARCH_COLORS,
   MEDIA_QUERIES,
   SPACING
 } from '../../../reusable/umich-lib-core-temp';
@@ -231,7 +232,7 @@ class FullRecord extends React.Component {
           </section>
         </div>
         {this.renderActions()}
-        <LastIndexed record={record} />
+        <LastIndexed datastore={datastore.slug} record={record} />
         {datastoreUid === 'mirlyn' && <ViewMARC record={record} />}
       </div>
     );
@@ -267,7 +268,8 @@ HarmfulLanguage.propTypes = {
   datastore: PropTypes.string
 };
 
-function LastIndexed ({ record }) {
+function LastIndexed ({ datastore, record }) {
+  if (!['catalog', 'onlinejournals'].includes(datastore)) return (null);
   const indexingDate = record
     .fields
     .filter((field) => {
@@ -275,13 +277,14 @@ function LastIndexed ({ record }) {
     })[0];
   if (!indexingDate) return null;
   return (
-    <p style={{ marginTop: 0, order: 3 }}>
+    <p style={{ color: SEARCH_COLORS.grey[500], marginTop: 0, order: 3 }}>
       <span style={{ fontWeight: 600 }}>{indexingDate.name}:</span> {indexingDate.value}
     </p>
   );
 }
 
 LastIndexed.propTypes = {
+  datastore: PropTypes.string,
   record: PropTypes.object
 };
 
