@@ -7,19 +7,19 @@ This repository contains the front-end code that generates the UI and connects t
 ### 1. Clone Search
 
 ```bash
-$ git clone https://github.com/mlibrary/search.git
+git clone https://github.com/mlibrary/search.git
 ```
 
 ### 2. Install
 
 ```bash
-$ npm install --legacy-peer-deps
+npm install --legacy-peer-deps
 ```
 
 ### 3. Run Locally
 
 ```bash
-$ npm start
+npm start
 ```
 
 ### Troubleshooting
@@ -33,26 +33,26 @@ If you load the site and it produces this error:
 ##### 2. Navigate to the `pride` dependency
 
 ```bash
-$ cd node_modules/pride
+cd node_modules/pride
 ```
 
 ##### 3. Edit `pride.js`
 
 ```bash
-$ nano pride.js
+nano pride.js
 ```
 ##### 4. Replace all instances of `_underscore._.` with `_underscore.` and save.
 
 ##### 5. Install `pride`
 
 ```bash
-$ npm install
+npm install
 ```
 
 ##### 6. Go back and rerun the app
 
 ```bash
-$ cd ../../ && npm start
+cd ../../ && npm start
 ```
 
 #### ERR_OSSL_EVP_UNSUPPORTED
