@@ -1,27 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Icon } from '../../../reusable';
-import {
-  COLORS
-} from '../../../reusable/umich-lib-core-temp'
+import { COLORS } from '../../../reusable/umich-lib-core-temp';
 
 class KeywordSwitch extends React.Component {
-  render() {
+  render () {
     const { datastore, query } = this.props;
-    const containsKeyword = query.startsWith('contains');
+    const exactQuery = 'exact:(';
+    const isExactSearch = query.startsWith(exactQuery);
+    const isContainsSearch = query.startsWith('contains:(') || query.startsWith('keyword:(') || !query.includes(':(');
 
-    if (datastore.uid !== 'primo' || (query.search(/:\(/) !== -1 && !containsKeyword)) return null;
+    if (datastore.uid !== 'primo' || (!isExactSearch && !isContainsSearch)) return null;
 
-    const querySearch = containsKeyword? query.slice(10, -1) : `contains:(${query})`;
+    const strippedQuery = query.includes(':(') ? query.slice((query.indexOf('(') + 1), -1) : query;
+    const querySearch = isExactSearch ? strippedQuery : `${exactQuery}${strippedQuery})`;
     const linkURL = `${datastore.slug}?query=${querySearch}`;
     const briefView = window.location.pathname.split('/').pop() === 'everything';
-    const descriptionText = !briefView && containsKeyword ? 'Seeing less precise results than you expected?' : 'Not seeing the results you expected?';
+    const descriptionText = !briefView && isContainsSearch ? 'Seeing less precise results than you expected?' : 'Not seeing the results you expected?';
     const linkText = () => {
-      if (containsKeyword) {
+      if (isContainsSearch) {
         return briefView ? 'Try an exact phrase Articles search.' : 'Try your search as an exact phrase search.';
       }
       return briefView ? 'Try an Articles search that contains these terms.' : 'Broaden your search to include items that contain these terms and related words.';
-    }
+    };
 
     return (
       <div
@@ -31,7 +33,7 @@ class KeywordSwitch extends React.Component {
         }}
       >
         <div
-          className={`keyword-switch ${!briefView  && 'record-container'}`}
+          className={`keyword-switch ${!briefView && 'record-container'}`}
           css={{
             position: 'relative'
           }}
@@ -72,5 +74,10 @@ class KeywordSwitch extends React.Component {
     );
   }
 }
+
+KeywordSwitch.propTypes = {
+  datastore: PropTypes.object,
+  query: PropTypes.string
+};
 
 export default KeywordSwitch;
