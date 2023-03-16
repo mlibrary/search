@@ -219,10 +219,10 @@ Description.propTypes = {
   ])
 };
 
-function DescriptionItem ({ href, search, children }) {
-  if (href || search) {
+function DescriptionItem ({ href, search, browse, children }) {
+  if (href || search || browse) {
     return (
-      <DescriptionItemLink href={href} search={search}>
+      <DescriptionItemLink href={href} search={search} browse={browse}>
         {children}
       </DescriptionItemLink>
     );
@@ -234,15 +234,46 @@ function DescriptionItem ({ href, search, children }) {
 DescriptionItem.propTypes = {
   href: PropTypes.string,
   search: PropTypes.object,
+  browse: PropTypes.object,
   children: PropTypes.array
 };
 
-function DescriptionItemLink ({ href, search, children }) {
+function DescriptionItemLink ({ href, search, browse, children }) {
   if (href) {
     return (
       <a css={LINK_STYLES.default} href={href}>
         {children}
       </a>
+    );
+  }
+
+  if (browse) {
+    return (
+      <span>
+        {children}
+        <a
+          css={{
+            color: COLORS.neutral['300'],
+            fontSize: '0.875rem',
+            textDecoration: 'underline',
+            ':hover': {
+              textDecorationThickness: '2px'
+            },
+            ':before': {
+              background: COLORS.neutral['400'],
+              content: '""',
+              display: 'inline-block',
+              height: '1em',
+              margin: '0 0.5rem',
+              verticalAlign: 'middle',
+              width: '1px'
+            }
+          }}
+          href={`/catalog/browse/${browse.type}?query=${browse.value}`}
+        >
+          Browse in {browse.type === 'callnumber' ? 'call number' : browse.type} list
+        </a>
+      </span>
     );
   }
 
@@ -252,6 +283,7 @@ function DescriptionItemLink ({ href, search, children }) {
 DescriptionItemLink.propTypes = {
   href: PropTypes.string,
   search: PropTypes.object,
+  browse: PropTypes.object,
   children: PropTypes.array
 };
 
