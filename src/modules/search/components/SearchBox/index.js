@@ -108,16 +108,18 @@ function SearchBox ({ history, match, location }) {
       format: 'RFC1738'
     });
 
+    const urlLocation = `/${match.params.datastoreSlug}${browseOption ? `/browse/${dropdownOption.replace('browse_by_', '')}` : ''}?${newURL}`;
+
     // Redirect users if browse option has been submitted
     if (browseOption) {
-      window.location.href = `/${match.params.datastoreSlug}/browse/${dropdownOption.replace('browse_by_', '')}?${newURL}`;
+      window.location.href = urlLocation;
     }
 
     // Do not submit if query remains unchanged
     if (query === newQuery) return;
 
     // Submit new search
-    history.push(`/${match.params.datastoreSlug}?${newURL}`);
+    history.push(urlLocation);
   }
 
   return (
