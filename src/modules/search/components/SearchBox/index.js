@@ -29,7 +29,10 @@ function SearchBox ({ history, match, location }) {
     }
   );
   const [inputQuery, setInputQuery] = React.useState(query);
-  const defaultField = fields[0].uid;
+  const fieldIDs = fields.map((field) => {
+    return field.uid;
+  });
+  const defaultField = fieldIDs[0];
   const [field, setField] = React.useState(defaultField);
 
   // Set field and input when `activeDatastore` or `query` changes
@@ -38,20 +41,25 @@ function SearchBox ({ history, match, location }) {
     let getField = defaultField;
     // Set default value of input
     let getInput = query;
-    // Check if the query is a single fielded search
-    if (query && query.includes(':(') && ![' AND ', ' OR ', ' NOT '].some((operator) => {
-      return query.includes(operator);
-    })) {
-      // Get current search field uid from query
-      const currentQuery = query.slice(0, query.indexOf(':'));
-      // Check if current query exists in active datastore's field options
-      if (fields.map((field) => {
-        return field.uid;
-      }).includes(currentQuery)) {
-        // Update field to current query
-        getField = currentQuery;
-        // Remove field wrap from input value
-        getInput = query.slice((query.indexOf('(') + 1), -1);
+    // Check if the query is a single fielded search that exists in the current datastore
+    if (
+      query &&
+      ![' AND ', ' OR ', ' NOT '].some((operator) => {
+        return query.includes(operator);
+      }) &&
+      fieldIDs.some((field) => {
+        return query.startsWith(`${field}:`);
+      })
+    ) {
+      // Update field that matches query
+      getField = fieldIDs.find((field) => {
+        return query.startsWith(`${field}:`);
+      });
+      // Remove field search from query
+      getInput = getInput.replace(`${getField}:`, '');
+      // Remove parenthesis from query
+      if (getInput.startsWith('(') && getInput.endsWith(')')) {
+        getInput = getInput.slice(1, -1);
       }
     }
     // Set field value
@@ -81,13 +89,9 @@ function SearchBox ({ history, match, location }) {
 
     // Check if browse option
     const browseOption = dropdownOption.startsWith('browse_by_');
-    const browseURL = browseOption ? `/browse/${dropdownOption.slice(10)}` : '';
 
     // Set new query
     const newQuery = (browseOption || dropdownOption === defaultField) ? inputQuery : `${dropdownOption}:(${inputQuery})`;
-
-    // Check if new search
-    if (query === newQuery) return;
 
     // Set new URL
     const newURL = qs.stringify({
@@ -104,12 +108,18 @@ function SearchBox ({ history, match, location }) {
       format: 'RFC1738'
     });
 
+    const urlLocation = `/${match.params.datastoreSlug}${browseOption ? `/browse/${dropdownOption.replace('browse_by_', '')}` : ''}?${newURL}`;
+
     // Redirect users if browse option has been submitted
     if (browseOption) {
-      window.location.href = `/${match.params.datastoreSlug}${browseURL}?${newURL}`;
-    } else {
-      history.push(`/${match.params.datastoreSlug}?${newURL}`);
+      window.location.href = urlLocation;
     }
+
+    // Do not submit if query remains unchanged
+    if (query === newQuery) return;
+
+    // Submit new search
+    history.push(urlLocation);
   }
 
   return (
