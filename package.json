@@ -51,7 +51,7 @@
     "develop": "npm run start",
     "eject": "react-scripts eject",
     "lint": "npx eslint src/**/*.js",
-    "reinstall": "rm -rf node_modules && npm install",
+    "reinstall": "rm -rf node_modules && npm install --legacy-peer-deps",
     "start": "DISABLE_ESLINT_PLUGIN=true REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} react-scripts start",
     "test": "react-scripts test --env=jsdom"
   },
