@@ -2,7 +2,7 @@ FROM node:16.15.1
 RUN mkdir -p /app/build
 WORKDIR /app
 COPY ./package.json ./package-lock.json /app/
-RUN npm install --legacy-peer-deps && npm cache clean --force
+RUN npm install && npm cache clean --force
 
 COPY . /app
 

@@ -13,7 +13,7 @@ git clone https://github.com/mlibrary/search.git
 ### 2. Install
 
 ```bash
-npm install --legacy-peer-deps
+npm install
 ```
 
 ### 3. Run Locally
