@@ -6,7 +6,6 @@ import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-t
 import { Icon, Button } from '../../../reusable';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
-import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
@@ -305,4 +304,4 @@ SearchBox.propTypes = {
   location: PropTypes.object
 };
 
-export default withRouter(SearchBox);
+export default SearchBox;

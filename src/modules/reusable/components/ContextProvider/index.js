@@ -1,7 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import _ from "underscore";
+import React from 'react';
+import { connect } from 'react-redux';
+import _ from 'underscore';
 
 /*
   In many cases components need context information, such as
@@ -12,28 +11,28 @@ import _ from "underscore";
   need to bring them in each time themselves.
 */
 class ContextProvider extends React.Component {
-  render() {
+  render () {
     return (
-      <React.Fragment>{this.props.render({ ...this.props })}</React.Fragment>
+      <>{this.props.render({ ...this.props })}</>
     );
   }
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps (state, props) {
   /*
     Record View Type is decided by the matched
     React Router path.
   */
   const viewType =
-    props.match.url.indexOf("/everything") !== -1
-      ? "Preview"
-      : props.match.path === "/:datastoreSlug"
-      ? "Medium"
-      : props.match.path.indexOf("/record/") !== -1
-      ? "Full"
-      : props.match.path.indexOf("/list") !== -1
-      ? "List"
-      : undefined;
+    props.match.url.indexOf('/everything') !== -1
+      ? 'Preview'
+      : props.match.path === '/:datastoreSlug'
+        ? 'Medium'
+        : props.match.path.indexOf('/record/') !== -1
+          ? 'Full'
+          : props.match.path.indexOf('/list') !== -1
+            ? 'List'
+            : undefined;
 
   /*
     Add active datastore and record view type
@@ -48,4 +47,4 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(ContextProvider));
+export default connect(mapStateToProps)(ContextProvider);

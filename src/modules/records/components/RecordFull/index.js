@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Breadcrumb } from '../../../reusable';
 import {
@@ -301,4 +301,4 @@ function mapStateToProps (state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(FullRecord));
+export default connect(mapStateToProps)(FullRecord);

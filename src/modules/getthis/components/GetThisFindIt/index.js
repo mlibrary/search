@@ -1,15 +1,12 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import {
-  withRouter
-} from 'react-router-dom'
-import { ResourceAccess } from '../../../reusable'
-import getHoldingByBarcode from '../../getHoldingByBarcode'
+import React from 'react';
+import { connect } from 'react-redux';
+import { ResourceAccess } from '../../../reusable';
+import getHoldingByBarcode from '../../getHoldingByBarcode';
 import {
   StyledGetThisResourceAccessContainer
-} from '../GetThisRecord'
+} from '../GetThisRecord';
 
-function GetThisFindItHolding({ holding }) {
+function GetThisFindItHolding ({ holding }) {
   return (
     <div>
       <p style={{ marginTop: '0' }}>Use this information to find it:</p>
@@ -17,42 +14,44 @@ function GetThisFindItHolding({ holding }) {
       <StyledGetThisResourceAccessContainer>
         <ResourceAccess
           {...holding[0]}
-          renderAnchor={() => null}
+          renderAnchor={() => {
+            return null;
+          }}
         />
       </StyledGetThisResourceAccessContainer>
     </div>
-  )
+  );
 }
 
 class GetThisFindIt extends React.Component {
-  render() {
+  render () {
     const {
       record
-    } = this.props
+    } = this.props;
     const {
       barcode
-    } = this.props.match.params
+    } = this.props.match.params;
 
     if (record.resourceAccess) {
-      const holding = getHoldingByBarcode(record.resourceAccess, barcode)
+      const holding = getHoldingByBarcode(record.resourceAccess, barcode);
 
       if (holding) {
         return (
           <GetThisFindItHolding
             holding={holding}
           />
-        )
+        );
       }
     }
 
-    return null
+    return null;
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     record: state.records.record
   };
 }
 
-export default withRouter(connect(mapStateToProps)(GetThisFindIt));
+export default connect(mapStateToProps)(GetThisFindIt);

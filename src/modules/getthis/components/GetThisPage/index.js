@@ -1,86 +1,86 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 import {
-  withRouter,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 import {
   requestRecord,
-  requestGetThis,
+  requestGetThis
 } from '../../../pride';
 import {
   GetThisOptionList,
   GetThisFAQ,
-  GetThisRecord,
-} from '../../../getthis'
-import { Breadcrumb } from '../../../reusable'
+  GetThisRecord
+} from '../../../getthis';
+import { Breadcrumb } from '../../../reusable';
 
 class GetThisPageTemplate extends React.Component {
-  render() {
-    const { recordUid } = this.props
+  render () {
+    const { recordUid } = this.props;
 
     return (
-      <article className="container container-narrow">
-        <div className="u-margin-top-1">
+      <article className='container container-narrow'>
+        <div className='u-margin-top-1'>
           <Breadcrumb
             items={[
               { text: 'Catalog', to: `/catalog${document.location.search}` },
               { text: 'Record', to: `/catalog/record/${recordUid}${document.location.search}` },
               { text: 'Get This' }
             ]}
-            renderAnchor={(item) => (<Link to={item.to}>{item.text}</Link>)}
+            renderAnchor={(item) => {
+              return (<Link to={item.to}>{item.text}</Link>);
+            }}
           />
         </div>
         <section>
-          <h1 className="heading-xlarge">Get This</h1>
+          <h1 className='heading-xlarge'>Get This</h1>
         </section>
 
         {this.props.children}
       </article>
-    )
+    );
   }
 }
 
-
 class GetThisPage extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     const {
       recordUid,
       barcode
-    } = this.props.match.params
+    } = this.props.match.params;
     const {
       datastoreUid
-    } = this.props
+    } = this.props;
 
     requestRecord({
       recordUid,
       datastoreUid
-    })
+    });
     requestGetThis({
       datastoreUid,
       recordUid,
-      barcode,
-    })
+      barcode
+    });
   }
 
-  render() {
+  render () {
     const {
       record
-    } = this.props
+    } = this.props;
     const {
       barcode,
       recordUid
-    } = this.props.match.params
+    } = this.props.match.params;
 
     if (record && record.fields && record.fields.length === 0 && record.names.length === 0) {
       return (
         <GetThisPageTemplate>
-          <div className="alert">
+          <div className='alert'>
             <p><b>Error:</b> Unable to find this record.</p>
           </div>
         </GetThisPageTemplate>
-      )
+      );
     }
 
     return (
@@ -89,15 +89,15 @@ class GetThisPage extends React.Component {
         <GetThisOptionList record={record} />
         <GetThisFAQ />
       </GetThisPageTemplate>
-    )
+    );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     record: state.records.record,
     datastoreUid: state.datastores.active
-  }
+  };
 }
 
-export default withRouter(connect(mapStateToProps)(GetThisPage))
+export default connect(mapStateToProps)(GetThisPage);
