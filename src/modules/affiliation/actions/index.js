@@ -7,4 +7,4 @@ export const setDefaultAffiliation = (payload) => {
 
 export const setActiveAffilitation = (payload) => {
   return { type: SET_ACTIVE_AFFILIATION, payload };
-}
+};

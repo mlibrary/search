@@ -6,8 +6,10 @@ import { useSelector } from 'react-redux';
 import { Modal, Button, Alert } from '../../../reusable';
 import { SPACING } from '../../../reusable/umich-lib-core-temp';
 
-export default function SearchParserMessage() {
-  const { parserMessage } = useSelector((state) => state.search);
+export default function SearchParserMessage () {
+  const { parserMessage } = useSelector((state) => {
+    return state.search;
+  });
   const isOpen = parserMessage !== null;
 
   if (!isOpen) {
@@ -22,65 +24,65 @@ export default function SearchParserMessage() {
     <Modal isOpen={isOpen} onRequestClose={handleDismiss}>
       <div
         css={{
-          maxWidth: "32rem",
+          maxWidth: '32rem'
         }}
       >
         <Button
-          kind="secondary"
+          kind='secondary'
           onClick={handleDismiss}
           small
           css={{
-            position: "fixed",
-            right: "1.5rem",
-            top: "1.5rem",
-            border: "none",
-            textDecoration: "underline",
+            position: 'fixed',
+            right: '1.5rem',
+            top: '1.5rem',
+            border: 'none',
+            textDecoration: 'underline'
           }}
         >
           Dismiss
         </Button>
         <h2
-          className="heading-large"
+          className='heading-large'
           css={{
-            marginTop: "0",
-            marginRight: "4rem",
+            marginTop: '0',
+            marginRight: '4rem'
           }}
         >
           Query parser message
         </h2>
         <div
           css={{
-            margin: `${SPACING["M"]} 0`,
+            margin: `${SPACING.M} 0`
           }}
         >
           <Alert>
             <p>
               <strong
                 css={{
-                  fontWeight: "600",
+                  fontWeight: '600'
                 }}
               >
-                Type:{" "}
+                Type:{' '}
               </strong>
-               {parserMessage.class}
+              {parserMessage.class}
             </p>
             <p>
-            <strong
+              <strong
                 css={{
-                  fontWeight: "600",
+                  fontWeight: '600'
                 }}
               >
-                Summary:{" "}
+                Summary:{' '}
               </strong>
-               {parserMessage.summary}
+              {parserMessage.summary}
             </p>
             <p>
-            <strong
+              <strong
                 css={{
-                  fontWeight: "600",
+                  fontWeight: '600'
                 }}
               >
-                Details:{" "}
+                Details:{' '}
               </strong>
               {parserMessage.details}
             </p>

@@ -19,4 +19,4 @@ export {
   clearActiveFilters,
   setFilterGroupOrder,
   resetFilters
-}
+};

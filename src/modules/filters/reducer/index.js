@@ -1,4 +1,4 @@
-import _ from 'underscore'
+import _ from 'underscore';
 
 import {
   ADD_FILTERS,
@@ -15,36 +15,36 @@ const initialState = {
   order: undefined
 };
 
-const filtersReducer = function filterReducer(state = initialState, action) {
+const filtersReducer = function filterReducer (state = initialState, action) {
   switch (action.type) {
     case RESET_FILTERS: {
-      return initialState
+      return initialState;
     }
     case ADD_FILTERS:
       return {
         ...state,
-          groups: {
-            ...state.groups,
-            [action.payload.uid]: action.payload
-          }
+        groups: {
+          ...state.groups,
+          [action.payload.uid]: action.payload
         }
+      };
     case SET_FILTER_GROUP_ORDER:
       return {
         ...state,
         order: action.payload.order
-      }
+      };
     case CLEAR_FILTERS:
       return Object.assign({}, state, {
         groups: {}
-      })
+      });
     case SET_ACTIVE_FILTERS:
       /*
         payload:
         - datastoreUid
         - filters
       */
-      const { datastoreUid, filters } = action.payload
-      const filterObjKeys = Object.keys(filters)
+      const { datastoreUid, filters } = action.payload;
+      const filterObjKeys = Object.keys(filters);
 
       return {
         ...state,
@@ -54,15 +54,15 @@ const filtersReducer = function filterReducer(state = initialState, action) {
             return {
               ...acc,
               [filterUid]: [].concat(filters[filterUid])
-            }
+            };
           }, {})
         }
-      }
+      };
     case CLEAR_ACTIVE_FILTERS:
       return {
         ...state,
         active: _.omit(state.active, action.payload.datastoreUid)
-      }
+      };
     default:
       return state;
   }

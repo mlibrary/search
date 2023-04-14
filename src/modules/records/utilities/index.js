@@ -1,16 +1,16 @@
-import _ from "underscore";
+import _ from 'underscore';
 
-import config from "../../../config";
+import config from '../../../config';
 
-const getField = function getField(fields, key) {
+const getField = function getField (fields, key) {
   return _.findWhere(fields, { uid: key });
 };
 
 const getFieldValue = (field) => {
   let value;
 
-  if (field !== undefined && typeof field === "object") {
-    if ("value" in field) {
+  if (field !== undefined && typeof field === 'object') {
+    if ('value' in field) {
       value = field.value;
     }
   }
@@ -24,7 +24,7 @@ const getFieldValue = (field) => {
 
 const filterDisplayFields = ({ fields, type, datastore }) => {
   // Find config for this datastore view type.
-  const fieldsConfig = _.findWhere(config.fields, { datastore: datastore });
+  const fieldsConfig = _.findWhere(config.fields, { datastore });
 
   // No display field(s) config for this datastore view type.
   if (!fieldsConfig) {
@@ -44,7 +44,7 @@ const filterDisplayFields = ({ fields, type, datastore }) => {
       } else if (fieldsConfig.defaultFields) {
         // check if field exists as default
         const defaultField = _.findWhere(fieldsConfig.defaultFields, {
-          uid: fieldUid,
+          uid: fieldUid
         });
 
         if (defaultField) {
@@ -60,15 +60,15 @@ const filterDisplayFields = ({ fields, type, datastore }) => {
 
 const getFullRecordDisplayFields = ({ fields, datastore }) => {
   // Find config for this datastore view type.
-  const fieldsConfig = _.findWhere(config.fields, { datastore: datastore });
+  const fieldsConfig = _.findWhere(config.fields, { datastore });
 
-  if (fieldsConfig["full"]) {
-    return ["standard", "additional"].reduce(
+  if (fieldsConfig.full) {
+    return ['standard', 'additional'].reduce(
       (previous, type) => {
         let fieldListOfType = [];
 
-        if (fieldsConfig["full"][type]) {
-          fieldListOfType = fieldsConfig["full"][type].reduce(
+        if (fieldsConfig.full[type]) {
+          fieldListOfType = fieldsConfig.full[type].reduce(
             (fieldList, fieldUid) => {
               const field = _.findWhere(fields, { uid: fieldUid });
 
@@ -78,7 +78,7 @@ const getFullRecordDisplayFields = ({ fields, datastore }) => {
               } else if (fieldsConfig.defaultFields) {
                 // check if field exists as default
                 const defaultField = _.findWhere(fieldsConfig.defaultFields, {
-                  uid: fieldUid,
+                  uid: fieldUid
                 });
 
                 if (defaultField) {
@@ -94,19 +94,19 @@ const getFullRecordDisplayFields = ({ fields, datastore }) => {
 
         return {
           ...previous,
-          [type]: fieldListOfType,
+          [type]: fieldListOfType
         };
       },
       {
         standard: [],
-        additional: [],
+        additional: []
       }
     );
   }
 
   return {
     standard: [],
-    additional: [],
+    additional: []
   };
 };
 
@@ -123,7 +123,7 @@ const displayLoadingFeedback = (datastoreUid) => {
 const isFullRecordType = ({ datastoreUid }) => {
   const accessConfig = _.findWhere(config.fields, { datastore: datastoreUid });
 
-  return accessConfig.hasOwnProperty("full");
+  return accessConfig.hasOwnProperty('full');
 };
 
 const getShowAllText = ({ holdingUid, datastoreUid }) => {
@@ -131,7 +131,7 @@ const getShowAllText = ({ holdingUid, datastoreUid }) => {
 
   if (accessConfig.holdings) {
     const holdingsConfig = _.findWhere(accessConfig.holdings, {
-      uid: holdingUid,
+      uid: holdingUid
     });
     return holdingsConfig.showAllName || holdingsConfig.heading;
   }
@@ -146,5 +146,5 @@ export {
   displayLoadingFeedback,
   isFullRecordType,
   getShowAllText,
-  getFullRecordDisplayFields,
+  getFullRecordDisplayFields
 };

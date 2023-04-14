@@ -1,5 +1,5 @@
 // Reducer
-import advancedReducer from './reducer'
+import advancedReducer from './reducer';
 
 // Actions
 import {
@@ -9,8 +9,8 @@ import {
   removeFieldedSearch,
   setFieldedSearch,
   addAdvancedFilterGroups,
-  setAdvancedFilter,
-} from './actions'
+  setAdvancedFilter
+} from './actions';
 
 // Components
 import AdvancedSearch from './components/AdvancedSearchContainer';
@@ -30,5 +30,5 @@ export {
   setAdvancedFilter,
 
   // Components
-  AdvancedSearch,
-}
+  AdvancedSearch
+};

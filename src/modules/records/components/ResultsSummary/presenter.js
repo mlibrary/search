@@ -5,11 +5,11 @@ const ResultsSummary = ({
   recordsTotal,
   recordsResultsText,
   resultsFrom,
-  resultsFor,
+  resultsFor
 }) => {
   return (
-    <h2 className="results-summary" aria-live="polite">{showingRange} of {recordsTotal} {resultsFrom} {recordsResultsText}</h2>
-  )
-}
+    <h2 className='results-summary' aria-live='polite'>{showingRange} of {recordsTotal} {resultsFrom} {recordsResultsText}</h2>
+  );
+};
 
 export default ResultsSummary;

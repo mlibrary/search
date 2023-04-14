@@ -8,12 +8,12 @@ import React from 'react';
 */
 
 class DetailsList extends React.Component {
-  render() {
+  render () {
     return (
-      <React.Fragment>
+      <>
         {this.props.children}
-      </React.Fragment>
-    )
+      </>
+    );
   }
 }
 

@@ -1,28 +1,28 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   isDatastoreBrowseable
-} from '../../../pride'
-
+} from '../../../pride';
 
 class BrowseInfo extends React.Component {
-  render() {
+  render () {
     const { datastore } = this.props;
 
     if (isDatastoreBrowseable(datastore.uid)) {
       return (
         <p>
           <Link
-            className="underline"
+            className='underline'
             to={`/${datastore.slug}/browse${document.location.search}`}
-          >Browse all {datastore.name}</Link> alphabetically or by academic discipline.
+          >Browse all {datastore.name}
+          </Link> alphabetically or by academic discipline.
         </p>
-      )
+      );
     }
 
-    return null
+    return null;
   }
 }
 
-export default BrowseInfo
+export default BrowseInfo;

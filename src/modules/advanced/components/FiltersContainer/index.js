@@ -296,7 +296,7 @@ function ActiveAdvancedFilters (datastore) {
                 }}
                 kind='secondary'
               >
-                <span><span css={{fontWeight: 600}}>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}:</span> {item.value}</span>
+                <span><span css={{ fontWeight: 600 }}>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}:</span> {item.value}</span>
                 {/* <Icon icon='close' /> */}
               </div>
             </li>

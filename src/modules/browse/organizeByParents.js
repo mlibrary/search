@@ -1,42 +1,43 @@
-function getChildren(array, parent) {
-	return array.reduce((result, item) => {
+function getChildren (array, parent) {
+  return array.reduce((result, item) => {
   	if (item.parents.indexOf(parent) !== -1) {
-    	const children = getChildren(array, item.name)
+    	const children = getChildren(array, item.name);
 
       if (children.length) {
-      	result = result.concat(Object.assign(item, { children }))
+      	result = result.concat(Object.assign(item, { children }));
       } else {
-      	result = result.concat(item)
+      	result = result.concat(item);
       }
     }
 
-    return result
-  }, [])
+    return result;
+  }, []);
 }
 
-function parentIsNotInArray(array, parent) {
-	return array.filter(item => item.name === parent).length === 0
+function parentIsNotInArray (array, parent) {
+  return array.filter((item) => {
+    return item.name === parent;
+  }).length === 0;
 }
 
-function organizeByParents(array) {
-	return array.reduce((result, item) => {
-
+function organizeByParents (array) {
+  return array.reduce((result, item) => {
     if (!item.parents.length) {
-    	const children = getChildren(array, item.name)
-    	result = result.concat(Object.assign({ children }, item))
+    	const children = getChildren(array, item.name);
+    	result = result.concat(Object.assign({ children }, item));
     }
 
-    item.parents.forEach(parent => {
+    item.parents.forEach((parent) => {
     	if (parentIsNotInArray(array, parent) && parentIsNotInArray(result, parent)) {
-      	const children = getChildren(array, parent)
+      	const children = getChildren(array, parent);
         result = result.concat(Object.assign({ children }, {
         	name: parent
-        }))
+        }));
       }
-    })
+    });
 
-    return result
-  }, [])
+    return result;
+  }, []);
 }
 
-export default organizeByParents
+export default organizeByParents;

@@ -1,35 +1,34 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import numeral from 'numeral'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import numeral from 'numeral';
 
-import { Icon } from '../../../core'
-import { getMultiSearchRecords } from '../../../pride'
-import RecordPreview from '../RecordPreview'
-import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder'
-import KeywordSwitch from '../KeywordSwitch'
-
+import { Icon } from '../../../core';
+import { getMultiSearchRecords } from '../../../pride';
+import RecordPreview from '../RecordPreview';
+import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
+import KeywordSwitch from '../KeywordSwitch';
 
 import {
   SpecialistsWrapper
-} from '../../../specialists'
+} from '../../../specialists';
 
 class BentoboxList extends React.Component {
-  render() {
-    const { allRecords, datastoreUid, search, searchQuery, institution } = this.props
-    const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords)
+  render () {
+    const { allRecords, datastoreUid, search, searchQuery, institution } = this.props;
+    const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords);
 
     return (
-      <article className={`bentobox-list`} id="search-results">
+      <article className='bentobox-list' id='search-results'>
         <SpecialistsWrapper show={2}>
-          {bentoboxListRecords.map(bentobox => {
+          {bentoboxListRecords.map((bentobox) => {
             if (!bentobox.records) {
-              return null
+              return null;
             }
 
             return (
               <section key={bentobox.uid} className={`bentobox bentobox-${bentobox.uid}`}>
-                <div className="bentobox-inner-container">
+                <div className='bentobox-inner-container'>
                   <BentoHeading
                     bentobox={bentobox}
                     search={search}
@@ -49,11 +48,11 @@ class BentoboxList extends React.Component {
                   />
                 </div>
               </section>
-            )
+            );
           })}
         </SpecialistsWrapper>
       </article>
-    )
+    );
   }
 }
 
@@ -63,105 +62,106 @@ const BentoHeading = ({
   searchQuery
 }) => {
   const totalResults = search.data[bentobox.uid].totalAvailable;
-  const url = `/${bentobox.slug}${searchQuery}`
+  const url = `/${bentobox.slug}${searchQuery}`;
 
   return (
     <Link
-      className="bentobox-heading-container"
+      className='bentobox-heading-container'
       to={url}
     >
-      <h2 className="bentobox-heading">{ bentobox.name }</h2>
-      <BentoboxResultsNum bentobox={bentobox} search={search} totalResults={totalResults}/>
+      <h2 className='bentobox-heading'>{bentobox.name}</h2>
+      <BentoboxResultsNum bentobox={bentobox} search={search} totalResults={totalResults} />
     </Link>
-  )
-}
+  );
+};
 
 const BentoFooter = ({
   bentobox,
   search,
   searchQuery
 }) => {
-  const url = `/${bentobox.slug}${searchQuery}`
-  const footerText = `View all ${bentobox.name} results`
+  const url = `/${bentobox.slug}${searchQuery}`;
+  const footerText = `View all ${bentobox.name} results`;
 
   // No results
   if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
-    return null
+    return null;
   }
 
   // Loading results
   if (bentobox.records.length === 0) {
-    return null
+    return null;
   }
 
   return (
     <Link
-      className="bentobox-footer-container"
+      className='bentobox-footer-container'
       to={url}
     >
-      <span>{footerText}</span><Icon name="arrow-forward" />
+      <span>{footerText}</span><Icon name='arrow-forward' />
     </Link>
-  )
-}
+  );
+};
 
 const BentoboxNoResults = ({ bentobox }) => {
-  const hasBrowse = (bentobox.uid === 'databases' || bentobox.uid === 'onlinejournals') ? true : false
+  const hasBrowse = !!((bentobox.uid === 'databases' || bentobox.uid === 'onlinejournals'));
 
   return (
-    <div className="bentobox-no-results">
-      <p className="no-margin"><b>No results</b> match your search.</p>
+    <div className='bentobox-no-results'>
+      <p className='no-margin'><b>No results</b> match your search.</p>
 
       {hasBrowse && (
-        <p className="u-margin-bottom-none">Try our <Link className="underline" to={`/${bentobox.slug}/browse`}>Browse {bentobox.name} page</Link> to view all titles alphabetically or by academic discipline.</p>
+        <p className='u-margin-bottom-none'>Try our <Link className='underline' to={`/${bentobox.slug}/browse`}>Browse {bentobox.name} page</Link> to view all titles alphabetically or by academic discipline.</p>
       )}
     </div>
-  )
-}
+  );
+};
 
 const BentoboxResultsNum = ({ bentobox, search, totalResults }) => {
-  const resultsNum = numeral(totalResults).format(0,0)
-  const resultsText = resultsNum === 1 ? `Result` : `Results`
+  const resultsNum = numeral(totalResults).format(0, 0);
+  const resultsText = resultsNum === 1 ? 'Result' : 'Results';
 
   // No results
   if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
-    return <span className="bentobox-results-info">{resultsNum} {resultsText}</span>
+    return <span className='bentobox-results-info'>{resultsNum} {resultsText}</span>;
   }
 
   // Loading results
   if (bentobox.records.length === 0) {
-    return <span className="bentobox-results-info">Loading...</span>
+    return <span className='bentobox-results-info'>Loading...</span>;
   }
 
   // Results have loaded
-  return <span className="bentobox-results-info">{resultsNum} {resultsText}</span>
-}
+  return <span className='bentobox-results-info'>{resultsNum} {resultsText}</span>;
+};
 
 const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
-
   // No results
   if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
-    if (bentobox.uid ==='primo') {
+    if (bentobox.uid === 'primo') {
       return (
         <KeywordSwitch datastore={bentobox} query={search.query} />
-      )
+      );
     }
     return (
       <BentoboxNoResults bentobox={bentobox} />
-    )
+    );
   }
 
   // Loading results
   if (bentobox.records.length === 0) {
     return (
-      <div className="results-list results-list-border">
-        {[...Array(3)].map((elementInArray, index) => <RecordPreviewPlaceholder key={index} />)}
+      <div className='results-list results-list-border'>
+        {[...Array(3)].map((elementInArray, index) => {
+          return <RecordPreviewPlaceholder key={index} />;
+        })}
       </div>
-    )
+    );
   }
 
   // Results
   return (
-    <div className="results-list results-list-border">
+    <div className='results-list results-list-border'>
       {bentobox.records.map((record, index) => {
         if (index === 0) {
           return (
@@ -174,7 +174,7 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
                 searchQuery={searchQuery}
               />
             </div>
-          )
+          );
         }
         return (
           <RecordPreview
@@ -183,13 +183,13 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
             record={record}
             searchQuery={searchQuery}
           />
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     allRecords: state.records.records,
     datastoreUid: state.datastores.active,

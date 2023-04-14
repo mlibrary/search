@@ -1,54 +1,54 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import _ from 'underscore';
 import {
   Checkbox
-} from '../../../core'
+} from '../../../core';
 import {
   isInList
-} from '../../../lists'
+} from '../../../lists';
 import {
   setA11yMessage
-} from '../../../a11y'
+} from '../../../a11y';
 
 import {
   COLORS
-} from '../../../reusable/umich-lib-core-temp'
-import prejudice from '../../prejudice'
+} from '../../../reusable/umich-lib-core-temp';
+import prejudice from '../../prejudice';
 
 class AddToListButton extends React.Component {
   state = {
     waitingToBeAddedToList: false
-  }
+  };
 
-  componentDidUpdate() {
-    const { list, item } = this.props
-    const inList = isInList(list, item.uid)
+  componentDidUpdate () {
+    const { list, item } = this.props;
+    const inList = isInList(list, item.uid);
 
     if (inList && this.state.waitingToBeAddedToList) {
-      this.setState({ waitingToBeAddedToList: false })
+      this.setState({ waitingToBeAddedToList: false });
     }
   }
 
   handleClick = (inList, item) => {
     if (!this.state.waitingToBeAddedToList) {
       if (inList) {
-        prejudice.removeRecord(item)
+        prejudice.removeRecord(item);
       } else {
-        this.setState({ waitingToBeAddedToList: true })
-        prejudice.addRecord(item)
+        this.setState({ waitingToBeAddedToList: true });
+        prejudice.addRecord(item);
       }
     }
-  }
+  };
 
-  render() {
+  render () {
     const {
       list,
       item,
       datastore
-    } = this.props
-    const inList = isInList(list, item.uid)
+    } = this.props;
+    const inList = isInList(list, item.uid);
 
     /*
       Re: SEARCH-881
@@ -57,29 +57,33 @@ class AddToListButton extends React.Component {
       adding records to a list before holdings have loaded.
     */
     if (item.loadingHoldings) {
-      return null
+      return null;
     }
 
     return (
-      <div className="add-to-list-checkbox-container" css={{
-        color: COLORS.neutral['300']
-      }}>
+      <div
+        className='add-to-list-checkbox-container' css={{
+          color: COLORS.neutral['300']
+        }}
+      >
         <Checkbox
-          handleClick={() => this.handleClick(inList, item)}
+          handleClick={() => {
+            return this.handleClick(inList, item);
+          }}
           isChecked={inList}
           label={`Add to my temporary ${datastore.name} list`}
           hideLabel
         />
       </div>
-    )
+    );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     datastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
-    list: state.lists[state.datastores.active],
+    list: state.lists[state.datastores.active]
   };
 }
 
-export default connect(mapStateToProps, { setA11yMessage })(AddToListButton)
+export default connect(mapStateToProps, { setA11yMessage })(AddToListButton);

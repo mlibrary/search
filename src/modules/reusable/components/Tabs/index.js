@@ -5,11 +5,11 @@ import {
   Tabs as UnstyledTabs,
   TabPanel as UnstyledTabPanel
 } from 'react-tabs';
-import { SEARCH_COLORS, MEDIA_QUERIES } from '../../umich-lib-core-temp'
+import { SEARCH_COLORS, MEDIA_QUERIES } from '../../umich-lib-core-temp';
 
 const Tabs = styled(UnstyledTabs)({
   width: '100%'
-})
+});
 
 const TabList = styled(UnstyledTabList)({
   listStyle: 'none',
@@ -21,10 +21,10 @@ const TabList = styled(UnstyledTabList)({
     alignItems: 'baseline',
     borderLeft: 'none',
     borderBottom: `solid 2px ${SEARCH_COLORS.grey[400]}`
-  },
-})
+  }
+});
 
-const dynamicTabStyles = props => {
+const dynamicTabStyles = (props) => {
   if (props.selected) {
     return {
       fontWeight: '600',
@@ -36,27 +36,27 @@ const dynamicTabStyles = props => {
         background: 'none',
         border: `solid 1px ${SEARCH_COLORS.grey[400]}`,
         borderTop: `solid 3px ${SEARCH_COLORS.blue[500]}`,
-        borderBottom: `solid 2px white`,
+        borderBottom: 'solid 2px white'
       }
-    }
+    };
   } else {
     return {
       ':hover': {
         [MEDIA_QUERIES.LARGESCREEN]: {
-          borderBottom: `solid 2px ${SEARCH_COLORS.grey[500]}`,
+          borderBottom: `solid 2px ${SEARCH_COLORS.grey[500]}`
         }
       }
-    }
+    };
   }
 
   // return {}
-}
+};
 
 const Tab = styled(UnstyledTab)(
   {
     cursor: 'pointer',
     padding: '0.5rem 1.25rem',
-    borderLeft: `solid 3px transparent`,
+    borderLeft: 'solid 3px transparent',
     marginLeft: '-2px',
     [MEDIA_QUERIES.LARGESCREEN]: {
       marginBottom: '-2px',
@@ -65,7 +65,7 @@ const Tab = styled(UnstyledTab)(
     }
   },
   dynamicTabStyles
-)
+);
 
 const TabPanel = styled(UnstyledTabPanel)({
   ':empty': {
@@ -74,7 +74,7 @@ const TabPanel = styled(UnstyledTabPanel)({
   [MEDIA_QUERIES.LARGESCREEN]: {
     padding: '0.5rem 0'
   }
-})
+});
 
 Tab.tabsRole = 'Tab';
 Tabs.tabsRole = 'Tabs';

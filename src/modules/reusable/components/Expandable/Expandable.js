@@ -12,22 +12,22 @@ class Expandable extends Component {
     toggleExpanded: () => {
       this.setState({
         expanded: !this.state.expanded
-      })
+      });
     },
     disabled: false,
     disable: () => {
       this.setState({
         disabled: true
-      })
+      });
     }
-  }
+  };
 
-  render() {
+  render () {
     return (
       <ExpandableContext.Provider value={this.state}>
         {this.props.children}
       </ExpandableContext.Provider>
-    )
+    );
   }
 }
 
@@ -40,7 +40,7 @@ Expandable.defaultProps = {
   expanded: false
 };
 
-export default Expandable
+export default Expandable;
 export {
   ExpandableContext
-}
+};

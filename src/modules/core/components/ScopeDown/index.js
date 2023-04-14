@@ -1,52 +1,58 @@
 import React from 'react';
 
 class ScopeDown extends React.Component {
-  render() {
-    const { options, handleChange } = this.props
+  render () {
+    const { options, handleChange } = this.props;
 
     return (
-      <div className="scopedown-container">
-        {options.map((option, index) => (
-          <Dropdown
-            key={index}
-            option={option}
-            label={option.label}
-            options={option.filters}
-            selected={option.activeFilter}
-            handleChange={handleChange}
-          />
-        ))}
+      <div className='scopedown-container'>
+        {options.map((option, index) => {
+          return (
+            <Dropdown
+              key={index}
+              option={option}
+              label={option.label}
+              options={option.filters}
+              selected={option.activeFilter}
+              handleChange={handleChange}
+            />
+          );
+        })}
       </div>
-    )
+    );
   }
 }
 
 const Dropdown = ({ option, label, options, selected, handleChange }) => {
   if (options.length <= 1) {
-    return null
+    return null;
   }
 
   return (
-    <fieldset className="scopedown-dropdown-container">
+    <fieldset className='scopedown-dropdown-container'>
       <label>
-        <span className="scopedown-label-text">{label}</span>
+        <span className='scopedown-label-text'>{label}</span>
         <select
-          className="dropdown scopedown-dropdown"
-          onChange={(e) => handleChange({ uid: option.uid, value: e.target.value })}
+          className='dropdown scopedown-dropdown'
+          onChange={(e) => {
+            return handleChange({ uid: option.uid, value: e.target.value });
+          }}
           value={selected}
         >
-          {options.map((opt, index) => (
-            <option
-              key={index}
-              value={opt}
-            >
-              {opt}
-            </option>
-          ))}
+          {options.map((opt, index) => {
+            return (
+              <option
+                key={index}
+                value={opt}
+              >
+                {opt}
+              </option>
+            );
+          })}
         </select>
       </label>
     </fieldset>
-  )
-}
+  );
+};
 
-export default ScopeDown
+export default ScopeDown;

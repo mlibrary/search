@@ -9,5 +9,5 @@ export {
   GetThisFAQ,
   GetThisOptionList,
   GetThisRecord,
-  GetThisForm,
+  GetThisForm
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import {
   Button,
   Icon,
@@ -7,13 +7,13 @@ import {
   ExpandableProvider,
   ExpandableChildren,
   ExpandableButton
-} from '../../../reusable'
-import styled from '@emotion/styled'
+} from '../../../reusable';
+import styled from '@emotion/styled';
 import {
   SEARCH_COLORS,
   INTENT_COLORS,
   MEDIA_QUERIES
-} from '../../../reusable/umich-lib-core-temp'
+} from '../../../reusable/umich-lib-core-temp';
 
 const FigureStyled = styled('figure')({
   overflowX: 'auto',
@@ -23,7 +23,7 @@ const FigureStyled = styled('figure')({
   'tr:not(:last-child)': {
     borderBottom: `solid 1px ${SEARCH_COLORS.grey[400]}`
   }
-})
+});
 
 const FigCaptionStyled = styled('figcaption')({
   [MEDIA_QUERIES.LARGESCREEN]: {
@@ -31,24 +31,24 @@ const FigCaptionStyled = styled('figcaption')({
     alignItems: 'baseline',
     flexWrap: 'wrap'
   }
-})
+});
 
 const FigCaptionContentStyled = styled('div')({
 
-})
+});
 
 const NotesListStyled = styled('ul')({
   fontSize: '0.875rem',
   margin: 0,
   padding: 0,
   listStyle: 'none'
-})
+});
 
 const StyledTH = styled('th')({
   fontSize: '0.875rem',
   color: SEARCH_COLORS.grey[600],
   borderBottom: `solid 2px ${SEARCH_COLORS.grey[400]}`
-})
+});
 
 const td_and_th = {
   padding: '0.5rem 0',
@@ -57,7 +57,7 @@ const td_and_th = {
   '&:not(:last-child)': {
     paddingRight: '1rem'
   }
-}
+};
 
 const TableStyled = styled('table')({
   borderCollapse: 'collapse',
@@ -65,58 +65,61 @@ const TableStyled = styled('table')({
   width: '100%',
   minWidth: '30rem',
   tableLayout: 'fixed',
-  'tbody': {
+  tbody: {
     'tr:not(:last-child)': {
       borderBottom: `solid 1px ${SEARCH_COLORS.grey[400]}`
     }
   },
-  'td': td_and_th,
-  'th': td_and_th
-})
+  td: td_and_th,
+  th: td_and_th
+});
 
 class TrimCellText extends React.Component {
   state = {
     expanded: false,
     trimTextAt: 120
-  }
+  };
 
-  render() {
-    const { text } = this.props
-    const { trimTextAt } = this.state
+  render () {
+    const { text } = this.props;
+    const { trimTextAt } = this.state;
 
     // When text doens't need to be trimmed.
     // Only trimming past trim text at, so user don't show all
     // for just a few more chars.
     if (text.length <= trimTextAt + 60) {
       return (
-        <React.Fragment>{text}</React.Fragment>
-      )
+        <>{text}</>
+      );
     }
 
     // When text is longer than the trim text at length.
-    const isExpanded = this.state.expanded
-    const buttonText = isExpanded ? "Show less" : "Show more"
-    const displayText = isExpanded ? text : `${text.substr(0, trimTextAt)}...`
+    const isExpanded = this.state.expanded;
+    const buttonText = isExpanded ? 'Show less' : 'Show more';
+    const displayText = isExpanded ? text : `${text.substr(0, trimTextAt)}...`;
     return (
-      <React.Fragment>
+      <>
         <span style={{ paddingRight: '0.25rem' }}>{displayText}</span>
         <Button
-          kind="secondary"
+          kind='secondary'
           small
           aria-expanded={isExpanded}
-          onClick={() => this.setState({ expanded: !isExpanded })}
-        >{buttonText}</Button>
-      </React.Fragment>
-    )
+          onClick={() => {
+            return this.setState({ expanded: !isExpanded });
+          }}
+        >{buttonText}
+        </Button>
+      </>
+    );
   }
-} 
+}
 
 const Cell = ({
   cell,
   renderAnchor
 }) => {
   return (
-    <React.Fragment>
+    <>
       {cell.icon && (
         <Icon
           icon={cell.icon}
@@ -128,25 +131,25 @@ const Cell = ({
 
       {(() => {
         if (cell.href) {
-          return (<a href={cell.href}>{cell.text}</a>)
+          return (<a href={cell.href}>{cell.text}</a>);
         }
         if (cell.to) {
-          return (renderAnchor(cell))
+          return (renderAnchor(cell));
         }
         if (cell.html) {
-          return <span dangerouslySetInnerHTML={{ __html: cell.html }} />
+          return <span dangerouslySetInnerHTML={{ __html: cell.html }} />;
         }
-        return (<TrimCellText text={cell.text} />)
+        return (<TrimCellText text={cell.text} />);
       })()}
-    </React.Fragment>
-  )
-}
+    </>
+  );
+};
 
 /**
   Use this component to provide a comprehensive listing of options to access a resource.
 */
 class ResourceAccess extends React.Component {
-  render() {
+  render () {
     const {
       caption,
       notes,
@@ -155,23 +158,28 @@ class ResourceAccess extends React.Component {
       rows,
       name,
       renderAnchor
-    } = this.props
+    } = this.props;
 
     return (
       <FigureStyled>
         <Expandable>
           <FigCaptionStyled>
             {caption && (
-              <FigCaptionContentStyled className="x-spacing">
+              <FigCaptionContentStyled className='x-spacing'>
                 <span style={{ fontWeight: '600' }}>{caption}</span>
                 {captionLink && (
-                  <a href={captionLink.href} style={{
-                    fontSize: '0.875rem'
-                  }}>{captionLink.text}</a>
+                  <a
+                    href={captionLink.href} style={{
+                      fontSize: '0.875rem'
+                    }}
+                  >{captionLink.text}
+                  </a>
                 )}
                 {notes && (
                   <NotesListStyled>
-                    {notes.map((note, n) => <li key={n}>{note}</li>)}
+                    {notes.map((note, n) => {
+                      return <li key={n}>{note}</li>;
+                    })}
                   </NotesListStyled>
                 )}
               </FigCaptionContentStyled>
@@ -180,71 +188,89 @@ class ResourceAccess extends React.Component {
           <TableStyled>
             <thead>
               <tr>
-                {headings.map((heading, i) => (
-                  <StyledTH scope="col" key={i}>{heading}</StyledTH>
-                ))}
+                {headings.map((heading, i) => {
+                  return (
+                    <StyledTH scope='col' key={i}>{heading}</StyledTH>
+                  );
+                })}
               </tr>
             </thead>
             <tbody>
-              {rows.length <= 2 ? (
-                <React.Fragment>
-                  {rows.map((row, i) => (
-                    <tr key={i}>
-                      {row.map((cell, t) => (
-                        <td key={t} style={{ color: `${INTENT_COLORS[cell.intent]}`}}>
-                          <Cell cell={cell} renderAnchor={renderAnchor} />
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <tr>
-                    {rows[0].map((cell, t) => (
-                      <td key={t} style={{ color: `${INTENT_COLORS[cell.intent]}`}}>
-                        <Cell cell={cell} renderAnchor={renderAnchor} />
-                      </td>
-                    ))}
-                  </tr>
-                  {rows.length > 6 && (
+              {rows.length <= 2
+                ? (
+                  <>
+                    {rows.map((row, i) => {
+                      return (
+                        <tr key={i}>
+                          {row.map((cell, t) => {
+                            return (
+                              <td key={t} style={{ color: `${INTENT_COLORS[cell.intent]}` }}>
+                                <Cell cell={cell} renderAnchor={renderAnchor} />
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      );
+                    })}
+                  </>
+                  )
+                : (
+                  <>
                     <tr>
-                      <td colSpan={`${headings.length}`}>
-                        <ExpandableButton kind="secondary" small count={rows.length} name={name} />
-                      </td>
-                    </tr>
-                  )}
-                  <ExpandableChildren show={0}>
-                    {rows.slice(1).map((row, i) => (
-                      <tr key={i}>
-                        {row.map((cell, t) => (
-                          <td key={t} style={{ color: `${INTENT_COLORS[cell.intent]}`}}>
+                      {rows[0].map((cell, t) => {
+                        return (
+                          <td key={t} style={{ color: `${INTENT_COLORS[cell.intent]}` }}>
                             <Cell cell={cell} renderAnchor={renderAnchor} />
                           </td>
-                        ))}
+                        );
+                      })}
+                    </tr>
+                    {rows.length > 6 && (
+                      <tr>
+                        <td colSpan={`${headings.length}`}>
+                          <ExpandableButton kind='secondary' small count={rows.length} name={name} />
+                        </td>
                       </tr>
-                    ))}
-                  </ExpandableChildren>
-                  <ExpandableProvider>
-                    {context =>
-                      <React.Fragment>
-                        {(context.expanded || rows.length <= 6) ? (
-                          <tr>
-                            <td colSpan={`${headings.length}`}>
-                              <ExpandableButton kind="secondary" small count={rows.length} name={name} />
-                            </td>
+                    )}
+                    <ExpandableChildren show={0}>
+                      {rows.slice(1).map((row, i) => {
+                        return (
+                          <tr key={i}>
+                            {row.map((cell, t) => {
+                              return (
+                                <td key={t} style={{ color: `${INTENT_COLORS[cell.intent]}` }}>
+                  <Cell cell={cell} renderAnchor={renderAnchor} />
+                </td>
+                              )
+                            })}
                           </tr>
-                        ) : null}
-                      </React.Fragment>
-                    }
-                  </ExpandableProvider>
-                </React.Fragment>
-              )}
+                        );
+                      })}
+                    </ExpandableChildren>
+                    <ExpandableProvider>
+                      {(context) => {
+                        return (
+                          <>
+                            {(context.expanded || rows.length <= 6)
+                              ? (
+                <tr>
+                                <td colSpan={`${headings.length}`}>
+            <ExpandableButton kind='secondary' small count={rows.length} name={name} />
+          </td>
+                              </tr>
+                                )
+                              : null}
+                          </>
+                        );
+                      }}
+                    </ExpandableProvider>
+                  </>
+                  )}
             </tbody>
           </TableStyled>
         </Expandable>
       </FigureStyled>
-    )
+    );
   }
 }
 
@@ -280,4 +306,4 @@ ResourceAccess.propTypes = {
   renderAnchor: PropTypes.func
 };
 
-export default ResourceAccess
+export default ResourceAccess;

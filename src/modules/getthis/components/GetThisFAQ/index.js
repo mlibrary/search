@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-const GetThisFAQ = () => (
-  <section className="card get-this-section">
+const GetThisFAQ = () => {
+  return (
+    <section className='card get-this-section' />
+  );
+};
 
-  </section>
-)
-
-export default GetThisFAQ
+export default GetThisFAQ;
