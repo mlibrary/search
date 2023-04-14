@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 16.15.1
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install
 
       - name: Clean
         run: rm -rf build

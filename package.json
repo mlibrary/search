@@ -46,12 +46,18 @@
     "regenerator-runtime": "^0.13.11",
     "underscore": "^1.13.6"
   },
+  "overrides": {
+    "connected-react-router": {
+      "react": "^16.4.0 || ^17.0.0 || ^18.0.0",
+      "react-redux": "^6.0.0 || ^7.1.0 || ^8.0.0"
+    }
+  },
   "scripts": {
     "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "develop": "npm run start",
     "eject": "react-scripts eject",
     "lint": "npx eslint src/**/*.js",
-    "reinstall": "rm -rf node_modules && npm install --legacy-peer-deps",
+    "reinstall": "rm -rf node_modules && npm install",
     "start": "DISABLE_ESLINT_PLUGIN=true REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} react-scripts start",
     "test": "react-scripts test --env=jsdom"
   },
