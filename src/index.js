@@ -10,7 +10,7 @@ import {
 } from 'react-redux';
 import {
   Route,
-  Switch,
+  Routes,
   Navigate
 } from 'react-router-dom';
 import {
@@ -32,8 +32,7 @@ import {
 import store from './store';
 import history from './history';
 import {
-  Main
-  ,
+  Main,
   ScrollToTop
 } from './modules/core';
 import {
@@ -57,7 +56,7 @@ import ReactGA from 'react-ga';
 const mapStateToProps = (state) => {
   return { location: state.router.location };
 };
-const ConnectedSwitch = connect(mapStateToProps)(Switch);
+const ConnectedSwitch = connect(mapStateToProps)(Routes);
 
 class App extends React.Component {
   constructor (props) {
