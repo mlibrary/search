@@ -46,6 +46,12 @@
     "regenerator-runtime": "^0.13.11",
     "underscore": "^1.13.6"
   },
+  "overrides": {
+    "connected-react-router": {
+      "react": "^16.4.0 || ^17.0.0 || ^18.0.0",
+      "react-redux": "^6.0.0 || ^7.1.0 || ^8.0.0"
+    }
+  },
   "scripts": {
     "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "develop": "npm run start",
