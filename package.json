@@ -39,6 +39,7 @@
     "react-ga": "^3.3.1",
     "react-modal": "^3.16.1",
     "react-redux": "^8.0.5",
+    "react-router": "^6.10.0",
     "react-router-dom": "^6.10.0",
     "react-tabs": "^6.0.0",
     "redux": "^4.2.1",
@@ -50,7 +51,8 @@
     "connected-react-router": {
       "history": "^4.7.2 || ^5.0.0",
       "react": "^16.4.0 || ^17.0.0 || ^18.0.0",
-      "react-redux": "^6.0.0 || ^7.1.0 || ^8.0.0"
+      "react-redux": "^6.0.0 || ^7.1.0 || ^8.0.0",
+      "react-router": "^4.3.1 || ^5.0.0 || ^6.0.0"
     }
   },
   "scripts": {
