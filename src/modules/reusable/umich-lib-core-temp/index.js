@@ -302,14 +302,14 @@ export function GlobalStyleSheet () {
       are not being requests as another file to fetch, it's OK to import the
       font family because it's not as slow as tranditional setups.
     */
-    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&family=Mulish:wght@400;600;700&display=swap');  
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&family=Muli:wght@400;600;700&display=swap');  
     
     body,
     html {
       padding: 0;
       margin: 0;
       font-size: 16px;
-      font-family: 'Mulish', sans-serif;
+      font-family: 'Muli', sans-serif;
       line-height: 1.5;
       color: ${COLORS.neutral[400]}
     }
