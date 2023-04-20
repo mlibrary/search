@@ -85,7 +85,7 @@ html {
       font-size: 17px; } }
 
 body {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Noto Sans", sans-serif;
   line-height: 1.4;
   color: #262626; }
 
@@ -222,7 +222,7 @@ input,
 button,
 textarea {
   font-size: 1rem;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Noto Sans", sans-serif;
   color: #262626; }
 
 input[type="text"],
@@ -570,7 +570,7 @@ textarea {
 .dropdown,
 .dropdown-multiple {
   font-size: 1rem;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Noto Sans", sans-serif;
   color: #262626;
   line-height: 1.5;
   background: white;
