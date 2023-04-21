@@ -1,3 +1,3 @@
-import ResourceAccessContainer from './components/resource-access-container'
+import ResourceAccessContainer from './components/resource-access-container';
 
-export default ResourceAccessContainer
+export default ResourceAccessContainer;

@@ -1,25 +1,25 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { BrowseInfo } from "../../../browse";
-import { InstitutionSelect } from "../../../institution";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { BrowseInfo } from '../../../browse';
+import { InstitutionSelect } from '../../../institution';
 
 const Landing = ({ content, activeDatastore }) => {
   switch (activeDatastore.uid) {
-    case "everything":
+    case 'everything':
       return (
-        <div className="landing-container">
-          <h1 className="landing-heading-text" aria-live="polite">
+        <div className='landing-container'>
+          <h1 className='landing-heading-text' aria-live='polite'>
             Search <b>Everything</b> to see a broad sampling of results from
             across 'Library Search' and to explore specific areas and records in
             greater detail.
           </h1>
           <p>
-            You will see results from the <Link to={`/catalog`}>Catalog</Link>,{" "}
-            <Link to={`/articles`}>Articles</Link>,{" "}
-            <Link to={`/databases`}>Databases</Link>,{" "}
-            <Link to={`/onlinejournals`}>Online Journals</Link>, and{" "}
-            <Link to={`/guidesandmore`}>Guides and More</Link> pages.
+            You will see results from the <Link to='/catalog'>Catalog</Link>,{' '}
+            <Link to='/articles'>Articles</Link>,{' '}
+            <Link to='/databases'>Databases</Link>,{' '}
+            <Link to='/onlinejournals'>Online Journals</Link>, and{' '}
+            <Link to='/guidesandmore'>Guides and More</Link> pages.
           </p>
           <p>
             Enter a search term in the search box to start your own Everything
@@ -27,11 +27,11 @@ const Landing = ({ content, activeDatastore }) => {
           </p>
         </div>
       );
-    case "mirlyn":
+    case 'mirlyn':
       return (
         <div>
-          <div className="landing-container">
-            <h1 className="landing-heading-text" aria-live="polite">
+          <div className='landing-container'>
+            <h1 className='landing-heading-text' aria-live='polite'>
               The <b>Catalog</b> is the definitive place for finding materials
               held by the U-M Library.
             </h1>
@@ -43,26 +43,26 @@ const Landing = ({ content, activeDatastore }) => {
             </p>
           </div>
 
-          <div className="container container-narrow">
-            <div className="institution-select-landing-container">
-              <h2 className="heading-large" style={{ textAlign: "center" }}>
-                {" "}
+          <div className='container container-narrow'>
+            <div className='institution-select-landing-container'>
+              <h2 className='heading-large' style={{ textAlign: 'center' }}>
+                {' '}
                 To find materials closest to you, please choose a library
               </h2>
-              <InstitutionSelect type="switch" />
+              <InstitutionSelect type='switch' />
             </div>
-            <p className="landing-extra-info">
-              <a href="https://lib.umich.edu/find-borrow-request/find-materials/using-other-catalogs">
+            <p className='landing-extra-info'>
+              <a href='https://lib.umich.edu/find-borrow-request/find-materials/using-other-catalogs'>
                 About our other Library Catalogs
               </a>
             </p>
           </div>
         </div>
       );
-    case "primo":
+    case 'primo':
       return (
-        <div className="landing-container">
-          <h1 className="landing-heading-text" aria-live="polite">
+        <div className='landing-container'>
+          <h1 className='landing-heading-text' aria-live='polite'>
             <b>Articles</b> is a gateway to discovering a wide range of the
             library's resources.
           </h1>
@@ -73,10 +73,10 @@ const Landing = ({ content, activeDatastore }) => {
           </p>
         </div>
       );
-    case "databases":
+    case 'databases':
       return (
-        <div className="landing-container">
-          <h1 className="landing-heading-text" aria-live="polite">
+        <div className='landing-container'>
+          <h1 className='landing-heading-text' aria-live='polite'>
             <b>Databases</b> are library search engines focused on a specific
             subject or range of subjects. Some may highlight a particular
             format, while others will contain a variety of material types.
@@ -90,10 +90,10 @@ const Landing = ({ content, activeDatastore }) => {
           <BrowseInfo datastore={activeDatastore} />
         </div>
       );
-    case "onlinejournals":
+    case 'onlinejournals':
       return (
-        <div className="landing-container">
-          <h1 className="landing-heading-text" aria-live="polite">
+        <div className='landing-container'>
+          <h1 className='landing-heading-text' aria-live='polite'>
             <b>Online Journals</b> are serial (repeating) publications the
             library subscribes to electronically. This includes not only
             journals, but also newspapers, trade publications, magazines, and
@@ -110,17 +110,17 @@ const Landing = ({ content, activeDatastore }) => {
           <BrowseInfo datastore={activeDatastore} />
         </div>
       );
-    case "website":
+    case 'website':
       return (
-        <div className="landing-container">
-          <h1 className="landing-heading-text" aria-live="polite">
+        <div className='landing-container'>
+          <h1 className='landing-heading-text' aria-live='polite'>
             <b>Guides and more</b> is the place to learn about our services,
             spaces, and collections.
           </h1>
           <p>
             Your results will include research guides, specialty sites, blogs
-            and blogs posts, and online exhibits. Visit{" "}
-            <a href="https://lib.umich.edu">lib.umich.edu</a> to search the
+            and blogs posts, and online exhibits. Visit{' '}
+            <a href='https://lib.umich.edu'>lib.umich.edu</a> to search the
             library website, including library staff, current news, events, and
             physical exhibits.
           </p>
@@ -128,7 +128,7 @@ const Landing = ({ content, activeDatastore }) => {
       );
     default:
       return (
-        <div className="landing-container">
+        <div className='landing-container'>
           <p>Empty state. Begin your search.</p>
         </div>
       );

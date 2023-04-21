@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ExpandableContext } from './Expandable'
-
+import { ExpandableContext } from './Expandable';
 
 class ExpandableChildren extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const {
       context,
       children,
@@ -12,26 +11,28 @@ class ExpandableChildren extends Component {
     } = this.props;
 
     if (children.length <= show && !context.disabled) {
-      context.disable()
+      context.disable();
     }
   }
 
-  render() {
+  render () {
     const {
       context,
       children,
       show
     } = this.props;
-    
+
     return (
-      <React.Fragment>
-        {context.expanded ? (
-          children
-        ) : (
-          children.slice(0, show)
-        )}
-      </React.Fragment>
-    )
+      <>
+        {context.expanded
+          ? (
+              children
+            )
+          : (
+              children.slice(0, show)
+            )}
+      </>
+    );
   }
 }
 
@@ -43,8 +44,12 @@ ExpandableChildren.defaultProps = {
   show: 3
 };
 
-export default props => (
-  <ExpandableContext.Consumer>
-    {context => <ExpandableChildren {...props} context={context}/>}
-  </ExpandableContext.Consumer>
-)
+export default (props) => {
+  return (
+    <ExpandableContext.Consumer>
+      {(context) => {
+        return <ExpandableChildren {...props} context={context} />;
+      }}
+    </ExpandableContext.Consumer>
+  );
+};

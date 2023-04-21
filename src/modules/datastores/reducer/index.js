@@ -7,7 +7,7 @@ const datastoreReducer = (state, action) => {
         uid: action.payload.uid,
         name: action.payload.name,
         slug: action.payload.slug,
-        isMultisearch: action.payload.isMultisearch,
+        isMultisearch: action.payload.isMultisearch
       };
     default:
       return state;
@@ -16,7 +16,7 @@ const datastoreReducer = (state, action) => {
 
 const initialState = {
   active: null,
-  datastores: [],
+  datastores: []
 };
 
 const datastoresReducer = (state = initialState, action) => {
@@ -25,12 +25,12 @@ const datastoresReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         datastores: [
           ...state.datastores,
-          datastoreReducer(undefined, action),
-        ],
+          datastoreReducer(undefined, action)
+        ]
       });
     case actions.CHANGE_ACTIVE_DATASTORE:
       return Object.assign({}, state, {
-        active: action.payload,
+        active: action.payload
       });
     default:
       return state;

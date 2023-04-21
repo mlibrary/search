@@ -5,16 +5,16 @@ const MultipleChoiceOption = ({
   option,
   index,
   isActive,
-  onMultipleChoiceChange,
+  onMultipleChoiceChange
 }) => {
   return (
     <label
-      className="multiple-choice"
+      className='multiple-choice'
       key={index}
       htmlFor={`${name}-radio-${index}`}
     >
       <input
-        type="radio"
+        type='radio'
         checked={`${isActive ? 'selected' : ''}`}
         value={option}
         onChange={onMultipleChoiceChange}
@@ -23,8 +23,8 @@ const MultipleChoiceOption = ({
       />
       <span>{option}</span>
     </label>
-  )
-}
+  );
+};
 
 const MultipleChoice = ({
   name,
@@ -34,24 +34,28 @@ const MultipleChoice = ({
   onMultipleChoiceChange
 }) => {
   return (
-    <fieldset className="no-margin">
+    <fieldset className='no-margin'>
       {heading && (
-        <legend className="offscreen">{heading}</legend>
+        <legend className='offscreen'>{heading}</legend>
       )}
 
-      {options.map((option, index) => MultipleChoiceOption({
+      {options.map((option, index) => {
+        return MultipleChoiceOption({
           name,
           option,
           index,
           isActive: selectedIndex === index,
-          onMultipleChoiceChange: () => onMultipleChoiceChange({
-            option,
-            index
-          }),
-        })
+          onMultipleChoiceChange: () => {
+            return onMultipleChoiceChange({
+              option,
+              index
+            });
+          }
+        });
+      }
       )}
     </fieldset>
-  )
-}
+  );
+};
 
-export default MultipleChoice
+export default MultipleChoice;

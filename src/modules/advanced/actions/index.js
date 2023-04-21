@@ -9,18 +9,15 @@ export const SET_FIELDED_SEARCH = 'advanced/SET_FIELDED_SEARCH';
 export const ADD_ADVANCED_FILTER_GROUPS = 'advanced/ADD_ADVANCED_FILTER_GROUPS';
 export const SET_ADVANCED_FILTER = 'advanced/SET_ADVANCED_FILTER';
 
-
 // Adding Fields to use with a fielded search
 export const addAdvancedField = (payload) => {
   return { type: ADD_ADVANCED_FIELD, payload };
 };
 
-
 // Boolean types
 export const addAdvancedBooleanTypes = (payload) => {
   return { type: ADD_ADVANCED_BOOLEAN_TYPES, payload };
 };
-
 
 // Fielded searching
 export const addFieldedSearch = (payload) => {
@@ -34,7 +31,6 @@ export const removeFieldedSearch = (payload) => {
 export const setFieldedSearch = (payload) => {
   return { type: SET_FIELDED_SEARCH, payload };
 };
-
 
 // Filters
 export const addAdvancedFilterGroups = (payload) => {

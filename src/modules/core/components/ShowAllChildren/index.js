@@ -1,59 +1,63 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 import {
   setA11yMessage
-} from '../../../a11y'
+} from '../../../a11y';
 
 class ShowAllChildren extends React.Component {
   state = {
     show: false
-  }
+  };
 
-  handleShowToggleClick() {
+  handleShowToggleClick () {
     this.setState({
       show: !this.state.show
-    })
+    });
 
-    const a11yMessage = this.state.show ? `Showing fewer` : `showing all ${this.props.length}`
-    this.props.setA11yMessage(`${a11yMessage} ${this.props.name}`)
+    const a11yMessage = this.state.show ? 'Showing fewer' : `showing all ${this.props.length}`;
+    this.props.setA11yMessage(`${a11yMessage} ${this.props.name}`);
   }
 
-  render() {
-    const length = this.props.length || 0
-    const show = this.props.show || 1
-    const hasShowHideButton = length > show
-    const name = this.props.name || undefined
-    const showFewerText = this.props.showFewerText || `Show fewer ${name ? name : ''}`
-    const showAllText = this.props.showAllText || `Show all ${length} ${name ? name : ''}`
-    const buttonText = `${this.state.show ? showFewerText : showAllText }`
+  render () {
+    const length = this.props.length || 0;
+    const show = this.props.show || 1;
+    const hasShowHideButton = length > show;
+    const name = this.props.name || undefined;
+    const showFewerText = this.props.showFewerText || `Show fewer ${name || ''}`;
+    const showAllText = this.props.showAllText || `Show all ${length} ${name || ''}`;
+    const buttonText = `${this.state.show ? showFewerText : showAllText}`;
 
     return (
-      <React.Fragment>
+      <>
         {this.props.children.map((child, index) => {
           if (this.state.show || (show > index)) {
-            return child
+            return child;
           }
 
-          return null
+          return null;
         })}
         {hasShowHideButton && (
           <ShowHideButton handleOnClick={this.handleShowToggleClick.bind(this)} show={this.state.show}>
-            <span className="show-all-button__text">{buttonText}</span>
+            <span className='show-all-button__text'>{buttonText}</span>
           </ShowHideButton>
         )}
-      </React.Fragment>
-    )
+      </>
+    );
   }
 }
 
 class ShowHideButton extends React.Component {
-  render() {
+  render () {
     return (
-      <button onClick={() => this.props.handleOnClick()} className="button-link-light show-all-button" aria-expanded={this.props.show}>
+      <button
+        onClick={() => {
+          return this.props.handleOnClick();
+        }} className='button-link-light show-all-button' aria-expanded={this.props.show}
+      >
         {this.props.children}
       </button>
-    )
+    );
   }
 }
 
-export default connect(null, { setA11yMessage })(ShowAllChildren)
+export default connect(null, { setA11yMessage })(ShowAllChildren);

@@ -1,25 +1,27 @@
 import React from 'react';
 
-const FullRecordPlaceholder = ({ longer }) => (
-  <div className="full-record-container">
-    <div className="full-record-header">
-      <span className="loading-record-text">Loading record...</span>
-    </div>
-    <div className="record-container placeholder-container">
-      <div className="placeholder placeholder-title"></div>
-      <div className="placeholder placeholder-line"></div>
-      <div className="placeholder placeholder-line placeholder-line-alt"></div>
+const FullRecordPlaceholder = ({ longer }) => {
+  return (
+    <div className='full-record-container'>
+      <div className='full-record-header'>
+        <span className='loading-record-text'>Loading record...</span>
+      </div>
+      <div className='record-container placeholder-container'>
+        <div className='placeholder placeholder-title' />
+        <div className='placeholder placeholder-line' />
+        <div className='placeholder placeholder-line placeholder-line-alt' />
 
-      {longer && (
-        <React.Fragment>
-          <div className="placeholder placeholder-line"></div>
-          <div className="placeholder placeholder-line placeholder-line-alt"></div>
-          <div className="placeholder placeholder-line"></div>
-          <div className="placeholder placeholder-line"></div>
-        </React.Fragment>
-      )}
+        {longer && (
+          <>
+            <div className='placeholder placeholder-line' />
+            <div className='placeholder placeholder-line placeholder-line-alt' />
+            <div className='placeholder placeholder-line' />
+            <div className='placeholder placeholder-line' />
+          </>
+        )}
+      </div>
     </div>
-  </div>
-)
+  );
+};
 
-export default FullRecordPlaceholder
+export default FullRecordPlaceholder;

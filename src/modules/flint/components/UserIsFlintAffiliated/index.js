@@ -1,4 +1,4 @@
-import _ from 'underscore'
+import _ from 'underscore';
 import { connect } from 'react-redux';
 
 const UserIsFlintAffiliated = ({
@@ -6,13 +6,13 @@ const UserIsFlintAffiliated = ({
   children
 }) => {
   if (isFlintAffiliated) {
-    return children
+    return children;
   } else {
-    return null
+    return null;
   }
-}
+};
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     isFlintAffiliated: _.contains(state.profile.institutions, 'Flint')
   };

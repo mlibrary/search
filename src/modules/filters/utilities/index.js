@@ -1,5 +1,5 @@
-import qs from "qs";
-import _ from "underscore";
+import qs from 'qs';
+import _ from 'underscore';
 
 /*
   newQuery
@@ -11,7 +11,7 @@ import _ from "underscore";
     - library
     - page
 */
-export function newSearch(data) {
+export function newSearch (data) {
   const urlSearchState = getSearchStateFromURL();
   const filter = newSearchFilter({
     proposed: data.filter,
@@ -26,20 +26,20 @@ export function newSearch(data) {
   return stringifySearch(newSearchState);
 }
 
-export function getSearchStateFromURL() {
+export function getSearchStateFromURL () {
   return qs.parse(document.location.search.substring(1), { allowDots: true });
 }
 
-export function stringifySearch(searchStateObj) {
+export function stringifySearch (searchStateObj) {
   return qs.stringify(searchStateObj, {
-    arrayFormat: "repeat",
+    arrayFormat: 'repeat',
     encodeValuesOnly: true,
     allowDots: true,
-    format: "RFC1738"
+    format: 'RFC1738'
   });
 }
 
-export function newSearchFilter({ proposed = {}, existing = {} }) {
+export function newSearchFilter ({ proposed = {}, existing = {} }) {
   const groups = Object.keys(proposed).concat(Object.keys(existing));
   const filter = groups.reduce((acc, group) => {
     return {
@@ -60,7 +60,7 @@ export function newSearchFilter({ proposed = {}, existing = {} }) {
 
   returns a new URL with the filter removed.
 */
-export function getURLWithFilterRemoved({ group, value }) {
+export function getURLWithFilterRemoved ({ group, value }) {
   const urlSearchState = getSearchStateFromURL();
   const groups = Object.keys(urlSearchState.filter);
   const filter = groups.reduce((acc, g) => {
@@ -68,7 +68,9 @@ export function getURLWithFilterRemoved({ group, value }) {
       if (Array.isArray(urlSearchState.filter[g])) {
         acc = {
           ...acc,
-          [g]: urlSearchState.filter[g].filter(val => val !== value)
+          [g]: urlSearchState.filter[g].filter((val) => {
+            return val !== value;
+          })
         };
       }
     } else {
@@ -85,13 +87,13 @@ export function getURLWithFilterRemoved({ group, value }) {
     filter
   };
 
-  return document.location.pathname + "?" + stringifySearch(newSearchState);
+  return document.location.pathname + '?' + stringifySearch(newSearchState);
 }
 
-export function getURLWithoutFilters() {
+export function getURLWithoutFilters () {
   return (
     document.location.pathname +
-    "?" +
+    '?' +
     stringifySearch({
       ...getSearchStateFromURL(),
       filter: undefined
@@ -99,10 +101,12 @@ export function getURLWithoutFilters() {
   );
 }
 
-export function filterOutActiveFilters({ active, filters }) {
+export function filterOutActiveFilters ({ active, filters }) {
   if (!active) {
     return filters;
   }
 
-  return filters.filter(({ value }) => !_.contains(active, value));
+  return filters.filter(({ value }) => {
+    return !_.contains(active, value);
+  });
 }

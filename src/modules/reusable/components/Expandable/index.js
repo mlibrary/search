@@ -8,4 +8,4 @@ export {
   ExpandableButton,
   ExpandableChildren,
   ExpandableProvider
-}
+};

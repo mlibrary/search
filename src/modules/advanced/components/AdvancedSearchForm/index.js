@@ -1,50 +1,50 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Icon, Button, Alert } from "../../../reusable";
-import { withRouter } from "react-router-dom";
-import FieldInput from "../FieldInput";
-import FiltersContainer from "../FiltersContainer";
-import { stringifySearchQueryForURL } from "../../../pride";
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Icon, Button, Alert } from '../../../reusable';
+import { withRouter } from 'react-router-dom';
+import FieldInput from '../FieldInput';
+import FiltersContainer from '../FiltersContainer';
+import { stringifySearchQueryForURL } from '../../../pride';
 import {
   addFieldedSearch,
   removeFieldedSearch,
-  setFieldedSearch,
-} from "../../../advanced";
-import _ from "underscore";
+  setFieldedSearch
+} from '../../../advanced';
+import _ from 'underscore';
 
 class AdvancedSearchForm extends React.Component {
   state = {
-    errors: [],
+    errors: []
   };
 
   handleFieldedSearchChange = ({
     fieldedSearchIndex,
     selectedFieldUid,
     query,
-    booleanType,
+    booleanType
   }) => {
     this.props.setFieldedSearch({
       datastoreUid: this.props.datastore.uid,
       fieldedSearchIndex,
       selectedFieldUid,
       query,
-      booleanType,
+      booleanType
     });
   };
 
   handleAddAnotherFieldedSearch = () => {
     this.props.addFieldedSearch({
       datastoreUid: this.props.datastore.uid,
-      field: this.props.fields[0].uid,
+      field: this.props.fields[0].uid
     });
   };
 
-  handleRemoveFieldedSearch({ removeIndex }) {
+  handleRemoveFieldedSearch ({ removeIndex }) {
     this.props.removeFieldedSearch({
       datastoreUid: this.props.datastore.uid,
-      removeIndex,
+      removeIndex
     });
   }
 
@@ -56,7 +56,7 @@ class AdvancedSearchForm extends React.Component {
       booleanTypes,
       institution,
       datastore,
-      activeFilters,
+      activeFilters
     } = this.props;
 
     // Build the query
@@ -73,7 +73,7 @@ class AdvancedSearchForm extends React.Component {
 
         return memo;
       }, [])
-      .join(" ");
+      .join(' ');
 
     let hasActiveFilters = false;
 
@@ -87,21 +87,21 @@ class AdvancedSearchForm extends React.Component {
     // Submit search if query or filters are active
     if (query.length > 0 || hasActiveFilters) {
       const { history } = this.props;
-      let library = undefined;
+      let library;
 
-      if (datastore.uid === "mirlyn") {
+      if (datastore.uid === 'mirlyn') {
         library = institution.active
           ? institution.active
           : institution.defaultInstitution;
-        if (filter["institution"]) {
-          library = filter["institution"][0]; // inst overrides library
+        if (filter.institution) {
+          library = filter.institution[0]; // inst overrides library
           filter = { ...filter, institution: undefined }; // remove inst from filter obj
         }
       }
       const queryString = stringifySearchQueryForURL({
         query,
         filter,
-        library,
+        library
       });
 
       const url = `/${datastore.slug}?${queryString}`;
@@ -109,8 +109,8 @@ class AdvancedSearchForm extends React.Component {
     } else {
       this.setState({
         errors: [
-          "A search term or option is required to submit an advanced search.",
-        ],
+          'A search term or option is required to submit an advanced search.'
+        ]
       });
       window.scrollTo(0, 0);
     }
@@ -121,58 +121,62 @@ class AdvancedSearchForm extends React.Component {
 
     if (errors) {
       return (
-        <React.Fragment>
-          {errors.map((error, i) => (
-            <Alert type="error" key={i}>
-              <div
-                className="x-spacing"
-                style={{
-                  fontSize: "1rem",
-                }}
-              >
-                <Icon icon="error" size={20} />
-                <span>{error}</span>
-              </div>
-            </Alert>
-          ))}
-        </React.Fragment>
+        <>
+          {errors.map((error, i) => {
+            return (
+              <Alert type='error' key={i}>
+                <div
+                  className='x-spacing'
+                  style={{
+                    fontSize: '1rem'
+                  }}
+                >
+                  <Icon icon='error' size={20} />
+                  <span>{error}</span>
+                </div>
+              </Alert>
+            );
+          })}
+        </>
       );
     }
 
     return null;
   };
 
-  render() {
+  render () {
     const { datastore, fields, fieldedSearches } = this.props;
 
     return (
-      <form className="y-spacing" onSubmit={this.handleSubmit}>
+      <form className='y-spacing' onSubmit={this.handleSubmit}>
         <h2 css={{ fontSize: '1.87rem' }}>{datastore.name} Search</h2>
         {this.renderErrors()}
 
-        <h3 className="offscreen">Fielded search options</h3>
+        <h3 className='offscreen'>Fielded search options</h3>
 
-        {fieldedSearches.map((fs, i) => (
-          <FieldInput
-            key={i}
-            fieldedSearchIndex={i}
-            fieldedSearch={fs}
-            fields={fields}
-            handleFieldedSearchChange={this.handleFieldedSearchChange}
-            handleRemoveFieldedSearch={() =>
-              this.handleRemoveFieldedSearch({ removeIndex: i })
-            }
-            activeDatastore={datastore}
-          />
-        ))}
+        {fieldedSearches.map((fs, i) => {
+          return (
+            <FieldInput
+              key={i}
+              fieldedSearchIndex={i}
+              fieldedSearch={fs}
+              fields={fields}
+              handleFieldedSearchChange={this.handleFieldedSearchChange}
+              handleRemoveFieldedSearch={() => {
+                return this.handleRemoveFieldedSearch({ removeIndex: i });
+              }}
+              activeDatastore={datastore}
+            />
+          );
+        })}
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-around",
+            display: 'flex',
+            justifyContent: 'space-around'
           }}
         >
           <Button
-            kind="secondary"
+            kind='secondary'
             small
             onClick={this.handleAddAnotherFieldedSearch}
           >
@@ -180,8 +184,8 @@ class AdvancedSearchForm extends React.Component {
           </Button>
         </div>
 
-        <Button style={{ marginTop: "1rem" }} type="submit">
-          <Icon icon="search" size={24} /> Advanced Search
+        <Button style={{ marginTop: '1rem' }} type='submit'>
+          <Icon icon='search' size={24} /> Advanced Search
         </Button>
 
         <FiltersContainer datastore={datastore} />
@@ -190,18 +194,18 @@ class AdvancedSearchForm extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return bindActionCreators(
     {
       addFieldedSearch,
       removeFieldedSearch,
-      setFieldedSearch,
+      setFieldedSearch
     },
     dispatch
   );
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps (state, props) {
   const { datastore } = props;
 
   return {
@@ -212,7 +216,7 @@ function mapStateToProps(state, props) {
     activeFilters: _.omit(
       state.advanced[datastore.uid].activeFilters,
       _.isEmpty
-    ),
+    )
   };
 }
 

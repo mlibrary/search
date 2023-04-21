@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import config from '../../../../config'
-
+import config from '../../../../config';
 
 class AuthenticationRequired extends Component {
-  render() {
+  render () {
     if (this.props.profile && this.props.profile.status === 'Logged in') {
-      return this.props.children
+      return this.props.children;
     }
 
     if (!this.props.children) {
-      return null
+      return null;
     }
 
     const loginRoot = config.loginUrl;
-    const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
+    const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search);
 
     return (
-      <a href={loginUrl} className="button"><b>Log in</b> to continue</a>
-    )
+      <a href={loginUrl} className='button'><b>Log in</b> to continue</a>
+    );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
-    profile: state.profile,
+    profile: state.profile
   };
 }
 

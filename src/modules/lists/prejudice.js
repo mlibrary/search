@@ -1,46 +1,46 @@
-import Prejudice from 'prejudice'
-import { Pride } from 'pride'
-import config from '../../config'
-import store from './../../store'
-import _ from 'underscore'
+import Prejudice from 'prejudice';
+import { Pride } from 'pride';
+import config from '../../config';
+import store from './../../store';
+import _ from 'underscore';
 import {
   addList
-} from './actions'
+} from './actions';
 
 const prejudice = new Prejudice({
   recordEngine: Pride,
   datastores: config.datastores.list,
   actionBaseUrl: config.spectrum
-})
+});
 
 const addRecord = (record) => {
-  prejudice.addRecord(record)
-}
+  prejudice.addRecord(record);
+};
 
 const removeRecord = (record) => {
-  prejudice.removeRecord(record)
-}
+  prejudice.removeRecord(record);
+};
 
 const listRecords = () => {
-  return prejudice.listRecords()
-}
+  return prejudice.listRecords();
+};
 
 const clearRecords = (datastoreUid) => {
-  prejudice.clearRecords(datastoreUid)
-}
+  prejudice.clearRecords(datastoreUid);
+};
 
 const addRecordsToList = (records) => {
-  store.dispatch(addList(_.groupBy(listRecords(), 'datastore')))
-}
+  store.dispatch(addList(_.groupBy(listRecords(), 'datastore')));
+};
 
 const observer = (records) => {
-  addRecordsToList(records)
-}
+  addRecordsToList(records);
+};
 
 const initialize = () => {
-  addRecordsToList(listRecords())
+  addRecordsToList(listRecords());
   Pride.PreferenceEngine.registerEngine(prejudice);
-}
+};
 
 const createVariableStorageDriverInstance = () => {
   const inst = new Prejudice({
@@ -48,12 +48,12 @@ const createVariableStorageDriverInstance = () => {
     datastores: config.datastores.list,
     recordStorage: Prejudice.VariableStorageDriver,
     actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development
-  })
+  });
 
-  return inst
-}
+  return inst;
+};
 
-prejudice.addObserver(observer)
+prejudice.addObserver(observer);
 
 export default {
   initialize,
@@ -63,4 +63,4 @@ export default {
   clearRecords,
   createVariableStorageDriverInstance,
   instance: prejudice
-}
+};

@@ -1,10 +1,10 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { Pagination } from '../../../reusable'
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Pagination } from '../../../reusable';
 import {
   stringifySearchQueryForURL
-} from '../../../pride'
+} from '../../../pride';
 
 class PaginationContainer extends React.Component {
   /*
@@ -16,9 +16,9 @@ class PaginationContainer extends React.Component {
   */
 
   onPageChange = (page) => {
-    const { history } = this.props
-    history.push(this.createSearchQuery({ page }))
-  }
+    const { history } = this.props;
+    history.push(this.createSearchQuery({ page }));
+  };
 
   createSearchQuery = ({ page }) => {
     const {
@@ -28,52 +28,52 @@ class PaginationContainer extends React.Component {
       history,
       institution,
       sort
-    } = this.props
-    const query = search.query
-    const library = activeDatastoreUid === 'mirlyn' ? institution.active : undefined
+    } = this.props;
+    const query = search.query;
+    const library = activeDatastoreUid === 'mirlyn' ? institution.active : undefined;
     const queryString = stringifySearchQueryForURL({
       query,
       filter: filters,
       page,
       library,
       sort
-    })
+    });
 
-    return `${history.location.pathname}?${queryString}`
-  }
+    return `${history.location.pathname}?${queryString}`;
+  };
 
   toPreviousPage = () => {
     const {
       page
-    } = this.props
+    } = this.props;
 
     // If there is only one page or you're on the first page.
     if (page === 1) {
-      return undefined
+      return undefined;
     }
 
     return this.createSearchQuery({
       page: page - 1
-    })
-  }
+    });
+  };
 
   toNextPage = () => {
     const {
       page,
       total
-    } = this.props
+    } = this.props;
 
     // If you're on the last page, do not render a next page link.
     if (total === 0 || page === total) {
-      return undefined
+      return undefined;
     }
 
     return this.createSearchQuery({
       page: page + 1
-    })
-  }
+    });
+  };
 
-  render() {
+  render () {
     const {
       records,
       page,
@@ -81,23 +81,23 @@ class PaginationContainer extends React.Component {
     } = this.props;
 
     if (!records || (records && records.length === 0)) {
-      return null
+      return null;
     }
 
     return (
       <Pagination
-        ariaLabel="Pagination"
+        ariaLabel='Pagination'
         page={page}
         total={total}
         onPageChange={this.onPageChange}
         toNextPage={this.toNextPage()}
         toPreviousPage={this.toPreviousPage()}
       />
-    )
+    );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     page: state.search.data[state.datastores.active].page,
     total: state.search.data[state.datastores.active].totalPages,
@@ -112,4 +112,4 @@ function mapStateToProps(state) {
 
 export default withRouter(
   connect(mapStateToProps)(PaginationContainer)
-)
+);

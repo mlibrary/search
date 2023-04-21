@@ -1,6 +1,6 @@
-import * as actions from '../actions/'
+import * as actions from '../actions/';
 
-const initialState = {}
+const initialState = {};
 
 const browseReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -11,10 +11,10 @@ const browseReducer = (state = initialState, action) => {
           ...state[action.payload.datastoreUid],
           [action.payload.filter.uid]: action.payload.filter
         }
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default browseReducer
+export default browseReducer;
