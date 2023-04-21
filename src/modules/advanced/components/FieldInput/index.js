@@ -90,8 +90,8 @@ const FieldInput = ({
               >
                 <Icon icon='close' size={24} />
                 <span className='offpage'>
-                Remove Field {fieldedSearchIndex + 1}
-              </span>
+                  Remove Field {fieldedSearchIndex + 1}
+                </span>
               </button>
               )
             : null}

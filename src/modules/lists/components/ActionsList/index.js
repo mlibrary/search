@@ -155,15 +155,15 @@ class ActionsList extends Component {
                     <button
                       className={`button-link lists-action-button ${activeClassName}`}
                       onClick={() => {
-                return this.handleClick(action, data.viewType);
-              }}
+                        return this.handleClick(action, data.viewType);
+                      }}
                       aria-pressed={isActive}
                     >
                       <span style={{ opacity: '0.75' }}>
-                {action.icon_d
-                        ? <Icon size={20} d={action.icon_d} />
-                        : <Icon size={20} icon={action.icon} />}
-              </span>{action.name}
+                        {action.icon_d
+                          ? <Icon size={20} d={action.icon_d} />
+                          : <Icon size={20} icon={action.icon} />}
+                      </span>{action.name}
                     </button>
                   </li>
                 );

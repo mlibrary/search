@@ -46,16 +46,16 @@ export default function Holders ({
                   <>
                     <AccordionItemHeading>
                       <AccordionItemHeadingContent
-                data={data}
-                expanded={expanded}
-              />
+                        data={data}
+                        expanded={expanded}
+                      />
                     </AccordionItemHeading>
                     <AccordionItemPanel>
                       {expanded
-                ? (
-                        <HolderContainer context={context} {...data} />
-                  )
-                : null}
+                        ? (
+                          <HolderContainer context={context} {...data} />
+                          )
+                        : null}
                     </AccordionItemPanel>
                   </>
                 );

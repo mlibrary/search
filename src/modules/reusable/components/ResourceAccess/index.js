@@ -239,9 +239,9 @@ class ResourceAccess extends React.Component {
                             {row.map((cell, t) => {
                               return (
                                 <td key={t} style={{ color: `${INTENT_COLORS[cell.intent]}` }}>
-                  <Cell cell={cell} renderAnchor={renderAnchor} />
-                </td>
-                              )
+                                  <Cell cell={cell} renderAnchor={renderAnchor} />
+                                </td>
+                              );
                             })}
                           </tr>
                         );
@@ -253,11 +253,11 @@ class ResourceAccess extends React.Component {
                           <>
                             {(context.expanded || rows.length <= 6)
                               ? (
-                <tr>
-                                <td colSpan={`${headings.length}`}>
-            <ExpandableButton kind='secondary' small count={rows.length} name={name} />
-          </td>
-                              </tr>
+                                <tr>
+                                  <td colSpan={`${headings.length}`}>
+                                    <ExpandableButton kind='secondary' small count={rows.length} name={name} />
+                                  </td>
+                                </tr>
                                 )
                               : null}
                           </>
