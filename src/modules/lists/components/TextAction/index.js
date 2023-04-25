@@ -36,7 +36,6 @@ class TextAction extends Component {
       this.state.text,
       this.handleSubmitCallback
     );
-    this.props.onUsed();
   };
 
   setCloseStatus = () => {
@@ -84,7 +83,6 @@ TextAction.propTypes = {
   profile: PropTypes.object,
   prejudice: PropTypes.object,
   datastore: PropTypes.object,
-  onUsed: PropTypes.func,
   setActive: PropTypes.func,
   listLength: PropTypes.number,
   action: PropTypes.object

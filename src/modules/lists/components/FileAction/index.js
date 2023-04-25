@@ -20,7 +20,6 @@ class FileAction extends Component {
     event.preventDefault();
     this.setState({ sent: true });
     this.props.prejudice.act('file', this.props.datastore.uid, 'export-ris', this.handleSubmitCallback);
-    this.props.onUsed();
   };
 
   setCloseStatus = () => {
@@ -60,7 +59,6 @@ class FileAction extends Component {
 FileAction.propTypes = {
   prejudice: PropTypes.object,
   datastore: PropTypes.object,
-  onUsed: PropTypes.func,
   setActive: PropTypes.func,
   listLength: PropTypes.number
 };

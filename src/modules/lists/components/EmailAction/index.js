@@ -31,7 +31,6 @@ class EmailAction extends Component {
     event.preventDefault();
     this.setState({ sent: true });
     this.props.prejudice.act('email', this.props.datastore.uid, this.state.email, this.handleSubmitCallback);
-    this.props.onUsed();
   };
 
   setCloseStatus = () => {
@@ -77,7 +76,6 @@ EmailAction.propTypes = {
   profile: PropTypes.object,
   prejudice: PropTypes.object,
   datastore: PropTypes.object,
-  onUsed: PropTypes.func,
   setActive: PropTypes.func,
   listLength: PropTypes.number,
   action: PropTypes.object
