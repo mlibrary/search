@@ -14,6 +14,7 @@ import {
   Tab
 } from '../../../reusable';
 import AdvancedSearchForm from '../AdvancedSearchForm';
+import PropTypes from 'prop-types';
 
 /*
 Structure of the AdvancedSearch components:
@@ -93,6 +94,12 @@ class AdvancedSearchContainer extends React.Component {
     );
   }
 }
+
+AdvancedSearchContainer.propTypes = {
+  datastores: PropTypes.array,
+  activeDatastore: PropTypes.object,
+  activeDatastoreIndex: PropTypes.number
+};
 
 function mapStateToProps (state) {
   const datastores = state.datastores.datastores;

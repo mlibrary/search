@@ -1,8 +1,8 @@
 import React from 'react';
-
 import ResourceAccessLoading from './resource-access-loading';
 import Holders from './holders';
 import { ContextProvider } from '../../reusable';
+import PropTypes from 'prop-types';
 
 function ResourceAccessContainer ({ record }) {
   /*
@@ -39,6 +39,10 @@ function ResourceAccessContainer ({ record }) {
   );
 }
 
+ResourceAccessContainer.propTypes = {
+  record: PropTypes.object
+};
+
 function ResourceAccess ({ record, context }) {
   return (
     <Holders
@@ -49,6 +53,11 @@ function ResourceAccess ({ record, context }) {
     />
   );
 }
+
+ResourceAccess.propTypes = {
+  record: PropTypes.object,
+  context: PropTypes.object
+};
 
 /*
   Create a list of uuids that should be Accordion preExpanded'ed

@@ -7,12 +7,9 @@ import { getDatastoreSlugByUid } from '../../../pride';
 import { getField, getFieldValue } from '../../utilities';
 import { AddToListButton, isInList } from '../../../lists';
 import Zotero from '../Zotero';
-import {
-  COLORS,
-  MEDIA_QUERIES,
-  SPACING
-} from '../../../reusable/umich-lib-core-temp';
+import { COLORS, MEDIA_QUERIES, SPACING } from '../../../reusable/umich-lib-core-temp';
 import ResourceAccess from '../../../resource-acccess';
+import PropTypes from 'prop-types';
 
 const Header = ({ record, datastoreUid, searchQuery }) => {
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0];
@@ -86,6 +83,12 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
   );
 };
 
+Header.propTypes = {
+  record: PropTypes.object,
+  datastoreUid: PropTypes.string,
+  searchQuery: PropTypes.string
+};
+
 class Record extends React.Component {
   render () {
     const { record, datastoreUid, searchQuery, list } = this.props;
@@ -136,5 +139,12 @@ class Record extends React.Component {
     return null;
   }
 }
+
+Record.propTypes = {
+  record: PropTypes.object,
+  datastoreUid: PropTypes.string,
+  searchQuery: PropTypes.string,
+  list: PropTypes.array
+};
 
 export default Record;

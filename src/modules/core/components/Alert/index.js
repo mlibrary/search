@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const DatastoreInfo = ({ activeDatastore }) => {
   switch (activeDatastore.uid) {
@@ -45,6 +46,10 @@ const DatastoreInfo = ({ activeDatastore }) => {
         </div>
       );
   }
+};
+
+DatastoreInfo.propTypes = {
+  activeDatastore: PropTypes.object
 };
 
 export default DatastoreInfo;

@@ -1,11 +1,7 @@
 import React from 'react';
-
-import {
-  Icon
-} from '../../../core';
-import {
-  stringifySearchQueryForURL
-} from '../../../pride';
+import { Icon } from '../../../core';
+import { stringifySearchQueryForURL } from '../../../pride';
+import PropTypes from 'prop-types';
 
 const isActive = ({
   uid,
@@ -43,6 +39,14 @@ const DatastoreNavigationPresenter = ({
       </div>
     </div>
   );
+};
+
+DatastoreNavigationPresenter.propTypes = {
+  datastores: PropTypes.object,
+  search: PropTypes.object,
+  activeFilters: PropTypes.object,
+  institution: PropTypes.object,
+  history: PropTypes.object
 };
 
 const DatastoreNavigationItem = ({
@@ -94,6 +98,15 @@ const DatastoreNavigationItem = ({
       </button>
     </li>
   );
+};
+
+DatastoreNavigationItem.propTypes = {
+  datastore: PropTypes.object,
+  datastores: PropTypes.object,
+  search: PropTypes.object,
+  activeFilters: PropTypes.object,
+  institution: PropTypes.object,
+  history: PropTypes.object
 };
 
 export default DatastoreNavigationPresenter;

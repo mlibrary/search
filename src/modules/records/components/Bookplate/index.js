@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Bookplate = ({ imageUrl, description }) => {
   return (
@@ -7,6 +8,11 @@ const Bookplate = ({ imageUrl, description }) => {
       <img src={imageUrl} alt='' className='bookplate-image' />
     </div>
   );
+};
+
+Bookplate.propTypes = {
+  imageUrl: PropTypes.string,
+  description: PropTypes.string
 };
 
 export default Bookplate;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Leader = ({ marc }) => {
   if (marc.leader) {
@@ -13,6 +14,10 @@ const Leader = ({ marc }) => {
   return null;
 };
 
+Leader.propTypes = {
+  marc: PropTypes.object
+};
+
 const FieldName = ({ field }) => {
   const name = Object.keys(field)[0];
 
@@ -23,6 +28,10 @@ const FieldName = ({ field }) => {
   );
 };
 
+FieldName.propTypes = {
+  field: PropTypes.object
+};
+
 const FieldIndicator = ({ field, ind }) => {
   const name = Object.keys(field)[0];
   const value = field[name];
@@ -31,6 +40,11 @@ const FieldIndicator = ({ field, ind }) => {
   return (
     <td>{indicator}</td>
   );
+};
+
+FieldIndicator.propTypes = {
+  field: PropTypes.object,
+  ind: PropTypes.string
 };
 
 const FieldValue = ({ field }) => {
@@ -68,6 +82,10 @@ const FieldValue = ({ field }) => {
   );
 };
 
+FieldValue.propTypes = {
+  field: PropTypes.object
+};
+
 class MARCTable extends React.Component {
   render () {
     const { marc } = this.props;
@@ -94,5 +112,9 @@ class MARCTable extends React.Component {
     );
   }
 }
+
+MARCTable.propTypes = {
+  marc: PropTypes.object
+};
 
 export default MARCTable;

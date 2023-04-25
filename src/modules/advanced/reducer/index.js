@@ -52,74 +52,69 @@ const advancedFieldReducer = (state, action) => {
 const advancedFieldedSearchingReducer = (state, action) => {
   const dsUid = action.payload.datastoreUid;
 
-  switch (action.type) {
-    case actions.ADD_ADVANCED_BOOLEAN_TYPES:
-      return {
-        ...state,
-        booleanTypes: action.payload
-      };
-    case actions.ADD_FIELDED_SEARCH:
-      const newFieldedSearch = {
-        field: action.payload.field,
-        query: '',
-        booleanType: 0
-      };
-
-      if (state[dsUid].fieldedSearches) {
-        return {
-          ...state,
-          [dsUid]: {
-            ...state[dsUid],
-            fieldedSearches: state[dsUid].fieldedSearches.concat(newFieldedSearch)
-          }
-        };
-      } else {
-        return {
-          ...state,
-          [dsUid]: {
-            ...state[dsUid],
-            fieldedSearches: [].concat(newFieldedSearch)
-          }
-        };
-      }
-    case actions.SET_FIELDED_SEARCH:
-      return {
-        ...state,
-        [dsUid]: {
-          ...state[dsUid],
-          fieldedSearches: state[dsUid].fieldedSearches.map((item, index) => {
-            if (index !== action.payload.fieldedSearchIndex) {
-              return item;
-            }
-
-            const { selectedFieldUid, query, booleanType } = action.payload;
-
-            let newQuery = state[dsUid].fieldedSearches[index].query;
-            if (typeof query === 'string') {
-              newQuery = query;
-            }
-
-            return {
-              field: selectedFieldUid || state[dsUid].fieldedSearches[index].field,
-              query: newQuery,
-              booleanType: booleanType === undefined ? state[dsUid].fieldedSearches[index].booleanType : booleanType
-            };
-          })
-        }
-      };
-    case actions.REMOVE_FIELDED_SEARCH:
-      return {
-        ...state,
-        [dsUid]: {
-          ...state[dsUid],
-          fieldedSearches: state[dsUid].fieldedSearches.filter((item, index) => {
-            return index !== action.payload.removeIndex;
-          })
-        }
-      };
-    default:
-      return state;
+  if (action.type === actions.ADD_ADVANCED_BOOLEAN_TYPES) {
+    return {
+      ...state,
+      booleanTypes: action.payload
+    };
   }
+
+  if (action.type === actions.ADD_FIELDED_SEARCH) {
+    const newFieldedSearch = {
+      field: action.payload.field,
+      query: '',
+      booleanType: 0
+    };
+
+    return {
+      ...state,
+      [dsUid]: {
+        ...state[dsUid],
+        fieldedSearches: state[dsUid].fieldedSearches ? state[dsUid].fieldedSearches.concat(newFieldedSearch) : [].concat(newFieldedSearch)
+      }
+    };
+  }
+
+  if (action.type === actions.SET_FIELDED_SEARCH) {
+    return {
+      ...state,
+      [dsUid]: {
+        ...state[dsUid],
+        fieldedSearches: state[dsUid].fieldedSearches.map((item, index) => {
+          if (index !== action.payload.fieldedSearchIndex) {
+            return item;
+          }
+
+          const { selectedFieldUid, query, booleanType } = action.payload;
+
+          let newQuery = state[dsUid].fieldedSearches[index].query;
+          if (typeof query === 'string') {
+            newQuery = query;
+          }
+
+          return {
+            field: selectedFieldUid || state[dsUid].fieldedSearches[index].field,
+            query: newQuery,
+            booleanType: booleanType === undefined ? state[dsUid].fieldedSearches[index].booleanType : booleanType
+          };
+        })
+      }
+    };
+  }
+
+  if (action.type === actions.REMOVE_FIELDED_SEARCH) {
+    return {
+      ...state,
+      [dsUid]: {
+        ...state[dsUid],
+        fieldedSearches: state[dsUid].fieldedSearches.filter((item, index) => {
+          return index !== action.payload.removeIndex;
+        })
+      }
+    };
+  }
+
+  return state;
 };
 
 const filterGroupReducer = ({ filterGroup, filterGroupUid, onlyOneFilterValue, filterValue }) => {

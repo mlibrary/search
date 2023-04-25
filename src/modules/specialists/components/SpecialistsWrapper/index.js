@@ -1,6 +1,6 @@
 import React from 'react';
-
 import SpecialistList from '../SpecialistList';
+import PropTypes from 'prop-types';
 
 class SpecialistsWrapper extends React.Component {
   render () {
@@ -26,5 +26,14 @@ class SpecialistsWrapper extends React.Component {
     );
   }
 }
+
+SpecialistsWrapper.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
+  position: PropTypes.number,
+  show: PropTypes.number
+};
 
 export default SpecialistsWrapper;

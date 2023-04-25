@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const MultipleChoiceOption = ({
   name,
@@ -24,6 +25,14 @@ const MultipleChoiceOption = ({
       <span>{option}</span>
     </label>
   );
+};
+
+MultipleChoiceOption.propTypes = {
+  name: PropTypes.string,
+  option: PropTypes.string,
+  index: PropTypes.number,
+  isActive: PropTypes.bool,
+  onMultipleChoiceChange: PropTypes.func
 };
 
 const MultipleChoice = ({
@@ -56,6 +65,14 @@ const MultipleChoice = ({
       )}
     </fieldset>
   );
+};
+
+MultipleChoice.propTypes = {
+  name: PropTypes.string,
+  options: PropTypes.array,
+  selectedIndex: PropTypes.number,
+  heading: PropTypes.string,
+  onMultipleChoiceChange: PropTypes.func
 };
 
 export default MultipleChoice;

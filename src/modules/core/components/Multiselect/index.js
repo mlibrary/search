@@ -140,6 +140,17 @@ class Multiselect extends React.Component {
   }
 }
 
+Multiselect.propTypes = {
+  handleSelection: PropTypes.func,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    checked: PropTypes.bool,
+    value: PropTypes.string,
+    name: PropTypes.string
+  })),
+  filterGroupUid: PropTypes.string,
+  descriptionText: PropTypes.string
+};
+
 const MultiselectOption = ({ option, handleClick }) => {
   return (
     <Checkbox
@@ -150,13 +161,9 @@ const MultiselectOption = ({ option, handleClick }) => {
   );
 };
 
-Multiselect.propTypes = {
-  handleSelection: PropTypes.func,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    checked: PropTypes.bool,
-    value: PropTypes.string,
-    name: PropTypes.string
-  }))
+MultiselectOption.propTypes = {
+  option: PropTypes.object,
+  handleClick: PropTypes.func
 };
 
 export default Multiselect;

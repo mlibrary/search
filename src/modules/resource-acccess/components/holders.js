@@ -9,9 +9,9 @@ import {
   AccordionItemState
 } from 'react-accessible-accordion';
 import Icon from '../../reusable/components/Icon';
-
 import HolderContainer from './holder-container';
 import { COLORS, SPACING } from '../../reusable/umich-lib-core-temp/index';
+import PropTypes from 'prop-types';
 
 /*
   Holders
@@ -67,6 +67,13 @@ export default function Holders ({
     </Accordion>
   );
 }
+
+Holders.propTypes = {
+  record: PropTypes.object,
+  preExpandedIds: PropTypes.array,
+  createId: PropTypes.func,
+  context: PropTypes.object
+};
 
 const contentPadding = {
   padding: `${SPACING.S} ${SPACING.M}`
@@ -141,3 +148,8 @@ function AccordionItemHeadingContent ({ data, expanded }) {
     </AccordionItemButton>
   );
 }
+
+AccordionItemHeadingContent.propTypes = {
+  data: PropTypes.object,
+  expanded: PropTypes.bool
+};

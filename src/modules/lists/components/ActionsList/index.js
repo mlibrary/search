@@ -7,6 +7,7 @@ import PermalinkAction from '../PermalinkAction';
 import CitationAction from '../CitationAction';
 import { AuthenticationRequired } from '../../../profile';
 import { ContextProvider, Icon, Alert } from '../../../reusable';
+import PropTypes from 'prop-types';
 
 class ActionsList extends Component {
   state = {
@@ -180,6 +181,14 @@ class ActionsList extends Component {
     );
   }
 }
+
+ActionsList.propTypes = {
+  active: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
+  setActive: PropTypes.func
+};
 
 function mapStateToProps (state) {
   return {

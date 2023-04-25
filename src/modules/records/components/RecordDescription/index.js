@@ -1,8 +1,9 @@
 import React from 'react';
 import { getField, getFieldValue } from '../../utilities';
+import PropTypes from 'prop-types';
 
-function createMarkup (markup_string) {
-  return { __html: markup_string };
+function createMarkup (markupString) {
+  return { __html: markupString };
 }
 
 const RecordDescription = ({ record }) => {
@@ -21,6 +22,10 @@ const RecordDescription = ({ record }) => {
       dangerouslySetInnerHTML={createMarkup(description)}
     />
   );
+};
+
+RecordDescription.propTypes = {
+  record: PropTypes.object
 };
 
 export default RecordDescription;

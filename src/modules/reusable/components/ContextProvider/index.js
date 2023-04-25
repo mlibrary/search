@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'underscore';
+import PropTypes from 'prop-types';
 
 /*
   In many cases components need context information, such as
@@ -18,6 +19,10 @@ class ContextProvider extends React.Component {
     );
   }
 }
+
+ContextProvider.propTypes = {
+  render: PropTypes.func
+};
 
 function mapStateToProps (state, props) {
   /*

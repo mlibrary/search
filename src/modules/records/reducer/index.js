@@ -13,78 +13,91 @@ const recordsInitialState = {
 */
 
 const recordsReducer = (state = recordsInitialState, action) => {
-  switch (action.type) {
-    case actions.ADD_RECORDS:
-      return {
-        ...state,
-        records: {
-          ...state.records,
-          [action.payload.datastoreUid]: action.payload.records
-        }
-      };
-    case actions.ADD_HOLDINGS:
-      const { datastoreUid, recordUid, holdings } = action.payload;
-      const recordIndex = _.findIndex(state.records[datastoreUid], (item) => {
-        return item.uid === recordUid;
-      });
-
-      if (recordIndex !== -1) { // contains this record
-        return Object.assign({}, state, {
-          records: {
-            ...state.records,
-            [datastoreUid]: state.records[datastoreUid]
-              .slice(0, recordIndex)
-              .concat([{
-                ...state.records[datastoreUid][recordIndex],
-                resourceAccess: _.compact(holdings),
-                loadingHoldings: false
-              }])
-              .concat(state.records[datastoreUid].slice(recordIndex + 1))
-          }
-        });
+  if (action.type === actions.ADD_RECORDS) {
+    return {
+      ...state,
+      records: {
+        ...state.records,
+        [action.payload.datastoreUid]: action.payload.records
       }
+    };
+  }
 
-      return state;
-    case actions.CLEAR_RECORDS:
-      return {
-        ...state,
+  if (action.type === actions.ADD_HOLDINGS) {
+    const { datastoreUid, recordUid, holdings } = action.payload;
+    const recordIndex = _.findIndex(state.records[datastoreUid], (item) => {
+      return item.uid === recordUid;
+    });
+
+    if (recordIndex !== -1) { // contains this record
+      return Object.assign({}, state, {
         records: {
           ...state.records,
-          [action.payload]: undefined
-        }
-      };
-    case actions.CLEAR_RECORD:
-      return Object.assign({}, state, {
-        record: null
-      });
-    case actions.SET_RECORD:
-      return Object.assign({}, state, {
-        record: action.payload
-      });
-    case actions.SET_RECORD_HOLDINGS:
-      return Object.assign({}, state, {
-        record: {
-          ...state.record,
-          resourceAccess: _.compact(action.payload)
+          [datastoreUid]: state.records[datastoreUid]
+            .slice(0, recordIndex)
+            .concat([{
+              ...state.records[datastoreUid][recordIndex],
+              resourceAccess: _.compact(holdings),
+              loadingHoldings: false
+            }])
+            .concat(state.records[datastoreUid].slice(recordIndex + 1))
         }
       });
-    case actions.SET_RECORD_GET_THIS:
-      return Object.assign({}, state, {
-        record: {
-          ...state.record,
-          getthis: action.payload
-        }
-      });
-    case actions.LOADING_RECORDS:
-      return Object.assign({}, state, {
-        loading: {
-          ...state.loading,
-          [action.payload.datastoreUid]: action.payload.loading
-        }
-      });
-    default:
-      return state;
+    }
+
+    return state;
   }
+
+  if (action.type === actions.CLEAR_RECORDS) {
+    return {
+      ...state,
+      records: {
+        ...state.records,
+        [action.payload]: undefined
+      }
+    };
+  }
+
+  if (action.type === actions.CLEAR_RECORD) {
+    return Object.assign({}, state, {
+      record: null
+    });
+  }
+
+  if (action.type === actions.SET_RECORD) {
+    return Object.assign({}, state, {
+      record: action.payload
+    });
+  }
+
+  if (action.type === actions.SET_RECORD_HOLDINGS) {
+    return Object.assign({}, state, {
+      record: {
+        ...state.record,
+        resourceAccess: _.compact(action.payload)
+      }
+    });
+  }
+
+  if (action.type === actions.SET_RECORD_GET_THIS) {
+    return Object.assign({}, state, {
+      record: {
+        ...state.record,
+        getthis: action.payload
+      }
+    });
+  }
+
+  if (action.type === actions.LOADING_RECORDS) {
+    return Object.assign({}, state, {
+      loading: {
+        ...state.loading,
+        [action.payload.datastoreUid]: action.payload.loading
+      }
+    });
+  }
+
+  return state;
 };
 
 export default recordsReducer;

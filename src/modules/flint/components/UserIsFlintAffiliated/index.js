@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const UserIsFlintAffiliated = ({
   isFlintAffiliated,
@@ -10,6 +11,14 @@ const UserIsFlintAffiliated = ({
   } else {
     return null;
   }
+};
+
+UserIsFlintAffiliated.propTypes = {
+  isFlintAffiliated: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 function mapStateToProps (state) {

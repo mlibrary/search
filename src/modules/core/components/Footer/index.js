@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const footer_links = [
+const footerLinks = [
   {
     text: 'Home',
     to: '/everything'
@@ -22,6 +22,11 @@ const footer_links = [
   {
     text: 'About Library Search',
     to: '/about-library-search'
+  },
+  {
+    text: 'Make an <abbr title="Interlibrary Loan">I.L.L.</abbr> Request',
+    href:
+      'https://ill.lib.umich.edu/'
   }
 ];
 
@@ -34,37 +39,23 @@ const Footer = () => {
     >
       <div className='container container-medium'>
         <ul className='site-footer-nav-list'>
-          {footer_links.map((item, i) => {
+          {footerLinks.map((item, i) => {
             return (
               <li key={i}>
                 {item.to
                   ? (
-                    <Link to={item.to}>
-                      {item.text}
-                    </Link>
+                    <Link to={item.to} dangerouslySetInnerHTML={{ __html: item.text }} />
                     )
                   : (
-                    <a href={item.href}>
-                      {item.text}
-                    </a>
+                    <a href={item.href} dangerouslySetInnerHTML={{ __html: item.text }} />
                     )}
               </li>
             );
           })}
-          <li>
-            <a href='https://ill.lib.umich.edu/'>
-              Make an <abbr title='Interlibrary Loan'>I.L.L.</abbr> Request
-            </a>
-          </li>
         </ul>
 
         <p>
-          &copy;{(new Date().getFullYear())} Regents of the University of Michigan. For details and
-          exceptions, see the{' '}
-          <a href='https://lib.umich.edu/about-us/policies/copyright-policy'>
-            Copyright Policy
-          </a>
-          .
+          &copy;{(new Date().getFullYear())} Regents of the University of Michigan. For details and exceptions, see the <a href='https://lib.umich.edu/about-us/policies/copyright-policy'>Copyright Policy</a>.
         </p>
       </div>
     </footer>

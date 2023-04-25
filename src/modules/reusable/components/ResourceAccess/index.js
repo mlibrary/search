@@ -50,7 +50,7 @@ const StyledTH = styled('th')({
   borderBottom: `solid 2px ${SEARCH_COLORS.grey[400]}`
 });
 
-const td_and_th = {
+const tdAndTh = {
   padding: '0.5rem 0',
   textAlign: 'left',
   verticalAlign: 'top',
@@ -70,8 +70,8 @@ const TableStyled = styled('table')({
       borderBottom: `solid 1px ${SEARCH_COLORS.grey[400]}`
     }
   },
-  td: td_and_th,
-  th: td_and_th
+  td: tdAndTh,
+  th: tdAndTh
 });
 
 class TrimCellText extends React.Component {
@@ -114,6 +114,10 @@ class TrimCellText extends React.Component {
   }
 }
 
+TrimCellText.propTypes = {
+  text: PropTypes.string
+};
+
 const Cell = ({
   cell,
   renderAnchor
@@ -143,6 +147,11 @@ const Cell = ({
       })()}
     </>
   );
+};
+
+Cell.propTypes = {
+  cell: PropTypes.object,
+  renderAnchor: PropTypes.func
 };
 
 /**

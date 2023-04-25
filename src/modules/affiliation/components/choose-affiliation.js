@@ -25,7 +25,7 @@ export default function ChooseAffiliation () {
   const alternativeAffiliation = affiliation === 'aa' ? 'flint' : 'aa';
   const alternativeLabel = affiliationOptions[alternativeAffiliation];
 
-  function changeAffiliation () {
+  const changeAffiliation = () => {
     const parsed = qs.parse(document.location.search.substring(1), {
       allowDots: true
     });
@@ -43,7 +43,7 @@ export default function ChooseAffiliation () {
         allowDots: true,
         format: 'RFC1738'
       });
-  }
+  };
 
   const activeSelector = affiliation === 'aa' ? 'div:first-of-type' : 'div:last-of-type';
 

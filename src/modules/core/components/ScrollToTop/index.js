@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
 
 class ScrollToTop extends Component {
   componentDidUpdate (prevProps) {
@@ -12,5 +13,13 @@ class ScrollToTop extends Component {
     return this.props.children;
   }
 }
+
+ScrollToTop.propTypes = {
+  location: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
+};
 
 export default withRouter(ScrollToTop);

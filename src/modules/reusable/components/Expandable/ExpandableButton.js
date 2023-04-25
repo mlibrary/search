@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ExpandableContext } from './Expandable';
 import { Button } from '../../../reusable';
+import PropTypes from 'prop-types';
 
 const cleanList = (list) => {
   return list.filter((x) => {
@@ -33,6 +34,12 @@ class ExpandableButton extends Component {
     );
   }
 }
+
+ExpandableButton.propTypes = {
+  context: PropTypes.object,
+  name: PropTypes.string,
+  count: PropTypes.number
+};
 
 export default (props) => {
   return (

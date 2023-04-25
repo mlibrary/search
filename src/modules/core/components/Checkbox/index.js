@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from '../Icon';
+import PropTypes from 'prop-types';
 
 class Checkbox extends React.Component {
   render () {
@@ -19,8 +20,8 @@ class Checkbox extends React.Component {
         className='checkbox-label'
         tabIndex='0'
         onClick={handleClick}
-        onKeyPress={(event) => {
-          if (event.charCode === 32) {
+        onKeyDown={(event) => {
+          if (event.code === 'Space') {
             event.preventDefault();
             handleClick();
           }
@@ -43,5 +44,12 @@ class Checkbox extends React.Component {
     );
   }
 }
+
+Checkbox.propTypes = {
+  isChecked: PropTypes.bool,
+  handleClick: PropTypes.func,
+  label: PropTypes.string,
+  hideLabel: PropTypes.bool
+};
 
 export default Checkbox;

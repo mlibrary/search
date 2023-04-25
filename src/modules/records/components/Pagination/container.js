@@ -2,20 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Pagination } from '../../../reusable';
-import {
-  stringifySearchQueryForURL
-} from '../../../pride';
+import { stringifySearchQueryForURL } from '../../../pride';
+import PropTypes from 'prop-types';
 
 class PaginationContainer extends React.Component {
   /*
     page,
     total,
-    onPageChange,
-    onNextPage,
-    onPreviousPage
+    watchPageChange,
+    toNextPage,
+    toPreviousPage
   */
 
-  onPageChange = (page) => {
+  watchPageChange = (page) => {
     const { history } = this.props;
     history.push(this.createSearchQuery({ page }));
   };
@@ -43,9 +42,7 @@ class PaginationContainer extends React.Component {
   };
 
   toPreviousPage = () => {
-    const {
-      page
-    } = this.props;
+    const { page } = this.props;
 
     // If there is only one page or you're on the first page.
     if (page === 1) {
@@ -58,10 +55,7 @@ class PaginationContainer extends React.Component {
   };
 
   toNextPage = () => {
-    const {
-      page,
-      total
-    } = this.props;
+    const { page, total } = this.props;
 
     // If you're on the last page, do not render a next page link.
     if (total === 0 || page === total) {
@@ -74,11 +68,7 @@ class PaginationContainer extends React.Component {
   };
 
   render () {
-    const {
-      records,
-      page,
-      total
-    } = this.props;
+    const { records, page, total } = this.props;
 
     if (!records || (records && records.length === 0)) {
       return null;
@@ -89,13 +79,25 @@ class PaginationContainer extends React.Component {
         ariaLabel='Pagination'
         page={page}
         total={total}
-        onPageChange={this.onPageChange}
+        watchPageChange={this.watchPageChange}
         toNextPage={this.toNextPage()}
         toPreviousPage={this.toPreviousPage()}
       />
     );
   }
 }
+
+PaginationContainer.propTypes = {
+  history: PropTypes.object,
+  search: PropTypes.object,
+  filters: PropTypes.object,
+  activeDatastoreUid: PropTypes.string,
+  institution: PropTypes.object,
+  sort: PropTypes.string,
+  records: PropTypes.array,
+  page: PropTypes.number,
+  total: PropTypes.number
+};
 
 function mapStateToProps (state) {
   return {

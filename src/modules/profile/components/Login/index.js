@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import config from '../../../../config';
+import PropTypes from 'prop-types';
 
 class Login extends Component {
   render () {
@@ -15,6 +16,12 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  profile: PropTypes.object,
+  loading: PropTypes.bool,
+  render: PropTypes.func
+};
 
 function mapStateToProps (state) {
   return {

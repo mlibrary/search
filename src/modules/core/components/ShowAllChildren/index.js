@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  setA11yMessage
-} from '../../../a11y';
+import { setA11yMessage } from '../../../a11y';
+import PropTypes from 'prop-types';
 
 class ShowAllChildren extends React.Component {
+  constructor () {
+    super();
+    this.handleShowToggleClick = this.handleShowToggleClick.bind(this);
+  }
+
   state = {
     show: false
   };
@@ -37,27 +41,30 @@ class ShowAllChildren extends React.Component {
           return null;
         })}
         {hasShowHideButton && (
-          <ShowHideButton handleOnClick={this.handleShowToggleClick.bind(this)} show={this.state.show}>
+          <button
+            onClick={this.handleShowToggleClick}
+            className='button-link-light show-all-button'
+            aria-expanded={this.state.show}
+          >
             <span className='show-all-button__text'>{buttonText}</span>
-          </ShowHideButton>
+          </button>
         )}
       </>
     );
   }
 }
 
-class ShowHideButton extends React.Component {
-  render () {
-    return (
-      <button
-        onClick={() => {
-          return this.props.handleOnClick();
-        }} className='button-link-light show-all-button' aria-expanded={this.props.show}
-      >
-        {this.props.children}
-      </button>
-    );
-  }
-}
+ShowAllChildren.propTypes = {
+  length: PropTypes.number,
+  setA11yMessage: PropTypes.func,
+  name: PropTypes.string,
+  show: PropTypes.number,
+  showFewerText: PropTypes.string,
+  showAllText: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
+};
 
 export default connect(null, { setA11yMessage })(ShowAllChildren);

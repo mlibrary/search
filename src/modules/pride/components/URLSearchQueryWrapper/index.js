@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'underscore';
-
 import config from '../../../../config';
 import {
   setSearchQuery,
@@ -30,6 +29,7 @@ import { changeActiveDatastore } from '../../../datastores';
 import { setActiveInstitution } from '../../../institution';
 import { setA11yMessage } from '../../../a11y';
 import { affiliationCookieSetter, setActiveAffilitation } from '../../../affiliation';
+import PropTypes from 'prop-types';
 
 class URLSearchQueryWrapper extends React.Component {
   constructor (props) {
@@ -210,6 +210,34 @@ class URLSearchQueryWrapper extends React.Component {
     return <div>{this.props.children}</div>;
   }
 }
+
+URLSearchQueryWrapper.propTypes = {
+  setActiveAffilitation: PropTypes.func,
+  setSearchQuery: PropTypes.func,
+  setSearchQueryInput: PropTypes.func,
+  setActiveFilters: PropTypes.func,
+  clearActiveFilters: PropTypes.func,
+  setPage: PropTypes.func,
+  setSort: PropTypes.func,
+  setActiveInstitution: PropTypes.func,
+  setA11yMessage: PropTypes.func,
+  setParserMessage: PropTypes.func,
+  resetFilters: PropTypes.func,
+  searching: PropTypes.func,
+  match: PropTypes.object,
+  datastoreUid: PropTypes.string,
+  isSearching: PropTypes.bool,
+  query: PropTypes.string,
+  activeFilters: PropTypes.object,
+  location: PropTypes.object,
+  page: PropTypes.object,
+  sort: PropTypes.object,
+  institution: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
+};
 
 function mapStateToProps (state) {
   return {

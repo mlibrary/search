@@ -8,8 +8,9 @@ import {
   ExpandableChildren,
   ExpandableButton
 } from '../../reusable';
+import PropTypes from 'prop-types';
 
-const cell_padding = {
+const cellPadding = {
   paddingTop: SPACING.XS,
   paddingBottom: SPACING.XS,
   paddingRight: SPACING.L
@@ -90,7 +91,7 @@ export default function Holder ({
                         css={{
                           fontWeight: '600',
                           color: COLORS.neutral['300'],
-                          ...cell_padding,
+                          ...cellPadding,
                           borderBottom: `solid 2px ${COLORS.neutral['100']}`,
                           width:
                           headings.length === 3 && i === 2 ? '50%' : 'auto'
@@ -112,6 +113,15 @@ export default function Holder ({
     </div>
   );
 }
+
+Holder.propTypes = {
+  record: PropTypes.object,
+  headings: PropTypes.array,
+  rows: PropTypes.array,
+  captionLink: PropTypes.object,
+  notes: PropTypes.array,
+  preExpanded: PropTypes.bool
+};
 
 function HolderRows ({ rows }) {
   /*
@@ -135,7 +145,7 @@ function HolderRows ({ rows }) {
         <td
           colSpan={`${rows[0].length}`}
           css={{
-            ...cell_padding,
+            ...cellPadding,
             wordBreak: 'break-word'
           }}
         >
@@ -185,3 +195,7 @@ function HolderRows ({ rows }) {
     </>
   );
 }
+
+HolderRows.propTypes = {
+  rows: PropTypes.array
+};

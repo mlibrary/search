@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const FullRecordPlaceholder = ({ longer }) => {
   return (
@@ -22,6 +23,10 @@ const FullRecordPlaceholder = ({ longer }) => {
       </div>
     </div>
   );
+};
+
+FullRecordPlaceholder.propTypes = {
+  longer: PropTypes.bool
 };
 
 export default FullRecordPlaceholder;

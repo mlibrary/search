@@ -1,5 +1,6 @@
 import React from 'react';
 import { searchOptions, searchOptionsDatastores, filterOptions } from '../../utilities';
+import PropTypes from 'prop-types';
 
 const listOptions = (options) => {
   return options.map((option) => {
@@ -40,6 +41,11 @@ const SearchByOptions = ({ activeDatastore, fields }) => {
       </optgroup>
     </>
   );
+};
+
+SearchByOptions.propTypes = {
+  activeDatastore: PropTypes.object,
+  fields: PropTypes.array
 };
 
 export default SearchByOptions;

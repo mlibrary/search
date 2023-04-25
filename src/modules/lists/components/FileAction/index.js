@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from '../../../reusable';
+import PropTypes from 'prop-types';
 
 class FileAction extends Component {
   state = {
@@ -22,7 +23,7 @@ class FileAction extends Component {
     this.props.onUsed();
   };
 
-  handleCloseStatus = () => {
+  setCloseStatus = () => {
     this.props.setActive('');
     this.setState({ status: undefined, sent: false });
   };
@@ -55,5 +56,13 @@ class FileAction extends Component {
     );
   }
 }
+
+FileAction.propTypes = {
+  prejudice: PropTypes.object,
+  datastore: PropTypes.object,
+  onUsed: PropTypes.func,
+  setActive: PropTypes.func,
+  listLength: PropTypes.number
+};
 
 export default FileAction;

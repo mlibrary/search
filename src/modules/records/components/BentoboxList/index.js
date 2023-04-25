@@ -2,16 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
-
 import { Icon } from '../../../core';
 import { getMultiSearchRecords } from '../../../pride';
 import RecordPreview from '../RecordPreview';
 import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
 import KeywordSwitch from '../KeywordSwitch';
-
-import {
-  SpecialistsWrapper
-} from '../../../specialists';
+import { SpecialistsWrapper } from '../../../specialists';
+import PropTypes from 'prop-types';
 
 class BentoboxList extends React.Component {
   render () {
@@ -56,6 +53,14 @@ class BentoboxList extends React.Component {
   }
 }
 
+BentoboxList.propTypes = {
+  allRecords: PropTypes.object,
+  datastoreUid: PropTypes.string,
+  search: PropTypes.object,
+  searchQuery: PropTypes.string,
+  institution: PropTypes.object
+};
+
 const BentoHeading = ({
   bentobox,
   search,
@@ -73,6 +78,12 @@ const BentoHeading = ({
       <BentoboxResultsNum bentobox={bentobox} search={search} totalResults={totalResults} />
     </Link>
   );
+};
+
+BentoHeading.propTypes = {
+  bentobox: PropTypes.object,
+  search: PropTypes.object,
+  searchQuery: PropTypes.string
 };
 
 const BentoFooter = ({
@@ -103,6 +114,12 @@ const BentoFooter = ({
   );
 };
 
+BentoFooter.propTypes = {
+  bentobox: PropTypes.object,
+  search: PropTypes.object,
+  searchQuery: PropTypes.string
+};
+
 const BentoboxNoResults = ({ bentobox }) => {
   const hasBrowse = !!((bentobox.uid === 'databases' || bentobox.uid === 'onlinejournals'));
 
@@ -115,6 +132,10 @@ const BentoboxNoResults = ({ bentobox }) => {
       )}
     </div>
   );
+};
+
+BentoboxNoResults.propTypes = {
+  bentobox: PropTypes.object
 };
 
 const BentoboxResultsNum = ({ bentobox, search, totalResults }) => {
@@ -133,6 +154,12 @@ const BentoboxResultsNum = ({ bentobox, search, totalResults }) => {
 
   // Results have loaded
   return <span className='bentobox-results-info'>{resultsNum} {resultsText}</span>;
+};
+
+BentoboxResultsNum.propTypes = {
+  bentobox: PropTypes.object,
+  search: PropTypes.object,
+  totalResults: PropTypes.number
 };
 
 const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
@@ -187,6 +214,13 @@ const BentoResults = ({ search, bentobox, searchQuery, institution }) => {
       })}
     </div>
   );
+};
+
+BentoResults.propTypes = {
+  bentobox: PropTypes.object,
+  search: PropTypes.object,
+  searchQuery: PropTypes.string,
+  institution: PropTypes.object
 };
 
 function mapStateToProps (state) {

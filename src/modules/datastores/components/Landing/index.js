@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BrowseInfo } from '../../../browse';
 import { InstitutionSelect } from '../../../institution';
+import PropTypes from 'prop-types';
 
 const Landing = ({ content, activeDatastore }) => {
   switch (activeDatastore.uid) {
@@ -133,6 +134,11 @@ const Landing = ({ content, activeDatastore }) => {
         </div>
       );
   }
+};
+
+Landing.propTypes = {
+  content: PropTypes.any,
+  activeDatastore: PropTypes.object
 };
 
 export default connect(null)(Landing);

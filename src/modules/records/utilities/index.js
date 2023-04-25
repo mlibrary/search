@@ -123,7 +123,7 @@ const displayLoadingFeedback = (datastoreUid) => {
 const isFullRecordType = ({ datastoreUid }) => {
   const accessConfig = _.findWhere(config.fields, { datastore: datastoreUid });
 
-  return accessConfig.hasOwnProperty('full');
+  return Object.prototype.hasOwnProperty.call(accessConfig, 'full');
 };
 
 const getShowAllText = ({ holdingUid, datastoreUid }) => {

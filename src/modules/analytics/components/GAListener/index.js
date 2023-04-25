@@ -22,4 +22,8 @@ class GAListener extends React.Component {
   }
 }
 
+GAListener.propTypes = {
+  children: PropTypes.array
+};
+
 export default GAListener;

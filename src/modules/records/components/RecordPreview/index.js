@@ -6,6 +6,7 @@ import { Icon as SearchIcon, TrimString } from '../../../core';
 import { getField, getFieldValue } from '../../utilities';
 import { getDatastoreSlugByUid } from '../../../pride';
 import { RecommendedResource, Zotero, RecordMetadata } from '../../../records';
+import PropTypes from 'prop-types';
 
 const Header = ({ record, datastoreUid, searchQuery }) => {
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0];
@@ -61,6 +62,12 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
   );
 };
 
+Header.propTypes = {
+  record: PropTypes.object,
+  datastoreUid: PropTypes.string,
+  searchQuery: PropTypes.string
+};
+
 const Footer = ({ record, datastoreUid }) => {
   // No access/holding options for Mirlyn for preview records.
   if (datastoreUid === 'mirlyn' || datastoreUid === 'website') {
@@ -100,6 +107,11 @@ const Footer = ({ record, datastoreUid }) => {
   return null;
 };
 
+Footer.propTypes = {
+  record: PropTypes.object,
+  datastoreUid: PropTypes.string
+};
+
 class RecordPreview extends React.Component {
   render () {
     const { record, datastoreUid, searchQuery } = this.props;
@@ -118,5 +130,11 @@ class RecordPreview extends React.Component {
     );
   }
 }
+
+RecordPreview.propTypes = {
+  record: PropTypes.object,
+  datastoreUid: PropTypes.string,
+  searchQuery: PropTypes.string
+};
 
 export default RecordPreview;

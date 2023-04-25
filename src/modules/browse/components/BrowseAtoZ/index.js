@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import qs from 'qs';
+import PropTypes from 'prop-types';
 
 class BrowseAtoZ extends React.Component {
   state = {
@@ -67,5 +68,9 @@ class BrowseAtoZ extends React.Component {
     );
   }
 }
+
+BrowseAtoZ.propTypes = {
+  match: PropTypes.object
+};
 
 export default withRouter(BrowseAtoZ);

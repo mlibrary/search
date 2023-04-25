@@ -13,19 +13,20 @@ import {
   setFieldedSearch
 } from '../../../advanced';
 import _ from 'underscore';
+import PropTypes from 'prop-types';
 
 class AdvancedSearchForm extends React.Component {
   state = {
     errors: []
   };
 
-  handleFieldedSearchChange = ({
+  changeFieldedSearch = ({
     fieldedSearchIndex,
     selectedFieldUid,
     query,
     booleanType
   }) => {
-    this.props.setFieldedSearch({
+    return this.props.setFieldedSearch({
       datastoreUid: this.props.datastore.uid,
       fieldedSearchIndex,
       selectedFieldUid,
@@ -161,7 +162,7 @@ class AdvancedSearchForm extends React.Component {
               fieldedSearchIndex={i}
               fieldedSearch={fs}
               fields={fields}
-              handleFieldedSearchChange={this.handleFieldedSearchChange}
+              changeFieldedSearch={this.changeFieldedSearch}
               handleRemoveFieldedSearch={() => {
                 return this.handleRemoveFieldedSearch({ removeIndex: i });
               }}
@@ -219,6 +220,19 @@ function mapStateToProps (state, props) {
     )
   };
 }
+
+AdvancedSearchForm.propTypes = {
+  setFieldedSearch: PropTypes.func,
+  addFieldedSearch: PropTypes.func,
+  removeFieldedSearch: PropTypes.func,
+  fieldedSearches: PropTypes.array,
+  booleanTypes: PropTypes.array,
+  institution: PropTypes.object,
+  datastore: PropTypes.object,
+  activeFilters: PropTypes.object,
+  history: PropTypes.object,
+  fields: PropTypes.array
+};
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(AdvancedSearchForm)

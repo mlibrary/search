@@ -1,13 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  getField,
-  getFieldValue
-} from '../../../records/utilities';
-
-import {
-  placeHold
-} from '../../../pride';
+import { getField, getFieldValue } from '../../../records/utilities';
+import { placeHold } from '../../../pride';
+import PropTypes from 'prop-types';
 
 const Select = ({ field, handeFieldChange }) => {
   const { name, value, options } = field;
@@ -20,12 +15,18 @@ const Select = ({ field, handeFieldChange }) => {
             key={key}
             value={option.value}
             disabled={option.disabled && 'disabled'}
-          >{option.name}
+          >
+            {option.name}
           </option>
         );
       })}
     </select>
   );
+};
+
+Select.propTypes = {
+  field: PropTypes.object,
+  handeFieldChange: PropTypes.func
 };
 
 const Field = ({ field, handeFieldChange, loading }) => {
@@ -68,6 +69,12 @@ const Field = ({ field, handeFieldChange, loading }) => {
       <input className='form-control' id={name} type={type} name={name} value={value} onChange={handeFieldChange} />
     </div>
   );
+};
+
+Field.propTypes = {
+  field: PropTypes.object,
+  handeFieldChange: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 class GetThisForm extends React.Component {
@@ -194,6 +201,12 @@ class GetThisForm extends React.Component {
     );
   }
 }
+
+GetThisForm.propTypes = {
+  form: PropTypes.object,
+  datastoreUid: PropTypes.string,
+  recordId: PropTypes.string
+};
 
 function mapStateToProps (state) {
   return {

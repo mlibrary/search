@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ActionStatusMessage from '../ActionStatusMessage';
 import { Button } from '../../../reusable';
+import PropTypes from 'prop-types';
 
 class EmailAction extends Component {
   state = {
@@ -33,7 +34,7 @@ class EmailAction extends Component {
     this.props.onUsed();
   };
 
-  handleCloseStatus = () => {
+  setCloseStatus = () => {
     this.props.setActive('');
     this.setState({ status: undefined, sent: false });
   };
@@ -65,12 +66,22 @@ class EmailAction extends Component {
 
     return (
       <section className='lists-action'>
-        <ActionStatusMessage status={this.state.status} action={action} handleCloseStatus={this.handleCloseStatus} />
+        <ActionStatusMessage status={this.state.status} action={action} setCloseStatus={this.setCloseStatus} />
         {this.renderForm()}
       </section>
     );
   }
 }
+
+EmailAction.propTypes = {
+  profile: PropTypes.object,
+  prejudice: PropTypes.object,
+  datastore: PropTypes.object,
+  onUsed: PropTypes.func,
+  setActive: PropTypes.func,
+  listLength: PropTypes.number,
+  action: PropTypes.object
+};
 
 function mapStateToProps (state) {
   return {

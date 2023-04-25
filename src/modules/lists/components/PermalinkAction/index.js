@@ -2,6 +2,7 @@
 import React from 'react';
 import { Modal, Button } from '../../../reusable';
 import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
+import PropTypes from 'prop-types';
 
 class CitationAction extends React.Component {
   state = {
@@ -56,7 +57,8 @@ class CitationAction extends React.Component {
           <h2
             className='heading-medium'
             style={{ marginTop: '0' }}
-          >Copy link
+          >
+            Copy link
           </h2>
 
           <div
@@ -97,13 +99,15 @@ class CitationAction extends React.Component {
             >
               <Button
                 onClick={this.handleCopy}
-              >Copy link
+              >
+                Copy link
               </Button>
 
               <Button
                 kind='secondary'
                 onClick={this.handleCloseModal}
-              >Close
+              >
+                Close
               </Button>
             </div>
           </div>
@@ -112,5 +116,11 @@ class CitationAction extends React.Component {
     );
   }
 }
+
+CitationAction.propTypes = {
+  setActive: PropTypes.func,
+  setAlert: PropTypes.func,
+  className: PropTypes.string
+};
 
 export default CitationAction;

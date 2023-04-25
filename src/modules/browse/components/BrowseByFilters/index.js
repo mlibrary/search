@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import qs from 'qs';
+import PropTypes from 'prop-types';
 
 class NestedList extends React.Component {
   render () {
@@ -15,7 +16,9 @@ class NestedList extends React.Component {
 
     const nodes = items.map(function (item, key) {
       return (
-        <Node key={key} node={item} children={item.children} browserFilterTo={browserFilterTo} />
+        <Node key={key} node={item} browserFilterTo={browserFilterTo}>
+          {item.children}
+        </Node>
       );
     });
 
@@ -26,6 +29,11 @@ class NestedList extends React.Component {
     );
   }
 }
+
+NestedList.propTypes = {
+  browserFilterTo: PropTypes.func,
+  items: PropTypes.array
+};
 
 class BrowseFilter extends React.Component {
   render () {
@@ -50,6 +58,11 @@ class BrowseFilter extends React.Component {
   }
 }
 
+BrowseFilter.propTypes = {
+  filter: PropTypes.object,
+  browserFilterTo: PropTypes.func
+};
+
 class Node extends React.Component {
   render () {
     const {
@@ -65,9 +78,10 @@ class Node extends React.Component {
           <Node
             key={key}
             node={childnode}
-            children={childnode.children}
             browserFilterTo={browserFilterTo}
-          />
+          >
+            {childnode.children}
+          </Node>
         );
       });
     }
@@ -87,6 +101,15 @@ class Node extends React.Component {
     );
   }
 }
+
+Node.propTypes = {
+  children: PropTypes.array,
+  browserFilterTo: PropTypes.func,
+  node: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ])
+};
 
 class BrowseByFilters extends React.Component {
   handleBrowserFilterTo (filterUid, value) {
@@ -120,7 +143,8 @@ class BrowseByFilters extends React.Component {
               <h2 className='heading-large' style={{ marginTop: '0' }}>{name}</h2>
 
               <NestedList
-                items={filters[uid].filters} browserFilterTo={(value) => {
+                items={filters[uid].filters}
+                browserFilterTo={(value) => {
                   return this.handleBrowserFilterTo(uid, value);
                 }}
               />
@@ -131,5 +155,10 @@ class BrowseByFilters extends React.Component {
     );
   }
 }
+
+BrowseByFilters.propTypes = {
+  match: PropTypes.object,
+  filters: PropTypes.object
+};
 
 export default withRouter(BrowseByFilters);

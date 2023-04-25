@@ -1,13 +1,11 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-  withRouter
-} from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
 import { getDatastoreUidBySlug } from '../../../pride';
 import { changeActiveDatastore } from '../../actions';
 import DatastoreNavigationPresenter from './presenter';
+import PropTypes from 'prop-types';
 
 class DatastoreNavigationContainer extends React.Component {
   componentDidMount () {
@@ -49,6 +47,16 @@ class DatastoreNavigationContainer extends React.Component {
       />
     );
   }
+};
+
+DatastoreNavigationContainer.propTypes = {
+  datastores: PropTypes.object,
+  match: PropTypes.object,
+  changeActiveDatastore: PropTypes.func,
+  search: PropTypes.object,
+  activeFilters: PropTypes.object,
+  institution: PropTypes.object,
+  history: PropTypes.object
 };
 
 function mapStateToProps (state) {

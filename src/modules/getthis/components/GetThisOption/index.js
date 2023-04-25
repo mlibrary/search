@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import GetThisFindIt from '../GetThisFindIt';
-import {
-  GetThisForm
-} from '../../../getthis';
+import { GetThisForm } from '../../../getthis';
+import PropTypes from 'prop-types';
 
 const createMarkup = (html) => {
   return { __html: html };
@@ -59,5 +58,9 @@ function GetThisOption ({ option }) {
     </details>
   );
 }
+
+GetThisOption.propTypes = {
+  option: PropTypes.object
+};
 
 export default GetThisOption;

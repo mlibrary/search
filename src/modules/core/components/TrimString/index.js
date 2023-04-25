@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class TrimString extends React.Component {
   constructor (props) {
@@ -56,5 +57,12 @@ class TrimString extends React.Component {
     );
   }
 }
+
+TrimString.propTypes = {
+  trimLength: PropTypes.number,
+  string: PropTypes.string,
+  showMore: PropTypes.bool,
+  expandable: PropTypes.bool
+};
 
 export default TrimString;

@@ -246,7 +246,7 @@ FullRecord.propTypes = {
   datastore: PropTypes.object,
   datastoreUid: PropTypes.string,
   history: PropTypes.object,
-  list: PropTypes.object,
+  list: PropTypes.array,
   match: PropTypes.object
 };
 

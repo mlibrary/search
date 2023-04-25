@@ -12,6 +12,7 @@ import {
 import {
   Breadcrumb
 } from '../../../reusable';
+import PropTypes from 'prop-types';
 
 class BrowsePage extends React.Component {
   render () {
@@ -43,6 +44,11 @@ class BrowsePage extends React.Component {
     );
   }
 }
+
+BrowsePage.propTypes = {
+  browse: PropTypes.object,
+  datastore: PropTypes.object
+};
 
 function mapStateToProps (state) {
   return {

@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+import PropTypes from 'prop-types';
 
 const DatastoreInfo = ({ activeDatastore }) => {
   switch (activeDatastore.uid) {
@@ -48,6 +49,10 @@ const DatastoreInfo = ({ activeDatastore }) => {
   }
 };
 
+DatastoreInfo.propTypes = {
+  activeDatastore: PropTypes.object
+};
+
 class DatastoreInfoContainer extends React.Component {
   constructor (props) {
     super(props);
@@ -56,9 +61,9 @@ class DatastoreInfoContainer extends React.Component {
   }
 
   handleHideClick () {
-    const datastore_uid = this.props.activeDatastore.uid;
+    const datastoreUid = this.props.activeDatastore.uid;
     this.setState({
-      hide: this.state.hide.concat(datastore_uid)
+      hide: this.state.hide.concat(datastoreUid)
     });
   }
 
@@ -77,12 +82,17 @@ class DatastoreInfoContainer extends React.Component {
             className='datastore-info-hide' onClick={(e) => {
               return this.handleHideClick(e);
             }}
-          >Hide
+          >
+            Hide
           </button>
         </div>
       </div>
     );
   }
 }
+
+DatastoreInfoContainer.propTypes = {
+  activeDatastore: PropTypes.object
+};
 
 export default DatastoreInfoContainer;

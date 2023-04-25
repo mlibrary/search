@@ -84,7 +84,9 @@ Icon.propTypes = {
   /** Size of the icon in pixels. */
   size: PropTypes.number,
   /** Include a title if this icon requires a text alternative. */
-  title: PropTypes.string
+  title: PropTypes.string,
+  className: PropTypes.string,
+  d: PropTypes.string
 };
 
 Icon.defaultProps = {

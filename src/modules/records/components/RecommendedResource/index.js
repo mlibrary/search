@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const isRecommended = (record) => {
   return record.fields.filter((item) => {
@@ -14,6 +15,10 @@ const RecommendedResource = ({ record }) => {
   }
 
   return null;
+};
+
+RecommendedResource.propTypes = {
+  record: PropTypes.object
 };
 
 export default RecommendedResource;

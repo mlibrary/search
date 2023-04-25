@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
+import React from 'react';
 import { Icon } from '../../../reusable';
 import { searchOptions, searchOptionsDatastores } from '../../utilities';
+import PropTypes from 'prop-types';
 
 const SearchTip = ({ activeDatastore, field }) => {
   // Check if current datastore is found in any of the search options
@@ -38,6 +40,11 @@ const SearchTip = ({ activeDatastore, field }) => {
       </p>
     </div>
   );
+};
+
+SearchTip.propTypes = {
+  activeDatastore: PropTypes.object,
+  field: PropTypes.string
 };
 
 export default SearchTip;

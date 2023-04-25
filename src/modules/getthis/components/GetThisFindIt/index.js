@@ -1,13 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  withRouter
-} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { ResourceAccess } from '../../../reusable';
 import getHoldingByBarcode from '../../getHoldingByBarcode';
-import {
-  StyledGetThisResourceAccessContainer
-} from '../GetThisRecord';
+import { StyledGetThisResourceAccessContainer } from '../GetThisRecord';
+import PropTypes from 'prop-types';
 
 function GetThisFindItHolding ({ holding }) {
   return (
@@ -26,14 +23,14 @@ function GetThisFindItHolding ({ holding }) {
   );
 }
 
+GetThisFindItHolding.propTypes = {
+  holding: PropTypes.array
+};
+
 class GetThisFindIt extends React.Component {
   render () {
-    const {
-      record
-    } = this.props;
-    const {
-      barcode
-    } = this.props.match.params;
+    const { record } = this.props;
+    const { barcode } = this.props.match.params;
 
     if (record.resourceAccess) {
       const holding = getHoldingByBarcode(record.resourceAccess, barcode);
@@ -50,6 +47,11 @@ class GetThisFindIt extends React.Component {
     return null;
   }
 }
+
+GetThisFindIt.propTypes = {
+  record: PropTypes.object,
+  match: PropTypes.object
+};
 
 function mapStateToProps (state) {
   return {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import {
   setA11yMessage
@@ -44,6 +45,11 @@ class A11yLiveMessage extends Component {
     );
   }
 }
+
+A11yLiveMessage.propTypes = {
+  a11yMessage: PropTypes.string,
+  setA11yMessage: PropTypes.func
+};
 
 function mapStateToProps (state) {
   return {

@@ -3,41 +3,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import { Route, Switch } from 'react-router-dom';
-
 import { NoMatch } from '../../../pages';
-
 import { SearchBox } from '../../../search';
-
 import { AdvancedSearch } from '../../../advanced';
-
 import {
   DatastoreNavigation,
   DatastoreInfo,
   Landing
 } from '../../../datastores';
-
 import { Filters } from '../../../filters';
-
 import { BrowsePage, BrowseInfo } from '../../../browse';
-
 import {
   RecordList,
   Pagination,
   BentoboxList,
   RecordFull
 } from '../../../records';
-
 import { GetThisPage } from '../../../getthis';
-
 import { switchPrideToDatastore } from '../../../pride';
-
 import { InstitutionSelect, InstitutionWrapper } from '../../../institution';
-
 import { List } from '../../../lists';
-
 import { setDocumentTitle } from '../../../a11y';
-
 import { FlintAlerts } from '../../../flint';
+import PropTypes from 'prop-types';
 
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
@@ -98,7 +86,7 @@ class DatastorePageContainer extends React.Component {
               if (isAdvanced) {
                 return (
                   <AdvancedSearch
-                    handleBasicSearchQueryChange={this.handleChange}
+                    onChange={this.handleChange}
                     searchQueryFromURL={location.search}
                   />
                 );
@@ -185,6 +173,16 @@ class DatastorePageContainer extends React.Component {
   }
 }
 
+DatastorePageContainer.propTypes = {
+  match: PropTypes.object,
+  activeDatastore: PropTypes.object,
+  query: PropTypes.string,
+  searching: PropTypes.bool,
+  location: PropTypes.object,
+  isAdvanced: PropTypes.bool,
+  activeFilterCount: PropTypes.number
+};
+
 const Results = ({ activeDatastore, activeFilterCount }) => {
   if (activeDatastore.isMultisearch) {
     return (
@@ -244,6 +242,11 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
       </div>
     </div>
   );
+};
+
+Results.propTypes = {
+  activeDatastore: PropTypes.object,
+  activeFilterCount: PropTypes.number
 };
 
 function mapStateToProps (state) {

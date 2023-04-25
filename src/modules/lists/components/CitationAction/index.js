@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
 import { Modal, Button, Tabs, TabList, Tab, TabPanel } from '../../../reusable';
 import { cite } from '../../../citations';
+import PropTypes from 'prop-types';
 
 class CitationArea extends Component {
   render () {
@@ -24,7 +25,7 @@ class CitationArea extends Component {
   }
 }
 
-const citation_options = [
+const citationOptions = [
   {
     id: 'modern-language-association',
     name: 'MLA'
@@ -74,7 +75,7 @@ class CitationAction extends Component {
   };
 
   generateCitations = (records) => {
-    citation_options.forEach((co) => {
+    citationOptions.forEach((co) => {
       return cite(records, co.id, this.handleCitationsData);
     });
   };
@@ -135,7 +136,7 @@ class CitationAction extends Component {
 
           <Tabs>
             <TabList>
-              {citation_options.map((co) => {
+              {citationOptions.map((co) => {
                 return (
                   <Tab
                     key={co.name}
@@ -145,7 +146,7 @@ class CitationAction extends Component {
               })}
             </TabList>
 
-            {citation_options.map((co) => {
+            {citationOptions.map((co) => {
               return (
                 <TabPanel key={`${co.name}-panel`}>
                   {this.state[co.id]
@@ -184,5 +185,15 @@ class CitationAction extends Component {
     );
   }
 }
+
+CitationAction.propTypes = {
+  setActive: PropTypes.func,
+  datastore: PropTypes.object,
+  record: PropTypes.object,
+  viewType: PropTypes.string,
+  list: PropTypes.array,
+  setAlert: PropTypes.func,
+  className: PropTypes.string
+};
 
 export default CitationAction;

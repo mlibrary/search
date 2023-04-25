@@ -32,8 +32,10 @@ class Expandable extends Component {
 }
 
 Expandable.propTypes = {
-  expanded: PropTypes.bool,
-  disabled: PropTypes.bool
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 Expandable.defaultProps = {

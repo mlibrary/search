@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import { withRouter } from 'react-router-dom';
-
 import { stringifySearchQueryForURL } from '../../../pride';
+import PropTypes from 'prop-types';
 
 class InstitutionSelect extends React.Component {
   handleChange (event) {
@@ -84,6 +84,15 @@ class InstitutionSelect extends React.Component {
     }
   }
 }
+
+InstitutionSelect.propTypes = {
+  searchQuery: PropTypes.string,
+  activeFilters: PropTypes.object,
+  activeDatastore: PropTypes.object,
+  history: PropTypes.object,
+  type: PropTypes.string,
+  institution: PropTypes.object
+};
 
 function mapStateToProps (state) {
   return {

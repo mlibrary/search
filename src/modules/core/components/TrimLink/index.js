@@ -1,7 +1,6 @@
 import React from 'react';
-import {
-  Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class TrimLink extends React.Component {
   state = {
@@ -54,5 +53,11 @@ class TrimLink extends React.Component {
     );
   }
 }
+
+TrimLink.propTypes = {
+  string: PropTypes.string,
+  linkClassName: PropTypes.string,
+  to: PropTypes.string
+};
 
 export default TrimLink;

@@ -27,7 +27,11 @@ Alert.propTypes = {
     'warning',
     'success'
   ]),
-  closed: PropTypes.bool
+  closed: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 Alert.defaultProps = {

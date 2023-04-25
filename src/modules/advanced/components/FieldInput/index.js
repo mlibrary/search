@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import React from 'react';
 import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
 import Icon from '../../../reusable/components/Icon';
 import { MultipleChoice } from '../../../core';
 import styled from '@emotion/styled';
 import SearchByOptions from '../../../search/components/SearchByOptions';
+import PropTypes from 'prop-types';
 
 const StyledFieldSet = styled('fieldset')({
   [MEDIA_QUERIES.LARGESCREEN]: {
@@ -11,14 +13,14 @@ const StyledFieldSet = styled('fieldset')({
   }
 });
 
-const FieldInput = ({
+function FieldInput ({
   fieldedSearchIndex,
   fieldedSearch,
   fields,
-  handleFieldedSearchChange,
+  changeFieldedSearch,
   handleRemoveFieldedSearch,
   activeDatastore
-}) => {
+}) {
   return (
     <StyledFieldSet className='y-spacing'>
       <legend className='offpage'>Search field {fieldedSearchIndex + 1}</legend>
@@ -27,13 +29,11 @@ const FieldInput = ({
         : (
           <MultipleChoice
             name={`search-field-${fieldedSearchIndex}-booleans`}
-            heading={`Boolean operator for field ${fieldedSearchIndex} and field ${
-          fieldedSearchIndex + 1
-        }`}
+            heading={`Boolean operator for field ${fieldedSearchIndex} and field ${fieldedSearchIndex + 1}`}
             options={['AND', 'OR', 'NOT']}
             selectedIndex={fieldedSearch.booleanType}
             onMultipleChoiceChange={({ index }) => {
-              return handleFieldedSearchChange({
+              return changeFieldedSearch({
                 fieldedSearchIndex,
                 booleanType: index
               });
@@ -46,7 +46,7 @@ const FieldInput = ({
           className='dropdown advanced-field-select'
           value={fieldedSearch.field}
           onChange={(event) => {
-            return handleFieldedSearchChange({
+            return changeFieldedSearch({
               fieldedSearchIndex,
               selectedFieldUid: event.target.value
             });
@@ -74,7 +74,7 @@ const FieldInput = ({
               value={fieldedSearch.query}
               data-hj-allow
               onChange={(event) => {
-                return handleFieldedSearchChange({
+                return changeFieldedSearch({
                   fieldedSearchIndex,
                   query: event.target.value
                 });
@@ -99,6 +99,15 @@ const FieldInput = ({
       </div>
     </StyledFieldSet>
   );
+};
+
+FieldInput.propTypes = {
+  fieldedSearchIndex: PropTypes.number,
+  fieldedSearch: PropTypes.object,
+  fields: PropTypes.array,
+  changeFieldedSearch: PropTypes.func,
+  handleRemoveFieldedSearch: PropTypes.func,
+  activeDatastore: PropTypes.object
 };
 
 export default FieldInput;

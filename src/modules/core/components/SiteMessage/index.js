@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class SiteMessage extends React.Component {
   render () {
@@ -11,5 +12,13 @@ class SiteMessage extends React.Component {
     );
   }
 }
+
+SiteMessage.propTypes = {
+  type: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
+};
 
 export default SiteMessage;

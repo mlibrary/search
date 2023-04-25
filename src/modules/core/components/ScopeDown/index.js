@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ScopeDown extends React.Component {
   render () {
@@ -22,6 +23,11 @@ class ScopeDown extends React.Component {
     );
   }
 }
+
+ScopeDown.propTypes = {
+  options: PropTypes.array,
+  handleChange: PropTypes.func
+};
 
 const Dropdown = ({ option, label, options, selected, handleChange }) => {
   if (options.length <= 1) {
@@ -53,6 +59,14 @@ const Dropdown = ({ option, label, options, selected, handleChange }) => {
       </label>
     </fieldset>
   );
+};
+
+Dropdown.propTypes = {
+  option: PropTypes.object,
+  label: PropTypes.string,
+  options: PropTypes.array,
+  selected: PropTypes.string,
+  handleChange: PropTypes.func
 };
 
 export default ScopeDown;

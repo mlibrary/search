@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import {
   isDatastoreBrowseable
@@ -24,5 +25,9 @@ class BrowseInfo extends React.Component {
     return null;
   }
 }
+
+BrowseInfo.propTypes = {
+  datastore: PropTypes.object
+};
 
 export default BrowseInfo;

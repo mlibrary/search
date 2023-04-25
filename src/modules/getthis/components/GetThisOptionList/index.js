@@ -4,6 +4,7 @@ import { Icon, Alert } from '../../../reusable';
 import config from '../../../../config';
 import { DetailsList } from '../../../core';
 import GetThisOption from '../GetThisOption';
+import PropTypes from 'prop-types';
 
 const Section = ({ children }) => {
   return (
@@ -12,6 +13,13 @@ const Section = ({ children }) => {
       {children}
     </section>
   );
+};
+
+Section.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 class GetThisOptions extends React.Component {
@@ -74,6 +82,10 @@ class GetThisOptions extends React.Component {
     }
   }
 }
+
+GetThisOptions.propTypes = {
+  record: PropTypes.object
+};
 
 function mapStateToProps (state) {
   return {

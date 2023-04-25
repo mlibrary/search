@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import {
-  withRouter,
-  Link
-} from 'react-router-dom';
-import {
-  Record
-} from '../../../records';
-import {
-  Breadcrumb
-} from '../../../reusable';
-import {
-  setA11yMessage
-} from '../../../a11y';
+import { withRouter, Link } from 'react-router-dom';
+import { Record } from '../../../records';
+import { Breadcrumb } from '../../../reusable';
+import { setA11yMessage } from '../../../a11y';
 import prejudice from '../../prejudice';
 import ActionsList from '../ActionsList';
+import PropTypes from 'prop-types';
 
 class List extends Component {
   state = {
@@ -126,6 +118,14 @@ class List extends Component {
     );
   }
 }
+
+List.propTypes = {
+  setA11yMessage: PropTypes.func,
+  list: PropTypes.array,
+  datastore: PropTypes.object,
+  institution: PropTypes.object,
+  searchQuery: PropTypes.string
+};
 
 function mapStateToProps (state) {
   return {

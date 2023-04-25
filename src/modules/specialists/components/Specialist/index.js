@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from '../../../core';
+import PropTypes from 'prop-types';
 
 const Specialist = ({ person }) => {
   return (
@@ -29,6 +30,10 @@ const Specialist = ({ person }) => {
       </div>
     </article>
   );
+};
+
+Specialist.propTypes = {
+  person: PropTypes.object
 };
 
 export default Specialist;

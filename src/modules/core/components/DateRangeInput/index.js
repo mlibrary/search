@@ -1,8 +1,6 @@
 import React from 'react';
-
-import {
-  MultipleChoice
-} from '../../../core';
+import { MultipleChoice } from '../../../core';
+import PropTypes from 'prop-types';
 
 class DateRangeInput extends React.Component {
   constructor (props) {
@@ -151,5 +149,12 @@ class DateRangeInput extends React.Component {
     );
   }
 }
+
+DateRangeInput.propTypes = {
+  beginQuery: PropTypes.string,
+  endQuery: PropTypes.string,
+  selectedRangeOption: PropTypes.number,
+  handleSelection: PropTypes.func
+};
 
 export default DateRangeInput;

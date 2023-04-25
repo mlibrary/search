@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SPACING, INTENT_COLORS } from '../../reusable/umich-lib-core-temp';
 import { Icon, Button } from '../../reusable';
+import PropTypes from 'prop-types';
 
 function RenderAnchor ({ data }) {
   /*
@@ -29,9 +30,11 @@ function RenderAnchor ({ data }) {
   );
 }
 
-export default function Holding ({
-  holding
-}) {
+RenderAnchor.propTypes = {
+  data: PropTypes.object
+};
+
+export default function Holding ({ holding }) {
   return (
     <tr>
       {holding.map((cell, i) => {
@@ -62,6 +65,10 @@ export default function Holding ({
   );
 }
 
+Holding.propTypes = {
+  holding: PropTypes.array
+};
+
 const Cell = ({
   cell,
   renderAnchor
@@ -91,6 +98,11 @@ const Cell = ({
       })()}
     </>
   );
+};
+
+Cell.propTypes = {
+  cell: PropTypes.object,
+  renderAnchor: PropTypes.func
 };
 
 class TrimCellText extends React.Component {
@@ -132,3 +144,7 @@ class TrimCellText extends React.Component {
     );
   }
 }
+
+TrimCellText.propTypes = {
+  text: PropTypes.string
+};

@@ -2,20 +2,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import {
-  Checkbox
-} from '../../../core';
-import {
-  isInList
-} from '../../../lists';
-import {
-  setA11yMessage
-} from '../../../a11y';
-
-import {
-  COLORS
-} from '../../../reusable/umich-lib-core-temp';
+import { Checkbox } from '../../../core';
+import { isInList } from '../../../lists';
+import { setA11yMessage } from '../../../a11y';
+import { COLORS } from '../../../reusable/umich-lib-core-temp';
 import prejudice from '../../prejudice';
+import PropTypes from 'prop-types';
 
 class AddToListButton extends React.Component {
   state = {
@@ -43,11 +35,7 @@ class AddToListButton extends React.Component {
   };
 
   render () {
-    const {
-      list,
-      item,
-      datastore
-    } = this.props;
+    const { list, item, datastore } = this.props;
     const inList = isInList(list, item.uid);
 
     /*
@@ -78,6 +66,12 @@ class AddToListButton extends React.Component {
     );
   }
 }
+
+AddToListButton.propTypes = {
+  list: PropTypes.array,
+  item: PropTypes.object,
+  datastore: PropTypes.object
+};
 
 function mapStateToProps (state) {
   return {

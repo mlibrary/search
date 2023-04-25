@@ -133,13 +133,13 @@ class App extends React.Component {
   }
 }
 
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
 const renderApp = () => {
-  const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(<App />);
 };
 
 const renderPrideFailedToLoad = () => {
-  const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <Alert type='error'>
       U-M Library Search is not available. We will fix this issue as soon as we can.

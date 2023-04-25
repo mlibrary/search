@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import config from '../../../../config';
+import PropTypes from 'prop-types';
 
 class AuthenticationRequired extends Component {
   render () {
@@ -20,6 +21,14 @@ class AuthenticationRequired extends Component {
     );
   }
 }
+
+AuthenticationRequired.propTypes = {
+  profile: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
+};
 
 function mapStateToProps (state) {
   return {

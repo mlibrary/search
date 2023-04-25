@@ -2,6 +2,7 @@ import React from 'react';
 import numeral from 'numeral';
 import './Pagination.css';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class Pagination extends React.Component {
   state = {
@@ -19,11 +20,11 @@ class Pagination extends React.Component {
     const page = parseInt(this.state.page, 10);
     const {
       total,
-      onPageChange
+      watchPageChange
     } = this.props;
 
     if (Number.isInteger(page) && page > 0 && page <= total) {
-      onPageChange(page);
+      watchPageChange(page);
     }
   };
 
@@ -81,5 +82,14 @@ class Pagination extends React.Component {
     );
   }
 }
+
+Pagination.propTypes = {
+  page: PropTypes.number,
+  total: PropTypes.number,
+  watchPageChange: PropTypes.func,
+  toPreviousPage: PropTypes.string,
+  toNextPage: PropTypes.string,
+  ariaLabel: PropTypes.string
+};
 
 export default Pagination;

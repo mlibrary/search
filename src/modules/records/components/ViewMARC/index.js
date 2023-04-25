@@ -1,14 +1,8 @@
 import React from 'react';
 import { Button } from '../../../reusable';
-
-import {
-  getField,
-  getFieldValue
-} from '../../utilities';
-
-import {
-  MARCTable
-} from '../../../marc';
+import { getField, getFieldValue } from '../../utilities';
+import { MARCTable } from '../../../marc';
+import PropTypes from 'prop-types';
 
 class ViewMARC extends React.Component {
   state = {
@@ -42,5 +36,9 @@ class ViewMARC extends React.Component {
     return null;
   }
 }
+
+ViewMARC.propTypes = {
+  record: PropTypes.object
+};
 
 export default ViewMARC;

@@ -7,16 +7,10 @@ import KeywordSwitch from '../KeywordSwitch';
 import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
 import { SearchResultsMessage } from '../../../search';
-
-import {
-  ResultsSummary
-} from '../../../records';
-import {
-  SpecialistsWrapper
-} from '../../../specialists';
-import {
-  GoToList
-} from '../../../lists';
+import { ResultsSummary } from '../../../records';
+import { SpecialistsWrapper } from '../../../specialists';
+import { GoToList } from '../../../lists';
+import PropTypes from 'prop-types';
 
 class RecordListContainer extends React.Component {
   render () {
@@ -144,6 +138,17 @@ class RecordListContainer extends React.Component {
     );
   }
 }
+
+RecordListContainer.propTypes = {
+  activeRecords: PropTypes.array,
+  datastoreUid: PropTypes.string,
+  loadingRecords: PropTypes.bool,
+  search: PropTypes.object,
+  searchQuery: PropTypes.string,
+  institution: PropTypes.object,
+  list: PropTypes.array,
+  datastore: PropTypes.object
+};
 
 function mapStateToProps (state) {
   return {

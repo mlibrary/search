@@ -1,14 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import {
-  withRouter
-} from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
 import config from '../../../../config';
-import {
-  stringifySearchQueryForURL
-} from '../../../pride';
+import { stringifySearchQueryForURL } from '../../../pride';
+import PropTypes from 'prop-types';
 
 const getSorts = ({ sorts, configuredSorts }) => {
   if (!configuredSorts) {
@@ -35,10 +31,10 @@ class Sorts extends React.Component {
   constructor (props) {
     super(props);
 
-    this.onChange = this.onChange.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
-  onChange (event) {
+  handleOnChange (event) {
     const { match, history, query, activeFilters, datastoreUid, institution } = this.props;
     const library = datastoreUid === 'mirlyn' ? institution.active : undefined;
 
@@ -68,7 +64,7 @@ class Sorts extends React.Component {
           <select
             className='dropdown sorts-select'
             value={sort}
-            onChange={this.onChange}
+            onChange={this.handleOnChange}
           >
             {sorts.map((item, index) => {
               return (
@@ -83,6 +79,17 @@ class Sorts extends React.Component {
     return null;
   }
 }
+
+Sorts.propTypes = {
+  match: PropTypes.object,
+  history: PropTypes.object,
+  query: PropTypes.string,
+  activeFilters: PropTypes.object,
+  datastoreUid: PropTypes.string,
+  institution: PropTypes.object,
+  sorts: PropTypes.array,
+  sort: PropTypes.string
+};
 
 function mapStateToProps (state) {
   const datastoreUid = state.datastores.active;

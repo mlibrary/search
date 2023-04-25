@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ShowAllChildren } from '../../../core';
 import Specialist from '../Specialist';
+import PropTypes from 'prop-types';
 
 const SpecialistList = ({
   loadingUserData,
@@ -38,6 +39,12 @@ const SpecialistList = ({
       <h2 className='offpage'>Results continued</h2>
     </>
   );
+};
+
+SpecialistList.propTypes = {
+  loadingUserData: PropTypes.bool,
+  show: PropTypes.number,
+  specialists: PropTypes.array
 };
 
 function mapStateToProps (state) {

@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import {
-  withRouter,
-  Link
-} from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class GoToList extends Component {
   render () {
-    const {
-      location,
-      list,
-      datastore
-    } = this.props;
+    const { location, list, datastore } = this.props;
     const hasItems = !!(list && list.length > 0);
     const listLength = list ? list.length : 0;
     const cn = hasItems ? 'lists-link-container' : 'lists-link-container offpage';
@@ -32,5 +26,11 @@ class GoToList extends Component {
     );
   }
 }
+
+GoToList.propTypes = {
+  location: PropTypes.object,
+  list: PropTypes.array,
+  datastore: PropTypes.object
+};
 
 export default withRouter(GoToList);

@@ -37,6 +37,11 @@ class ExpandableChildren extends Component {
 }
 
 ExpandableChildren.propTypes = {
+  context: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
   show: PropTypes.number
 };
 

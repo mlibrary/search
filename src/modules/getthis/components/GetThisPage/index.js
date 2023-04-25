@@ -1,20 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  withRouter,
-  Link
-} from 'react-router-dom';
-
-import {
-  requestRecord,
-  requestGetThis
-} from '../../../pride';
+import { withRouter, Link } from 'react-router-dom';
+import { requestRecord, requestGetThis } from '../../../pride';
 import {
   GetThisOptionList,
   GetThisFAQ,
   GetThisRecord
 } from '../../../getthis';
 import { Breadcrumb } from '../../../reusable';
+import PropTypes from 'prop-types';
 
 class GetThisPageTemplate extends React.Component {
   render () {
@@ -44,20 +38,24 @@ class GetThisPageTemplate extends React.Component {
   }
 }
 
+GetThisPageTemplate.propTypes = {
+  recordUid: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
+};
+
 class GetThisPage extends React.Component {
   componentDidMount () {
-    const {
-      recordUid,
-      barcode
-    } = this.props.match.params;
-    const {
-      datastoreUid
-    } = this.props;
+    const { recordUid, barcode } = this.props.match.params;
+    const { datastoreUid } = this.props;
 
     requestRecord({
       recordUid,
       datastoreUid
     });
+
     requestGetThis({
       datastoreUid,
       recordUid,
@@ -66,13 +64,8 @@ class GetThisPage extends React.Component {
   }
 
   render () {
-    const {
-      record
-    } = this.props;
-    const {
-      barcode,
-      recordUid
-    } = this.props.match.params;
+    const { record } = this.props;
+    const { barcode, recordUid } = this.props.match.params;
 
     if (record && record.fields && record.fields.length === 0 && record.names.length === 0) {
       return (
@@ -93,6 +86,12 @@ class GetThisPage extends React.Component {
     );
   }
 }
+
+GetThisPage.propTypes = {
+  match: PropTypes.object,
+  datastoreUid: PropTypes.string,
+  record: PropTypes.object
+};
 
 function mapStateToProps (state) {
   return {

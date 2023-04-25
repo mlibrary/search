@@ -1,12 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
-
 import ResultsSummary from './presenter';
-
-import {
-  getDatastoreName
-} from '../../../pride';
+import { getDatastoreName } from '../../../pride';
+import PropTypes from 'prop-types';
 
 class ResultsSummaryContainer extends React.Component {
   recordsSummary () {
@@ -62,6 +59,12 @@ class ResultsSummaryContainer extends React.Component {
     );
   }
 }
+
+ResultsSummaryContainer.propTypes = {
+  activeDatastoreUid: PropTypes.string,
+  search: PropTypes.object,
+  records: PropTypes.array
+};
 
 function mapStateToProps (state) {
   return {

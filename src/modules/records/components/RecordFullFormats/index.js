@@ -2,6 +2,7 @@
 import React from 'react';
 import Icon from '../../../reusable/components/Icon';
 import { SPACING } from '../../../reusable/umich-lib-core-temp';
+import PropTypes from 'prop-types';
 
 export default function RecordFullFormats ({ formats }) {
   return (
@@ -19,6 +20,10 @@ export default function RecordFullFormats ({ formats }) {
   );
 }
 
+RecordFullFormats.propTypes = {
+  formats: PropTypes.array
+};
+
 function RecordFormatIcon ({ icon }) {
   if (icon) {
     return (
@@ -33,3 +38,7 @@ function RecordFormatIcon ({ icon }) {
 
   return null;
 }
+
+RecordFormatIcon.propTypes = {
+  icon: PropTypes.string
+};

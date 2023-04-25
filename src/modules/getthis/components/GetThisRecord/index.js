@@ -6,11 +6,8 @@ import getHoldingByBarcode from '../../getHoldingByBarcode';
 import { TrimString } from '../../../core';
 import { RecordFullFormats, FullRecordPlaceholder } from '../../../records';
 import ResourceAccess from '../../../resource-acccess';
-import {
-  COLORS,
-  MEDIA_QUERIES,
-  SPACING
-} from '../../../reusable/umich-lib-core-temp';
+import { COLORS, MEDIA_QUERIES, SPACING } from '../../../reusable/umich-lib-core-temp';
+import PropTypes from 'prop-types';
 
 /*
   Hide the first column on the Get This page. No need for users to
@@ -73,6 +70,11 @@ function GetThisHolding ({ record, barcode }) {
   return null;
 }
 
+GetThisHolding.propTypes = {
+  record: PropTypes.object,
+  barcode: PropTypes.string
+};
+
 function GetBarcode ({ barcode }) {
   if (barcode) {
     return (
@@ -100,6 +102,10 @@ function GetBarcode ({ barcode }) {
   }
   return null;
 }
+
+GetBarcode.propTypes = {
+  barcode: PropTypes.string
+};
 
 class GetThisRecord extends React.Component {
   render () {
@@ -135,6 +141,11 @@ class GetThisRecord extends React.Component {
     );
   }
 }
+
+GetThisRecord.propTypes = {
+  record: PropTypes.object,
+  barcode: PropTypes.string
+};
 
 function mapStateToProps (state) {
   return {
