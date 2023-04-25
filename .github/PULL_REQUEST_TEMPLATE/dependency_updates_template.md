@@ -50,4 +50,4 @@ These dependencies have been updated to their latest versions:
   - [x] Chrome
   - [x] Firefox
   - [x] Safari
-  - [ ] Edge (the assignee was not able to test the pull request in this browser)
+  - [x] Edge
