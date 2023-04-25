@@ -1,54 +1,42 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
-import { connect } from "react-redux";
-import _ from "underscore";
-import { Route, Switch } from "react-router-dom";
-
-import { NoMatch } from "../../../pages";
-
-import { SearchBox } from "../../../search";
-
-import { AdvancedSearch } from "../../../advanced";
-
+import React from 'react';
+import { connect } from 'react-redux';
+import _ from 'underscore';
+import { Route, Switch } from 'react-router-dom';
+import { NoMatch } from '../../../pages';
+import { SearchBox } from '../../../search';
+import { AdvancedSearch } from '../../../advanced';
 import {
   DatastoreNavigation,
   DatastoreInfo,
-  Landing,
-} from "../../../datastores";
-
-import { Filters } from "../../../filters";
-
-import { BrowsePage, BrowseInfo } from "../../../browse";
-
+  Landing
+} from '../../../datastores';
+import { Filters } from '../../../filters';
+import { BrowsePage, BrowseInfo } from '../../../browse';
 import {
   RecordList,
   Pagination,
   BentoboxList,
-  RecordFull,
-} from "../../../records";
-
-import { GetThisPage } from "../../../getthis";
-
-import { switchPrideToDatastore } from "../../../pride";
-
-import { InstitutionSelect, InstitutionWrapper } from "../../../institution";
-
-import { List } from "../../../lists";
-
-import { setDocumentTitle } from "../../../a11y";
-
-import { FlintAlerts } from "../../../flint";
+  RecordFull
+} from '../../../records';
+import { GetThisPage } from '../../../getthis';
+import { switchPrideToDatastore } from '../../../pride';
+import { InstitutionSelect, InstitutionWrapper } from '../../../institution';
+import { List } from '../../../lists';
+import { setDocumentTitle } from '../../../a11y';
+import { FlintAlerts } from '../../../flint';
+import PropTypes from 'prop-types';
 
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class DatastorePageContainer extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     // Switch Pride to the appropriate datastore
     const { datastoreSlug } = this.props.match.params;
     switchPrideToDatastore(datastoreSlug);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     const { activeDatastore, query } = this.props;
 
     if (activeDatastore) {
@@ -60,14 +48,14 @@ class DatastorePageContainer extends React.Component {
     }
   }
 
-  render() {
+  render () {
     const {
       searching,
       match,
       location,
       isAdvanced,
       activeFilterCount,
-      activeDatastore,
+      activeDatastore
     } = this.props;
 
     if (activeDatastore === undefined) {
@@ -75,15 +63,15 @@ class DatastorePageContainer extends React.Component {
     }
 
     return (
-      <main className="main-container">
+      <main className='main-container'>
         <Switch>
           <Route
-            path={`/:datastoreSlug/browse`}
+            path='/:datastoreSlug/browse'
             location={location}
             render={() => {
               if (
-                activeDatastore.uid === "databases" ||
-                activeDatastore.uid === "onlinejournals"
+                activeDatastore.uid === 'databases' ||
+                activeDatastore.uid === 'onlinejournals'
               ) {
                 return <BrowsePage />;
               }
@@ -92,13 +80,13 @@ class DatastorePageContainer extends React.Component {
             }}
           />
           <Route
-            path={`/:datastoreSlug/advanced`}
+            path='/:datastoreSlug/advanced'
             location={location}
             render={() => {
               if (isAdvanced) {
                 return (
                   <AdvancedSearch
-                    handleBasicSearchQueryChange={this.handleChange}
+                    onChange={this.handleChange}
                     searchQueryFromURL={location.search}
                   />
                 );
@@ -108,72 +96,76 @@ class DatastorePageContainer extends React.Component {
             }}
           />
           <Route
-            path={`/:datastoreSlug`}
+            path='/:datastoreSlug'
             location={location}
-            render={() => (
-              <React.Fragment>
-                <SearchBox />
-                <DatastoreNavigation />
-                <div
-                  css={{
-                    marginTop: "-0.75rem",
-                    ".alert-inner": {
-                      display: "flex",
-                      justifyContent: "center",
-                    },
-                    ":empty": {
-                      display: "none",
-                    },
-                  }}
-                >
-                  <FlintAlerts />
-                </div>
-                <ConnectedSwitch>
-                  <Route
-                    path={match.url + `/record/:recordUid/get-this/:barcode`}
-                    render={(props) => {
-                      return <GetThisPage />;
+            render={() => {
+              return (
+                <>
+                  <SearchBox />
+                  <DatastoreNavigation />
+                  <div
+                    css={{
+                      marginTop: '-0.75rem',
+                      '.alert-inner': {
+                        display: 'flex',
+                        justifyContent: 'center'
+                      },
+                      ':empty': {
+                        display: 'none'
+                      }
                     }}
-                  />
-                  <Route
-                    path={match.url + `/record/:recordUid`}
-                    exact
-                    render={(props) => {
-                      return <RecordFull />;
-                    }}
-                  />
-                  <Route
-                    path={match.url + `/list`}
-                    exact
-                    render={(props) => {
-                      return <List />;
-                    }}
-                  />
-                  <Route
-                    match={match.url}
-                    render={() => {
-                      return (
-                        <InstitutionWrapper>
-                          {!searching ? (
-                            <div className="container">
-                              <Landing activeDatastore={activeDatastore} />
-                            </div>
-                          ) : (
-                            <>
-                              <DatastoreInfo activeDatastore={activeDatastore} />
-                              <Results
-                                activeDatastore={activeDatastore}
-                                activeFilterCount={activeFilterCount}
-                              />
-                            </>
-                          )}
-                        </InstitutionWrapper>
-                      );
-                    }}
-                  />
-                </ConnectedSwitch>
-              </React.Fragment>
-            )}
+                  >
+                    <FlintAlerts />
+                  </div>
+                  <ConnectedSwitch>
+                    <Route
+                      path={match.url + '/record/:recordUid/get-this/:barcode'}
+                      render={(props) => {
+                        return <GetThisPage />;
+                      }}
+                    />
+                    <Route
+                      path={match.url + '/record/:recordUid'}
+                      exact
+                      render={(props) => {
+                        return <RecordFull />;
+                      }}
+                    />
+                    <Route
+                      path={match.url + '/list'}
+                      exact
+                      render={(props) => {
+                        return <List />;
+                      }}
+                    />
+                    <Route
+                      match={match.url}
+                      render={() => {
+                        return (
+                          <InstitutionWrapper>
+                            {!searching
+                              ? (
+                                <div className='container'>
+                                  <Landing activeDatastore={activeDatastore} />
+                                </div>
+                                )
+                              : (
+                                <>
+                                  <DatastoreInfo activeDatastore={activeDatastore} />
+                                  <Results
+                                    activeDatastore={activeDatastore}
+                                    activeFilterCount={activeFilterCount}
+                                  />
+                                </>
+                                )}
+                          </InstitutionWrapper>
+                        );
+                      }}
+                    />
+                  </ConnectedSwitch>
+                </>
+              );
+            }}
           />
         </Switch>
       </main>
@@ -181,10 +173,20 @@ class DatastorePageContainer extends React.Component {
   }
 }
 
+DatastorePageContainer.propTypes = {
+  match: PropTypes.object,
+  activeDatastore: PropTypes.object,
+  query: PropTypes.string,
+  searching: PropTypes.bool,
+  location: PropTypes.object,
+  isAdvanced: PropTypes.bool,
+  activeFilterCount: PropTypes.number
+};
+
 const Results = ({ activeDatastore, activeFilterCount }) => {
   if (activeDatastore.isMultisearch) {
     return (
-      <div className="container container-large flex-container">
+      <div className='container container-large flex-container'>
         <BentoboxList />
       </div>
     );
@@ -198,14 +200,14 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
 
   return (
     <div
-      className="container container-medium flex-container"
-      style={{ marginTop: "0.75rem" }}
+      className='container container-medium flex-container'
+      style={{ marginTop: '0.75rem' }}
     >
-      <div className="side-container">
+      <div className='side-container'>
         <details
-          className="small-screen-filter-details"
+          className='small-screen-filter-details'
           css={{
-            [`@media (min-width: 980px)`]: {
+            '@media (min-width: 980px)': {
               display: 'none'
             }
           }}
@@ -214,27 +216,27 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
             Filters
             {hasActiveFilters ? ` (${activeFilterCount})` : null}
           </summary>
-          <React.Fragment>
+          <>
             <InstitutionSelect />
             <Filters />
             <BrowseInfo datastore={activeDatastore} />
-          </React.Fragment>
+          </>
         </details>
         <div
           css={{
-            [`@media (max-width: 979px)`]: {
+            '@media (max-width: 979px)': {
               display: 'none'
             }
           }}
         >
-          <React.Fragment>
+          <>
             <InstitutionSelect />
             <Filters />
             <BrowseInfo datastore={activeDatastore} />
-          </React.Fragment>
+          </>
         </div>
       </div>
-      <div className="results-container">
+      <div className='results-container'>
         <RecordList />
         <Pagination />
       </div>
@@ -242,7 +244,12 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
   );
 };
 
-function mapStateToProps(state) {
+Results.propTypes = {
+  activeDatastore: PropTypes.object,
+  activeFilterCount: PropTypes.number
+};
+
+function mapStateToProps (state) {
   const activeFilters = state.filters.active[state.datastores.active];
 
   return {
@@ -250,11 +257,11 @@ function mapStateToProps(state) {
     query: state.search.query,
     datastores: state.datastores,
     activeDatastore: _.findWhere(state.datastores.datastores, {
-      uid: state.datastores.active,
+      uid: state.datastores.active
     }),
     location: state.router.location,
-    isAdvanced: state.advanced[state.datastores.active] ? true : false,
-    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0,
+    isAdvanced: !!state.advanced[state.datastores.active],
+    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0
   };
 }
 

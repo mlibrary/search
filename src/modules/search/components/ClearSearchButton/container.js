@@ -1,8 +1,7 @@
 import React from 'react';
-
 import ClearSearchButton from './presenter';
 
-//TODO
+// TODO
 /*
 import {
   clearEverything
@@ -10,12 +9,13 @@ import {
 */
 
 class ClearSearchButtonContainer extends React.Component {
-  handleClick() {
+  triggerClick () {
     // TODO
-    //clearEverything()
+    // clearEverything()
   }
-  render() {
-    return <ClearSearchButton handleClick={this.handleClick} />
+
+  render () {
+    return <ClearSearchButton triggerClick={this.triggerClick} />;
   }
 }
 

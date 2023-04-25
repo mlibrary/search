@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /*
   DetailsList
@@ -8,13 +9,20 @@ import React from 'react';
 */
 
 class DetailsList extends React.Component {
-  render() {
+  render () {
     return (
-      <React.Fragment>
+      <>
         {this.props.children}
-      </React.Fragment>
-    )
+      </>
+    );
   }
 }
+
+DetailsList.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
+};
 
 export default DetailsList;

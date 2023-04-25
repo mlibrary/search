@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import './Button.css'
+import './Button.css';
 
 const Button = ({
   children,
@@ -14,16 +14,16 @@ const Button = ({
   ...other
 }) => {
   const buttonClasses = classNames(className, {
-    'btn': true,
+    btn: true,
     'btn--small': small,
     'btn--start': kind === 'start',
     'btn--primary': kind === 'primary',
     'btn--secondary': kind === 'secondary',
-    'btn--tertiary': kind === 'tertiary',
+    'btn--tertiary': kind === 'tertiary'
   });
 
   const commonProps = {
-    className: buttonClasses,
+    className: buttonClasses
   };
 
   const button = (
@@ -33,13 +33,13 @@ const Button = ({
   );
 
   const anchor = (
-    <a {...other} {...commonProps} href={href} role="button">
+    <a {...other} {...commonProps} href={href} role='button'>
       {children}
     </a>
   );
 
   return href ? anchor : button;
-}
+};
 
 Button.propTypes = {
   children: PropTypes.node,
@@ -50,17 +50,17 @@ Button.propTypes = {
     'start',
     'primary',
     'secondary',
-    'tertiary',
+    'tertiary'
   ]).isRequired,
   href: PropTypes.string,
-  type: PropTypes.oneOf(['button', 'reset', 'submit']),
+  type: PropTypes.oneOf(['button', 'reset', 'submit'])
 };
 
 Button.defaultProps = {
   type: 'button',
   disabled: false,
   small: false,
-  kind: 'primary',
+  kind: 'primary'
 };
 
 export default Button;

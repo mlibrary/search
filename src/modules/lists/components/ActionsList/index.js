@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import EmailAction from '../EmailAction'
-import TextAction from '../TextAction'
-import FileAction from '../FileAction'
-import PermalinkAction from '../PermalinkAction'
-import CitationAction from '../CitationAction'
-import { AuthenticationRequired } from '../../../profile'
-import { ContextProvider, Icon, Alert } from '../../../reusable'
+import EmailAction from '../EmailAction';
+import TextAction from '../TextAction';
+import FileAction from '../FileAction';
+import PermalinkAction from '../PermalinkAction';
+import CitationAction from '../CitationAction';
+import { AuthenticationRequired } from '../../../profile';
+import { ContextProvider, Icon, Alert } from '../../../reusable';
+import PropTypes from 'prop-types';
 
 class ActionsList extends Component {
   state = {
@@ -49,134 +50,147 @@ class ActionsList extends Component {
       }
     ],
     alert: null
-  }
+  };
 
   setAlert = ({ intent, text }) => {
     this.setState({
       alert: { intent, text }
-    })
-  }
+    });
+  };
 
   handleClick = (type, view) => {
     const {
       active,
       setActive
-    } = this.props
+    } = this.props;
     // Set the active Action to what was just clicked.
     // If it is already active, then deselect it making
     // no action active.
     if (active === type) {
-      setActive(undefined)
+      setActive(undefined);
     } else {
-      setActive(type)
+      setActive(type);
     }
 
     // also reset Alert
-    this.setState({ alert: null })
-  }
+    this.setState({ alert: null });
+  };
 
   renderActionDetails = () => {
     const {
       active
-    } = this.props
+    } = this.props;
 
     if (!active) {
-      return null
+      return null;
     }
 
     return (
-      <ContextProvider render={data => (
-        <React.Fragment>
-          {active.action === 'email' && (
-            <AuthenticationRequired>
-              <EmailAction
+      <ContextProvider render={(data) => {
+        return (
+          <>
+            {active.action === 'email' && (
+              <AuthenticationRequired>
+                <EmailAction
+                  action={active}
+                  {...this.props}
+                />
+              </AuthenticationRequired>
+            )}
+            {active.action === 'text' && (
+              <AuthenticationRequired>
+                <TextAction
+                  action={active}
+                  {...this.props}
+                />
+              </AuthenticationRequired>
+            )}
+            {active.action === 'permalink' && (
+              <PermalinkAction
                 action={active}
+                setAlert={this.setAlert}
                 {...this.props}
               />
-            </AuthenticationRequired>
-          )}
-          {active.action === 'text' && (
-            <AuthenticationRequired>
-              <TextAction
-                action={active}
-                {...this.props}
-              />
-            </AuthenticationRequired>
-          )}
-          {active.action === 'permalink' && (
-            <PermalinkAction
-              action={active}
-              setAlert={this.setAlert}
-              {...this.props}
-            />
-          )}
-          
-          {active.action === 'citation' && (
-            <CitationAction
-              {...data}
-              action={active}
-              setAlert={this.setAlert}
-              {...this.props}
-            />
-          )}
-          {active.action === 'file' && (
-            <FileAction
-              action={active}
-              {...this.props}
-            />
-          )}
-        </React.Fragment>
-        )}>
-      </ContextProvider>
-    )
-  }
+            )}
 
-  render() {
-    const { active } = this.props
-    const activeUid = active ? active.uid : null
+            {active.action === 'citation' && (
+              <CitationAction
+                {...data}
+                action={active}
+                setAlert={this.setAlert}
+                {...this.props}
+              />
+            )}
+            {active.action === 'file' && (
+              <FileAction
+                action={active}
+                {...this.props}
+              />
+            )}
+          </>
+        );
+      }}
+      />
+    );
+  };
+
+  render () {
+    const { active } = this.props;
+    const activeUid = active ? active.uid : null;
 
     return (
-      <ContextProvider render={data => (
-        <div className="y-spacing">
-          <ul className="lists-actions-list">
-            {this.state.actions.map(action => {
-              if (action.uid === 'permalink' && data.viewType !== 'Full') {
-                return null
-              }
+      <ContextProvider render={(data) => {
+        return (
+          <div className='y-spacing'>
+            <ul className='lists-actions-list'>
+              {this.state.actions.map((action) => {
+                if (action.uid === 'permalink' && data.viewType !== 'Full') {
+                  return null;
+                }
 
-              const isActive = action.uid === activeUid
-              const activeClassName = isActive ? 'lists-action-button--active' : ''
+                const isActive = action.uid === activeUid;
+                const activeClassName = isActive ? 'lists-action-button--active' : '';
 
-              return (
-                <li key={action.uid}>
-                  <button
-                    className={`button-link lists-action-button ${activeClassName}`}
-                    onClick={() => this.handleClick(action, data.viewType)}
-                    aria-pressed={isActive}
-                  >
-                    <span style={{ opacity: '0.75' }}>
-                      {action.icon_d ?
-                        <Icon size={20} d={action.icon_d} /> :
-                        <Icon size={20} icon={action.icon} />
-                      }
-                    </span>{action.name}
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-          {this.renderActionDetails()}
-          {this.state.alert && (
-            <Alert type={this.state.alert.intent}>{this.state.alert.text}</Alert>
-          )}
-        </div>
-      )}>
-      </ContextProvider>
-    )
+                return (
+                  <li key={action.uid}>
+                    <button
+                      className={`button-link lists-action-button ${activeClassName}`}
+                      onClick={() => {
+                        return this.handleClick(action, data.viewType);
+                      }}
+                      aria-pressed={isActive}
+                    >
+                      <span style={{ opacity: '0.75' }}>
+                        {action.icon_d
+                          ? <Icon size={20} d={action.icon_d} />
+                          : <Icon size={20} icon={action.icon} />}
+                      </span>{action.name}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+            {this.renderActionDetails()}
+            {this.state.alert && (
+              <Alert type={this.state.alert.intent}>{this.state.alert.text}</Alert>
+            )}
+          </div>
+        );
+      }}
+      />
+    );
   }
 }
 
-function mapStateToProps(state) {
+ActionsList.propTypes = {
+  active: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
+  setActive: PropTypes.func
+};
+
+function mapStateToProps (state) {
   return {
     profile: state.profile
   };

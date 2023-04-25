@@ -1,13 +1,13 @@
-import store from './../../store'
+import store from './../../store';
 import {
   setA11yMessage
-} from './'
+} from './';
 
 const setDocumentTitle = (titles) => {
-  const documentTitle =  titles.concat('Library Search').join(' - ')
+  const documentTitle = titles.concat('Library Search').join(' - ');
 
-  store.dispatch(setA11yMessage(documentTitle))
-  document.title = documentTitle
-}
+  store.dispatch(setA11yMessage(documentTitle));
+  document.title = documentTitle;
+};
 
-export default setDocumentTitle
+export default setDocumentTitle;

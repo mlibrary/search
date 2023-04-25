@@ -1,29 +1,31 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from "react";
-import { useCookies } from "react-cookie";
-import { useSelector } from "react-redux";
-import qs from "qs";
-import { MEDIA_QUERIES, COLORS } from "../../reusable/umich-lib-core-temp";
-import { Modal, Button } from "../../reusable";
+import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useSelector } from 'react-redux';
+import qs from 'qs';
+import { MEDIA_QUERIES, COLORS } from '../../reusable/umich-lib-core-temp';
+import { Modal, Button } from '../../reusable';
 
-export default function ChooseAffiliation() {
+export default function ChooseAffiliation () {
   const { defaultAffiliation, affiliationOptions } = useSelector(
-    state => state.affiliation
+    (state) => {
+      return state.affiliation;
+    }
   );
-  const [cookies] = useCookies(["affiliation"]);
+  const [cookies] = useCookies(['affiliation']);
   const [open, setOpen] = useState(false);
 
   let affiliation = defaultAffiliation;
 
-  if (cookies["affiliation"]) {
-    affiliation = cookies["affiliation"];
+  if (cookies.affiliation) {
+    affiliation = cookies.affiliation;
   }
 
   const label = affiliationOptions[affiliation];
-  const alternativeAffiliation = affiliation === "aa" ? "flint" : "aa";
+  const alternativeAffiliation = affiliation === 'aa' ? 'flint' : 'aa';
   const alternativeLabel = affiliationOptions[alternativeAffiliation];
 
-  function changeAffiliation() {
+  const changeAffiliation = () => {
     const parsed = qs.parse(document.location.search.substring(1), {
       allowDots: true
     });
@@ -34,29 +36,31 @@ export default function ChooseAffiliation() {
 
     document.location.href =
       document.location.pathname +
-      "?" +
+      '?' +
       qs.stringify(withAffiliation, {
-        arrayFormat: "repeat",
+        arrayFormat: 'repeat',
         encodeValuesOnly: true,
         allowDots: true,
-        format: "RFC1738"
+        format: 'RFC1738'
       });
-  }
+  };
 
-  const activeSelector = affiliation === 'aa' ? 'div:first-of-type' : 'div:last-of-type'
+  const activeSelector = affiliation === 'aa' ? 'div:first-of-type' : 'div:last-of-type';
 
   return (
-    <React.Fragment>
+    <>
       <Button
-        kind="secondary"
+        kind='secondary'
         css={{
-          color: "white",
-          padding: "0",
+          color: 'white',
+          padding: '0',
           border: `solid 1px ${COLORS.blue[300]}`,
           margin: '0',
-          boxShadow: `0 0 0 1px rgb(16 22 26 / 10%), 0 4px 8px rgb(16 22 26 / 20%), 0 18px 46px 6px rgb(16 22 26 / 20%);`
+          boxShadow: '0 0 0 1px rgb(16 22 26 / 10%), 0 4px 8px rgb(16 22 26 / 20%), 0 18px 46px 6px rgb(16 22 26 / 20%);'
         }}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          return setOpen(true);
+        }}
       >
         <span css={{
           border: '0px',
@@ -69,7 +73,9 @@ export default function ChooseAffiliation() {
           width: '1px',
           whiteSpace: 'nowrap',
           overflowWrap: 'normal'
-        }}>Choose campus affiliation</span>
+        }}
+        >Choose campus affiliation
+        </span>
         <div
           css={{
             display: 'grid',
@@ -79,7 +85,7 @@ export default function ChooseAffiliation() {
             fontWeight: '800',
             fontSize: '0.75rem',
             textAlign: 'right',
-            'div': {
+            div: {
               display: 'inline-block',
               padding: '0.25rem 0.5rem',
               lineHeight: '1.5',
@@ -94,31 +100,37 @@ export default function ChooseAffiliation() {
         ><div>Ann Arbor</div><div>Flint</div>
         </div>
       </Button>
-      <Modal isOpen={open} onRequestClose={() => setOpen(false)}>
+      <Modal
+        isOpen={open} onRequestClose={() => {
+          return setOpen(false);
+        }}
+      >
         <div
           css={{
-            maxWidth: "32rem"
+            maxWidth: '32rem'
           }}
         >
           <Button
-            kind="secondary"
-            onClick={() => setOpen(false)}
+            kind='secondary'
+            onClick={() => {
+              return setOpen(false);
+            }}
             small
             css={{
-              position: "fixed",
-              right: "1.5rem",
-              top: "1.5rem",
-              border: "none",
-              textDecoration: "underline"
+              position: 'fixed',
+              right: '1.5rem',
+              top: '1.5rem',
+              border: 'none',
+              textDecoration: 'underline'
             }}
           >
             Dismiss
           </Button>
           <h2
-            className="heading-large"
+            className='heading-large'
             css={{
-              marginTop: "0",
-              marginRight: "4rem"
+              marginTop: '0',
+              marginRight: '4rem'
             }}
           >
             Choose campus affiliation
@@ -128,29 +140,33 @@ export default function ChooseAffiliation() {
             materials licensed for your campus.
           </p>
 
-          <Button onClick={() => setOpen(false)}>Continue as {label}</Button>
+          <Button onClick={() => {
+            return setOpen(false);
+          }}
+          >Continue as {label}
+          </Button>
           <span
             css={{
               [MEDIA_QUERIES.LARGESCREEN]: {
-                margin: "0 0.5rem",
-                display: "inline-block"
+                margin: '0 0.5rem',
+                display: 'inline-block'
               },
-              margin: "0.5rem",
-              display: "block"
+              margin: '0.5rem',
+              display: 'block'
             }}
           >
             or
           </span>
-          <Button kind="secondary" onClick={changeAffiliation} role="link">
+          <Button kind='secondary' onClick={changeAffiliation} role='link'>
             Change to {alternativeLabel}
           </Button>
 
-          <p className="font-small" css={{ marginBottom: "0" }}>
+          <p className='font-small' css={{ marginBottom: '0' }}>
             You can still use Library Search if you're not affiliated with
             either campus.
           </p>
         </div>
       </Modal>
-    </React.Fragment>
+    </>
   );
 }

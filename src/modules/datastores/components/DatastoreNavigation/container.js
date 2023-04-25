@@ -1,36 +1,34 @@
 import React from 'react';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-  withRouter
-} from 'react-router-dom'
-
-import { getDatastoreUidBySlug } from '../../../pride'
-import { changeActiveDatastore } from '../../actions'
+import { withRouter } from 'react-router-dom';
+import { getDatastoreUidBySlug } from '../../../pride';
+import { changeActiveDatastore } from '../../actions';
 import DatastoreNavigationPresenter from './presenter';
+import PropTypes from 'prop-types';
 
 class DatastoreNavigationContainer extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     const { datastores, match } = this.props;
-    const routeDatastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug)
-    const activeDatastoreUid = datastores.active
+    const routeDatastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug);
+    const activeDatastoreUid = datastores.active;
 
     if (routeDatastoreUid !== activeDatastoreUid) {
-      this.props.changeActiveDatastore(routeDatastoreUid)
+      this.props.changeActiveDatastore(routeDatastoreUid);
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps (nextProps) {
     const { datastores, match } = nextProps;
-    const routeDatastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug)
-    const activeDatastoreUid = datastores.active
+    const routeDatastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug);
+    const activeDatastoreUid = datastores.active;
 
     if (routeDatastoreUid !== activeDatastoreUid) {
-      this.props.changeActiveDatastore(routeDatastoreUid)
+      this.props.changeActiveDatastore(routeDatastoreUid);
     }
   }
 
-  render() {
+  render () {
     const {
       datastores,
       search,
@@ -39,16 +37,29 @@ class DatastoreNavigationContainer extends React.Component {
       history
     } = this.props;
 
-    return <DatastoreNavigationPresenter
-              datastores={datastores}
-              search={search}
-              activeFilters={activeFilters}
-              history={history}
-              institution={institution} />;
+    return (
+      <DatastoreNavigationPresenter
+        datastores={datastores}
+        search={search}
+        activeFilters={activeFilters}
+        history={history}
+        institution={institution}
+      />
+    );
   }
 };
 
-function mapStateToProps(state) {
+DatastoreNavigationContainer.propTypes = {
+  datastores: PropTypes.object,
+  match: PropTypes.object,
+  changeActiveDatastore: PropTypes.func,
+  search: PropTypes.object,
+  activeFilters: PropTypes.object,
+  institution: PropTypes.object,
+  history: PropTypes.object
+};
+
+function mapStateToProps (state) {
   return {
     datastores: state.datastores,
     search: state.search,
@@ -57,13 +68,13 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     changeActiveDatastore
-  }, dispatch)
+  }, dispatch);
 }
 
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(DatastoreNavigationContainer))
+)(DatastoreNavigationContainer));

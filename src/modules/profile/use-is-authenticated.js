@@ -1,20 +1,22 @@
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-export default function useIsAuthenticated() {
-  const [isAuthenticated, setIsAuthenticated] = useState(undefined)
-  const { profile } = useSelector(state => state);
-  const profileStatus = profile && profile.status
+export default function useIsAuthenticated () {
+  const [isAuthenticated, setIsAuthenticated] = useState(undefined);
+  const { profile } = useSelector((state) => {
+    return state;
+  });
+  const profileStatus = profile && profile.status;
 
   useEffect(() => {
     if (profile && profile.status) {
       if (profile.status === 'Logged in') {
-        setIsAuthenticated(true)
+        setIsAuthenticated(true);
       } else {
-        setIsAuthenticated(false)
+        setIsAuthenticated(false);
       }
     }
-  }, [profile, profileStatus])
+  }, [profile, profileStatus]);
 
-  return isAuthenticated
+  return isAuthenticated;
 }

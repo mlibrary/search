@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
-import './Breadcrumb.css'
+import './Breadcrumb.css';
 
 const BreadcrumbItem = ({
   item,
@@ -11,15 +10,20 @@ const BreadcrumbItem = ({
   if (item.href) {
     return (
       <a href={item.href}>{item.text}</a>
-    )
+    );
   }
   if (item.to) {
     return (
       renderAnchor(item)
-    )
+    );
   }
-  return item.text
-}
+  return item.text;
+};
+
+BreadcrumbItem.propTypes = {
+  item: PropTypes.object,
+  renderAnchor: PropTypes.func
+};
 
 const Breadcrumb = ({
   className,
@@ -28,15 +32,17 @@ const Breadcrumb = ({
   ...other
 }) => {
   const classNames = classnames(className, {
-    'breadcrumb': true
+    breadcrumb: true
   });
   return (
     <ol className={classNames} {...other}>
-      {items.map((item, i) => (
-        <li className="breadcrumb__item" key={i}>
-          <BreadcrumbItem item={item} renderAnchor={renderAnchor} />
-        </li>
-      ))}
+      {items.map((item, i) => {
+        return (
+          <li className='breadcrumb__item' key={i}>
+            <BreadcrumbItem item={item} renderAnchor={renderAnchor} />
+          </li>
+        );
+      })}
     </ol>
   );
 };

@@ -1,23 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Alert.css'
-
+import './Alert.css';
 
 class Alert extends React.Component {
-  render() {
-    const { type, closed } = this.props
+  render () {
+    const { type, closed } = this.props;
 
     if (!closed) {
       return (
         <div className={`alert alert--${type}`}>
-          <div className="alert-inner x-spacing">
+          <div className='alert-inner x-spacing'>
             {this.props.children}
           </div>
         </div>
-      )
+      );
     }
 
-    return null
+    return null;
   }
 }
 
@@ -28,7 +27,11 @@ Alert.propTypes = {
     'warning',
     'success'
   ]),
-  closed: PropTypes.bool
+  closed: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 Alert.defaultProps = {
@@ -36,4 +39,4 @@ Alert.defaultProps = {
   closed: false
 };
 
-export default Alert
+export default Alert;

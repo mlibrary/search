@@ -1,5 +1,5 @@
-import MARCTable from './components/MARCTable'
+import MARCTable from './components/MARCTable';
 
 export {
   MARCTable
-}
+};

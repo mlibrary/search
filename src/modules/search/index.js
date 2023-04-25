@@ -1,9 +1,9 @@
-import SearchBox from "./components/SearchBox";
-import ClearSearchButton from "./components/ClearSearchButton";
-import SearchParserMessage from "./components/SearchParserMessage";
-import SearchResultsMessage from "./components/SearchResultsMessage";
+import SearchBox from './components/SearchBox';
+import ClearSearchButton from './components/ClearSearchButton';
+import SearchParserMessage from './components/SearchParserMessage';
+import SearchResultsMessage from './components/SearchResultsMessage';
 
-import searchReducer from "./reducer";
+import searchReducer from './reducer';
 import {
   setSearchQuery,
   setSearchQueryInput,
@@ -12,8 +12,8 @@ import {
   setPage,
   clearSearch,
   resetSort,
-  setParserMessage,
-} from "./actions";
+  setParserMessage
+} from './actions';
 
 export {
   SearchBox,

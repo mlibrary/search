@@ -3,10 +3,10 @@ import * as actions from '../actions';
 const profileReducer = (state = {}, action) => {
   switch (action.type) {
     case actions.ADD_PROFILE:
-      return action.payload
+      return action.payload;
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default profileReducer
+export default profileReducer;

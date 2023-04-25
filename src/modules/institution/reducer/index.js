@@ -8,8 +8,8 @@ const initialState = {
     'U-M Ann Arbor Libraries',
     'Flint Thompson Library',
     'Bentley Historical Library',
-    'William L. Clements Library',
-  ],
+    'William L. Clements Library'
+  ]
 };
 
 const institutionReducer = (state = initialState, action) => {

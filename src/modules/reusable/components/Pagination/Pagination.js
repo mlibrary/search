@@ -1,81 +1,95 @@
-import React from 'react'
-import numeral from 'numeral'
-import './Pagination.css'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import numeral from 'numeral';
+import './Pagination.css';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class Pagination extends React.Component {
   state = {
     page: this.props.page
-  }
+  };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     if (prevProps.toNextPage !== this.props.toNextPage) {
-      this.setState({ page: this.props.page })
+      this.setState({ page: this.props.page });
     }
   }
 
   handleSubmit = (e) => {
-    e.preventDefault()
-    const page = parseInt(this.state.page, 10)
+    e.preventDefault();
+    const page = parseInt(this.state.page, 10);
     const {
       total,
-      onPageChange
-    } = this.props
+      watchPageChange
+    } = this.props;
 
     if (Number.isInteger(page) && page > 0 && page <= total) {
-      onPageChange(page)
+      watchPageChange(page);
     }
-  }
+  };
 
   handleInputChange = (e) => {
-    this.setState({ page: e.target.value })
-  }
+    this.setState({ page: e.target.value });
+  };
 
-  render() {
+  render () {
     const {
       page
-    } = this.state
+    } = this.state;
     const {
       toPreviousPage,
       toNextPage,
       total,
       ariaLabel
-    } = this.props
+    } = this.props;
 
     return (
-      <nav className="pagination-container x-spacing" aria-label={ariaLabel}>
-        <div className="pagination-previous-container">
+      <nav className='pagination-container x-spacing' aria-label={ariaLabel}>
+        <div className='pagination-previous-container'>
           {toPreviousPage && (
             <Link
               to={toPreviousPage}
-              className="underline"
-            >Previous page</Link>
+              className='underline'
+            >Previous page
+            </Link>
           )}
         </div>
-        <form className="pagination-input-container" onSubmit={this.handleSubmit}>
+        <form className='pagination-input-container' onSubmit={this.handleSubmit}>
           <span>Page</span>
           <input
-            className="pagination-input"
+            className='pagination-input'
             value={page}
-            type="number"     
+            type='number'
             aria-label={`Page ${page} of ${total} pages`}
             // reset the value if the user leaves focus
-            onBlur={() => this.setState({ page: this.props.page })}
+            onBlur={() => {
+              return this.setState({ page: this.props.page });
+            }}
             onChange={this.handleInputChange}
           />
-          <span>of {numeral(total).format(0,0)}</span>
+          <span>of {numeral(total).format(0, 0)}</span>
         </form>
-        <div className="pagination-next-container">
+        <div className='pagination-next-container'>
           {toNextPage && (
             <Link
               to={toNextPage}
-              className="underline"
-            >Next page</Link>
+              className='underline'
+            >Next page
+            </Link>
           )}
         </div>
       </nav>
-    )
+    );
   }
 }
 
-export default Pagination
+Pagination.propTypes = {
+  page: PropTypes.number,
+  total: PropTypes.number,
+  watchPageChange: PropTypes.func,
+  toPreviousPage: PropTypes.string,
+  toNextPage: PropTypes.string,
+  ariaLabel: PropTypes.string
+};
+
+export default Pagination;

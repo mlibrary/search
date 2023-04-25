@@ -8,10 +8,10 @@ import { Icon, Button } from '../../../reusable';
 import getFilters from './getFilters';
 import AdvancedFilter from '../AdvancedFilter';
 import { setAdvancedFilter } from '../../../advanced';
-import { SPACING, COLORS, MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
+import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
 
 class FiltersContainer extends React.Component {
-  handleAdvancedFilterChange = ({
+  changeAdvancedFilter = ({
     filterType,
     filterGroupUid,
     filterValue
@@ -102,7 +102,7 @@ class FiltersContainer extends React.Component {
                           <AdvancedFilter
                             key={index}
                             advancedFilter={advancedFilter}
-                            handleAdvancedFilterChange={this.handleAdvancedFilterChange}
+                            changeAdvancedFilter={this.changeAdvancedFilter}
                           />
                         );
                       })}
@@ -117,7 +117,7 @@ class FiltersContainer extends React.Component {
                             <div className='advanced-filter-inner-container'>
                               <AdvancedFilter
                                 advancedFilter={advancedFilter}
-                                handleAdvancedFilterChange={this.handleAdvancedFilterChange}
+                                changeAdvancedFilter={this.changeAdvancedFilter}
                               />
                             </div>
                           </div>
@@ -296,7 +296,7 @@ function ActiveAdvancedFilters (datastore) {
                 }}
                 kind='secondary'
               >
-                <span><span css={{fontWeight: 600}}>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}:</span> {item.value}</span>
+                <span><span css={{ fontWeight: 600 }}>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}:</span> {item.value}</span>
                 {/* <Icon icon='close' /> */}
               </div>
             </li>

@@ -1,61 +1,65 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Modal, Button } from '../../../reusable'
-import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp'
+import { Modal, Button } from '../../../reusable';
+import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
+import PropTypes from 'prop-types';
 
 class CitationAction extends React.Component {
   state = {
     modalIsOpen: false,
     copied: false,
     permalink: ''
-  }
+  };
 
   handleCloseModal = () => {
-    this.setState({modalIsOpen: false })
+    this.setState({ modalIsOpen: false });
 
     // Unselects the citation button from the actions lists.
-    this.props.setActive(undefined)
-  }
+    this.props.setActive(undefined);
+  };
 
   handleOpenModal = () => {
-    this.setState({ modalIsOpen: true })
-  }
+    this.setState({ modalIsOpen: true });
+  };
 
-  componentDidMount() {
+  componentDidMount () {
     this.handleOpenModal();
 
     this.setState({
       permalink: document.location.origin + document.location.pathname
-    })
+    });
   }
 
   handleCopy = () => {
-    navigator.clipboard.writeText(this.state.permalink)
-    this.handleCopied()
-  }
+    navigator.clipboard.writeText(this.state.permalink);
+    this.handleCopied();
+  };
 
   handleCopied = () => {
-    this.handleCloseModal()
+    this.handleCloseModal();
     this.props.setAlert({
       intent: 'success',
       text: 'Link copied!'
-    })
-  }
+    });
+  };
 
-  render() {
+  render () {
     return (
       <div style={{
         background: SEARCH_COLORS.grey[100]
-      }}>
+      }}
+      >
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.handleCloseModal}
           className={this.props.className}
         >
           <h2
-            className="heading-medium"
+            className='heading-medium'
             style={{ marginTop: '0' }}
-          >Copy link</h2>
+          >
+            Copy link
+          </h2>
 
           <div
             css={{
@@ -64,16 +68,18 @@ class CitationAction extends React.Component {
             }}
           >
             <label
-              htmlFor="permalink-action"
-              className="offscreen"
+              htmlFor='permalink-action'
+              className='offscreen'
             >
               Permalink
             </label>
             <input
-              type="text"
-              id="permalink-action"
+              type='text'
+              id='permalink-action'
               value={this.state.permalink}
-              onFocus={(e) => e.target.select()}
+              onFocus={(e) => {
+                return e.target.select();
+              }}
               readOnly
               css={{
                 marginBottom: '0.5rem',
@@ -85,24 +91,36 @@ class CitationAction extends React.Component {
             />
           </div>
 
-          <div className="y-spacing">
-            <div className="x-spacing" style={{
+          <div className='y-spacing'>
+            <div
+              className='x-spacing' style={{
                 marginTop: '0.5rem'
-              }}>
+              }}
+            >
               <Button
                 onClick={this.handleCopy}
-              >Copy link</Button>
-              
+              >
+                Copy link
+              </Button>
+
               <Button
-                kind="secondary"
+                kind='secondary'
                 onClick={this.handleCloseModal}
-              >Close</Button>
+              >
+                Close
+              </Button>
             </div>
           </div>
         </Modal>
       </div>
-    )
+    );
   }
 }
+
+CitationAction.propTypes = {
+  setActive: PropTypes.func,
+  setAlert: PropTypes.func,
+  className: PropTypes.string
+};
 
 export default CitationAction;

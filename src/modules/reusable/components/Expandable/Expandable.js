@@ -12,35 +12,37 @@ class Expandable extends Component {
     toggleExpanded: () => {
       this.setState({
         expanded: !this.state.expanded
-      })
+      });
     },
     disabled: false,
     disable: () => {
       this.setState({
         disabled: true
-      })
+      });
     }
-  }
+  };
 
-  render() {
+  render () {
     return (
       <ExpandableContext.Provider value={this.state}>
         {this.props.children}
       </ExpandableContext.Provider>
-    )
+    );
   }
 }
 
 Expandable.propTypes = {
-  expanded: PropTypes.bool,
-  disabled: PropTypes.bool
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 Expandable.defaultProps = {
   expanded: false
 };
 
-export default Expandable
+export default Expandable;
 export {
   ExpandableContext
-}
+};
