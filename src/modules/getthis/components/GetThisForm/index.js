@@ -4,11 +4,11 @@ import { getField, getFieldValue } from '../../../records/utilities';
 import { placeHold } from '../../../pride';
 import PropTypes from 'prop-types';
 
-const Select = ({ field, handeFieldChange }) => {
+const Select = ({ field, setFieldChange }) => {
   const { name, value, options } = field;
 
   return (
-    <select id={name} name={name} className='dropdown' value={value} onChange={handeFieldChange}>
+    <select id={name} name={name} className='dropdown' value={value} onChange={setFieldChange}>
       {options.map((option, key) => {
         return (
           <option
@@ -26,15 +26,15 @@ const Select = ({ field, handeFieldChange }) => {
 
 Select.propTypes = {
   field: PropTypes.object,
-  handeFieldChange: PropTypes.func
+  setFieldChange: PropTypes.func
 };
 
-const Field = ({ field, handeFieldChange, loading }) => {
+const Field = ({ field, setFieldChange, loading }) => {
   const { type, name, value } = field;
 
   if (type === 'hidden') {
     return (
-      <input id={name} type={type} name={name} value={value} onChange={handeFieldChange} />
+      <input id={name} type={type} name={name} value={value} onChange={setFieldChange} />
     );
   } else if (type === 'select') {
     return (
@@ -42,7 +42,7 @@ const Field = ({ field, handeFieldChange, loading }) => {
         {field.label && (
           <label className='form-label' htmlFor={field.name}>{field.label}</label>
         )}
-        <Select field={field} handeFieldChange={handeFieldChange} />
+        <Select field={field} setFieldChange={setFieldChange} />
       </div>
     );
   } else if (type === 'submit') {
@@ -66,14 +66,14 @@ const Field = ({ field, handeFieldChange, loading }) => {
       {field.label && (
         <label className='form-label' htmlFor={field.name}>{field.label}</label>
       )}
-      <input className='form-control' id={name} type={type} name={name} value={value} onChange={handeFieldChange} />
+      <input className='form-control' id={name} type={type} name={name} value={value} onChange={setFieldChange} />
     </div>
   );
 };
 
 Field.propTypes = {
   field: PropTypes.object,
-  handeFieldChange: PropTypes.func,
+  setFieldChange: PropTypes.func,
   loading: PropTypes.bool
 };
 
@@ -82,7 +82,7 @@ class GetThisForm extends React.Component {
     fields: this.props.form.fields
   };
 
-  handeFieldChange = (event) => {
+  setFieldChange = (event) => {
     // Update field with user changed value.
     const fields = this.state.fields.reduce((acc, field) => {
       if (field.name === event.target.name) {
@@ -192,7 +192,7 @@ class GetThisForm extends React.Component {
           <form action={form.action} method={form.method} onSubmit={this.handleSubmit}>
             {fields.map((field, key) => {
               return (
-                <Field field={field} key={key} handeFieldChange={this.handeFieldChange} loading={loading} />
+                <Field field={field} key={key} setFieldChange={this.setFieldChange} loading={loading} />
               );
             })}
           </form>
