@@ -3,13 +3,13 @@ const searchOptions = () => {
     {
       name: 'Keyword',
       uid: 'keyword',
-      tip: 'Enter one or more keywords. Use quotes to search for a phrase (e.g. solar power; polar bears; “systems of oppression”). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011">Basic Keyword Searching</a>.',
+      tip: 'Enter one or more keywords. Use quotes to search for a phrase (e.g., solar power; polar bears; “systems of oppression”). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011">Basic Keyword Searching</a>.',
       datastore: ['everything', 'mirlyn', 'databases', 'onlinejournals', 'website']
     },
     {
       name: 'Keyword (contains)',
       uid: 'keyword',
-      tip: 'Enter one or more keywords to search broadly. (e.g., Black Women Scientists) Use quotes to search for a specific phrase. (e.g., “systems of oppression”) See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011">Basic Keyword Searching</a>.',
+      tip: 'Enter one or more keywords to search broadly (e.g., Black Women Scientists). Use quotes to search for a specific phrase (e.g., “systems of oppression”). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011">Basic Keyword Searching</a>.',
       datastore: ['primo']
     },
     {
@@ -21,7 +21,7 @@ const searchOptions = () => {
     {
       name: 'Title',
       uid: 'title',
-      tip: 'Enter the first words in an article title. Use quotes to search for a phrase. (e.g., Culture as disability).',
+      tip: 'Enter the first words in an article title. Use quotes to search for a phrase (e.g., Culture as disability).',
       datastore: ['everything', 'mirlyn', 'primo', 'databases', 'onlinejournals', 'website']
     },
     {
@@ -33,19 +33,25 @@ const searchOptions = () => {
     {
       name: 'Author',
       uid: 'author',
-      tip: 'Search for items by author or contributor. (e.g., Kimmerer, Robin Wall) Also search organizations or corporate authors. (e.g., American Medical Association). Search for items by author using original scripts (e.g. 小川 洋子)',
+      tip: 'Search for items by author or contributor (e.g., Kimmerer, Robin Wall). Also search organizations or corporate authors (e.g., American Medical Association). Search for items by author using original scripts (e.g., 小川 洋子)',
       datastore: ['everything', 'mirlyn', 'primo']
     },
     {
       name: 'Journal/Serial Title',
       uid: 'journal_title',
-      tip: 'Search the title of a journal or serial publication (e.g. Detroit Free Press; “journal of the american medical association”; African-American newspapers).',
+      tip: 'Search the title of a journal or serial publication (e.g., Detroit Free Press; “journal of the american medical association”; African-American newspapers).',
       datastore: ['mirlyn']
     },
     {
       name: 'Subject',
       uid: 'subject',
-      tip: 'Use words or phrases to search subjects. (e.g., plant physiology; Baldwin, James)',
+      tip: 'Use words or phrases to search subjects (e.g., plant physiology, Baldwin, James).',
+      datastore: ['mirlyn', 'primo', 'onlinejournals']
+    },
+    {
+      name: 'LC Subject starts with',
+      uid: 'lc_subject_starts_with',
+      tip: 'Enter words or phrases to see subjects that start with them (e.g., Baldwin, James; sociology dictionaries).',
       datastore: ['mirlyn', 'primo', 'onlinejournals']
     },
     {
@@ -63,7 +69,7 @@ const searchOptions = () => {
     {
       name: 'Call Number starts with',
       uid: 'call_number_starts_with',
-      tip: 'Search the first few letters and numbers of a call number (e.g. RC662.4 .H38 2016; QH 105). <a href="https://www.loc.gov/catdir/cpso/lcco/">Learn about the meaning of call numbers<span class="visually-hidden"> (link points to external site)</span></a>.',
+      tip: 'Search the first few letters and numbers of a call number (e.g., RC662.4 .H38 2016; QH 105). <a href="https://www.loc.gov/catdir/cpso/lcco/">Learn about the meaning of call numbers<span class="visually-hidden"> (link points to external site)</span></a>.',
       datastore: ['mirlyn', 'onlinejournals']
     },
     {
@@ -75,13 +81,13 @@ const searchOptions = () => {
     {
       name: 'Date',
       uid: 'publication_date',
-      tip: 'Search by year (YYYY) (e.g. 2021; 1942).',
+      tip: 'Search by year (YYYY) (e.g., 2021; 1942).',
       datastore: ['primo']
     },
     {
       name: 'ISBN/ISSN/OCLC/etc',
       uid: 'isn',
-      tip: 'Search by ISSN (8-digit code), ISBN (13 or 10-digit code), or OCLC number (e.g.  0040-781X; 0747581088; 921446069).',
+      tip: 'Search by ISSN (8-digit code), ISBN (13 or 10-digit code), or OCLC number (e.g.,  0040-781X; 0747581088; 921446069).',
       datastore: ['mirlyn', 'onlinejournals']
     },
     {
@@ -99,20 +105,20 @@ const searchOptions = () => {
     {
       name: 'Browse by call number (LC and Dewey)',
       uid: 'browse_by_callnumber',
-      tip: 'Browse by Library of Congress (LC) or Dewey call number, sorted alphanumerically (e.g. RC662.4 .H38 2016; QH 105, 880 J375re). <a href="https://www.loc.gov/catdir/cpso/lcco/">Learn about the meaning of call numbers<span class="visually-hidden"> (link points to external site)</span></a>.',
+      tip: 'Browse by Library of Congress (LC) or Dewey call number, sorted alphanumerically (e.g., RC662.4 .H38 2016; QH 105, 880 J375re). <a href="https://www.loc.gov/catdir/cpso/lcco/">Learn about the meaning of call numbers<span class="visually-hidden"> (link points to external site)</span></a>.',
       selected: 'selected',
       datastore: ['mirlyn']
     },
     {
       name: 'Browse by author',
       uid: 'browse_by_author',
-      tip: 'Browse an alphabetical list of authors. Authors can be people (put last names first), organizations, or events (e.g. Kingston, Maxine Hong; United Nations Development Programme; Pong, Chun-ho).',
+      tip: 'Browse an alphabetical list of authors. Authors can be people (put last names first), organizations, or events (e.g., Kingston, Maxine Hong; United Nations Development Programme; Pong, Chun-ho).',
       datastore: ['mirlyn']
     },
     {
       name: 'Browse by subject (coming soon)',
       uid: 'browse_by_subject',
-      tip: 'Browse an A-Z list of subjects (e.g. motion pictures; history--United States; Eliot, George).',
+      tip: 'Browse an A-Z list of subjects (e.g., motion pictures; history--United States; Eliot, George).',
       disabled: 'disabled',
       datastore: ['mirlyn']
     }
