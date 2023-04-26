@@ -33,7 +33,7 @@ const searchOptions = () => {
     {
       name: 'Author',
       uid: 'author',
-      tip: 'Search for items by author or contributor (e.g., Kimmerer, Robin Wall). Also search organizations or corporate authors (e.g., American Medical Association). Search for items by author using original scripts (e.g., 小川 洋子)',
+      tip: 'Search for items by author or contributor (e.g., Kimmerer, Robin Wall). Also search organizations or corporate authors (e.g., American Medical Association). Search for items by author using original scripts (e.g., 小川 洋子).',
       datastore: ['everything', 'mirlyn', 'primo']
     },
     {
