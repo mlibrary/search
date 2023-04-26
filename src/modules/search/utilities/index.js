@@ -21,7 +21,7 @@ const searchOptions = () => {
     {
       name: 'Title',
       uid: 'title',
-      tip: 'Enter the first words in an article title. Use quotes to search for a phrase (e.g., Culture as disability).',
+      tip: 'Enter the first words in a title. Use quotes to search for a phrase (e.g., One Hundred Years of Solitude; “The Fourth World”; Disability Visibility).',
       datastore: ['everything', 'mirlyn', 'primo', 'databases', 'onlinejournals', 'website']
     },
     {
@@ -73,7 +73,7 @@ const searchOptions = () => {
       datastore: ['mirlyn', 'onlinejournals']
     },
     {
-      name: 'Series title',
+      name: 'Series (transcribed)',
       uid: 'series',
       tip: "Search the series title of a group of thematically-related books. Use ‘title’ search to find unique titles within a series (e.g., Politics of Race and Ethnicity, Brill's Annotated Bibliographies, Oxford Choral Music).",
       datastore: ['mirlyn']
@@ -87,7 +87,7 @@ const searchOptions = () => {
     {
       name: 'ISBN/ISSN/OCLC/etc',
       uid: 'isn',
-      tip: 'Search by ISSN (8-digit code), ISBN (13 or 10-digit code), or OCLC number (e.g.,  0040-781X; 0747581088; 921446069).',
+      tip: 'Search by ISSN (8-digit code), ISBN (13 or 10-digit code), or OCLC number (e.g., 0040-781X; 0747581088; 921446069).',
       datastore: ['mirlyn', 'onlinejournals']
     },
     {
