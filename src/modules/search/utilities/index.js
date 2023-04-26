@@ -57,7 +57,7 @@ const searchOptions = () => {
     {
       name: 'Academic Discipline',
       uid: 'academic_discipline',
-      tip: 'Search academic disciplines (e.g., International business; Latin american and caribbean studies). <a href="https://search.lib.umich.edu/databases/browse">Browse all Databases</a> alphabetically or by academic discipline.',
+      tip: 'Search academic disciplines (e.g., International business; Latin american and caribbean studies). <a href="/databases/browse">Browse all Databases</a> alphabetically or by academic discipline.',
       datastore: ['databases', 'onlinejournals']
     },
     {
