@@ -12,7 +12,7 @@ function DatastoreNavigationContainer (props) {
   const activeDatastoreUid = props.datastores.active;
 
   if (routeDatastoreUid !== activeDatastoreUid) {
-    props.changeActiveDatastore(routeDatastoreUid);
+    changeActiveDatastore(routeDatastoreUid);
   }
 
   return (
@@ -29,7 +29,6 @@ function DatastoreNavigationContainer (props) {
 DatastoreNavigationContainer.propTypes = {
   match: PropTypes.object,
   datastores: PropTypes.object,
-  changeActiveDatastore: PropTypes.func,
   search: PropTypes.object,
   activeFilters: PropTypes.object,
   history: PropTypes.object,
