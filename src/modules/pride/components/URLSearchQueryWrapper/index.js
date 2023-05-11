@@ -141,24 +141,43 @@ class URLSearchQueryWrapper extends React.Component {
     }
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps) {
+  componentDidMount () {
     const datastoreUid = getDatastoreUidBySlug(
-      nextProps.match.params.datastoreSlug
+      this.props.match.params.datastoreSlug
     );
 
-    if (this.props.datastoreUid !== datastoreUid) {
+    switchPrideToDatastore(datastoreUid);
+
+    this.handleURLState({
+      isSearching: this.props.isSearching,
+      query: this.props.query,
+      activeFilters: this.props.activeFilters[datastoreUid],
+      location: this.props.location,
+      datastoreUid,
+      page: this.props.page[datastoreUid],
+      sort: this.props.sort[datastoreUid],
+      institution: this.props.institution
+    });
+  }
+
+  componentDidUpdate (prevProps) {
+    const datastoreUid = getDatastoreUidBySlug(
+      this.props.match.params.datastoreSlug
+    );
+
+    if (prevProps.datastoreUid !== datastoreUid) {
       switchPrideToDatastore(datastoreUid);
     }
 
     this.handleURLState({
-      isSearching: nextProps.isSearching,
-      query: nextProps.query,
-      activeFilters: nextProps.activeFilters[datastoreUid],
-      location: nextProps.location,
+      isSearching: this.props.isSearching,
+      query: this.props.query,
+      activeFilters: this.props.activeFilters[datastoreUid],
+      location: this.props.location,
       datastoreUid,
-      page: nextProps.page[datastoreUid],
-      sort: nextProps.sort[datastoreUid],
-      institution: nextProps.institution
+      page: this.props.page[datastoreUid],
+      sort: this.props.sort[datastoreUid],
+      institution: this.props.institution
     });
   }
 
