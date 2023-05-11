@@ -34,6 +34,7 @@ class URLSearchQueryWrapper extends React.Component {
   constructor (props) {
     super(props);
     this.handleURLState = this.handleURLState.bind(this);
+    this.handleComponentHook = this.handleComponentHook.bind(this);
   }
 
   handleURLState ({
@@ -141,31 +142,12 @@ class URLSearchQueryWrapper extends React.Component {
     }
   }
 
-  componentDidMount () {
+  handleComponentHook (prevProps) {
     const datastoreUid = getDatastoreUidBySlug(
       this.props.match.params.datastoreSlug
     );
 
-    switchPrideToDatastore(datastoreUid);
-
-    this.handleURLState({
-      isSearching: this.props.isSearching,
-      query: this.props.query,
-      activeFilters: this.props.activeFilters[datastoreUid],
-      location: this.props.location,
-      datastoreUid,
-      page: this.props.page[datastoreUid],
-      sort: this.props.sort[datastoreUid],
-      institution: this.props.institution
-    });
-  }
-
-  componentDidUpdate (prevProps) {
-    const datastoreUid = getDatastoreUidBySlug(
-      this.props.match.params.datastoreSlug
-    );
-
-    if (prevProps.datastoreUid !== datastoreUid) {
+    if ((prevProps && prevProps.datastoreUid !== datastoreUid) || !prevProps) {
       switchPrideToDatastore(datastoreUid);
     }
 
@@ -179,6 +161,14 @@ class URLSearchQueryWrapper extends React.Component {
       sort: this.props.sort[datastoreUid],
       institution: this.props.institution
     });
+  };
+
+  componentDidMount () {
+    this.handleComponentHook();
+  }
+
+  componentDidUpdate (prevProps) {
+    this.handleComponentHook(prevProps);
   }
 
   render () {
@@ -200,7 +190,6 @@ URLSearchQueryWrapper.propTypes = {
   resetFilters: PropTypes.func,
   searching: PropTypes.func,
   match: PropTypes.object,
-  datastoreUid: PropTypes.string,
   isSearching: PropTypes.bool,
   query: PropTypes.string,
   activeFilters: PropTypes.object,
