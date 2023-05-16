@@ -10,7 +10,7 @@ const AboutLibrarySearch = function NoMatch () {
   return (
     <div className='container container-narrow'>
       <article className='page'>
-        <h1 className='u-margin-top-none'>About Library Search</h1>
+        <h1 className='u-margin-top-none' id='maincontent' tabIndex='-1'>About Library Search</h1>
 
         <p>Library Search is the University of Michigan Library's discovery interface. Launched in July 2018, it is designed to provide a consistent user experience across the physical and electronic resources the library provides. The Everything view displays a few results matching a user's keyword search under separate panels for each of the five categories of information: Catalog, Articles, Databases, Online Journals, and Guides & More. Each of these categories has an in-depth view that enables users to drill down into those materials to find what best meets their needs.</p>
 

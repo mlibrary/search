@@ -177,7 +177,7 @@ class FullRecord extends React.Component {
           <RecordFullFormats formats={record.formats} />
           <div className='record-container'>
             <div className='full-record-title-and-actions-container'>
-              <h1 className='full-record-title'>
+              <h1 className='full-record-title' id='maincontent' tabIndex='-1'>
                 {[].concat(record.names).map((title, index) => {
                   if (index > 0) {
                     return (

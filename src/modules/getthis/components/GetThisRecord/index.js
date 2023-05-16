@@ -119,7 +119,7 @@ class GetThisRecord extends React.Component {
       <div className='full-record-container u-margin-bottom-1'>
         <RecordFullFormats formats={record.formats} />
         <div className='record-container'>
-          <h1 className='full-record-title u-margin-bottom-none'>
+          <h1 className='full-record-title u-margin-bottom-none' id='maincontent' tabIndex='-1'>
             {[].concat(record.names).map((title, index) => {
               if (index > 0) {
                 return (

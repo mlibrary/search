@@ -10,7 +10,7 @@ const AccessibilityPage = function NoMatch () {
   return (
     <div className='container container-narrow'>
       <article className='page'>
-        <h1 className='u-margin-top-none'>Accessibility</h1>
+        <h1 className='u-margin-top-none' id='maincontent' tabIndex='-1'>Accessibility</h1>
         <p>We are dedicated to creating inclusive services and products for all users. We are constantly working to make Library Search as accessible and usable as possible.</p>
         <p>We aim to meet <a className='underline' href='https://www.w3.org/WAI/WCAG20/quickref/'>WCAG 2.0 AA standards</a></p>
 

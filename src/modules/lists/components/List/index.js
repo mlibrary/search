@@ -101,7 +101,7 @@ class List extends Component {
         />
 
         <header className='lists-header'>
-          <h1 className='heading-xlarge'>My Temporary {datastore.name} List</h1>
+          <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>My Temporary {datastore.name} List</h1>
           <div className='lists-header-info'>
             {this.renderRemoveAllFromListButton(list, datastore)}
             <p className='lists-count-tag'><b>{this.getListLength()}</b> in list</p>

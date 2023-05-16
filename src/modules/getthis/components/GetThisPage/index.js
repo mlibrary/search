@@ -29,7 +29,7 @@ class GetThisPageTemplate extends React.Component {
           />
         </div>
         <section>
-          <h1 className='heading-xlarge'>Get This</h1>
+          <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Get This</h1>
         </section>
 
         {this.props.children}

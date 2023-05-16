@@ -16,7 +16,7 @@ class BentoboxList extends React.Component {
     const bentoboxListRecords = getMultiSearchRecords(datastoreUid, allRecords);
 
     return (
-      <article className='bentobox-list' id='search-results'>
+      <article className='bentobox-list' id='search-results maincontent' tabIndex='-1'>
         <SpecialistsWrapper show={2}>
           {bentoboxListRecords.map((bentobox) => {
             if (!bentobox.records) {

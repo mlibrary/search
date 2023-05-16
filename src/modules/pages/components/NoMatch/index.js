@@ -9,7 +9,7 @@ const NoMatch = function NoMatch () {
   return (
     <div className='container container-narrow'>
       <div className='page-not-found-container'>
-        <h1 className='heading-xlarge'>
+        <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>
           Page not found - 404
         </h1>
         <p className='font-lede'>We can't find the page you're looking for.</p>

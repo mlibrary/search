@@ -9,7 +9,7 @@ const Landing = ({ content, activeDatastore }) => {
   switch (activeDatastore.uid) {
     case 'everything':
       return (
-        <div className='landing-container'>
+        <div className='landing-container' id='maincontent'>
           <h1 className='landing-heading-text' aria-live='polite'>
             Search <b>Everything</b> to see a broad sampling of results from
             across 'Library Search' and to explore specific areas and records in
@@ -30,7 +30,7 @@ const Landing = ({ content, activeDatastore }) => {
       );
     case 'mirlyn':
       return (
-        <div>
+        <div id='maincontent'>
           <div className='landing-container'>
             <h1 className='landing-heading-text' aria-live='polite'>
               The <b>Catalog</b> is the definitive place for finding materials
@@ -62,7 +62,7 @@ const Landing = ({ content, activeDatastore }) => {
       );
     case 'primo':
       return (
-        <div className='landing-container'>
+        <div className='landing-container' id='maincontent'>
           <h1 className='landing-heading-text' aria-live='polite'>
             <b>Articles</b> is a gateway to discovering a wide range of the
             library's resources.
@@ -76,7 +76,7 @@ const Landing = ({ content, activeDatastore }) => {
       );
     case 'databases':
       return (
-        <div className='landing-container'>
+        <div className='landing-container' id='maincontent'>
           <h1 className='landing-heading-text' aria-live='polite'>
             <b>Databases</b> are library search engines focused on a specific
             subject or range of subjects. Some may highlight a particular
@@ -93,7 +93,7 @@ const Landing = ({ content, activeDatastore }) => {
       );
     case 'onlinejournals':
       return (
-        <div className='landing-container'>
+        <div className='landing-container' id='maincontent'>
           <h1 className='landing-heading-text' aria-live='polite'>
             <b>Online Journals</b> are serial (repeating) publications the
             library subscribes to electronically. This includes not only
@@ -113,7 +113,7 @@ const Landing = ({ content, activeDatastore }) => {
       );
     case 'website':
       return (
-        <div className='landing-container'>
+        <div className='landing-container' id='maincontent'>
           <h1 className='landing-heading-text' aria-live='polite'>
             <b>Guides and more</b> is the place to learn about our services,
             spaces, and collections.
@@ -129,7 +129,7 @@ const Landing = ({ content, activeDatastore }) => {
       );
     default:
       return (
-        <div className='landing-container'>
+        <div className='landing-container' id='maincontent'>
           <p>Empty state. Begin your search.</p>
         </div>
       );

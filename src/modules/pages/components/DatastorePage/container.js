@@ -236,7 +236,7 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
           </>
         </div>
       </div>
-      <div className='results-container'>
+      <div className='results-container' id='maincontent'>
         <RecordList />
         <Pagination />
       </div>
