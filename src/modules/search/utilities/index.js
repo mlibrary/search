@@ -50,7 +50,7 @@ const searchOptions = () => {
     },
     {
       name: 'LC Subject starts with',
-      uid: 'subject_browse_leftanchored',
+      uid: 'lc_subject_starts_with',
       tip: 'Enter words or phrases to see subjects that start with them (e.g., Baldwin, James; sociology dictionaries).',
       datastore: ['mirlyn', 'onlinejournals']
     },
