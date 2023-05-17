@@ -32,18 +32,6 @@
   }
 }
 
-.search-box-advanced-link {
-  margin-left: 1rem;
-  display: inline-block;
-  font-weight: 600;
-
-  @media (max-width: $breakpoint-1) {
-    font-size: 0.9rem;
-    flex: 0 1 100%;
-    margin: 0;
-  }
-}
-
 .search-box-button {
   margin-left: 0.75rem;
   margin-right: 0;

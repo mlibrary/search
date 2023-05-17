@@ -11,7 +11,7 @@ class ActionStatusMessage extends Component {
     }
 
     let alertType = 'warning';
-    let alertMessage = "We're sorry. Something went wrong. Please use <a className='underline' href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</a> for help.";
+    let alertMessage = "We're sorry. Something went wrong. Please use <a href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</a> for help.";
 
     if (status.status_code === 'action.response.success') {
       alertType = 'success';

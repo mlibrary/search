@@ -128,7 +128,7 @@ const BentoboxNoResults = ({ bentobox }) => {
       <p className='no-margin'><b>No results</b> match your search.</p>
 
       {hasBrowse && (
-        <p className='u-margin-bottom-none'>Try our <Link className='underline' to={`/${bentobox.slug}/browse`}>Browse {bentobox.name} page</Link> to view all titles alphabetically or by academic discipline.</p>
+        <p className='u-margin-bottom-none'>Try our <Link to={`/${bentobox.slug}/browse`}>Browse {bentobox.name} page</Link> to view all titles alphabetically or by academic discipline.</p>
       )}
     </div>
   );

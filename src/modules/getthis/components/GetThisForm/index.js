@@ -148,7 +148,7 @@ class GetThisForm extends React.Component {
               <li>When it is available, we'll hold it for you for 7 days.</li>
             </ul>
 
-            <a href='https://account.lib.umich.edu/pending-requests/u-m-library' className='underline'>View all your holds</a>
+            <a href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</a>
           </article>
         );
       } else {
@@ -158,7 +158,7 @@ class GetThisForm extends React.Component {
 
             <p><b>Status:</b> {response.status}</p>
 
-            <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <a href='mailto:circservices@umich.edu' className='underline'>circservices@umich.edu</a> or <a href='tel:7347640401' className='underline'>(734) 764-0401</a> for assistance.</p>
+            <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <a href='mailto:circservices@umich.edu'>circservices@umich.edu</a> or <a href='tel:7347640401'>(734) 764-0401</a> for assistance.</p>
           </article>
         );
       }

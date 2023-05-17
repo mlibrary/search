@@ -28,22 +28,21 @@ export default function Holder ({
   return (
     <div
       css={{
-        a: {
-          textDecoration: 'underline'
-        },
         padding: `${SPACING.S} 0`
       }}
       {...rest}
     >
       {captionLink && (
-        <p css={{ margin: '0' }}>
-          <a
-            href={captionLink.href}
-            css={{
-              color: COLORS.neutral['400'],
-              display: 'inline-block'
-            }}
-          >
+        <p
+          css={{
+            a: {
+              color: COLORS.neutral['400']
+            },
+            display: 'inline-block',
+            margin: '0'
+          }}
+        >
+          <a href={captionLink.href}>
             {captionLink.text}
           </a>
         </p>

@@ -278,13 +278,16 @@ function SearchBox ({ history, match, location }) {
           {isAdvanced && (
             <Link
               to={`/${match.params.datastoreSlug}/advanced${location.search}`}
-              className='search-box-advanced-link'
               css={{
                 alignSelf: 'center',
+                fontWeight: '600',
                 gridArea: 'advanced',
                 margin: '0.75rem 0.75rem 0 0.75rem',
                 padding: '0.5rem 0',
-                textAlign: 'center'
+                textAlign: 'center',
+                '&:hover': {
+                  textDecoration: 'underline'
+                }
               }}
             >
               <span className='offpage'>{activeDatastore.name}</span>

@@ -43,8 +43,8 @@ class RecordListContainer extends React.Component {
               <li>Check your spelling.</li>
               <li>Try more general keywords.</li>
               <li>Try different keywords that mean the same thing.</li>
-              <li>Try using <a href={`${datastore.slug}/advanced`} className='underline'>Advanced Search</a> to construct a targeted query.</li>
-              <li>Use <a href='https://www.lib.umich.edu/ask-librarian' className='underline'>Ask a Librarian</a> and we will help you find what you're looking for.</li>
+              <li>Try using <a href={`${datastore.slug}/advanced`}>Advanced Search</a> to construct a targeted query.</li>
+              <li>Use <a href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</a> and we will help you find what you're looking for.</li>
             </ul>
           </div>
         </div>

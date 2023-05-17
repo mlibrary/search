@@ -44,6 +44,10 @@
   background: transparent;
   text-align: left;
 
+  &:hover {
+    text-decoration: underline;
+  }
+
   .icon {
     margin-right: 0.5rem;
   }

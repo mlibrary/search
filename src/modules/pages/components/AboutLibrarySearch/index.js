@@ -39,21 +39,21 @@ const AboutLibrarySearch = function NoMatch () {
         </ul>
 
         <h2>Management</h2>
-        <p>Library Search's front- and back-end systems are managed by staff from the <a className='underline' href='https://www.lib.umich.edu/about-us/our-divisions-and-departments/library-information-technology/design-and-discovery'>Design and Discovery</a>, <a className='underline' href='https://www.lib.umich.edu/about-us/our-divisions-and-departments/library-information-technology/automation-indexing-and'>Automation, Indexing, and Metadata</a>, and <a className='underline' href='https://www.lib.umich.edu/about-us/our-divisions-and-departments/library-information-technology/digital-library-applications'>Digital Library Applications</a> departments within the <a className='underline' href='https://www.lib.umich.edu/about-us/our-divisions-and-departments/library-information-technology'>Library Information Technology</a> division. All of the software we have developed is <a className='underline' href='https://github.com/mlibrary'>available in GitHub</a> under open source licenses.</p>
+        <p>Library Search's front- and back-end systems are managed by staff from the <a href='https://www.lib.umich.edu/about-us/our-divisions-and-departments/library-information-technology/design-and-discovery'>Design and Discovery</a>, <a href='https://www.lib.umich.edu/about-us/our-divisions-and-departments/library-information-technology/automation-indexing-and'>Automation, Indexing, and Metadata</a>, and <a href='https://www.lib.umich.edu/about-us/our-divisions-and-departments/library-information-technology/digital-library-applications'>Digital Library Applications</a> departments within the <a href='https://www.lib.umich.edu/about-us/our-divisions-and-departments/library-information-technology'>Library Information Technology</a> division. All of the software we have developed is <a href='https://github.com/mlibrary'>available in GitHub</a> under open source licenses.</p>
         <p>The overall Library Search service is stewarded by the Library Search Service Team, co-chaired by Karen Reiman-Sendi and Ken Varnum.</p>
 
         <h2>Code repositories</h2>
-        <p>The various applications developed at the University of Michigan Library are available through the <a className='underline' href='https://github.com/mlibrary/'>University Library's GitHub</a> repository:</p>
+        <p>The various applications developed at the University of Michigan Library are available through the <a href='https://github.com/mlibrary/'>University Library's GitHub</a> repository:</p>
         <ul>
-          <li><a className='underline' href='https://github.com/mlibrary/pride'>pride</a> -- A JavaScript library for interfacing with the U-M Library search backend</li>
-          <li><a className='underline' href='https://github.com/mlibrary/prejudice'>prejudice</a> -- A companion to pride</li>
-          <li><a className='underline' href='https://github.com/mlibrary/search'>search</a> -- A single-page web application that consolidates the library's multiple discovery interfaces into one</li>
-          <li><a className='underline' href='https://github.com/mlibrary/spectrum'>spectrum</a> -- The backend for Search</li>
-          <li><a className='underline' href='https://github.com/mlibrary/catalog-browse'>catalog-browse</a> -- The call number, author authority file, subject authority file application (under development as of April 2022)</li>
+          <li><a href='https://github.com/mlibrary/pride'>pride</a> -- A JavaScript library for interfacing with the U-M Library search backend</li>
+          <li><a href='https://github.com/mlibrary/prejudice'>prejudice</a> -- A companion to pride</li>
+          <li><a href='https://github.com/mlibrary/search'>search</a> -- A single-page web application that consolidates the library's multiple discovery interfaces into one</li>
+          <li><a href='https://github.com/mlibrary/spectrum'>spectrum</a> -- The backend for Search</li>
+          <li><a href='https://github.com/mlibrary/catalog-browse'>catalog-browse</a> -- The call number, author authority file, subject authority file application (under development as of April 2022)</li>
         </ul>
 
         <h2>More information</h2>
-        <p>If you are curious to know more about Library Search, please contact <a className='underline' href='https://www.lib.umich.edu/users/varnum'>Ken Varnum</a>, Senior Program Manager and Discovery Strategist.</p>
+        <p>If you are curious to know more about Library Search, please contact <a href='https://www.lib.umich.edu/users/varnum'>Ken Varnum</a>, Senior Program Manager and Discovery Strategist.</p>
       </main>
     </div>
   );

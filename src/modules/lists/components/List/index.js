@@ -35,7 +35,7 @@ class List extends Component {
     if (!list || this.getListLength() === 0) {
       return (
         <section className='alert'>
-          <p><b>This list is empty</b>. <Link className='underline' to={`/${datastore.slug}${document.location.search}`}>Go back to {datastore.name}</Link> to add to this list.</p>
+          <p><b>This list is empty</b>. <Link to={`/${datastore.slug}${document.location.search}`}>Go back to {datastore.name}</Link> to add to this list.</p>
         </section>
       );
     }
@@ -74,7 +74,8 @@ class List extends Component {
           className='button-link underline lists-remove-all text-small' onClick={() => {
             return this.handleRemoveAllFromList({ datastoreUid });
           }}
-        >Remove all
+        >
+          Remove all
         </button>
       );
     }
