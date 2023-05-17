@@ -171,7 +171,16 @@ a {
   color: #126DC1;
   cursor: pointer;
   text-decoration: none;
-  font-weight: inherit; }
+  font-weight: inherit;
+}
+
+a:not([class], [id]) {
+  text-decoration: underline;
+}
+
+a:not([class], [id]):hover {
+  text-decoration-thickness: 2px;
+}
 
 *::selection {
   background: #CCE6FF; }
