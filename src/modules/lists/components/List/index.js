@@ -35,7 +35,7 @@ class List extends Component {
     if (!list || this.getListLength() === 0) {
       return (
         <section className='alert'>
-          <p><b>This list is empty</b>. <Link to={`/${datastore.slug}${document.location.search}`}>Go back to {datastore.name}</Link> to add to this list.</p>
+          <p><span className='strong'>This list is empty</span>. <Link to={`/${datastore.slug}${document.location.search}`}>Go back to {datastore.name}</Link> to add to this list.</p>
         </section>
       );
     }
@@ -105,7 +105,7 @@ class List extends Component {
           <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>My Temporary {datastore.name} List</h1>
           <div className='lists-header-info'>
             {this.renderRemoveAllFromListButton(list, datastore)}
-            <p className='lists-count-tag'><b>{this.getListLength()}</b> in list</p>
+            <p className='lists-count-tag'><span className='strong'>{this.getListLength()}</span> in list</p>
           </div>
         </header>
         <p className='font-lede' style={{ marginTop: '0' }}>Items in this list are stored temporarily (within a single session).</p>

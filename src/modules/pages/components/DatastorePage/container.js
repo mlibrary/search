@@ -146,12 +146,13 @@ class DatastorePageContainer extends React.Component {
                           <InstitutionWrapper>
                             {!searching
                               ? (
-                                <div className='container'>
-                                  <Landing activeDatastore={activeDatastore} />
-                                </div>
+                                <Landing activeDatastore={activeDatastore} />
                                 )
                               : (
                                 <>
+                                  <h1 id='maincontent' tabIndex='-1' className='visually-hidden'>
+                                    {activeDatastore.name}
+                                  </h1>
                                   <DatastoreInfo activeDatastore={activeDatastore} />
                                   <Results
                                     activeDatastore={activeDatastore}
@@ -269,7 +270,7 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
           <BrowseInfo datastore={activeDatastore} />
         </div>
       </div>
-      <div className='results-container' id='maincontent'>
+      <div className='results-container'>
         <RecordList />
         <Pagination />
       </div>

@@ -31,7 +31,7 @@ class RecordListContainer extends React.Component {
       return (
         <div id='search-results'>
           <div className='results-summary-container'>
-            <h2 className='results-summary' aria-live='polite'><b>No results</b> match your search: <span style={{ fontWeight: 600 }}>{search.query}</span></h2>
+            <h2 className='results-summary' aria-live='polite'><span className='strong'>No results</span> match your search: <span style={{ fontWeight: 600 }}>{search.query}</span></h2>
           </div>
 
           <KeywordSwitch datastore={datastore} query={search.query} />

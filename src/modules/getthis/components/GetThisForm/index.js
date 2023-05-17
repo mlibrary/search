@@ -156,7 +156,7 @@ class GetThisForm extends React.Component {
           <article className='alert alert-warning'>
             <h4>The hold/request could not be placed</h4>
 
-            <p><b>Status:</b> {response.status}</p>
+            <p><span className='strong'>Status:</span> {response.status}</p>
 
             <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <a href='mailto:circservices@umich.edu'>circservices@umich.edu</a> or <a href='tel:7347640401'>(734) 764-0401</a> for assistance.</p>
           </article>
@@ -175,7 +175,7 @@ class GetThisForm extends React.Component {
     if (!form) {
       return (
         <div className='alert alert-warning' role='alert'>
-          <p><b>Error:</b> Unable to fetch details.</p>
+          <p><span className='strong'>Error:</span> Unable to fetch details.</p>
         </div>
       );
     }

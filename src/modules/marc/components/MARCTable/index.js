@@ -67,7 +67,7 @@ const FieldValue = ({ field }) => {
             const subfieldName = Object.keys(subfield)[0];
 
             return (
-              <span className='marc__subfield' key={index}><b>|{subfieldName}</b> {subfield[subfieldName]}</span>
+              <span className='marc__subfield' key={index}><span className='strong'>|{subfieldName}</span> {subfield[subfieldName]}</span>
             );
           })}
         </td>

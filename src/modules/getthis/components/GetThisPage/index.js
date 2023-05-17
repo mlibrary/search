@@ -71,7 +71,7 @@ class GetThisPage extends React.Component {
       return (
         <GetThisPageTemplate>
           <div className='alert'>
-            <p><b>Error:</b> Unable to find this record.</p>
+            <p><span className='strong'>Error:</span> Unable to find this record.</p>
           </div>
         </GetThisPageTemplate>
       );
