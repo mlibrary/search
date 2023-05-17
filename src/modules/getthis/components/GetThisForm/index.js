@@ -47,17 +47,15 @@ const Field = ({ field, setFieldChange, loading }) => {
     );
   } else if (type === 'submit') {
     return (
-      <>
-        <input
-          className='button margin-right-1'
-          id={name}
-          type={type}
-          name={name}
-          value={value}
-          disabled={loading}
-        />
-        {loading && (<span role='alert'>Placing hold ...</span>)}
-      </>
+      <button
+        className='button margin-right-1'
+        id={name}
+        type={type}
+        name={name}
+        disabled={loading}
+      >
+        {loading ? 'Placing hold ...' : value}
+      </button>
     );
   }
 
