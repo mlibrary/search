@@ -8,7 +8,7 @@ const Select = ({ field, setFieldChange }) => {
   const { name, value, options } = field;
 
   return (
-    <select id={name} name={name} className='dropdown' value={value} onChange={setFieldChange}>
+    <select id={name} name={name} className='dropdown' value={value} onChange={setFieldChange} autoComplete='off'>
       {options.map((option, key) => {
         return (
           <option

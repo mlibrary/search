@@ -26,6 +26,7 @@ import { List } from '../../../lists';
 import { setDocumentTitle } from '../../../a11y';
 import { FlintAlerts } from '../../../flint';
 import PropTypes from 'prop-types';
+import { Icon } from '../../../reusable';
 
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
@@ -198,42 +199,74 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
     summaryClassName += ' small-screen-filter-summary--active-filters';
   }
 
+  const responsive = (mobile, desktop) => {
+    return window.innerWidth < 980 ? mobile : desktop;
+  };
+
   return (
     <div
       className='container container-medium flex-container'
       style={{ marginTop: '0.75rem' }}
     >
       <div className='side-container'>
-        <details
-          className='small-screen-filter-details'
+        <button
+          className={`small-screen-filter-details ${summaryClassName}`}
+          onClick={(event) => {
+            const filters = document.querySelector('#filter-details');
+            const getDisplay = filters.style.display;
+            filters.style.display = getDisplay === 'none' ? 'block' : 'none';
+            event.target.querySelector('.expand-more-icon').style.display = filters.style.display === 'none' ? 'block' : 'none';
+            event.target.querySelector('.expand-less-icon').style.display = filters.style.display === 'block' ? 'block' : 'none';
+            event.target.setAttribute('aria-expanded', filters.style.display !== 'none');
+          }}
           css={{
+            alignItems: 'center',
+            gap: '0.5rem',
+            width: '100%',
+            display: 'flex',
             '@media (min-width: 980px)': {
               display: 'none'
             }
           }}
+          aria-expanded={responsive('false', 'true')}
+          aria-controls='filter-details'
         >
-          <summary className={summaryClassName}>
+          <Icon
+            icon='expand_more'
+            className='expand-more-icon'
+            style={{
+              display: responsive('block', 'none')
+            }}
+          />
+          <Icon
+            icon='expand_less'
+            className='expand-less-icon'
+            style={{
+              display: responsive('none', 'block')
+            }}
+          />
+          <span>
             Filters
             {hasActiveFilters ? ` (${activeFilterCount})` : null}
-          </summary>
-          <>
-            <InstitutionSelect />
-            <Filters />
-            <BrowseInfo datastore={activeDatastore} />
-          </>
-        </details>
+          </span>
+        </button>
         <div
+          id='filter-details'
+          style={{
+            display: responsive('none', 'block')
+          }}
           css={{
             '@media (max-width: 979px)': {
               display: 'none'
+            },
+            '@media (min-width: 980px)': {
+              display: 'block!important'
             }
           }}
         >
-          <>
-            <InstitutionSelect />
-            <Filters />
-            <BrowseInfo datastore={activeDatastore} />
-          </>
+          <InstitutionSelect />
+          <Filters />
+          <BrowseInfo datastore={activeDatastore} />
         </div>
       </div>
       <div className='results-container' id='maincontent'>

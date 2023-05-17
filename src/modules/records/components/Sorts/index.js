@@ -65,6 +65,7 @@ class Sorts extends React.Component {
             className='dropdown sorts-select'
             value={sort}
             onChange={this.handleOnChange}
+            autoComplete='off'
           >
             {sorts.map((item, index) => {
               return (
