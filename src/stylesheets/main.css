@@ -84,6 +84,12 @@ html {
     html {
       font-size: 17px; } }
 
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   font-family: "Source Sans Pro", sans-serif;
   line-height: 1.4;
@@ -176,6 +182,7 @@ a {
 
 a:not([class], [id]) {
   text-decoration: underline;
+  text-decoration-thickness: 1px;
 }
 
 a:not([class], [id]):hover {
