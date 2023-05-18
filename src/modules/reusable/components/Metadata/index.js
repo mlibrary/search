@@ -307,15 +307,7 @@ function SearchLink ({ children, search }) {
     });
 
   return (
-    <Link
-      css={{
-        textDecoration: 'underline',
-        ':hover': {
-          textDecorationThickness: '2px'
-        }
-      }}
-      to={to}
-    >
+    <Link to={to}>
       {children}
     </Link>
   );
