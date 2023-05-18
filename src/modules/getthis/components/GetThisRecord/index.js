@@ -59,8 +59,8 @@ function GetThisHolding ({ record, barcode }) {
               borderBottom: `solid 1px ${COLORS.neutral[100]}`
             }
           }}
-          aria-label='Available at'
         >
+          <h3 className='visually-hidden'>Available at</h3>
           <ResourceAccess record={recordData} />
         </div>
       </StyledGetThisResourceAccessContainer>
@@ -119,7 +119,7 @@ class GetThisRecord extends React.Component {
       <div className='full-record-container u-margin-bottom-1'>
         <RecordFullFormats formats={record.formats} />
         <div className='record-container'>
-          <h1 className='full-record-title u-margin-bottom-none' id='maincontent' tabIndex='-1'>
+          <h2 className='full-record-title u-margin-bottom-none'>
             {[].concat(record.names).map((title, index) => {
               if (index > 0) {
                 return (
@@ -132,7 +132,7 @@ class GetThisRecord extends React.Component {
                 <TrimString string={title} key={index} />
               );
             })}
-          </h1>
+          </h2>
         </div>
 
         <GetThisHolding record={record} barcode={barcode} />
