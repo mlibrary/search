@@ -69,18 +69,22 @@ class DateRangeInput extends React.Component {
     const { beginQuery } = this.state;
 
     return (
-      <>
+      <div>
+        <label htmlFor='date-range-start-date'>Start date</label>
         <input
           className='date-range-input-text'
-          placeholder='Start date'
-          aria-label='Start date'
+          id='date-range-start-date'
+          aria-describedby='date-range-start-date-description'
           type='text'
           value={beginQuery}
           onChange={(e) => {
             return this.handleBeginQueryChange(e.target.value);
           }}
+          autoComplete='on'
+          pattern='[0-9]{4}'
         />
-      </>
+        <small id='date-range-start-date-description'>Please enter this format: YYYY</small>
+      </div>
     );
   }
 
@@ -88,16 +92,22 @@ class DateRangeInput extends React.Component {
     const { endQuery } = this.state;
 
     return (
-      <input
-        className='date-range-input-text'
-        type='text'
-        aria-label='End date'
-        placeholder='End date'
-        value={endQuery}
-        onChange={(e) => {
-          return this.handleEndQueryChange(e.target.value);
-        }}
-      />
+      <div>
+        <label htmlFor='date-range-end-date'>End date</label>
+        <input
+          className='date-range-input-text'
+          type='text'
+          id='date-range-end-date'
+          aria-describedby='date-range-end-date-description'
+          value={endQuery}
+          onChange={(e) => {
+            return this.handleEndQueryChange(e.target.value);
+          }}
+          autoComplete='on'
+          pattern='[0-9]{4}'
+        />
+        <small id='date-range-end-date-description'>Please enter this format: YYYY</small>
+      </div>
     );
   }
 

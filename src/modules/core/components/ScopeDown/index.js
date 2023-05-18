@@ -36,27 +36,30 @@ const Dropdown = ({ option, label, options, selected, handleChange }) => {
 
   return (
     <fieldset className='scopedown-dropdown-container'>
-      <label>
-        <span className='scopedown-label-text'>{label}</span>
-        <select
-          className='dropdown scopedown-dropdown'
-          onChange={(e) => {
-            return handleChange({ uid: option.uid, value: e.target.value });
-          }}
-          value={selected}
-        >
-          {options.map((opt, index) => {
-            return (
-              <option
-                key={index}
-                value={opt}
-              >
-                {opt}
-              </option>
-            );
-          })}
-        </select>
+      <legend className='visually-hidden'>Narrow Search Options</legend>
+      <label htmlFor={`scope-${label.toLowerCase().replaceAll(' ', '-')}`}>
+        {label}
       </label>
+      <select
+        className='dropdown scopedown-dropdown'
+        id={`scope-${label.toLowerCase().replaceAll(' ', '-')}`}
+        onChange={(e) => {
+          return handleChange({ uid: option.uid, value: e.target.value });
+        }}
+        value={selected}
+        autoComplete='off'
+      >
+        {options.map((opt, index) => {
+          return (
+            <option
+              key={index}
+              value={opt}
+            >
+              {opt}
+            </option>
+          );
+        })}
+      </select>
     </fieldset>
   );
 };

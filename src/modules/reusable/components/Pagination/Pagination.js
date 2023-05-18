@@ -47,10 +47,8 @@ class Pagination extends React.Component {
       <nav className='pagination-container x-spacing' aria-label={ariaLabel}>
         <div className='pagination-previous-container'>
           {toPreviousPage && (
-            <Link
-              to={toPreviousPage}
-              className='underline'
-            >Previous page
+            <Link to={toPreviousPage}>
+              Previous page
             </Link>
           )}
         </div>
@@ -71,10 +69,8 @@ class Pagination extends React.Component {
         </form>
         <div className='pagination-next-container'>
           {toNextPage && (
-            <Link
-              to={toNextPage}
-              className='underline'
-            >Next page
+            <Link to={toNextPage}>
+              Next page
             </Link>
           )}
         </div>

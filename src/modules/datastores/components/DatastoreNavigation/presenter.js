@@ -19,9 +19,8 @@ const DatastoreNavigationPresenter = ({
 }) => {
   return (
     <div className='datastore-list-container datastore-scroll-container'>
-      <div className='datastore-scroll-gradient' />
-      <div className='datastore-scroll-x'>
-        <ul className='datastore-list' role='navigation' title='Search groupings'>
+      <nav className='datastore-scroll-x' aria-label='Datastores'>
+        <ol className='datastore-list'>
           {datastores.datastores.map((ds) => {
             return (
               <DatastoreNavigationItem
@@ -35,8 +34,8 @@ const DatastoreNavigationPresenter = ({
               />
             );
           })}
-        </ul>
-      </div>
+        </ol>
+      </nav>
     </div>
   );
 };

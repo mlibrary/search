@@ -94,7 +94,8 @@ CheckboxFilterContainer.propTypes = {
 function CheckboxFilter ({ label, isChecked, url }) {
   return (
     <Link
-      to={url} css={{
+      to={url}
+      css={{
         display: 'flex',
         padding: `${SPACING['2XS']} ${SPACING.M}`,
         color: COLORS.neutral['400'],
@@ -102,12 +103,9 @@ function CheckboxFilter ({ label, isChecked, url }) {
           textDecoration: 'underline'
         }
       }}
-      role='checkbox'
-      aria-checked={isChecked}
-      aria-label={label}
     >
       <span
-        aria-hidden='true' css={{
+        css={{
           color: isChecked ? '#126DC1' : COLORS.neutral['300'],
           marginRight: SPACING['2XS'],
           lineHeight: '100%'

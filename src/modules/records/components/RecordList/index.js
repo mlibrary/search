@@ -31,7 +31,7 @@ class RecordListContainer extends React.Component {
       return (
         <div id='search-results'>
           <div className='results-summary-container'>
-            <h2 className='results-summary' aria-live='polite'><b>No results</b> match your search: <span style={{ fontWeight: 600 }}>{search.query}</span></h2>
+            <h2 className='results-summary' aria-live='polite'><span className='strong'>No results</span> match your search: <span style={{ fontWeight: 600 }}>{search.query}</span></h2>
           </div>
 
           <KeywordSwitch datastore={datastore} query={search.query} />
@@ -43,8 +43,8 @@ class RecordListContainer extends React.Component {
               <li>Check your spelling.</li>
               <li>Try more general keywords.</li>
               <li>Try different keywords that mean the same thing.</li>
-              <li>Try using <a href={`${datastore.slug}/advanced`} className='underline'>Advanced Search</a> to construct a targeted query.</li>
-              <li>Use <a href='https://www.lib.umich.edu/ask-librarian' className='underline'>Ask a Librarian</a> and we will help you find what you're looking for.</li>
+              <li>Try using <a href={`${datastore.slug}/advanced`}>Advanced Search</a> to construct a targeted query.</li>
+              <li>Use <a href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</a> and we will help you find what you're looking for.</li>
             </ul>
           </div>
         </div>

@@ -73,6 +73,35 @@
         a.appendChild(r);
       })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
     </script>
+    <style>
+      .site-skip-links:not(:focus-within) {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden
+      }
+
+      .site-skip-links .site-skip-links_content {
+        background: #00274c;
+        padding: 1rem 0;
+      }
+
+      .site-skip-links a {
+        color: #fff;
+        padding: .5rem
+      }
+
+      .site-skip-links ul {
+        margin: 0;
+        text-align: center
+      }
+
+      .site-skip-links ul li+li {
+        margin-top: 1rem
+      }
+    </style>
   </head>
   <body class="site-min-width">
     <!-- Google Tag Manager (noscript) -->
@@ -85,6 +114,14 @@
       ></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <section aria-label="Skip links" class="site-skip-links">
+      <div class="site-skip-links_content layout prose">
+        <ul>
+          <li><a href="#maincontent">Skip to main content</a></li>
+          <li><a href="#chat">Skip to Ask a Librarian chat</a></li>
+        </ul>
+      </div>
+    </section>
     <m-universal-header mode="development"></m-universal-header>
     <div id="root">
       <style>
@@ -302,6 +339,8 @@
         </div>
       </div>
     </div>
-    <m-chat></m-chat>
+    <m-chat>
+      <div id="chat" tabindex="-1"></div>
+    </m-chat>
   </body>
 </html>

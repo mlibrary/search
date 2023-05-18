@@ -88,6 +88,7 @@ class CitationAction extends React.Component {
                 color: '#333',
                 cursor: 'pointer'
               }}
+              autoComplete='off'
             />
           </div>
 

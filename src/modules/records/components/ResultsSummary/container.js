@@ -35,7 +35,7 @@ class ResultsSummaryContainer extends React.Component {
       total: `${displayTotalAvailable}`,
       resultsText: `${resultsText}`,
       from: `${datastoreName}`,
-      resultsFor: search.query ? (<span>for <b>{search.query}</b></span>) : null
+      resultsFor: search.query ? (<span>for <span className='strong'>{search.query}</span></span>) : null
     };
   }
 

@@ -128,8 +128,8 @@ class Record extends React.Component {
                 borderBottom: `solid 1px ${COLORS.neutral[100]}`
               }
             }}
-            aria-label='Available at'
           >
+            <h4 className='visually-hidden'>{record.names[0]} is available at:</h4>
             <ResourceAccess record={record} />
           </div>
         </article>

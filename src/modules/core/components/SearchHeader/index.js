@@ -28,7 +28,9 @@ function SearchHeader (props) {
   return (
     <m-website-header name='Search' variant='dark' to='/everything'>
       <nav
-        aria-label='utility' css={{
+        aria-label='utility'
+        css={{
+          background: 'var(--color-blue-400)',
           gridTemplateColumns: 'repeat(4, auto)',
           alignItems: 'baseline',
           display: 'block',

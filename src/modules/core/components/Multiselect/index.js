@@ -83,19 +83,21 @@ class Multiselect extends React.Component {
         {descriptionText && (
           <p className='font-small'>{descriptionText}</p>
         )}
+        <label htmlFor={`filter-options-${filterGroupUid.replaceAll('_', '-')}`}>Filter<span className='visually-hidden'> {filterGroupUid.replaceAll('_', ' ')} options</span></label>
         <input
           type='text'
           className='multiselect-search'
-          aria-label='Filter options'
+          id={`filter-options-${filterGroupUid.replaceAll('_', '-')}`}
           aria-describedby={filterGroupUid}
-          placeholder='Filter'
           value={filterQuery}
           onChange={(event) => {
             return this.handleFilterQueryChange(event.target.value);
           }}
+          autoComplete='on'
         />
-        <p id={filterGroupUid} className='offscreen'>Below this edit box is a list of check oxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
+        <p id={filterGroupUid} className='offscreen'>Below this edit box is a list of checkboxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
         <fieldset className='multiselect-options'>
+          <legend className='visually-hidden'>Select {descriptionText}</legend>
           <ul className='multiselect-options-list'>
             {options.map((option, index) => {
               if (this.isOptionFiltered(option) && !showOnlySelectedOptions) {

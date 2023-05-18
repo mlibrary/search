@@ -8,7 +8,7 @@ const Select = ({ field, setFieldChange }) => {
   const { name, value, options } = field;
 
   return (
-    <select id={name} name={name} className='dropdown' value={value} onChange={setFieldChange}>
+    <select id={name} name={name} className='dropdown' value={value} onChange={setFieldChange} autoComplete='off'>
       {options.map((option, key) => {
         return (
           <option
@@ -47,17 +47,15 @@ const Field = ({ field, setFieldChange, loading }) => {
     );
   } else if (type === 'submit') {
     return (
-      <>
-        <input
-          className='button margin-right-1'
-          id={name}
-          type={type}
-          name={name}
-          value={value}
-          disabled={loading}
-        />
-        {loading && (<span role='alert'>Placing hold ...</span>)}
-      </>
+      <button
+        className='button margin-right-1'
+        id={name}
+        type={type}
+        name={name}
+        disabled={loading}
+      >
+        {loading ? 'Placing hold ...' : value}
+      </button>
     );
   }
 
@@ -150,7 +148,7 @@ class GetThisForm extends React.Component {
               <li>When it is available, we'll hold it for you for 7 days.</li>
             </ul>
 
-            <a href='https://account.lib.umich.edu/pending-requests/u-m-library' className='underline'>View all your holds</a>
+            <a href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</a>
           </article>
         );
       } else {
@@ -158,9 +156,9 @@ class GetThisForm extends React.Component {
           <article className='alert alert-warning'>
             <h4>The hold/request could not be placed</h4>
 
-            <p><b>Status:</b> {response.status}</p>
+            <p><span className='strong'>Status:</span> {response.status}</p>
 
-            <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <a href='mailto:circservices@umich.edu' className='underline'>circservices@umich.edu</a> or <a href='tel:7347640401' className='underline'>(734) 764-0401</a> for assistance.</p>
+            <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <a href='mailto:circservices@umich.edu'>circservices@umich.edu</a> or <a href='tel:7347640401'>(734) 764-0401</a> for assistance.</p>
           </article>
         );
       }
@@ -177,7 +175,7 @@ class GetThisForm extends React.Component {
     if (!form) {
       return (
         <div className='alert alert-warning' role='alert'>
-          <p><b>Error:</b> Unable to fetch details.</p>
+          <p><span className='strong'>Error:</span> Unable to fetch details.</p>
         </div>
       );
     }

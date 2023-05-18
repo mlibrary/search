@@ -6,7 +6,7 @@ html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
+strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
@@ -84,10 +84,26 @@ html {
     html {
       font-size: 17px; } }
 
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   font-family: "Source Sans Pro", sans-serif;
   line-height: 1.4;
   color: #262626; }
+
+/*
+    Accessibility utilities
+*/
+.visually-hidden {
+  /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+}
 
 /*
   Headings
@@ -161,7 +177,17 @@ a {
   color: #126DC1;
   cursor: pointer;
   text-decoration: none;
-  font-weight: inherit; }
+  font-weight: inherit;
+}
+
+a:not([class], [id]) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+a:not([class], [id]):hover {
+  text-decoration-thickness: 2px;
+}
 
 *::selection {
   background: #CCE6FF; }
@@ -196,7 +222,8 @@ blockquote {
   color: #126DC1;
   font-style: italic; }
 
-b {
+b,
+.strong {
   font-weight: 600; }
 
 sup {
@@ -208,6 +235,10 @@ sup {
 
 .text-grey {
   color: #4E4E4E; }
+
+small[id*="-description"] {
+  display: block;
+}
 
 form {
   box-sizing: border-box; }
@@ -320,6 +351,13 @@ textarea {
 .button:hover {
   text-decoration: none; }
 
+.button:hover {
+  cursor: pointer;
+  background: #1060aa;
+  border-color: #0e5392;
+  color: white;
+}
+
 .button-secondary {
   display: inline-block;
   margin: 0;
@@ -331,6 +369,12 @@ textarea {
   line-height: inherit; }
   .button-secondary:hover {
     cursor: pointer; }
+
+.btn--secondary:hover {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 3px #4E4E4E;
+}
 
 .button[disabled] {
   opacity: 0.5; }
@@ -507,6 +551,9 @@ textarea {
   touch-action: manipulation; }
   .multiple-choice:not(:last-child) {
     margin-right: 1rem; }
+.multiple-choice:hover {
+  text-decoration: underline;
+}
 
 /* HTML5 Boilerplate accessible hidden styles */
 [type="radio"] {
@@ -635,16 +682,6 @@ textarea {
       margin-bottom: -0.75rem;
       margin-top: 0.25rem; } }
 
-.search-box-advanced-link {
-  margin-left: 1rem;
-  display: inline-block;
-  font-weight: 600; }
-  @media (max-width: 600px) {
-    .search-box-advanced-link {
-      font-size: 0.9rem;
-      flex: 0 1 100%;
-      margin: 0; } }
-
 .search-box-button {
   margin-left: 0.75rem;
   margin-right: 0;
@@ -681,17 +718,6 @@ textarea {
   overflow-x: auto;
   padding-top: 3px; }
 
-@media (min-width: 600px) {
-  .datastore-scroll-gradient {
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(248, 248, 248, 0)), color-stop(100%, #f8f8f8));
-    position: absolute;
-    pointer-events: none;
-    right: 0;
-    top: 0;
-    width: 2rem;
-    height: 100%;
-    z-index: 2; } }
-
 .datastore-item {
   padding: 0;
   margin: 0;
@@ -714,6 +740,9 @@ textarea {
   border-left: solid 3px transparent;
   background: transparent;
   text-align: left; }
+.datastore-button:hover {
+  text-decoration: underline;
+}
   .datastore-button .icon {
     margin-right: 0.5rem; }
   @media (min-width: 600px) {
@@ -1318,6 +1347,10 @@ body {
   padding: 0.75rem 1rem;
   border-radius: 0 0 4px 4px; }
 
+.bentobox-footer-container:hover {
+  text-decoration: underline;
+}
+
 .bentobox-no-results {
   margin: 0;
   background: white;
@@ -1433,7 +1466,7 @@ body {
 .record-preview-link {
   display: inline-block;
   margin-top: 0.5rem;
-  text-decoration: underline; }
+}
 
 .record-preview-format-list {
   display: inline-block;
@@ -1523,11 +1556,7 @@ body {
 .landing-extra-info {
   text-align: center;
   margin: 0;
-  padding: 0;
-  margin-bottom: 1rem; }
-  .landing-extra-info a {
-    font-size: 1rem;
-    border-bottom: solid 2px rgba(18, 109, 193, 0.5); }
+}
 
 .datastore-info-container {
   display: flex;
@@ -1535,11 +1564,11 @@ body {
   margin: 0.75rem 0;
   border-radius: 4px;
   justify-content: space-between; }
-  .datastore-info-container h1 {
+  .datastore-info-container p {
     font-size: 0.875rem;
     margin: 0;
     line-height: 1.7;
-    font-weight: 400; }
+  }
 
 .datastore-info {
   padding-right: 1rem; }
@@ -1608,9 +1637,6 @@ body {
   right: 1rem;
   text-decoration: underline; }
 
-.feedback-qualtrics-link {
-  text-decoration: underline; }
-
 .advanced-search-form {
   margin-bottom: 2rem; }
 
@@ -1637,6 +1663,9 @@ body {
   @media (max-width: 820px) {
     .advanced-input-remove-button {
       padding: 0.5rem; } }
+.advanced-input-remove-button:hover {
+  border-color: #818181;
+}
 
 .advanced-heading {
   margin: 1rem 0;
@@ -1782,31 +1811,28 @@ input.multiselect-search {
   padding: 0;
   list-style: none; }
 
-.multiselect-options-list-item {
-  margin: 0;
-  padding: 0;
-  margin-bottom: 0.1rem; }
+.multiselect-options-list > * + * {
+  margin-top: 0.25rem;
+}
   .multiselect-options-list-item .checkbox {
-    margin-top: 0.15rem; }
-  .multiselect-options-list-item .checkbox-label:hover .filter-name {
-    text-decoration: underline; }
+    font-size: 0.9rem;
+  }
+.multiselect-options-list-item .checkbox > *:first-child {
+  margin-top: 0.125em;
+}
 
 .multiselect-show-checked-toggle {
   margin-top: 0.5rem;
   font-size: 0.9rem; }
 
-input.date-range-input-text {
-  margin-top: 1rem;
-  width: 50%; }
-
 .date-range-input .switch-options {
   justify-content: flex-start; }
 
 .date-range-container {
-  display: flex; }
-
-.date-range-input-text:nth-child(2) {
-  margin-left: 1rem; }
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
 
 .chat-widget {
   position: fixed;
@@ -1903,8 +1929,23 @@ input.date-range-input-text {
   cursor: pointer; }
 
 .checkbox {
-  margin-right: 0.5rem;
-  cursor: pointer; }
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  gap: 0.375em;
+}
+
+.checkbox:hover {
+  text-decoration: underline;
+}
+
+.checkbox + .checkbox {
+  margin-top: 0.25rem;
+}
+
+.checkbox > span[class^="filter-checkbox-"] {
+  margin-top: 0.125rem;
+}
 
 .institution-select-container {
   background: #FAFAFA;
@@ -2393,6 +2434,9 @@ input.get-this-field-input-year {
   display: flex;
   flex-direction: column;
   align-items: center; }
+.lists-action-button:hover {
+  text-decoration: underline;
+}
   .lists-action-button .icon {
     margin-bottom: 0.2rem;
     color: #4E4E4E;
@@ -2408,15 +2452,19 @@ input.get-this-field-input-year {
 
 .lists-action-form {
   display: flex;
+  gap: 1rem;
   margin-top: 1rem;
   max-width: 100%;
   width: 24rem;
-  align-items: flex-end; }
-  .lists-action-form > * {
-    margin-right: 1rem; }
+  align-items: flex-start;
+}
 
 .lists-action-field-container {
   width: 100%; }
+
+.lists-action-field-container + button {
+  margin-top: 1.4rem;
+}
 
 .lists-action {
   padding: 0;

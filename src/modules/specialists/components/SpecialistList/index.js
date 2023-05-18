@@ -17,10 +17,7 @@ const SpecialistList = ({
     <>
       <article className='specialists'>
         <div className='specialists__inner-container'>
-          <header>
-            <h2 className='specialists__heading'>Talk to a Library Specialist</h2>
-          </header>
-
+          <h2 className='specialists__heading'>Talk to a Library Specialist</h2>
           <section className='specialists__content'>
             <ShowAllChildren
               length={specialists.length}

@@ -121,7 +121,10 @@ export default function ChooseAffiliation () {
               right: '1.5rem',
               top: '1.5rem',
               border: 'none',
-              textDecoration: 'underline'
+              textDecoration: 'underline',
+              '&:hover': {
+                textDecoration: 'none'
+              }
             }}
           >
             Dismiss
