@@ -364,7 +364,9 @@ textarea {
     cursor: pointer; }
 
 .btn--secondary:hover {
-  text-decoration: underline;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 3px #4E4E4E;
 }
 
 .button[disabled] {
@@ -1337,6 +1339,10 @@ body {
   background: #FAFAFA;
   padding: 0.75rem 1rem;
   border-radius: 0 0 4px 4px; }
+
+.bentobox-footer-container:hover {
+  text-decoration: underline;
+}
 
 .bentobox-no-results {
   margin: 0;

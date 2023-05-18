@@ -23,7 +23,7 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
   }
 
   return (
-    <header>
+    <>
       <h3 className='record-preview-heading'>
         {[].concat(record.names).map((title, index) => {
           if (index > 0) {
@@ -58,7 +58,7 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
         })}
         <RecommendedResource record={record} />
       </h3>
-    </header>
+    </>
   );
 };
 
@@ -79,7 +79,7 @@ const Footer = ({ record, datastoreUid }) => {
   if (record.resourceAccess && record.resourceAccess[0]) {
     const accessCell = record.resourceAccess[0].rows[0][0];
     return (
-      <footer>
+      <>
         {outage && (
           <p
             style={{
@@ -91,13 +91,17 @@ const Footer = ({ record, datastoreUid }) => {
             <Icon icon='warning' /> {outage}
           </p>
         )}
-        <a
+        <p
           className='record-preview-link'
-          href={accessCell.href}
+          style={{
+            marginBottom: '0'
+          }}
         >
-          {accessCell.text}
-        </a>
-      </footer>
+          <a href={accessCell.href}>
+            {accessCell.text}
+          </a>
+        </p>
+      </>
     );
   }
 
