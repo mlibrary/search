@@ -210,6 +210,7 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
       style={{ marginTop: '0.75rem' }}
     >
       <div className='side-container'>
+        <h2 className='visually-hidden'>{activeDatastore.name} Filter Options</h2>
         <button
           className={`small-screen-filter-details ${summaryClassName}`}
           onClick={(event) => {
@@ -271,6 +272,7 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
         </div>
       </div>
       <div className='results-container'>
+        <h2 className='visually-hidden'>{activeDatastore.name} Results</h2>
         <RecordList />
         <Pagination />
       </div>
