@@ -105,7 +105,6 @@ function CheckboxFilter ({ label, isChecked, url }) {
       }}
     >
       <span
-        aria-hidden='true'
         css={{
           color: isChecked ? '#126DC1' : COLORS.neutral['300'],
           marginRight: SPACING['2XS'],

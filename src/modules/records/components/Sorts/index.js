@@ -59,13 +59,20 @@ class Sorts extends React.Component {
 
     if (sorts && sorts.length > 0) {
       return (
-        <label className='sorts-label'>
-          <span className='sorts-label-text'>Sort by</span>
+        <div>
+          <label
+            className='sorts-label sorts-label-text'
+            htmlFor='sort-by'
+            style={{ display: 'inline-block' }}
+          >
+            Sort by
+          </label>
           <select
             className='dropdown sorts-select'
             value={sort}
             onChange={this.handleOnChange}
             autoComplete='off'
+            id='sort-by'
           >
             {sorts.map((item, index) => {
               return (
@@ -73,7 +80,7 @@ class Sorts extends React.Component {
               );
             })}
           </select>
-        </label>
+        </div>
       );
     }
 

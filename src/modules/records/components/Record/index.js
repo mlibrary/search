@@ -129,7 +129,7 @@ class Record extends React.Component {
               }
             }}
           >
-            <h2 className='visually-hidden'>Available at</h2>
+            <h4 className='visually-hidden'>{record.names[0]} is available at:</h4>
             <ResourceAccess record={record} />
           </div>
         </article>

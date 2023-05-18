@@ -16,6 +16,40 @@ const cellPadding = {
   paddingRight: SPACING.L
 };
 
+const notesList = (notes) => {
+  if (!notes) return null;
+
+  if (notes.length === 1) {
+    return (
+      <p
+        css={{
+          color: COLORS.neutral['300']
+        }}
+      >
+        {notes[0]}
+      </p>
+    );
+  }
+
+  return (
+    <ul>
+      {notes.map((note, i) => {
+        return (
+          <li
+            key={note + i}
+            css={{
+              paddingBottom: SPACING.XS,
+              color: COLORS.neutral['300']
+            }}
+          >
+            {note}
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
 export default function Holder ({
   record,
   headings,
@@ -47,23 +81,8 @@ export default function Holder ({
           </a>
         </p>
       )}
-      {notes && (
-        <ul>
-          {notes.map((note, i) => {
-            return (
-              <li
-                key={note + i}
-                css={{
-                  paddingBottom: SPACING.XS,
-                  color: COLORS.neutral['300']
-                }}
-              >
-                {note}
-              </li>
-            );
-          })}
-        </ul>
-      )}
+
+      {notesList(notes)}
 
       {rows && (
         <Expandable>
