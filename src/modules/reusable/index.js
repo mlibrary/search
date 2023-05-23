@@ -1,5 +1,6 @@
 import Alert from './components/Alert';
 import Button from './components/Button';
+import Dialog from './components/Dialog';
 import Tag from './components/Tag';
 import Modal from './components/Modal';
 import Breadcrumb from './components/Breadcrumb';
@@ -14,6 +15,7 @@ import ResourceAccess from './components/ResourceAccess';
 export {
   Alert,
   Button,
+  Dialog,
   Tag,
   Modal,
   Breadcrumb,
