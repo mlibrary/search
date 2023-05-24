@@ -2,65 +2,90 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Dialog (props) {
+export default function Dialog ({ closeOnOutsideClick, onRequestClose, open, ...props }) {
+  const dialogRef = React.useRef(null);
+  const lastActiveElement = React.useRef(null);
+
+  React.useEffect(() => {
+    const dialogNode = dialogRef.current;
+    if (!dialogNode.hasAttribute('open') && open) {
+      lastActiveElement.current = document.activeElement;
+      dialogNode.showModal();
+      document.querySelector('body').style.overflow = 'hidden';
+    } else {
+      dialogNode.close();
+      lastActiveElement?.current?.focus();
+    }
+  }, [open]);
+
+  React.useEffect(() => {
+    const dialogNode = dialogRef.current;
+    const handleCancel = (event) => {
+      event.preventDefault();
+      onRequestClose();
+    };
+    dialogNode.addEventListener('cancel', handleCancel);
+    return () => {
+      dialogNode.removeEventListener('cancel', handleCancel);
+      document.querySelector('body').style.overflow = 'auto';
+    };
+  }, [onRequestClose]);
+
+  function handleOutsideClick (event) {
+    const dialogNode = dialogRef.current;
+    if (closeOnOutsideClick && event.target === dialogNode) {
+      onRequestClose();
+    }
+  }
+
   return (
-    <div
-      className='dialog-backdrop'
+    <dialog
+      ref={dialogRef}
       css={{
-        backgroundColor: 'rgba(16, 22, 26, 0.7)',
-        display: 'block',
+        border: '0',
         height: '100%',
-        left: '0',
-        position: 'absolute',
-        top: '0',
+        maxHeight: '100%',
+        maxWidth: '100%',
         width: '100%',
-        zIndex: '998'
-      }}
-      onClick={(event) => {
-        if (event.target.classList.contains('dialog-backdrop')) {
-          event.target.style.display = 'none';
-          event.target.querySelector('dialog').close();
+        padding: '0',
+        '@media only screen and (min-width: 640px)': {
+          borderRadius: '4px',
+          boxShadow: `
+            0 0 0 1px rgba(16, 22, 26, 0.1),
+            0 4px 8px rgba(16, 22, 26, 0.2),
+            0 18px 46px 6px rgba(16, 22, 26, 0.2)
+          `,
+          height: 'max-content',
+          marginTop: '200px',
+          maxHeight: 'calc(100vh - 400px)',
+          maxWidth: '40rem'
+        },
+        '::backdrop': {
+          background: 'rgba(16, 22, 26, 0.7);'
         }
       }}
+      onClick={(event) => {
+        return handleOutsideClick(event);
+      }}
     >
-      <dialog
-        open
+      <div
         css={{
-          border: '0',
           height: '100%',
-          left: '0',
-          margin: '0',
-          overflow: 'auto',
-          position: 'fixed',
-          top: '0',
           width: '100%',
-          zIndex: '999',
+          padding: '1rem',
           '@media only screen and (min-width: 640px)': {
-            borderRadius: '4px',
-            boxShadow: `
-              0 0 0 1px rgba(16, 22, 26, 0.1),
-              0 4px 8px rgba(16, 22, 26, 0.2),
-              0 18px 46px 6px rgba(16, 22, 26, 0.2)
-            `,
             height: 'auto',
-            left: '50%',
-            maxHeight: 'calc(100vh - 400px)',
-            maxWidth: '40rem',
-            padding: '2rem',
-            top: '200px',
-            transform: 'translateX(-50%)'
+            padding: '2rem'
           }
         }}
-      >
-        {props.children}
-      </dialog>
-    </div>
+        {...props}
+      />
+    </dialog>
   );
 }
 
 Dialog.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
+  closeOnOutsideClick: PropTypes.bool,
+  onRequestClose: PropTypes.func,
+  open: PropTypes.bool
 };
