@@ -11,10 +11,9 @@ export default function ChooseAffiliation () {
     return state.affiliation;
   });
   const [cookies] = useCookies(['affiliation']);
-  let affiliation = defaultAffiliation;
-  if (cookies.affiliation) {
-    affiliation = cookies.affiliation;
-  }
+  let affiliation = cookies.affiliation || defaultAffiliation;
+  const urlParams = new URLSearchParams(window.location.search);
+  affiliation = urlParams.get('affiliation') || affiliation;
   const alternativeAffiliation = affiliation === 'flint' ? 'aa' : 'flint';
   const changeAffiliation = () => {
     const parsed = qs.parse(document.location.search.substring(1), {
