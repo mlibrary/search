@@ -1,127 +1,84 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Modal, Button } from '../../../reusable';
-import { SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
+import { Button } from '../../../reusable';
 import PropTypes from 'prop-types';
 
-class CitationAction extends React.Component {
+class PermalinkAction extends React.Component {
   state = {
-    modalIsOpen: false,
     copied: false,
-    permalink: ''
-  };
-
-  handleCloseModal = () => {
-    this.setState({ modalIsOpen: false });
-
-    // Unselects the citation button from the actions lists.
-    this.props.setActive(undefined);
-  };
-
-  handleOpenModal = () => {
-    this.setState({ modalIsOpen: true });
+    permalink: '',
+    status: undefined
   };
 
   componentDidMount () {
-    this.handleOpenModal();
-
     this.setState({
       permalink: document.location.origin + document.location.pathname
     });
   }
 
-  handleCopy = () => {
-    navigator.clipboard.writeText(this.state.permalink);
-    this.handleCopied();
+  handleSubmitCallback = (data) => {
+    this.setState({ status: data });
   };
 
-  handleCopied = () => {
-    this.handleCloseModal();
+  setCloseStatus = () => {
+    this.props.setActive('');
+    this.setState({ status: undefined, copied: false });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    navigator.clipboard.writeText(this.state.permalink);
+    this.setState({ copied: true });
     this.props.setAlert({
       intent: 'success',
       text: 'Link copied!'
     });
+    this.setCloseStatus();
   };
 
-  render () {
-    return (
-      <div style={{
-        background: SEARCH_COLORS.grey[100]
-      }}
-      >
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.handleCloseModal}
-          className={this.props.className}
-        >
-          <h2
-            className='heading-medium'
-            style={{ marginTop: '0' }}
-          >
-            Copy link
-          </h2>
+  renderForm = () => {
+    const { status } = this.state;
 
-          <div
-            css={{
-              width: '100%',
-              boxSizing: 'border-box'
-            }}
-          >
-            <label
-              htmlFor='permalink-action'
-              className='offscreen'
-            >
-              Permalink
-            </label>
+    if (!status || status.status_code !== 'action.response.success') {
+      return (
+        <form className='lists-action-form' onSubmit={this.handleSubmit}>
+          <div className='lists-action-field-container'>
+            <label htmlFor='permalink-action'>Copy link</label>
             <input
-              type='text'
               id='permalink-action'
-              value={this.state.permalink}
-              onFocus={(e) => {
-                return e.target.select();
-              }}
+              type='text'
               readOnly
-              css={{
-                marginBottom: '0.5rem',
-                width: '100%',
-                padding: '0.5rem 0.75rem',
-                color: '#333',
-                cursor: 'pointer'
-              }}
+              value={this.state.permalink}
               autoComplete='off'
             />
           </div>
+          <Button type='submit' style={{ whiteSpace: 'nowrap' }}>Copy link</Button>
+        </form>
+      );
+    }
 
-          <div className='y-spacing'>
-            <div
-              className='x-spacing' style={{
-                marginTop: '0.5rem'
-              }}
-            >
-              <Button
-                onClick={this.handleCopy}
-              >
-                Copy link
-              </Button>
+    return null;
+  };
 
-              <Button
-                kind='secondary'
-                onClick={this.handleCloseModal}
-              >
-                Close
-              </Button>
-            </div>
-          </div>
-        </Modal>
-      </div>
+  render () {
+    const { listLength } = this.props;
+
+    if (listLength === 0) {
+      return null;
+    }
+
+    return (
+      <section className='lists-action'>
+        {this.renderForm()}
+      </section>
     );
   }
 }
 
-CitationAction.propTypes = {
+PermalinkAction.propTypes = {
   setActive: PropTypes.func,
-  setAlert: PropTypes.func,
-  className: PropTypes.string
+  listLength: PropTypes.number,
+  setAlert: PropTypes.func
 };
 
-export default CitationAction;
+export default PermalinkAction;
