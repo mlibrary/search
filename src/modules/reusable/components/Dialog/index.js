@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 export default function Dialog ({ closeOnOutsideClick, onRequestClose, open, ...props }) {
-  const dialogRef = React.useRef(null);
-  const lastActiveElement = React.useRef(null);
+  const dialogRef = useRef(null);
+  const lastActiveElement = useRef(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const dialogNode = dialogRef.current;
     if (!dialogNode.hasAttribute('open') && open) {
       lastActiveElement.current = document.activeElement;
@@ -18,7 +18,7 @@ export default function Dialog ({ closeOnOutsideClick, onRequestClose, open, ...
     }
   }, [open]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const dialogNode = dialogRef.current;
     const handleCancel = (event) => {
       event.preventDefault();
