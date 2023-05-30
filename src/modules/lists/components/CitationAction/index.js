@@ -112,19 +112,28 @@ class CitationAction extends Component {
                 {this.state[co.id]
                   ? (
                     <>
+                      <label
+                        id={`${co.name}-label`}
+                        style={{
+                          marginTop: '0.5rem'
+                        }}
+                      >
+                        {co.name} citation
+                      </label>
                       <div
                         style={{
                           border: 'solid 1px rgba(0, 0, 0, 0.3)',
                           boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.08)',
                           borderRadius: '4px',
                           padding: '0.5rem 0.75rem',
-                          marginTop: '1rem',
-                          overflowY: 'scroll',
+                          overflowY: 'auto',
                           maxHeight: '40vh'
                         }}
                         className='y-spacing copy-citation'
                         contentEditable='true'
                         aria-describedby={`${co.id}-disclaimer`}
+                        aria-labelledby={`${co.name}-label`}
+                        role='textbox'
                         dangerouslySetInnerHTML={{
                           __html: this.state[co.id]
                         }}
