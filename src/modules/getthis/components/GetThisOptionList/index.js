@@ -57,7 +57,7 @@ class GetThisOptions extends React.Component {
 
         return (
           <Section>
-            <a href={loginUrl} className='button'><b>Log in</b> to view request options</a>
+            <a href={loginUrl} className='button'><span className='strong'>Log in</span> to view request options</a>
           </Section>
         );
       } else {
@@ -66,7 +66,7 @@ class GetThisOptions extends React.Component {
             <div className='alert'>
               <p>Sorry, something unexpected happened.</p>
 
-              <p><b>Status:</b> {status}</p>
+              <p><span className='strong'>Status:</span> {status}</p>
             </div>
           </Section>
         );

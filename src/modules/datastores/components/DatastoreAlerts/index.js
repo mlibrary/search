@@ -25,10 +25,7 @@ function COVIDAlert () {
           padding: SPACING.S,
           background: COLORS.orange['100'],
           borderBottom: `solid 1px ${COLORS.orange['300']}`,
-          paddingBottom: SPACING.L,
-          a: {
-            textDecoration: 'underline'
-          }
+          paddingBottom: SPACING.L
         }}
         role='alert'
       >

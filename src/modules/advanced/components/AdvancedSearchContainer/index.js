@@ -56,7 +56,7 @@ class AdvancedSearchContainer extends React.Component {
           }}
         />
 
-        <h1 className='heading-xlarge'>Advanced Search</h1>
+        <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Advanced Search</h1>
         <p className='font-lede'>Select a search category below for associated advanced search options.</p>
 
         <Tabs defaultIndex={activeDatastoreIndex}>

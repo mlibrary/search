@@ -10,10 +10,38 @@ import {
 } from '../../reusable';
 import PropTypes from 'prop-types';
 
-const cellPadding = {
-  paddingTop: SPACING.XS,
-  paddingBottom: SPACING.XS,
-  paddingRight: SPACING.L
+const notesList = (notes) => {
+  if (!notes) return null;
+
+  if (notes.length === 1) {
+    return (
+      <p
+        css={{
+          color: COLORS.neutral['300']
+        }}
+      >
+        {notes[0]}
+      </p>
+    );
+  }
+
+  return (
+    <ul>
+      {notes.map((note, i) => {
+        return (
+          <li
+            key={note + i}
+            css={{
+              paddingBottom: SPACING.XS,
+              color: COLORS.neutral['300']
+            }}
+          >
+            {note}
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
 export default function Holder ({
@@ -26,45 +54,24 @@ export default function Holder ({
   ...rest
 }) {
   return (
-    <div
-      css={{
-        a: {
-          textDecoration: 'underline'
-        },
-        padding: `${SPACING.S} 0`
-      }}
-      {...rest}
-    >
+    <div {...rest}>
       {captionLink && (
-        <p css={{ margin: '0' }}>
-          <a
-            href={captionLink.href}
-            css={{
-              color: COLORS.neutral['400'],
-              display: 'inline-block'
-            }}
-          >
+        <p
+          css={{
+            display: 'inline-block',
+            margin: '0',
+            a: {
+              color: COLORS.neutral['400']
+            }
+          }}
+        >
+          <a href={captionLink.href}>
             {captionLink.text}
           </a>
         </p>
       )}
-      {notes && (
-        <ul>
-          {notes.map((note, i) => {
-            return (
-              <li
-                key={note + i}
-                css={{
-                  paddingBottom: SPACING.XS,
-                  color: COLORS.neutral['300']
-                }}
-              >
-                {note}
-              </li>
-            );
-          })}
-        </ul>
-      )}
+
+      {notesList(notes)}
 
       {rows && (
         <Expandable>
@@ -75,10 +82,20 @@ export default function Holder ({
           >
             <table
               css={{
-                width: '100%',
                 minWidth: '24rem',
+                tableLayout: 'fixed',
                 textAlign: 'left',
-                tableLayout: 'fixed'
+                width: '100%',
+                'tr > *': {
+                  padding: '0.5rem 0',
+                  width: 'auto',
+                  '& + *': {
+                    paddingLeft: '1.5rem'
+                  },
+                  '&:nth-of-type(3):last-of-type': {
+                    width: '50%'
+                  }
+                }
               }}
             >
               <thead>
@@ -89,12 +106,9 @@ export default function Holder ({
                         scope='col'
                         key={i}
                         css={{
-                          fontWeight: '600',
-                          color: COLORS.neutral['300'],
-                          ...cellPadding,
                           borderBottom: `solid 2px ${COLORS.neutral['100']}`,
-                          width:
-                          headings.length === 3 && i === 2 ? '50%' : 'auto'
+                          color: COLORS.neutral['300'],
+                          fontWeight: '600'
                         }}
                       >
                         {heading}
@@ -145,7 +159,6 @@ function HolderRows ({ rows }) {
         <td
           colSpan={`${rows[0].length}`}
           css={{
-            ...cellPadding,
             wordBreak: 'break-word'
           }}
         >

@@ -1,16 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { useSelector } from 'react-redux';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionItemState,
-  AccordionItemHeading,
-  AccordionItemButton,
-  AccordionItemPanel
-} from 'react-accessible-accordion';
 import {
   Expandable,
   ExpandableChildren,
@@ -47,26 +39,21 @@ function FiltersLoadingContainer ({ children }) {
 }
 
 FiltersLoadingContainer.propTypes = {
-  children: PropTypes.object
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 export default function Filters () {
   const { datastores, filters } = useSelector((state) => {
     return state;
   });
-  const { order, groups } = filters;
+  const { order } = filters;
 
   if (!order) {
     return null;
   }
-
-  const preExpandedFilterGroups = order.reduce((memo, uid) => {
-    if (groups[uid] && groups[uid].preExpanded) {
-      memo = memo.concat(datastores.active + '-' + uid);
-    }
-
-    return memo;
-  }, []);
 
   return (
     <section
@@ -78,25 +65,11 @@ export default function Filters () {
       <ActiveFilters />
       <CheckboxFilters />
       <FiltersLoadingContainer>
-        <Accordion
-          preExpanded={preExpandedFilterGroups}
-          key={preExpandedFilterGroups.join('-')}
-          allowMultipleExpanded
-          allowZeroExpanded
-          css={{
-            margin: 0,
-            padding: 0,
-            '& > *': {
-              ...filterGroupStyles
-            }
-          }}
-        >
-          {order.map((uid) => {
-            return (
-              <FilterGroupContainer uid={uid} key={datastores.active + uid} />
-            );
-          })}
-        </Accordion>
+        {order.map((uid) => {
+          return (
+            <FilterGroupContainer uid={uid} key={datastores.active + uid} />
+          );
+        })}
       </FiltersLoadingContainer>
     </section>
   );
@@ -186,26 +159,21 @@ function ActiveFilters () {
         })}
       </ul>
 
-      {items.length > 1 && <ClearActiveFiltersLink />}
+      {
+        items.length > 1 &&
+          <Link
+            to={getURLWithoutFilters()}
+            css={{
+              display: 'inline-block',
+              paddingTop: SPACING.XS,
+              textDecoration: 'underline',
+              color: COLORS.neutral['300']
+            }}
+          >
+            Clear all active filters
+          </Link>
+      }
     </section>
-  );
-}
-
-function ClearActiveFiltersLink () {
-  const url = getURLWithoutFilters();
-
-  return (
-    <Link
-      to={url}
-      css={{
-        display: 'inline-block',
-        paddingTop: SPACING.XS,
-        textDecoration: 'underline',
-        color: COLORS.neutral['300']
-      }}
-    >
-      Clear all active filters
-    </Link>
   );
 }
 
@@ -295,58 +263,55 @@ function FilterGroupMultiselect ({ filters, group, uid, uuid, activeFilters }) {
   }
 
   return (
-    <AccordionItem uuid={uuid} key={uuid}>
-      <AccordionItemState>
-        {({ expanded }) => {
-          return (
-            <>
-              <AccordionItemHeading>
-                <AccordionItemButton
-                  css={{
-                    padding: SPACING.S,
-                    margin: `0 -${SPACING.S}`,
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    ':hover': {
-                      textDecoration: 'underline'
-                    },
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                  }}
-                >
-                  <span>{group.metadata.name}</span>
-                  <span
-                    css={{
-                      color: COLORS.neutral['300']
-                    }}
-                  >
-                    {expanded
-                      ? (
-                        <Icon
-                          size={24}
-                          d='M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z'
-                        />
-                        )
-                      : (
-                        <Icon
-                          size={24}
-                          d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z'
-                        />
-                        )}
-                  </span>
-                </AccordionItemButton>
-              </AccordionItemHeading>
-              <FilterGroupFilters
-                group={group}
-                expanded={expanded}
-                filters={filtersWithoutActive}
-              />
-            </>
-          );
+    <details
+      open={group.preExpanded}
+      css={{
+        borderBottom: '1px solid rgb(229, 233, 237)',
+        '& > *': {
+          padding: '0 0.75rem'
+        },
+        '&:not([open]) > summary svg:first-of-type, &[open] > summary svg:last-of-type': {
+          display: 'none'
+        }
+      }}
+    >
+      <summary
+        css={{
+          cursor: 'pointer',
+          display: 'flex',
+          fontWeight: '600',
+          justifyContent: 'space-between',
+          listStyle: 'none',
+          padding: '0.75rem!important',
+          '&::-webkit-details-marker': {
+            display: 'none'
+          },
+          ':hover': {
+            textDecoration: 'underline'
+          }
         }}
-      </AccordionItemState>
-    </AccordionItem>
+      >
+        <span>{group.metadata.name}</span>
+        <span
+          css={{
+            color: COLORS.neutral['300']
+          }}
+        >
+          <Icon
+            size={24}
+            d='M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z'
+          />
+          <Icon
+            size={24}
+            d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z'
+          />
+        </span>
+      </summary>
+      <FilterGroupFilters
+        group={group}
+        filters={filtersWithoutActive}
+      />
+    </details>
   );
 }
 
@@ -358,13 +323,13 @@ FilterGroupMultiselect.propTypes = {
   activeFilters: PropTypes.array
 };
 
-function FilterGroupFilters ({ group, expanded, hidden = false, filters }) {
-  if (hidden || !expanded || filters.length === 0) {
+function FilterGroupFilters ({ group, hidden = false, filters }) {
+  if (hidden || filters.length === 0) {
     return null;
   }
 
   return (
-    <AccordionItemPanel>
+    <div>
       <Expandable>
         <ul
           css={{
@@ -399,13 +364,12 @@ function FilterGroupFilters ({ group, expanded, hidden = false, filters }) {
           />
         </div>
       </Expandable>
-    </AccordionItemPanel>
+    </div>
   );
 }
 
 FilterGroupFilters.propTypes = {
   group: PropTypes.object,
-  expanded: PropTypes.bool,
   hidden: PropTypes.bool,
   filters: PropTypes.array
 };

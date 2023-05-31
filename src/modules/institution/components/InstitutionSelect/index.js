@@ -32,6 +32,7 @@ class InstitutionSelect extends React.Component {
 
       return (
         <fieldset className='radio-fieldset'>
+          <legend className='visually-hidden'>Institutions</legend>
           {options.map((option, index) => {
             return (
               <span key={index}>
@@ -61,24 +62,30 @@ class InstitutionSelect extends React.Component {
     } else {
       return (
         <fieldset className='institution-select-container'>
-          <label className='institution-select-label'>
-            <span className='institution-select-label-text'>Library Scope</span>
-            <select
-              className='dropdown'
-              value={active || defaultInstitution}
-              onChange={(event) => {
-                return this.handleChange(event);
-              }}
-            >
-              {options.map((option, index) => {
-                return (
-                  <option value={option} key={index}>
-                    {option}
-                  </option>
-                );
-              })}
-            </select>
+          <legend className='visually-hidden'>Institutions</legend>
+          <label
+            className='institution-select-label institution-select-label-text'
+            htmlFor='library-scope'
+          >
+            Library Scope
           </label>
+          <select
+            className='dropdown'
+            value={active || defaultInstitution}
+            onChange={(event) => {
+              return this.handleChange(event);
+            }}
+            id='library-scope'
+            autoComplete='off'
+          >
+            {options.map((option, index) => {
+              return (
+                <option value={option} key={index}>
+                  {option}
+                </option>
+              );
+            })}
+          </select>
         </fieldset>
       );
     }

@@ -36,6 +36,9 @@ class AddToListButton extends React.Component {
 
   render () {
     const { list, item, datastore } = this.props;
+    const getRecordTitle = item.fields.filter((field) => {
+      return field.uid === 'title';
+    })[0].value;
     const inList = isInList(list, item.uid);
 
     /*
@@ -59,8 +62,9 @@ class AddToListButton extends React.Component {
             return this.handleClick(inList, item);
           }}
           isChecked={inList}
-          label={`Add to my temporary ${datastore.name} list`}
+          label={`Add "${getRecordTitle}" to my temporary ${datastore.name} list`}
           hideLabel
+          uid={item.uid}
         />
       </div>
     );

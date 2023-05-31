@@ -35,7 +35,7 @@ class List extends Component {
     if (!list || this.getListLength() === 0) {
       return (
         <section className='alert'>
-          <p><b>This list is empty</b>. <Link className='underline' to={`/${datastore.slug}${document.location.search}`}>Go back to {datastore.name}</Link> to add to this list.</p>
+          <p><span className='strong'>This list is empty</span>. <Link to={`/${datastore.slug}${document.location.search}`}>Go back to {datastore.name}</Link> to add to this list.</p>
         </section>
       );
     }
@@ -74,7 +74,8 @@ class List extends Component {
           className='button-link underline lists-remove-all text-small' onClick={() => {
             return this.handleRemoveAllFromList({ datastoreUid });
           }}
-        >Remove all
+        >
+          Remove all
         </button>
       );
     }
@@ -100,13 +101,13 @@ class List extends Component {
           }}
         />
 
-        <header className='lists-header'>
-          <h1 className='heading-xlarge'>My Temporary {datastore.name} List</h1>
+        <div className='lists-header'>
+          <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>My Temporary {datastore.name} List</h1>
           <div className='lists-header-info'>
             {this.renderRemoveAllFromListButton(list, datastore)}
-            <p className='lists-count-tag'><b>{this.getListLength()}</b> in list</p>
+            <p className='lists-count-tag'><span className='strong'>{this.getListLength()}</span> in list</p>
           </div>
-        </header>
+        </div>
         <p className='font-lede' style={{ marginTop: '0' }}>Items in this list are stored temporarily (within a single session).</p>
         <section className='lists-section'>
           <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>Actions</h2>

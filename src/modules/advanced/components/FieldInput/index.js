@@ -51,6 +51,7 @@ function FieldInput ({
               selectedFieldUid: event.target.value
             });
           }}
+          autoComplete='off'
         >
           <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
         </select>
@@ -61,16 +62,8 @@ function FieldInput ({
               boxSizing: 'border-box'
             }}
           >
-            <label
-              htmlFor={`fielded-search-text-input-${fieldedSearchIndex + 1}`}
-              className='offscreen'
-            >
-              Search Term {fieldedSearchIndex + 1}
-            </label>
             <input
               type='text'
-              id={`fielded-search-text-input-${fieldedSearchIndex + 1}`}
-              placeholder={`Search Term ${fieldedSearchIndex + 1}`}
               value={fieldedSearch.query}
               data-hj-allow
               onChange={(event) => {
@@ -79,6 +72,8 @@ function FieldInput ({
                   query: event.target.value
                 });
               }}
+              autoComplete='on'
+              aria-label={`Search Term ${fieldedSearchIndex + 1}`}
             />
           </div>
           {fieldedSearchIndex > 0

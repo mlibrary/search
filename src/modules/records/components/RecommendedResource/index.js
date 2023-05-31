@@ -10,7 +10,7 @@ const isRecommended = (record) => {
 const RecommendedResource = ({ record }) => {
   if (isRecommended(record)) {
     return (
-      <b className='recommended-resource-tag'>Recommended</b>
+      <span className='recommended-resource-tag strong'>Recommended</span>
     );
   }
 

@@ -8,8 +8,8 @@ const NoMatch = function NoMatch () {
 
   return (
     <div className='container container-narrow'>
-      <div className='page-not-found-container'>
-        <h1 className='heading-xlarge'>
+      <main className='page-not-found-container'>
+        <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>
           Page not found - 404
         </h1>
         <p className='font-lede'>We can't find the page you're looking for.</p>
@@ -24,7 +24,7 @@ const NoMatch = function NoMatch () {
         }}
         >
           <li>
-            <p>Start over from <Link to='/everything' className='underline'>the homepage</Link>.</p>
+            <p>Start over from <Link to='/everything'>the homepage</Link>.</p>
           </li>
           <li>
             <p>The link to the resource you're looking for may have changed, please
@@ -33,18 +33,18 @@ const NoMatch = function NoMatch () {
           </li>
           <li>
             <p>
-              <Link to='/databases/browse' className='underline'>Browse all Databases</Link> or <Link to='/onlinejournals/browse' className='underline'>Browse all Online Journals</Link> to view comprehensive lists
+              <Link to='/databases/browse'>Browse all Databases</Link> or <Link to='/onlinejournals/browse'>Browse all Online Journals</Link> to view comprehensive lists
               of current library resources.
             </p>
           </li>
           <li>
             <p>
-              <a href='https://www.lib.umich.edu/ask-librarian' className='underline'>Ask a librarian</a> and we'll help you find what you're
+              <a href='https://www.lib.umich.edu/ask-librarian'>Ask a librarian</a> and we'll help you find what you're
               looking for!
             </p>
           </li>
         </ul>
-      </div>
+      </main>
     </div>
   );
 };

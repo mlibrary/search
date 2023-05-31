@@ -2,11 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { requestRecord, requestGetThis } from '../../../pride';
-import {
-  GetThisOptionList,
-  GetThisFAQ,
-  GetThisRecord
-} from '../../../getthis';
+import { GetThisOptionList, GetThisRecord } from '../../../getthis';
 import { Breadcrumb } from '../../../reusable';
 import PropTypes from 'prop-types';
 
@@ -29,7 +25,7 @@ class GetThisPageTemplate extends React.Component {
           />
         </div>
         <section>
-          <h1 className='heading-xlarge'>Get This</h1>
+          <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Get This</h1>
         </section>
 
         {this.props.children}
@@ -71,7 +67,7 @@ class GetThisPage extends React.Component {
       return (
         <GetThisPageTemplate>
           <div className='alert'>
-            <p><b>Error:</b> Unable to find this record.</p>
+            <p><span className='strong'>Error:</span> Unable to find this record.</p>
           </div>
         </GetThisPageTemplate>
       );
@@ -81,7 +77,6 @@ class GetThisPage extends React.Component {
       <GetThisPageTemplate recordUid={recordUid}>
         <GetThisRecord barcode={barcode} />
         <GetThisOptionList record={record} />
-        <GetThisFAQ />
       </GetThisPageTemplate>
     );
   }

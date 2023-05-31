@@ -8,16 +8,17 @@ class Checkbox extends React.Component {
       isChecked,
       handleClick,
       label,
-      hideLabel
+      hideLabel,
+      uid
     } = this.props;
 
     const labelTextClassName = hideLabel ? 'offscreen' : 'filter-name';
 
     return (
-      <label
+      <div
+        className='checkbox'
         role='checkbox'
-        aria-checked={isChecked}
-        className='checkbox-label'
+        aria-checked={!!isChecked}
         tabIndex='0'
         onClick={handleClick}
         onKeyDown={(event) => {
@@ -27,20 +28,27 @@ class Checkbox extends React.Component {
           }
         }}
       >
-        <div className='checkbox'>
-          {isChecked
-            ? (
-              <span className='filter-checkbox-checked'><Icon name='checkbox-checked' /></span>
-              )
-            : (
+        {isChecked
+          ? (
+            <span className='filter-checkbox-checked'>
+              <Icon name='checkbox-checked' />
+            </span>
+            )
+          : (
+            <span className='filter-checkbox-unchecked'>
               <Icon name='checkbox-unchecked' />
-              )}
-        </div>
-        <span
-          className={labelTextClassName}
-        >{label}
+            </span>
+            )}
+        <span className={labelTextClassName}>
+          {label}
         </span>
-      </label>
+        {uid &&
+          (
+            <span aria-hidden='true' className='visually-hidden'>
+              {uid}
+            </span>
+          )}
+      </div>
     );
   }
 }
@@ -49,7 +57,8 @@ Checkbox.propTypes = {
   isChecked: PropTypes.bool,
   handleClick: PropTypes.func,
   label: PropTypes.string,
-  hideLabel: PropTypes.bool
+  hideLabel: PropTypes.bool,
+  uid: PropTypes.string
 };
 
 export default Checkbox;

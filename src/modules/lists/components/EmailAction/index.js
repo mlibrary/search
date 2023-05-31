@@ -46,7 +46,14 @@ class EmailAction extends Component {
         <form className='lists-action-form' onSubmit={this.handleSubmit}>
           <div className='lists-action-field-container'>
             <label htmlFor='emailAddress'>Email address</label>
-            <input id='emailAddress' type='email' required placeholder='uniqname@umich.edu' value={this.state.email} onChange={this.handleChange} />
+            <input
+              id='emailAddress'
+              type='email'
+              required
+              value={this.state.email}
+              onChange={this.handleChange}
+              autoComplete='on'
+            />
           </div>
           <Button type='submit' style={{ whiteSpace: 'nowrap' }}>Send email</Button>
         </form>

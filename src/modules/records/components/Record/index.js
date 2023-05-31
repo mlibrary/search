@@ -7,7 +7,7 @@ import { getDatastoreSlugByUid } from '../../../pride';
 import { getField, getFieldValue } from '../../utilities';
 import { AddToListButton, isInList } from '../../../lists';
 import Zotero from '../Zotero';
-import { COLORS, MEDIA_QUERIES, SPACING } from '../../../reusable/umich-lib-core-temp';
+import { COLORS, SPACING } from '../../../reusable/umich-lib-core-temp';
 import ResourceAccess from '../../../resource-acccess';
 import PropTypes from 'prop-types';
 
@@ -114,22 +114,10 @@ class Record extends React.Component {
 
           <div
             css={{
-              '[data-accordion-component="AccordionItemPanel"]': {
-                padding: `0 ${SPACING.M}`
-              },
-              [MEDIA_QUERIES.LARGESCREEN]: {
-                '[data-accordion-component="AccordionItemButton"]': {
-                  paddingLeft: '3rem'
-                },
-                '[data-accordion-component="AccordionItemPanel"]': {
-                  padding: `0 ${SPACING.M}`,
-                  paddingLeft: '3rem'
-                },
-                borderBottom: `solid 1px ${COLORS.neutral[100]}`
-              }
+              borderBottom: `solid 1px ${COLORS.neutral[100]}`
             }}
-            aria-label='Available at'
           >
+            <h4 className='visually-hidden'>{record.names[0]} is available at:</h4>
             <ResourceAccess record={record} />
           </div>
         </article>
