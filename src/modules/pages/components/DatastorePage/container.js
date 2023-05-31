@@ -38,11 +38,13 @@ class DatastorePageContainer extends React.Component {
   }
 
   componentDidUpdate () {
-    const { activeDatastore, query } = this.props;
+    const { activeDatastore, query, location } = this.props;
 
     if (activeDatastore) {
       if (query) {
         setDocumentTitle([query, activeDatastore.name]);
+      } else if (location.pathname.endsWith('/browse')) {
+        setDocumentTitle(['Browse', activeDatastore.name]);
       } else {
         setDocumentTitle([activeDatastore.name]);
       }
@@ -70,13 +72,9 @@ class DatastorePageContainer extends React.Component {
             path='/:datastoreSlug/browse'
             location={location}
             render={() => {
-              if (
-                activeDatastore.uid === 'databases' ||
-                activeDatastore.uid === 'onlinejournals'
-              ) {
+              if (['databases', 'onlinejournals'].includes(activeDatastore.uid)) {
                 return <BrowsePage />;
               }
-
               return <NoMatch />;
             }}
           />
@@ -92,7 +90,6 @@ class DatastorePageContainer extends React.Component {
                   />
                 );
               }
-
               return <NoMatch />;
             }}
           />
