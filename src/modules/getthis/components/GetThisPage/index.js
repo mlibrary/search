@@ -2,11 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { requestRecord, requestGetThis } from '../../../pride';
-import {
-  GetThisOptionList,
-  GetThisFAQ,
-  GetThisRecord
-} from '../../../getthis';
+import { GetThisOptionList, GetThisRecord } from '../../../getthis';
 import { Breadcrumb } from '../../../reusable';
 import PropTypes from 'prop-types';
 
@@ -81,7 +77,6 @@ class GetThisPage extends React.Component {
       <GetThisPageTemplate recordUid={recordUid}>
         <GetThisRecord barcode={barcode} />
         <GetThisOptionList record={record} />
-        <GetThisFAQ />
       </GetThisPageTemplate>
     );
   }
