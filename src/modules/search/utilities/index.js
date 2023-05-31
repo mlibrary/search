@@ -116,10 +116,9 @@ const searchOptions = () => {
       datastore: ['mirlyn']
     },
     {
-      name: 'Browse by subject (coming soon)',
+      name: 'Browse by subject',
       uid: 'browse_by_subject',
       tip: 'Browse an A-Z list of subjects (e.g., motion pictures; history--United States; Eliot, George).',
-      disabled: 'disabled',
       datastore: ['mirlyn']
     }
   ];
