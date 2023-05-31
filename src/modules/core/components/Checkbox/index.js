@@ -18,7 +18,7 @@ class Checkbox extends React.Component {
       <div
         className='checkbox'
         role='checkbox'
-        aria-checked={isChecked}
+        aria-checked={!!isChecked}
         tabIndex='0'
         onClick={handleClick}
         onKeyDown={(event) => {

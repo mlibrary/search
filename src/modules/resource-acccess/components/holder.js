@@ -10,12 +10,6 @@ import {
 } from '../../reusable';
 import PropTypes from 'prop-types';
 
-const cellPadding = {
-  paddingTop: SPACING.XS,
-  paddingBottom: SPACING.XS,
-  paddingRight: SPACING.L
-};
-
 const notesList = (notes) => {
   if (!notes) return null;
 
@@ -60,20 +54,15 @@ export default function Holder ({
   ...rest
 }) {
   return (
-    <div
-      css={{
-        padding: `${SPACING.S} 0`
-      }}
-      {...rest}
-    >
+    <div {...rest}>
       {captionLink && (
         <p
           css={{
+            display: 'inline-block',
+            margin: '0',
             a: {
               color: COLORS.neutral['400']
-            },
-            display: 'inline-block',
-            margin: '0'
+            }
           }}
         >
           <a href={captionLink.href}>
@@ -93,10 +82,20 @@ export default function Holder ({
           >
             <table
               css={{
-                width: '100%',
                 minWidth: '24rem',
+                tableLayout: 'fixed',
                 textAlign: 'left',
-                tableLayout: 'fixed'
+                width: '100%',
+                'tr > *': {
+                  padding: '0.5rem 0',
+                  width: 'auto',
+                  '& + *': {
+                    paddingLeft: '1.5rem'
+                  },
+                  '&:nth-of-type(3):last-of-type': {
+                    width: '50%'
+                  }
+                }
               }}
             >
               <thead>
@@ -107,12 +106,9 @@ export default function Holder ({
                         scope='col'
                         key={i}
                         css={{
-                          fontWeight: '600',
-                          color: COLORS.neutral['300'],
-                          ...cellPadding,
                           borderBottom: `solid 2px ${COLORS.neutral['100']}`,
-                          width:
-                          headings.length === 3 && i === 2 ? '50%' : 'auto'
+                          color: COLORS.neutral['300'],
+                          fontWeight: '600'
                         }}
                       >
                         {heading}
@@ -163,7 +159,6 @@ function HolderRows ({ rows }) {
         <td
           colSpan={`${rows[0].length}`}
           css={{
-            ...cellPadding,
             wordBreak: 'break-word'
           }}
         >

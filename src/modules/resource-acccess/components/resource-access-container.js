@@ -59,10 +59,7 @@ ResourceAccess.propTypes = {
   context: PropTypes.object
 };
 
-/*
-  Create a list of uuids that should be Accordion preExpanded'ed
-  Docs: https://www.npmjs.com/package/react-accessible-accordion#preexpanded-string--optional--default--
-*/
+// Create a list of uuids for details to be opened by default
 function preExpandedIds (record) {
   return record.resourceAccess.reduce((acc, item, index) => {
     if (item.preExpanded) {

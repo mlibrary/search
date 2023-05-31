@@ -1,38 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SPACING, INTENT_COLORS } from '../../reusable/umich-lib-core-temp';
+import { INTENT_COLORS } from '../../reusable/umich-lib-core-temp';
 import { Icon, Button } from '../../reusable';
 import PropTypes from 'prop-types';
-
-function RenderAnchor ({ data }) {
-  /*
-    Rendered Anchors go to
-    - an internal Get This page, or
-    - a full record page.
-  */
-  let to;
-
-  if (data.to.action === 'get-this') {
-    to = `/catalog/record/${data.to.record}/get-this/${data.to.barcode}` +
-      `${document.location.search}`;
-  } else {
-    to = `/catalog/record/${data.to.record}` +
-      `${document.location.search}`;
-  }
-
-  return (
-    <Link
-      to={to}
-    >
-      {data.text}
-    </Link>
-  );
-}
-
-RenderAnchor.propTypes = {
-  data: PropTypes.object
-};
 
 export default function Holding ({ holding }) {
   return (
@@ -41,9 +12,6 @@ export default function Holding ({ holding }) {
         return (
           <td
             css={{
-              paddingTop: SPACING.XS,
-              paddingBottom: SPACING.XS,
-              paddingRight: SPACING.L,
               color: INTENT_COLORS[cell.intent]
             }}
             key={i}
@@ -52,9 +20,9 @@ export default function Holding ({ holding }) {
               cell={cell}
               renderAnchor={(data) => {
                 return (
-                  <RenderAnchor
-                    data={data}
-                  />
+                  <Link to={`/catalog/record/${data.to.record}${data.to.action === 'get-this' ? `/get-this/${data.to.barcode}` : ''}${document.location.search}`}>
+                    {data.text}
+                  </Link>
                 );
               }}
             />
@@ -119,9 +87,7 @@ class TrimCellText extends React.Component {
     // Only trimming past trim text at, so user don't show all
     // for just a few more chars.
     if (text.length <= trimTextAt + 60) {
-      return (
-        <>{text}</>
-      );
+      return text;
     }
 
     // When text is longer than the trim text at length.
@@ -138,7 +104,8 @@ class TrimCellText extends React.Component {
           onClick={() => {
             return this.setState({ expanded: !isExpanded });
           }}
-        >{buttonText}
+        >
+          {buttonText}
         </Button>
       </>
     );

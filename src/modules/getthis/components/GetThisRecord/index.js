@@ -6,7 +6,7 @@ import getHoldingByBarcode from '../../getHoldingByBarcode';
 import { TrimString } from '../../../core';
 import { RecordFullFormats, FullRecordPlaceholder } from '../../../records';
 import ResourceAccess from '../../../resource-acccess';
-import { COLORS, MEDIA_QUERIES, SPACING } from '../../../reusable/umich-lib-core-temp';
+import { COLORS } from '../../../reusable/umich-lib-core-temp';
 import PropTypes from 'prop-types';
 
 /*
@@ -15,18 +15,18 @@ import PropTypes from 'prop-types';
 */
 
 const StyledGetThisResourceAccessContainer = styled('div')({
-  'td:first-of-type': {
+  'td:first-of-type, th:first-of-type': {
     display: 'none'
   },
-  'th:first-of-type': {
-    display: 'none'
+  'td:first-of-type + *, th:first-of-type + *': {
+    paddingLeft: '0'
   },
   a: {
     textDecoration: 'underline'
   },
   table: {
-    tableLayout: 'auto',
-    minWidth: 'auto'
+    minWidth: 'auto',
+    tableLayout: 'auto'
   }
 });
 
@@ -45,19 +45,7 @@ function GetThisHolding ({ record, barcode }) {
       <StyledGetThisResourceAccessContainer>
         <div
           css={{
-            '[data-accordion-component="AccordionItemPanel"]': {
-              padding: `0 ${SPACING.M}`
-            },
-            [MEDIA_QUERIES.LARGESCREEN]: {
-              '[data-accordion-component="AccordionItemButton"]': {
-                paddingLeft: '3rem'
-              },
-              '[data-accordion-component="AccordionItemPanel"]': {
-                padding: `0 ${SPACING.M}`,
-                paddingLeft: '3rem'
-              },
-              borderBottom: `solid 1px ${COLORS.neutral[100]}`
-            }
+            borderBottom: `solid 1px ${COLORS.neutral[100]}`
           }}
         >
           <h3 className='visually-hidden'>Available at</h3>
