@@ -182,7 +182,6 @@ function ActiveFilterItem ({ group, value }) {
     return state.filters;
   });
   const url = getURLWithFilterRemoved({ group, value });
-  const name = groups[group] ? groups[group].metadata.name : group;
 
   return (
     <Link
@@ -202,7 +201,7 @@ function ActiveFilterItem ({ group, value }) {
       }}
     >
       <span>
-        {name}: {value}
+        {groups[group] ? groups[group].metadata.name : group}: {value}
       </span>
       <span>
         <Icon icon='close' />

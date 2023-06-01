@@ -52,42 +52,19 @@ export function newSearchFilter ({ proposed = {}, existing = {} }) {
 }
 
 /*
-  Remove a filter from the URL.
-
-  Removes the value from a filter group
-  and will remove the group if the value
-  is the group's only value.
-
-  returns a new URL with the filter removed.
+  Removes a filter from the URL by searching the `window.location.search`,
+  and replacing the matching filter query parameter and its value.
+  Also removes the `&` if it comes before it.
+  Returns the new string.
 */
 export function getURLWithFilterRemoved ({ group, value }) {
-  const urlSearchState = getSearchStateFromURL();
-  const groups = Object.keys(urlSearchState.filter);
-  const filter = groups.reduce((acc, g) => {
-    if (g === group) {
-      if (Array.isArray(urlSearchState.filter[g])) {
-        acc = {
-          ...acc,
-          [g]: urlSearchState.filter[g].filter((val) => {
-            return val !== value;
-          })
-        };
-      }
-    } else {
-      acc = {
-        ...acc,
-        [g]: urlSearchState.filter[g]
-      };
-    }
-
-    return acc;
-  }, {});
-  const newSearchState = {
-    ...urlSearchState,
-    filter
-  };
-
-  return document.location.pathname + '?' + stringifySearch(newSearchState);
+  let windowLocationSearch = window.location.search;
+  const filterQuery = `filter.${group}=${value}`;
+  windowLocationSearch = windowLocationSearch.replace(
+    windowLocationSearch.includes(`&${filterQuery}`) ? `&${filterQuery}` : filterQuery,
+    ''
+  );
+  return document.location.pathname + windowLocationSearch;
 }
 
 export function getURLWithoutFilters () {
