@@ -52,9 +52,9 @@ export function newSearchFilter ({ proposed = {}, existing = {} }) {
 }
 
 /*
-  Removes a filter from the URL by searching the `window.location.search`,
+  Removes a filter from the URL by taking `window.location.search`,
   and replacing the matching filter query parameter and its value.
-  Also removes the `&` if it comes before it.
+  Also removes the `&` before it, if it exists.
   Returns the new string.
 */
 export function getURLWithFilterRemoved ({ group, value }) {
