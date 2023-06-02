@@ -1,41 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import numeral from 'numeral';
 import ResultsSummary from './presenter';
 import { getDatastoreName } from '../../../pride';
 import PropTypes from 'prop-types';
 
 class ResultsSummaryContainer extends React.Component {
   recordsSummary () {
-    const { activeDatastoreUid, search } = this.props;
+    const { activeDatastoreUid } = this.props;
     const { page, totalAvailable, totalPages } = this.props.search.data[activeDatastoreUid];
-
-    const displayTotalAvailable = numeral(totalAvailable).format(0, 0);
-    const resultsText = totalAvailable === 1 ? 'result' : 'results';
-    const startRange = `${numeral((page * 10 - 9)).format(0, 0)} `;
-    const endRange = () => {
-      // On first page
-      if (totalAvailable <= 10) {
-        return `${numeral(totalAvailable).format(0, 0)}`;
-      }
-
-      // On last page
-      if (page === totalPages) {
-        return `${numeral(totalAvailable).format(0, 0)}`;
-      }
-
-      // Every other page
-      return `${(numeral(page * 10).format(0, 0))}`;
-    };
-    const showingRange = `${startRange} to ${endRange()}`;
-    const datastoreName = getDatastoreName(activeDatastoreUid);
+    const displayTotalAvailable = totalAvailable?.toLocaleString();
+    const startRange = (page * 10 - 9)?.toLocaleString();
+    const endRange =
+      // Check if on first page or last page
+      totalAvailable <= 10 || page === totalPages
+        ? displayTotalAvailable
+        : (page * 10).toLocaleString();
 
     return {
-      showingRange: `${showingRange}`,
+      showingRange: `${startRange} to ${endRange}`,
       total: `${displayTotalAvailable}`,
-      resultsText: `${resultsText}`,
-      from: `${datastoreName}`,
-      resultsFor: search.query ? (<span>for <span className='strong'>{search.query}</span></span>) : null
+      resultsText: `result${totalAvailable !== 1 ? 's' : ''}`,
+      from: getDatastoreName(activeDatastoreUid)
     };
   }
 
@@ -54,7 +39,6 @@ class ResultsSummaryContainer extends React.Component {
         recordsTotal={summary.total}
         recordsResultsText={summary.resultsText}
         resultsFrom={summary.from}
-        resultsFor={summary.resultsFor}
       />
     );
   }

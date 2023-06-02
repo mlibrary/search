@@ -1,5 +1,4 @@
 import React from 'react';
-import numeral from 'numeral';
 import './Pagination.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -33,15 +32,15 @@ class Pagination extends React.Component {
   };
 
   render () {
-    const {
-      page
-    } = this.state;
+    const { page } = this.state;
     const {
       toPreviousPage,
       toNextPage,
       total,
       ariaLabel
     } = this.props;
+
+    const totalConverted = total?.toLocaleString();
 
     return (
       <nav className='pagination-container x-spacing' aria-label={ariaLabel}>
@@ -58,14 +57,14 @@ class Pagination extends React.Component {
             className='pagination-input'
             value={page}
             type='number'
-            aria-label={`Page ${page} of ${total} pages`}
+            aria-label={`Page ${page} of ${totalConverted} pages`}
             // reset the value if the user leaves focus
             onBlur={() => {
               return this.setState({ page: this.props.page });
             }}
             onChange={this.handleInputChange}
           />
-          <span>of {numeral(total).format(0, 0)}</span>
+          <span>of {totalConverted}</span>
         </form>
         <div className='pagination-next-container'>
           {toNextPage && (
