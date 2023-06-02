@@ -2,7 +2,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import numeral from 'numeral';
 import {
   Expandable,
   ExpandableChildren,
@@ -11,7 +10,6 @@ import {
 } from '../../../reusable';
 import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
 import CheckboxFilters from '../CheckboxFilters';
-
 import {
   getURLWithoutFilters,
   getURLWithFilterRemoved,
@@ -403,7 +401,7 @@ function Filter ({ value, count, url }) {
     >
       <span css={{ marginRight: SPACING.XS }}>{value}</span>
       <span css={{ color: COLORS.neutral['400'] }}>
-        {numeral(count).format(0, 0)}
+        {count?.toLocaleString()}
       </span>
     </Link>
   );

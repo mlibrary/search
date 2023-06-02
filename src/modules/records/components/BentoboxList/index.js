@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import numeral from 'numeral';
 import { Icon } from '../../../core';
 import { getMultiSearchRecords } from '../../../pride';
 import RecordPreview from '../RecordPreview';
@@ -75,7 +74,7 @@ const BentoHeading = ({
       to={url}
     >
       <h2 className='bentobox-heading'>{bentobox.name}</h2>
-      <BentoboxResultsNum bentobox={bentobox} search={search} totalResults={totalResults} />
+      <BentoboxResultsNum totalResults={totalResults} />
     </Link>
   );
 };
@@ -138,27 +137,17 @@ BentoboxNoResults.propTypes = {
   bentobox: PropTypes.object
 };
 
-const BentoboxResultsNum = ({ bentobox, search, totalResults }) => {
-  const resultsNum = numeral(totalResults).format(0, 0);
-  const resultsText = resultsNum === 1 ? 'Result' : 'Results';
-
-  // No results
-  if (search.data[bentobox.uid] && search.data[bentobox.uid].totalAvailable === 0) {
-    return <span className='bentobox-results-info'>{resultsNum} {resultsText}</span>;
+const BentoboxResultsNum = ({ totalResults }) => {
+  // Results have loaded
+  if (typeof totalResults === 'number') {
+    return <span className='bentobox-results-info'>{totalResults.toLocaleString()} {`Result${totalResults !== 1 ? 's' : ''}`}</span>;
   }
 
   // Loading results
-  if (bentobox.records.length === 0) {
-    return <span className='bentobox-results-info'>Loading...</span>;
-  }
-
-  // Results have loaded
-  return <span className='bentobox-results-info'>{resultsNum} {resultsText}</span>;
+  return <span className='bentobox-results-info'>Loading...</span>;
 };
 
 BentoboxResultsNum.propTypes = {
-  bentobox: PropTypes.object,
-  search: PropTypes.object,
   totalResults: PropTypes.number
 };
 
