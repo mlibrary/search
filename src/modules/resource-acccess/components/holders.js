@@ -24,6 +24,7 @@ export default function Holders ({
                 paddingLeft: '3rem'
               }
             }}
+            open={record.resourceAccess.length === 1}
           >
             <summary
               css={{
