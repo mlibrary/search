@@ -34,7 +34,6 @@ class URLSearchQueryWrapper extends React.Component {
   constructor (props) {
     super(props);
     this.handleURLState = this.handleURLState.bind(this);
-    this.handleComponentHook = this.handleComponentHook.bind(this);
   }
 
   handleURLState ({
@@ -183,14 +182,12 @@ class URLSearchQueryWrapper extends React.Component {
     }
   }
 
-  handleComponentHook (prevProps) {
+  componentDidMount () {
     const datastoreUid = getDatastoreUidBySlug(
       this.props.match.params.datastoreSlug
     );
 
-    if ((prevProps && prevProps.datastoreUid !== datastoreUid) || !prevProps) {
-      switchPrideToDatastore(datastoreUid);
-    }
+    switchPrideToDatastore(datastoreUid);
 
     this.handleURLState({
       isSearching: this.props.isSearching,
@@ -202,14 +199,31 @@ class URLSearchQueryWrapper extends React.Component {
       sort: this.props.sort[datastoreUid],
       institution: this.props.institution
     });
-  };
-
-  componentDidMount () {
-    this.handleComponentHook();
   }
 
-  componentDidUpdate (prevProps) {
-    this.handleComponentHook(prevProps);
+  shouldComponentUpdate (nextProps) {
+    if (nextProps.location.search !== this.props.location.search) {
+      const datastoreUid = getDatastoreUidBySlug(
+        nextProps.match.params.datastoreSlug
+      );
+
+      if (this.props.datastoreUid !== datastoreUid) {
+        switchPrideToDatastore(datastoreUid);
+      }
+
+      this.handleURLState({
+        isSearching: nextProps.isSearching,
+        query: nextProps.query,
+        activeFilters: nextProps.activeFilters[datastoreUid],
+        location: nextProps.location,
+        datastoreUid,
+        page: nextProps.page[datastoreUid],
+        sort: nextProps.sort[datastoreUid],
+        institution: nextProps.institution
+      });
+    }
+
+    return nextProps.location.search !== this.props.location.search;
   }
 
   render () {
@@ -231,6 +245,7 @@ URLSearchQueryWrapper.propTypes = {
   resetFilters: PropTypes.func,
   searching: PropTypes.func,
   match: PropTypes.object,
+  datastoreUid: PropTypes.string,
   isSearching: PropTypes.bool,
   query: PropTypes.string,
   activeFilters: PropTypes.object,
