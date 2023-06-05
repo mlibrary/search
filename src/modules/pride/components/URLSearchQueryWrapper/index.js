@@ -55,11 +55,14 @@ class URLSearchQueryWrapper extends React.Component {
       // URL has state
       if (Object.keys(urlState).length > 0) {
         // Query
-        const hasUnmatchedQuery = urlState.query && urlState.query !== query;
-        if (hasUnmatchedQuery || (!urlState.query && query)) {
-          this.props.setSearchQuery(urlState.query ? urlState.query : '');
-          this.props.setSearchQueryInput(urlState.query ? urlState.query : '');
-          shouldRunSearch = hasUnmatchedQuery;
+        if (urlState.query && urlState.query !== query) {
+          this.props.setSearchQuery(urlState.query);
+          this.props.setSearchQueryInput(urlState.query);
+
+          shouldRunSearch = true;
+        } else if (!urlState.query && query) {
+          this.props.setSearchQuery('');
+          this.props.setSearchQueryInput('');
         }
 
         // Filters
@@ -79,41 +82,66 @@ class URLSearchQueryWrapper extends React.Component {
 
         // Page
         const urlStatePage = parseInt(urlState.page, 10);
-        if (
-          (urlStatePage && urlStatePage !== page) ||
-          (page && !urlStatePage && page !== 1)
-        ) {
+        if (urlStatePage && urlStatePage !== page) {
           this.props.setPage({
-            page: urlStatePage || 1,
+            page: urlStatePage,
             datastoreUid
           });
+
+          shouldRunSearch = true;
+        } else if (page && !urlStatePage && page !== 1) {
+          this.props.setPage({
+            page: 1,
+            datastoreUid
+          });
+
           shouldRunSearch = true;
         }
 
         // Sort
         if (urlState.sort !== sort) {
-          const configuredDefaultSort = config.sorts[datastoreUid].default;
-          shouldRunSearch = urlState.sort || sort !== configuredDefaultSort;
-          if (shouldRunSearch) {
+          // Set sort to URL
+          if (urlState.sort) {
             this.props.setSort({
-              sort: urlState.sort ? urlState.sort : configuredDefaultSort,
+              sort: urlState.sort,
               datastoreUid
             });
+
+            shouldRunSearch = true;
+
+            // if no URL state
+          } else {
+            const configuredDefaultSort = config.sorts[datastoreUid].default;
+
+            // Sort should be set to default
+            if (sort !== configuredDefaultSort) {
+              this.props.setSort({
+                sort: configuredDefaultSort,
+                datastoreUid
+              });
+
+              shouldRunSearch = true;
+            }
           }
         }
 
-        // Library (AKA Institution)
+        // library aka institution
         if (urlState.library && urlState.library !== institution.active) {
           this.props.setActiveInstitution(urlState.library);
+
           /*
             Users can change their library, but that does not trigger a search.
           */
-          shouldRunSearch = Object.keys(urlState).filter((key) => {
-            return key !== 'library';
-          }).length > 0;
+          const hasMoreThanLibraryInUrlState =
+            Object.keys(urlState).filter((key) => {
+              return key !== 'library';
+            }).length > 0;
+
+          if (hasMoreThanLibraryInUrlState) {
+            shouldRunSearch = true;
+          }
         }
 
-        // Run search
         if (shouldRunSearch) {
           this.props.setA11yMessage('Search modified.');
           this.props.setParserMessage(null);
@@ -122,6 +150,15 @@ class URLSearchQueryWrapper extends React.Component {
       } else {
         // URL does not have state,
         this.props.resetFilters();
+
+        /*
+          You shouldn't do this in React, but this is being asked
+          and better than handling a ref across concerns
+        */
+        const el = document.getElementById('search-query');
+        if (el) {
+          el.value = '';
+        }
 
         // Reset query
         if (query.length > 0) {
@@ -138,7 +175,11 @@ class URLSearchQueryWrapper extends React.Component {
           1. URL contains a query, or
           2. URL contains a filter.
       */
-      this.props.searching(!!(urlState.query || urlState.filter));
+      if (urlState.query || urlState.filter) {
+        this.props.searching(true);
+      } else {
+        this.props.searching(false);
+      }
     }
   }
 
