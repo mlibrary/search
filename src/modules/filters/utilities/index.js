@@ -59,7 +59,7 @@ export function newSearchFilter ({ proposed = {}, existing = {} }) {
 */
 export function getURLWithFilterRemoved ({ group, value }) {
   let windowLocationSearch = window.location.search;
-  const filterQuery = `filter.${group}=${value}`;
+  const filterQuery = `filter.${group}=${value.replaceAll(' ', '+')}`;
   windowLocationSearch = windowLocationSearch.replace(
     windowLocationSearch.includes(`&${filterQuery}`) ? `&${filterQuery}` : filterQuery,
     ''
