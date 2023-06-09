@@ -1,145 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'underscore';
 import { Checkbox } from '../../../core';
 
-class Multiselect extends React.Component {
-  constructor (props) {
-    super(props);
-    this.handleOptionSelection = this.handleOptionSelection.bind(this);
-    this.handleFilterQueryChange = this.handleFilterQueryChange.bind(this);
-    this.isOptionFiltered = this.isOptionFiltered.bind(this);
-    this.handleShowOnlySelectedOptionsClick = this.handleShowOnlySelectedOptionsClick.bind(this);
+function Multiselect (props) {
+  const [filterQuery, setFilterQuery] = useState('');
+  const [showOnlySelectedOptions, setshowOnlySelectedOptions] = useState(false);
+  const selectedOptions = props.options.filter((option) => {
+    return option.checked;
+  });
 
-    this.state = {
-      filterQuery: '',
-      showOnlySelectedOptions: false
-    };
-  }
-
-  UNSAFE_componentWillReceiveProps (nextProps) {
-    const { showOnlySelectedOptions } = this.state;
-
-    // Reset show only selected toggle when unchecking the last checked option
+  function handleOptionSelection (option, index) {
+    props.handleSelection(index, option);
     if (showOnlySelectedOptions) {
-      const selectedOptions = _.filter(nextProps.options, (option) => {
-        return option.checked;
-      });
-
-      if (selectedOptions.length === 0) {
-        this.setState({
-          showOnlySelectedOptions: false
-        });
+      if (selectedOptions.length === 1) {
+        setshowOnlySelectedOptions(false);
       }
     }
   }
 
-  handleOptionSelection (option, index) {
-    this.props.handleSelection(index, option);
-  }
-
-  handleFilterQueryChange (value) {
-    this.setState({
-      filterQuery: value
-    });
-  }
-
-  handleShowOnlySelectedOptionsClick () {
-    this.setState({
-      showOnlySelectedOptions: !this.state.showOnlySelectedOptions
-    });
-  }
-
-  isOptionFiltered (option) {
-    const { filterQuery } = this.state;
-
+  function isOptionFiltered (option) {
     if (filterQuery.length === 0) {
       return false;
     }
-
-    const isFiltered = !(option.name.toLowerCase().indexOf(filterQuery.toLowerCase()) !== -1);
-
-    return isFiltered;
+    return !(option.name.toLowerCase().indexOf(filterQuery.toLowerCase()) !== -1);
   }
 
-  render () {
-    const {
-      options,
-      filterGroupUid,
-      descriptionText
-    } = this.props;
-    const { filterQuery, showOnlySelectedOptions } = this.state;
+  if (!props.options || props.options.length === 0) {
+    return null;
+  }
 
-    if (!options || options.length === 0) {
-      return null;
-    }
-
-    const selectedOptions = _.filter(options, (option) => {
-      return option.checked;
-    });
-
-    return (
-      <div className='multiselect'>
-        {descriptionText && (
-          <p className='font-small'>{descriptionText}</p>
-        )}
-        <label htmlFor={`filter-options-${filterGroupUid.replaceAll('_', '-')}`}>Filter<span className='visually-hidden'> {filterGroupUid.replaceAll('_', ' ')} options</span></label>
-        <input
-          type='text'
-          className='multiselect-search'
-          id={`filter-options-${filterGroupUid.replaceAll('_', '-')}`}
-          aria-describedby={filterGroupUid}
-          value={filterQuery}
-          onChange={(event) => {
-            return this.handleFilterQueryChange(event.target.value);
-          }}
-          autoComplete='on'
-        />
-        <p id={filterGroupUid} className='offscreen'>Below this edit box is a list of checkboxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
-        <fieldset className='multiselect-options'>
-          <legend className='visually-hidden'>Select {descriptionText}</legend>
-          <ul className='multiselect-options-list'>
-            {options.map((option, index) => {
-              if (this.isOptionFiltered(option) && !showOnlySelectedOptions) {
-                return null;
-              }
-
-              if (!showOnlySelectedOptions || (showOnlySelectedOptions && option.checked)) {
-                return (
-                  <li className='multiselect-options-list-item' key={index}>
-                    <MultiselectOption
-                      handleClick={() => {
-                        return this.handleOptionSelection(option, index);
-                      }}
-                      option={option}
-                    />
-                  </li>
-                );
-              }
-
+  return (
+    <div className='multiselect'>
+      {props.descriptionText && (
+        <p className='font-small'>{props.descriptionText}</p>
+      )}
+      <input
+        type='text'
+        className='multiselect-search'
+        aria-label='Filter options'
+        aria-describedby={props.filterGroupUid}
+        placeholder='Filter'
+        value={filterQuery}
+        onChange={(event) => {
+          setFilterQuery(event.target.value);
+        }}
+      />
+      <p id={props.filterGroupUid} className='offscreen'>Below this edit box is a list of check oxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
+      <fieldset className='multiselect-options'>
+        <ul className='multiselect-options-list'>
+          {props.options.map((option, index) => {
+            if (isOptionFiltered(option) && !showOnlySelectedOptions) {
               return null;
-            })}
-          </ul>
-        </fieldset>
-        {selectedOptions.length > 0
-          ? (
-            <button
-              type='button'
-              className='button-link-light multiselect-show-checked-toggle' onClick={this.handleShowOnlySelectedOptionsClick}
-            >
-              {showOnlySelectedOptions
-                ? (
-                  <span>Show all options</span>
-                  )
-                : (
-                  <span>{`Show only selected options (${selectedOptions.length})`}</span>
-                  )}
-            </button>
-            )
-          : null}
-      </div>
-    );
-  }
+            }
+            if (!showOnlySelectedOptions || (showOnlySelectedOptions && option.checked)) {
+              return (
+                <li className='multiselect-options-list-item' key={index}>
+                  <MultiselectOption
+                    handleClick={() => {
+                      return handleOptionSelection(option, index);
+                    }}
+                    option={option}
+                  />
+                </li>
+              );
+            }
+            return null;
+          })}
+        </ul>
+      </fieldset>
+      {selectedOptions.length > 0
+        ? (
+          <button
+            type='button'
+            className='button-link-light multiselect-show-checked-toggle'
+            onClick={() => {
+              setshowOnlySelectedOptions(!showOnlySelectedOptions);
+            }}
+          >
+            {showOnlySelectedOptions
+              ? (
+                <span>Show all options</span>
+                )
+              : (
+                <span>{`Show only selected options (${selectedOptions.length})`}</span>
+                )}
+          </button>
+          )
+        : null}
+    </div>
+  );
 }
 
 Multiselect.propTypes = {
@@ -152,6 +101,8 @@ Multiselect.propTypes = {
   filterGroupUid: PropTypes.string,
   descriptionText: PropTypes.string
 };
+
+export default Multiselect;
 
 const MultiselectOption = ({ option, handleClick }) => {
   return (
@@ -167,5 +118,3 @@ MultiselectOption.propTypes = {
   option: PropTypes.object,
   handleClick: PropTypes.func
 };
-
-export default Multiselect;
