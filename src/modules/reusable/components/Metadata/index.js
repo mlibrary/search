@@ -269,7 +269,7 @@ function DescriptionItemLink ({ href, search, browse, children }) {
               width: '1px'
             }
           }}
-          href={`/catalog/browse/${browse.type}?query=${browse.value}`}
+          href={`https://search.lib.umich.edu/catalog/browse/${browse.type}?query=${browse.value}`}
         >
           Browse in {browse.type === 'callnumber' ? 'call number' : browse.type} list
         </a>
