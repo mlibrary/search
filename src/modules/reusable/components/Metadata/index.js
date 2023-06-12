@@ -238,6 +238,14 @@ DescriptionItem.propTypes = {
   children: PropTypes.array
 };
 
+function browseLinkByEnvironment (type, value) {
+  let browseLink = 'https://search.lib.umich.edu/catalog/browse';
+  if (process.env.NODE_ENV === 'development') {
+    browseLink = 'https://testing.browse.kubernetes.lib.umich.edu';
+  }
+  return `${browseLink}/${type}?query=${value}`;
+}
+
 function DescriptionItemLink ({ href, search, browse, children }) {
   if (href) {
     return (
@@ -269,7 +277,7 @@ function DescriptionItemLink ({ href, search, browse, children }) {
               width: '1px'
             }
           }}
-          href={`https://search.lib.umich.edu/catalog/browse/${browse.type}?query=${browse.value}`}
+          href={browseLinkByEnvironment(browse.type, browse.value)}
         >
           Browse in {browse.type === 'callnumber' ? 'call number' : browse.type} list
         </a>
