@@ -20,19 +20,6 @@
   padding-top: 3px;
 }
 
-.datastore-scroll-gradient {
-  @media (min-width: $breakpoint-1) { 
-    background: -webkit-gradient(linear,left top,right top,color-stop(0%,rgba(248,248,248,0)),color-stop(100%,rgba(248,248,248,1)));
-    position: absolute;
-    pointer-events: none;
-    right: 0;
-    top: 0;
-    width: 2rem;
-    height: 100%;
-    z-index: 2;
-  }
-}
-
 .datastore-item {
   @media (min-width: $breakpoint-1) { 
     display: inline-block;
@@ -56,6 +43,10 @@
   border-left: solid 3px transparent;
   background: transparent;
   text-align: left;
+
+  &:hover {
+    text-decoration: underline;
+  }
 
   .icon {
     margin-right: 0.5rem;

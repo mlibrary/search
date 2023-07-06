@@ -8,38 +8,38 @@ export const LOADING_HOLDINGS = 'records/LOADING_HOLDINGS';
 export const SET_RECORD_HOLDINGS = 'records/SET_RECORD_HOLDINGS';
 export const SET_RECORD_GET_THIS = 'records/SET_RECORD_GET_THIS';
 
-export function addRecords(payload) {
+export function addRecords (payload) {
   return { type: ADD_RECORDS, payload };
 }
 
-export function clearRecords(payload) {
+export function clearRecords (payload) {
   return { type: CLEAR_RECORDS, payload };
 }
 
-export function setRecord(payload) {
+export function setRecord (payload) {
   return { type: SET_RECORD, payload };
 }
 
-export function clearRecord(payload) {
+export function clearRecord (payload) {
   return { type: CLEAR_RECORD, payload };
 }
 
-export function loadingRecords(payload) {
+export function loadingRecords (payload) {
   return { type: LOADING_RECORDS, payload };
 }
 
-export function addHoldings(payload) {
+export function addHoldings (payload) {
   return { type: ADD_HOLDINGS, payload };
 }
 
-export function loadingHoldings(payload) {
+export function loadingHoldings (payload) {
   return { type: LOADING_HOLDINGS, payload };
 }
 
-export function setRecordHoldings(payload) {
+export function setRecordHoldings (payload) {
   return { type: SET_RECORD_HOLDINGS, payload };
 }
 
-export function setRecordGetThis(payload) {
+export function setRecordGetThis (payload) {
   return { type: SET_RECORD_GET_THIS, payload };
 }

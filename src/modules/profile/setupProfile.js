@@ -1,16 +1,15 @@
-import prejudice from '../lists/prejudice'
+import prejudice from '../lists/prejudice';
 import {
   addProfile
-} from './actions'
-import store from '../../store'
-
+} from './actions';
+import store from '../../store';
 
 const setupProfile = () => {
   const observer = (data) => {
-    store.dispatch(addProfile(data))
-  }
+    store.dispatch(addProfile(data));
+  };
 
-  prejudice.instance.addProfileObserver(observer)
-}
+  prejudice.instance.addProfileObserver(observer);
+};
 
-export default setupProfile
+export default setupProfile;

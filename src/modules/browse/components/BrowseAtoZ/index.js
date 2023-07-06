@@ -1,16 +1,17 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom'
-import qs from 'qs'
+import { withRouter, Link } from 'react-router-dom';
+import qs from 'qs';
+import PropTypes from 'prop-types';
 
 class BrowseAtoZ extends React.Component {
   state = {
     startsWith: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-  }
+  };
 
   createBrowseTo = ({ query, filter }) => {
     const {
       match
-    } = this.props
+    } = this.props;
 
     const queryString = qs.stringify({
       query,
@@ -20,47 +21,56 @@ class BrowseAtoZ extends React.Component {
       arrayFormat: 'repeat',
       encodeValuesOnly: true,
       allowDots: true,
-      format : 'RFC1738'
-    })
+      format: 'RFC1738'
+    });
 
-    return `/${match.params.datastoreSlug}?${queryString}`
-  }
+    return `/${match.params.datastoreSlug}?${queryString}`;
+  };
 
-  render() {
+  render () {
     return (
-      <section className="browse">
-        <h2 className="heading-large" style={{ marginTop: '0' }}>Titles A-Z</h2>
-        <ul className="browse-list">
-          {this.state.startsWith.map((character, key) => (
-            <li className="browse-item" key={key}>
-              <Link
-                className="browse-button"
-                to={this.createBrowseTo({
-                  query: 'browse_starts_with:' + character
-                })}
-              >{character}</Link>
-            </li>
-          ))}
-          <li className="browse-item">
+      <section className='browse'>
+        <h2 className='heading-large' style={{ marginTop: '0' }}>Titles A-Z</h2>
+        <ul className='browse-list'>
+          {this.state.startsWith.map((character, key) => {
+            return (
+              <li className='browse-item' key={key}>
+                <Link
+                  className='browse-button'
+                  to={this.createBrowseTo({
+                    query: 'browse_starts_with:' + character
+                  })}
+                >{character}
+                </Link>
+              </li>
+            );
+          })}
+          <li className='browse-item'>
             <Link
-              className="browse-button"
+              className='browse-button'
               to={this.createBrowseTo({
                 query: 'browse_starts_with:0-9'
               })}
-            >0-9</Link>
+            >0-9
+            </Link>
           </li>
-          <li className="browse-item">
+          <li className='browse-item'>
             <Link
-              className="browse-button"
+              className='browse-button'
               to={this.createBrowseTo({
                 query: 'browse_starts_with:Other'
               })}
-            >Other</Link>
+            >Other
+            </Link>
           </li>
         </ul>
       </section>
-    )
+    );
   }
 }
+
+BrowseAtoZ.propTypes = {
+  match: PropTypes.object
+};
 
 export default withRouter(BrowseAtoZ);

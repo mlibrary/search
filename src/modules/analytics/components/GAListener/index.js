@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import ReactGA from 'react-ga';
 import { PropTypes } from 'prop-types';
 
@@ -7,19 +7,23 @@ class GAListener extends React.Component {
     router: PropTypes.object
   };
 
-  componentDidMount() {
+  componentDidMount () {
     this.sendPageView(this.context.router.history.location);
     this.context.router.history.listen(this.sendPageView);
   }
 
-  sendPageView(location) {
+  sendPageView (location) {
     ReactGA.set({ page: location.pathname });
     ReactGA.pageview(location.pathname + location.search);
   }
 
-  render() {
+  render () {
     return this.props.children;
   }
 }
 
-export default GAListener
+GAListener.propTypes = {
+  children: PropTypes.array
+};
+
+export default GAListener;

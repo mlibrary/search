@@ -29,16 +29,16 @@ function SearchBox ({ history, match, location }) {
     }
   );
   const [inputQuery, setInputQuery] = React.useState(query);
-  const fieldIDs = fields.map((field) => {
-    return field.uid;
-  });
-  const defaultField = fieldIDs[0];
+  const defaultField = fields[0].uid;
   const [field, setField] = React.useState(defaultField);
 
-  // Set field and input when `activeDatastore` or `query` changes
+  // Set field and input when `activeDatastore`, `query`, or `fields` changes
   React.useEffect(() => {
+    const fieldIDs = fields.map((field) => {
+      return field.uid;
+    });
     // Set default value of field
-    let getField = defaultField;
+    let getField = fieldIDs[0];
     // Set default value of input
     let getInput = query;
     // Check if the query is a single fielded search that exists in the current datastore
@@ -66,7 +66,7 @@ function SearchBox ({ history, match, location }) {
     setField(getField);
     // Set input value
     setInputQuery(getInput);
-  }, [activeDatastore, query]);
+  }, [activeDatastore, query, fields]);
 
   function setOption (e) {
     window.dataLayer.push({
@@ -278,13 +278,16 @@ function SearchBox ({ history, match, location }) {
           {isAdvanced && (
             <Link
               to={`/${match.params.datastoreSlug}/advanced${location.search}`}
-              className='search-box-advanced-link'
               css={{
                 alignSelf: 'center',
+                fontWeight: '600',
                 gridArea: 'advanced',
                 margin: '0.75rem 0.75rem 0 0.75rem',
                 padding: '0.5rem 0',
-                textAlign: 'center'
+                textAlign: 'center',
+                '&:hover': {
+                  textDecoration: 'underline'
+                }
               }}
             >
               <span className='offpage'>{activeDatastore.name}</span>

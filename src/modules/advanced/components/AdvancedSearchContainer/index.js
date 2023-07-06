@@ -14,6 +14,7 @@ import {
   Tab
 } from '../../../reusable';
 import AdvancedSearchForm from '../AdvancedSearchForm';
+import PropTypes from 'prop-types';
 
 /*
 Structure of the AdvancedSearch components:
@@ -30,70 +31,81 @@ Structure of the AdvancedSearch components:
         - SubmitSearch
 */
 
-
 class AdvancedSearchContainer extends React.Component {
-  render() {
+  render () {
     const {
       datastores,
       activeDatastore,
       activeDatastoreIndex
-    } = this.props
+    } = this.props;
 
     return (
       <div
         css={{
           marginTop: '1rem'
         }}
-        className="container container-narrow"
+        className='container container-narrow'
       >
         <Breadcrumb
           items={[
-            {text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${document.location.search}` },
-            {text: 'Advanced Search' }
+            { text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${document.location.search}` },
+            { text: 'Advanced Search' }
           ]}
-          renderAnchor={(item) => <Link to={item.to}>{item.text}</Link>}
+          renderAnchor={(item) => {
+            return <Link to={item.to}>{item.text}</Link>;
+          }}
         />
 
-        <h1 className="heading-xlarge">Advanced Search</h1>
-        <p className="font-lede">Select a search category below for associated advanced search options.</p>
+        <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Advanced Search</h1>
+        <p className='font-lede'>Select a search category below for associated advanced search options.</p>
 
         <Tabs defaultIndex={activeDatastoreIndex}>
-            <TabList className="advanced-tabs">
-              {datastores.map(ds => (
+          <TabList className='advanced-tabs'>
+            {datastores.map((ds) => {
+              return (
                 <Tab key={`tab-${ds.uid}`}>
                   {ds.name}
                 </Tab>
-              ))}
-            </TabList>
+              );
+            })}
+          </TabList>
 
-            <div
-              css={{
-                boxShadow: 'rgba(0, 0, 0, 0.12) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 2px 4px 0px',
-                padding: '1rem',
-                background: SEARCH_COLORS.grey[100],
-                borderRadius: '0 0 4px 4px',
-                [MEDIA_QUERIES.LARGESCREEN]: {
-                  padding: '2rem'
-                }
-              }}
-            >
-              {datastores.map(ds => (
+          <div
+            css={{
+              boxShadow: 'rgba(0, 0, 0, 0.12) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 2px 4px 0px',
+              padding: '1rem',
+              background: SEARCH_COLORS.grey[100],
+              borderRadius: '0 0 4px 4px',
+              [MEDIA_QUERIES.LARGESCREEN]: {
+                padding: '2rem'
+              }
+            }}
+          >
+            {datastores.map((ds) => {
+              return (
                 <TabPanel key={`tabpanel-${ds.uid}`}>
                   <AdvancedSearchForm datastore={ds} />
                 </TabPanel>
-              ))}
-            </div>
-          </Tabs>
+              );
+            })}
+          </div>
+        </Tabs>
       </div>
-    )
+    );
   }
 }
 
-function mapStateToProps(state) {
-  const datastores = state.datastores.datastores
+AdvancedSearchContainer.propTypes = {
+  datastores: PropTypes.array,
+  activeDatastore: PropTypes.object,
+  activeDatastoreIndex: PropTypes.number
+};
+
+function mapStateToProps (state) {
+  const datastores = state.datastores.datastores;
   const activeDatastoreIndex = _.findIndex(datastores, {
     uid: state.datastores.active
-  })
+  });
 
   return {
     datastores,
@@ -102,4 +114,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(AdvancedSearchContainer)
+export default connect(mapStateToProps)(AdvancedSearchContainer);

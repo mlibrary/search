@@ -1,39 +1,32 @@
 /** @jsxImportSource @emotion/react */
-import { useSelector } from "react-redux";
-import React from "react";
-import { Link } from "react-router-dom";
-import numeral from "numeral";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionItemState,
-  AccordionItemHeading,
-  AccordionItemButton,
-  AccordionItemPanel
-} from "react-accessible-accordion";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   Expandable,
   ExpandableChildren,
   ExpandableButton,
   Icon
-} from "../../../reusable";
-import { SPACING, COLORS } from "../../../reusable/umich-lib-core-temp";
-import CheckboxFilters from "../CheckboxFilters";
-
+} from '../../../reusable';
+import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
+import CheckboxFilters from '../CheckboxFilters';
 import {
   getURLWithoutFilters,
   getURLWithFilterRemoved,
   filterOutActiveFilters,
   newSearch
-} from "../../utilities";
+} from '../../utilities';
+import PropTypes from 'prop-types';
 
 const filterGroupStyles = {
-  padding: `0 ${SPACING["M"]}`,
-  borderBottom: `solid 1px ${COLORS.neutral["100"]}`
+  padding: `0 ${SPACING.M}`,
+  borderBottom: `solid 1px ${COLORS.neutral['100']}`
 };
 
-function FiltersLoadingContainer({ children }) {
-  const { datastores, search, records } = useSelector(state => state);
+function FiltersLoadingContainer ({ children }) {
+  const { datastores, search, records } = useSelector((state) => {
+    return state;
+  });
   const isLoading = search.searching && records.loading[datastores.active];
 
   if (isLoading) {
@@ -43,56 +36,47 @@ function FiltersLoadingContainer({ children }) {
   return children;
 }
 
-export default function Filters() {
-  const { datastores, filters } = useSelector(state => state);
-  const { order, groups } = filters;
+FiltersLoadingContainer.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
+};
+
+export default function Filters () {
+  const { datastores, filters } = useSelector((state) => {
+    return state;
+  });
+  const { order } = filters;
 
   if (!order) {
     return null;
   }
 
-  const preExpandedFilterGroups = order.reduce((memo, uid) => {
-    if (groups[uid] && groups[uid].preExpanded) {
-      memo = memo.concat(datastores.active + "-" + uid);
-    }
-
-    return memo;
-  }, []);
-
   return (
     <section
-      aria-label="filters"
+      aria-label='filters'
       css={{
-        background: "#FAFAFA"
+        background: '#FAFAFA'
       }}
     >
       <ActiveFilters />
       <CheckboxFilters />
       <FiltersLoadingContainer>
-        <Accordion
-          preExpanded={preExpandedFilterGroups}
-          key={preExpandedFilterGroups.join("-")}
-          allowMultipleExpanded
-          allowZeroExpanded
-          css={{
-            margin: 0,
-            padding: 0,
-            "& > *": {
-              ...filterGroupStyles
-            }
-          }}
-        >
-          {order.map(uid => (
+        {order.map((uid) => {
+          return (
             <FilterGroupContainer uid={uid} key={datastores.active + uid} />
-          ))}
-        </Accordion>
+          );
+        })}
       </FiltersLoadingContainer>
     </section>
   );
 }
 
-function ActiveFilters() {
-  const { datastores, filters } = useSelector(state => state);
+function ActiveFilters () {
+  const { datastores, filters } = useSelector((state) => {
+    return state;
+  });
   const active = filters.active[datastores.active];
 
   if (!active) {
@@ -116,8 +100,8 @@ function ActiveFilters() {
   */
   const items = Object.keys(active).reduce((acc, group) => {
     // Just don't show the checkbox filters as active filter items.
-    if (!filters.groups[group] || filters.groups[group].type !== "checkbox") {
-      const activeFiltersToAdd = active[group].map(value => {
+    if (!filters.groups[group] || filters.groups[group].type !== 'checkbox') {
+      const activeFiltersToAdd = active[group].map((value) => {
         return { group, value };
       });
 
@@ -133,18 +117,18 @@ function ActiveFilters() {
 
   return (
     <section
-      aria-label="active-filters"
+      aria-label='active-filters'
       css={{
         ...filterGroupStyles,
-        padding: `${SPACING["S"]} ${SPACING["M"]}`
+        padding: `${SPACING.S} ${SPACING.M}`
       }}
     >
       <h2
-        id="active-filters"
+        id='active-filters'
         css={{
-          fontSize: "1rem",
-          marginTop: "0",
-          marginBottom: SPACING["XS"]
+          fontSize: '1rem',
+          marginTop: '0',
+          marginBottom: SPACING.XS
         }}
       >
         Active filters
@@ -153,81 +137,86 @@ function ActiveFilters() {
       <ul
         css={{
           margin: 0,
-          listStyle: "none"
+          listStyle: 'none'
         }}
       >
-        {items.map((item, i) => (
-          <li
-            key={i + item.group + item.value}
-            css={{
-              marginBottom: SPACING["XS"],
-              ":last-of-type": {
-                marginBottom: 0
-              }
-            }}
-          >
-            <ActiveFilterItem {...item} />
-          </li>
-        ))}
+        {items.map((item, i) => {
+          return (
+            <li
+              key={i + item.group + item.value}
+              css={{
+                marginBottom: SPACING.XS,
+                ':last-of-type': {
+                  marginBottom: 0
+                }
+              }}
+            >
+              <ActiveFilterItem {...item} />
+            </li>
+          );
+        })}
       </ul>
 
-      {items.length > 1 && <ClearActiveFiltersLink />}
+      {
+        items.length > 1 &&
+          <Link
+            to={getURLWithoutFilters()}
+            css={{
+              display: 'inline-block',
+              paddingTop: SPACING.XS,
+              textDecoration: 'underline',
+              color: COLORS.neutral['300']
+            }}
+          >
+            Clear all active filters
+          </Link>
+      }
     </section>
   );
 }
 
-function ClearActiveFiltersLink() {
-  const url = getURLWithoutFilters();
-
-  return (
-    <Link
-      to={url}
-      css={{
-        display: "inline-block",
-        paddingTop: SPACING["XS"],
-        textDecoration: "underline",
-        color: COLORS.neutral["300"]
-      }}
-    >
-      Clear all active filters
-    </Link>
-  );
-}
-
-function ActiveFilterItem({ group, value }) {
-  const { groups } = useSelector(state => state.filters);
+function ActiveFilterItem ({ group, value }) {
+  const { groups } = useSelector((state) => {
+    return state.filters;
+  });
   const url = getURLWithFilterRemoved({ group, value });
-  const name = groups[group] ? groups[group].metadata.name : group;
 
   return (
     <Link
       to={url}
       css={{
-        padding: `${SPACING["XS"]} ${SPACING["S"]}`,
-        color: COLORS.green["500"],
-        background: COLORS.green["100"],
-        border: `solid 1px ${COLORS.green["200"]}`,
-        borderRadius: "4px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        ":hover": {
-          textDecoration: "underline"
+        padding: `${SPACING.XS} ${SPACING.S}`,
+        color: COLORS.green['500'],
+        background: COLORS.green['100'],
+        border: `solid 1px ${COLORS.green['200']}`,
+        borderRadius: '4px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        ':hover': {
+          textDecoration: 'underline'
         }
       }}
     >
       <span>
-        {name}: {value}
+        {groups[group] ? groups[group].metadata.name : group}: {value}
       </span>
       <span>
-        <Icon icon="close" />
+        <Icon icon='close' />
       </span>
     </Link>
   );
 }
 
-function FilterGroupContainer({ uid }) {
-  const { datastores, filters } = useSelector(state => state);
+ActiveFilterItem.propTypes = {
+  group: PropTypes.string,
+  value: PropTypes.string
+};
+
+function FilterGroupContainer ({ uid }) {
+  const { datastores, filters } = useSelector((state) => {
+    return state;
+  });
   const group = filters.groups[uid];
 
   if (!group || group.filters.length === 0) {
@@ -238,7 +227,7 @@ function FilterGroupContainer({ uid }) {
     ? filters.active[datastores.active][uid]
     : null;
 
-  const uuid = datastores.active + "-" + uid;
+  const uuid = datastores.active + '-' + uid;
 
   const props = {
     uid,
@@ -249,14 +238,18 @@ function FilterGroupContainer({ uid }) {
     activeFilters
   };
 
-  if (group.type === "multiselect") {
+  if (group.type === 'multiselect') {
     return <FilterGroupMultiselect {...props} />;
   }
 
   return null;
 }
 
-function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
+FilterGroupContainer.propTypes = {
+  uid: PropTypes.string
+};
+
+function FilterGroupMultiselect ({ filters, group, uid, uuid, activeFilters }) {
   const filtersWithoutActive = filterOutActiveFilters({
     active: activeFilters,
     filters: filters.groups[uid].filters
@@ -267,126 +260,155 @@ function FilterGroupMultiselect({ filters, group, uid, uuid, activeFilters }) {
   }
 
   return (
-    <AccordionItem uuid={uuid} key={uuid}>
-      <AccordionItemState>
-        {({ expanded }) => (
-          <React.Fragment>
-            <AccordionItemHeading>
-              <AccordionItemButton
-                css={{
-                  padding: SPACING["S"],
-                  margin: `0 -${SPACING["S"]}`,
-                  fontWeight: "600",
-                  cursor: "pointer",
-                  ":hover": {
-                    textDecoration: "underline"
-                  },
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center"
-                }}
-              >
-                <span>{group.metadata.name}</span>
-                <span
-                  css={{
-                    color: COLORS.neutral["300"]
-                  }}
-                >
-                  {expanded ? (
-                    <Icon
-                      size={24}
-                      d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"
-                    />
-                  ) : (
-                    <Icon
-                      size={24}
-                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                    />
-                  )}
-                </span>
-              </AccordionItemButton>
-            </AccordionItemHeading>
-            <FilterGroupFilters
-              group={group}
-              expanded={expanded}
-              filters={filtersWithoutActive}
-            />
-          </React.Fragment>
-        )}
-      </AccordionItemState>
-    </AccordionItem>
+    <details
+      open={group.preExpanded}
+      css={{
+        borderBottom: '1px solid rgb(229, 233, 237)',
+        '& > *': {
+          padding: '0 0.75rem'
+        },
+        '&:not([open]) > summary svg:first-of-type, &[open] > summary svg:last-of-type': {
+          display: 'none'
+        }
+      }}
+    >
+      <summary
+        css={{
+          cursor: 'pointer',
+          display: 'flex',
+          fontWeight: '600',
+          justifyContent: 'space-between',
+          listStyle: 'none',
+          padding: '0.75rem!important',
+          '&::-webkit-details-marker': {
+            display: 'none'
+          },
+          ':hover': {
+            textDecoration: 'underline'
+          }
+        }}
+      >
+        <span>{group.metadata.name}</span>
+        <span
+          css={{
+            color: COLORS.neutral['300']
+          }}
+        >
+          <Icon
+            size={24}
+            d='M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z'
+          />
+          <Icon
+            size={24}
+            d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z'
+          />
+        </span>
+      </summary>
+      <FilterGroupFilters
+        group={group}
+        filters={filtersWithoutActive}
+      />
+    </details>
   );
 }
 
-function FilterGroupFilters({ group, expanded, hidden = false, filters }) {
-  if (hidden || !expanded || filters.length === 0) {
+FilterGroupMultiselect.propTypes = {
+  filters: PropTypes.object,
+  group: PropTypes.object,
+  uid: PropTypes.string,
+  uuid: PropTypes.string,
+  activeFilters: PropTypes.array
+};
+
+function FilterGroupFilters ({ group, hidden = false, filters }) {
+  if (hidden || filters.length === 0) {
     return null;
   }
 
   return (
-    <AccordionItemPanel>
+    <div>
       <Expandable>
         <ul
           css={{
-            listStyle: "none",
-            margin: "0"
+            listStyle: 'none',
+            margin: '0'
           }}
         >
           <ExpandableChildren show={5}>
-            {filters.map((f, i) => (
-              <li key={group.metadata.name + f.value + i}>
-                <FilterContainer group={group} {...f} />
-              </li>
-            ))}
+            {filters.map((f, i) => {
+              return (
+                <li key={group.metadata.name + f.value + i}>
+                  <FilterContainer group={group} {...f} />
+                </li>
+              );
+            })}
           </ExpandableChildren>
         </ul>
 
         <div
           css={{
-            padding: `${SPACING["2XS"]} 0`
+            padding: `${SPACING['2XS']} 0`
           }}
         >
           <ExpandableButton
-            name={group.metadata.name + " filters"}
+            name={group.metadata.name + ' filters'}
             count={filters.length}
-            kind="secondary"
+            kind='secondary'
             small
             css={{
-              marginBottom: SPACING["XS"]
+              marginBottom: SPACING.XS
             }}
           />
         </div>
       </Expandable>
-    </AccordionItemPanel>
+    </div>
   );
 }
 
-function FilterContainer({ group, value, count }) {
+FilterGroupFilters.propTypes = {
+  group: PropTypes.object,
+  hidden: PropTypes.bool,
+  filters: PropTypes.array
+};
+
+function FilterContainer ({ group, value, count }) {
   const search = newSearch({ filter: { [group.uid]: value }, page: undefined });
-  const url = document.location.pathname + "?" + search;
+  const url = document.location.pathname + '?' + search;
 
   return <Filter url={url} value={value} count={count} />;
 }
 
-function Filter({ value, count, url }) {
+FilterContainer.propTypes = {
+  group: PropTypes.object,
+  value: PropTypes.string,
+  count: PropTypes.number
+};
+
+function Filter ({ value, count, url }) {
   return (
     <Link
       to={url}
       css={{
-        display: "flex",
-        justifyContent: "space-between",
-        padding: `${SPACING["2XS"]} 0`,
-        ":hover": {
-          "span:first-of-type": {
-            textDecoration: "underline"
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: `${SPACING['2XS']} 0`,
+        ':hover': {
+          'span:first-of-type': {
+            textDecoration: 'underline'
           }
         }
       }}
     >
-      <span css={{ marginRight: SPACING["XS"] }}>{value}</span>
-      <span css={{ color: COLORS.neutral["400"] }}>
-        {numeral(count).format(0, 0)}
+      <span css={{ marginRight: SPACING.XS }}>{value}</span>
+      <span css={{ color: COLORS.neutral['400'] }}>
+        {count?.toLocaleString()}
       </span>
     </Link>
   );
 }
+
+Filter.propTypes = {
+  value: PropTypes.string,
+  count: PropTypes.number,
+  url: PropTypes.string
+};

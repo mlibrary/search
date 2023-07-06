@@ -7,15 +7,44 @@ import {
   ExpandableProvider,
   ExpandableChildren,
   ExpandableButton
-} from "../../reusable";
+} from '../../reusable';
+import PropTypes from 'prop-types';
 
-const cell_padding = {
-  paddingTop: SPACING["XS"],
-  paddingBottom: SPACING["XS"],
-  paddingRight: SPACING["L"],
+const notesList = (notes) => {
+  if (!notes) return null;
+
+  if (notes.length === 1) {
+    return (
+      <p
+        css={{
+          color: COLORS.neutral['300']
+        }}
+      >
+        {notes[0]}
+      </p>
+    );
+  }
+
+  return (
+    <ul>
+      {notes.map((note, i) => {
+        return (
+          <li
+            key={note + i}
+            css={{
+              paddingBottom: SPACING.XS,
+              color: COLORS.neutral['300']
+            }}
+          >
+            {note}
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
-export default function Holder({
+export default function Holder ({
   record,
   headings,
   rows,
@@ -25,77 +54,67 @@ export default function Holder({
   ...rest
 }) {
   return (
-    <div
-      css={{
-        a: {
-          textDecoration: "underline",
-        },
-        padding: `${SPACING["S"]} 0`,
-      }}
-      {...rest}
-    >
+    <div {...rest}>
       {captionLink && (
-        <p css={{ margin: "0" }}>
-          <a
-            href={captionLink.href}
-            css={{
-              color: COLORS.neutral["400"],
-              display: "inline-block",
-            }}
-          >
+        <p
+          css={{
+            display: 'inline-block',
+            margin: '0',
+            a: {
+              color: COLORS.neutral['400']
+            }
+          }}
+        >
+          <a href={captionLink.href}>
             {captionLink.text}
           </a>
         </p>
       )}
-      {notes && (
-        <ul>
-          {notes.map((note, i) => (
-            <li
-              key={note + i}
-              css={{
-                paddingBottom: SPACING["XS"],
-                color: COLORS.neutral["300"],
-              }}
-            >
-              {note}
-            </li>
-          ))}
-        </ul>
-      )}
+
+      {notesList(notes)}
 
       {rows && (
         <Expandable>
           <div
             css={{
-              overflowX: "auto",
+              overflowX: 'auto'
             }}
           >
             <table
               css={{
-                width: "100%",
-                minWidth: "24rem",
-                textAlign: "left",
-                tableLayout: "fixed",
+                minWidth: '24rem',
+                tableLayout: 'fixed',
+                textAlign: 'left',
+                width: '100%',
+                'tr > *': {
+                  padding: '0.5rem 0',
+                  width: 'auto',
+                  '& + *': {
+                    paddingLeft: '1.5rem'
+                  },
+                  '&:nth-of-type(3):last-of-type': {
+                    width: '50%'
+                  }
+                }
               }}
             >
               <thead>
                 <tr>
-                  {headings.map((heading, i) => (
-                    <th
-                      scope="col"
-                      key={i}
-                      css={{
-                        fontWeight: "600",
-                        color: COLORS.neutral["300"],
-                        ...cell_padding,
-                        borderBottom: `solid 2px ${COLORS.neutral["100"]}`,
-                        width:
-                          headings.length === 3 && i === 2 ? "50%" : "auto",
-                      }}
-                    >
-                      {heading}
-                    </th>
-                  ))}
+                  {headings.map((heading, i) => {
+                    return (
+                      <th
+                        scope='col'
+                        key={i}
+                        css={{
+                          borderBottom: `solid 2px ${COLORS.neutral['100']}`,
+                          color: COLORS.neutral['300'],
+                          fontWeight: '600'
+                        }}
+                      >
+                        {heading}
+                      </th>
+                    );
+                  })}
                 </tr>
               </thead>
               <tbody>
@@ -109,31 +128,41 @@ export default function Holder({
   );
 }
 
-function HolderRows({ rows }) {
+Holder.propTypes = {
+  record: PropTypes.object,
+  headings: PropTypes.array,
+  rows: PropTypes.array,
+  captionLink: PropTypes.object,
+  notes: PropTypes.array,
+  preExpanded: PropTypes.bool
+};
+
+function HolderRows ({ rows }) {
   /*
-    Just render the holdings. 
+    Just render the holdings.
   */
   if (rows <= 10) {
     return (
-      <React.Fragment>
-        {rows.map((row, i) => (
-          <Holding holding={row} key={i} />
-        ))}
-      </React.Fragment>
+      <>
+        {rows.map((row, i) => {
+          return (
+            <Holding holding={row} key={i} />
+          );
+        })}
+      </>
     );
   }
 
-  function renderExpandableButton() {
+  function renderExpandableButton () {
     return (
       <tr>
         <td
           colSpan={`${rows[0].length}`}
           css={{
-            ...cell_padding,
-            wordBreak: "break-word",
+            wordBreak: 'break-word'
           }}
         >
-          <ExpandableButton kind="secondary" small count={rows.length} />
+          <ExpandableButton kind='secondary' small count={rows.length} />
         </td>
       </tr>
     );
@@ -149,27 +178,37 @@ function HolderRows({ rows }) {
     Then finally an expandable button.
   */
   return (
-    <React.Fragment>
-      {rows.slice(0, 10).map((row, i) => (
-        <Holding holding={row} key={i} />
-      ))}
+    <>
+      {rows.slice(0, 10).map((row, i) => {
+        return (
+          <Holding holding={row} key={i} />
+        );
+      })}
       {rows.length > 10 && (
-        <React.Fragment>{renderExpandableButton()}</React.Fragment>
+        <>{renderExpandableButton()}</>
       )}
       <ExpandableChildren show={0}>
-        {rows.slice(10).map((row, i) => (
-          <Holding holding={row} key={i} />
-        ))}
+        {rows.slice(10).map((row, i) => {
+          return (
+            <Holding holding={row} key={i} />
+          );
+        })}
       </ExpandableChildren>
       <ExpandableProvider>
-        {(context) => (
-          <React.Fragment>
-            {context.expanded && (
-              <React.Fragment>{renderExpandableButton()}</React.Fragment>
-            )}
-          </React.Fragment>
-        )}
+        {(context) => {
+          return (
+            <>
+              {context.expanded && (
+                <>{renderExpandableButton()}</>
+              )}
+            </>
+          );
+        }}
       </ExpandableProvider>
-    </React.Fragment>
+    </>
   );
 }
+
+HolderRows.propTypes = {
+  rows: PropTypes.array
+};

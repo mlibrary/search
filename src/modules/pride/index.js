@@ -1,4 +1,4 @@
-import { initializePride, switchPrideToDatastore, runSearch } from "./setup";
+import { initializePride, switchPrideToDatastore, runSearch } from './setup';
 import {
   isSlugADatastore,
   getDatastoreUidBySlug,
@@ -12,13 +12,13 @@ import {
   parseField,
   isFieldASearchLink,
   requestGetThis
-} from "./utils";
+} from './utils';
 
-import { isDatastoreBrowseable } from "./browse";
+import { isDatastoreBrowseable } from './browse';
 
-import { placeHold } from "./getthis";
+import { placeHold } from './getthis';
 
-import URLSearchQueryWrapper from "./components/URLSearchQueryWrapper";
+import URLSearchQueryWrapper from './components/URLSearchQueryWrapper';
 
 export {
   initializePride,

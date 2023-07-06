@@ -1,7 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const ClearSearch = ({ handleClick }) => {
-  return <button className="button-link underline clear-search" onClick={handleClick}>Clear search and start over</button>
-}
+const ClearSearch = ({ triggerClick }) => {
+  return <button className='button-link underline clear-search' onClick={triggerClick}>Clear search and start over</button>;
+};
+
+ClearSearch.propTypes = {
+  triggerClick: PropTypes.func
+};
 
 export default ClearSearch;

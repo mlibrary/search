@@ -132,6 +132,7 @@ const config = {
         'author',
         'journal_title',
         'subject',
+        'lc_subject_starts_with',
         'academic_discipline',
         'call_number_starts_with',
         'publisher',
@@ -301,6 +302,7 @@ const config = {
         'title',
         'title_starts_with',
         'subject',
+        'lc_subject_starts_with',
         'academic_discipline',
         'call_number_starts_with',
         'isn'
