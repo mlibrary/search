@@ -1,5 +1,6 @@
 import React from 'react';
 import { searchOptions, searchOptionsDatastores, filterOptions } from '../../utilities';
+import PropTypes from 'prop-types';
 
 const listOptions = (options) => {
   return options.map((option) => {
@@ -16,11 +17,13 @@ const listOptions = (options) => {
   });
 };
 
-const SearchByOptions = ({activeDatastore, fields}) => {
+const SearchByOptions = ({ activeDatastore, fields }) => {
   let setFields = fields;
   // Override fields if custom options exist for current datastore
   if (searchOptionsDatastores().includes(activeDatastore.uid)) {
-    setFields = searchOptions().filter((searchOption) => searchOption.datastore.includes(activeDatastore.uid));
+    setFields = searchOptions().filter((searchOption) => {
+      return searchOption.datastore.includes(activeDatastore.uid);
+    });
   }
   const searchByOptions = filterOptions(setFields);
   const browseByOptions = filterOptions(setFields, true);
@@ -38,6 +41,11 @@ const SearchByOptions = ({activeDatastore, fields}) => {
       </optgroup>
     </>
   );
-}
+};
+
+SearchByOptions.propTypes = {
+  activeDatastore: PropTypes.object,
+  fields: PropTypes.array
+};
 
 export default SearchByOptions;

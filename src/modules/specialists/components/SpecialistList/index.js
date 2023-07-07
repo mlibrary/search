@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
-import { ShowAllChildren } from '../../../core'
-import Specialist from '../Specialist'
-
+import { ShowAllChildren } from '../../../core';
+import Specialist from '../Specialist';
+import PropTypes from 'prop-types';
 
 const SpecialistList = ({
   loadingUserData,
@@ -10,38 +10,44 @@ const SpecialistList = ({
   specialists
 }) => {
   if (loadingUserData || !specialists || specialists.length === 0) {
-    return null
+    return null;
   }
 
   return (
-    <React.Fragment>
-      <article className="specialists">
-        <div className="specialists__inner-container">
-          <header>
-            <h2 className="specialists__heading">Talk to a Library Specialist</h2>
-          </header>
-
-          <section className="specialists__content">
+    <>
+      <article className='specialists'>
+        <div className='specialists__inner-container'>
+          <h2 className='specialists__heading'>Talk to a Library Specialist</h2>
+          <section className='specialists__content'>
             <ShowAllChildren
               length={specialists.length}
               show={show}
-              name={'specialists'}>
-              {specialists.map((person, index) => (
-                <Specialist key={index} person={person} />
-              ))}
+              name='specialists'
+            >
+              {specialists.map((person, index) => {
+                return (
+                  <Specialist key={index} person={person} />
+                );
+              })}
             </ShowAllChildren>
           </section>
         </div>
       </article>
-      <h2 className="offpage">Results continued</h2>
-    </React.Fragment>
-  )
-}
+      <h2 className='offpage'>Results continued</h2>
+    </>
+  );
+};
 
-function mapStateToProps(state) {
+SpecialistList.propTypes = {
+  loadingUserData: PropTypes.bool,
+  show: PropTypes.number,
+  specialists: PropTypes.array
+};
+
+function mapStateToProps (state) {
   return {
     specialists: state.specialists
   };
 }
 
-export default connect(mapStateToProps)(SpecialistList)
+export default connect(mapStateToProps)(SpecialistList);

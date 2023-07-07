@@ -1,45 +1,42 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import _ from 'underscore'
-import {
-  withRouter
-} from 'react-router-dom'
-
-import config from '../../../../config'
-import {
-  stringifySearchQueryForURL
-} from '../../../pride'
+import React from 'react';
+import { connect } from 'react-redux';
+import _ from 'underscore';
+import { withRouter } from 'react-router-dom';
+import config from '../../../../config';
+import { stringifySearchQueryForURL } from '../../../pride';
+import PropTypes from 'prop-types';
 
 const getSorts = ({ sorts, configuredSorts }) => {
   if (!configuredSorts) {
-    return []
+    return [];
   }
 
   const displaySorts = configuredSorts.sorts.reduce((acc, uid) => {
-    const foundSort = _.findWhere(sorts, { uid: uid })
+    const foundSort = _.findWhere(sorts, { uid });
 
     if (foundSort) {
       return acc.concat({
-        uid: uid,
+        uid,
         name: foundSort.metadata.name
-      })
+      });
     }
 
-    return acc
-  }, [])
+    return acc;
+  }, []);
 
-  return displaySorts
-}
+  return displaySorts;
+};
 
 class Sorts extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor (props) {
+    super(props);
 
-    this.onChange = this.onChange.bind(this)
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
-  onChange(event) {
-    const { match, history, query, activeFilters, datastoreUid, institution } = this.props
-    const library = datastoreUid === 'mirlyn' ? institution.active : undefined
+
+  handleOnChange (event) {
+    const { match, history, query, activeFilters, datastoreUid, institution } = this.props;
+    const library = datastoreUid === 'mirlyn' ? institution.active : undefined;
 
     window.dataLayer.push({
       event: 'sortBySelection',
@@ -51,42 +48,65 @@ class Sorts extends React.Component {
       filter: activeFilters,
       library,
       sort: event.target.value
-    })
-    const url = `/${match.params.datastoreSlug}?${queryString}`
+    });
+    const url = `/${match.params.datastoreSlug}?${queryString}`;
 
-    history.push(url)
+    history.push(url);
   }
-  render() {
+
+  render () {
     const { sorts, sort } = this.props;
 
     if (sorts && sorts.length > 0) {
       return (
-        <label className="sorts-label">
-          <span className="sorts-label-text">Sort by</span>
+        <div>
+          <label
+            className='sorts-label sorts-label-text'
+            htmlFor='sort-by'
+            style={{ display: 'inline-block' }}
+          >
+            Sort by
+          </label>
           <select
-            className="dropdown sorts-select"
+            className='dropdown sorts-select'
             value={sort}
-            onChange={this.onChange}>
-            {sorts.map((item, index) => (
-              <option key={item.uid} value={item.uid}>{item.name}</option>
-            ))}
+            onChange={this.handleOnChange}
+            autoComplete='off'
+            id='sort-by'
+          >
+            {sorts.map((item, index) => {
+              return (
+                <option key={item.uid} value={item.uid}>{item.name}</option>
+              );
+            })}
           </select>
-        </label>
-      )
+        </div>
+      );
     }
 
-    return null
+    return null;
   }
 }
 
-function mapStateToProps(state) {
-  const datastoreUid = state.datastores.active
-  const data = state.search.data
-  const sorts = data[datastoreUid] ? data[datastoreUid].sorts : []
+Sorts.propTypes = {
+  match: PropTypes.object,
+  history: PropTypes.object,
+  query: PropTypes.string,
+  activeFilters: PropTypes.object,
+  datastoreUid: PropTypes.string,
+  institution: PropTypes.object,
+  sorts: PropTypes.array,
+  sort: PropTypes.string
+};
 
-  const query = state.search.query
-  const activeFilters = state.filters.active[datastoreUid]
-  const sort = state.search.sort[datastoreUid]
+function mapStateToProps (state) {
+  const datastoreUid = state.datastores.active;
+  const data = state.search.data;
+  const sorts = data[datastoreUid] ? data[datastoreUid].sorts : [];
+
+  const query = state.search.query;
+  const activeFilters = state.filters.active[datastoreUid];
+  const sort = state.search.sort[datastoreUid];
 
   return {
     datastoreUid,
@@ -98,9 +118,9 @@ function mapStateToProps(state) {
       configuredSorts: config.sorts[state.datastores.active]
     }),
     institution: state.institution
-  }
+  };
 }
 
 export default withRouter(
   connect(mapStateToProps)(Sorts)
-)
+);

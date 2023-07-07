@@ -1,25 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const FullRecordPlaceholder = ({ longer }) => (
-  <div className="full-record-container">
-    <div className="full-record-header">
-      <span className="loading-record-text">Loading record...</span>
+const FullRecordPlaceholder = ({ longer }) => {
+  return (
+    <div className='full-record-container'>
+      <div className='full-record-header'>
+        <span className='loading-record-text'>Loading record...</span>
+      </div>
+      <div className='record-container placeholder-container'>
+        <div className='placeholder placeholder-title' />
+        <div className='placeholder placeholder-line' />
+        <div className='placeholder placeholder-line placeholder-line-alt' />
+
+        {longer && (
+          <>
+            <div className='placeholder placeholder-line' />
+            <div className='placeholder placeholder-line placeholder-line-alt' />
+            <div className='placeholder placeholder-line' />
+            <div className='placeholder placeholder-line' />
+          </>
+        )}
+      </div>
     </div>
-    <div className="record-container placeholder-container">
-      <div className="placeholder placeholder-title"></div>
-      <div className="placeholder placeholder-line"></div>
-      <div className="placeholder placeholder-line placeholder-line-alt"></div>
+  );
+};
 
-      {longer && (
-        <React.Fragment>
-          <div className="placeholder placeholder-line"></div>
-          <div className="placeholder placeholder-line placeholder-line-alt"></div>
-          <div className="placeholder placeholder-line"></div>
-          <div className="placeholder placeholder-line"></div>
-        </React.Fragment>
-      )}
-    </div>
-  </div>
-)
+FullRecordPlaceholder.propTypes = {
+  longer: PropTypes.bool
+};
 
-export default FullRecordPlaceholder
+export default FullRecordPlaceholder;

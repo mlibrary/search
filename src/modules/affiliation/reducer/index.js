@@ -4,8 +4,8 @@ const initialState = {
   active: undefined,
   defaultAffiliation: 'aa',
   affiliationOptions: {
-    'aa': 'Ann Arbor',
-    'flint': 'Flint'
+    aa: 'Ann Arbor',
+    flint: 'Flint'
   }
 };
 
@@ -20,7 +20,7 @@ const affiliationReducer = (state = initialState, action) => {
       return {
         ...state,
         active: action.payload
-      }
+      };
     default:
       return state;
   }

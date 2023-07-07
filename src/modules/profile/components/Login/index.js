@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import config from '../../../../config'
+import config from '../../../../config';
+import PropTypes from 'prop-types';
 
 class Login extends Component {
-  render() {
-    const authenticated = this.props.profile && this.props.profile.status === 'Logged in'
-    const href = config.loginUrl + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search)
-    const loading = this.props.loading
+  render () {
+    const authenticated = this.props.profile && this.props.profile.status === 'Logged in';
+    const href = config.loginUrl + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search);
+    const loading = this.props.loading;
 
     return (
-      <React.Fragment>
+      <>
         {this.props.render({ href, authenticated, loading })}
-      </React.Fragment>
-    )
+      </>
+    );
   }
 }
 
-function mapStateToProps(state) {
+Login.propTypes = {
+  profile: PropTypes.object,
+  loading: PropTypes.bool,
+  render: PropTypes.func
+};
+
+function mapStateToProps (state) {
   return {
     profile: state.profile,
     loading: !state.profile.status

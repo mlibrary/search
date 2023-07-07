@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import { stringifySearchQueryForURL } from '../../../pride'
-import {
-  withRouter
-} from 'react-router-dom'
-
+import { connect } from 'react-redux';
+import { stringifySearchQueryForURL } from '../../../pride';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 /*
   Adds the Institution (aka Library or Library Scope) filter
@@ -12,7 +10,7 @@ import {
 */
 class InstitutionWrapper extends React.Component {
   pushLibraryScopeToURL = () => {
-    const { datastore, institution } = this.props
+    const { datastore, institution } = this.props;
 
     if (datastore === 'mirlyn' && !institution.active) {
       const {
@@ -20,37 +18,50 @@ class InstitutionWrapper extends React.Component {
         history,
         search,
         activeFilters
-      } = this.props
+      } = this.props;
 
-      const library = datastore.uid === 'mirlyn' ? institution.active : institution.defaultInstitution
-      const page = search.page[datastore.uid] === 1 ? undefined : search.page[datastore.uid]
+      const library = datastore.uid === 'mirlyn' ? institution.active : institution.defaultInstitution;
+      const page = search.page[datastore.uid] === 1 ? undefined : search.page[datastore.uid];
       const queryString = stringifySearchQueryForURL({
         query: search.query,
         filter: activeFilters[datastore.uid],
         page,
         sort: search.sort[datastore.uid],
-        library,
-      })
+        library
+      });
 
-      const url = `/${match.params.datastoreSlug}?${queryString}`
-      history.push(url)
+      const url = `/${match.params.datastoreSlug}?${queryString}`;
+      history.push(url);
     }
+  };
+
+  componentDidMount () {
+    this.pushLibraryScopeToURL();
   }
 
-  componentDidMount() {
-    this.pushLibraryScopeToURL()
+  componentDidUpdate () {
+    this.pushLibraryScopeToURL();
   }
 
-  componentDidUpdate() {
-    this.pushLibraryScopeToURL()
-  }
-
-  render() {
-    return this.props.children
+  render () {
+    return this.props.children;
   }
 }
 
-function mapStateToProps(state) {
+InstitutionWrapper.propTypes = {
+  datastore: PropTypes.string,
+  institution: PropTypes.object,
+  match: PropTypes.object,
+  history: PropTypes.object,
+  search: PropTypes.object,
+  activeFilters: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
+};
+
+function mapStateToProps (state) {
   return {
     datastore: state.datastores.active,
     institution: state.institution,
@@ -59,4 +70,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(InstitutionWrapper))
+export default withRouter(connect(mapStateToProps)(InstitutionWrapper));

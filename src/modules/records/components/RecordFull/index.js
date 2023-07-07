@@ -5,13 +5,7 @@ import _ from 'underscore';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Breadcrumb } from '../../../reusable';
-import {
-  COLORS,
-  SEARCH_COLORS,
-  MEDIA_QUERIES,
-  SPACING
-} from '../../../reusable/umich-lib-core-temp';
-
+import { COLORS, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
 import { TrimString } from '../../../core';
 import { getField, getFieldValue } from '../../utilities';
 import {
@@ -163,21 +157,16 @@ class FullRecord extends React.Component {
         </div>
       );
     }
-    // For adding a blue border when added to list.
-    const inList = isInList(list, record.uid);
-    const recordClassName = inList
-      ? 'full-record-container record--highlight'
-      : 'full-record-container';
 
     return (
       <div className='container container-narrow full-record-page-container y-spacing'>
         <FullRecordBreadcrumbs datastore={datastore} />
         <GoToList list={list} datastore={datastore} />
-        <div className={recordClassName}>
+        <div className={`full-record-container ${isInList(list, record.uid) ? 'record--highlight' : ''}`}>
           <RecordFullFormats formats={record.formats} />
           <div className='record-container'>
             <div className='full-record-title-and-actions-container'>
-              <h1 className='full-record-title'>
+              <h1 className='full-record-title' id='maincontent' tabIndex='-1'>
                 {[].concat(record.names).map((title, index) => {
                   if (index > 0) {
                     return (
@@ -213,18 +202,7 @@ class FullRecord extends React.Component {
 
             <div
               css={{
-                borderBottom: `solid 1px ${COLORS.neutral[100]}`,
-                '[data-accordion-component="AccordionItemPanel"]': {
-                  padding: `0 ${SPACING.M}`
-                },
-                [MEDIA_QUERIES.LARGESCREEN]: {
-                  '[data-accordion-component="AccordionItemButton"]': {
-                    paddingLeft: '3rem'
-                  },
-                  '[data-accordion-component="AccordionItemPanel"]': {
-                    paddingLeft: '3rem'
-                  }
-                }
+                borderBottom: `solid 1px ${COLORS.neutral[100]}`
               }}
             >
               <ResourceAccess record={record} />
@@ -246,7 +224,7 @@ FullRecord.propTypes = {
   datastore: PropTypes.object,
   datastoreUid: PropTypes.string,
   history: PropTypes.object,
-  list: PropTypes.object,
+  list: PropTypes.array,
   match: PropTypes.object
 };
 

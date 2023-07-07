@@ -1,15 +1,26 @@
 import React from 'react';
-import { ExpandableContext } from './Expandable'
+import { ExpandableContext } from './Expandable';
+import PropTypes from 'prop-types';
 
 /*
   Provides expandable 'context' as a render prop.
 */
-export default props => (
-  <ExpandableContext.Consumer>
-    {context => (
-      <React.Fragment>
-        {props.children(context)}
-      </React.Fragment>
-    )}
-  </ExpandableContext.Consumer>
-)
+const ExpandableProvider = (props) => {
+  return (
+    <ExpandableContext.Consumer>
+      {(context) => {
+        return (
+          <>
+            {props.children(context)}
+          </>
+        );
+      }}
+    </ExpandableContext.Consumer>
+  );
+};
+
+ExpandableProvider.propTypes = {
+  children: PropTypes.any
+};
+
+export default ExpandableProvider;

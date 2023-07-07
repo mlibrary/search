@@ -1,5 +1,5 @@
-import qs from "qs";
-import _ from "underscore";
+import qs from 'qs';
+import _ from 'underscore';
 
 /*
   newQuery
@@ -11,7 +11,7 @@ import _ from "underscore";
     - library
     - page
 */
-export function newSearch(data) {
+export function newSearch (data) {
   const urlSearchState = getSearchStateFromURL();
   const filter = newSearchFilter({
     proposed: data.filter,
@@ -26,20 +26,20 @@ export function newSearch(data) {
   return stringifySearch(newSearchState);
 }
 
-export function getSearchStateFromURL() {
+export function getSearchStateFromURL () {
   return qs.parse(document.location.search.substring(1), { allowDots: true });
 }
 
-export function stringifySearch(searchStateObj) {
+export function stringifySearch (searchStateObj) {
   return qs.stringify(searchStateObj, {
-    arrayFormat: "repeat",
+    arrayFormat: 'repeat',
     encodeValuesOnly: true,
     allowDots: true,
-    format: "RFC1738"
+    format: 'RFC1738'
   });
 }
 
-export function newSearchFilter({ proposed = {}, existing = {} }) {
+export function newSearchFilter ({ proposed = {}, existing = {} }) {
   const groups = Object.keys(proposed).concat(Object.keys(existing));
   const filter = groups.reduce((acc, group) => {
     return {
@@ -52,46 +52,25 @@ export function newSearchFilter({ proposed = {}, existing = {} }) {
 }
 
 /*
-  Remove a filter from the URL.
-
-  Removes the value from a filter group
-  and will remove the group if the value
-  is the group's only value.
-
-  returns a new URL with the filter removed.
+  Removes a filter from the URL by taking `window.location.search`,
+  and replacing the matching filter query parameter and its value.
+  Also removes the `&` before it, if it exists.
+  Returns the new string.
 */
-export function getURLWithFilterRemoved({ group, value }) {
-  const urlSearchState = getSearchStateFromURL();
-  const groups = Object.keys(urlSearchState.filter);
-  const filter = groups.reduce((acc, g) => {
-    if (g === group) {
-      if (Array.isArray(urlSearchState.filter[g])) {
-        acc = {
-          ...acc,
-          [g]: urlSearchState.filter[g].filter(val => val !== value)
-        };
-      }
-    } else {
-      acc = {
-        ...acc,
-        [g]: urlSearchState.filter[g]
-      };
-    }
-
-    return acc;
-  }, {});
-  const newSearchState = {
-    ...urlSearchState,
-    filter
-  };
-
-  return document.location.pathname + "?" + stringifySearch(newSearchState);
+export function getURLWithFilterRemoved ({ group, value }) {
+  let windowLocationSearch = window.location.search;
+  const filterQuery = `filter.${group}=${encodeURIComponent(value).replaceAll('%20', '+')}`;
+  windowLocationSearch = windowLocationSearch.replace(
+    windowLocationSearch.includes(`&${filterQuery}`) ? `&${filterQuery}` : filterQuery,
+    ''
+  );
+  return document.location.pathname + windowLocationSearch;
 }
 
-export function getURLWithoutFilters() {
+export function getURLWithoutFilters () {
   return (
     document.location.pathname +
-    "?" +
+    '?' +
     stringifySearch({
       ...getSearchStateFromURL(),
       filter: undefined
@@ -99,10 +78,12 @@ export function getURLWithoutFilters() {
   );
 }
 
-export function filterOutActiveFilters({ active, filters }) {
+export function filterOutActiveFilters ({ active, filters }) {
   if (!active) {
     return filters;
   }
 
-  return filters.filter(({ value }) => !_.contains(active, value));
+  return filters.filter(({ value }) => {
+    return !_.contains(active, value);
+  });
 }
