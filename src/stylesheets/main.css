@@ -101,16 +101,6 @@ html {
 /*
   Site
 */
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 820px) {
-  html {
-    font-size: 17px;
-  }
-}
-
 html,
 body {
   -webkit-font-smoothing: antialiased;
@@ -118,9 +108,14 @@ body {
 }
 
 body {
-  font-family: "Noto Sans", sans-serif;
-  line-height: 1.4;
+  font: 14px/1.4 "Noto Sans", sans-serif;
   color: #262626;
+}
+
+@media (min-width: 820px) {
+  body {
+    font-size: 1rem;
+  }
 }
 
 /*
