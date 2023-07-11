@@ -1998,21 +1998,18 @@ body {
 }
 
 .datastore-info-container {
-  display: flex;
   align-items: flex-start;
-  margin: 0.75rem 0;
   border-radius: 4px;
+  display: flex;
+  gap: 1rem;
   justify-content: space-between;
+  margin: 0.75rem 0;
 }
 
 .datastore-info-container p {
   font-size: 0.875rem;
   margin: 0;
   line-height: 1.7;
-}
-
-.datastore-info {
-  padding-right: 1rem;
 }
 
 .datastore-info-hide {
