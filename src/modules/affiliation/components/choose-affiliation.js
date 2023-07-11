@@ -53,7 +53,7 @@ export default function ChooseAffiliation () {
           padding: '0',
           textTransform: 'uppercase',
           fontWeight: '800',
-          fontSize: '0.75rem',
+          fontSize: '0.8rem',
           '& > div': {
             padding: '0.25rem 0.5rem',
             '&:hover': {

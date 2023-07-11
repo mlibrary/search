@@ -108,7 +108,7 @@ body {
 }
 
 body {
-  font: 14px/1.4 "Noto Sans", sans-serif;
+  font: 0.875rem/1.4 "Noto Sans", sans-serif;
   color: #262626;
 }
 
@@ -1377,7 +1377,10 @@ body {
 }
 
 .record-title-link {
-  border-bottom: solid 2px rgba(18, 109, 193, 0.4);
+  text-decoration: underline;
+  text-decoration-color: rgba(18, 109, 193, 0.4);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
 }
 
 .record-title-link:hover {
@@ -1680,7 +1683,7 @@ body {
 
 @media (min-width: 600px) {
   .bentobox {
-    width: 19rem;
+    max-width: 20rem;
     margin-right: 1.5rem;
   }
 }
@@ -1712,7 +1715,7 @@ body {
 .bentobox-heading {
   margin: 0;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   margin-right: 0.5rem;
   line-height: 1.5;
@@ -1862,8 +1865,10 @@ body {
 
 .record-preview-heading .icon {
   color: #4E4E4E;
+  margin-left: 0.25rem;
+  position: relative;
+  top: 0.25rem;
   width: 0.85rem;
-  margin-right: 0.25rem;
 }
 
 .record-preview-title-link {
@@ -2917,12 +2922,15 @@ input.get-this-field-input-year {
 }
 
 .specialist__heading {
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin: 0;
 }
 
 .specialist__heading .icon {
   color: #4E4E4E;
+  margin-left: 0.25rem;
+  position: relative;
+  top: 0.125rem;
   width: 0.85rem;
 }
 
