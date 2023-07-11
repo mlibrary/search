@@ -77,7 +77,7 @@ html {
 }
 
 .container-narrow {
-  max-width: 51rem;
+  max-width: 54rem;
 }
 
 .container-medium {
@@ -1301,7 +1301,7 @@ body {
 
 @media (min-width: 980px) {
   .side-container {
-    width: 24rem;
+    width: 25.5rem;
   }
 }
 
@@ -2207,7 +2207,7 @@ body {
 
 .advanced-field-select {
   margin-right: 1rem;
-  min-width: 12rem;
+  min-width: 12.75rem;
 }
 
 .advanced-filters-container {
@@ -2548,10 +2548,19 @@ input.multiselect-search {
   margin-right: 1rem;
 }
 
+.radio-label:hover {
+  border-color: #4E4E4E;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #4E4E4E;
+}
+
 .radio-label.radio-selected {
   background: #E6F3FF;
   border-color: #126DC1;
   color: #0C5292;
+}
+
+.radio-label.radio-selected:hover {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #126DC1;
 }
 
 .radio-input {

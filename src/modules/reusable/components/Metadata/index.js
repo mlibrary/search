@@ -35,7 +35,7 @@ export default function Metadata ({ data, kind }) {
     ? {
         [MEDIA_QUERIES.LARGESCREEN]: {
           display: 'grid',
-          gridTemplateColumns: '9rem 1fr',
+          gridTemplateColumns: '10rem 1fr',
           gridColumnGap: SPACING.S,
           'dt:not(:first-of-type) + dd': {
             paddingTop: SPACING.XS
