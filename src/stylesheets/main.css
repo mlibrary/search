@@ -88,12 +88,6 @@ html {
   padding: 0 1rem;
 }
 
-@media (min-width: 1200px) {
-  .container-large {
-    max-width: 140rem;
-  }
-}
-
 * {
   -webkit-font-smoothing: antialiased;
 }
@@ -1651,6 +1645,7 @@ body {
 .bentobox-list {
   display: flex;
   flex-wrap: wrap;
+  gap: 1.5rem;
   list-style: none;
   justify-content: center;
   width: 100%;
@@ -1662,6 +1657,7 @@ body {
   }
 }
 
+.bentobox,
 .bentobox-list .specialists {
   width: 100%;
   margin-bottom: 1.5rem;
@@ -1669,22 +1665,9 @@ body {
 }
 
 @media (min-width: 600px) {
+  .bentobox,
   .bentobox-list .specialists {
-    width: 19rem;
-    margin-right: 1.5rem;
-  }
-}
-
-.bentobox {
-  width: 100%;
-  margin-bottom: 1.5rem;
-  padding: 0;
-}
-
-@media (min-width: 600px) {
-  .bentobox {
     max-width: 20rem;
-    margin-right: 1.5rem;
   }
 }
 
