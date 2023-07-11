@@ -43,7 +43,7 @@ class Pagination extends React.Component {
     const totalConverted = total?.toLocaleString();
 
     return (
-      <nav className='pagination-container x-spacing' aria-label={ariaLabel}>
+      <nav className='pagination-container' aria-label={ariaLabel}>
         <div className='pagination-previous-container'>
           {toPreviousPage && (
             <Link to={toPreviousPage}>
@@ -64,7 +64,7 @@ class Pagination extends React.Component {
             }}
             onChange={this.handleInputChange}
           />
-          <span>of {totalConverted}</span>
+          <span>of&nbsp;{totalConverted}</span>
         </form>
         <div className='pagination-next-container'>
           {toNextPage && (
