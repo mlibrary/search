@@ -7,74 +7,46 @@ import { changeActiveDatastore } from '../../actions';
 import DatastoreNavigationPresenter from './presenter';
 import PropTypes from 'prop-types';
 
-class DatastoreNavigationContainer extends React.Component {
-  componentDidMount () {
-    const { datastores, match } = this.props;
-    const routeDatastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug);
-    const activeDatastoreUid = datastores.active;
+function DatastoreNavigationContainer (props) {
+  const routeDatastoreUid = getDatastoreUidBySlug(props.match.params.datastoreSlug);
+  const activeDatastoreUid = props.datastores.active;
 
-    if (routeDatastoreUid !== activeDatastoreUid) {
-      this.props.changeActiveDatastore(routeDatastoreUid);
-    }
+  if (routeDatastoreUid !== activeDatastoreUid) {
+    changeActiveDatastore(routeDatastoreUid);
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps) {
-    const { datastores, match } = nextProps;
-    const routeDatastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug);
-    const activeDatastoreUid = datastores.active;
-
-    if (routeDatastoreUid !== activeDatastoreUid) {
-      this.props.changeActiveDatastore(routeDatastoreUid);
-    }
-  }
-
-  render () {
-    const {
-      datastores,
-      search,
-      activeFilters,
-      institution,
-      history
-    } = this.props;
-
-    return (
-      <DatastoreNavigationPresenter
-        datastores={datastores}
-        search={search}
-        activeFilters={activeFilters}
-        history={history}
-        institution={institution}
-      />
-    );
-  }
+  return (
+    <DatastoreNavigationPresenter
+      datastores={props.datastores}
+      search={props.search}
+      activeFilters={props.activeFilters}
+      history={props.history}
+      institution={props.institution}
+    />
+  );
 };
 
 DatastoreNavigationContainer.propTypes = {
-  datastores: PropTypes.object,
   match: PropTypes.object,
-  changeActiveDatastore: PropTypes.func,
+  datastores: PropTypes.object,
   search: PropTypes.object,
   activeFilters: PropTypes.object,
-  institution: PropTypes.object,
-  history: PropTypes.object
+  history: PropTypes.object,
+  institution: PropTypes.object
 };
 
-function mapStateToProps (state) {
-  return {
-    datastores: state.datastores,
-    search: state.search,
-    activeFilters: state.filters.active,
-    institution: state.institution
-  };
-}
-
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    changeActiveDatastore
-  }, dispatch);
-}
-
 export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
+  (state) => {
+    return {
+      datastores: state.datastores,
+      search: state.search,
+      activeFilters: state.filters.active,
+      institution: state.institution
+    };
+  },
+  (dispatch) => {
+    return bindActionCreators({
+      changeActiveDatastore
+    }, dispatch);
+  }
 )(DatastoreNavigationContainer));

@@ -48,41 +48,18 @@ function CheckboxFilterContainer ({ uid }) {
   const { datastores, filters } = useSelector((state) => {
     return state;
   });
-  const {
-    metadata,
-    preSelected
-  } = filters.groups[uid];
-
+  const { metadata, preSelected } = filters.groups[uid];
   const isActive = filters.active[datastores.active] && filters.active[datastores.active][uid];
-
-  function isChecked () {
-    if (isActive) {
-      if (isActive[0] === 'true') {
-        return true;
-      } else if (isActive[0] === 'false') {
-        return false;
-      }
-    }
-
-    return preSelected;
-  }
-
-  function url () {
-    if (isActive) {
-      return getURLWithFilterRemoved({ group: uid });
-    }
-
-    const search = newSearch({ filter: { [uid]: !preSelected }, page: undefined });
-    const url = document.location.pathname + '?' + search;
-
-    return url;
-  }
 
   return (
     <CheckboxFilter
       label={metadata.name}
-      isChecked={isChecked()}
-      url={url()}
+      isChecked={isActive ? isActive[0] === 'true' : preSelected}
+      url={
+        isActive
+          ? getURLWithFilterRemoved({ group: uid, value: isActive[0] })
+          : document.location.pathname + '?' + newSearch({ filter: { [uid]: !preSelected }, page: undefined })
+      }
     />
   );
 }
@@ -111,13 +88,14 @@ function CheckboxFilter ({ label, isChecked, url }) {
           lineHeight: '100%'
         }}
       >
-        {isChecked
-          ? (
-            <Icon d='M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' size={22} />
-            )
-          : (
-            <Icon d='M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z' size={22} />
-            )}
+        <Icon
+          d={
+            isChecked
+              ? 'M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'
+              : 'M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'
+          }
+          size={22}
+        />
       </span>
       {label}
     </Link>
