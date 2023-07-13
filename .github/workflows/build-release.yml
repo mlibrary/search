@@ -15,66 +15,66 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Clean: Staging
+      - name: "Clean: Staging"
         run: rm -rf build
-      - name: Build: Staging
+      - name: "Build: Staging"
         run: npm run build
         env:
           CI: false
           REACT_APP_LOGIN_BASE_URL: https://search-staging.www.lib.umich.edu
           REACT_APP_SPECTRUM_BASE_URL: https://search-staging.www.lib.umich.edu/spectrum
-      - name: Package: Staging
+      - name: "Package: Staging"
         run: tar -C build --transform s/./search/ -czf search-staging.tar.gz .
-      - name: Upload Release Asset: Staging
+      - name: "Upload Release Asset: Staging"
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: search-staging.tar.gz
 
-      - name: Clean: Production
+      - name: "Clean: Production"
         run: rm -rf build
-      - name: Build: Production
+      - name: "Build: Production"
         run: npm run build
         env:
           CI: false
           REACT_APP_LOGIN_BASE_URL: https://search.lib.umich.edu
           REACT_APP_SPECTRUM_BASE_URL: https://search.lib.umich.edu/spectrum
-      - name: Package: Production
+      - name: "Package: Production"
         run: tar -C build --transform s/./search/ -czf search-production.tar.gz .
-      - name: Upload Release Asset: Production
+      - name: "Upload Release Asset: Production"
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: search-production.tar.gz
 
-      - name: Clean: Local
+      - name: "Clean: Local"
         run: rm -rf build
-      - name: Build: Local
+      - name: "Build: Local"
         run: npm run build
         env:
           CI: false
           REACT_APP_LOGIN_BASE_URL: http://127.0.0.1:3000
           REACT_APP_SPECTRUM_BASE_URL: http://127.0.0.1:3000/spectrum
-      - name: Package: Local
+      - name: "Package: Local"
         run: tar -C build --transform s/./search/ -czf search-local.tar.gz .
-      - name: Upload Release Asset: Local
+      - name: "Upload Release Asset: Local"
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: search-local.tar.gz
 
-      - name: Clean: Origin
+      - name: "Clean: Origin"
         run: rm -rf build
-      - name: Build: Origin
+      - name: "Build: Origin"
         run: npm run build
         env:
           CI: false
-      - name: Package: Origin
+      - name: "Package: Origin"
         run: tar -C build --transform s/./search/ -czf search-origin.tar.gz .
-      - name: Upload Release Asset: Origin
+      - name: "Upload Release Asset: Origin"
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
