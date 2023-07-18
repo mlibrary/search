@@ -257,8 +257,8 @@ function DescriptionItemLink ({ href, search, browse, children }) {
 
   if (browse) {
     return (
-      <span>
-        {children}
+      <>
+        <SearchLink search={search}>{children}</SearchLink>
         <a
           css={{
             color: COLORS.neutral['300'],
@@ -279,9 +279,9 @@ function DescriptionItemLink ({ href, search, browse, children }) {
           }}
           href={browseLinkByEnvironment(browse.type, browse.value)}
         >
-          Browse in {browse.type === 'callnumber' ? 'call number' : browse.type} list
+          {browse.text}
         </a>
-      </span>
+      </>
     );
   }
 
