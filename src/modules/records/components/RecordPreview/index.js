@@ -45,15 +45,14 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
             );
           }
           return (
-            <span key={index}>
-              <a
-                href={recordTitleLink}
-                className='record-title-link'
-              >
-                <TrimString string={title} />
-              </a>
+            <a
+              href={recordTitleLink}
+              className='record-title-link'
+              key={index}
+            >
+              <TrimString string={title} />
               <SearchIcon name='launch' />
-            </span>
+            </a>
           );
         })}
         <RecommendedResource record={record} />

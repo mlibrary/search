@@ -12,7 +12,8 @@ const Specialist = ({ person }) => {
         <h3 className='specialist__heading'>
           <a href={person.url}>
             {person.name}
-          </a>&nbsp;&nbsp;<Icon name='launch' />
+            <Icon name='launch' />
+          </a>
         </h3>
         <section>
           <p className='specialist__job-title'>{person.job_title}</p>

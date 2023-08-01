@@ -302,7 +302,7 @@ export function GlobalStyleSheet () {
       are not being requests as another file to fetch, it's OK to import the
       font family because it's not as slow as tranditional setups.
     */
-    @import url('https://fonts.googleapis.com/css?family=Crimson+Text|Muli:400,600,700');  
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&family=Muli:wght@400;600;700&display=swap');  
     
     body,
     html {

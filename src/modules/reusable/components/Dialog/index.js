@@ -58,7 +58,7 @@ export default function Dialog ({ closeOnOutsideClick, onRequestClose, open, ...
           height: 'max-content',
           marginTop: '200px',
           maxHeight: 'calc(100vh - 400px)',
-          maxWidth: '40rem'
+          maxWidth: '42.5rem'
         },
         '::backdrop': {
           background: 'rgba(16, 22, 26, 0.7);'
