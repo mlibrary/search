@@ -43,107 +43,113 @@ export default function ChooseAffiliation () {
   const closeDialog = () => {
     return setDialogOpen(false);
   };
-  return (
-    <div>
-      <Button
-        kind='secondary'
-        css={{
-          borderColor: COLORS.blue[300],
-          color: 'white',
-          display: 'flex',
-          padding: '0',
-          textTransform: 'uppercase',
-          fontWeight: '800',
-          fontSize: '0.8rem',
-          '& > div': {
-            padding: '0.25rem 0.5rem',
-            '&:hover': {
-              textDecoration: 'underline'
-            },
-            '&.active-affiliation': {
-              background: COLORS.blue[300]
-            }
-          }
-        }}
-        onClick={toggleDialog}
-      >
-        <div className={affiliation !== 'flint' ? 'active-affiliation' : ''}>
-          <span className='visually-hidden'>{affiliation === 'flint' ? 'Choose' : 'Current'} campus affiliation: </span>
-          Ann Arbor
-        </div>
-        <div className={affiliation === 'flint' ? 'active-affiliation' : ''}>
-          <span className='visually-hidden'>{affiliation === 'flint' ? 'Current' : 'Choose'} campus affiliation: </span>
-          Flint
-        </div>
-      </Button>
-      <Dialog open={dialogOpen} onRequestClose={closeDialog} closeOnOutsideClick>
-        <div
+  if (navigator.userAgent === 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.2 Safari/605.1.15') {
+    return (
+      <span>Will this show in old Safari?</span>
+    );
+  } else {
+    return (
+      <div>
+        <Button
+          kind='secondary'
           css={{
-            alignItems: 'flex-start',
+            borderColor: COLORS.blue[300],
+            color: 'white',
             display: 'flex',
-            gap: '1rem'
+            padding: '0',
+            textTransform: 'uppercase',
+            fontWeight: '800',
+            fontSize: '0.8rem',
+            '& > div': {
+              padding: '0.25rem 0.5rem',
+              '&:hover': {
+                textDecoration: 'underline'
+              },
+              '&.active-affiliation': {
+                background: COLORS.blue[300]
+              }
+            }
           }}
+          onClick={toggleDialog}
         >
+          <div className={affiliation !== 'flint' ? 'active-affiliation' : ''}>
+            <span className='visually-hidden'>{affiliation === 'flint' ? 'Choose' : 'Current'} campus affiliation: </span>
+            Ann Arbor
+          </div>
+          <div className={affiliation === 'flint' ? 'active-affiliation' : ''}>
+            <span className='visually-hidden'>{affiliation === 'flint' ? 'Current' : 'Choose'} campus affiliation: </span>
+            Flint
+          </div>
+        </Button>
+        <Dialog open={dialogOpen} onRequestClose={closeDialog} closeOnOutsideClick>
           <div
             css={{
-              flexGrow: '1',
-              '& > h2': {
-                marginTop: '0'
-              },
-              '& > *:last-child': {
-                marginBottom: '0'
-              }
+              alignItems: 'flex-start',
+              display: 'flex',
+              gap: '1rem'
             }}
           >
-            <h2 className='heading-large'>
-              Choose campus affiliation
-            </h2>
-            <p>
-              Selecting an affiliation helps us connect you to available online
-              materials licensed for your campus.
-            </p>
             <div
               css={{
-                alignItems: 'center',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.5rem',
-                '@media only screen and (min-width: 640px)': {
-                  flexDirection: 'row',
-                  gap: '1rem'
+                flexGrow: '1',
+                '& > h2': {
+                  marginTop: '0'
+                },
+                '& > *:last-child': {
+                  marginBottom: '0'
                 }
               }}
             >
-              <Button onClick={closeDialog}>
-                Continue as {affiliationOptions[affiliation]}
-              </Button>
-              or
-              <Button kind='secondary' onClick={changeAffiliation} role='link'>
-                Change to {affiliationOptions[alternativeAffiliation]}
-              </Button>
+              <h2 className='heading-large'>
+                Choose campus affiliation
+              </h2>
+              <p>
+                Selecting an affiliation helps us connect you to available online
+                materials licensed for your campus.
+              </p>
+              <div
+                css={{
+                  alignItems: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem',
+                  '@media only screen and (min-width: 640px)': {
+                    flexDirection: 'row',
+                    gap: '1rem'
+                  }
+                }}
+              >
+                <Button onClick={closeDialog}>
+                  Continue as {affiliationOptions[affiliation]}
+                </Button>
+                or
+                <Button kind='secondary' onClick={changeAffiliation} role='link'>
+                  Change to {affiliationOptions[alternativeAffiliation]}
+                </Button>
+              </div>
+              <p className='font-small'>
+                You can still use Library Search if you're not affiliated with
+                either campus.
+              </p>
             </div>
-            <p className='font-small'>
-              You can still use Library Search if you're not affiliated with
-              either campus.
-            </p>
+            <Button
+              kind='secondary'
+              onClick={closeDialog}
+              small
+              css={{
+                border: 'none',
+                flexShrink: '0',
+                textDecoration: 'underline',
+                '&:hover': {
+                  textDecoration: 'none'
+                }
+              }}
+            >
+              Dismiss
+            </Button>
           </div>
-          <Button
-            kind='secondary'
-            onClick={closeDialog}
-            small
-            css={{
-              border: 'none',
-              flexShrink: '0',
-              textDecoration: 'underline',
-              '&:hover': {
-                textDecoration: 'none'
-              }
-            }}
-          >
-            Dismiss
-          </Button>
-        </div>
-      </Dialog>
-    </div>
-  );
+        </Dialog>
+      </div>
+    );
+  }
 }
