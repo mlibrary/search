@@ -7,6 +7,7 @@ import { COLORS } from '../../reusable/umich-lib-core-temp';
 import { Button, Dialog } from '../../reusable';
 
 export default function ChooseAffiliation () {
+  console.log(navigator.userAgent);
   const { defaultAffiliation, affiliationOptions } = useSelector((state) => {
     return state.affiliation;
   });
