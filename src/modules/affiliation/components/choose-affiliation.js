@@ -7,7 +7,6 @@ import { COLORS } from '../../reusable/umich-lib-core-temp';
 import { Button, Dialog } from '../../reusable';
 
 export default function ChooseAffiliation () {
-  console.log(navigator.userAgent);
   const { defaultAffiliation, affiliationOptions } = useSelector((state) => {
     return state.affiliation;
   });
@@ -52,7 +51,6 @@ export default function ChooseAffiliation () {
   if ([' Version/', ' Safari/'].every((spec) => {
     return userAgent.includes(spec);
   })) {
-    console.log(parseFloat('15.5.5') > parseFloat('15.4.4'), parseFloat('15.5.5'), parseFloat('15.4.4'), 'navigator', navigator.userAgent);
     // Split userAgent up at `Version/`
     const agentSplit = userAgent.split('Version/');
     // Split the second element of the new array
@@ -62,14 +60,39 @@ export default function ChooseAffiliation () {
   }
   if (oldSafari) {
     return (
-      <span
-        css={{
-          color: 'white',
-          fontWeight: '700'
-        }}
-      >
-        Will this show in old Safari?
-      </span>
+      <div>
+        <Button
+          kind='secondary'
+          css={{
+            borderColor: COLORS.blue[300],
+            color: 'white',
+            display: 'flex',
+            padding: '0',
+            textTransform: 'uppercase',
+            fontWeight: '800',
+            fontSize: '0.8rem',
+            '& > div': {
+              padding: '0.25rem 0.5rem',
+              '&:hover': {
+                textDecoration: 'underline'
+              },
+              '&.active-affiliation': {
+                background: COLORS.blue[300]
+              }
+            }
+          }}
+          onClick={changeAffiliation}
+        >
+          <div className={affiliation !== 'flint' ? 'active-affiliation' : ''}>
+            <span className='visually-hidden'>{affiliation === 'flint' ? 'Choose' : 'Current'} campus affiliation: </span>
+            Ann Arbor
+          </div>
+          <div className={affiliation === 'flint' ? 'active-affiliation' : ''}>
+            <span className='visually-hidden'>{affiliation === 'flint' ? 'Current' : 'Choose'} campus affiliation: </span>
+            Flint
+          </div>
+        </Button>
+      </div>
     );
   }
   return (
