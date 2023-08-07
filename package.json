@@ -50,7 +50,8 @@
     },
     "rollup-plugin-terser": "npm:@rollup/plugin-terser@latest",
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@latest",
-    "svgo": "latest"
+    "svgo": "latest",
+    "workbox-build": "latest"
   },
   "scripts": {
     "build": "react-scripts build",
