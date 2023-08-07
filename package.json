@@ -47,7 +47,8 @@
     "connected-react-router": {
       "react": "^16.4.0 || ^17.0.0 || ^18.0.0",
       "react-redux": "^6.0.0 || ^7.1.0 || ^8.0.0"
-    }
+    },
+    "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@1.4.15"
   },
   "scripts": {
     "build": "react-scripts build",
