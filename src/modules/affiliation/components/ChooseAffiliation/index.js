@@ -49,6 +49,7 @@ export default function ChooseAffiliation () {
           );
         })}
       </select>
+      <p className='font-small'>Selecting an affiliation helps us connect you to available online materials licensed for your campus. You can still use Library Search if you're not affiliated with either campus.</p>
     </fieldset>
   );
 }
