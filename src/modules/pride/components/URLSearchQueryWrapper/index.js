@@ -27,7 +27,8 @@ import {
 import { changeActiveDatastore } from '../../../datastores';
 import { setActiveInstitution } from '../../../institution';
 import { setA11yMessage } from '../../../a11y';
-import { affiliationCookieSetter, setActiveAffilitation } from '../../../affiliation';
+// import { affiliationCookieSetter, setActiveAffilitation } from '../../../affiliation';
+import { setActiveAffilitation } from '../../../affiliation';
 import PropTypes from 'prop-types';
 
 function handleURLState ({
@@ -42,7 +43,7 @@ function handleURLState ({
   const urlState = getStateFromURL({ location });
   let shouldRunSearch = false;
   props.setActiveAffilitation(urlState.affiliation);
-  affiliationCookieSetter(urlState.affiliation);
+  // affiliationCookieSetter(urlState.affiliation);
 
   if (datastoreUid) {
     // URL has state
