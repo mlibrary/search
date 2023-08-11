@@ -23,6 +23,8 @@ export default function ChooseAffiliation () {
   const onAffiliationChange = (event) => {
     const value = event.target.value;
     setAffiliation(value);
+    urlParams.set('affiliation', value);
+    window.location.href = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
   };
 
   return (
