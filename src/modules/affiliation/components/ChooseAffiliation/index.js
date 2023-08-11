@@ -47,6 +47,7 @@ function ChooseAffiliation () {
         autoComplete='off'
         value={affiliation}
         onChange={onAffiliationChange}
+        aria-describedby='affiliation-description'
       >
         {Object.keys(initialAffiliationState.affiliationOptions).map((affiliationOption) => {
           return (
@@ -56,7 +57,7 @@ function ChooseAffiliation () {
           );
         })}
       </select>
-      <p className='font-small'>Selecting an affiliation helps us connect you to available online materials licensed for your campus. You can still use Library Search if you're not affiliated with either campus.</p>
+      <p className='font-small' id='affiliation-description'>Selecting an affiliation helps us connect you to available online materials licensed for your campus. You can still use Library Search if you're not affiliated with either campus.</p>
     </fieldset>
   );
 }
