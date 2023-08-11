@@ -1,11 +1,16 @@
 import { React, useState } from 'react';
 
-export default function ChooseAffiliation () {
-  const affiliations = {
+const initialAffiliationState = {
+  active: undefined,
+  defaultAffiliation: 'aa',
+  affiliationOptions: {
     aa: 'Ann Arbor',
     flint: 'Flint'
-  };
-  let defaultAffiliation = Object.keys(affiliations)[0];
+  }
+};
+
+function ChooseAffiliation () {
+  let defaultAffiliation = initialAffiliationState.defaultAffiliation;
   // Set default affiliation if query parameter exists
   const urlParams = new URLSearchParams(window.location.search);
   const affiliationParam = urlParams.get('affiliation');
@@ -43,10 +48,10 @@ export default function ChooseAffiliation () {
         value={affiliation}
         onChange={onAffiliationChange}
       >
-        {Object.keys(affiliations).map((affiliation) => {
+        {Object.keys(initialAffiliationState.affiliationOptions).map((affiliationOption) => {
           return (
-            <option value={affiliation} key={`affiliation-${affiliation}`}>
-              {affiliations[affiliation]}
+            <option value={affiliationOption} key={`affiliation-${affiliationOption}`}>
+              {initialAffiliationState.affiliationOptions[affiliationOption]}
             </option>
           );
         })}
@@ -55,3 +60,5 @@ export default function ChooseAffiliation () {
     </fieldset>
   );
 }
+
+export { initialAffiliationState, ChooseAffiliation };
