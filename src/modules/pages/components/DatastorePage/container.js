@@ -22,6 +22,7 @@ import {
 import { GetThisPage } from '../../../getthis';
 import { switchPrideToDatastore } from '../../../pride';
 import { InstitutionSelect, InstitutionWrapper } from '../../../institution';
+import { ChooseAffiliation } from '../../../affiliation';
 import { List } from '../../../lists';
 import { setDocumentTitle } from '../../../a11y';
 import { FlintAlerts } from '../../../flint';
@@ -255,6 +256,9 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
             display: responsive('none', 'block')
           }}
           css={{
+            '& > * + *': {
+              marginTop: '1rem'
+            },
             '@media (max-width: 979px)': {
               display: 'none'
             },
@@ -265,6 +269,7 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
         >
           <InstitutionSelect />
           <Filters />
+          <ChooseAffiliation />
           <BrowseInfo datastore={activeDatastore} />
         </div>
       </div>

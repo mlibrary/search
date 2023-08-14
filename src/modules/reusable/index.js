@@ -1,6 +1,5 @@
 import Alert from './components/Alert';
 import Button from './components/Button';
-import Dialog from './components/Dialog';
 import Tag from './components/Tag';
 import Breadcrumb from './components/Breadcrumb';
 import Pagination from './components/Pagination';
@@ -14,7 +13,6 @@ import ResourceAccess from './components/ResourceAccess';
 export {
   Alert,
   Button,
-  Dialog,
   Tag,
   Breadcrumb,
   Pagination,

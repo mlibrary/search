@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import config from '../../../../config';
-import { ChooseAffiliation } from '../../../affiliation';
 import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
 
 function SearchHeader (props) {
@@ -63,7 +62,6 @@ function SearchHeader (props) {
             </a>
           );
         })}
-        <ChooseAffiliation />
       </nav>
     </m-website-header>
   );
