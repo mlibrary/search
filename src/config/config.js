@@ -4,7 +4,7 @@ const loginBaseURL = (directory) => {
 
 const config = {
   spectrum: process.env.REACT_APP_SPECTRUM_BASE_URL || window.location.origin,
-  loginUrl: loginBaseURL('/auth/openid_connect'),
+  loginUrl: loginBaseURL('/login'),
   logoutUrl: loginBaseURL('/logout'),
   datastores: {
     list: [

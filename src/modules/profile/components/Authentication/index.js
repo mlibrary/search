@@ -4,17 +4,12 @@ import PropTypes from 'prop-types';
 
 export default function Authentication (props) {
   return (
-    <form
-      action={props.logout ? config.logoutUrl : config.loginUrl}
-      method={props.logout ? 'get' : 'post'}
+    <a
+      href={props.logout ? config.logoutUrl : config.loginUrl}
+      className={props.link ? 'link' : 'button'}
     >
-      <button
-        type='submit'
-        className={props.link ? 'link' : 'button'}
-      >
-        {props.children || 'Log ' + (props.logout ? 'out' : 'in')}
-      </button>
-    </form>
+      {props.children || 'Log ' + (props.logout ? 'out' : 'in')}
+    </a>
   );
 }
 
