@@ -61,7 +61,7 @@ function GetThisOptions (props) {
   if (status === 'Not logged in') {
     return (
       <Section>
-        <Authentication>
+        <Authentication button>
           <span className='strong'>Log in</span> to view request options
         </Authentication>
       </Section>

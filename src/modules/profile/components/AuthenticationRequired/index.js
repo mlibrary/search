@@ -13,7 +13,7 @@ function AuthenticationRequired (props) {
   }
 
   return (
-    <Authentication>
+    <Authentication button>
       <span className='strong'>Log in</span> to continue
     </Authentication>
   );

@@ -6,7 +6,7 @@ export default function Authentication (props) {
   return (
     <a
       href={props.logout ? config.logoutUrl : config.loginUrl}
-      className={props.link ? 'link' : 'button'}
+      className={props.button && 'button'}
     >
       {props.children || 'Log ' + (props.logout ? 'out' : 'in')}
     </a>
@@ -15,7 +15,7 @@ export default function Authentication (props) {
 
 Authentication.propTypes = {
   logout: PropTypes.bool,
-  link: PropTypes.bool,
+  button: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

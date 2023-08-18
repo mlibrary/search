@@ -24,16 +24,9 @@ function SearchHeader (props) {
             marginRight: '1rem',
             marginBottom: '0.5rem'
           },
-          'a, button.link': {
-            background: 'none',
-            border: '0',
-            color: 'white',
-            fontFamily: 'inherit',
-            margin: '0',
-            padding: '0',
+          a: {
             textDecoration: 'none',
             '&:hover': {
-              cursor: 'pointer',
               textDecoration: 'underline'
             }
           },
@@ -48,7 +41,7 @@ function SearchHeader (props) {
         }}
       >
         <a href='https://account.lib.umich.edu/'>Account</a>
-        <Authentication logout={props.isAuthenticated} link />
+        <Authentication logout={props.isAuthenticated} />
       </nav>
     </m-website-header>
   );
