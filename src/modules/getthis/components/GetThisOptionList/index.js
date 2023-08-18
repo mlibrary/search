@@ -54,7 +54,9 @@ class GetThisOptions extends React.Component {
       } else if (status === 'Not logged in') {
         return (
           <Section>
-            <Authentication text='Log in to view request options' />
+            <Authentication>
+              <span className='strong'>Log in</span> to view request options
+            </Authentication>
           </Section>
         );
       } else {
