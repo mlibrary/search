@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Login from '../Login';
+import Authentication from '../Authentication';
 
 function AuthenticationRequired (props) {
   if (!props.children) {
@@ -13,7 +13,9 @@ function AuthenticationRequired (props) {
   }
 
   return (
-    <Login text='Log in to continue' />
+    <Authentication>
+      <span className='strong'>Log in</span> to continue
+    </Authentication>
   );
 }
 

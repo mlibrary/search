@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Icon, Alert } from '../../../reusable';
-import config from '../../../../config';
 import { DetailsList } from '../../../core';
 import GetThisOption from '../GetThisOption';
+import { Authentication } from '../../../profile';
 import PropTypes from 'prop-types';
 
 const Section = ({ children }) => {
@@ -52,12 +52,9 @@ class GetThisOptions extends React.Component {
           </Section>
         );
       } else if (status === 'Not logged in') {
-        const loginRoot = config.loginUrl;
-        const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search);
-
         return (
           <Section>
-            <a href={loginUrl} className='button'><span className='strong'>Log in</span> to view request options</a>
+            <Authentication text='Log in to view request options' />
           </Section>
         );
       } else {
