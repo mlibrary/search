@@ -1,11 +1,5 @@
-const loginBaseURL = (directory) => {
-  return (process.env.REACT_APP_LOGIN_BASE_URL || window.location.origin) + directory + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search);
-};
-
 const config = {
   spectrum: process.env.REACT_APP_SPECTRUM_BASE_URL || window.location.origin,
-  loginUrl: loginBaseURL('/login'),
-  logoutUrl: loginBaseURL('/logout'),
   datastores: {
     list: [
       {
