@@ -54,6 +54,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
+    "build:dev": "CI=false REACT_APP_LOGIN_BASE_URL=http://localhost:3000 REACT_APP_SPECTRUM_BASE_URL=http://localhost:3000/spectrum npm run build && gtar -C build --transform s/./search/ -czf search.local.tar.gz .",
     "develop": "npm run start",
     "eject": "react-scripts eject",
     "lint": "npx eslint src/**/*.js",
