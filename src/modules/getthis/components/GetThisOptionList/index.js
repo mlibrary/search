@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Icon, Alert } from '../../../reusable';
 import { DetailsList } from '../../../core';
 import GetThisOption from '../GetThisOption';
 import { Authentication } from '../../../profile';
@@ -21,61 +22,64 @@ Section.propTypes = {
   ])
 };
 
-function GetThisOptions (props) {
-  if (!props.record?.getthis) {
-    return (
-      <Section>
-        <div className='alert'>
-          <p>Loading holding options...</p>
-        </div>
-      </Section>
-    );
-  }
+class GetThisOptions extends React.Component {
+  render () {
+    const { record } = this.props;
 
-  const { status, options } = props.record.getthis;
+    if (record && record.getthis) {
+      const { status, options } = record.getthis;
 
-  if (status === 'Success') {
-    if (!options.length) {
+      if (status === 'Success') {
+        if (options.length === 0) {
+          return (
+            <Section>
+              <Alert type='error'>
+                <div className='x-spacing'><Icon icon='error' /><span>No options available.</span></div>
+              </Alert>
+            </Section>
+          );
+        }
+
+        return (
+          <Section>
+            <DetailsList className='get-this-options'>
+              {options.map((option, key) => {
+                return (
+                  <GetThisOption option={option} key={key} />
+                );
+              })}
+            </DetailsList>
+          </Section>
+        );
+      } else if (status === 'Not logged in') {
+        return (
+          <Section>
+            <Authentication button>
+              <span className='strong'>Log in</span> to view request options
+            </Authentication>
+          </Section>
+        );
+      } else {
+        return (
+          <Section>
+            <div className='alert'>
+              <p>Sorry, something unexpected happened.</p>
+
+              <p><span className='strong'>Status:</span> {status}</p>
+            </div>
+          </Section>
+        );
+      }
+    } else {
       return (
         <Section>
-          <div className='alert alert--error'>
-            No options available.
+          <div className='alert'>
+            <p>Loading holding options...</p>
           </div>
         </Section>
       );
     }
-
-    return (
-      <Section>
-        <DetailsList className='get-this-options'>
-          {options.map((option, key) => {
-            return (
-              <GetThisOption option={option} key={key} />
-            );
-          })}
-        </DetailsList>
-      </Section>
-    );
   }
-
-  if (status === 'Not logged in') {
-    return (
-      <Section>
-        <Authentication button>
-          <span className='strong'>Log in</span> to view request options
-        </Authentication>
-      </Section>
-    );
-  }
-
-  return (
-    <Section>
-      <div className='alert'>
-        <p>Sorry, something unexpected happened.</p>
-        <p><span className='strong'>Status:</span> {status}</p>
-      </div>
-    </Section>
-  );
 }
 
 GetThisOptions.propTypes = {
