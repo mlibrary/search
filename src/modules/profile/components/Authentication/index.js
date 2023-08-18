@@ -10,7 +10,7 @@ export default function Authentication (props) {
     >
       <button
         type='submit'
-        className={props.link ? 'button-link-light' : 'button'}
+        className={props.link ? 'link' : 'button'}
       >
         {props.children || 'Log ' + (props.logout ? 'out' : 'in')}
       </button>
