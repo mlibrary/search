@@ -68,55 +68,47 @@ Header.propTypes = {
 };
 
 const Footer = ({ record, datastoreUid }) => {
-  // No access/holding options for Mirlyn for preview records.
-  if (datastoreUid === 'mirlyn' || datastoreUid === 'website') {
+  // No access/holding options or are Catalog or Guides and More datastores.
+  if (['mirlyn', 'website'].includes(datastoreUid) || !(record.resourceAccess && record.resourceAccess[0])) {
     return null;
   }
 
   const outage = getFieldValue(getField(record.fields, 'outage'))[0];
 
-  if (record.resourceAccess && record.resourceAccess[0]) {
-    return (
-      <>
-        {outage && (
+  return (
+    <>
+      {outage && (
+        <p
+          style={{
+            color: INTENT_COLORS.error,
+            marginBottom: '0',
+            marginTop: '0.5rem'
+          }}
+        >
+          <Icon icon='warning' /> {outage}
+        </p>
+      )}
+      {record.resourceAccess[0].rows.map((row, index) => {
+        const accessCell = row[0];
+        if (!accessCell?.previewEligible) {
+          return null;
+        }
+        return (
           <p
+            className='record-preview-link'
             style={{
-              color: INTENT_COLORS.error,
-              marginBottom: '0',
-              marginTop: '0.5rem'
+              marginBottom: '0'
             }}
+            key={record.uid + '-resource-' + index}
           >
-            <Icon icon='warning' /> {outage}
+            <a href={accessCell.href}>
+              {accessCell.text}
+            </a>
           </p>
-        )}
-        {record.resourceAccess[0].rows.map((row) => {
-          const accessCell = row[0];
-          if (accessCell && accessCell.previewEligible) {
-            return (
-              <p
-                className='record-preview-link'
-                style={{
-                  marginBottom: '0'
-                }}
-                key={accessCell.href}
-              >
-                <a href={accessCell.href}>
-                  {accessCell.text}
-                </a>
-              </p>
-            );
-          } else {
-            return null;
-          }
-        })}
-      </>
-    );
-  }
-
-  // TODO
-  // Add "Go to <thing>" here with resource access component.
-
-  return null;
+        );
+      })}
+    </>
+  );
 };
 
 Footer.propTypes = {
