@@ -76,7 +76,6 @@ const Footer = ({ record, datastoreUid }) => {
   const outage = getFieldValue(getField(record.fields, 'outage'))[0];
 
   if (record.resourceAccess && record.resourceAccess[0]) {
-    const accessCell = record.resourceAccess[0].rows[0][0];
     return (
       <>
         {outage && (
@@ -90,16 +89,26 @@ const Footer = ({ record, datastoreUid }) => {
             <Icon icon='warning' /> {outage}
           </p>
         )}
-        <p
-          className='record-preview-link'
-          style={{
-            marginBottom: '0'
-          }}
-        >
-          <a href={accessCell.href}>
-            {accessCell.text}
-          </a>
-        </p>
+        {record.resourceAccess[0].rows.map((row) => {
+          const accessCell = row[0];
+          if (accessCell && accessCell.previewEligible) {
+            return (
+              <p
+                className='record-preview-link'
+                style={{
+                  marginBottom: '0'
+                }}
+                key={accessCell.href}
+              >
+                <a href={accessCell.href}>
+                  {accessCell.text}
+                </a>
+              </p>
+            );
+          } else {
+            return null;
+          }
+        })}
       </>
     );
   }
