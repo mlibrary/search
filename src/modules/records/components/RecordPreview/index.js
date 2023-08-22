@@ -68,46 +68,47 @@ Header.propTypes = {
 };
 
 const Footer = ({ record, datastoreUid }) => {
-  // No access/holding options for Mirlyn for preview records.
-  if (datastoreUid === 'mirlyn' || datastoreUid === 'website') {
+  // No access/holding options or are Catalog or Guides and More datastores.
+  if (['mirlyn', 'website'].includes(datastoreUid) || !(record.resourceAccess && record.resourceAccess[0])) {
     return null;
   }
 
   const outage = getFieldValue(getField(record.fields, 'outage'))[0];
 
-  if (record.resourceAccess && record.resourceAccess[0]) {
-    const accessCell = record.resourceAccess[0].rows[0][0];
-    return (
-      <>
-        {outage && (
-          <p
-            style={{
-              color: INTENT_COLORS.error,
-              marginBottom: '0',
-              marginTop: '0.5rem'
-            }}
-          >
-            <Icon icon='warning' /> {outage}
-          </p>
-        )}
+  return (
+    <>
+      {outage && (
         <p
-          className='record-preview-link'
           style={{
-            marginBottom: '0'
+            color: INTENT_COLORS.error,
+            marginBottom: '0',
+            marginTop: '0.5rem'
           }}
         >
-          <a href={accessCell.href}>
-            {accessCell.text}
-          </a>
+          <Icon icon='warning' /> {outage}
         </p>
-      </>
-    );
-  }
-
-  // TODO
-  // Add "Go to <thing>" here with resource access component.
-
-  return null;
+      )}
+      {record.resourceAccess[0].rows.map((row, index) => {
+        const accessCell = row[0];
+        if (!accessCell?.previewEligible) {
+          return null;
+        }
+        return (
+          <p
+            className='record-preview-link'
+            style={{
+              marginBottom: '0'
+            }}
+            key={record.uid + '-resource-' + index}
+          >
+            <a href={accessCell.href}>
+              {accessCell.text}
+            </a>
+          </p>
+        );
+      })}
+    </>
+  );
 };
 
 Footer.propTypes = {
