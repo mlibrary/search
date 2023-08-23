@@ -2,7 +2,6 @@ import DatastoreNavigation from './components/DatastoreNavigation';
 import Landing from './components/Landing';
 import DatastoreInfo from './components/DatastoreInfo';
 import DatastoreAlerts from './components/DatastoreAlerts';
-import FlintAlerts from './components/FlintAlerts';
 import datastoresReducer from './reducer/';
 
 import { addDatastore, changeActiveDatastore } from './actions';
@@ -14,6 +13,5 @@ export {
   changeActiveDatastore,
   Landing,
   DatastoreInfo,
-  DatastoreAlerts,
-  FlintAlerts
+  DatastoreAlerts
 };

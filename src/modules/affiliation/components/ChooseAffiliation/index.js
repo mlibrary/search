@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 
 const initialAffiliationState = {
-  active: localStorage.getItem('affiliation') || undefined,
+  active: undefined,
   defaultAffiliation: 'aa',
   affiliationOptions: {
     aa: 'Ann Arbor',
@@ -10,21 +10,21 @@ const initialAffiliationState = {
 };
 
 function ChooseAffiliation () {
-  let activeAffiliation = initialAffiliationState.defaultAffiliation;
+  let defaultAffiliation = initialAffiliationState.defaultAffiliation;
   // Set default affiliation if query parameter exists
   const urlParams = new URLSearchParams(window.location.search);
   const affiliationParam = urlParams.get('affiliation');
   if (affiliationParam) {
-    activeAffiliation = affiliationParam;
+    defaultAffiliation = affiliationParam;
     // Set localStorage
     localStorage.setItem('affiliation', affiliationParam);
   }
   const affiliationLocalStorage = localStorage.getItem('affiliation');
   // Set default affiliation if localStorage exists
   if (affiliationLocalStorage) {
-    activeAffiliation = affiliationLocalStorage;
+    defaultAffiliation = affiliationLocalStorage;
   }
-  const [affiliation, setAffiliation] = useState(activeAffiliation);
+  const [affiliation, setAffiliation] = useState(defaultAffiliation);
   const onAffiliationChange = (event) => {
     const value = event.target.value;
     setAffiliation(value);
