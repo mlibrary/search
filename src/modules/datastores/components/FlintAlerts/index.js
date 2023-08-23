@@ -14,7 +14,7 @@ function FlintAlerts (props) {
   const [closed, setClosed] = useState(false);
   // Check if user is not affiliated with Flint, is not in one of the above datastores, or the Alert is closed
   if (
-    !props.profile.institutions.includes('Flint') ||
+    !props.profile.institutions?.includes('Flint') ||
     !Object.keys(alertMessages).includes(props.datastore) ||
     closed
   ) {
