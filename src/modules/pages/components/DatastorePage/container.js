@@ -9,6 +9,7 @@ import { AdvancedSearch } from '../../../advanced';
 import {
   DatastoreNavigation,
   DatastoreInfo,
+  FlintAlerts,
   Landing
 } from '../../../datastores';
 import { Filters } from '../../../filters';
@@ -25,7 +26,6 @@ import { InstitutionSelect, InstitutionWrapper } from '../../../institution';
 import { ChooseAffiliation } from '../../../affiliation';
 import { List } from '../../../lists';
 import { setDocumentTitle } from '../../../a11y';
-import { FlintAlerts } from '../../../flint';
 import PropTypes from 'prop-types';
 import { Icon } from '../../../reusable';
 
