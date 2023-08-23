@@ -6,12 +6,12 @@ const affiliationReducer = (state = initialAffiliationState, action) => {
     case actions.SET_DEFAULT_AFFILIATION:
       return {
         ...state,
-        defaultAffiliation: action.payload
+        defaultAffiliation: action.payload || initialAffiliationState.defaultAffiliation
       };
     case actions.SET_ACTIVE_AFFILIATION:
       return {
         ...state,
-        active: action.payload
+        active: action.payload || initialAffiliationState.active
       };
     default:
       return state;
