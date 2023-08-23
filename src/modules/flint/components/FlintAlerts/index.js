@@ -1,5 +1,5 @@
+/** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
-import { Alert } from '../../../reusable';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -26,7 +26,14 @@ function FlintAlerts (props) {
   };
 
   return (
-    <Alert type='warning'>
+    <div
+      className='alert alert--warning alert-inner'
+      css={{
+        gap: '1rem',
+        justifyContent: 'center',
+        marginTop: '-0.75rem'
+      }}
+    >
       <span dangerouslySetInnerHTML={{ __html: alertMessages[props.datastore] }} />
       <button
         className='btn btn--small btn--secondary'
@@ -34,7 +41,7 @@ function FlintAlerts (props) {
       >
         Dismiss
       </button>
-    </Alert>
+    </div>
   );
 };
 
