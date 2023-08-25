@@ -2,6 +2,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import config from '../../../../config';
+import { ChooseAffiliation } from '../../../affiliation';
 import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
 import { Authentication } from '../../../profile';
 
@@ -42,6 +45,7 @@ function SearchHeader (props) {
       >
         <a href='https://account.lib.umich.edu/'>Account</a>
         <Authentication logout={props.isAuthenticated} />
+        <ChooseAffiliation />
       </nav>
     </m-website-header>
   );
