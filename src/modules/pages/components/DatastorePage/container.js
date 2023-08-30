@@ -9,6 +9,7 @@ import { AdvancedSearch } from '../../../advanced';
 import {
   DatastoreNavigation,
   DatastoreInfo,
+  FlintAlerts,
   Landing
 } from '../../../datastores';
 import { Filters } from '../../../filters';
@@ -24,7 +25,6 @@ import { switchPrideToDatastore } from '../../../pride';
 import { InstitutionSelect, InstitutionWrapper } from '../../../institution';
 import { List } from '../../../lists';
 import { setDocumentTitle } from '../../../a11y';
-import { FlintAlerts } from '../../../flint';
 import PropTypes from 'prop-types';
 import { Icon } from '../../../reusable';
 
@@ -101,20 +101,7 @@ class DatastorePageContainer extends React.Component {
                 <>
                   <SearchBox />
                   <DatastoreNavigation />
-                  <div
-                    css={{
-                      marginTop: '-0.75rem',
-                      '.alert-inner': {
-                        display: 'flex',
-                        justifyContent: 'center'
-                      },
-                      ':empty': {
-                        display: 'none'
-                      }
-                    }}
-                  >
-                    <FlintAlerts />
-                  </div>
+                  <FlintAlerts />
                   <ConnectedSwitch>
                     <Route
                       path={match.url + '/record/:recordUid/get-this/:barcode'}
