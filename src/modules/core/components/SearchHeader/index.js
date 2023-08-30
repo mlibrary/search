@@ -2,28 +2,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import config from '../../../../config';
+
+import { ChooseAffiliation } from '../../../affiliation';
 import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
+import { Authentication } from '../../../profile';
 
 function SearchHeader (props) {
-  const loginRoot = config.loginUrl;
-  const loginUrl =
-    loginRoot +
-    '?dest=' +
-    encodeURIComponent(document.location.pathname + document.location.search);
-  const logoutUrl =
-    'https://weblogin.umich.edu/cgi-bin/logout?' + document.location;
-  const navItems = [
-    {
-      text: 'Account',
-      href: 'https://account.lib.umich.edu/'
-    },
-    {
-      text: `Log ${props.isAuthenticated ? 'out' : 'in'}`,
-      href: `${props.isAuthenticated ? logoutUrl : loginUrl}`
-    }
-  ];
-
   return (
     <m-website-header name='Search' variant='dark' to='/everything'>
       <nav
@@ -34,12 +18,19 @@ function SearchHeader (props) {
           alignItems: 'baseline',
           display: 'block',
           '& > *': {
+            color: 'white',
             display: 'inline-block',
             marginTop: '1rem'
           },
           '& > *:not(:last-child)': {
             marginRight: '1rem',
             marginBottom: '0.5rem'
+          },
+          a: {
+            textDecoration: 'none',
+            '&:hover': {
+              textDecoration: 'underline'
+            }
           },
           [MEDIA_QUERIES.LARGESCREEN]: {
             '& > *': {
@@ -51,17 +42,9 @@ function SearchHeader (props) {
           }
         }}
       >
-        {navItems.map((n, i) => {
-          return (
-            <a
-              href={n.href}
-              css={{ color: 'white', '&:hover': { textDecoration: 'underline' } }}
-              key={i}
-            >
-              {n.text}
-            </a>
-          );
-        })}
+        <a href='https://account.lib.umich.edu/'>Account</a>
+        <Authentication logout={props.isAuthenticated} />
+        <ChooseAffiliation />
       </nav>
     </m-website-header>
   );

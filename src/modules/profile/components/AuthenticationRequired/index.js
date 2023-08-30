@@ -1,25 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import config from '../../../../config';
 import PropTypes from 'prop-types';
+import Authentication from '../Authentication';
 
-class AuthenticationRequired extends Component {
-  render () {
-    if (this.props.profile && this.props.profile.status === 'Logged in') {
-      return this.props.children;
-    }
-
-    if (!this.props.children) {
-      return null;
-    }
-
-    const loginRoot = config.loginUrl;
-    const loginUrl = loginRoot + '?dest=' + encodeURIComponent(document.location.pathname + document.location.search);
-
-    return (
-      <a href={loginUrl} className='button'><span className='strong'>Log in</span> to continue</a>
-    );
+function AuthenticationRequired (props) {
+  if (!props.children) {
+    return null;
   }
+
+  if (props.profile?.status === 'Logged in') {
+    return props.children;
+  }
+
+  return (
+    <Authentication button>
+      <span className='strong'>Log in</span> to continue
+    </Authentication>
+  );
 }
 
 AuthenticationRequired.propTypes = {

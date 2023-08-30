@@ -32,6 +32,7 @@
     "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-autosuggest": "^10.1.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-ga": "^3.3.1",
     "react-modal": "^3.16.1",
@@ -54,11 +55,12 @@
   },
   "scripts": {
     "build": "react-scripts build",
+    "build:dev": "CI=false REACT_APP_LOGIN_BASE_URL=http://localhost:3000 REACT_APP_SPECTRUM_BASE_URL=http://localhost:3000/spectrum npm run build && gtar -C build --transform s/./search/ -czf search.local.tar.gz .",
     "develop": "npm run start",
     "eject": "react-scripts eject",
     "lint": "npx eslint src/**/*.js",
     "reinstall": "rm -rf node_modules && npm install",
-    "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} react-scripts start",
+    "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} REACT_APP_LOGIN_BASE_URL=${REACT_APP_LOGIN_BASE_URL:-https://search-staging.www.lib.umich.edu} react-scripts start",
     "test": "react-scripts test --env=jsdom"
   },
   "browserslist": {
