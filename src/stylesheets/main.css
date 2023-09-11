@@ -3138,6 +3138,7 @@ input.get-this-field-input-year {
 .lists-action-button:disabled {
   background: #F2F2F2;
   color: #4E4E4E;
+  cursor: not-allowed;
 }
 
 .lists-action-button:disabled:hover {
