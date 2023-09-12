@@ -159,7 +159,6 @@ class ActionsList extends Component {
                         return this.handleClick(action, data.viewType);
                       }}
                       aria-pressed={isActive}
-                      disabled={action.uid === 'text'}
                     >
                       <span style={{ opacity: '0.75' }}>
                         {action.icon_d
@@ -175,7 +174,6 @@ class ActionsList extends Component {
             {this.state.alert && (
               <Alert type={this.state.alert.intent}>{this.state.alert.text}</Alert>
             )}
-            {!active && <p className='font-small'>Texting records to your mobile device is temporarily unavailable.</p>}
           </div>
         );
       }}
