@@ -67,10 +67,6 @@ html {
   box-sizing: border-box;
 }
 
-.site-min-width {
-  min-width: 20rem;
-}
-
 .container {
   margin: 0 auto;
   padding: 0 0.75rem;
@@ -315,6 +311,7 @@ textarea {
 }
 
 input[type="text"],
+input[type="url"],
 input[type="search"],
 input[type="email"],
 input[type="tel"],
@@ -341,7 +338,9 @@ input[type="email"]:read-only,
 input[type="tel"]:disabled,
 input[type="tel"]:read-only,
 input[type="text"]:disabled,
-input[type="text"]:read-only {
+input[type="text"]:read-only,
+input[type="url"]:disabled,
+input[type="url"]:read-only {
   background: #FAFAFA;
   border-color: #CCC;
   color: #4E4E4E;
@@ -3091,11 +3090,18 @@ input.get-this-field-input-year {
 
 .lists-actions-list {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin: 0;
   margin-top: 0.5rem;
   padding: 0;
   list-style: none;
+}
+
+@media (min-width: 640px) {
+  .lists-actions-list {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 .lists-actions-list li {
@@ -3127,8 +3133,16 @@ input.get-this-field-input-year {
   margin-right: 0.25rem;
   color: #262626;
   display: flex;
-  flex-direction: column;
+  gap: 0.25rem;
   align-items: center;
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .lists-action-button {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 .lists-action-button:hover {
@@ -3168,15 +3182,29 @@ input.get-this-field-input-year {
   margin-top: 1rem;
   max-width: 100%;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .lists-action-field-container {
-  max-width: 40%;
   width: 100%;
 }
 
-.lists-action-field-container + button {
-  margin-top: 1.4rem;
+@media (min-width: 640px) {
+  .lists-action-field-container {
+    max-width: 20rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .lists-action-field-container + button {
+    margin-top: 1.2rem;
+  }
+}
+
+@media (min-width: 820px) {
+  .lists-action-field-container + button {
+    margin-top: 1.4rem;
+  }
 }
 
 .lists-action {
@@ -3208,8 +3236,15 @@ input.get-this-field-input-year {
 }
 
 .lists-actions__heading-tag {
+  display: block;
   font-weight: 400;
-  margin-left: 1rem;
+}
+
+@media (min-width: 640px) {
+  .lists-actions__heading-tag {
+    display: inline;
+    margin-left: 1rem;
+  }
 }
 
 .full-record__actions-heading {
