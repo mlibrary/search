@@ -83,7 +83,7 @@ function ActionsList (props) {
             })}
           </ul>
           {props.active?.action === 'email' && (
-            <AuthenticationRequired>
+            <AuthenticationRequired profile={props.profile}>
               <EmailAction
                 action={props.active}
                 {...props}
@@ -91,7 +91,7 @@ function ActionsList (props) {
             </AuthenticationRequired>
           )}
           {props.active?.action === 'text' && (
-            <AuthenticationRequired>
+            <AuthenticationRequired profile={props.profile}>
               <TextAction
                 action={props.active}
                 {...props}
@@ -134,7 +134,8 @@ ActionsList.propTypes = {
     PropTypes.string,
     PropTypes.object
   ]),
-  setActive: PropTypes.func
+  setActive: PropTypes.func,
+  profile: PropTypes.object
 };
 
 function mapStateToProps (state) {

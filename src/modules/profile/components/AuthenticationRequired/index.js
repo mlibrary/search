@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Authentication from '../Authentication';
 
@@ -27,10 +26,4 @@ AuthenticationRequired.propTypes = {
   ])
 };
 
-function mapStateToProps (state) {
-  return {
-    profile: state.profile
-  };
-}
-
-export default connect(mapStateToProps)(AuthenticationRequired);
+export default AuthenticationRequired;
