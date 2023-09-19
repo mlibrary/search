@@ -7,10 +7,6 @@ function TextAction (props) {
   const [text, setText] = useState(props.profile.text || '');
   const [status, setStatus] = useState(undefined);
 
-  if (props.listLength === 0) {
-    return null;
-  }
-
   const setCloseStatus = () => {
     props.setActive('');
     setStatus(undefined);
@@ -58,7 +54,6 @@ TextAction.propTypes = {
   prejudice: PropTypes.object,
   datastore: PropTypes.object,
   setActive: PropTypes.func,
-  listLength: PropTypes.number,
   action: PropTypes.object
 };
 

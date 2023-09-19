@@ -3,11 +3,6 @@ import { Button } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 function FileAction (props) {
-  // Do now show if My Temporary Catalog List is empty
-  if (props.listLength === 0) {
-    return null;
-  }
-
   return (
     <section className='lists-action'>
       <form
@@ -31,8 +26,7 @@ function FileAction (props) {
 
 FileAction.propTypes = {
   prejudice: PropTypes.object,
-  datastore: PropTypes.object,
-  listLength: PropTypes.number
+  datastore: PropTypes.object
 };
 
 export default FileAction;

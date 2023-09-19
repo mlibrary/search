@@ -7,10 +7,6 @@ function EmailAction (props) {
   const [email, setEmail] = useState(props.profile.email || '');
   const [status, setStatus] = useState(undefined);
 
-  if (props.listLength === 0) {
-    return null;
-  }
-
   const setCloseStatus = () => {
     props.setActive('');
     setStatus(undefined);
@@ -55,7 +51,6 @@ EmailAction.propTypes = {
   prejudice: PropTypes.object,
   datastore: PropTypes.object,
   setActive: PropTypes.func,
-  listLength: PropTypes.number,
   action: PropTypes.object
 };
 
