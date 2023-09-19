@@ -1,92 +1,56 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
 import { Button } from '../../../reusable';
 import PropTypes from 'prop-types';
 
-class TextAction extends Component {
-  state = {
-    text: '',
-    sent: false,
-    status: undefined
-  };
+function TextAction (props) {
+  const [text, setText] = useState(props.profile.text || '');
+  const [status, setStatus] = useState(undefined);
 
-  componentDidMount () {
-    const { profile } = this.props;
-
-    if (profile.text) {
-      this.setState({ text: profile.text });
-    }
-  }
-
-  handleChange = (event) => {
-    this.setState({ text: event.target.value });
-  };
-
-  handleSubmitCallback = (data) => {
-    this.setState({ status: data });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.setState({ sent: true });
-    this.props.prejudice.act(
-      'text',
-      this.props.datastore.uid,
-      this.state.text,
-      this.handleSubmitCallback
-    );
-  };
-
-  setCloseStatus = () => {
-    this.props.setActive('');
-    this.setState({ status: undefined, sent: false });
-  };
-
-  renderForm = () => {
-    const { status } = this.state;
-
-    if (!status || status.status_code !== 'action.response.success') {
-      return (
-        <>
-          <form className='lists-action-form' onSubmit={this.handleSubmit}>
-            <div className='lists-action-field-container'>
-              <label htmlFor='phoneNumber'>Phone number</label>
-              <input
-                id='phoneNumber'
-                type='tel'
-                pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
-                required
-                value={this.state.text}
-                onChange={this.handleChange}
-                aria-describedby='phone-number-description'
-                autoComplete='on'
-              />
-              <small id='phone-number-description'>Please enter using this format: 000-111-5555</small>
-            </div>
-            <Button type='submit' style={{ whiteSpace: 'nowrap' }}>Send text</Button>
-          </form>
-        </>
-      );
-    }
-
+  if (props.listLength === 0) {
     return null;
+  }
+
+  const setCloseStatus = () => {
+    props.setActive('');
+    setStatus(undefined);
   };
 
-  render () {
-    const { listLength, action } = this.props;
+  const handleSubmitCallback = (data) => {
+    setStatus(data);
+  };
 
-    if (listLength === 0) {
-      return null;
-    }
-
-    return (
-      <section className='lists-action'>
-        <ActionStatusMessage status={this.state.status} action={action} setCloseStatus={this.setCloseStatus} />
-        {this.renderForm()}
-      </section>
-    );
-  }
+  return (
+    <section className='lists-action'>
+      <ActionStatusMessage status={status} action={props.action} setCloseStatus={setCloseStatus} />
+      {(!status || status.status_code !== 'action.response.success') &&
+        <form
+          className='lists-action-form'
+          onSubmit={(event) => {
+            event.preventDefault();
+            props.prejudice.act('text', props.datastore.uid, text, handleSubmitCallback);
+          }}
+        >
+          <div className='lists-action-field-container'>
+            <label htmlFor='phoneNumber'>Phone number</label>
+            <input
+              id='phoneNumber'
+              type='tel'
+              pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
+              required
+              value={text}
+              onChange={(event) => {
+                setText(event.target.value);
+              }}
+              aria-describedby='phone-number-description'
+              autoComplete='on'
+            />
+            <small id='phone-number-description'>Please enter using this format: 000-111-5555</small>
+          </div>
+          <Button type='submit' style={{ whiteSpace: 'nowrap' }}>Send text</Button>
+        </form>}
+    </section>
+  );
 }
 
 TextAction.propTypes = {
@@ -98,10 +62,4 @@ TextAction.propTypes = {
   action: PropTypes.object
 };
 
-function mapStateToProps (state) {
-  return {
-    profile: state.profile
-  };
-}
-
-export default connect(mapStateToProps)(TextAction);
+export default TextAction;
