@@ -43,6 +43,9 @@ function Zotero ({ record }) {
   }
 
   // Create COinS
+  // Accessiblity note: `title` is not a compatible attribute with `span`
+  // as it is a non-interactive element. Unfortunately this is how OpenURL COinS are expected to be placed:
+  // https://web.archive.org/web/20170424223448/http://ocoins.info/
   return (
     <span title={z3988} className='Z3988' />
   );
