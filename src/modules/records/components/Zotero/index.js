@@ -44,7 +44,7 @@ function Zotero ({ record }) {
 
   // Create COinS
   return (
-    <span className='Z3988' />
+    <span title={z3988} className='Z3988' />
   );
 }
 
