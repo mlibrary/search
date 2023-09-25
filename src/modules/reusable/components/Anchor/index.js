@@ -5,8 +5,8 @@ function Anchor (props) {
   let href = props.href;
 
   // Add `utm_source` query parameter if the URL goes to an external site
-  if (href.startsWith('http') && !href.includes(document.origin)) {
-    href += '&utm_source=library-search';
+  if (href.startsWith('http') && !href.startsWith(window.location.origin)) {
+    href += `${href.includes('?') ? '&' : '?'}utm_source=library-search`;
   }
 
   return (
