@@ -1,11 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import './Button.css';
 
 const Button = ({
   children,
-  href,
   disabled,
   className,
   kind,
@@ -26,19 +24,11 @@ const Button = ({
     className: buttonClasses
   };
 
-  const button = (
+  return (
     <button {...other} {...commonProps} disabled={disabled} type={type}>
       {children}
     </button>
   );
-
-  const anchor = (
-    <a {...other} {...commonProps} href={href} role='button'>
-      {children}
-    </a>
-  );
-
-  return href ? anchor : button;
 };
 
 Button.propTypes = {
@@ -52,7 +42,6 @@ Button.propTypes = {
     'secondary',
     'tertiary'
   ]).isRequired,
-  href: PropTypes.string,
   type: PropTypes.oneOf(['button', 'reset', 'submit'])
 };
 
