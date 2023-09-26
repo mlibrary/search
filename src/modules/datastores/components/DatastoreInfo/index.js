@@ -3,7 +3,7 @@ import { Anchor } from '../../../reusable';
 import _ from 'underscore';
 import PropTypes from 'prop-types';
 
-const DatastoreInfo = ({ activeDatastore }) => {
+function DatastoreInfo ({ activeDatastore }) {
   switch (activeDatastore.uid) {
     case 'everything':
       return (

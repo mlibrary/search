@@ -3410,3 +3410,21 @@ input.get-this-field-input-year {
 .add-tag-fieldset label {
   margin-bottom: 0.25rem;
 }
+
+.breadcrumb {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb__item {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb__item:not(:first-child):before {
+  content: "/";
+  margin: 0 0.5rem;
+}
+

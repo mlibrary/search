@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Breadcrumb } from '../../../reusable';
 import { COLORS, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
@@ -43,9 +43,6 @@ class FullRecordBreadcrumbs extends React.Component {
           },
           { text: 'Record' }
         ]}
-        renderAnchor={(item) => {
-          return <Link to={item.to}>{item.text}</Link>;
-        }}
       />
     );
   }
