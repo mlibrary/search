@@ -1,57 +1,44 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Anchor } from '../../../reusable';
 
-const footerLinks = [
-  {
-    text: 'Home',
-    to: '/everything'
-  },
-  {
-    text: 'Accessibility',
-    to: '/accessibility'
-  },
-  {
-    text: 'Tips for Using Library Search',
-    href: 'https://guides.lib.umich.edu/c.php?g=914690'
-  },
-  {
-    text: 'Get research help',
-    href:
-      'https://lib.umich.edu/research-and-scholarship/help-research/how-we-can-help'
-  },
-  {
-    text: 'About Library Search',
-    to: '/about-library-search'
-  },
-  {
-    text: 'Make an <abbr title="Interlibrary Loan">I.L.L.</abbr> Request',
-    href:
-      'https://ill.lib.umich.edu/'
-  }
-];
-
-const Footer = () => {
+function Footer () {
   return (
     <footer
       className='site-footer'
       role='contentinfo'
-      style={{ textAlign: 'center' }}
     >
       <div className='container container-medium'>
         <ul className='site-footer-nav-list'>
-          {footerLinks.map((item, i) => {
-            return (
-              <li key={i}>
-                {item.to
-                  ? (
-                    <Link to={item.to} dangerouslySetInnerHTML={{ __html: item.text }} />
-                    )
-                  : (
-                    <a href={item.href} dangerouslySetInnerHTML={{ __html: item.text }} />
-                    )}
-              </li>
-            );
-          })}
+          <li>
+            <Anchor to='/everything'>
+              Home
+            </Anchor>
+          </li>
+          <li>
+            <Anchor to='/accessibility'>
+              Accessibility
+            </Anchor>
+          </li>
+          <li>
+            <Anchor href='https://guides.lib.umich.edu/c.php?g=914690'>
+              Tips for Using Library Search
+            </Anchor>
+          </li>
+          <li>
+            <Anchor href='https://lib.umich.edu/research-and-scholarship/help-research/how-we-can-help'>
+              Get research help
+            </Anchor>
+          </li>
+          <li>
+            <Anchor to='/about-library-search'>
+              About Library Search
+            </Anchor>
+          </li>
+          <li>
+            <Anchor href='https://ill.lib.umich.edu/'>
+              Make an <abbr title='Interlibrary Loan'>I.L.L.</abbr> Request
+            </Anchor>
+          </li>
         </ul>
 
         <p>

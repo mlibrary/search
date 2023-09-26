@@ -553,6 +553,7 @@ textarea {
   background: #00274C;
   padding: 1.5rem 0;
   color: white;
+  text-align: center;
 }
 
 .site-footer a {

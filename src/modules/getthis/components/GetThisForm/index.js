@@ -1,4 +1,5 @@
 import React from 'react';
+import { Anchor } from '../../../reusable';
 import { connect } from 'react-redux';
 import { getField, getFieldValue } from '../../../records/utilities';
 import { placeHold } from '../../../pride';
@@ -142,23 +143,19 @@ class GetThisForm extends React.Component {
         return (
           <article className='alert alert-success'>
             <h4>You have successfully requested this item</h4>
-
             <ul className='u-margin-bottom-1 margin-left-2'>
               <li>We will email you when it is available for pickup.</li>
               <li>When it is available, we'll hold it for you for 7 days.</li>
             </ul>
-
-            <a href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</a>
+            <Anchor href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</Anchor>
           </article>
         );
       } else {
         return (
           <article className='alert alert-warning'>
             <h4>The hold/request could not be placed</h4>
-
             <p><span className='strong'>Status:</span> {response.status}</p>
-
-            <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <a href='mailto:circservices@umich.edu'>circservices@umich.edu</a> or <a href='tel:7347640401'>(734) 764-0401</a> for assistance.</p>
+            <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <Anchor href='mailto:circservices@umich.edu'>circservices@umich.edu</Anchor> or <Anchor href='tel:7347640401'>(734) 764-0401</Anchor> for assistance.</p>
           </article>
         );
       }
@@ -185,7 +182,6 @@ class GetThisForm extends React.Component {
         <div role='alert'>
           {this.renderResponse()}
         </div>
-
         {showForm && (
           <form action={form.action} method={form.method} onSubmit={this.handleSubmit}>
             {fields.map((field, key) => {
