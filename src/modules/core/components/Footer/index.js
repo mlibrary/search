@@ -42,7 +42,7 @@ function Footer () {
         </ul>
 
         <p>
-          &copy;{(new Date().getFullYear())} Regents of the University of Michigan. For details and exceptions, see the <a href='https://lib.umich.edu/about-us/policies/copyright-policy'>Copyright Policy</a>.
+          &copy;{(new Date().getFullYear())} Regents of the University of Michigan. For details and exceptions, see the <Anchor href='https://lib.umich.edu/about-us/policies/copyright-policy'>Copyright Policy</Anchor>.
         </p>
       </div>
     </footer>

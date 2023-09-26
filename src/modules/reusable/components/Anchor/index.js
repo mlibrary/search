@@ -11,7 +11,7 @@ function Anchor (props) {
   // Use Link component if `to` property exists
   if (props.to) {
     return (
-      <Link to={props.to}>
+      <Link to={props.to} className={props.className}>
         {props.children}
       </Link>
     );
@@ -25,7 +25,7 @@ function Anchor (props) {
   }
 
   return (
-    <a href={href}>
+    <a href={href} className={props.className}>
       {props.children}
     </a>
   );
@@ -34,6 +34,7 @@ function Anchor (props) {
 Anchor.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
+  className: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
