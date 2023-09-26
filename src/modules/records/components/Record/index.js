@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Anchor } from '../../../reusable';
 import { TrimString, Icon } from '../../../core';
 import { RecommendedResource, RecordMetadata } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
@@ -11,7 +11,7 @@ import { COLORS, SPACING } from '../../../reusable/umich-lib-core-temp';
 import ResourceAccess from '../../../resource-acccess';
 import PropTypes from 'prop-types';
 
-const Header = ({ record, datastoreUid, searchQuery }) => {
+function Header ({ record, datastoreUid, searchQuery }) {
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0];
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const pictureField = getField(record.fields, 'picture');
@@ -24,9 +24,8 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
     if (accessUrlField) {
       recordTitleLink = accessUrlField.value;
     }
-
     if (pictureField) {
-      recordHeaderClassName = 'record-title record-person__header-has-picture ';
+      recordHeaderClassName += ' record-person__header-has-picture';
     }
   }
 
@@ -55,26 +54,16 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
             </span>
           );
         }
-        if (datastoreUid !== 'website') {
-          return (
-            <Link
-              to={recordTitleLink}
-              className='record-title-link'
-              key={index}
-            >
-              <TrimString string={title} />
-            </Link>
-          );
-        }
         return (
           <span key={index}>
-            <a
-              href={recordTitleLink}
+            <Anchor
+              to={datastoreUid !== 'website' ? recordTitleLink : ''}
+              href={datastoreUid === 'website' ? recordTitleLink : ''}
               className='record-title-link'
             >
               <TrimString string={title} />
-            </a>
-            <Icon name='launch' />
+            </Anchor>
+            {datastoreUid === 'website' && <Icon name='launch' />}
           </span>
         );
       })}
@@ -89,43 +78,38 @@ Header.propTypes = {
   searchQuery: PropTypes.string
 };
 
-class Record extends React.Component {
-  render () {
-    const { record, datastoreUid, searchQuery, list } = this.props;
-    const recordUidField = getField(record.fields, 'id');
-    const inList = isInList(list, record.uid);
-    const recordClassName = inList ? 'record record--highlight' : 'record';
-
-    if (recordUidField) {
-      return (
-        <article className={recordClassName}>
-          <div className='record-container record-medium-container'>
-            <div className='record-title-and-actions-container '>
-              <Header
-                record={record}
-                datastoreUid={datastoreUid}
-                searchQuery={searchQuery}
-              />
-              <AddToListButton item={record} />
-            </div>
-            <Zotero record={record} />
-            <RecordMetadata record={record} />
-          </div>
-
-          <div
-            css={{
-              borderBottom: `solid 1px ${COLORS.neutral[100]}`
-            }}
-          >
-            <h4 className='visually-hidden'>{record.names[0]} is available at:</h4>
-            <ResourceAccess record={record} />
-          </div>
-        </article>
-      );
-    }
-
+function Record (props) {
+  if (!getField(props.record.fields, 'id')) {
     return null;
   }
+
+  const { record } = props;
+
+  return (
+    <article className={isInList(props.list, record.uid) ? 'record record--highlight' : 'record'}>
+      <div className='record-container record-medium-container'>
+        <div className='record-title-and-actions-container '>
+          <Header
+            record={record}
+            datastoreUid={props.datastoreUid}
+            searchQuery={props.searchQuery}
+          />
+          <AddToListButton item={record} />
+        </div>
+        <Zotero record={record} />
+        <RecordMetadata record={record} />
+      </div>
+
+      <div
+        css={{
+          borderBottom: `solid 1px ${COLORS.neutral[100]}`
+        }}
+      >
+        <h4 className='visually-hidden'>{record.names[0]} is available at:</h4>
+        <ResourceAccess record={record} />
+      </div>
+    </article>
+  );
 }
 
 Record.propTypes = {

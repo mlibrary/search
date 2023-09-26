@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from '../../../reusable';
+import { Anchor, Icon } from '../../../reusable';
 import { COLORS } from '../../../reusable/umich-lib-core-temp';
 
 class KeywordSwitch extends React.Component {
@@ -15,9 +15,7 @@ class KeywordSwitch extends React.Component {
 
     const strippedQuery = query.includes(':(') ? query.slice((query.indexOf('(') + 1), -1) : query;
     const querySearch = isExactSearch ? strippedQuery : `${exactQuery}${strippedQuery})`;
-    const linkURL = `${datastore.slug}?query=${querySearch}`;
     const briefView = window.location.pathname.split('/').pop() === 'everything';
-    const descriptionText = !briefView && isContainsSearch ? 'Seeing less precise results than you expected?' : 'Not seeing the results you expected?';
     const linkText = () => {
       if (isContainsSearch) {
         return briefView ? 'Try an exact phrase Articles search.' : 'Try your search as an exact phrase search.';
@@ -27,13 +25,13 @@ class KeywordSwitch extends React.Component {
 
     return (
       <div
-        className={`keyword-switch ${briefView ? 'record-preview' : 'record'}`}
+        className={briefView ? 'record-preview' : 'record'}
         css={{
           borderLeft: `4px solid ${COLORS.maize[400]}`
         }}
       >
         <div
-          className={`keyword-switch ${!briefView && 'record-container'}`}
+          className={!briefView ? 'record-container' : ''}
           css={{
             position: 'relative'
           }}
@@ -52,7 +50,7 @@ class KeywordSwitch extends React.Component {
               paddingLeft: '36px'
             }}
           >
-            {descriptionText}
+            {!briefView && isContainsSearch ? 'Seeing less precise results than you expected?' : 'Not seeing the results you expected?'}
           </p>
           <p
             className='no-margin'
@@ -60,14 +58,9 @@ class KeywordSwitch extends React.Component {
               paddingLeft: '36px'
             }}
           >
-            <a
-              href={linkURL}
-              css={{
-                textDecoration: 'underline'
-              }}
-            >
+            <Anchor to={`${datastore.slug}?query=${querySearch}`}>
               {linkText()}
-            </a>
+            </Anchor>
           </p>
         </div>
       </div>
