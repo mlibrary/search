@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function Anchor (props) {
-  // The component cannot be empty
-  if (!props.children) {
+  // The component cannot be empty and must have a destination
+  if (!props.children || (!props.to && !props.href)) {
     return null;
   }
 
   // Use Link component if `to` property exists
   if (props.to) {
     return (
-      <Link to={props.to} className={props.className}>
+      <Link {...props}>
         {props.children}
       </Link>
     );
@@ -19,13 +19,17 @@ function Anchor (props) {
 
   let href = props.href;
 
-  // Add `utm_source` query parameter if the URL goes to an external website
+  // Set `utm_source` query parameter if the URL goes to an external website
   if (href.startsWith('http') && !href.startsWith(window.location.origin)) {
-    href += `${href.includes('?') ? '&' : '?'}utm_source=library-search`;
+    const currentURL = new URL(props.href);
+    const params = new URLSearchParams(currentURL.search);
+    params.set('utm_source', 'library-search');
+    const newURL = new URL(`${currentURL.origin}${currentURL.pathname}?${params}`);
+    href = newURL.href;
   }
 
   return (
-    <a href={href} className={props.className}>
+    <a {...props} href={href}>
       {props.children}
     </a>
   );
@@ -34,7 +38,6 @@ function Anchor (props) {
 Anchor.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
-  className: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

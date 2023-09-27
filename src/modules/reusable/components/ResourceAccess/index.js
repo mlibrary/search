@@ -180,12 +180,12 @@ class ResourceAccess extends React.Component {
               <FigCaptionContentStyled className='x-spacing'>
                 <span style={{ fontWeight: '600' }}>{caption}</span>
                 {captionLink && (
-                  <a
-                    href={captionLink.href} style={{
-                      fontSize: '0.875rem'
-                    }}
-                  >{captionLink.text}
-                  </a>
+                  <Anchor
+                    href={captionLink.href}
+                    className='font-small'
+                  >
+                    {captionLink.text}
+                  </Anchor>
                 )}
                 {notes && (
                   <NotesListStyled>
