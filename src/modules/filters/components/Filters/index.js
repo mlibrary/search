@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
+  Anchor,
   Expandable,
   ExpandableChildren,
   ExpandableButton,
@@ -159,7 +159,7 @@ function ActiveFilters () {
 
       {
         items.length > 1 &&
-          <Link
+          <Anchor
             to={getURLWithoutFilters()}
             css={{
               display: 'inline-block',
@@ -169,7 +169,7 @@ function ActiveFilters () {
             }}
           >
             Clear all active filters
-          </Link>
+          </Anchor>
       }
     </section>
   );
@@ -182,7 +182,7 @@ function ActiveFilterItem ({ group, value }) {
   const url = getURLWithFilterRemoved({ group, value });
 
   return (
-    <Link
+    <Anchor
       to={url}
       css={{
         padding: `${SPACING.XS} ${SPACING.S}`,
@@ -204,7 +204,7 @@ function ActiveFilterItem ({ group, value }) {
       <span>
         <Icon icon='close' />
       </span>
-    </Link>
+    </Anchor>
   );
 }
 
@@ -386,7 +386,7 @@ FilterContainer.propTypes = {
 
 function Filter ({ value, count, url }) {
   return (
-    <Link
+    <Anchor
       to={url}
       css={{
         display: 'flex',
@@ -403,7 +403,7 @@ function Filter ({ value, count, url }) {
       <span css={{ color: COLORS.neutral['400'] }}>
         {count?.toLocaleString()}
       </span>
-    </Link>
+    </Anchor>
   );
 }
 

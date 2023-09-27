@@ -1,15 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { Global } from '@emotion/react';
-import React from 'react';
-import PropTypes from 'prop-types';
-import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
-import { Icon, Button } from '../../../reusable';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
+import { Anchor, Icon, Button } from '../../../reusable';
 import qs from 'qs';
-import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 
 function SearchBox ({ history, match, location }) {
   const { query } = useSelector((state) => {
@@ -28,12 +27,12 @@ function SearchBox ({ history, match, location }) {
       });
     }
   );
-  const [inputQuery, setInputQuery] = React.useState(query);
+  const [inputQuery, setInputQuery] = useState(query);
   const defaultField = fields[0].uid;
-  const [field, setField] = React.useState(defaultField);
+  const [field, setField] = useState(defaultField);
 
   // Set field and input when `activeDatastore`, `query`, or `fields` changes
-  React.useEffect(() => {
+  useEffect(() => {
     const fieldIDs = fields.map((field) => {
       return field.uid;
     });
@@ -276,7 +275,7 @@ function SearchBox ({ history, match, location }) {
             </span>
           </Button>
           {isAdvanced && (
-            <Link
+            <Anchor
               to={`/${match.params.datastoreSlug}/advanced${location.search}`}
               css={{
                 alignSelf: 'center',
@@ -293,7 +292,7 @@ function SearchBox ({ history, match, location }) {
               <span className='offpage'>{activeDatastore.name}</span>
               <span>Advanced</span>
               <span className='offpage'>Search</span>
-            </Link>
+            </Anchor>
           )}
         </div>
         <SearchTip activeDatastore={activeDatastore} field={field} />
