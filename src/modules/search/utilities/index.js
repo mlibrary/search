@@ -3,19 +3,19 @@ const searchOptions = () => {
     {
       name: 'Keyword',
       uid: 'keyword',
-      tip: 'Enter one or more keywords. Use quotes to search for a phrase (e.g., solar power; polar bears; “systems of oppression”). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011">Basic Keyword Searching</a>.',
+      tip: 'Enter one or more keywords. Use quotes to search for a phrase (e.g., solar power; polar bears; “systems of oppression”). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011&utm_source=library-search">Basic Keyword Searching</a>.',
       datastore: ['everything', 'mirlyn', 'databases', 'onlinejournals', 'website']
     },
     {
       name: 'Keyword (contains)',
       uid: 'keyword',
-      tip: 'Enter one or more keywords to search broadly (e.g., Black Women Scientists). Use quotes to search for a specific phrase (e.g., “systems of oppression”). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011">Basic Keyword Searching</a>.',
+      tip: 'Enter one or more keywords to search broadly (e.g., Black Women Scientists). Use quotes to search for a specific phrase (e.g., “systems of oppression”). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011&utm_source=library-search">Basic Keyword Searching</a>.',
       datastore: ['primo']
     },
     {
       name: 'Keyword (is exact)',
       uid: 'exact',
-      tip: 'Enter an exact phrase to search (e.g., solar power). Use AND to separate concepts or phrases (e.g., Black Women Scientists AND Chanda Prescod). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011">Basic Keyword Searching</a>.',
+      tip: 'Enter an exact phrase to search (e.g., solar power). Use AND to separate concepts or phrases (e.g., Black Women Scientists AND Chanda Prescod). See tips about <a href="https://guides.lib.umich.edu/c.php?g=914690&p=6590011&utm_source=library-search">Basic Keyword Searching</a>.',
       datastore: ['primo']
     },
     {
@@ -69,7 +69,7 @@ const searchOptions = () => {
     {
       name: 'Call Number starts with',
       uid: 'call_number_starts_with',
-      tip: 'Search the first few letters and numbers of a call number (e.g., RC662.4 .H38 2016; QH 105). <a href="https://www.loc.gov/catdir/cpso/lcco/">Learn about the meaning of call numbers<span class="visually-hidden"> (link points to external site)</span></a>.',
+      tip: 'Search the first few letters and numbers of a call number (e.g., RC662.4 .H38 2016; QH 105). <a href="https://www.loc.gov/catdir/cpso/lcco/?utm_source=library-search">Learn about the meaning of call numbers<span class="visually-hidden"> (link points to external site)</span></a>.',
       datastore: ['mirlyn', 'onlinejournals']
     },
     {
@@ -105,7 +105,7 @@ const searchOptions = () => {
     {
       name: 'Browse by call number (LC and Dewey)',
       uid: 'browse_by_callnumber',
-      tip: 'Browse by Library of Congress (LC) or Dewey call number, sorted alphanumerically (e.g., RC662.4 .H38 2016; QH 105, 880 J375re). <a href="https://www.loc.gov/catdir/cpso/lcco/">Learn about the meaning of call numbers<span class="visually-hidden"> (link points to external site)</span></a>.',
+      tip: 'Browse by Library of Congress (LC) or Dewey call number, sorted alphanumerically (e.g., RC662.4 .H38 2016; QH 105, 880 J375re). <a href="https://www.loc.gov/catdir/cpso/lcco/?utm_source=library-search">Learn about the meaning of call numbers<span class="visually-hidden"> (link points to external site)</span></a>.',
       selected: 'selected',
       datastore: ['mirlyn']
     },
