@@ -295,7 +295,7 @@ function SearchBox ({ history, match, location }) {
             </Anchor>
           )}
         </div>
-        <SearchTip activeDatastore={activeDatastore} field={field} />
+        <SearchTip activeDatastore={activeDatastore.uid} field={field} />
       </div>
     </form>
   );
