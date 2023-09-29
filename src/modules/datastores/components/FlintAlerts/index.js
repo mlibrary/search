@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Anchor, Button } from '../../../reusable';
+import { Anchor, Button } from '../../../reusable';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -12,7 +12,14 @@ function FlintAlerts (props) {
   }
 
   return (
-    <Alert type='warning'>
+    <div
+      className='alert alert--warning alert-inner'
+      style={{
+        gap: '1rem',
+        justifyContent: 'center',
+        marginTop: '-0.75rem'
+      }}
+    >
       <span>
         {props.datastore === datastores[0] && <>U-M Flint users: You may not be able to access U-M Ann Arbor resources. For the best results use <Anchor href='https://umich.primo.exlibrisgroup.com/discovery/search?vid=01UMICH_INST:FLINT'>Thompson Library’s Search All</Anchor> to search for articles.</>}
         {props.datastore === datastores[1] && <>We noticed you are affiliated with U-M Flint. For the best results use the <Anchor href='https://libguides.umflint.edu/az.php?a=all'>Thompson Library’s database listing</Anchor>.</>}
@@ -29,7 +36,7 @@ function FlintAlerts (props) {
       >
         Dismiss
       </Button>
-    </Alert>
+    </div>
   );
 }
 
