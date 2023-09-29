@@ -1,62 +1,23 @@
 import React from 'react';
+import Anchor from '../Anchor';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import './Breadcrumb.css';
 
-const BreadcrumbItem = ({
-  item,
-  renderAnchor
-}) => {
-  if (item.href) {
-    return (
-      <a href={item.href}>{item.text}</a>
-    );
-  }
-  if (item.to) {
-    return (
-      renderAnchor(item)
-    );
-  }
-  return item.text;
-};
-
-BreadcrumbItem.propTypes = {
-  item: PropTypes.object,
-  renderAnchor: PropTypes.func
-};
-
-const Breadcrumb = ({
-  className,
-  items,
-  renderAnchor,
-  ...other
-}) => {
-  const classNames = classnames(className, {
-    breadcrumb: true
-  });
+function Breadcrumb (props) {
   return (
-    <ol className={classNames} {...other}>
-      {items.map((item, i) => {
+    <ol className='breadcrumb'>
+      {props.items.map((item, i) => {
         return (
           <li className='breadcrumb__item' key={i}>
-            <BreadcrumbItem item={item} renderAnchor={renderAnchor} />
+            {item.href || item.to ? <Anchor href={item.href} to={item.to}>{item.text}</Anchor> : item.text}
           </li>
         );
       })}
     </ol>
   );
-};
+}
 
 Breadcrumb.propTypes = {
-  className: PropTypes.string,
-  /**
-    Breadcrumb items are objects that contain text and an optional to or href attribute.
-  */
-  items: PropTypes.array,
-  /**
-    A render prop to handle the nav object `to` prop.
-  */
-  renderAnchor: PropTypes.func
+  items: PropTypes.array
 };
 
 export default Breadcrumb;

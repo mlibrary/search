@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { requestRecord, requestGetThis } from '../../../pride';
 import { GetThisOptionList, GetThisRecord } from '../../../getthis';
 import { Breadcrumb } from '../../../reusable';
@@ -19,9 +19,6 @@ class GetThisPageTemplate extends React.Component {
               { text: 'Record', to: `/catalog/record/${recordUid}${document.location.search}` },
               { text: 'Get This' }
             ]}
-            renderAnchor={(item) => {
-              return (<Link to={item.to}>{item.text}</Link>);
-            }}
           />
         </div>
         <section>

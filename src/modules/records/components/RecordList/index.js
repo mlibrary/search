@@ -4,6 +4,7 @@ import _ from 'underscore';
 import { withRouter } from 'react-router-dom';
 import Record from '../Record';
 import KeywordSwitch from '../KeywordSwitch';
+import { Anchor } from '../../../reusable';
 import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
 import { SearchResultsMessage } from '../../../search';
@@ -43,8 +44,8 @@ class RecordListContainer extends React.Component {
               <li>Check your spelling.</li>
               <li>Try more general keywords.</li>
               <li>Try different keywords that mean the same thing.</li>
-              <li>Try using <a href={`${datastore.slug}/advanced`}>Advanced Search</a> to construct a targeted query.</li>
-              <li>Use <a href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</a> and we will help you find what you're looking for.</li>
+              <li>Try using <Anchor to={`${datastore.slug}/advanced`}>Advanced Search</Anchor> to construct a targeted query.</li>
+              <li>Use <Anchor href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</Anchor> and we will help you find what you're looking for.</li>
             </ul>
           </div>
         </div>

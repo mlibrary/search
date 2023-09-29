@@ -3,6 +3,7 @@ import React from 'react';
 import Holding from './holding';
 import { COLORS, SPACING } from '../../reusable/umich-lib-core-temp';
 import {
+  Anchor,
   Expandable,
   ExpandableProvider,
   ExpandableChildren,
@@ -65,9 +66,9 @@ export default function Holder ({
             }
           }}
         >
-          <a href={captionLink.href}>
+          <Anchor href={captionLink.href}>
             {captionLink.text}
-          </a>
+          </Anchor>
         </p>
       )}
 

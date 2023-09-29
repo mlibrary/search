@@ -9,7 +9,8 @@ import { AdvancedSearch } from '../../../advanced';
 import {
   DatastoreNavigation,
   DatastoreInfo,
-  Landing
+  Landing,
+  FlintAlerts
 } from '../../../datastores';
 import { Filters } from '../../../filters';
 import { BrowsePage, BrowseInfo } from '../../../browse';
@@ -24,7 +25,6 @@ import { switchPrideToDatastore } from '../../../pride';
 import { InstitutionSelect, InstitutionWrapper } from '../../../institution';
 import { List } from '../../../lists';
 import { setDocumentTitle } from '../../../a11y';
-import { FlintAlerts } from '../../../flint';
 import PropTypes from 'prop-types';
 import { Icon } from '../../../reusable';
 
@@ -113,7 +113,7 @@ class DatastorePageContainer extends React.Component {
                       }
                     }}
                   >
-                    <FlintAlerts />
+                    <FlintAlerts datastore={activeDatastore.uid} />
                   </div>
                   <ConnectedSwitch>
                     <Route

@@ -1,8 +1,9 @@
 import React from 'react';
+import { Anchor } from '../../../reusable';
 import { Icon } from '../../../core';
 import PropTypes from 'prop-types';
 
-const Specialist = ({ person }) => {
+function Specialist ({ person }) {
   return (
     <article className='specialist'>
       <div>
@@ -10,15 +11,15 @@ const Specialist = ({ person }) => {
       </div>
       <div>
         <h3 className='specialist__heading'>
-          <a href={person.url}>
+          <Anchor href={person.url}>
             {person.name}
             <Icon name='launch' />
-          </a>
+          </Anchor>
         </h3>
         <section>
           <p className='specialist__job-title'>{person.job_title}</p>
           <p className='specialist__phone'>{person.phone}</p>
-          <a href={`mailto:${person.email}`}>{person.email}</a>
+          <Anchor href={`mailto:${person.email}`}>{person.email}</Anchor>
         </section>
       </div>
     </article>

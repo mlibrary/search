@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Anchor } from '../../../reusable';
 import { INTENT_COLORS } from '../../../reusable/umich-lib-core-temp';
 import Icon from '../../../reusable/components/Icon';
 import { Icon as SearchIcon, TrimString } from '../../../core';
@@ -8,7 +8,7 @@ import { getDatastoreSlugByUid } from '../../../pride';
 import { RecommendedResource, Zotero, RecordMetadata } from '../../../records';
 import PropTypes from 'prop-types';
 
-const Header = ({ record, datastoreUid, searchQuery }) => {
+function Header ({ record, datastoreUid, searchQuery }) {
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0];
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const hasFullView = datastoreUid !== 'website';
@@ -35,24 +35,24 @@ const Header = ({ record, datastoreUid, searchQuery }) => {
           }
           if (hasFullView) {
             return (
-              <Link
+              <Anchor
                 to={recordTitleLink}
                 className='record-title-link'
                 key={index}
               >
                 <TrimString string={title} />
-              </Link>
+              </Anchor>
             );
           }
           return (
-            <a
+            <Anchor
               href={recordTitleLink}
               className='record-title-link'
               key={index}
             >
               <TrimString string={title} />
               <SearchIcon name='launch' />
-            </a>
+            </Anchor>
           );
         })}
         <RecommendedResource record={record} />
@@ -67,7 +67,7 @@ Header.propTypes = {
   searchQuery: PropTypes.string
 };
 
-const Footer = ({ record, datastoreUid }) => {
+function Footer ({ record, datastoreUid }) {
   // No access/holding options or are Catalog or Guides and More datastores.
   if (['mirlyn', 'website'].includes(datastoreUid) || !(record.resourceAccess && record.resourceAccess[0])) {
     return null;
@@ -101,9 +101,9 @@ const Footer = ({ record, datastoreUid }) => {
             }}
             key={record.uid + '-resource-' + index}
           >
-            <a href={accessCell.href}>
+            <Anchor href={accessCell.href}>
               {accessCell.text}
-            </a>
+            </Anchor>
           </p>
         );
       })}
@@ -116,23 +116,19 @@ Footer.propTypes = {
   datastoreUid: PropTypes.string
 };
 
-class RecordPreview extends React.Component {
-  render () {
-    const { record, datastoreUid, searchQuery } = this.props;
-
-    return (
-      <article className='record-preview'>
-        <Header
-          record={record}
-          datastoreUid={datastoreUid}
-          searchQuery={searchQuery}
-        />
-        <RecordMetadata record={record} kind='condensed' />
-        <Zotero record={record} />
-        <Footer record={record} datastoreUid={datastoreUid} />
-      </article>
-    );
-  }
+function RecordPreview (props) {
+  return (
+    <article className='record-preview'>
+      <Header
+        record={props.record}
+        datastoreUid={props.datastoreUid}
+        searchQuery={props.searchQuery}
+      />
+      <RecordMetadata record={props.record} kind='condensed' />
+      <Zotero record={props.record} />
+      <Footer record={props.record} datastoreUid={props.datastoreUid} />
+    </article>
+  );
 }
 
 RecordPreview.propTypes = {

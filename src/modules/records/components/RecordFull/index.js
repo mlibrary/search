@@ -2,9 +2,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Breadcrumb } from '../../../reusable';
+import { Anchor, Breadcrumb } from '../../../reusable';
 import { COLORS, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
 import { TrimString } from '../../../core';
 import { getField, getFieldValue } from '../../utilities';
@@ -31,24 +31,18 @@ import ResourceAccess from '../../../resource-acccess';
 
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance();
 
-class FullRecordBreadcrumbs extends React.Component {
-  render () {
-    const { datastore } = this.props;
-    return (
-      <Breadcrumb
-        items={[
-          {
-            text: `${datastore.name}`,
-            to: `/${datastore.slug}${document.location.search}`
-          },
-          { text: 'Record' }
-        ]}
-        renderAnchor={(item) => {
-          return <Link to={item.to}>{item.text}</Link>;
-        }}
-      />
-    );
-  }
+function FullRecordBreadcrumbs ({ datastore }) {
+  return (
+    <Breadcrumb
+      items={[
+        {
+          text: `${datastore.name}`,
+          to: `/${datastore.slug}${document.location.search}`
+        },
+        { text: 'Record' }
+      ]}
+    />
+  );
 }
 
 FullRecordBreadcrumbs.propTypes = {
@@ -236,8 +230,8 @@ function HarmfulLanguage ({ datastore }) {
       way that respects the people and communities who create, use, and are
       represented in our collections. Report harmful or offensive language in catalog
       records, finding aids, or elsewhere in our collections anonymously through
-      our <a href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform'>metadata feedback form</a>.
-      More information at <a href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata'>Remediation of Harmful Language.</a>
+      our <Anchor href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform'>metadata feedback form</Anchor>.
+      More information at <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata'>Remediation of Harmful Language.</Anchor>
     </p>
   );
 }

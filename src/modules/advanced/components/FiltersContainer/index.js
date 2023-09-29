@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useSelector, connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Icon, Button } from '../../../reusable';
 import getFilters from './getFilters';
@@ -133,7 +131,8 @@ class FiltersContainer extends React.Component {
         <Button
           style={{ marginTop: '1rem' }}
           type='submit'
-        ><Icon icon='search' size={24} /> Advanced Search
+        >
+          <Icon icon='search' size={24} /> Advanced Search
         </Button>
       </>
     );
@@ -148,12 +147,6 @@ FiltersContainer.propTypes = {
     PropTypes.object
   ])
 };
-
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    setAdvancedFilter
-  }, dispatch);
-}
 
 function ActiveAdvancedFilters (datastore) {
   const currentDatastore = datastore.datastore.uid;
@@ -201,7 +194,7 @@ function ActiveAdvancedFilters (datastore) {
   return (
     <section aria-label='active-filters'>
       <div
-        css={{
+        style={{
           display: 'flex',
           flexWrap: 'wrap',
           gap: '0.25em'
@@ -209,52 +202,30 @@ function ActiveAdvancedFilters (datastore) {
       >
         <h2
           id='active-filters'
-          css={{
+          className='u-margin-top-none'
+          style={{
             fontSize: '1rem',
-            marginTop: '0',
             marginBottom: SPACING.XS
           }}
         >
           Active filters
         </h2>
         <span
-          css={{
+          style={{
             color: COLORS.neutral['300'],
             paddingRight: '0.5em'
           }}
         >
           ({items.length})
         </span>
-        {/* {items.length > 1 &&
-          <Link
-            to={location.href.replace(location.origin, '')}
-            css={{
-              display: 'inline-block',
-              textDecoration: 'underline',
-              color: COLORS.neutral['300']
-            }}
-          >
-            Clear all active filters
-          </Link>} */}
       </div>
 
-      <p
-        className='font-small'
-        css={{
-          marginTop: '0'
-        }}
-      >
+      <p className='font-small u-margin-top-none'>
         Unselect active filters through the options below.
       </p>
 
       <ul
-        css={{
-          // display: 'flex',
-          // flexWrap: 'wrap',
-          // gap: SPACING.XS,
-          // margin: 0,
-          // marginTop: SPACING.XS,
-          // listStyle: 'none'
+        style={{
           fontSize: '0.9rem',
           marginLeft: '2.5rem',
           marginTop: '0'
@@ -262,43 +233,8 @@ function ActiveAdvancedFilters (datastore) {
       >
         {items.map((item, i) => {
           return (
-            <li
-              key={i + item.group + item.value}
-              css={{
-                // flex: '1 1 100%',
-                // maxWidth: `calc(100% - ${SPACING.XS})%`,
-                // [MEDIA_QUERIES.LARGESCREEN]: {
-                //   maxWidth: `calc(50% - ${SPACING.XS})`
-                // },
-                // [MEDIA_QUERIES.XLSCREEN]: {
-                //   maxWidth: `calc(33% - ${SPACING.XS})`
-                // }
-              }}
-            >
-              <div
-                css={{
-                  // alignItems: 'center',
-                  // color: COLORS.green['500'],
-                  // background: COLORS.green['100'],
-                  // border: `solid 1px ${COLORS.green['200']}`,
-                  // borderRadius: '4px',
-                  // display: 'flex',
-                  // gap: '0.25em',
-                  // height: '100%',
-                  // justifyContent: 'space-between',
-                  // padding: `${SPACING.XS} ${SPACING.S}`,
-                  // textAlign: 'left',
-                  // width: '100%'
-                  // ':hover': {
-                  //   border: `solid 1px ${COLORS.green['400']}`,
-                  //   textDecoration: 'underline'
-                  // }
-                }}
-                kind='secondary'
-              >
-                <span><span css={{ fontWeight: 600 }}>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}:</span> {item.value}</span>
-                {/* <Icon icon='close' /> */}
-              </div>
+            <li key={i + item.group + item.value}>
+              <span className='strong'>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}:</span> {item.value}
             </li>
           );
         })}
@@ -308,16 +244,18 @@ function ActiveAdvancedFilters (datastore) {
 }
 
 function mapStateToProps (state, props) {
-  const {
-    datastore
-  } = props;
-
   return {
     filters: getFilters({
-      filterGroups: state.advanced[datastore.uid].filters,
-      activeFilters: state.advanced[datastore.uid].activeFilters
+      filterGroups: state.advanced[props.datastore.uid].filters,
+      activeFilters: state.advanced[props.datastore.uid].activeFilters
     })
   };
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({
+    setAdvancedFilter
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FiltersContainer);

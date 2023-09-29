@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Anchor, Icon } from '../../../reusable';
 import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
-import Icon from '../../../reusable/components/Icon';
 import { getURLWithFilterRemoved, newSearch } from '../../utilities';
 import PropTypes from 'prop-types';
 
@@ -12,12 +11,10 @@ export default function CheckBoxFiltersContainer () {
     return state;
   });
   const { order, groups } = filters;
-
   const checkboxes = order.reduce((acc, id) => {
     if (groups[id] && groups[id].type === 'checkbox') {
       acc = acc.concat(groups[id]);
     }
-
     return acc;
   }, []);
 
@@ -70,7 +67,7 @@ CheckboxFilterContainer.propTypes = {
 
 function CheckboxFilter ({ label, isChecked, url }) {
   return (
-    <Link
+    <Anchor
       to={url}
       css={{
         display: 'flex',
@@ -98,7 +95,7 @@ function CheckboxFilter ({ label, isChecked, url }) {
         />
       </span>
       {label}
-    </Link>
+    </Anchor>
   );
 }
 

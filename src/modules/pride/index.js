@@ -14,8 +14,6 @@ import {
   requestGetThis
 } from './utils';
 
-import { isDatastoreBrowseable } from './browse';
-
 import { placeHold } from './getthis';
 
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper';
@@ -37,6 +35,5 @@ export {
   parseField,
   isFieldASearchLink,
   requestGetThis,
-  isDatastoreBrowseable,
   placeHold
 };

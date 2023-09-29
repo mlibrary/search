@@ -1,10 +1,10 @@
 import React from 'react';
-import { Icon } from '../../../reusable';
+import { Anchor, Icon } from '../../../reusable';
 
 const Feedback = () => {
   return (
     <aside className='container container-narrow feedback-container'>
-      <a
+      <Anchor
         href='https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf'
         target='_blank'
         rel='noopener noreferrer'
@@ -17,7 +17,7 @@ const Feedback = () => {
           size={22}
           style={{ paddingLeft: '.25em' }}
         />
-      </a>
+      </Anchor>
     </aside>
   );
 };
