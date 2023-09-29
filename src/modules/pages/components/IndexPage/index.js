@@ -1,6 +1,6 @@
 import React from 'react';
 
-const IndexPage = function DatastorePage () {
+function IndexPage () {
   return (
     <div>
       <div className='container container-narrow'>

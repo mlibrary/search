@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { findWhere } from '../../../reusable/underscore';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Record } from '../../../records';
-import { Breadcrumb } from '../../../reusable';
+import { Anchor, Breadcrumb } from '../../../reusable';
 import { setA11yMessage } from '../../../a11y';
 import prejudice from '../../prejudice';
 import ActionsList from '../ActionsList';
@@ -41,7 +41,7 @@ function List (props) {
 
     return (
       <section className='alert'>
-        <p><span className='strong'>This list is empty</span>. <Link to={`/${props.datastore.slug}${document.location.search}`}>Go back to {props.datastore.name}</Link> to add to this list.</p>
+        <p><span className='strong'>This list is empty</span>. <Anchor to={`/${props.datastore.slug}${document.location.search}`}>Go back to {props.datastore.name}</Anchor> to add to this list.</p>
       </section>
     );
   };
@@ -53,9 +53,6 @@ function List (props) {
           { text: `${props.datastore.name}`, to: `/${props.datastore.slug}${document.location.search}` },
           { text: `My Temporary ${props.datastore.name} List` }
         ]}
-        renderAnchor={(item) => {
-          return <Link to={item.to}>{item.text}</Link>;
-        }}
       />
 
       <div className='lists-header'>

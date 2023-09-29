@@ -1,4 +1,5 @@
 import React from 'react';
+import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 const DatastoreInfo = ({ activeDatastore }) => {
@@ -36,7 +37,7 @@ const DatastoreInfo = ({ activeDatastore }) => {
     case 'website':
       return (
         <div className='alert datastore-info'>
-          <p><span className='strong'>Guides and more</span>: the place to learn about our services, spaces, and collections. Your results will include research guides, specialty sites, blogs and blogs posts, and online exhibits. Visit <a href='https://lib.umich.edu'>lib.umich.edu</a> to search the library website, including library staff, current news, events, and physical exhibits.</p>
+          <p><span className='strong'>Guides and more</span>: the place to learn about our services, spaces, and collections. Your results will include research guides, specialty sites, blogs and blogs posts, and online exhibits. Visit <Anchor href='https://lib.umich.edu'>lib.umich.edu</Anchor> to search the library website, including library staff, current news, events, and physical exhibits.</p>
         </div>
       );
     default:

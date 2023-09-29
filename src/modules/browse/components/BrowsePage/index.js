@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { BrowseAtoZ, BrowseByFilters } from '../../../browse';
 import { Breadcrumb } from '../../../reusable';
 import PropTypes from 'prop-types';
@@ -15,9 +14,6 @@ function BrowsePage (props) {
           { text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
           { text: 'Browse' }
         ]}
-        renderAnchor={(item) => {
-          return <Link to={item.to}>{item.text}</Link>;
-        }}
       />
       <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Browse all {datastore.name}</h1>
       <p className='font-lede'>When you're stuck looking for specific {datastore.name.toLowerCase()} or just want to see what's out there, the browse page makes finding the right {datastore.name.toLowerCase()} easy. Browse all {datastore.name.toLowerCase()} titles alphabetically or by academic discipline.</p>

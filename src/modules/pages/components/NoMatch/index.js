@@ -1,9 +1,8 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { setDocumentTitle } from '../../../a11y';
+import { Anchor } from '../../../reusable';
 
-const NoMatch = function NoMatch () {
+function NoMatch () {
   setDocumentTitle(['404']);
 
   return (
@@ -16,15 +15,9 @@ const NoMatch = function NoMatch () {
         <h2 className='heading-medium'>
           Try these options instead
         </h2>
-        <ul css={{
-          margin: '0',
-          padding: '0',
-          marginLeft: '1.5rem',
-          maxWidth: '32em'
-        }}
-        >
+        <ul className='margin-left-2 feedback-form-fieldset'>
           <li>
-            <p>Start over from <Link to='/everything'>the homepage</Link>.</p>
+            <p>Start over from <Anchor to='/everything'>the homepage</Anchor>.</p>
           </li>
           <li>
             <p>The link to the resource you're looking for may have changed, please
@@ -33,13 +26,13 @@ const NoMatch = function NoMatch () {
           </li>
           <li>
             <p>
-              <Link to='/databases/browse'>Browse all Databases</Link> or <Link to='/onlinejournals/browse'>Browse all Online Journals</Link> to view comprehensive lists
+              <Anchor to='/databases/browse'>Browse all Databases</Anchor> or <Anchor to='/onlinejournals/browse'>Browse all Online Journals</Anchor> to view comprehensive lists
               of current library resources.
             </p>
           </li>
           <li>
             <p>
-              <a href='https://www.lib.umich.edu/ask-librarian'>Ask a librarian</a> and we'll help you find what you're
+              <Anchor href='https://www.lib.umich.edu/ask-librarian'>Ask a librarian</Anchor> and we'll help you find what you're
               looking for!
             </p>
           </li>

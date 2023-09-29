@@ -1,6 +1,6 @@
 import React from 'react';
 import './Pagination.css';
-import { Link } from 'react-router-dom';
+import Anchor from '../Anchor';
 import PropTypes from 'prop-types';
 
 class Pagination extends React.Component {
@@ -46,9 +46,9 @@ class Pagination extends React.Component {
       <nav className='pagination-container' aria-label={ariaLabel}>
         <div className='pagination-previous-container'>
           {toPreviousPage && (
-            <Link to={toPreviousPage}>
+            <Anchor to={toPreviousPage}>
               Previous page
-            </Link>
+            </Anchor>
           )}
         </div>
         <form className='pagination-input-container' onSubmit={this.handleSubmit}>
@@ -68,9 +68,9 @@ class Pagination extends React.Component {
         </form>
         <div className='pagination-next-container'>
           {toNextPage && (
-            <Link to={toNextPage}>
+            <Anchor to={toNextPage}>
               Next page
-            </Link>
+            </Anchor>
           )}
         </div>
       </nav>

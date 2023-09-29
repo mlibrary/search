@@ -2,9 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import {
-  Link
-} from 'react-router-dom';
 import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
 import {
   Breadcrumb,
@@ -51,9 +48,6 @@ class AdvancedSearchContainer extends React.Component {
             { text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${document.location.search}` },
             { text: 'Advanced Search' }
           ]}
-          renderAnchor={(item) => {
-            return <Link to={item.to}>{item.text}</Link>;
-          }}
         />
 
         <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Advanced Search</h1>

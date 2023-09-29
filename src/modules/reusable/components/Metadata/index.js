@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
-// eslint-disable-next-line
-import React from "react";
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
+  Anchor,
   Icon,
   Expandable,
   ExpandableChildren,
@@ -13,8 +12,7 @@ import {
 import {
   SPACING,
   MEDIA_QUERIES,
-  COLORS,
-  LINK_STYLES
+  COLORS
 } from '../../umich-lib-core-temp';
 import { stringifySearchQueryForURL } from '../../../pride';
 
@@ -238,12 +236,20 @@ DescriptionItem.propTypes = {
   children: PropTypes.array
 };
 
+function browseLinkByEnvironment (type, value) {
+  let browseLink = 'https://search.lib.umich.edu/catalog/browse';
+  if (process.env.NODE_ENV === 'development') {
+    browseLink = 'https://testing.browse.kubernetes.lib.umich.edu';
+  }
+  return `${browseLink}/${type}?query=${value}`;
+}
+
 function DescriptionItemLink ({ href, search, browse, children }) {
   if (href) {
     return (
-      <a css={LINK_STYLES.default} href={href}>
+      <Anchor href={href}>
         {children}
-      </a>
+      </Anchor>
     );
   }
 
@@ -251,7 +257,7 @@ function DescriptionItemLink ({ href, search, browse, children }) {
     return (
       <span>
         {children}
-        <a
+        <Anchor
           css={{
             color: COLORS.neutral['300'],
             fontSize: '0.875rem',
@@ -269,10 +275,10 @@ function DescriptionItemLink ({ href, search, browse, children }) {
               width: '1px'
             }
           }}
-          href={`/catalog/browse/${browse.type}?query=${browse.value}`}
+          href={browseLinkByEnvironment(browse.type, browse.value)}
         >
-          Browse in {browse.type === 'callnumber' ? 'call number' : browse.type} list
-        </a>
+          {browse.text}
+        </Anchor>
       </span>
     );
   }
@@ -307,9 +313,9 @@ function SearchLink ({ children, search }) {
     });
 
   return (
-    <Link to={to}>
+    <Anchor to={to}>
       {children}
-    </Link>
+    </Anchor>
   );
 }
 

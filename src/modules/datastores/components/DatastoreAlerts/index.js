@@ -6,7 +6,7 @@ import {
   COLORS,
   Margins
 } from '../../../reusable/umich-lib-core-temp';
-import { Button, Icon } from '../../../reusable/';
+import { Anchor, Button, Icon } from '../../../reusable/';
 
 function COVIDAlert () {
   const [dismissed, setDismissed] = useState(false);
@@ -45,7 +45,7 @@ function COVIDAlert () {
             <span>Important message</span>
           </h2>
           <p>
-            Log in to view Get This options for items in our catalog while building access is limited. <a href='https://guides.lib.umich.edu/c.php?g=914690&p=7402383'>Learn more about access changes due to COVID-19</a>.
+            Log in to view Get This options for items in our catalog while building access is limited. <Anchor href='https://guides.lib.umich.edu/c.php?g=914690&p=7402383'>Learn more about access changes due to COVID-19</Anchor>.
           </p>
           <Button
             onClick={() => {
