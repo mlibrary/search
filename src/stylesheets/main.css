@@ -3134,6 +3134,16 @@ input.get-this-field-input-year {
   text-decoration: underline;
 }
 
+.lists-action-button:disabled {
+  background: #F2F2F2;
+  color: #4E4E4E;
+  cursor: not-allowed;
+}
+
+.lists-action-button:disabled:hover {
+  text-decoration: none;
+}
+
 .lists-action-button .icon {
   margin-bottom: 0.2rem;
   color: #4E4E4E;
