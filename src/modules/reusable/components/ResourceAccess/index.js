@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Anchor,
   Button,
   Icon,
   Expandable,
@@ -84,13 +85,11 @@ class TrimCellText extends React.Component {
     const { text } = this.props;
     const { trimTextAt } = this.state;
 
-    // When text doens't need to be trimmed.
+    // When text doesn't need to be trimmed.
     // Only trimming past trim text at, so user don't show all
     // for just a few more chars.
     if (text.length <= trimTextAt + 60) {
-      return (
-        <>{text}</>
-      );
+      return text;
     }
 
     // When text is longer than the trim text at length.
@@ -135,7 +134,11 @@ const Cell = ({
 
       {(() => {
         if (cell.href) {
-          return (<a href={cell.href}>{cell.text}</a>);
+          return (
+            <Anchor href={cell.href}>
+              {cell.text}
+            </Anchor>
+          );
         }
         if (cell.to) {
           return (renderAnchor(cell));
@@ -177,12 +180,12 @@ class ResourceAccess extends React.Component {
               <FigCaptionContentStyled className='x-spacing'>
                 <span style={{ fontWeight: '600' }}>{caption}</span>
                 {captionLink && (
-                  <a
-                    href={captionLink.href} style={{
-                      fontSize: '0.875rem'
-                    }}
-                  >{captionLink.text}
-                  </a>
+                  <Anchor
+                    href={captionLink.href}
+                    className='font-small'
+                  >
+                    {captionLink.text}
+                  </Anchor>
                 )}
                 {notes && (
                   <NotesListStyled>

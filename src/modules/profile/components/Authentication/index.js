@@ -1,9 +1,10 @@
 import React from 'react';
+import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 export default function Authentication (props) {
   return (
-    <a
+    <Anchor
       href={
         (process.env.REACT_APP_LOGIN_BASE_URL || window.location.origin) +
         '/' +
@@ -14,7 +15,7 @@ export default function Authentication (props) {
       className={props.button && 'button'}
     >
       {props.children || 'Log ' + (props.logout ? 'out' : 'in')}
-    </a>
+    </Anchor>
   );
 }
 

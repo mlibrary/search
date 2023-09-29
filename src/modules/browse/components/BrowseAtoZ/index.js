@@ -1,18 +1,11 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
 import qs from 'qs';
+import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-class BrowseAtoZ extends React.Component {
-  state = {
-    startsWith: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-  };
-
-  createBrowseTo = ({ query, filter }) => {
-    const {
-      match
-    } = this.props;
-
+function BrowseAtoZ (props) {
+  const createBrowseTo = ({ query, filter }) => {
     const queryString = qs.stringify({
       query,
       filter,
@@ -23,50 +16,28 @@ class BrowseAtoZ extends React.Component {
       allowDots: true,
       format: 'RFC1738'
     });
-
-    return `/${match.params.datastoreSlug}?${queryString}`;
+    return `/${props.match.params.datastoreSlug}?${queryString}`;
   };
 
-  render () {
-    return (
-      <section className='browse'>
-        <h2 className='heading-large' style={{ marginTop: '0' }}>Titles A-Z</h2>
-        <ul className='browse-list'>
-          {this.state.startsWith.map((character, key) => {
-            return (
-              <li className='browse-item' key={key}>
-                <Link
-                  className='browse-button'
-                  to={this.createBrowseTo({
-                    query: 'browse_starts_with:' + character
-                  })}
-                >{character}
-                </Link>
-              </li>
-            );
-          })}
-          <li className='browse-item'>
-            <Link
-              className='browse-button'
-              to={this.createBrowseTo({
-                query: 'browse_starts_with:0-9'
-              })}
-            >0-9
-            </Link>
-          </li>
-          <li className='browse-item'>
-            <Link
-              className='browse-button'
-              to={this.createBrowseTo({
-                query: 'browse_starts_with:Other'
-              })}
-            >Other
-            </Link>
-          </li>
-        </ul>
-      </section>
-    );
-  }
+  return (
+    <section className='browse'>
+      <h2 className='heading-large' style={{ marginTop: '0' }}>Titles A-Z</h2>
+      <ul className='browse-list'>
+        {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0-9', 'Other'].map((character, key) => {
+          return (
+            <li className='browse-item' key={key}>
+              <Anchor
+                className='browse-button'
+                to={createBrowseTo({ query: 'browse_starts_with:' + character })}
+              >
+                {character}
+              </Anchor>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
 }
 
 BrowseAtoZ.propTypes = {

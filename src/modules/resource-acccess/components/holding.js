@@ -1,46 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { INTENT_COLORS } from '../../reusable/umich-lib-core-temp';
-import { Icon, Button } from '../../reusable';
+import { Anchor, Icon, Button } from '../../reusable';
 import PropTypes from 'prop-types';
 
-export default function Holding ({ holding }) {
-  return (
-    <tr>
-      {holding.map((cell, i) => {
-        return (
-          <td
-            css={{
-              color: INTENT_COLORS[cell.intent]
-            }}
-            key={i}
-          >
-            <Cell
-              cell={cell}
-              renderAnchor={(data) => {
-                return (
-                  <Link to={`/catalog/record/${data.to.record}${data.to.action === 'get-this' ? `/get-this/${data.to.barcode}` : ''}${document.location.search}`}>
-                    {data.text}
-                  </Link>
-                );
-              }}
-            />
-          </td>
-        );
-      })}
-    </tr>
-  );
-}
-
-Holding.propTypes = {
-  holding: PropTypes.array
-};
-
-const Cell = ({
-  cell,
-  renderAnchor
-}) => {
+function Cell ({ cell }) {
   return (
     <>
       {cell.icon && (
@@ -54,10 +18,18 @@ const Cell = ({
 
       {(() => {
         if (cell.href) {
-          return (<a href={cell.href}>{cell.text}</a>);
+          return (
+            <Anchor href={cell.href}>
+              {cell.text}
+            </Anchor>
+          );
         }
         if (cell.to) {
-          return (renderAnchor(cell));
+          return (
+            <Anchor to={`/catalog/record/${cell.to.record}${cell.to.action === 'get-this' ? `/get-this/${cell.to.barcode}` : ''}${document.location.search}`}>
+              {cell.text}
+            </Anchor>
+          );
         }
         if (cell.html) {
           return <span dangerouslySetInnerHTML={{ __html: cell.html }} />;
@@ -69,8 +41,7 @@ const Cell = ({
 };
 
 Cell.propTypes = {
-  cell: PropTypes.object,
-  renderAnchor: PropTypes.func
+  cell: PropTypes.object
 };
 
 class TrimCellText extends React.Component {
@@ -83,7 +54,7 @@ class TrimCellText extends React.Component {
     const { text } = this.props;
     const { trimTextAt } = this.state;
 
-    // When text doens't need to be trimmed.
+    // When text doesn't need to be trimmed.
     // Only trimming past trim text at, so user don't show all
     // for just a few more chars.
     if (text.length <= trimTextAt + 60) {
@@ -114,4 +85,27 @@ class TrimCellText extends React.Component {
 
 TrimCellText.propTypes = {
   text: PropTypes.string
+};
+
+export default function Holding ({ holding }) {
+  return (
+    <tr>
+      {holding.map((cell, i) => {
+        return (
+          <td
+            css={{
+              color: INTENT_COLORS[cell.intent]
+            }}
+            key={i}
+          >
+            <Cell cell={cell} />
+          </td>
+        );
+      })}
+    </tr>
+  );
+}
+
+Holding.propTypes = {
+  holding: PropTypes.array
 };

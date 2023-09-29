@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Anchor } from '../../../reusable';
 import { BrowseInfo } from '../../../browse';
 import { InstitutionSelect } from '../../../institution';
 import PropTypes from 'prop-types';
 
-const Landing = ({ content, activeDatastore }) => {
+function Landing ({ content, activeDatastore }) {
   const landingContent = () => {
     switch (activeDatastore.uid) {
       case 'everything':
@@ -17,7 +17,7 @@ const Landing = ({ content, activeDatastore }) => {
               greater detail.
             </p>
             <p>
-              You will see results from the <Link to='/catalog'>Catalog</Link>, <Link to='/articles'>Articles</Link>, <Link to='/databases'>Databases</Link>, <Link to='/onlinejournals'>Online Journals</Link>, and <Link to='/guidesandmore'>Guides and More</Link> pages.
+              You will see results from the <Anchor to='/catalog'>Catalog</Anchor>, <Anchor to='/articles'>Articles</Anchor>, <Anchor to='/databases'>Databases</Anchor>, <Anchor to='/onlinejournals'>Online Journals</Anchor>, and <Anchor to='/guidesandmore'>Guides and More</Anchor> pages.
             </p>
             <p>
               Enter a search term in the search box to start your own Everything
@@ -40,7 +40,6 @@ const Landing = ({ content, activeDatastore }) => {
                 electronic books, streaming audio and video, and online journals.
               </p>
             </div>
-
             <div className='container container-narrow'>
               <div className='institution-select-landing-container'>
                 <h2 className='heading-large' style={{ textAlign: 'center' }}>
@@ -49,9 +48,9 @@ const Landing = ({ content, activeDatastore }) => {
                 <InstitutionSelect type='switch' />
               </div>
               <p className='landing-extra-info'>
-                <a href='https://lib.umich.edu/find-borrow-request/find-materials/using-other-catalogs'>
+                <Anchor href='https://lib.umich.edu/find-borrow-request/find-materials/using-other-catalogs'>
                   About our other Library Catalogs
-                </a>
+                </Anchor>
               </p>
             </div>
           </>
@@ -83,7 +82,6 @@ const Landing = ({ content, activeDatastore }) => {
               databases of locally created materials, and databases available to
               anyone via open access.
             </p>
-
             <BrowseInfo datastore={activeDatastore} />
           </div>
         );
@@ -103,7 +101,6 @@ const Landing = ({ content, activeDatastore }) => {
               available through multiple platforms. Be sure to check dates
               alongside each to see what you can access.
             </p>
-
             <BrowseInfo datastore={activeDatastore} />
           </div>
         );
@@ -117,7 +114,7 @@ const Landing = ({ content, activeDatastore }) => {
             <p>
               Your results will include research guides, specialty sites, blogs
               and blogs posts, and online exhibits. Visit{' '}
-              <a href='https://lib.umich.edu'>lib.umich.edu</a> to search the
+              <Anchor href='https://lib.umich.edu'>lib.umich.edu</Anchor> to search the
               library website, including library staff, current news, events, and
               physical exhibits.
             </p>

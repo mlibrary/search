@@ -5,7 +5,6 @@ import Loading from './components/Loading';
 import Icon from './components/Icon';
 import ShowAllChildren from './components/ShowAllChildren';
 import TrimString from './components/TrimString';
-import TrimLink from './components/TrimLink';
 import Multiselect from './components/Multiselect';
 import DateRangeInput from './components/DateRangeInput';
 import Checkbox from './components/Checkbox';
@@ -24,7 +23,6 @@ export {
   Icon,
   ShowAllChildren,
   TrimString,
-  TrimLink,
   Multiselect,
   DateRangeInput,
   Checkbox,

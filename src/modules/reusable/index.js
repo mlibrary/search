@@ -1,4 +1,5 @@
 import Alert from './components/Alert';
+import Anchor from './components/Anchor';
 import Button from './components/Button';
 import Tag from './components/Tag';
 import Breadcrumb from './components/Breadcrumb';
@@ -12,6 +13,7 @@ import ResourceAccess from './components/ResourceAccess';
 
 export {
   Alert,
+  Anchor,
   Button,
   Tag,
   Breadcrumb,
