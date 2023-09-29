@@ -102,7 +102,7 @@ class DatastorePageContainer extends React.Component {
                 <>
                   <SearchBox />
                   <DatastoreNavigation />
-                  <FlintAlerts />
+                  <FlintAlerts datastore={activeDatastore.uid} />
                   <ConnectedSwitch>
                     <Route
                       path={match.url + '/record/:recordUid/get-this/:barcode'}
