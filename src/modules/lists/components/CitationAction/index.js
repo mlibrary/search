@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Tabs, TabList, Tab, TabPanel } from '../../../reusable';
 import { cite } from '../../../citations';
 import PropTypes from 'prop-types';
@@ -30,133 +30,123 @@ const citationOptions = [
   }
 ];
 
-class CitationAction extends Component {
-  state = {
+function CitationAction (props) {
+  const stateObject = {
     status: undefined
   };
+  citationOptions.forEach((citationOption) => {
+    stateObject[citationOption.id] = '';
+  });
+  const [state, setState] = useState(stateObject);
 
-  handleCitationsData = (chosenStyleID, data) => {
-    this.setState({
-      ...this.state,
-      [chosenStyleID]: data
-    });
-  };
-
-  generateCitations = (records) => {
-    citationOptions.forEach((co) => {
-      return cite(records, co.id, this.handleCitationsData);
-    });
-  };
-
-  componentDidMount () {
-    const {
-      datastore,
-      record,
-      viewType,
-      list
-    } = this.props;
-
-    if (viewType === 'Full') {
+  useEffect(() => {
+    const generateCitations = (records) => {
+      citationOptions.forEach((citationOption) => {
+        return cite(
+          records,
+          citationOption.id,
+          (chosenStyleID, data) => {
+            setState((prevState) => {
+              return { ...prevState, [chosenStyleID]: data };
+            });
+          });
+      });
+    };
+    if (props.viewType === 'Full') {
       const records = [
         {
-          recordUid: record.uid,
-          datastoreUid: datastore.uid
+          recordUid: props.record.uid,
+          datastoreUid: props.datastore.uid
         }
       ];
-      this.generateCitations(records);
-    } else if (viewType === 'List' && list && list.length > 0) {
-      const records = list.map((r) => {
+      generateCitations(records);
+    }
+    if (props.viewType === 'List' && props.list?.length > 0) {
+      const records = props.list.map((record) => {
         return {
-          recordUid: r.uid,
-          datastoreUid: datastore.uid
+          recordUid: record.uid,
+          datastoreUid: props.datastore.uid
         };
       });
-      this.generateCitations(records);
+      generateCitations(records);
     }
-  }
+  }, [props]);
 
-  handleSubmitCallback = (data) => {
-    this.setState({ status: data });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    navigator.clipboard.writeText(document.querySelector('.copy-citation').innerText);
-    this.props.setAlert({
-      intent: 'success',
-      text: 'Citation copied to clipboard!'
-    });
-    this.props.setActive('');
-    this.setState({ status: undefined });
-  };
-
-  render () {
-    if (this.state.status?.status_code === 'action.response.success') return null;
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <Tabs>
-          <TabList>
-            {citationOptions.map((co) => {
-              return (
-                <Tab
-                  key={co.name}
-                >{co.name}
-                </Tab>
-              );
-            })}
-          </TabList>
-
-          {citationOptions.map((co) => {
+  if (state.status?.status_code === 'action.response.success') return null;
+  return (
+    <form onSubmit={(event) => {
+      event.preventDefault();
+      navigator.clipboard.writeText(document.querySelector('.copy-citation').innerText);
+      props.setAlert({
+        intent: 'success',
+        text: 'Citation copied to clipboard!'
+      });
+      props.setActive('');
+      setState(stateObject);
+    }}
+    >
+      <Tabs>
+        <TabList>
+          {citationOptions.map((citationOption) => {
             return (
-              <TabPanel key={`${co.name}-panel`}>
-                {this.state[co.id]
-                  ? (
-                    <>
-                      <label
-                        id={`${co.name}-label`}
-                        style={{
-                          marginTop: '0.5rem'
-                        }}
-                      >
-                        {co.name} citation
-                      </label>
-                      <div
-                        style={{
-                          border: 'solid 1px rgba(0, 0, 0, 0.3)',
-                          boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.08)',
-                          borderRadius: '4px',
-                          padding: '0.5rem 0.75rem',
-                          overflowY: 'auto',
-                          maxHeight: '40vh'
-                        }}
-                        className='y-spacing copy-citation'
-                        contentEditable='true'
-                        aria-describedby={`${co.id}-disclaimer`}
-                        aria-labelledby={`${co.name}-label`}
-                        role='textbox'
-                        dangerouslySetInnerHTML={{
-                          __html: this.state[co.id]
-                        }}
-                      />
-                      <p
-                        className='font-small'
-                        id={`${co.id}-disclaimer`}
-                      >
-                        These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.
-                      </p>
-                      <Button type='submit' style={{ whiteSpace: 'nowrap' }}>Copy citation</Button>
-                    </>
-                    )
-                  : (
-                    <p>Loading ...</p>
-                    )}
-              </TabPanel>
+              <Tab
+                key={citationOption.name}
+              >{citationOption.name}
+              </Tab>
             );
           })}
-        </Tabs>
-      </form>
-    );
-  }
+        </TabList>
+
+        {citationOptions.map((citationOption) => {
+          return (
+            <TabPanel key={`${citationOption.name}-panel`}>
+              {state[citationOption.id]
+                ? (
+                  <>
+                    <label
+                      id={`${citationOption.name}-label`}
+                      style={{
+                        marginTop: '0.5rem'
+                      }}
+                    >
+                      {citationOption.name} citation
+                    </label>
+                    <div
+                      style={{
+                        border: 'solid 1px rgba(0, 0, 0, 0.3)',
+                        boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.08)',
+                        borderRadius: '4px',
+                        padding: '0.5rem 0.75rem',
+                        overflowY: 'auto',
+                        maxHeight: '40vh'
+                      }}
+                      className='y-spacing copy-citation'
+                      contentEditable='true'
+                      aria-describedby={`${citationOption.id}-disclaimer`}
+                      aria-labelledby={`${citationOption.name}-label`}
+                      role='textbox'
+                      dangerouslySetInnerHTML={{
+                        __html: state[citationOption.id]
+                      }}
+                    />
+                    <p
+                      className='font-small'
+                      id={`${citationOption.id}-disclaimer`}
+                    >
+                      These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.
+                    </p>
+                    <Button type='submit' style={{ whiteSpace: 'nowrap' }}>Copy citation</Button>
+                  </>
+                  )
+                : (
+                  <p>Loading ...</p>
+                  )}
+            </TabPanel>
+          );
+        })}
+      </Tabs>
+    </form>
+  );
 }
 
 CitationAction.propTypes = {

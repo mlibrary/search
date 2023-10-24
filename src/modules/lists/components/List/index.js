@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import _ from 'underscore';
+import { findWhere } from '../../../reusable/underscore';
 import { withRouter } from 'react-router-dom';
 import { Record } from '../../../records';
 import { Anchor, Breadcrumb } from '../../../reusable';
@@ -9,112 +9,73 @@ import prejudice from '../../prejudice';
 import ActionsList from '../ActionsList';
 import PropTypes from 'prop-types';
 
-class List extends Component {
-  state = {
-    active: ''
-  };
+function List (props) {
+  const [active, setActive] = useState('');
 
-  setActive = (active) => {
-    this.setState({ active });
-  };
-
-  handleRemoveAllFromList = ({ datastoreUid }) => {
-    prejudice.clearRecords(datastoreUid);
-    this.props.setA11yMessage('Removed all items from list.');
-    this.setActive('');
-  };
-
-  renderList = () => {
-    const {
-      list,
-      datastore,
-      institution,
-      searchQuery
-    } = this.props;
-
-    if (!list || this.getListLength() === 0) {
+  const renderList = () => {
+    if (props.list?.length > 0) {
       return (
-        <section className='alert'>
-          <p><span className='strong'>This list is empty</span>. <Anchor to={`/${datastore.slug}${document.location.search}`}>Go back to {datastore.name}</Anchor> to add to this list.</p>
-        </section>
+        <>
+          <section className='lists-section'>
+            <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>Actions</h2>
+            <span className='text-small'>Select what to do with this list.</span>
+            <ActionsList {...props} setActive={setActive} active={active} prejudice={prejudice.instance} />
+          </section>
+          {props.list.map((record, index) => {
+            return (
+              <Record
+                record={record}
+                datastoreUid={props.datastore.uid}
+                key={index}
+                institution={props.institution}
+                searchQuery={props.searchQuery}
+                type='medium'
+                list={props.list}
+              />
+            );
+          }
+          )}
+        </>
       );
     }
 
     return (
-      <>
-        {list.map((record, index) => {
-          return (
-            <Record
-              record={record}
-              datastoreUid={datastore.uid}
-              key={index}
-              institution={institution}
-              searchQuery={searchQuery}
-              type='medium'
-              list={list}
-            />
-          );
-        }
-        )}
-      </>
+      <section className='alert'>
+        <p><span className='strong'>This list is empty</span>. <Anchor to={`/${props.datastore.slug}${document.location.search}`}>Go back to {props.datastore.name}</Anchor> to add to this list.</p>
+      </section>
     );
   };
 
-  getListLength = () => {
-    const { list } = this.props;
-    return list ? list.length : 0;
-  };
+  return (
+    <article className='container container-narrow u-margin-top-1'>
+      <Breadcrumb
+        items={[
+          { text: `${props.datastore.name}`, to: `/${props.datastore.slug}${document.location.search}` },
+          { text: `My Temporary ${props.datastore.name} List` }
+        ]}
+      />
 
-  renderRemoveAllFromListButton = (list, datastore) => {
-    if (list && list.length > 0) {
-      const datastoreUid = datastore.uid;
-
-      return (
-        <button
-          className='button-link underline lists-remove-all text-small' onClick={() => {
-            return this.handleRemoveAllFromList({ datastoreUid });
-          }}
-        >
-          Remove all
-        </button>
-      );
-    }
-
-    return null;
-  };
-
-  render () {
-    const {
-      list,
-      datastore
-    } = this.props;
-
-    return (
-      <article className='container container-narrow u-margin-top-1'>
-        <Breadcrumb
-          items={[
-            { text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
-            { text: `My Temporary ${datastore.name} List` }
-          ]}
-        />
-
-        <div className='lists-header'>
-          <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>My Temporary {datastore.name} List</h1>
-          <div className='lists-header-info'>
-            {this.renderRemoveAllFromListButton(list, datastore)}
-            <p className='lists-count-tag'><span className='strong'>{this.getListLength()}</span> in list</p>
-          </div>
+      <div className='lists-header'>
+        <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>My Temporary {props.datastore.name} List</h1>
+        <div className='lists-header-info'>
+          {props.list?.length > 0 &&
+            <button
+              className='button-link underline lists-remove-all text-small'
+              onClick={() => {
+                prejudice.clearRecords(props.datastore.uid);
+                props.setA11yMessage('Removed all items from list.');
+                setActive('');
+              }}
+            >
+              Remove all
+            </button>}
+          <p className='lists-count-tag'><span className='strong'>{props.list?.length || 0}</span> in list</p>
         </div>
-        <p className='font-lede' style={{ marginTop: '0' }}>Items in this list are stored temporarily (within a single session).</p>
-        <section className='lists-section'>
-          <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>Actions</h2>
-          <span className='text-small'>Select what to do with this list.</span>
-          <ActionsList {...this.props} listLength={this.getListLength()} setActive={this.setActive} active={this.state.active} prejudice={prejudice.instance} />
-        </section>
-        {this.renderList()}
-      </article>
-    );
-  }
+      </div>
+      <p className='font-lede' style={{ marginTop: '0' }}>Items in this list are stored temporarily (within a single session).</p>
+      {renderList()}
+    </article>
+  );
 }
 
 List.propTypes = {
@@ -127,7 +88,7 @@ List.propTypes = {
 
 function mapStateToProps (state) {
   return {
-    datastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
+    datastore: findWhere(state.datastores.datastores, { uid: state.datastores.active }),
     list: state.lists[state.datastores.active],
     institution: state.institution,
     searchQuery: state.router.location.search

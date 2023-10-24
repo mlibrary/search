@@ -1,82 +1,49 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
 import { Button } from '../../../reusable';
 import PropTypes from 'prop-types';
 
-class EmailAction extends Component {
-  state = {
-    email: '',
-    sent: false,
-    status: undefined
+function EmailAction (props) {
+  const [email, setEmail] = useState(props.profile.email || '');
+  const [status, setStatus] = useState(undefined);
+
+  const setCloseStatus = () => {
+    props.setActive('');
+    setStatus(undefined);
   };
 
-  componentDidMount () {
-    const { email } = this.props.profile;
-
-    if (email) {
-      this.setState({ email });
-    }
-  }
-
-  handleChange = (event) => {
-    this.setState({ email: event.target.value });
+  const handleSubmitCallback = (data) => {
+    setStatus(data);
   };
 
-  handleSubmitCallback = (data) => {
-    this.setState({ status: data });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.setState({ sent: true });
-    this.props.prejudice.act('email', this.props.datastore.uid, this.state.email, this.handleSubmitCallback);
-  };
-
-  setCloseStatus = () => {
-    this.props.setActive('');
-    this.setState({ status: undefined, sent: false });
-  };
-
-  renderForm = () => {
-    const { status } = this.state;
-
-    if (!status || status.status_code !== 'action.response.success') {
-      return (
-        <form className='lists-action-form' onSubmit={this.handleSubmit}>
+  return (
+    <section className='lists-action'>
+      <ActionStatusMessage status={status} action={props.action} setCloseStatus={setCloseStatus} />
+      {(!status || status.status_code !== 'action.response.success') &&
+        <form
+          className='lists-action-form'
+          onSubmit={(event) => {
+            event.preventDefault();
+            props.prejudice.act('email', props.datastore.uid, email, handleSubmitCallback);
+          }}
+        >
           <div className='lists-action-field-container'>
             <label htmlFor='emailAddress'>Email address</label>
             <input
               id='emailAddress'
               type='email'
               required
-              value={this.state.email}
-              onChange={this.handleChange}
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
               autoComplete='on'
             />
           </div>
           <Button type='submit' style={{ whiteSpace: 'nowrap' }}>Send email</Button>
-        </form>
-      );
-    }
-
-    return null;
-  };
-
-  render () {
-    const { listLength, action } = this.props;
-
-    if (listLength === 0) {
-      return null;
-    }
-
-    return (
-      <section className='lists-action'>
-        <ActionStatusMessage status={this.state.status} action={action} setCloseStatus={this.setCloseStatus} />
-        {this.renderForm()}
-      </section>
-    );
-  }
+        </form>}
+    </section>
+  );
 }
 
 EmailAction.propTypes = {
@@ -84,14 +51,7 @@ EmailAction.propTypes = {
   prejudice: PropTypes.object,
   datastore: PropTypes.object,
   setActive: PropTypes.func,
-  listLength: PropTypes.number,
   action: PropTypes.object
 };
 
-function mapStateToProps (state) {
-  return {
-    profile: state.profile
-  };
-}
-
-export default connect(mapStateToProps)(EmailAction);
+export default EmailAction;
