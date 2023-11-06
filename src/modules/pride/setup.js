@@ -45,6 +45,8 @@ import { addSpecialists } from '../specialists';
 import prejudice from '../lists/prejudice';
 import { setupProfile } from '../profile';
 
+console.dir(Pride);
+
 /*
   Pride Internal Configuration
 */
