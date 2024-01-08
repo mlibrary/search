@@ -359,6 +359,7 @@ const runSearch = () => {
   if (query === '*') {
     fieldTree = {}; // search all
   } else {
+    console.log('queryyy', query);
     fieldTree = Pride.FieldTree.parseField('all_fields', query);
   }
 
