@@ -36,7 +36,7 @@ const SearchByOptions = ({ activeDatastore, fields }) => {
       <optgroup label='Search by'>
         {listOptions(searchByOptions)}
       </optgroup>
-      <optgroup label='Browse by [BETA]'>
+      <optgroup label='Browse by'>
         {listOptions(browseByOptions)}
       </optgroup>
     </>
