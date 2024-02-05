@@ -47,8 +47,8 @@ These dependencies have been updated to their latest versions:
 These actions have been updated to their latest versions:
 - `actions/checkout`
 - `actions/setup-node`
-- `docker/login-action`
 - `docker/build-push-action`
+- `docker/login-action`
 - `docker/setup-buildx-action`
 - `docker/setup-qemu-action`
 - `softprops/action-gh-release`
