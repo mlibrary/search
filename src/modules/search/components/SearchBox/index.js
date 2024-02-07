@@ -109,16 +109,15 @@ function SearchBox ({ history, match, location }) {
 
     const urlLocation = `/${match.params.datastoreSlug}${browseOption ? `/browse/${dropdownOption.replace('browse_by_', '')}` : ''}?${newURL}`;
 
-    // Redirect users if browse option has been submitted
-    if (browseOption) {
-      window.location.href = urlLocation;
+    // If not browsing
+    if (!browseOption) {
+      // Do not submit if query remains unchanged
+      if (query === newQuery) return;
+      // Submit new search
+      history.push(urlLocation);
     }
 
-    // Do not submit if query remains unchanged
-    if (query === newQuery) return;
-
-    // Submit new search
-    history.push(urlLocation);
+    window.location.href = urlLocation;
   }
 
   return (
