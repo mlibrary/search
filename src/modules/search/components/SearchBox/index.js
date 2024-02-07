@@ -107,17 +107,22 @@ function SearchBox ({ history, match, location }) {
       format: 'RFC1738'
     });
 
-    const urlLocation = `/${match.params.datastoreSlug}${browseOption ? `/browse/${dropdownOption.replace('browse_by_', '')}` : ''}?${newURL}`;
-
-    // If not browsing
-    if (!browseOption) {
+    // Redirect users if browse option has been submitted
+    if (browseOption) {
+      let href = 'https://browse.workshop.search.lib.umich.edu';
+      if (window.location.hostname === 'search.lib.umich.edu') {
+        href = `/${match.params.datastoreSlug}/browse`;
+      }
+      if (window.location.hostname === 'localhost') {
+        href = 'http://localhost:4567';
+      }
+      window.location.href = `${href}/${dropdownOption.replace('browse_by_', '')}?${newURL}`;
+    } else {
       // Do not submit if query remains unchanged
       if (query === newQuery) return;
       // Submit new search
-      history.push(urlLocation);
+      history.push(`/${match.params.datastoreSlug}?${newURL}`);
     }
-
-    window.location.href = urlLocation;
   }
 
   return (
