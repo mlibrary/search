@@ -47,7 +47,6 @@ function ResourceAccess ({ record, context }) {
   return (
     <Holders
       record={record}
-      createId={createId}
       context={context}
     />
   );
@@ -57,13 +56,5 @@ ResourceAccess.propTypes = {
   record: PropTypes.object,
   context: PropTypes.object
 };
-
-/*
-  These need to be unique to the app for React to handle
-  rendering properly.
-*/
-function createId (record, i) {
-  return 'holder--' + record.datastore + record.uid + '-' + i;
-}
 
 export default ResourceAccessContainer;

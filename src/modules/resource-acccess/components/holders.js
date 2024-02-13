@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 
 export default function Holders ({
   record,
-  createId,
   context
 }) {
   return (
@@ -16,7 +15,7 @@ export default function Holders ({
         const { rows, caption, type } = data;
         return (
           <details
-            key={createId(record, i)}
+            key={record.datastore + record.uid + '-' + i}
             css={{
               '& > *': {
                 padding: '0.75rem 1rem',
@@ -91,6 +90,5 @@ export default function Holders ({
 
 Holders.propTypes = {
   record: PropTypes.object,
-  createId: PropTypes.func,
   context: PropTypes.object
 };
