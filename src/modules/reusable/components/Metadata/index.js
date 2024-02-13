@@ -239,7 +239,7 @@ DescriptionItem.propTypes = {
 function browseLinkByEnvironment (type, value) {
   let browseLink = 'https://search.lib.umich.edu/catalog/browse';
   if (process.env.NODE_ENV === 'development') {
-    browseLink = 'https://testing.browse.kubernetes.lib.umich.edu';
+    browseLink = 'https://browse.workshop.search.lib.umich.edu';
   }
   return `${browseLink}/${type}?query=${value}`;
 }
