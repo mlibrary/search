@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import Icon from '../../reusable/components/Icon';
-import HolderContainer from './holder-container';
+import Holder from './holder';
 import { COLORS } from '../../reusable/umich-lib-core-temp/index';
 import PropTypes from 'prop-types';
 
@@ -80,7 +80,7 @@ export default function Holders ({
                 <Icon size={24} d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z' />
               </span>
             </summary>
-            <HolderContainer context={context} {...data} />
+            <Holder context={context} {...data} />
           </details>
         );
       })}
