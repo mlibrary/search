@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 
 export default function Holders ({
   record,
-  preExpandedIds,
   createId,
   context
 }) {
@@ -92,7 +91,6 @@ export default function Holders ({
 
 Holders.propTypes = {
   record: PropTypes.object,
-  preExpandedIds: PropTypes.array,
   createId: PropTypes.func,
   context: PropTypes.object
 };

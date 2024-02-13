@@ -47,7 +47,6 @@ function ResourceAccess ({ record, context }) {
   return (
     <Holders
       record={record}
-      preExpandedIds={preExpandedIds(record)}
       createId={createId}
       context={context}
     />
@@ -58,17 +57,6 @@ ResourceAccess.propTypes = {
   record: PropTypes.object,
   context: PropTypes.object
 };
-
-// Create a list of uuids for details to be opened by default
-function preExpandedIds (record) {
-  return record.resourceAccess.reduce((acc, item, index) => {
-    if (item.preExpanded) {
-      acc = acc.concat(createId(record, index));
-    }
-
-    return acc;
-  }, []);
-}
 
 /*
   These need to be unique to the app for React to handle
