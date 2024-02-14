@@ -256,7 +256,7 @@ function DescriptionItemLink ({ href, search, browse, children }) {
   if (browse) {
     return (
       <span>
-        {children}
+        <SearchLink search={search}>{children}</SearchLink>
         <Anchor
           css={{
             color: COLORS.neutral['300'],
