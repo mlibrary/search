@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Icon from '../../reusable/components/Icon';
 import Holder from './holder';
 import { COLORS } from '../../reusable/umich-lib-core-temp/index';
@@ -9,10 +10,38 @@ export default function Holders ({
   record,
   context
 }) {
+  const { active } = useSelector((state) => {
+    return state.filters;
+  });
+  const resourceAccess = record.resourceAccess;
+  /*
+    - Check if the record is under 'Catalog', and the 'Remove search-only HathiTrust materials' is checked
+    - If true, remove all 'Search only (no full text)' holdings
+  */
+  if (
+    record.datastore === 'mirlyn' &&
+    (
+      !Object.keys(active).includes('mirlyn') ||
+      (Object.keys(active.mirlyn).includes('search_only') && active.mirlyn.search_only[0] === 'true')
+    )
+  ) {
+    resourceAccess.forEach((resource) => {
+      const filteredRows = [];
+      resource.rows.forEach((row) => {
+        if (row[0].text !== 'Search only (no full text)') {
+          filteredRows.push(row);
+        }
+      });
+      resource.rows = filteredRows;
+    });
+  }
   return (
     <>
-      {record.resourceAccess.map((data, i) => {
+      {resourceAccess.map((data, i) => {
         const { rows, caption, type } = data;
+        if (rows.length === 0) {
+          return null;
+        }
         return (
           <details
             key={record.datastore + record.uid + '-' + i}
@@ -22,7 +51,7 @@ export default function Holders ({
                 paddingLeft: '3rem'
               }
             }}
-            open={record.resourceAccess.length === 1}
+            open={resourceAccess.length === 1}
           >
             <summary
               css={{
