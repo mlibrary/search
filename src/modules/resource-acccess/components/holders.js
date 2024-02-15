@@ -10,8 +10,8 @@ export default function Holders ({
   record,
   context
 }) {
-  const { active } = useSelector((state) => {
-    return state.filters;
+  const { mirlyn } = useSelector((state) => {
+    return state.filters.active;
   });
   const resourceAccess = record.resourceAccess;
   /*
@@ -21,8 +21,8 @@ export default function Holders ({
   if (
     record.datastore === 'mirlyn' &&
     (
-      !Object.keys(active).includes('mirlyn') ||
-      (Object.keys(active.mirlyn).includes('search_only') && active.mirlyn.search_only[0] === 'true')
+      !mirlyn ||
+      (Object.keys(mirlyn).includes('search_only') && mirlyn.search_only[0] === 'true')
     )
   ) {
     resourceAccess.forEach((resource) => {
