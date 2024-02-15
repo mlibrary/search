@@ -16,34 +16,26 @@ function GetThisOption ({ option }) {
       </summary>
 
       <div className='get-this-option-details-container'>
-        <div className='get-this-option-left-half'>
+        <div className='get-this-option-column'>
           {option.form
             ? <GetThisForm label={option.label} form={option.form} />
-            : (
-              <>
-                {option.label === 'Find it in the library' && (
-                  <GetThisFindIt />
-                )}
-              </>
-              )}
+            : option.label === 'Find it in the library' && <GetThisFindIt />}
         </div>
 
         {option.description && (
-          <div className='get-this-option-right-half'>
-            <div className='get-this-policies-container'>
-              {option.description.heading && (
-                <h4 className='get-this-policies-heading'>{option.description.heading}</h4>
-              )}
-              {option.description.content && (
-                <ul className='get-this-policies-list'>
-                  {option.description.content.map((policy, key) => {
-                    return (
-                      <li key={key} dangerouslySetInnerHTML={{ __html: policy }} />
-                    );
-                  })}
-                </ul>
-              )}
-            </div>
+          <div className='get-this-option-column'>
+            {option.description.heading && (
+              <h4 className='get-this-policies-heading'>{option.description.heading}</h4>
+            )}
+            {option.description.content && (
+              <ul className='get-this-policies-list'>
+                {option.description.content.map((policy, key) => {
+                  return (
+                    <li key={key} dangerouslySetInnerHTML={{ __html: policy }} />
+                  );
+                })}
+              </ul>
+            )}
           </div>
         )}
       </div>
