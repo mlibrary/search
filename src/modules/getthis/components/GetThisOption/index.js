@@ -13,7 +13,10 @@ function GetThisOption ({ option }) {
   return (
     <details className='get-this-option' ref={detailsRef}>
       <summary className='get-this-option-summary'>
-        <h3 className='get-this-option-heading'><span className='get-this-option-heading-text'>{option.label}</span><span className='get-this-option-subheading'>{option.service_type && (<span> {option.service_type} </span>)}({option.duration})</span></h3>
+        <h3 className='get-this-option-heading'>
+          <span className='get-this-option-heading-text'>{option.label}</span>
+          <span className='get-this-option-subheading'>{option.summary}</span>
+        </h3>
       </summary>
 
       <div className='get-this-option-details-container'>
