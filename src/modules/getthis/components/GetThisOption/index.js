@@ -20,24 +20,23 @@ function GetThisOption ({ option }) {
       </summary>
 
       <div className='get-this-option-details-container'>
-        {option.form
-          ? (
-            <div className='get-this-option-left-half'>
-              {option.orientation && (
+        <div className='get-this-option-left-half'>
+          {option.form
+            ? (
+              <>{option.orientation && (
                 <div dangerouslySetInnerHTML={createMarkup(option.orientation)} />
               )}
-              <GetThisForm label={option.label} form={option.form} />
-            </div>
-            )
-          : (
-            <>
-              {option.service_type === 'Self Service' && (
-                <div className='get-this-option-left-half'>
+                <GetThisForm label={option.label} form={option.form} />
+              </>
+              )
+            : (
+              <>
+                {option.label === 'Find it in the library' && (
                   <GetThisFindIt />
-                </div>
+                )}
+              </>
               )}
-            </>
-            )}
+        </div>
 
         {option.description && (
           <div className='get-this-option-right-half'>
