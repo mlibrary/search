@@ -3,10 +3,6 @@ import GetThisFindIt from '../GetThisFindIt';
 import { GetThisForm } from '../../../getthis';
 import PropTypes from 'prop-types';
 
-const createMarkup = (html) => {
-  return { __html: html };
-};
-
 function GetThisOption ({ option }) {
   const detailsRef = useRef(null);
 
@@ -20,41 +16,31 @@ function GetThisOption ({ option }) {
       </summary>
 
       <div className='get-this-option-details-container'>
-        {option.form
-          ? (
-            <div className='get-this-option-left-half'>
-              {option.orientation && (
-                <div dangerouslySetInnerHTML={createMarkup(option.orientation)} />
-              )}
-              <GetThisForm label={option.label} form={option.form} />
-            </div>
-            )
-          : (
-            <>
-              {option.service_type === 'Self Service' && (
-                <div className='get-this-option-left-half'>
-                  <GetThisFindIt />
-                </div>
-              )}
-            </>
-            )}
+        <div className='get-this-option-column'>
+          {option.form
+            ? (
+              <>
+                {option.orientation && <div dangerouslySetInnerHTML={{ __html: option.orientation }} />}
+                <GetThisForm label={option.label} form={option.form} />
+              </>
+              )
+            : option.label === 'Find it in the library' && <GetThisFindIt />}
+        </div>
 
         {option.description && (
-          <div className='get-this-option-right-half'>
-            <div className='get-this-policies-container'>
-              {option.description.heading && (
-                <h4 className='get-this-policies-heading'>{option.description.heading}</h4>
-              )}
-              {option.description.content && (
-                <ul className='get-this-policies-list'>
-                  {option.description.content.map((policy, key) => {
-                    return (
-                      <li key={key} dangerouslySetInnerHTML={createMarkup(policy)} />
-                    );
-                  })}
-                </ul>
-              )}
-            </div>
+          <div className='get-this-option-column'>
+            {option.description.heading && (
+              <h4 className='get-this-policies-heading'>{option.description.heading}</h4>
+            )}
+            {option.description.content && (
+              <ul className='get-this-policies-list'>
+                {option.description.content.map((policy, key) => {
+                  return (
+                    <li key={key} dangerouslySetInnerHTML={{ __html: policy }} />
+                  );
+                })}
+              </ul>
+            )}
           </div>
         )}
       </div>
