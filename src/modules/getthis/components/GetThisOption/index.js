@@ -3,10 +3,6 @@ import GetThisFindIt from '../GetThisFindIt';
 import { GetThisForm } from '../../../getthis';
 import PropTypes from 'prop-types';
 
-const createMarkup = (html) => {
-  return { __html: html };
-};
-
 function GetThisOption ({ option }) {
   const detailsRef = useRef(null);
 
@@ -22,13 +18,7 @@ function GetThisOption ({ option }) {
       <div className='get-this-option-details-container'>
         <div className='get-this-option-left-half'>
           {option.form
-            ? (
-              <>{option.orientation && (
-                <div dangerouslySetInnerHTML={createMarkup(option.orientation)} />
-              )}
-                <GetThisForm label={option.label} form={option.form} />
-              </>
-              )
+            ? <GetThisForm label={option.label} form={option.form} />
             : (
               <>
                 {option.label === 'Find it in the library' && (
@@ -48,7 +38,7 @@ function GetThisOption ({ option }) {
                 <ul className='get-this-policies-list'>
                   {option.description.content.map((policy, key) => {
                     return (
-                      <li key={key} dangerouslySetInnerHTML={createMarkup(policy)} />
+                      <li key={key} dangerouslySetInnerHTML={{ __html: policy }} />
                     );
                   })}
                 </ul>
