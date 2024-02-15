@@ -2830,25 +2830,15 @@ input.multiselect-search {
 @media (min-width: 820px) {
   .get-this-option-details-container {
     display: flex;
-    padding: 0;
   }
 
-  .get-this-option-left-half,
-  .get-this-option-right-half {
-    padding: 1rem 1.5rem;
-  }
-
-  .get-this-option-left-half {
-    flex: 1;
-    padding-right: 0;
-  }
-
-  .get-this-option-right-half {
+  .get-this-option-column:not(:empty) {
     flex: 1;
   }
 
-  .get-this-policies-container {
+  .get-this-option-column:not(:empty) + .get-this-option-column {
     border-left: solid 2px #CCC;
+    margin-left: 1.5rem;
     padding-left: 1rem;
   }
 }
