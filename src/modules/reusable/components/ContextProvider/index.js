@@ -1,8 +1,7 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import { findWhere } from '../../underscore';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import _ from 'underscore';
-import PropTypes from 'prop-types';
 
 /*
   In many cases components need context information, such as
@@ -12,12 +11,8 @@ import PropTypes from 'prop-types';
   This component will provide that information so that components don't
   need to bring them in each time themselves.
 */
-class ContextProvider extends React.Component {
-  render () {
-    return (
-      <>{this.props.render({ ...this.props })}</>
-    );
-  }
+function ContextProvider (props) {
+  return props.render({ ...props });
 }
 
 ContextProvider.propTypes = {
@@ -26,27 +21,19 @@ ContextProvider.propTypes = {
 
 function mapStateToProps (state, props) {
   /*
-    Record View Type is decided by the matched
-    React Router path.
+    Record View Type is decided by the matched React Router path.
   */
-  const viewType =
-    props.match.url.indexOf('/everything') !== -1
-      ? 'Preview'
-      : props.match.path === '/:datastoreSlug'
-        ? 'Medium'
-        : props.match.path.indexOf('/record/') !== -1
-          ? 'Full'
-          : props.match.path.indexOf('/list') !== -1
-            ? 'List'
-            : undefined;
-
+  let viewType = 'Medium';
+  props.match.url.endsWith('/everything') && (viewType = 'Preview');
+  props.match.path.endsWith('/:recordUid') && (viewType = 'Full');
+  props.match.url.endsWith('/list') && (viewType = 'List');
   /*
     Add active datastore and record view type
     to props to be used in ContextProvider as a
-    render props compoennt.
+    render props component.
   */
   return {
-    datastore: _.findWhere(state.datastores.datastores, {
+    datastore: findWhere(state.datastores.datastores, {
       uid: state.datastores.active
     }),
     viewType
