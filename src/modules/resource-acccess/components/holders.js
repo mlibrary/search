@@ -13,7 +13,6 @@ export default function Holders ({
   const { mirlyn } = useSelector((state) => {
     return state.filters.active;
   });
-  const resourceAccess = record.resourceAccess;
   /*
     - Check if the record is under 'Catalog', and the 'Remove search-only HathiTrust materials' is checked
     - If true, remove all 'Search only (no full text)' holdings
@@ -22,22 +21,18 @@ export default function Holders ({
     record.datastore === 'mirlyn' &&
     (
       !mirlyn ||
-      (Object.keys(mirlyn).includes('search_only') && mirlyn.search_only[0] === 'true')
+      (Object.keys(mirlyn).includes('search_only') && mirlyn.search_only.includes('true'))
     )
   ) {
-    resourceAccess.forEach((resource) => {
-      const filteredRows = [];
-      resource.rows.forEach((row) => {
-        if (row[0].text !== 'Search only (no full text)') {
-          filteredRows.push(row);
-        }
+    record.resourceAccess.forEach((resource) => {
+      resource.rows = resource.rows.filter((row) => {
+        return row[0].text !== 'Search only (no full text)';
       });
-      resource.rows = filteredRows;
     });
   }
   return (
     <>
-      {resourceAccess.map((data, i) => {
+      {record.resourceAccess.map((data, i) => {
         const { rows, caption, type } = data;
         if (rows.length === 0) {
           return null;
@@ -51,7 +46,7 @@ export default function Holders ({
                 paddingLeft: '3rem'
               }
             }}
-            open={resourceAccess.length === 1}
+            open={record.resourceAccess.length === 1}
           >
             <summary
               css={{
