@@ -34,7 +34,7 @@ export default function Holders ({
     <>
       {record.resourceAccess.map((data, i) => {
         const { rows, caption, type } = data;
-        if (rows.length === 0) {
+        if (!rows.length) {
           return null;
         }
         return (
