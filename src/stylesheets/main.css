@@ -2918,13 +2918,22 @@ input.get-this-field-input-year {
 }
 
 .specialists__heading {
-  font-size: 1rem;
-  margin: 0;
-  padding: 0.75rem 1rem;
-  color: #4E4E4E;
   background: #FAFAFA;
   border-bottom: solid 1px #E5E5E5;
   border-radius: 4px 4px 0 0;
+  color: #4E4E4E;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0.75rem 1rem;
+}
+
+.specialists__heading > h2 {
+  color: #4E4E4E;
+  font-size: 1rem;
+  margin: 0;
 }
 
 .specialist {
@@ -2961,9 +2970,10 @@ input.get-this-field-input-year {
   margin: 0;
 }
 
-.specialist__heading .icon {
+.specialist__heading .icon,
+.specialists__heading .icon {
   color: #4E4E4E;
-  margin-left: 0.25rem;
+  margin-left: 0.5rem;
   position: relative;
   top: 0.125rem;
   width: 0.85rem;

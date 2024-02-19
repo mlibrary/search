@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ShowAllChildren } from '../../../core';
+import { Anchor } from '../../../reusable';
+import { Icon, ShowAllChildren } from '../../../core';
 import Specialist from '../Specialist';
 import PropTypes from 'prop-types';
 
@@ -17,7 +18,13 @@ const SpecialistList = ({
     <>
       <article className='specialists'>
         <div className='specialists__inner-container'>
-          <h2 className='specialists__heading'>Talk to a Library Specialist</h2>
+          <div className='specialists__heading'>
+            <h2>Talk to a Library Specialist</h2>
+            <Anchor href='https://www.lib.umich.edu/research-and-scholarship/help-research/find-specialist'>
+              Find more specialists
+              <Icon name='launch' />
+            </Anchor>
+          </div>
           <section className='specialists__content'>
             <ShowAllChildren
               length={specialists.length}
@@ -33,7 +40,6 @@ const SpecialistList = ({
           </section>
         </div>
       </article>
-      <h2 className='offpage'>Results continued</h2>
     </>
   );
 };
