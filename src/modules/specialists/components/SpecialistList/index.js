@@ -10,7 +10,7 @@ const SpecialistList = ({
   show,
   specialists
 }) => {
-  if (loadingUserData || !specialists || specialists.length === 0) {
+  if (loadingUserData || !specialists || !specialists.length) {
     return null;
   }
 
@@ -26,11 +26,7 @@ const SpecialistList = ({
             </Anchor>
           </div>
           <section className='specialists__content'>
-            <ShowAllChildren
-              length={specialists.length}
-              show={show}
-              name='specialists'
-            >
+            <ShowAllChildren show={show}>
               {specialists.map((person, index) => {
                 return (
                   <Specialist key={index} person={person} />

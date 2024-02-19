@@ -18,18 +18,11 @@ class ShowAllChildren extends React.Component {
       show: !this.state.show
     });
 
-    const a11yMessage = this.state.show ? 'Showing fewer' : `showing all ${this.props.length}`;
-    this.props.setA11yMessage(`${a11yMessage} ${this.props.name}`);
+    this.props.setA11yMessage(`Showing ${this.state.show ? 'fewer' : `all ${this.props.children.length}`} Library Specialists`);
   }
 
   render () {
-    const length = this.props.length || 0;
     const show = this.props.show || 1;
-    const hasShowHideButton = length > show;
-    const name = this.props.name || undefined;
-    const showFewerText = this.props.showFewerText || `Show fewer ${name || ''}`;
-    const showAllText = this.props.showAllText || `Show all ${length} ${name || ''}`;
-    const buttonText = `${this.state.show ? showFewerText : showAllText}`;
 
     return (
       <>
@@ -40,13 +33,15 @@ class ShowAllChildren extends React.Component {
 
           return null;
         })}
-        {hasShowHideButton && (
+        {this.props.children.length > show && (
           <button
             onClick={this.handleShowToggleClick}
             className='button-link-light show-all-button'
             aria-expanded={this.state.show}
           >
-            <span className='show-all-button__text'>{buttonText}</span>
+            <span className='show-all-button__text'>
+              {`Show ${this.state.show ? 'fewer' : `all ${this.props.children.length}`} Library Specialists`}
+            </span>
           </button>
         )}
       </>
@@ -55,12 +50,8 @@ class ShowAllChildren extends React.Component {
 }
 
 ShowAllChildren.propTypes = {
-  length: PropTypes.number,
   setA11yMessage: PropTypes.func,
-  name: PropTypes.string,
   show: PropTypes.number,
-  showFewerText: PropTypes.string,
-  showAllText: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
