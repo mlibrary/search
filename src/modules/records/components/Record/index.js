@@ -101,6 +101,7 @@ function Record (props) {
       </div>
 
       <div
+        className='record-holders-container'
         css={{
           borderBottom: `solid 1px ${COLORS.neutral[100]}`
         }}

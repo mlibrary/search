@@ -1,23 +1,45 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Icon from '../../reusable/components/Icon';
-import HolderContainer from './holder-container';
+import Holder from './holder';
 import { COLORS } from '../../reusable/umich-lib-core-temp/index';
 import PropTypes from 'prop-types';
 
 export default function Holders ({
   record,
-  preExpandedIds,
-  createId,
   context
 }) {
+  const { mirlyn } = useSelector((state) => {
+    return state.filters.active;
+  });
+  /*
+    - Check if the record is under 'Catalog', and the 'Remove search-only HathiTrust materials' is checked
+    - If true, remove all 'Search only (no full text)' holdings
+  */
+  if (
+    record.datastore === 'mirlyn' &&
+    (
+      !mirlyn ||
+      (Object.keys(mirlyn).includes('search_only') && mirlyn.search_only.includes('true'))
+    )
+  ) {
+    record.resourceAccess.forEach((resource) => {
+      resource.rows = resource.rows.filter((row) => {
+        return row[0].text !== 'Search only (no full text)';
+      });
+    });
+  }
   return (
     <>
       {record.resourceAccess.map((data, i) => {
         const { rows, caption, type } = data;
+        if (!rows.length) {
+          return null;
+        }
         return (
           <details
-            key={createId(record, i)}
+            key={record.datastore + record.uid + '-' + i}
             css={{
               '& > *': {
                 padding: '0.75rem 1rem',
@@ -82,7 +104,7 @@ export default function Holders ({
                 <Icon size={24} d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z' />
               </span>
             </summary>
-            <HolderContainer context={context} {...data} />
+            <Holder context={context} {...data} />
           </details>
         );
       })}
@@ -92,7 +114,5 @@ export default function Holders ({
 
 Holders.propTypes = {
   record: PropTypes.object,
-  preExpandedIds: PropTypes.array,
-  createId: PropTypes.func,
   context: PropTypes.object
 };

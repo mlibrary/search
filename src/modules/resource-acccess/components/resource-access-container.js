@@ -1,5 +1,4 @@
 import React from 'react';
-import ResourceAccessLoading from './resource-access-loading';
 import Holders from './holders';
 import { ContextProvider } from '../../reusable';
 import PropTypes from 'prop-types';
@@ -13,14 +12,20 @@ function ResourceAccessContainer ({ record }) {
   }
 
   /*
-    Does the record indicate if holdings are being loaded?
-    This only matters with mirlyn aka catalog.
+    In mirlyn, does the record indicate if holdings are being loaded?
   */
   if (
     record.loadingHoldings ||
-    (record.datastore === 'mirlyn' && record.resourceAccess.length === 0)
+    (record.datastore === 'mirlyn' && !record.resourceAccess.length)
   ) {
-    return <ResourceAccessLoading />;
+    return (
+      <div className='resource-access-container'>
+        <div className='access-placeholder-container'>
+          <div className='placeholder placeholder-access placeholder-inline' />
+          <div className='placeholder placeholder-inline' />
+        </div>
+      </div>
+    );
   }
 
   /*
@@ -32,7 +37,10 @@ function ResourceAccessContainer ({ record }) {
   return (
     <ContextProvider render={(context) => {
       return (
-        <ResourceAccess record={record} context={context} />
+        <Holders
+          record={record}
+          context={context}
+        />
       );
     }}
     />
@@ -42,40 +50,5 @@ function ResourceAccessContainer ({ record }) {
 ResourceAccessContainer.propTypes = {
   record: PropTypes.object
 };
-
-function ResourceAccess ({ record, context }) {
-  return (
-    <Holders
-      record={record}
-      preExpandedIds={preExpandedIds(record)}
-      createId={createId}
-      context={context}
-    />
-  );
-}
-
-ResourceAccess.propTypes = {
-  record: PropTypes.object,
-  context: PropTypes.object
-};
-
-// Create a list of uuids for details to be opened by default
-function preExpandedIds (record) {
-  return record.resourceAccess.reduce((acc, item, index) => {
-    if (item.preExpanded) {
-      acc = acc.concat(createId(record, index));
-    }
-
-    return acc;
-  }, []);
-}
-
-/*
-  These need to be unique to the app for React to handle
-  rendering properly.
-*/
-function createId (record, i) {
-  return 'holder--' + record.datastore + record.uid + '-' + i;
-}
 
 export default ResourceAccessContainer;
