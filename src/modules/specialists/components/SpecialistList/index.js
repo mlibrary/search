@@ -7,7 +7,7 @@ import Specialist from '../Specialist';
 import PropTypes from 'prop-types';
 
 const SpecialistList = ({ loadingUserData, show, specialists }) => {
-  if (loadingUserData || !specialists || !specialists.length) {
+  if (loadingUserData || !specialists?.length) {
     return null;
   }
 
@@ -15,7 +15,7 @@ const SpecialistList = ({ loadingUserData, show, specialists }) => {
     <article className='specialists'>
       <div className='specialists__inner-container'>
         <div className='specialists__heading'>
-          <h2>Talk to a Library Specialist</h2>
+          <h2 className='specialist__heading'>Talk to a Library Specialist</h2>
           <Anchor href='https://www.lib.umich.edu/research-and-scholarship/help-research/find-specialist'>
             Find more specialists
             <Icon name='launch' />

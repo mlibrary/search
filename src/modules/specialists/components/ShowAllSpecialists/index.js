@@ -16,16 +16,18 @@ function ShowAllSpecialists (props) {
 
   return (
     <>
-      {children.map((child, index) => {
-        if (showSpecialists || (show > index)) {
-          return child;
-        }
-        return null;
-      })}
+      <div className='specialists__list'>
+        {children.map((child, index) => {
+          if (showSpecialists || (show > index)) {
+            return child;
+          }
+          return null;
+        })}
+      </div>
       {children.length > show && (
         <button
           onClick={toggleSpecialists}
-          className='button-link-light show-all-button'
+          className='btn btn--tertiary btn--small'
           aria-expanded={showSpecialists}
         >
           {message()}
