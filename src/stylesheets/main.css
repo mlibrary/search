@@ -516,6 +516,10 @@ textarea {
   text-decoration: underline;
 }
 
+.btn--tertiary:hover {
+  text-decoration-thickness: 2px;
+}
+
 .btn--small {
   font-size: 0.875rem;
 }
@@ -2900,109 +2904,91 @@ input.get-this-field-input-year {
 }
 
 .specialists__inner-container {
-  border-radius: 4px;
   background: white;
+  border-radius: 4px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
-}
-
-.specialists__inner-container .show-all-button {
-  display: block;
-  width: 100%;
-  margin: 0;
-  padding: 1rem;
-  border: none;
-}
-
-.bentobox-list .specialists__inner-container {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+  overflow: hidden;
 }
 
 .specialists__heading {
-  font-size: 1rem;
-  margin: 0;
-  padding: 0.75rem 1rem;
-  color: #4E4E4E;
   background: #FAFAFA;
   border-bottom: solid 1px #E5E5E5;
-  border-radius: 4px 4px 0 0;
-}
-
-.specialist {
   display: flex;
-  margin: 1rem;
-  padding-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
 }
 
-.specialist:not(:last-child) {
-  border-bottom: solid 1px #E5E5E5;
+@media (min-width: 980px) {
+  .search-results .specialists__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
-.specialist:last-of-type {
-  margin-bottom: 0;
-}
-
-.specialist__picture {
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  margin-right: 1rem;
-  object-fit: cover;
-  object-position: top right;
-}
-
-.specialist__job-title {
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
+.specialists a > .icon {
   color: #4E4E4E;
-}
-
-.specialist__heading {
-  font-size: 1rem;
-  margin: 0;
-}
-
-.specialist__heading .icon {
-  color: #4E4E4E;
-  margin-left: 0.25rem;
+  margin-left: 0.5rem;
   position: relative;
   top: 0.125rem;
   width: 0.85rem;
 }
 
-.specialist__url {
-  margin-right: 0.5rem;
+.specialist__heading {
+  color: #4E4E4E;
+  font-size: 1rem;
+  margin: 0;
 }
 
-.specialist__phone {
-  margin-bottom: 0;
-  margin-top: 0.5rem;
+.specialist {
+  display: grid;
+  gap: 1rem;
+  grid-template-areas: "image content";
+  grid-template-columns: 4rem auto;
+  padding: 1rem;
 }
 
-.specialist__email {
-  text-decoration: underline;
+.specialist + .specialist,
+.specialists button {
+  border-top: solid 1px #E5E5E5;
 }
 
 @media (min-width: 980px) {
-  .search-results .specialists__content {
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 1rem;
+  .search-results .specialist {
+    max-width: 33.3333%;
   }
 
-  .search-results .specialists__content .specialist {
-    width: 33.33%;
-    border-bottom: none;
-    margin: 0;
-    padding-right: 1rem;
-    padding-top: 1rem;
+  .search-results .specialist + .specialist {
+    border-top: 0;
   }
+}
 
-  .search-results .specialists__content .show-all-button {
-    width: 100%;
-    text-align: center;
-    text-decoration: underline;
-    margin-left: -0.5rem;
-  }
+.specialist img {
+  border-radius: 50%;
+  grid-area: image;
+  height: 4rem;
+  object-fit: cover;
+  object-position: top right;
+  width: 100%;
+}
+
+.specialist a {
+  display: block;
+}
+
+.specialist a[href^="tel:+1"] {
+  all: unset;
+}
+
+.specialist p {
+  margin: 0.5rem 0;
+}
+
+.specialists button {
+  padding: 1rem;
+  text-align: center;
+  width: 100%;
 }
 
 .record-container {

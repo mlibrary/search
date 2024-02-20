@@ -3,7 +3,7 @@ import KeywordSwitch from '../KeywordSwitch';
 import { Anchor } from '../../../reusable';
 import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
 import RecordPreview from '../RecordPreview';
-import { SpecialistsWrapper } from '../../../specialists';
+import { SpecialistList } from '../../../specialists';
 import { getMultiSearchRecords } from '../../../pride';
 import { Icon } from '../../../core';
 import PropTypes from 'prop-types';
@@ -111,14 +111,15 @@ BentoFooter.propTypes = {
 function BentoboxList (props) {
   return (
     <article className='bentobox-list' id='search-results'>
-      <SpecialistsWrapper show={2}>
-        {getMultiSearchRecords(props.datastoreUid, props.allRecords).map((bentobox) => {
-          if (!bentobox.records) {
-            return null;
-          }
+      {getMultiSearchRecords(props.datastoreUid, props.allRecords).map((bentobox, index) => {
+        if (!bentobox.records) {
+          return null;
+        }
 
-          return (
-            <section key={bentobox.uid} className={`bentobox bentobox-${bentobox.uid}`}>
+        return (
+          <React.Fragment key={bentobox.uid}>
+            {index === 2 && <SpecialistList show={2} />}
+            <section className={`bentobox bentobox-${bentobox.uid}`}>
               <div className='bentobox-inner-container'>
                 <Anchor
                   className='bentobox-heading-container'
@@ -140,9 +141,9 @@ function BentoboxList (props) {
                 />
               </div>
             </section>
-          );
-        })}
-      </SpecialistsWrapper>
+          </React.Fragment>
+        );
+      })}
     </article>
   );
 }

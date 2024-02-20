@@ -1,40 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ShowAllChildren } from '../../../core';
+import { Anchor } from '../../../reusable';
+import { Icon } from '../../../core';
+import ShowAllSpecialists from '../ShowAllSpecialists';
 import Specialist from '../Specialist';
 import PropTypes from 'prop-types';
 
-const SpecialistList = ({
-  loadingUserData,
-  show,
-  specialists
-}) => {
-  if (loadingUserData || !specialists || specialists.length === 0) {
+const SpecialistList = ({ loadingUserData, show, specialists }) => {
+  if (loadingUserData || !specialists?.length) {
     return null;
   }
 
   return (
-    <>
-      <article className='specialists'>
-        <div className='specialists__inner-container'>
-          <h2 className='specialists__heading'>Talk to a Library Specialist</h2>
-          <section className='specialists__content'>
-            <ShowAllChildren
-              length={specialists.length}
-              show={show}
-              name='specialists'
-            >
-              {specialists.map((person, index) => {
-                return (
-                  <Specialist key={index} person={person} />
-                );
-              })}
-            </ShowAllChildren>
-          </section>
+    <article className='specialists'>
+      <div className='specialists__inner-container'>
+        <div className='specialists__heading'>
+          <h2 className='specialist__heading'>Talk to a Library Specialist</h2>
+          <Anchor href='https://www.lib.umich.edu/research-and-scholarship/help-research/find-specialist'>
+            Find more specialists
+            <Icon name='launch' />
+          </Anchor>
         </div>
-      </article>
-      <h2 className='offpage'>Results continued</h2>
-    </>
+        <section className='specialists__content'>
+          <ShowAllSpecialists show={show}>
+            {specialists.map((person, index) => {
+              return <Specialist key={index} person={person} />;
+            })}
+          </ShowAllSpecialists>
+        </section>
+      </div>
+    </article>
   );
 };
 
