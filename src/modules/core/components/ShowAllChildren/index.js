@@ -1,52 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { setA11yMessage } from '../../../a11y';
 import PropTypes from 'prop-types';
 
-class ShowAllChildren extends React.Component {
-  constructor () {
-    super();
-    this.handleShowToggleClick = this.handleShowToggleClick.bind(this);
-  }
-
-  state = {
-    show: false
+function ShowAllChildren (props) {
+  const [showSpecialists, setShowSpecialists] = useState(false);
+  const { children, show } = props;
+  const message = (a11y = false) => {
+    return `Show${a11y ? 'ing' : ''} ${showSpecialists ? 'fewer' : `all ${children.length}`} Library Specialists`;
+  };
+  const toggleSpecialists = () => {
+    props.setA11yMessage(message(true));
+    setShowSpecialists(!showSpecialists);
   };
 
-  handleShowToggleClick () {
-    this.setState({
-      show: !this.state.show
-    });
-
-    this.props.setA11yMessage(`Showing ${this.state.show ? 'fewer' : `all ${this.props.children.length}`} Library Specialists`);
-  }
-
-  render () {
-    const show = this.props.show || 1;
-
-    return (
-      <>
-        {this.props.children.map((child, index) => {
-          if (this.state.show || (show > index)) {
-            return child;
-          }
-
-          return null;
-        })}
-        {this.props.children.length > show && (
-          <button
-            onClick={this.handleShowToggleClick}
-            className='button-link-light show-all-button'
-            aria-expanded={this.state.show}
-          >
-            <span className='show-all-button__text'>
-              {`Show ${this.state.show ? 'fewer' : `all ${this.props.children.length}`} Library Specialists`}
-            </span>
-          </button>
-        )}
-      </>
-    );
-  }
+  return (
+    <>
+      {children.map((child, index) => {
+        if (showSpecialists || (show > index)) {
+          return child;
+        }
+        return null;
+      })}
+      {children.length > show && (
+        <button
+          onClick={toggleSpecialists}
+          className='button-link-light show-all-button'
+          aria-expanded={showSpecialists}
+        >
+          {message()}
+        </button>
+      )}
+    </>
+  );
 }
 
 ShowAllChildren.propTypes = {
@@ -56,6 +42,10 @@ ShowAllChildren.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ])
+};
+
+ShowAllChildren.defaultProps = {
+  show: 1
 };
 
 export default connect(null, { setA11yMessage })(ShowAllChildren);
