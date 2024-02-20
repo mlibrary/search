@@ -2,29 +2,20 @@ import React from 'react';
 import SpecialistList from '../SpecialistList';
 import PropTypes from 'prop-types';
 
-class SpecialistsWrapper extends React.Component {
-  render () {
-    const children = this.props.children;
-    const position = this.props.position || 2;
-    const show = this.props.show || 3;
-
-    return (
-      <>
-        {React.Children.map(children, (child, i) => {
-          return (
-            <>
-              {i === position
-                ? (
-                  <SpecialistList show={show} />
-                  )
-                : null}
-              {child}
-            </>
-          );
-        })}
-      </>
-    );
-  }
+function SpecialistsWrapper (props) {
+  const { children, position, show } = props;
+  return (
+    <>
+      {children.map((child, index) => {
+        return (
+          <React.Fragment key={`record-specialist-${index}`}>
+            {index === position && <SpecialistList show={show} />}
+            {child}
+          </React.Fragment>
+        );
+      })}
+    </>
+  );
 }
 
 SpecialistsWrapper.propTypes = {
@@ -34,6 +25,11 @@ SpecialistsWrapper.propTypes = {
   ]),
   position: PropTypes.number,
   show: PropTypes.number
+};
+
+SpecialistsWrapper.defaultProps = {
+  position: 2,
+  show: 3
 };
 
 export default SpecialistsWrapper;
