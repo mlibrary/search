@@ -9,7 +9,7 @@ import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
 import { SearchResultsMessage } from '../../../search';
 import { ResultsSummary } from '../../../records';
-import { SpecialistsWrapper } from '../../../specialists';
+import { SpecialistList } from '../../../specialists';
 import { GoToList } from '../../../lists';
 import PropTypes from 'prop-types';
 
@@ -84,12 +84,12 @@ class RecordListContainer extends React.Component {
         <div className='results-list results-list-border search-results' id='search-results'>
           {(pageNumber === 1)
             ? (
-              <SpecialistsWrapper position={3}>
+              <>
                 {activeRecords.map((record, index) => {
                   const resultsPosition = activeRecords.length < 3 ? activeRecords.length - 1 : 2;
                   if (index === resultsPosition) {
                     return (
-                      <div key={index + 'keyword-switch'}>
+                      <React.Fragment key={index + 'keyword-switch'}>
                         <KeywordSwitch datastore={datastore} query={search.query} />
                         <Record
                           record={record}
@@ -99,22 +99,24 @@ class RecordListContainer extends React.Component {
                           institution={institution}
                           list={list}
                         />
-                      </div>
+                      </React.Fragment>
                     );
                   }
                   return (
-                    <Record
-                      record={record}
-                      datastoreUid={datastoreUid}
-                      key={index}
-                      type='medium'
-                      searchQuery={searchQuery}
-                      institution={institution}
-                      list={list}
-                    />
+                    <React.Fragment key={index}>
+                      {index === 3 && <SpecialistList />}
+                      <Record
+                        record={record}
+                        datastoreUid={datastoreUid}
+                        type='medium'
+                        searchQuery={searchQuery}
+                        institution={institution}
+                        list={list}
+                      />
+                    </React.Fragment>
                   );
                 })}
-              </SpecialistsWrapper>
+              </>
               )
             : (
               <>

@@ -45,7 +45,7 @@ ShowAllSpecialists.propTypes = {
 };
 
 ShowAllSpecialists.defaultProps = {
-  show: 1
+  show: 3
 };
 
 export default connect(null, { setA11yMessage })(ShowAllSpecialists);
