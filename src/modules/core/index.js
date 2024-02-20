@@ -3,7 +3,6 @@ import Main from './components/Main';
 import Button from './components/Button';
 import Loading from './components/Loading';
 import Icon from './components/Icon';
-import ShowAllChildren from './components/ShowAllChildren';
 import TrimString from './components/TrimString';
 import Multiselect from './components/Multiselect';
 import DateRangeInput from './components/DateRangeInput';
@@ -21,7 +20,6 @@ export {
   Button,
   Loading,
   Icon,
-  ShowAllChildren,
   TrimString,
   Multiselect,
   DateRangeInput,

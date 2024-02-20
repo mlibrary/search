@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { setA11yMessage } from '../../../a11y';
 import PropTypes from 'prop-types';
 
-function ShowAllChildren (props) {
+function ShowAllSpecialists (props) {
   const [showSpecialists, setShowSpecialists] = useState(false);
   const { children, show } = props;
   const message = (a11y = false) => {
@@ -35,7 +35,7 @@ function ShowAllChildren (props) {
   );
 }
 
-ShowAllChildren.propTypes = {
+ShowAllSpecialists.propTypes = {
   setA11yMessage: PropTypes.func,
   show: PropTypes.number,
   children: PropTypes.oneOfType([
@@ -44,8 +44,8 @@ ShowAllChildren.propTypes = {
   ])
 };
 
-ShowAllChildren.defaultProps = {
+ShowAllSpecialists.defaultProps = {
   show: 1
 };
 
-export default connect(null, { setA11yMessage })(ShowAllChildren);
+export default connect(null, { setA11yMessage })(ShowAllSpecialists);

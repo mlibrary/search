@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Anchor } from '../../../reusable';
-import { Icon, ShowAllChildren } from '../../../core';
+import { Icon } from '../../../core';
+import ShowAllSpecialists from '../ShowAllSpecialists';
 import Specialist from '../Specialist';
 import PropTypes from 'prop-types';
 
@@ -26,13 +27,13 @@ const SpecialistList = ({
             </Anchor>
           </div>
           <section className='specialists__content'>
-            <ShowAllChildren show={show}>
+            <ShowAllSpecialists show={show}>
               {specialists.map((person, index) => {
                 return (
                   <Specialist key={index} person={person} />
                 );
               })}
-            </ShowAllChildren>
+            </ShowAllSpecialists>
           </section>
         </div>
       </article>
