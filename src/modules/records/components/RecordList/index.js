@@ -61,7 +61,7 @@ function RecordListContainer (props) {
         <GoToList list={list} datastore={datastore} />
         <section className='results-list results-list-border'>
           {[...Array(10)].map((elementInArray, index) => {
-            return <RecordPlaceholder key={index} />;
+            return <RecordPlaceholder key={'placeholder-' + index} />;
           })}
         </section>
       </div>
@@ -101,14 +101,14 @@ function RecordListContainer (props) {
                 const resultsPosition = activeRecords.length < 3 ? activeRecords.length - 1 : 2;
                 if (index === resultsPosition) {
                   return (
-                    <React.Fragment key={index + 'keyword-switch'}>
+                    <React.Fragment key={record.uid + '-keyword-switch'}>
                       <KeywordSwitch datastore={datastore} query={search.query} />
                       {showRecord(record)}
                     </React.Fragment>
                   );
                 }
                 return (
-                  <React.Fragment key={index}>
+                  <React.Fragment key={record.uid + '-specialists'}>
                     {index === 3 && <SpecialistList />}
                     {showRecord(record)}
                   </React.Fragment>
@@ -118,10 +118,13 @@ function RecordListContainer (props) {
             )
           : (
             <>
-              {activeRecords.map((record, index) => {
-                return showRecord(record);
-              }
-              )}
+              {activeRecords.map((record) => {
+                return (
+                  <React.Fragment key={record.uid}>
+                    {showRecord(record)}
+                  </React.Fragment>
+                );
+              })}
             </>
             )}
       </div>
