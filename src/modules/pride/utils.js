@@ -262,7 +262,7 @@ const prideParseField = (fieldName, content) => {
   try {
     return Pride.Parser.parse(content, { defaultFieldName: fieldName });
   } catch (error) {
-    return new Pride.FieldTree.Raw(content);
+    return new (Pride.Core.nodeFactory('raw'))(content);
   }
 };
 
