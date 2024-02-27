@@ -1,4 +1,4 @@
-import { Pride } from 'pride';
+import { prideRequestRecord } from './utils';
 
 // Get This placing a hold
 const placeHold = ({
@@ -9,7 +9,7 @@ const placeHold = ({
   date,
   callback
 }) => {
-  Pride.requestRecord(datastoreUid, recordId).placeHold(item, location, date, callback);
+  prideRequestRecord(datastoreUid, recordId).placeHold(item, location, date, callback);
 };
 
 export {

@@ -178,6 +178,17 @@ const fetchRecordFromState = ({ datastoreUid, recordUid }) => {
   return _.findWhere(state.records.records[datastoreUid], { uid: recordUid });
 };
 
+// Code originally Pride.requestRecord
+const prideRequestRecord = (source, id, func = () => { /** */ }) => {
+  const record = new Pride.Core.Record({
+    complete: false,
+    source: `${config.spectrum}/${source}/record/${id}`, // `${Pride.AllDatastores.get(source)?.get('url') ?? ''}/record/${id}`
+    names: [undefined]
+  });
+  record.renderFull(func);
+  return record;
+};
+
 const requestRecord = ({ datastoreUid, recordUid }) => {
   // Requesting a record ordered options:
   // 1. Is the record in the results? Use that.
@@ -200,7 +211,7 @@ const requestRecord = ({ datastoreUid, recordUid }) => {
         })
       );
     };
-    const record = Pride.requestRecord(datastoreUid, recordUid, callback);
+    const record = prideRequestRecord(datastoreUid, recordUid, callback);
 
     // We only want to send holdings requests for
     // record types that have holdings (e.g. the catalog)
@@ -217,7 +228,7 @@ const requestGetThis = ({ datastoreUid, recordUid, barcode }) => {
     store.dispatch(setRecordGetThis(data));
   };
 
-  const record = Pride.requestRecord(datastoreUid, recordUid);
+  const record = prideRequestRecord(datastoreUid, recordUid);
 
   record.getGetThis(barcode, callback);
 };
@@ -272,6 +283,7 @@ export {
   getDatastore,
   getDatastoreSlugByUid,
   getStateFromURL,
+  prideRequestRecord,
   requestRecord,
   isValidURLSearchQuery,
   stringifySearchQueryForURL,
