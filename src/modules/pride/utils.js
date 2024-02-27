@@ -253,12 +253,25 @@ const stringifySearchQueryForURL = ({ query, filter, library, page, sort }) => {
   return SearchQueryString;
 };
 
+// Code originally Pride.FieldTree.parseField
+const prideParseField = (fieldName, content) => {
+  if (!content) {
+    return {};
+  }
+
+  try {
+    return Pride.Parser.parse(content, { defaultFieldName: fieldName });
+  } catch (error) {
+    return new Pride.FieldTree.Raw(content);
+  }
+};
+
 const parseField = ({ defaultFieldName, stringToParse }) => {
   if (!stringToParse) {
     return false;
   }
 
-  return Pride.FieldTree.parseField(defaultFieldName, stringToParse);
+  return prideParseField(defaultFieldName, stringToParse);
 };
 
 const isFieldASearchLink = ({ fieldUid, datastoreUid }) => {
@@ -287,6 +300,7 @@ export {
   requestRecord,
   isValidURLSearchQuery,
   stringifySearchQueryForURL,
+  prideParseField,
   parseField,
   isFieldASearchLink,
   requestGetThis

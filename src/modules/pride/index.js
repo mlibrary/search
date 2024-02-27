@@ -10,6 +10,7 @@ import {
   requestRecord,
   isValidURLSearchQuery,
   stringifySearchQueryForURL,
+  prideParseField,
   parseField,
   isFieldASearchLink,
   requestGetThis
@@ -34,6 +35,7 @@ export {
   requestRecord,
   isValidURLSearchQuery,
   stringifySearchQueryForURL,
+  prideParseField,
   parseField,
   isFieldASearchLink,
   requestGetThis,
