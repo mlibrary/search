@@ -31,7 +31,8 @@ import { addFilters, clearFilters, setFilterGroupOrder } from '../filters';
 import {
   getDatastoreSlug,
   getDatastoreName,
-  getDatastoreUidBySlug
+  getDatastoreUidBySlug,
+  prideParseField
 } from './utils';
 
 import { setDefaultInstitution } from '../institution';
@@ -359,7 +360,7 @@ const runSearch = () => {
   if (query === '*') {
     fieldTree = {}; // search all
   } else {
-    fieldTree = Pride.FieldTree.parseField('all_fields', query);
+    fieldTree = prideParseField('all_fields', query);
   }
 
   // Inject library/institution filter with facets.
