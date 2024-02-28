@@ -1,7 +1,7 @@
-import { prideRequestRecord } from '../pride';
+import { Pride } from 'pride';
 
 function requestRecordCSL ({ datastoreUid, recordUid, callback }) {
-  prideRequestRecord(datastoreUid, recordUid).renderCSL((data) => {
+  Pride.requestRecord(datastoreUid, recordUid).renderCSL((data) => {
     return callback(data);
   });
 }
