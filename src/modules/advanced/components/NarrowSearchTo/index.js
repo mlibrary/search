@@ -1,30 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class ScopeDown extends React.Component {
-  render () {
-    const { options, handleChange } = this.props;
+const NarrowSearchTo = ({ options, handleChange }) => {
+  return (
+    <div className='scopedown-container'>
+      {options.map((option, index) => {
+        return (
+          <Dropdown
+            key={index}
+            option={option}
+            label={option.label}
+            options={option.filters}
+            selected={option.activeFilter}
+            handleChange={handleChange}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
-    return (
-      <div className='scopedown-container'>
-        {options.map((option, index) => {
-          return (
-            <Dropdown
-              key={index}
-              option={option}
-              label={option.label}
-              options={option.filters}
-              selected={option.activeFilter}
-              handleChange={handleChange}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-}
-
-ScopeDown.propTypes = {
+NarrowSearchTo.propTypes = {
   options: PropTypes.array,
   handleChange: PropTypes.func
 };
@@ -51,10 +47,7 @@ const Dropdown = ({ option, label, options, selected, handleChange }) => {
       >
         {options.map((opt, index) => {
           return (
-            <option
-              key={index}
-              value={opt}
-            >
+            <option key={index} value={opt}>
               {opt}
             </option>
           );
@@ -72,4 +65,4 @@ Dropdown.propTypes = {
   handleChange: PropTypes.func
 };
 
-export default ScopeDown;
+export default NarrowSearchTo;

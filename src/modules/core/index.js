@@ -7,7 +7,6 @@ import Icon from './components/Icon';
 import MultipleChoice from './components/MultipleChoice';
 import Multiselect from './components/Multiselect';
 import ScrollToTop from './components/ScrollToTop';
-import ScopeDown from './components/ScopeDown';
 import SearchHeader from './components/SearchHeader';
 import TrimString from './components/TrimString';
 
@@ -21,7 +20,6 @@ export {
   MultipleChoice,
   Multiselect,
   ScrollToTop,
-  ScopeDown,
   SearchHeader,
   TrimString
 };
