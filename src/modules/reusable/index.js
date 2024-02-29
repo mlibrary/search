@@ -1,35 +1,33 @@
 import Alert from './components/Alert';
 import Anchor from './components/Anchor';
-import Button from './components/Button';
-import Dialog from './components/Dialog';
-import Tag from './components/Tag';
 import Breadcrumb from './components/Breadcrumb';
-import Pagination from './components/Pagination';
+import Button from './components/Button';
 import ContextProvider from './components/ContextProvider';
-import Metadata from './components/Metadata';
-import Icon from './components/Icon';
-import { Tab, TabList, Tabs, TabPanel } from './components/Tabs';
+import Dialog from './components/Dialog';
 import { Expandable, ExpandableButton, ExpandableChildren, ExpandableProvider } from './components/Expandable';
+import Icon from './components/Icon';
+import Metadata from './components/Metadata';
+import Pagination from './components/Pagination';
 import ResourceAccess from './components/ResourceAccess';
+import { Tab, TabList, Tabs, TabPanel } from './components/Tabs';
 
 export {
   Alert,
   Anchor,
-  Button,
-  Dialog,
-  Tag,
   Breadcrumb,
-  Pagination,
+  Button,
   ContextProvider,
-  Icon,
-  Metadata,
-  Tab,
-  TabList,
-  Tabs,
-  TabPanel,
+  Dialog,
   Expandable,
   ExpandableButton,
   ExpandableChildren,
   ExpandableProvider,
-  ResourceAccess
+  Icon,
+  Metadata,
+  Pagination,
+  ResourceAccess,
+  Tab,
+  TabList,
+  Tabs,
+  TabPanel
 };
