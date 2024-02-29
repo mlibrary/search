@@ -11,9 +11,7 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-import {
-  ConnectedRouter
-} from 'connected-react-router';
+import { ConnectedRouter } from 'connected-react-router';
 import { Alert } from './modules/reusable';
 import {
   initializePride,
@@ -30,16 +28,10 @@ import {
 import store from './store';
 import history from './history';
 import {
-  Main
-  ,
+  Main,
   ScrollToTop
 } from './modules/core';
-import {
-  A11yLiveMessage
-} from './modules/a11y';
-import {
-  handleGAClick
-} from './modules/analytics';
+import { A11yLiveMessage } from './modules/a11y';
 import ReactGA from 'react-ga';
 
 /*
@@ -66,7 +58,7 @@ class App extends React.Component {
   render () {
     return (
       <Provider store={store}>
-        <div className='site-wrapper' onClick={handleGAClick}>
+        <div className='site-wrapper'>
           <A11yLiveMessage />
           <ConnectedRouter history={history}>
             <ScrollToTop>
