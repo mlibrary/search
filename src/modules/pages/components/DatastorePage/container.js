@@ -8,7 +8,7 @@ import { SearchBox } from '../../../search';
 import { AdvancedSearch } from '../../../advanced';
 import {
   DatastoreNavigation,
-  DatastoreInfo,
+  DatastoreInfoContainer,
   Landing,
   FlintAlerts
 } from '../../../datastores';
@@ -150,7 +150,7 @@ class DatastorePageContainer extends React.Component {
                                   <h1 id='maincontent' tabIndex='-1' className='visually-hidden'>
                                     {activeDatastore.name}
                                   </h1>
-                                  <DatastoreInfo activeDatastore={activeDatastore} />
+                                  <DatastoreInfoContainer activeDatastore={activeDatastore} />
                                   <Results
                                     activeDatastore={activeDatastore}
                                     activeFilterCount={activeFilterCount}

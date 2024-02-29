@@ -1,4 +1,3 @@
-import Button from './components/Button';
 import Checkbox from './components/Checkbox';
 import DateRangeInput from './components/DateRangeInput';
 import DetailsList from './components/DetailsList';
@@ -11,7 +10,6 @@ import SearchHeader from './components/SearchHeader';
 import TrimString from './components/TrimString';
 
 export {
-  Button,
   Checkbox,
   DateRangeInput,
   DetailsList,
