@@ -23,7 +23,7 @@ class TrimString extends React.Component {
   render () {
     const { string } = this.props;
 
-    if (string.length < this.state.trimLength) {
+    if (string?.length < this.state.trimLength) {
       return string;
     }
 
