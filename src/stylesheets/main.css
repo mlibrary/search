@@ -1757,14 +1757,6 @@ body {
   object-position: top right;
 }
 
-.loading-container {
-  display: flex;
-  align-items: center;
-  margin-top: 0rem;
-  padding: 1rem 2rem;
-  border-radius: 4px 4px 0 0;
-}
-
 .loading-record-text {
   color: #0C5292;
 }

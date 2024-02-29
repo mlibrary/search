@@ -4,7 +4,6 @@ import DateRangeInput from './components/DateRangeInput';
 import DetailsList from './components/DetailsList';
 import Footer from './components/Footer';
 import Icon from './components/Icon';
-import Loading from './components/Loading';
 import MultipleChoice from './components/MultipleChoice';
 import Multiselect from './components/Multiselect';
 import ScrollToTop from './components/ScrollToTop';
@@ -21,7 +20,6 @@ export {
   DetailsList,
   Footer,
   Icon,
-  Loading,
   MultipleChoice,
   Multiselect,
   ScrollToTop,
