@@ -7,7 +7,6 @@ import Icon from './components/Icon';
 import MultipleChoice from './components/MultipleChoice';
 import Multiselect from './components/Multiselect';
 import ScrollToTop from './components/ScrollToTop';
-import ScrollToTopOnMount from './components/ScrollToTopOnMount';
 import ScopeDown from './components/ScopeDown';
 import SearchHeader from './components/SearchHeader';
 import SiteMessage from './components/SiteMessage';
@@ -23,7 +22,6 @@ export {
   MultipleChoice,
   Multiselect,
   ScrollToTop,
-  ScrollToTopOnMount,
   ScopeDown,
   SearchHeader,
   SiteMessage,
