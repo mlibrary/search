@@ -597,6 +597,56 @@ textarea {
   padding: 0.2rem 0.6rem;
 }
 
+.alert {
+  background: #FAFAFA;
+  border-bottom: solid 1px #E5E5E5;
+  padding: 0.75rem 1.5rem;
+}
+
+.alert a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.alert p {
+  margin: 0;
+}
+
+.alert-inner {
+  align-items: baseline;
+  display: flex;
+  margin: 0 auto;
+}
+
+.alert--informational {
+  background: #F2F9FF;
+  border-color: #CCE6FF;
+  color: #0C5292;
+}
+
+.alert--warning {
+  background: #FFEEDD;
+  border-color: #E77504;
+  color: #AA5600;
+}
+
+.alert--success {
+  background: #E2F4EB;
+  border-color: #05A657;
+  color: #057C42;
+}
+
+.alert--error {
+  background: #FFEAE7;
+  border-color: #C53B26;
+  color: #C53B26;
+}
+
+.alert-dismiss-button {
+  color: inherit;
+  font-weight: 600;
+}
+
 .search-header {
   padding: 0.8rem 0 !important;
 }
