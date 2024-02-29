@@ -9,7 +9,6 @@ import Multiselect from './components/Multiselect';
 import ScrollToTop from './components/ScrollToTop';
 import ScopeDown from './components/ScopeDown';
 import SearchHeader from './components/SearchHeader';
-import SiteMessage from './components/SiteMessage';
 import TrimString from './components/TrimString';
 
 export {
@@ -24,6 +23,5 @@ export {
   ScrollToTop,
   ScopeDown,
   SearchHeader,
-  SiteMessage,
   TrimString
 };
