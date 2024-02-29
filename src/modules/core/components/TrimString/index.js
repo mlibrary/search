@@ -12,10 +12,12 @@ function TrimString ({ string, expandable, trimLength = 240 }) {
     return null;
   }
 
+  const shortString = string.length < trimLength;
+
   return (
     <>
-      {(string.length < trimLength || show) ? string : `${string.substr(0, trimLength)}...`}
-      {expandable && (
+      {(shortString || show) ? string : `${string.substr(0, trimLength)}...`}
+      {expandable && !shortString && (
         <button onClick={handleShowToggleClick} className='btn btn--secondary font-small trim-string-button'>
           {`Show ${show ? 'less' : 'more'}`}
         </button>
