@@ -1,19 +1,18 @@
-import DatastoreNavigation from './components/DatastoreNavigation';
-import Landing from './components/Landing';
-import DatastoreInfo from './components/DatastoreInfo';
+import { addDatastore, changeActiveDatastore } from './actions';
 import DatastoreAlerts from './components/DatastoreAlerts';
+import DatastoreInfoContainer from './components/DatastoreInfoContainer';
+import DatastoreNavigation from './components/DatastoreNavigation';
 import FlintAlerts from './components/FlintAlerts';
+import Landing from './components/Landing';
 import datastoresReducer from './reducer/';
 
-import { addDatastore, changeActiveDatastore } from './actions';
-
 export {
-  DatastoreNavigation,
-  datastoresReducer,
   addDatastore,
   changeActiveDatastore,
-  Landing,
-  DatastoreInfo,
   DatastoreAlerts,
-  FlintAlerts
+  DatastoreInfoContainer,
+  DatastoreNavigation,
+  datastoresReducer,
+  FlintAlerts,
+  Landing
 };
