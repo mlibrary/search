@@ -655,26 +655,6 @@ textarea {
   height: 26px !important;
 }
 
-.site-message {
-  background: #FAFAFA;
-  border-bottom: solid 2px #CCC;
-  margin: 0;
-  padding: 0.75rem 0;
-  font-size: 0.9rem;
-}
-
-.site-message p {
-  margin: 0;
-}
-
-.site-message a {
-  text-decoration: underline;
-}
-
-.site-message .tag {
-  margin-right: 0.5rem;
-}
-
 .site-footer {
   background: #00274C;
   padding: 1.5rem 0;
