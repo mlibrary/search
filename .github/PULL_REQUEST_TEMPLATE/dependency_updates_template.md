@@ -5,6 +5,7 @@ Monthly dependency update to help maintain Search.
 These dependencies have been updated to their latest versions:
 - `@emotion/react`
 - `@emotion/styled`
+- `@redux-devtools/extension`
 - `citeproc`
 - `classnames`
 - `connected-react-router`
@@ -20,25 +21,20 @@ These dependencies have been updated to their latest versions:
 - `eslint-plugin-react`
 - `history`
 - `jsonschema`
-- `numeral`
 - `prejudice`
 - `pride`
 - `prop-types`
 - `qs`
 - `react`
-- `react-accessible-accordion`
-- `react-app-polyfill`
 - `react-autosuggest`
 - `react-cookie`
 - `react-dom`
-- `react-ga`
 - `react-modal`
 - `react-redux`
 - `react-router-dom`
 - `react-scripts`
 - `react-tabs`
 - `redux`
-- `redux-devtools-extension`
 - `regenerator-runtime`
 - `underscore`
 - `url`
