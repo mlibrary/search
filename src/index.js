@@ -21,7 +21,7 @@ import {
 } from './modules/pages';
 import store from './store';
 import history from './history';
-import { Feedback, Footer, ScrollToTop, SearchHeader } from './modules/core';
+import { Footer, ScrollToTop, SearchHeader } from './modules/core';
 import { A11yLiveMessage } from './modules/a11y';
 import PropTypes from 'prop-types';
 
@@ -100,7 +100,6 @@ function App () {
               />
               <Route component={NoMatch} />
             </ConnectedSwitch>
-            <Feedback />
             <Footer />
           </ScrollToTop>
         </ConnectedRouter>

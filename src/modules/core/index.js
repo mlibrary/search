@@ -2,7 +2,6 @@ import Button from './components/Button';
 import Checkbox from './components/Checkbox';
 import DateRangeInput from './components/DateRangeInput';
 import DetailsList from './components/DetailsList';
-import Feedback from './components/Feedback';
 import Footer from './components/Footer';
 import Icon from './components/Icon';
 import Loading from './components/Loading';
@@ -20,7 +19,6 @@ export {
   Checkbox,
   DateRangeInput,
   DetailsList,
-  Feedback,
   Footer,
   Icon,
   Loading,
