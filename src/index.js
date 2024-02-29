@@ -32,7 +32,6 @@ import {
   ScrollToTop
 } from './modules/core';
 import { A11yLiveMessage } from './modules/a11y';
-import ReactGA from 'react-ga';
 
 /*
  * Connected Switch: Quirk/Bugfix
@@ -50,11 +49,6 @@ const mapStateToProps = (state) => {
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
 class App extends React.Component {
-  constructor (props) {
-    super(props);
-    ReactGA.initialize('UA-1341620-18');
-  }
-
   render () {
     return (
       <Provider store={store}>
