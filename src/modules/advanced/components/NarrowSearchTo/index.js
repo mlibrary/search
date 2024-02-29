@@ -3,65 +3,46 @@ import PropTypes from 'prop-types';
 
 const NarrowSearchTo = ({ options, handleChange }) => {
   return (
-    <div className='scopedown-container'>
-      {options.map((option, index) => {
+    <>
+      {options.map((option) => {
+        const { filters, label, activeFilter } = option;
+
+        if (filters.length <= 1) return null;
+
+        const slug = `narrow-search-to-${label.toLowerCase().replaceAll(' ', '-')}`;
+
         return (
-          <Dropdown
-            key={index}
-            option={option}
-            label={option.label}
-            options={option.filters}
-            selected={option.activeFilter}
-            handleChange={handleChange}
-          />
+          <fieldset className='narrow-search-to-dropdown-container' key={slug}>
+            <legend className='visually-hidden'>Narrow Search Options</legend>
+            <label htmlFor={slug}>
+              {label}
+            </label>
+            <select
+              className='dropdown narrow-search-to-dropdown'
+              id={slug}
+              onChange={(e) => {
+                return handleChange({ uid: option.uid, value: e.target.value });
+              }}
+              value={activeFilter}
+              autoComplete='off'
+            >
+              {filters.map((opt, index) => {
+                return (
+                  <option key={`${slug}-${index}`} value={opt}>
+                    {opt}
+                  </option>
+                );
+              })}
+            </select>
+          </fieldset>
         );
       })}
-    </div>
+    </>
   );
 };
 
 NarrowSearchTo.propTypes = {
   options: PropTypes.array,
-  handleChange: PropTypes.func
-};
-
-const Dropdown = ({ option, label, options, selected, handleChange }) => {
-  if (options.length <= 1) {
-    return null;
-  }
-
-  return (
-    <fieldset className='scopedown-dropdown-container'>
-      <legend className='visually-hidden'>Narrow Search Options</legend>
-      <label htmlFor={`scope-${label.toLowerCase().replaceAll(' ', '-')}`}>
-        {label}
-      </label>
-      <select
-        className='dropdown scopedown-dropdown'
-        id={`scope-${label.toLowerCase().replaceAll(' ', '-')}`}
-        onChange={(e) => {
-          return handleChange({ uid: option.uid, value: e.target.value });
-        }}
-        value={selected}
-        autoComplete='off'
-      >
-        {options.map((opt, index) => {
-          return (
-            <option key={index} value={opt}>
-              {opt}
-            </option>
-          );
-        })}
-      </select>
-    </fieldset>
-  );
-};
-
-Dropdown.propTypes = {
-  option: PropTypes.object,
-  label: PropTypes.string,
-  options: PropTypes.array,
-  selected: PropTypes.string,
   handleChange: PropTypes.func
 };
 
