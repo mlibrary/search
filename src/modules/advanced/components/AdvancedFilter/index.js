@@ -2,9 +2,9 @@ import React from 'react';
 import {
   Multiselect,
   DateRangeInput,
-  Checkbox,
-  ScopeDown
+  Checkbox
 } from '../../../core';
+import NarrowSearchTo from '../NarrowSearchTo';
 import PropTypes from 'prop-types';
 
 const getIsCheckboxFilterChecked = ({ advancedFilter }) => {
@@ -106,7 +106,7 @@ const AdvancedFilter = ({
 }) => {
   if (advancedFilter.type === 'scope_down') {
     return (
-      <ScopeDown
+      <NarrowSearchTo
         handleChange={(option) => {
           return changeAdvancedFilter({
             filterType: advancedFilter.type,

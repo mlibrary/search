@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client';
 import { connect, Provider } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
+import './stylesheets/main.css';
 import { Alert } from './modules/reusable';
 import {
   initializePride,
@@ -20,7 +21,7 @@ import {
 } from './modules/pages';
 import store from './store';
 import history from './history';
-import { Main, ScrollToTop } from './modules/core';
+import { Footer, ScrollToTop, SearchHeader } from './modules/core';
 import { A11yLiveMessage } from './modules/a11y';
 import PropTypes from 'prop-types';
 
@@ -45,62 +46,61 @@ function App () {
       <div className='site-wrapper'>
         <A11yLiveMessage />
         <ConnectedRouter history={history}>
-          <ScrollToTop>
-            <Main>
-              <ConnectedSwitch>
-                <Route
-                  path='/librarywebsite'
-                  render={({ location }) => {
-                    return (
-                      <Redirect
-                        to={{
-                          ...location,
-                          pathname: location.pathname.replace(/librarywebsite/, 'guidesandmore')
-                        }}
-                      />
-                    );
-                  }}
-                />
-                <Route path='/about-library-search' exact component={AboutLibrarySearch} />
-                <Route
-                  path='/technical-overview' exact render={() => {
-                    return (
-                      <Redirect to='/about-library-search' />
-                    );
-                  }}
-                />
-                <Route path='/accessibility' exact component={AccessibilityPage} />
-                <Route
-                  path='/' exact render={() => {
-                    return (
-                      <Redirect to='/everything' />
-                    );
-                  }}
-                />
-                <Route
-                  path='/:datastoreSlug' render={(props) => {
-                    const isDatastore = isSlugADatastore(props.match.params.datastoreSlug);
-                    const urlState = getStateFromURL({
-                      location: props.location
-                    });
+          <ScrollToTop />
+          <SearchHeader />
+          <ConnectedSwitch>
+            <Route
+              path='/librarywebsite'
+              render={({ location }) => {
+                return (
+                  <Redirect
+                    to={{
+                      ...location,
+                      pathname: location.pathname.replace(/librarywebsite/, 'guidesandmore')
+                    }}
+                  />
+                );
+              }}
+            />
+            <Route path='/about-library-search' exact component={AboutLibrarySearch} />
+            <Route
+              path='/technical-overview' exact render={() => {
+                return (
+                  <Redirect to='/about-library-search' />
+                );
+              }}
+            />
+            <Route path='/accessibility' exact component={AccessibilityPage} />
+            <Route
+              path='/' exact render={() => {
+                return (
+                  <Redirect to='/everything' />
+                );
+              }}
+            />
+            <Route
+              path='/:datastoreSlug' render={(props) => {
+                const isDatastore = isSlugADatastore(props.match.params.datastoreSlug);
+                const urlState = getStateFromURL({
+                  location: props.location
+                });
 
-                    return (
-                      isDatastore && urlState
-                        ? (
-                          <URLSearchQueryWrapper>
-                            <DatastorePage {...props} />
-                          </URLSearchQueryWrapper>
-                          )
-                        : (
-                          <NoMatch />
-                          )
-                    );
-                  }}
-                />
-                <Route component={NoMatch} />
-              </ConnectedSwitch>
-            </Main>
-          </ScrollToTop>
+                return (
+                  isDatastore && urlState
+                    ? (
+                      <URLSearchQueryWrapper>
+                        <DatastorePage {...props} />
+                      </URLSearchQueryWrapper>
+                      )
+                    : (
+                      <NoMatch />
+                      )
+                );
+              }}
+            />
+            <Route component={NoMatch} />
+          </ConnectedSwitch>
+          <Footer />
         </ConnectedRouter>
       </div>
     </Provider>
