@@ -27,7 +27,7 @@ function TrimString ({ string, expandable, trimLength = 240 }) {
 }
 
 TrimString.propTypes = {
-  string: PropTypes.string.isRequired,
+  string: PropTypes.string,
   trimLength: PropTypes.number,
   expandable: PropTypes.bool
 };
