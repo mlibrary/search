@@ -1,4 +1,4 @@
-.specialists__heading {
+.specialists header {
   background: var(--search-color-grey-100);
   border-bottom: solid 1px var(--search-color-grey-300);
   display: flex;
@@ -8,11 +8,10 @@
   padding: 0.75rem 1rem;
 }
 
-@media (min-width: 980px) {
-  .search-results .specialists__list {
-    display: flex;
-    flex-wrap: wrap;
-  }
+.specialists__heading {
+  color: var(--search-color-grey-600);
+  font-size: 1rem;
+  margin: 0;
 }
 
 .specialists a > .icon {
@@ -23,10 +22,17 @@
   width: 0.85rem;
 }
 
-.specialist__heading {
-  color: var(--search-color-grey-600);
-  font-size: 1rem;
+.specialists__list {
+  list-style: none;
   margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 980px) {
+  .search-results .specialists__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 .specialist {
