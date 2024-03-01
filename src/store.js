@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
-import { a11yReducer } from './modules/a11y';
+import { SET_A11Y_MESSAGE } from './modules/a11y/actions';
 import { advancedReducer } from './modules/advanced';
 import { affiliationReducer } from './modules/affiliation';
 import { browseReducer } from './modules/browse';
@@ -22,7 +22,7 @@ const simpleReducer = (initialState, actionType) => {
 
 const store = configureStore({
   reducer: {
-    a11y: a11yReducer,
+    a11y: simpleReducer({ message: '' }, SET_A11Y_MESSAGE),
     affiliation: affiliationReducer,
     advanced: advancedReducer,
     browse: browseReducer,
