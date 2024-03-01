@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { SET_A11Y_MESSAGE } from './modules/a11y/actions';
 import { advancedReducer } from './modules/advanced';
 import { affiliationReducer } from './modules/affiliation';
@@ -10,11 +9,12 @@ import { institutionReducer } from './modules/institution';
 import { ADD_PROFILE } from './modules/profile/actions';
 import { ADD_LIST } from './modules/lists/actions';
 import { recordsReducer } from './modules/records';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import history from './history';
 import { searchReducer } from './modules/search';
 import { ADD_SPECIALISTS } from './modules/specialists/actions';
 
-const simpleReducer = (initialState, actionType) => {
+const simpleReducer = (actionType, initialState = {}) => {
   return (state = initialState, action) => {
     return action.type === actionType ? action.payload : state;
   };
@@ -22,19 +22,19 @@ const simpleReducer = (initialState, actionType) => {
 
 const store = configureStore({
   reducer: {
-    a11y: simpleReducer({ message: '' }, SET_A11Y_MESSAGE),
-    affiliation: affiliationReducer,
+    a11y: simpleReducer(SET_A11Y_MESSAGE, { message: '' }),
     advanced: advancedReducer,
+    affiliation: affiliationReducer,
     browse: browseReducer,
     datastores: datastoresReducer,
     filters: filtersReducer,
     institution: institutionReducer,
-    lists: simpleReducer({}, ADD_LIST),
-    profile: simpleReducer({}, ADD_PROFILE),
+    lists: simpleReducer(ADD_LIST),
+    profile: simpleReducer(ADD_PROFILE),
     records: recordsReducer,
     router: connectRouter(history),
     search: searchReducer,
-    specialists: simpleReducer([], ADD_SPECIALISTS)
+    specialists: simpleReducer(ADD_SPECIALISTS, [])
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(routerMiddleware(history));
