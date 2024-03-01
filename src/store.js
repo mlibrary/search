@@ -1,10 +1,5 @@
-import {
-  createStore,
-  combineReducers,
-  applyMiddleware
-} from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
-import { composeWithDevTools } from '@redux-devtools/extension';
 import { datastoresReducer } from './modules/datastores';
 import { searchReducer } from './modules/search';
 import { recordsReducer } from './modules/records';
@@ -20,27 +15,26 @@ import { affiliationReducer } from './modules/affiliation';
 
 import history from './history';
 
-const rootReducer = combineReducers({
-  router: connectRouter(history),
-  datastores: datastoresReducer,
-  records: recordsReducer,
-  search: searchReducer,
-  filters: filtersReducer,
-  advanced: advancedReducer,
-  institution: institutionReducer,
-  browse: browseReducer,
-  specialists: specialistsReducer,
-  lists: listsReducer,
-  a11y: a11yReducer,
-  profile: profileReducer,
-  affiliation: affiliationReducer
+const store = configureStore({
+  reducer: {
+    router: connectRouter(history),
+    datastores: datastoresReducer,
+    records: recordsReducer,
+    search: searchReducer,
+    filters: filtersReducer,
+    advanced: advancedReducer,
+    institution: institutionReducer,
+    browse: browseReducer,
+    specialists: specialistsReducer,
+    lists: listsReducer,
+    a11y: a11yReducer,
+    profile: profileReducer,
+    affiliation: affiliationReducer
+  },
+  middleware: (getDefaultMiddleware) => {
+    console.log(getDefaultMiddleware);
+    return getDefaultMiddleware().concat(routerMiddleware(history));
+  }
 });
-
-const middleware = [routerMiddleware(history)];
-
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
 
 export default store;
