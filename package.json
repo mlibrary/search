@@ -20,6 +20,7 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@redux-devtools/extension": "^3.3.0",
+    "@reduxjs/toolkit": "^2.2.1",
     "citeproc": "^2.4.63",
     "classnames": "^2.5.1",
     "connected-react-router": "^6.9.3",

@@ -6,6 +6,7 @@ These dependencies have been updated to their latest versions:
 - `@emotion/react`
 - `@emotion/styled`
 - `@redux-devtools/extension`
+- `@reduxjs/toolkit`
 - `citeproc`
 - `classnames`
 - `connected-react-router`
