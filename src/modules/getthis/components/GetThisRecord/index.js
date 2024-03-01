@@ -104,7 +104,7 @@ class GetThisRecord extends React.Component {
     }
 
     return (
-      <div className='full-record-container u-margin-bottom-1'>
+      <div className='container__rounded full-record-container u-margin-bottom-1'>
         <RecordFullFormats formats={record.formats} />
         <div className='record-container'>
           <h2 className='full-record-title u-margin-bottom-none'>

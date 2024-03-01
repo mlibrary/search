@@ -86,7 +86,7 @@ function Record (props) {
   const { record } = props;
 
   return (
-    <article className={isInList(props.list, record.uid) ? 'record record--highlight' : 'record'}>
+    <article className={'container__rounded record' + (isInList(props.list, record.uid) ? ' record--highlight' : '')}>
       <div className='record-container record-medium-container'>
         <div className='record-title-and-actions-container '>
           <Header

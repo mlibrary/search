@@ -8,7 +8,7 @@ function TechnicalOverview () {
 
   return (
     <div className='container container-narrow'>
-      <main className='page'>
+      <main className='container__rounded page'>
         <h1 className='u-margin-top-none' id='maincontent' tabIndex='-1'>Technical overview</h1>
         <p>Library Search (<Anchor href='https://search.lib.umich.edu/'>https://search.lib.umich.edu/</Anchor>) was built by the <Anchor href='https://lib.umich.edu/about-us/our-divisions-and-departments/library-information-technology/design-and-discovery'>Design &amp; Discovery</Anchor> department at the University of Michigan Library. It was originally based on the <Anchor href='https://github.com/cul/clio-spectrum'>CLIO project</Anchor> from Columbia University, but has evolved significantly into its own application over its two-year development path. It relies on many open source technologies, (<Anchor href='http://lucene.apache.org/solr/'>Solr</Anchor>, <Anchor href='http://projectblacklight.org/'>Blacklight</Anchor>, <Anchor href='https://rubyonrails.org/'>Rails</Anchor>, <Anchor href='https://reactjs.org/'>React.js</Anchor>, <Anchor href='https://citationstyles.org/'>CSL</Anchor>, and many others).</p>
         <p>Library Search is built in three main layers to allow for flexibility in the front end and back end data repositories. A different front end application should not require rewriting the search queries, while conversely changes to one or more back-end search indexes or repositories would not require updates to the user interface. The middle layer acts as translator between the front and back ends.</p>

@@ -3,7 +3,7 @@ import KeywordSwitch from '../KeywordSwitch';
 import { Anchor } from '../../../reusable';
 import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
 import RecordPreview from '../RecordPreview';
-import { SpecialistList } from '../../../specialists';
+import { Specialists } from '../../../specialists';
 import { getMultiSearchRecords } from '../../../pride';
 import { Icon } from '../../../core';
 import PropTypes from 'prop-types';
@@ -118,9 +118,9 @@ function BentoboxList (props) {
 
         return (
           <React.Fragment key={bentobox.uid}>
-            {index === 2 && <SpecialistList show={2} />}
+            {index === 2 && <Specialists show={2} />}
             <section className={`bentobox bentobox-${bentobox.uid}`}>
-              <div className='bentobox-inner-container'>
+              <div className='container__rounded'>
                 <Anchor
                   className='bentobox-heading-container'
                   to={`/${bentobox.slug}${props.searchQuery}`}

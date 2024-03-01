@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom/client';
 import { connect, Provider } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
+import './stylesheets/colors.css';
+import './stylesheets/utilities.css';
 import './stylesheets/main.css';
 import { Alert } from './modules/reusable';
 import {

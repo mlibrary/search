@@ -23,7 +23,7 @@ function KeywordSwitch (props) {
 
   return (
     <div
-      className={briefView ? 'record-preview' : 'record'}
+      className={briefView ? 'record-preview' : 'container__rounded record'}
       style={{
         borderLeft: `4px solid ${COLORS.maize[400]}`,
         display: 'flex',

@@ -156,7 +156,7 @@ class FullRecord extends React.Component {
       <div className='container container-narrow full-record-page-container y-spacing'>
         <FullRecordBreadcrumbs datastore={datastore} />
         <GoToList list={list} datastore={datastore} />
-        <div className={`full-record-container ${isInList(list, record.uid) ? 'record--highlight' : ''}`}>
+        <div className={`container__rounded full-record-container ${isInList(list, record.uid) ? 'record--highlight' : ''}`}>
           <RecordFullFormats formats={record.formats} />
           <div className='record-container'>
             <div className='full-record-title-and-actions-container'>
