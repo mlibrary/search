@@ -1,14 +1,13 @@
-import profileReducer from './reducer';
 import { addProfile } from './actions';
-import setupProfile from './setupProfile';
-import AuthenticationRequired from './components/AuthenticationRequired';
 import Authentication from './components/Authentication';
+import AuthenticationRequired from './components/AuthenticationRequired';
+import setupProfile from './setupProfile';
 import useIsAuthenticated from './use-is-authenticated';
+
 export {
-  profileReducer,
   addProfile,
-  setupProfile,
-  AuthenticationRequired,
   Authentication,
+  AuthenticationRequired,
+  setupProfile,
   useIsAuthenticated
 };

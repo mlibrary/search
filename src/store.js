@@ -7,7 +7,7 @@ import { browseReducer } from './modules/browse';
 import { datastoresReducer } from './modules/datastores';
 import { filtersReducer } from './modules/filters';
 import { institutionReducer } from './modules/institution';
-import { profileReducer } from './modules/profile';
+import { ADD_PROFILE } from './modules/profile/actions';
 import { ADD_LIST } from './modules/lists/actions';
 import { recordsReducer } from './modules/records';
 import history from './history';
@@ -30,7 +30,7 @@ const store = configureStore({
     filters: filtersReducer,
     institution: institutionReducer,
     lists: simpleReducer({}, ADD_LIST),
-    profile: profileReducer,
+    profile: simpleReducer({}, ADD_PROFILE),
     records: recordsReducer,
     router: connectRouter(history),
     search: searchReducer,
