@@ -9,7 +9,7 @@ import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
 import { SearchResultsMessage } from '../../../search';
 import { ResultsSummary } from '../../../records';
-import { SpecialistList } from '../../../specialists';
+import { Specialists } from '../../../specialists';
 import { GoToList } from '../../../lists';
 import PropTypes from 'prop-types';
 
@@ -109,7 +109,7 @@ function RecordListContainer (props) {
                 }
                 return (
                   <React.Fragment key={record.uid + '-specialists'}>
-                    {index === 3 && <SpecialistList />}
+                    {index === 3 && <Specialists />}
                     {showRecord(record)}
                   </React.Fragment>
                 );
