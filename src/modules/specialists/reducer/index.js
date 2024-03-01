@@ -1,14 +1,7 @@
-import * as actions from '../actions';
+import { ADD_SPECIALISTS } from '../actions';
 
-const initialState = [];
-
-const specialistsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actions.ADD_SPECIALISTS:
-      return action.payload;
-    default:
-      return state;
-  }
+const specialistsReducer = (state = [], action) => {
+  return action.type === ADD_SPECIALISTS ? action.payload : state;
 };
 
 export default specialistsReducer;

@@ -1,10 +1,11 @@
-import SpecialistList from './components/SpecialistList';
-import ShowAllSpecialists from './components/ShowAllSpecialists';
 import { addSpecialists } from './actions';
+import ShowAllSpecialists from './components/ShowAllSpecialists';
+import SpecialistList from './components/SpecialistList';
 import specialistsReducer from './reducer';
+
 export {
-  SpecialistList,
-  ShowAllSpecialists,
   addSpecialists,
+  ShowAllSpecialists,
+  SpecialistList,
   specialistsReducer
 };
