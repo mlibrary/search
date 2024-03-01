@@ -8,8 +8,8 @@ import { datastoresReducer } from './modules/datastores';
 import { filtersReducer } from './modules/filters';
 import { institutionReducer } from './modules/institution';
 import { profileReducer } from './modules/profile';
+import { ADD_LIST } from './modules/lists/actions';
 import { recordsReducer } from './modules/records';
-import { listsReducer } from './modules/lists'; // Cannot list higher than recordsReducer. `TypeError: Cannot read properties of undefined (reading 'default')`
 import history from './history';
 import { searchReducer } from './modules/search';
 import { ADD_SPECIALISTS } from './modules/specialists/actions';
@@ -29,7 +29,7 @@ const store = configureStore({
     datastores: datastoresReducer,
     filters: filtersReducer,
     institution: institutionReducer,
-    lists: listsReducer,
+    lists: simpleReducer({}, ADD_LIST),
     profile: profileReducer,
     records: recordsReducer,
     router: connectRouter(history),
