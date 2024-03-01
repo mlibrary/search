@@ -1,0 +1,80 @@
+.specialists__heading {
+  background: var(--search-color-grey-100);
+  border-bottom: solid 1px var(--search-color-grey-300);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+}
+
+@media (min-width: 980px) {
+  .search-results .specialists__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.specialists a > .icon {
+  color: var(--search-color-grey-600);
+  margin-left: 0.5rem;
+  position: relative;
+  top: 0.125rem;
+  width: 0.85rem;
+}
+
+.specialist__heading {
+  color: var(--search-color-grey-600);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.specialist {
+  display: grid;
+  gap: 1rem;
+  grid-template-areas: "image content";
+  grid-template-columns: 4rem auto;
+  padding: 1rem;
+}
+
+.specialist + .specialist,
+.specialists button {
+  border-top: solid 1px var(--search-color-grey-300);
+}
+
+@media (min-width: 980px) {
+  .search-results .specialist {
+    max-width: 33.3333%;
+  }
+
+  .search-results .specialist + .specialist {
+    border-top: 0;
+  }
+}
+
+.specialist img {
+  border-radius: 50%;
+  grid-area: image;
+  height: 4rem;
+  object-fit: cover;
+  object-position: top right;
+  width: 100%;
+}
+
+.specialist a {
+  display: block;
+}
+
+.specialist a[href^="tel:+1"] {
+  all: unset;
+}
+
+.specialist p {
+  margin: 0.5rem 0;
+}
+
+.specialists button {
+  padding: 1rem;
+  text-align: center;
+  width: 100%;
+}

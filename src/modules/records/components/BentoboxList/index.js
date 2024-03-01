@@ -120,7 +120,7 @@ function BentoboxList (props) {
           <React.Fragment key={bentobox.uid}>
             {index === 2 && <Specialists show={2} />}
             <section className={`bentobox bentobox-${bentobox.uid}`}>
-              <div className='bentobox-inner-container'>
+              <div className='container__rounded'>
                 <Anchor
                   className='bentobox-heading-container'
                   to={`/${bentobox.slug}${props.searchQuery}`}

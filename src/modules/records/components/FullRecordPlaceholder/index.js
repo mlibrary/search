@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const FullRecordPlaceholder = ({ longer }) => {
   return (
-    <div className='full-record-container'>
+    <div className='container__rounded full-record-container'>
       <div className='full-record-header'>
         <span className='loading-record-text'>Loading record...</span>
       </div>
