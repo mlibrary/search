@@ -5,12 +5,14 @@ import datastoresReducer from './reducer/';
 import FlintAlerts from './components/FlintAlerts';
 import Landing from './components/Landing';
 
+// CHECK ALL COMPONENTS FOR STYLES TO BE IMPORTED
+
 export {
-  addDatastore,
-  changeActiveDatastore,
+  addDatastore, // GOOD
+  changeActiveDatastore, // GOOD
   DatastoreInfoContainer,
   DatastoreNavigation,
-  datastoresReducer,
+  datastoresReducer, // GOOD
   FlintAlerts,
   Landing
 };
