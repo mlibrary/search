@@ -111,8 +111,6 @@ export default function Metadata ({ data, kind }) {
                 <ExpandableButton
                   name={d.termPlural ? d.termPlural : d.term}
                   count={d.description.length}
-                  kind='secondary'
-                  small
                   css={{
                     marginTop: SPACING.XS
                   }}

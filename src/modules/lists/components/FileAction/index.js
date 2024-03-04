@@ -1,24 +1,18 @@
 import React from 'react';
-import { Button } from '../../../reusable';
 import PropTypes from 'prop-types';
 
-function FileAction (props) {
+function FileAction ({ prejudice, datastore }) {
   return (
     <section className='lists-action'>
       <form
         className='lists-action-form' onSubmit={(event) => {
           event.preventDefault();
-          props.prejudice.act(
-            'file',
-            props.datastore.uid,
-            'export-ris',
-            () => {
-              // Must have a function for callback
-            }
-          );
+          prejudice.act('file', datastore.uid, 'export-ris', () => { /** Callback must be a function */ });
         }}
       >
-        <Button type='submit'>Download</Button>
+        <button className='btn btn--primary' type='submit'>
+          Download
+        </button>
       </form>
     </section>
   );

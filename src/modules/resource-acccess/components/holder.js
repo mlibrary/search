@@ -163,7 +163,7 @@ function HolderRows ({ rows }) {
             wordBreak: 'break-word'
           }}
         >
-          <ExpandableButton kind='secondary' small count={rows.length} />
+          <ExpandableButton count={rows.length} />
         </td>
       </tr>
     );
