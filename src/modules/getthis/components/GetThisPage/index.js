@@ -6,29 +6,24 @@ import { GetThisOptionList, GetThisRecord } from '../../../getthis';
 import { Breadcrumb } from '../../../reusable';
 import PropTypes from 'prop-types';
 
-class GetThisPageTemplate extends React.Component {
-  render () {
-    const { recordUid } = this.props;
-
-    return (
-      <article className='container container-narrow'>
-        <div className='u-margin-top-1'>
-          <Breadcrumb
-            items={[
-              { text: 'Catalog', to: `/catalog${document.location.search}` },
-              { text: 'Record', to: `/catalog/record/${recordUid}${document.location.search}` },
-              { text: 'Get This' }
-            ]}
-          />
-        </div>
-        <section>
-          <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Get This</h1>
-        </section>
-
-        {this.props.children}
-      </article>
-    );
-  }
+function GetThisPageTemplate ({ recordUid, children }) {
+  return (
+    <article className='container container-narrow'>
+      <div className='u-margin-top-1'>
+        <Breadcrumb
+          items={[
+            { text: 'Catalog', to: `/catalog${document.location.search}` },
+            { text: 'Record', to: `/catalog/record/${recordUid}${document.location.search}` },
+            { text: 'Get This' }
+          ]}
+        />
+      </div>
+      <section>
+        <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Get This</h1>
+      </section>
+      {children}
+    </article>
+  );
 }
 
 GetThisPageTemplate.propTypes = {
@@ -60,7 +55,7 @@ class GetThisPage extends React.Component {
     const { record } = this.props;
     const { barcode, recordUid } = this.props.match.params;
 
-    if (record && record.fields && record.fields.length === 0 && record.names.length === 0) {
+    if (record?.fields?.length === 0 && record?.names?.length === 0) {
       return (
         <GetThisPageTemplate>
           <div className='alert'>
