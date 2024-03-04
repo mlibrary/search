@@ -1,22 +1,25 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import qs from 'qs';
 import { Anchor } from '../../../reusable';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 
-function BrowseAtoZ (props) {
+function BrowseAtoZ () {
+  const { datastoreSlug } = useParams();
   const createBrowseTo = ({ query, filter }) => {
-    const queryString = qs.stringify({
-      query,
-      filter,
-      sort: 'title_asc'
-    }, {
-      arrayFormat: 'repeat',
-      encodeValuesOnly: true,
-      allowDots: true,
-      format: 'RFC1738'
-    });
-    return `/${props.match.params.datastoreSlug}?${queryString}`;
+    const queryString = qs.stringify(
+      {
+        query,
+        filter,
+        sort: 'title_asc'
+      },
+      {
+        arrayFormat: 'repeat',
+        encodeValuesOnly: true,
+        allowDots: true,
+        format: 'RFC1738'
+      }
+    );
+    return `/${datastoreSlug}?${queryString}`;
   };
 
   return (
@@ -40,8 +43,4 @@ function BrowseAtoZ (props) {
   );
 }
 
-BrowseAtoZ.propTypes = {
-  match: PropTypes.object
-};
-
-export default withRouter(BrowseAtoZ);
+export default BrowseAtoZ;
