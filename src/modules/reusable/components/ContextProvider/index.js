@@ -1,43 +1,32 @@
 import PropTypes from 'prop-types';
+import { useLocation, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { findWhere } from '../../underscore';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
-/*
-  In many cases components need context information, such as
-  active datastore, what kind of record is currently being displayed,
-  any other information that is "global-ish".
+function ContextProvider ({ render }) {
+  const location = useLocation();
+  const params = useParams();
 
-  This component will provide that information so that components don't
-  need to bring them in each time themselves.
-*/
-function ContextProvider (props) {
-  return props.render({ ...props });
+  let viewType = 'Medium';
+  location.pathname.endsWith('/everything') && (viewType = 'Preview');
+  params.recordUid !== undefined && (viewType = 'Full');
+  location.pathname.endsWith('/list') && (viewType = 'List');
+
+  const activeDatastoreUid = useSelector((state) => {
+    return state.datastores.active;
+  });
+  const datastore = findWhere(
+    useSelector((state) => {
+      return state.datastores.datastores;
+    }),
+    { uid: activeDatastoreUid }
+  );
+
+  return render({ datastore, viewType });
 }
 
 ContextProvider.propTypes = {
-  render: PropTypes.func
+  render: PropTypes.func.isRequired
 };
 
-function mapStateToProps (state, props) {
-  /*
-    Record View Type is decided by the matched React Router path.
-  */
-  let viewType = 'Medium';
-  props.match.url.endsWith('/everything') && (viewType = 'Preview');
-  props.match.path.endsWith('/:recordUid') && (viewType = 'Full');
-  props.match.url.endsWith('/list') && (viewType = 'List');
-  /*
-    Add active datastore and record view type
-    to props to be used in ContextProvider as a
-    render props component.
-  */
-  return {
-    datastore: findWhere(state.datastores.datastores, {
-      uid: state.datastores.active
-    }),
-    viewType
-  };
-}
-
-export default withRouter(connect(mapStateToProps)(ContextProvider));
+export default ContextProvider;

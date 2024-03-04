@@ -1,7 +1,7 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
 
 function GoToList ({ list, datastore }) {
   const location = useLocation();
