@@ -6,34 +6,6 @@ import { GetThisOptionList, GetThisRecord } from '../../../getthis';
 import { Breadcrumb } from '../../../reusable';
 import PropTypes from 'prop-types';
 
-function GetThisPageTemplate ({ recordUid, children }) {
-  return (
-    <article className='container container-narrow'>
-      <div className='u-margin-top-1'>
-        <Breadcrumb
-          items={[
-            { text: 'Catalog', to: `/catalog${document.location.search}` },
-            { text: 'Record', to: `/catalog/record/${recordUid}${document.location.search}` },
-            { text: 'Get This' }
-          ]}
-        />
-      </div>
-      <section>
-        <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Get This</h1>
-      </section>
-      {children}
-    </article>
-  );
-}
-
-GetThisPageTemplate.propTypes = {
-  recordUid: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
-};
-
 class GetThisPage extends React.Component {
   componentDidMount () {
     const { recordUid, barcode } = this.props.match.params;
@@ -55,21 +27,37 @@ class GetThisPage extends React.Component {
     const { record } = this.props;
     const { barcode, recordUid } = this.props.match.params;
 
-    if (record?.fields?.length === 0 && record?.names?.length === 0) {
-      return (
-        <GetThisPageTemplate>
-          <div className='alert'>
-            <p><span className='strong'>Error:</span> Unable to find this record.</p>
-          </div>
-        </GetThisPageTemplate>
-      );
-    }
-
     return (
-      <GetThisPageTemplate recordUid={recordUid}>
-        <GetThisRecord barcode={barcode} />
-        <GetThisOptionList record={record} />
-      </GetThisPageTemplate>
+      <article className='container container-narrow'>
+        <div className='u-margin-top-1'>
+          <Breadcrumb
+            items={[
+              { text: 'Catalog', to: `/catalog${document.location.search}` },
+              { text: 'Record', to: `/catalog/record/${recordUid}${document.location.search}` },
+              { text: 'Get This' }
+            ]}
+          />
+        </div>
+        <section>
+          <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Get This</h1>
+        </section>
+        {(() => {
+          if (record?.fields?.length === 0 && record?.names?.length === 0) {
+            return (
+              <div className='alert'>
+                <p><span className='strong'>Error:</span> Unable to find this record.</p>
+              </div>
+            );
+          }
+
+          return (
+            <>
+              <GetThisRecord barcode={barcode} />
+              <GetThisOptionList record={record} />
+            </>
+          );
+        })()}
+      </article>
     );
   }
 }
