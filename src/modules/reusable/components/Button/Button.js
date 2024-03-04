@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 const Button = ({
@@ -11,14 +10,16 @@ const Button = ({
   small,
   ...other
 }) => {
-  const buttonClasses = classNames(className, {
-    btn: true,
-    'btn--small': small,
-    'btn--start': kind === 'start',
-    'btn--primary': kind === 'primary',
-    'btn--secondary': kind === 'secondary',
-    'btn--tertiary': kind === 'tertiary'
-  });
+  let buttonClasses = 'btn';
+  buttonClasses += small ? ' btn--small' : '';
+  buttonClasses += kind === 'start' ? ' btn--start' : '';
+  buttonClasses += kind === 'primary' ? ' btn--primary' : '';
+  buttonClasses += kind === 'secondary' ? ' btn--secondary' : '';
+  buttonClasses += kind === 'tertiary' ? ' btn--tertiary' : '';
+
+  if (className) {
+    buttonClasses += ` ${className}`;
+  }
 
   const commonProps = {
     className: buttonClasses
