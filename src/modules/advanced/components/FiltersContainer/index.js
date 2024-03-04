@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { Icon, Button } from '../../../reusable';
+import { Icon } from '../../../reusable';
 import getFilters from './getFilters';
 import AdvancedFilter from '../AdvancedFilter';
 import { setAdvancedFilter } from '../../../advanced';
@@ -128,12 +128,13 @@ class FiltersContainer extends React.Component {
           })}
         </div>
 
-        <Button
+        <button
           style={{ marginTop: '1rem' }}
+          className='btn btn--primary'
           type='submit'
         >
           <Icon icon='search' size={24} /> Advanced Search
-        </Button>
+        </button>
       </>
     );
   }

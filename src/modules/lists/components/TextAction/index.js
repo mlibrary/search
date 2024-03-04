@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
-import { Button } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 function TextAction (props) {
@@ -43,7 +42,13 @@ function TextAction (props) {
             />
             <small id='phone-number-description'>Please enter using this format: 000-111-5555</small>
           </div>
-          <Button type='submit' style={{ whiteSpace: 'nowrap' }}>Send text</Button>
+          <button
+            className='btn btn--primary'
+            type='submit'
+            style={{ whiteSpace: 'nowrap' }}
+          >
+            Send text
+          </button>
         </form>}
     </section>
   );

@@ -6,7 +6,7 @@ import {
   COLORS,
   Margins
 } from '../../../reusable/umich-lib-core-temp';
-import { Anchor, Button, Icon } from '../../../reusable/';
+import { Anchor, Icon } from '../../../reusable/';
 
 function COVIDAlert () {
   const [dismissed, setDismissed] = useState(false);
@@ -47,17 +47,17 @@ function COVIDAlert () {
           <p>
             Log in to view Get This options for items in our catalog while building access is limited. <Anchor href='https://guides.lib.umich.edu/c.php?g=914690&p=7402383'>Learn more about access changes due to COVID-19</Anchor>.
           </p>
-          <Button
+          <button
             onClick={() => {
               return setDismissed(true);
             }}
-            kind='secondary'
+            className='btn btn--secondary'
             css={{
               color: 'inherit'
             }}
           >
             Dismiss this message
-          </Button>
+          </button>
         </Margins>
       </div>
     );

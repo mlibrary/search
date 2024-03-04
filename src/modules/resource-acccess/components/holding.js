@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { INTENT_COLORS } from '../../reusable/umich-lib-core-temp';
-import { Anchor, Icon, Button } from '../../reusable';
+import { Anchor, Icon } from '../../reusable';
 import PropTypes from 'prop-types';
 
 function Cell ({ cell }) {
@@ -68,16 +68,15 @@ class TrimCellText extends React.Component {
     return (
       <>
         <span style={{ paddingRight: '0.25rem' }}>{displayText}</span>
-        <Button
-          kind='secondary'
-          small
+        <button
+          className='btn btn--small btn--secondary'
           aria-expanded={isExpanded}
           onClick={() => {
             return this.setState({ expanded: !isExpanded });
           }}
         >
           {buttonText}
-        </Button>
+        </button>
       </>
     );
   }

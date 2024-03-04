@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Tabs, TabList, Tab, TabPanel } from '../../../reusable';
+import { Tabs, TabList, Tab, TabPanel } from '../../../reusable';
 import { cite } from '../../../citations';
 import PropTypes from 'prop-types';
 
@@ -135,7 +135,13 @@ function CitationAction (props) {
                     >
                       These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.
                     </p>
-                    <Button type='submit' style={{ whiteSpace: 'nowrap' }}>Copy citation</Button>
+                    <button
+                      className='btn btn--primary'
+                      type='submit'
+                      style={{ whiteSpace: 'nowrap' }}
+                    >
+                      Copy citation
+                    </button>
                   </>
                   )
                 : (

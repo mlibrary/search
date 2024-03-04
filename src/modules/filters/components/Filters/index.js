@@ -353,8 +353,6 @@ function FilterGroupFilters ({ group, hidden = false, filters }) {
           <ExpandableButton
             name={group.metadata.name + ' filters'}
             count={filters.length}
-            kind='secondary'
-            small
             css={{
               marginBottom: SPACING.XS
             }}
