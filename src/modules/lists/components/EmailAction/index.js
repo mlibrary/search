@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
-import { Button } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 function EmailAction (props) {
@@ -40,7 +39,13 @@ function EmailAction (props) {
               autoComplete='on'
             />
           </div>
-          <Button type='submit' style={{ whiteSpace: 'nowrap' }}>Send email</Button>
+          <button
+            className='btn btn--primary'
+            type='submit'
+            style={{ whiteSpace: 'nowrap' }}
+          >
+            Send email
+          </button>
         </form>}
     </section>
   );
