@@ -3,7 +3,7 @@ import { Global } from '@emotion/react';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
-import { Anchor, Icon, Button } from '../../../reusable';
+import { Anchor, Icon } from '../../../reusable';
 import qs from 'qs';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
@@ -250,7 +250,8 @@ function SearchBox ({ history, match, location }) {
               }
             }}
           />
-          <Button
+          <button
+            className='btn btn--primary'
             css={{
               alignItems: 'center',
               display: 'flex',
@@ -277,7 +278,7 @@ function SearchBox ({ history, match, location }) {
             >
               Search
             </span>
-          </Button>
+          </button>
           {isAdvanced && (
             <Anchor
               to={`/${match.params.datastoreSlug}/advanced${location.search}`}

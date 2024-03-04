@@ -1,7 +1,6 @@
 import Alert from './components/Alert';
 import Anchor from './components/Anchor';
 import Breadcrumb from './components/Breadcrumb';
-import Button from './components/Button';
 import ContextProvider from './components/ContextProvider';
 import Dialog from './components/Dialog';
 import { Expandable, ExpandableButton, ExpandableChildren, ExpandableProvider } from './components/Expandable';
@@ -15,7 +14,6 @@ export {
   Alert,
   Anchor,
   Breadcrumb,
-  Button,
   ContextProvider,
   Dialog,
   Expandable,

@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
 import { COLORS } from '../../reusable/umich-lib-core-temp';
-import { Button, Dialog } from '../../reusable';
+import { Dialog } from '../../reusable';
 
 export default function ChooseAffiliation () {
   const { defaultAffiliation, affiliationOptions } = useSelector((state) => {
@@ -61,8 +61,8 @@ export default function ChooseAffiliation () {
   if (oldSafari) {
     return (
       <div>
-        <Button
-          kind='secondary'
+        <button
+          className='btn btn--secondary'
           css={{
             borderColor: COLORS.blue[300],
             color: 'white',
@@ -91,14 +91,14 @@ export default function ChooseAffiliation () {
             <span className='visually-hidden'>{affiliation === 'flint' ? 'Current' : 'Choose'} campus affiliation: </span>
             Flint
           </div>
-        </Button>
+        </button>
       </div>
     );
   }
   return (
     <div>
-      <Button
-        kind='secondary'
+      <button
+        className='btn btn--secondary'
         css={{
           borderColor: COLORS.blue[300],
           color: 'white',
@@ -127,7 +127,7 @@ export default function ChooseAffiliation () {
           <span className='visually-hidden'>{affiliation === 'flint' ? 'Current' : 'Choose'} campus affiliation: </span>
           Flint
         </div>
-      </Button>
+      </button>
       <Dialog open={dialogOpen} onRequestClose={closeDialog} closeOnOutsideClick>
         <div
           css={{
@@ -166,23 +166,22 @@ export default function ChooseAffiliation () {
                 }
               }}
             >
-              <Button onClick={closeDialog}>
+              <button className='btn btn--primary' onClick={closeDialog}>
                 Continue as {affiliationOptions[affiliation]}
-              </Button>
+              </button>
               or
-              <Button kind='secondary' onClick={changeAffiliation} role='link'>
+              <button className='btn btn--secondary' onClick={changeAffiliation} role='link'>
                 Change to {affiliationOptions[alternativeAffiliation]}
-              </Button>
+              </button>
             </div>
             <p className='font-small'>
               You can still use Library Search if you're not affiliated with
               either campus.
             </p>
           </div>
-          <Button
-            kind='secondary'
+          <button
+            className='btn btn--small btn--secondary'
             onClick={closeDialog}
-            small
             css={{
               border: 'none',
               flexShrink: '0',
@@ -193,7 +192,7 @@ export default function ChooseAffiliation () {
             }}
           >
             Dismiss
-          </Button>
+          </button>
         </div>
       </Dialog>
     </div>

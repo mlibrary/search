@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ExpandableContext } from './Expandable';
-import { Button } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 const cleanList = (list) => {
@@ -18,8 +17,10 @@ class ExpandableButton extends Component {
     }
 
     return (
-      <Button
-        {...this.props} onClick={() => {
+      <button
+        {...this.props}
+        className='btn btn--small btn--secondary'
+        onClick={() => {
           return context.toggleExpanded();
         }}
       >
@@ -30,7 +31,7 @@ class ExpandableButton extends Component {
           : (
               cleanList(['Show all', this.props.count, this.props.name])
             )}
-      </Button>
+      </button>
     );
   }
 }

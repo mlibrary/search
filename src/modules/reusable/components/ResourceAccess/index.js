@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Anchor,
-  Button,
   Icon,
   Expandable,
   ExpandableProvider,
@@ -99,15 +98,14 @@ class TrimCellText extends React.Component {
     return (
       <>
         <span style={{ paddingRight: '0.25rem' }}>{displayText}</span>
-        <Button
-          kind='secondary'
-          small
+        <button
+          className='btn btn--small btn--secondary'
           aria-expanded={isExpanded}
           onClick={() => {
             return this.setState({ expanded: !isExpanded });
           }}
         >{buttonText}
-        </Button>
+        </button>
       </>
     );
   }
@@ -240,7 +238,7 @@ class ResourceAccess extends React.Component {
                     {rows.length > 6 && (
                       <tr>
                         <td colSpan={`${headings.length}`}>
-                          <ExpandableButton kind='secondary' small count={rows.length} name={name} />
+                          <ExpandableButton count={rows.length} name={name} />
                         </td>
                       </tr>
                     )}
@@ -267,7 +265,7 @@ class ResourceAccess extends React.Component {
                               ? (
                                 <tr>
                                   <td colSpan={`${headings.length}`}>
-                                    <ExpandableButton kind='secondary' small count={rows.length} name={name} />
+                                    <ExpandableButton count={rows.length} name={name} />
                                   </td>
                                 </tr>
                                 )

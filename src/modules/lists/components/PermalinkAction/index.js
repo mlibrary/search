@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 function PermalinkAction (props) {
@@ -29,9 +28,9 @@ function PermalinkAction (props) {
           autoComplete='off'
         />
       </div>
-      <Button type='submit'>
+      <button className='btn btn--primary' type='submit'>
         Copy link
-      </Button>
+      </button>
     </form>
   );
 }

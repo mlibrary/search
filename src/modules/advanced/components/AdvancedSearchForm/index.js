@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Icon, Button, Alert } from '../../../reusable';
+import { Icon, Alert } from '../../../reusable';
 import { withRouter } from 'react-router-dom';
 import FieldInput from '../FieldInput';
 import FiltersContainer from '../FiltersContainer';
@@ -35,7 +35,8 @@ class AdvancedSearchForm extends React.Component {
     });
   };
 
-  handleAddAnotherFieldedSearch = () => {
+  handleAddAnotherFieldedSearch = (e) => {
+    e.preventDefault();
     this.props.addFieldedSearch({
       datastoreUid: this.props.datastore.uid,
       field: this.props.fields[0].uid
@@ -176,18 +177,21 @@ class AdvancedSearchForm extends React.Component {
             justifyContent: 'space-around'
           }}
         >
-          <Button
-            kind='secondary'
-            small
+          <button
+            className='btn btn--small btn--secondary'
             onClick={this.handleAddAnotherFieldedSearch}
           >
             Add another field
-          </Button>
+          </button>
         </div>
 
-        <Button style={{ marginTop: '1rem' }} type='submit'>
+        <button
+          className='btn btn--primary'
+          style={{ marginTop: '1rem' }}
+          type='submit'
+        >
           <Icon icon='search' size={24} /> Advanced Search
-        </Button>
+        </button>
 
         <FiltersContainer datastore={datastore} />
       </form>
