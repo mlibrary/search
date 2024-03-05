@@ -6,7 +6,6 @@ import Dialog from './components/Dialog';
 import { Expandable, ExpandableButton, ExpandableChildren, ExpandableProvider } from './components/Expandable';
 import Icon from './components/Icon';
 import Metadata from './components/Metadata';
-import Pagination from './components/Pagination';
 import ResourceAccess from './components/ResourceAccess';
 import { Tab, TabList, Tabs, TabPanel } from './components/Tabs';
 
@@ -22,7 +21,6 @@ export {
   ExpandableProvider,
   Icon,
   Metadata,
-  Pagination,
   ResourceAccess,
   Tab,
   TabList,

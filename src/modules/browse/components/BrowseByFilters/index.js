@@ -1,115 +1,84 @@
 import React from 'react';
 import { Anchor } from '../../../reusable';
-import { withRouter } from 'react-router-dom';
-import qs from 'qs';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
+import qs from 'qs';
 
-function BrowseFilter (props) {
-  const { browserFilterTo, filter } = props;
-
-  if (filter.value) {
-    return (
-      <Anchor
-        to={browserFilterTo(filter.value)}
-        className='browse-filter-link'
-      >
-        <span className='browse-filter-link__text'>{filter.name}</span>
-        <span className='browse-filter-link__count'>({filter.count})</span>
-      </Anchor>
-    );
-  }
-
+function NestedList ({ filter, browserFilterTo }) {
   return (
-    <h3 className='heading-medium' style={{ marginTop: '0' }}>{filter.name}</h3>
-  );
-}
-
-BrowseFilter.propTypes = {
-  filter: PropTypes.object,
-  browserFilterTo: PropTypes.func
-};
-
-function Node (props) {
-  return (
-    <li key={props.node.name}>
-      <BrowseFilter
-        filter={props.node}
-        browserFilterTo={props.browserFilterTo}
-      />
-      {props.children &&
+    <li>
+      {filter.value
+        ? (
+          <Anchor to={browserFilterTo(filter.value)} className='browse-filter-link'>
+            <span className='browse-filter-link__text'>{filter.name}</span>
+            <span className='browse-filter-link__count'>({filter.count})</span>
+          </Anchor>
+          )
+        : (
+          <h3 className='heading-medium'>{filter.name}</h3>
+          )}
+      {filter.children && (
         <ul>
-          {props.children.map((childnode, key) => {
+          {filter.children.map((child) => {
             return (
-              <Node
-                key={key}
-                node={childnode}
-                browserFilterTo={props.browserFilterTo}
-              >
-                {childnode.children}
-              </Node>
+              <NestedList
+                key={child.name}
+                filter={child}
+                browserFilterTo={browserFilterTo}
+              />
             );
           })}
-        </ul>}
+        </ul>
+      )}
     </li>
   );
 }
 
-Node.propTypes = {
-  children: PropTypes.array,
-  browserFilterTo: PropTypes.func,
-  node: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object
-  ])
-};
-
-function NestedList (props) {
-  /*
-    loop through the items array and create a new component for each, passing
-    the current person (id and name) and its children (items.children) as props
-  */
-  return (
-    <ul className='nested-list'>
-      {props.items.map((item, key) => {
-        return (
-          <Node key={key} node={item} browserFilterTo={props.browserFilterTo}>
-            {item.children}
-          </Node>
-        );
-      })}
-    </ul>
-  );
-}
-
 NestedList.propTypes = {
-  browserFilterTo: PropTypes.func,
-  items: PropTypes.array
+  browserFilterTo: PropTypes.func.isRequired,
+  filter: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string,
+    count: PropTypes.number,
+    children: PropTypes.array
+  }).isRequired
 };
 
-function BrowseByFilters (props) {
+function BrowseByFilters ({ filters }) {
+  const { datastoreSlug } = useParams();
+
+  const browserFilterTo = (uid) => {
+    return (value) => {
+      const queryString = qs.stringify({
+        filter: { [uid]: value },
+        sort: 'title_asc'
+      }, {
+        arrayFormat: 'repeat',
+        encodeValuesOnly: true,
+        allowDots: true,
+        format: 'RFC1738'
+      });
+      return `/${datastoreSlug}?${queryString}`;
+    };
+  };
+
   return (
     <>
-      {Object.keys(props.filters).map((uid) => {
-        const name = props.filters[uid].name;
-
+      {Object.keys(filters).map((uid) => {
         return (
           <section key={uid} className='browse u-margin-top-1'>
-            <h2 className='heading-large' style={{ marginTop: '0' }}>{name}</h2>
-            <NestedList
-              items={props.filters[uid].filters}
-              browserFilterTo={(value) => {
-                const queryString = qs.stringify({
-                  filter: { [uid]: value },
-                  sort: 'title_asc'
-                }, {
-                  arrayFormat: 'repeat',
-                  encodeValuesOnly: true,
-                  allowDots: true,
-                  format: 'RFC1738'
-                });
-                return `/${props.match.params.datastoreSlug}?${queryString}`;
-              }}
-            />
+            <h2 className='heading-large u-margin-top-none'>{filters[uid].name}</h2>
+            <ul className='nested-list'>
+              {filters[uid].filters.map((filter) => {
+                return (
+                  <NestedList
+                    key={filter.name}
+                    filter={filter}
+                    browserFilterTo={browserFilterTo(uid)}
+                  />
+                );
+              })}
+            </ul>
           </section>
         );
       })}
@@ -118,8 +87,10 @@ function BrowseByFilters (props) {
 }
 
 BrowseByFilters.propTypes = {
-  match: PropTypes.object,
-  filters: PropTypes.object
+  filters: PropTypes.objectOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    filters: PropTypes.array.isRequired
+  })).isRequired
 };
 
-export default withRouter(BrowseByFilters);
+export default BrowseByFilters;
