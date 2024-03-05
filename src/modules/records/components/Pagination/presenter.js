@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './Pagination.css';
-import Anchor from '../Anchor';
+import './styles.css';
+import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
 
-const Pagination = ({ page, total, watchPageChange, toPreviousPage, toNextPage, ariaLabel }) => {
+const PaginationPresenter = ({ page, total, watchPageChange, toPreviousPage, toNextPage, ariaLabel }) => {
   const [currentPage, setCurrentPage] = useState(page);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const Pagination = ({ page, total, watchPageChange, toPreviousPage, toNextPage, 
   );
 };
 
-Pagination.propTypes = {
+PaginationPresenter.propTypes = {
   page: PropTypes.number,
   total: PropTypes.number,
   watchPageChange: PropTypes.func,
@@ -67,4 +67,4 @@ Pagination.propTypes = {
   ariaLabel: PropTypes.string
 };
 
-export default Pagination;
+export default PaginationPresenter;
