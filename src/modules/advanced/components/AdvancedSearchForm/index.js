@@ -35,8 +35,7 @@ class AdvancedSearchForm extends React.Component {
     });
   };
 
-  handleAddAnotherFieldedSearch = (e) => {
-    e.preventDefault();
+  handleAddAnotherFieldedSearch = () => {
     this.props.addFieldedSearch({
       datastoreUid: this.props.datastore.uid,
       field: this.props.fields[0].uid
