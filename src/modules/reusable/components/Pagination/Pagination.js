@@ -1,82 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Pagination.css';
 import Anchor from '../Anchor';
 import PropTypes from 'prop-types';
 
-class Pagination extends React.Component {
-  state = {
-    page: this.props.page
-  };
+const Pagination = ({ page, total, watchPageChange, toPreviousPage, toNextPage, ariaLabel }) => {
+  const [currentPage, setCurrentPage] = useState(page);
 
-  componentDidUpdate (prevProps) {
-    if (prevProps.toNextPage !== this.props.toNextPage) {
-      this.setState({ page: this.props.page });
-    }
-  }
+  useEffect(() => {
+    setCurrentPage(page);
+  }, [page, toNextPage]);
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const page = parseInt(this.state.page, 10);
-    const {
-      total,
-      watchPageChange
-    } = this.props;
-
-    if (Number.isInteger(page) && page > 0 && page <= total) {
-      watchPageChange(page);
+    const pageNum = parseInt(currentPage, 10);
+    if (Number.isInteger(pageNum) && pageNum > 0 && pageNum <= total) {
+      watchPageChange(pageNum);
     }
   };
 
-  handleInputChange = (e) => {
-    this.setState({ page: e.target.value });
+  const handleInputChange = (e) => {
+    setCurrentPage(e.target.value);
   };
 
-  render () {
-    const { page } = this.state;
-    const {
-      toPreviousPage,
-      toNextPage,
-      total,
-      ariaLabel
-    } = this.props;
+  const totalConverted = total?.toLocaleString();
 
-    const totalConverted = total?.toLocaleString();
-
-    return (
-      <nav className='pagination-container' aria-label={ariaLabel}>
-        <div className='pagination-previous-container'>
-          {toPreviousPage && (
-            <Anchor to={toPreviousPage}>
-              Previous page
-            </Anchor>
-          )}
-        </div>
-        <form className='pagination-input-container' onSubmit={this.handleSubmit}>
-          <span>Page</span>
-          <input
-            className='pagination-input'
-            value={page}
-            type='number'
-            aria-label={`Page ${page} of ${totalConverted} pages`}
-            // reset the value if the user leaves focus
-            onBlur={() => {
-              return this.setState({ page: this.props.page });
-            }}
-            onChange={this.handleInputChange}
-          />
-          <span>of&nbsp;{totalConverted}</span>
-        </form>
-        <div className='pagination-next-container'>
-          {toNextPage && (
-            <Anchor to={toNextPage}>
-              Next page
-            </Anchor>
-          )}
-        </div>
-      </nav>
-    );
-  }
-}
+  return (
+    <nav className='pagination-container' aria-label={ariaLabel}>
+      <div className='pagination-previous-container'>
+        {toPreviousPage && (
+          <Anchor to={toPreviousPage}>
+            Previous page
+          </Anchor>
+        )}
+      </div>
+      <form className='pagination-input-container' onSubmit={handleSubmit}>
+        <span>Page</span>
+        <input
+          className='pagination-input'
+          value={currentPage}
+          type='number'
+          aria-label={`Page ${currentPage} of ${totalConverted} pages`}
+          onBlur={() => {
+            return setCurrentPage(page);
+          }}
+          onChange={handleInputChange}
+        />
+        <span>of&nbsp;{totalConverted}</span>
+      </form>
+      <div className='pagination-next-container'>
+        {toNextPage && (
+          <Anchor to={toNextPage}>
+            Next page
+          </Anchor>
+        )}
+      </div>
+    </nav>
+  );
+};
 
 Pagination.propTypes = {
   page: PropTypes.number,
