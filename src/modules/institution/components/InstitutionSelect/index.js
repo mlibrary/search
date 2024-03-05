@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { findWhere } from 'underscore';
+import { findWhere } from '../../../reusable/underscore';
 import { stringifySearchQueryForURL } from '../../../pride';
 import PropTypes from 'prop-types';
 
