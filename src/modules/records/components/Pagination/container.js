@@ -1,117 +1,71 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Pagination } from '../../../reusable';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { stringifySearchQueryForURL } from '../../../pride';
-import PropTypes from 'prop-types';
+import { Pagination } from '../../../reusable';
 
-class PaginationContainer extends React.Component {
-  /*
+const PaginationContainer = () => {
+  const history = useHistory();
+  const {
+    activeDatastoreUid,
+    filters,
+    institution,
     page,
-    total,
-    watchPageChange,
-    toNextPage,
-    toPreviousPage
-  */
+    records,
+    search,
+    sort,
+    total
+  } = useSelector((state) => {
+    return {
+      activeDatastoreUid: state.datastores.active,
+      filters: state.filters.active[state.datastores.active],
+      institution: state.institution,
+      page: state.search.data[state.datastores.active].page,
+      records: state.records.records[state.datastores.active],
+      search: state.search,
+      sort: state.search.sort[state.datastores.active],
+      total: state.search.data[state.datastores.active].totalPages
+    };
+  });
 
-  watchPageChange = (page) => {
-    const { history } = this.props;
-    history.push(this.createSearchQuery({ page }));
-  };
-
-  createSearchQuery = ({ page }) => {
-    const {
-      search,
-      filters,
-      activeDatastoreUid,
-      history,
-      institution,
-      sort
-    } = this.props;
-    const query = search.query;
-    const library = activeDatastoreUid === 'mirlyn' ? institution.active : undefined;
+  const createSearchQuery = (page) => {
     const queryString = stringifySearchQueryForURL({
-      query,
       filter: filters,
+      library: activeDatastoreUid === 'mirlyn' ? institution.active : undefined,
       page,
-      library,
+      query: search.query,
       sort
     });
 
     return `${history.location.pathname}?${queryString}`;
   };
 
-  toPreviousPage = () => {
-    const { page } = this.props;
-
-    // If there is only one page or you're on the first page.
-    if (page === 1) {
-      return undefined;
-    }
-
-    return this.createSearchQuery({
-      page: page - 1
-    });
+  const toPreviousPage = () => {
+    return page === 1 ? undefined : createSearchQuery(page - 1);
   };
 
-  toNextPage = () => {
-    const { page, total } = this.props;
-
-    // If you're on the last page, do not render a next page link.
-    if (total === 0 || page === total) {
-      return undefined;
-    }
-
-    return this.createSearchQuery({
-      page: page + 1
-    });
+  const toNextPage = () => {
+    return total === 0 || page === total ? undefined : createSearchQuery(page + 1);
   };
 
-  render () {
-    const { records, page, total } = this.props;
+  const watchPageChange = (newPage) => {
+    history.push(createSearchQuery(newPage));
+  };
 
-    if (!records || (records && records.length === 0)) {
-      return null;
-    }
-
-    return (
-      <Pagination
-        ariaLabel='Pagination'
-        page={page}
-        total={total}
-        watchPageChange={this.watchPageChange}
-        toNextPage={this.toNextPage()}
-        toPreviousPage={this.toPreviousPage()}
-      />
-    );
+  if (!records || records.length === 0) {
+    return null;
   }
-}
 
-PaginationContainer.propTypes = {
-  history: PropTypes.object,
-  search: PropTypes.object,
-  filters: PropTypes.object,
-  activeDatastoreUid: PropTypes.string,
-  institution: PropTypes.object,
-  sort: PropTypes.string,
-  records: PropTypes.array,
-  page: PropTypes.number,
-  total: PropTypes.number
+  return (
+    <Pagination
+      ariaLabel='Pagination'
+      page={page}
+      total={total}
+      watchPageChange={watchPageChange}
+      toNextPage={toNextPage()}
+      toPreviousPage={toPreviousPage()}
+    />
+  );
 };
 
-function mapStateToProps (state) {
-  return {
-    page: state.search.data[state.datastores.active].page,
-    total: state.search.data[state.datastores.active].totalPages,
-    records: state.records.records[state.datastores.active],
-    search: state.search,
-    activeDatastoreUid: state.datastores.active,
-    filters: state.filters.active[state.datastores.active],
-    institution: state.institution,
-    sort: state.search.sort[state.datastores.active]
-  };
-}
-
-export default withRouter(
-  connect(mapStateToProps)(PaginationContainer)
-);
+export default PaginationContainer;
