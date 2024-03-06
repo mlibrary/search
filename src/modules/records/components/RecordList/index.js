@@ -15,14 +15,15 @@ import PropTypes from 'prop-types';
 
 function RecordListContainer (props) {
   const {
+    activeFilters,
     activeRecords,
+    datastore,
     datastoreUid,
-    loadingRecords,
-    search,
-    searchQuery,
     institution,
     list,
-    datastore
+    loadingRecords,
+    search,
+    searchQuery
   } = props;
 
   const pageNumber = search.page[datastoreUid] || 1;
@@ -56,7 +57,7 @@ function RecordListContainer (props) {
       <div id='search-results'>
         <div className='results-summary-container'>
           <h2 className='results-summary' aria-live='polite'>Loading results for: <span style={{ fontWeight: '600' }}>{search.query}</span></h2>
-          <Sorts />
+          <Sorts {...props} activeFilters={activeFilters} />
         </div>
         <GoToList list={list} datastore={datastore} />
         <section className='results-list results-list-border'>
@@ -89,7 +90,7 @@ function RecordListContainer (props) {
     <>
       <div className='results-summary-container'>
         <ResultsSummary />
-        <Sorts />
+        <Sorts {...props} activeFilters={activeFilters} />
         <SearchResultsMessage />
       </div>
       <GoToList list={list} datastore={datastore} />
@@ -133,26 +134,28 @@ function RecordListContainer (props) {
 }
 
 RecordListContainer.propTypes = {
+  activeFilters: PropTypes.object,
   activeRecords: PropTypes.array,
+  datastore: PropTypes.object,
   datastoreUid: PropTypes.string,
-  loadingRecords: PropTypes.bool,
-  search: PropTypes.object,
-  searchQuery: PropTypes.string,
   institution: PropTypes.object,
   list: PropTypes.array,
-  datastore: PropTypes.object
+  loadingRecords: PropTypes.bool,
+  search: PropTypes.object,
+  searchQuery: PropTypes.string
 };
 
 function mapStateToProps (state) {
   return {
+    activeFilters: state.filters.active[state.datastores.active],
     activeRecords: state.records.records[state.datastores.active] || [],
-    loadingRecords: state.records.loading[state.datastores.active],
-    datastoreUid: state.datastores.active,
     datastore: findWhere(state.datastores.datastores, { uid: state.datastores.active }),
-    search: state.search,
-    searchQuery: state.router.location.search,
+    datastoreUid: state.datastores.active,
     institution: state.institution,
-    list: state.lists[state.datastores.active]
+    list: state.lists[state.datastores.active],
+    loadingRecords: state.records.loading[state.datastores.active],
+    search: state.search,
+    searchQuery: state.router.location.search
   };
 }
 

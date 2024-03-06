@@ -50,7 +50,6 @@ const config = {
   },
   sorts: {
     mirlyn: {
-      default: 'relevance',
       sorts: [
         'relevance',
         'date_asc',
@@ -63,7 +62,6 @@ const config = {
       ]
     },
     primo: {
-      default: 'relevance',
       sorts: [
         'relevance',
         'date_asc',
@@ -73,11 +71,13 @@ const config = {
       ]
     },
     databases: {
-      default: 'relevance',
-      sorts: ['relevance', 'title_asc', 'title_desc']
+      sorts: [
+        'relevance',
+        'title_asc',
+        'title_desc'
+      ]
     },
     onlinejournals: {
-      default: 'relevance',
       sorts: [
         'relevance',
         'date_asc',
@@ -88,8 +88,13 @@ const config = {
       ]
     },
     website: {
-      default: 'relevance',
-      sorts: ['relevance', 'title_asc', 'title_desc', 'date_asc', 'date_desc']
+      sorts: [
+        'relevance',
+        'title_asc',
+        'title_desc',
+        'date_asc',
+        'date_desc'
+      ]
     }
   },
   advancedBooleanTypes: ['AND', 'OR', 'NOT'],
