@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'underscore';
+import { findWhere } from '../../../reusable/underscore';
 import { Route, Switch } from 'react-router-dom';
 import { NoMatch } from '../../../pages';
 import { SearchBox } from '../../../search';
@@ -285,7 +285,7 @@ function mapStateToProps (state) {
     searching: state.search.searching,
     query: state.search.query,
     datastores: state.datastores,
-    activeDatastore: _.findWhere(state.datastores.datastores, {
+    activeDatastore: findWhere(state.datastores.datastores, {
       uid: state.datastores.active
     }),
     location: state.router.location,
