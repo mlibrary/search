@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
+import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -292,23 +293,25 @@ DescriptionItemLink.propTypes = {
 };
 
 function SearchLink ({ children, search }) {
-  const { datastores, institution } = useSelector((state) => {
-    return state;
-  });
-  const activeDatastore = datastores.datastores.find(
-    (ds) => {
-      return ds.uid === datastores.active;
+  const { datastores, institution } = useSelector(createSelector(
+    (state) => {
+      return state.datastores;
+    },
+    (state) => {
+      return state.institution;
+    },
+    (datastores, institution) => {
+      return { datastores, institution };
     }
-  );
-  const to =
-    '/' +
-    activeDatastore.slug +
-    '?' +
-    createSearchURL({
-      ...search,
-      institution,
-      datastoreUid: activeDatastore.uid
-    });
+  ));
+  const activeDatastore = datastores.datastores.find((ds) => {
+    return ds.uid === datastores.active;
+  });
+  const to = `/${activeDatastore.slug}?${createSearchURL({
+    ...search,
+    institution,
+    datastoreUid: activeDatastore.uid
+  })}`;
 
   return (
     <Anchor to={to}>

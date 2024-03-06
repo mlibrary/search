@@ -5,14 +5,7 @@ import config from '../../../../config';
 import { stringifySearchQueryForURL } from '../../../pride';
 import PropTypes from 'prop-types';
 
-const Sorts = (props) => {
-  const {
-    activeFilters,
-    datastoreUid,
-    history,
-    institution,
-    search
-  } = props;
+const Sorts = ({ activeFilters, datastoreUid, history, institution, search }) => {
   const { datastoreSlug } = useParams();
   const sorts = (config.sorts[datastoreUid]?.sorts || [])
     .map((uid) => {
@@ -44,11 +37,17 @@ const Sorts = (props) => {
       <label className='sorts-label sorts-label-text' htmlFor='sort-by' style={{ display: 'inline-block' }}>
         Sort by
       </label>
-      <select className='dropdown sorts-select' value={search.sort[datastoreUid] || sorts[0].uid} onChange={handleOnChange} autoComplete='off' id='sort-by'>
-        {sorts.map((item) => {
+      <select
+        id='sort-by'
+        className='dropdown sorts-select'
+        value={search.sort[datastoreUid] || sorts[0].uid}
+        onChange={handleOnChange}
+        autoComplete='off'
+      >
+        {sorts.map(({ uid, metadata: { name } }) => {
           return (
-            <option key={item.uid} value={item.uid}>
-              {item.metadata.name}
+            <option key={uid} value={uid}>
+              {name}
             </option>
           );
         })}
