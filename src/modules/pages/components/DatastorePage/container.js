@@ -22,7 +22,7 @@ import {
 } from '../../../records';
 import { GetThisPage } from '../../../getthis';
 import { switchPrideToDatastore } from '../../../pride';
-import { InstitutionSelect, InstitutionWrapper } from '../../../institution';
+import { InstitutionSelect } from '../../../institution';
 import { List } from '../../../lists';
 import { setDocumentTitle } from '../../../a11y';
 import PropTypes from 'prop-types';
@@ -139,25 +139,21 @@ class DatastorePageContainer extends React.Component {
                     <Route
                       match={match.url}
                       render={() => {
+                        if (!searching) {
+                          return <Landing activeDatastore={activeDatastore} />;
+                        }
+
                         return (
-                          <InstitutionWrapper>
-                            {!searching
-                              ? (
-                                <Landing activeDatastore={activeDatastore} />
-                                )
-                              : (
-                                <>
-                                  <h1 id='maincontent' tabIndex='-1' className='visually-hidden'>
-                                    {activeDatastore.name}
-                                  </h1>
-                                  <DatastoreInfoContainer activeDatastore={activeDatastore} />
-                                  <Results
-                                    activeDatastore={activeDatastore}
-                                    activeFilterCount={activeFilterCount}
-                                  />
-                                </>
-                                )}
-                          </InstitutionWrapper>
+                          <>
+                            <h1 id='maincontent' tabIndex='-1' className='visually-hidden'>
+                              {activeDatastore.name}
+                            </h1>
+                            <DatastoreInfoContainer activeDatastore={activeDatastore} />
+                            <Results
+                              activeDatastore={activeDatastore}
+                              activeFilterCount={activeFilterCount}
+                            />
+                          </>
                         );
                       }}
                     />
