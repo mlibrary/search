@@ -153,6 +153,7 @@ class DatastorePageContainer extends React.Component {
                             <Results
                               activeDatastore={activeDatastore}
                               activeFilterCount={activeFilterCount}
+                              institution={institution}
                             />
                           </>
                         );
@@ -180,7 +181,7 @@ DatastorePageContainer.propTypes = {
   institution: PropTypes.object
 };
 
-const Results = ({ activeDatastore, activeFilterCount }) => {
+const Results = ({ activeDatastore, activeFilterCount, institution }) => {
   if (activeDatastore.isMultisearch) {
     return (
       <div className='container container-large flex-container'>
@@ -261,7 +262,7 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
             }
           }}
         >
-          <InstitutionSelect />
+          <InstitutionSelect activeDatastore={activeDatastore} institution={institution} />
           <Filters />
           <BrowseInfo datastore={activeDatastore} />
         </div>
@@ -277,7 +278,8 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
 
 Results.propTypes = {
   activeDatastore: PropTypes.object,
-  activeFilterCount: PropTypes.number
+  activeFilterCount: PropTypes.number,
+  institution: PropTypes.object
 };
 
 function mapStateToProps (state) {

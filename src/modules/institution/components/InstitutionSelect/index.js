@@ -1,29 +1,26 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { findWhere } from '../../../reusable/underscore';
+import { useHistory } from 'react-router-dom';
+import { createSelector } from '@reduxjs/toolkit';
 import { stringifySearchQueryForURL } from '../../../pride';
 import PropTypes from 'prop-types';
 
-const InstitutionSelect = ({ type }) => {
+const InstitutionSelect = ({ activeDatastore, institution }) => {
+  const { uid, slug } = activeDatastore;
+  const { activeFilters, searchQuery } = useSelector(createSelector(
+    (state) => {
+      return state.filters.active[uid];
+    },
+    (state) => {
+      return state.search.query;
+    },
+    (activeFilters, searchQuery) => {
+      return { activeFilters, searchQuery };
+    }
+  ));
   const history = useHistory();
-  const {
-    activeDatastore,
-    activeFilters,
-    institution,
-    searchQuery
-  } = useSelector((state) => {
-    return {
-      activeDatastore: findWhere(state.datastores.datastores, {
-        uid: state.datastores.active
-      }),
-      activeFilters: state.filters.active[state.datastores.active],
-      institution: state.institution,
-      searchQuery: state.search.query
-    };
-  });
 
-  if (activeDatastore.uid !== 'mirlyn') {
+  if (uid !== 'mirlyn') {
     return null;
   }
 
@@ -36,40 +33,8 @@ const InstitutionSelect = ({ type }) => {
       library: event.target.value
     });
 
-    history.push(`/${activeDatastore.slug}?${queryString}`);
+    history.push(`/${slug}?${queryString}`);
   };
-
-  if (type === 'switch') {
-    const selectedOption = active || defaultInstitution;
-
-    return (
-      <fieldset className='radio-fieldset'>
-        <legend className='visually-hidden'>Institutions</legend>
-        {options.map((option, index) => {
-          return (
-            <span key={index}>
-              <input
-                id={`library-${index}`}
-                type='radio'
-                className='radio-input'
-                checked={selectedOption === option}
-                value={option}
-                onChange={handleChange}
-              />
-              <label
-                htmlFor={`library-${index}`}
-                className={`radio-label ${
-                selectedOption === option ? 'radio-selected' : ''
-              }`}
-              >
-                <span className='radio-label-text'>{option}</span>
-              </label>
-            </span>
-          );
-        })}
-      </fieldset>
-    );
-  }
 
   return (
     <fieldset className='institution-select-container'>
@@ -100,7 +65,8 @@ const InstitutionSelect = ({ type }) => {
 };
 
 InstitutionSelect.propTypes = {
-  type: PropTypes.string
+  activeDatastore: PropTypes.object,
+  institution: PropTypes.object
 };
 
 export default InstitutionSelect;
