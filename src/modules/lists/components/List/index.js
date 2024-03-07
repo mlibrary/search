@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { findWhere } from '../../../reusable/underscore';
 import { withRouter } from 'react-router-dom';
 import { Record } from '../../../records';
-import { Anchor, Breadcrumb } from '../../../reusable';
+import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import { setA11yMessage } from '../../../a11y';
 import prejudice from '../../prejudice';
 import ActionsList from '../ActionsList';
@@ -56,7 +56,7 @@ function List (props) {
       />
 
       <div className='lists-header'>
-        <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>My Temporary {props.datastore.name} List</h1>
+        <H1 className='heading-xlarge'>My Temporary {props.datastore.name} List</H1>
         <div className='lists-header-info'>
           {props.list?.length > 0 &&
             <button

@@ -62,7 +62,7 @@ export default function ChooseAffiliation () {
     return (
       <div>
         <button
-          className='btn btn--secondary'
+          className='btn btn--secondary no-background'
           css={{
             borderColor: COLORS.blue[300],
             color: 'white',
@@ -98,7 +98,7 @@ export default function ChooseAffiliation () {
   return (
     <div>
       <button
-        className='btn btn--secondary'
+        className='btn btn--secondary no-background'
         css={{
           borderColor: COLORS.blue[300],
           color: 'white',

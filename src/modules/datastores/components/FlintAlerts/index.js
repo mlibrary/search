@@ -25,7 +25,7 @@ function FlintAlerts ({ datastore, profile }) {
     <Alert type='warning'>
       <span>{messages[datastore]}</span>
       <button
-        className='btn btn--small btn--secondary'
+        className='btn btn--small btn--secondary no-background'
         onClick={handleDismissClick}
       >
         Dismiss

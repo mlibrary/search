@@ -1,3 +1,8 @@
+.no-background {
+  background: transparent;
+  background-color: transparent;
+}
+
 .container__rounded {
   background-color: white;
   border-radius: 4px;

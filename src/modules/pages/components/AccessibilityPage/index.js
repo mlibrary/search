@@ -1,6 +1,6 @@
 import React from 'react';
 import { setDocumentTitle } from '../../../a11y';
-import { Anchor } from '../../../reusable';
+import { Anchor, H1 } from '../../../reusable';
 
 function AccessibilityPage () {
   setDocumentTitle(['Accessibility']);
@@ -8,7 +8,7 @@ function AccessibilityPage () {
   return (
     <div className='container container-narrow'>
       <main className='container__rounded page'>
-        <h1 className='u-margin-top-none' id='maincontent' tabIndex='-1'>Accessibility</h1>
+        <H1 className='u-margin-top-none'>Accessibility</H1>
         <p>We are dedicated to creating inclusive services and products for all users. We are constantly working to make Library Search as accessible and usable as possible.</p>
         <p>We aim to meet <Anchor href='https://www.w3.org/WAI/WCAG20/quickref/'>WCAG 2.0 AA standards</Anchor></p>
         <h2>Compatibility with tools</h2>

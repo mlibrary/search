@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { requestRecord, requestGetThis } from '../../../pride';
 import { GetThisOptionList, GetThisRecord } from '../../../getthis';
-import { Breadcrumb } from '../../../reusable';
+import { Breadcrumb, H1 } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 class GetThisPage extends React.Component {
@@ -39,7 +39,7 @@ class GetThisPage extends React.Component {
           />
         </div>
         <section>
-          <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Get This</h1>
+          <H1 className='heading-xlarge'>Get This</H1>
         </section>
         {(() => {
           if (record?.fields?.length === 0 && record?.names?.length === 0) {

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'underscore';
+import { findWhere } from '../../../reusable/underscore';
 import { Route, Switch } from 'react-router-dom';
 import { NoMatch } from '../../../pages';
 import { SearchBox } from '../../../search';
@@ -22,11 +22,11 @@ import {
 } from '../../../records';
 import { GetThisPage } from '../../../getthis';
 import { switchPrideToDatastore } from '../../../pride';
-import { InstitutionSelect, InstitutionWrapper } from '../../../institution';
+import { InstitutionSelect } from '../../../institution';
 import { List } from '../../../lists';
 import { setDocumentTitle } from '../../../a11y';
 import PropTypes from 'prop-types';
-import { Icon } from '../../../reusable';
+import { H1, Icon } from '../../../reusable';
 
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
@@ -58,7 +58,8 @@ class DatastorePageContainer extends React.Component {
       location,
       isAdvanced,
       activeFilterCount,
-      activeDatastore
+      activeDatastore,
+      institution
     } = this.props;
 
     if (activeDatastore === undefined) {
@@ -139,25 +140,22 @@ class DatastorePageContainer extends React.Component {
                     <Route
                       match={match.url}
                       render={() => {
+                        if (!searching) {
+                          return <Landing activeDatastore={activeDatastore} institution={institution} />;
+                        }
+
                         return (
-                          <InstitutionWrapper>
-                            {!searching
-                              ? (
-                                <Landing activeDatastore={activeDatastore} />
-                                )
-                              : (
-                                <>
-                                  <h1 id='maincontent' tabIndex='-1' className='visually-hidden'>
-                                    {activeDatastore.name}
-                                  </h1>
-                                  <DatastoreInfoContainer activeDatastore={activeDatastore} />
-                                  <Results
-                                    activeDatastore={activeDatastore}
-                                    activeFilterCount={activeFilterCount}
-                                  />
-                                </>
-                                )}
-                          </InstitutionWrapper>
+                          <>
+                            <H1 className='visually-hidden'>
+                              {activeDatastore.name}
+                            </H1>
+                            <DatastoreInfoContainer activeDatastore={activeDatastore} />
+                            <Results
+                              activeDatastore={activeDatastore}
+                              activeFilterCount={activeFilterCount}
+                              institution={institution}
+                            />
+                          </>
                         );
                       }}
                     />
@@ -179,10 +177,11 @@ DatastorePageContainer.propTypes = {
   searching: PropTypes.bool,
   location: PropTypes.object,
   isAdvanced: PropTypes.bool,
-  activeFilterCount: PropTypes.number
+  activeFilterCount: PropTypes.number,
+  institution: PropTypes.object
 };
 
-const Results = ({ activeDatastore, activeFilterCount }) => {
+const Results = ({ activeDatastore, activeFilterCount, institution }) => {
   if (activeDatastore.isMultisearch) {
     return (
       <div className='container container-large flex-container'>
@@ -263,7 +262,7 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
             }
           }}
         >
-          <InstitutionSelect />
+          <InstitutionSelect activeDatastore={activeDatastore} institution={institution} />
           <Filters />
           <BrowseInfo datastore={activeDatastore} />
         </div>
@@ -279,7 +278,8 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
 
 Results.propTypes = {
   activeDatastore: PropTypes.object,
-  activeFilterCount: PropTypes.number
+  activeFilterCount: PropTypes.number,
+  institution: PropTypes.object
 };
 
 function mapStateToProps (state) {
@@ -289,12 +289,13 @@ function mapStateToProps (state) {
     searching: state.search.searching,
     query: state.search.query,
     datastores: state.datastores,
-    activeDatastore: _.findWhere(state.datastores.datastores, {
+    activeDatastore: findWhere(state.datastores.datastores, {
       uid: state.datastores.active
     }),
     location: state.router.location,
     isAdvanced: !!state.advanced[state.datastores.active],
-    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0
+    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0,
+    institution: state.institution
   };
 }
 

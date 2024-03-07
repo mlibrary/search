@@ -1,11 +1,12 @@
 import React from 'react';
-import { Anchor } from '../../../reusable';
+import { useLocation } from 'react-router-dom';
+import { Anchor, H1 } from '../../../reusable';
 import { BrowseInfo } from '../../../browse';
-import { InstitutionSelect } from '../../../institution';
 import PropTypes from 'prop-types';
 
-function Landing ({ activeDatastore }) {
-  const { uid } = activeDatastore;
+function Landing ({ activeDatastore, institution }) {
+  const location = useLocation();
+  const { uid, name } = activeDatastore;
   const landingContent = {
     everything: {
       headingText: (<>Search <span className='strong'>Everything</span> to see a broad sampling of results from across 'Library Search' and to explore specific areas and records in greater detail.</>),
@@ -48,28 +49,51 @@ function Landing ({ activeDatastore }) {
     }
   };
 
+  const queryParam = (string) => {
+    return string.replaceAll(' ', '+');
+  };
+
+  const activeLibrary = (query) => {
+    if (location.query.library) {
+      return location.query.library.includes(query);
+    }
+
+    return query === queryParam(institution.defaultInstitution);
+  };
+
   return (
     <div className='container'>
-      <h1 className='visually-hidden' id='maincontent' tabIndex='-1'>
-        {activeDatastore.name}
-      </h1>
+      <H1 className='visually-hidden'>
+        {name}
+      </H1>
       <div className='landing-container'>
         <p className='landing-heading-text'>{landingContent[uid].headingText}</p>
         {landingContent[uid].content}
       </div>
       {uid === 'mirlyn' && (
         <div className='container container-narrow'>
-          <div className='institution-select-landing-container'>
-            <h2 className='heading-large' style={{ textAlign: 'center' }}>
+          <div className='institution-select-landing-container center-text'>
+            <h2 className='heading-large'>
               To find materials closest to you, please choose a library
             </h2>
-            <InstitutionSelect type='switch' />
-          </div>
-          <p className='landing-extra-info'>
+            <p>
+              {institution.options.map((library, index) => {
+                const query = queryParam(library);
+                return (
+                  <Anchor
+                    key={index}
+                    to={`?library=${query}`}
+                    className={`btn btn--secondary ${activeLibrary(query) ? 'btn--secondary--active' : ''}`}
+                  >
+                    {library}
+                  </Anchor>
+                );
+              })}
+            </p>
             <Anchor href='https://lib.umich.edu/find-borrow-request/find-materials/using-other-catalogs'>
               About our other Library Catalogs
             </Anchor>
-          </p>
+          </div>
         </div>
       )}
     </div>
@@ -77,7 +101,8 @@ function Landing ({ activeDatastore }) {
 };
 
 Landing.propTypes = {
-  activeDatastore: PropTypes.object
+  activeDatastore: PropTypes.object,
+  institution: PropTypes.object
 };
 
 export default Landing;
