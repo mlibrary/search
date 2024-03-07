@@ -64,6 +64,7 @@ export default function ChooseAffiliation () {
         <button
           className='btn btn--secondary'
           css={{
+            background: 'transparent',
             borderColor: COLORS.blue[300],
             color: 'white',
             display: 'flex',
@@ -100,6 +101,7 @@ export default function ChooseAffiliation () {
       <button
         className='btn btn--secondary'
         css={{
+          background: 'transparent',
           borderColor: COLORS.blue[300],
           color: 'white',
           display: 'flex',
