@@ -5,6 +5,7 @@ import _ from 'underscore';
 import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
 import {
   Breadcrumb,
+  H1,
   Tabs,
   TabList,
   TabPanel,
@@ -50,7 +51,7 @@ class AdvancedSearchContainer extends React.Component {
           ]}
         />
 
-        <h1 className='heading-xlarge' id='maincontent' tabIndex='-1'>Advanced Search</h1>
+        <H1 className='heading-xlarge'>Advanced Search</H1>
         <p className='font-lede'>Select a search category below for associated advanced search options.</p>
 
         <Tabs defaultIndex={activeDatastoreIndex}>

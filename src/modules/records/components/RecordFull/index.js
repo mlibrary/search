@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Anchor, Breadcrumb } from '../../../reusable';
+import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import { COLORS, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
 import { TrimString } from '../../../core';
 import { getField, getFieldValue } from '../../utilities';
@@ -160,7 +160,7 @@ class FullRecord extends React.Component {
           <RecordFullFormats formats={record.formats} />
           <div className='record-container'>
             <div className='full-record-title-and-actions-container'>
-              <h1 className='full-record-title' id='maincontent' tabIndex='-1'>
+              <H1 className='full-record-title'>
                 {[].concat(record.names).map((title, index) => {
                   if (index > 0) {
                     return (
@@ -174,7 +174,7 @@ class FullRecord extends React.Component {
                   );
                 })}
                 <RecommendedResource record={record} />
-              </h1>
+              </H1>
               <AddToListButton item={record} />
             </div>
             <RecordDescription record={record} />

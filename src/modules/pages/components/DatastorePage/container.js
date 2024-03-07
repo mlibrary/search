@@ -26,7 +26,7 @@ import { InstitutionSelect } from '../../../institution';
 import { List } from '../../../lists';
 import { setDocumentTitle } from '../../../a11y';
 import PropTypes from 'prop-types';
-import { Icon } from '../../../reusable';
+import { H1, Icon } from '../../../reusable';
 
 const ConnectedSwitch = connect(mapStateToProps)(Switch);
 
@@ -145,9 +145,9 @@ class DatastorePageContainer extends React.Component {
 
                         return (
                           <>
-                            <h1 id='maincontent' tabIndex='-1' className='visually-hidden'>
+                            <H1 className='visually-hidden'>
                               {activeDatastore.name}
-                            </h1>
+                            </H1>
                             <DatastoreInfoContainer activeDatastore={activeDatastore} />
                             <Results
                               activeDatastore={activeDatastore}
