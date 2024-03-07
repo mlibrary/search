@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function H1 ({ className, children }) {
+function H1 ({ children, className }) {
   if (!children) return null;
 
   return (

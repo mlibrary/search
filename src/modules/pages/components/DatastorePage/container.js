@@ -58,7 +58,8 @@ class DatastorePageContainer extends React.Component {
       location,
       isAdvanced,
       activeFilterCount,
-      activeDatastore
+      activeDatastore,
+      institution
     } = this.props;
 
     if (activeDatastore === undefined) {
@@ -140,7 +141,7 @@ class DatastorePageContainer extends React.Component {
                       match={match.url}
                       render={() => {
                         if (!searching) {
-                          return <Landing activeDatastore={activeDatastore} />;
+                          return <Landing activeDatastore={activeDatastore} institution={institution} />;
                         }
 
                         return (
@@ -175,7 +176,8 @@ DatastorePageContainer.propTypes = {
   searching: PropTypes.bool,
   location: PropTypes.object,
   isAdvanced: PropTypes.bool,
-  activeFilterCount: PropTypes.number
+  activeFilterCount: PropTypes.number,
+  institution: PropTypes.object
 };
 
 const Results = ({ activeDatastore, activeFilterCount }) => {
@@ -290,7 +292,8 @@ function mapStateToProps (state) {
     }),
     location: state.router.location,
     isAdvanced: !!state.advanced[state.datastores.active],
-    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0
+    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0,
+    institution: state.institution
   };
 }
 

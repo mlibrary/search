@@ -1,10 +1,11 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { Anchor, H1 } from '../../../reusable';
 import { BrowseInfo } from '../../../browse';
-import { InstitutionSelect } from '../../../institution';
 import PropTypes from 'prop-types';
 
-function Landing ({ activeDatastore }) {
+function Landing ({ activeDatastore, institution }) {
+  const location = useLocation();
   const { uid, name } = activeDatastore;
   const landingContent = {
     everything: {
@@ -59,17 +60,28 @@ function Landing ({ activeDatastore }) {
       </div>
       {uid === 'mirlyn' && (
         <div className='container container-narrow'>
-          <div className='institution-select-landing-container'>
-            <h2 className='heading-large center-text'>
+          <div className='institution-select-landing-container center-text'>
+            <h2 className='heading-large'>
               To find materials closest to you, please choose a library
             </h2>
-            <InstitutionSelect type='switch' />
-          </div>
-          <p className='landing-extra-info'>
+            <p>
+              {institution.options.map((institution, index) => {
+                const query = institution.replaceAll(' ', '+');
+                return (
+                  <Anchor
+                    key={index}
+                    to={`?library=${query}`}
+                    className={`btn btn--secondary ${location.query.library.includes(query) ? 'btn--secondary--active' : ''}`}
+                  >
+                    {institution}
+                  </Anchor>
+                );
+              })}
+            </p>
             <Anchor href='https://lib.umich.edu/find-borrow-request/find-materials/using-other-catalogs'>
               About our other Library Catalogs
             </Anchor>
-          </p>
+          </div>
         </div>
       )}
     </div>
@@ -77,7 +89,8 @@ function Landing ({ activeDatastore }) {
 };
 
 Landing.propTypes = {
-  activeDatastore: PropTypes.object
+  activeDatastore: PropTypes.object,
+  institution: PropTypes.object
 };
 
 export default Landing;
