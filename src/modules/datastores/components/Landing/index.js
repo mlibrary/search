@@ -49,6 +49,18 @@ function Landing ({ activeDatastore, institution }) {
     }
   };
 
+  const queryParam = (string) => {
+    return string.replaceAll(' ', '+');
+  };
+
+  const activeLibrary = (query) => {
+    if (location.query.library) {
+      return location.query.library.includes(query);
+    }
+
+    return query === queryParam(institution.defaultInstitution);
+  };
+
   return (
     <div className='container'>
       <H1 className='visually-hidden'>
@@ -65,15 +77,15 @@ function Landing ({ activeDatastore, institution }) {
               To find materials closest to you, please choose a library
             </h2>
             <p>
-              {institution.options.map((institution, index) => {
-                const query = institution.replaceAll(' ', '+');
+              {institution.options.map((library, index) => {
+                const query = queryParam(library);
                 return (
                   <Anchor
                     key={index}
                     to={`?library=${query}`}
-                    className={`btn btn--secondary ${location.query.library.includes(query) ? 'btn--secondary--active' : ''}`}
+                    className={`btn btn--secondary ${activeLibrary(query) ? 'btn--secondary--active' : ''}`}
                   >
-                    {institution}
+                    {library}
                   </Anchor>
                 );
               })}
