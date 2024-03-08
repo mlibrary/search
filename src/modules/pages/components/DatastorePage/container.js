@@ -121,8 +121,8 @@ class DatastorePageContainer extends React.Component {
                     <Route
                       path={match.url + '/list'}
                       exact
-                      render={(props) => {
-                        return <List />;
+                      render={() => {
+                        return <List {...this.props} />;
                       }}
                     />
                     <Route
@@ -272,7 +272,8 @@ Results.propTypes = {
 };
 
 function mapStateToProps (state) {
-  const currentFilters = state.filters.active[state.datastores.active];
+  const currentDatastore = state.datastores.active;
+  const currentFilters = state.filters.active[currentDatastore];
 
   return {
     activeFilters: state.filters.active,
@@ -282,12 +283,13 @@ function mapStateToProps (state) {
     query: state.search.query,
     datastores: state.datastores,
     activeDatastore: findWhere(state.datastores.datastores, {
-      uid: state.datastores.active
+      uid: currentDatastore
     }),
     location: state.router.location,
-    isAdvanced: !!state.advanced[state.datastores.active],
+    isAdvanced: !!state.advanced[currentDatastore],
     activeFilterCount: currentFilters ? Object.keys(currentFilters).length : 0,
-    institution: state.institution
+    institution: state.institution,
+    list: state.lists[currentDatastore]
   };
 }
 
