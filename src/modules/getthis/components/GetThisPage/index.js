@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { requestRecord, requestGetThis } from '../../../pride';
 import { GetThisOptionList, GetThisRecord } from '../../../getthis';
-import { Breadcrumb, H1 } from '../../../reusable';
+import { Alert, Breadcrumb, H1 } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 class GetThisPage extends React.Component {
@@ -38,15 +38,15 @@ class GetThisPage extends React.Component {
             ]}
           />
         </div>
-        <section>
-          <H1 className='heading-xlarge'>Get This</H1>
-        </section>
+        <H1 className='heading-xlarge'>Get This</H1>
         {(() => {
           if (record?.fields?.length === 0 && record?.names?.length === 0) {
             return (
-              <div className='alert'>
-                <p><span className='strong'>Error:</span> Unable to find this record.</p>
-              </div>
+              <section className='container__rounded page'>
+                <Alert type='error'>
+                  <span className='strong'>Error:</span> Unable to find this record.
+                </Alert>
+              </section>
             );
           }
 

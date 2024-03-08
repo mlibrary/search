@@ -40,7 +40,7 @@ function List (props) {
     }
 
     return (
-      <section className='alert'>
+      <section className='container__rounded record-container'>
         <p><span className='strong'>This list is empty</span>. <Anchor to={`/${props.datastore.slug}${document.location.search}`}>Go back to {props.datastore.name}</Anchor> to add to this list.</p>
       </section>
     );
