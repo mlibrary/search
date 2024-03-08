@@ -286,18 +286,6 @@ const Icon = ({ name }) => {
           </g>
         </svg>
       );
-    case 'multi-result':
-      return (
-        <svg viewBox='0 0 16 16' version='1.1' className='icon' focusable='false' role='presentation'>
-          <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
-            <g transform='translate(-372.000000, -16.000000)'>
-              <g transform='translate(372.000000, 12.000000)'>
-                <path d='M9,4 L9,9 L16,9 L16,4 L9,4 Z M9,20 L16,20 L16,11 L9,11 L9,20 Z M0,20 L7,20 L7,15 L0,15 L0,20 Z M0,13 L7,13 L7,4 L0,4 L0,13 L0,13 Z' />
-              </g>
-            </g>
-          </g>
-        </svg>
-      );
     case 'search':
       return (
         <svg viewBox='0 0 16 16' version='1.1' className='icon' focusable='false' role='presentation'>

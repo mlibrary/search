@@ -101,7 +101,7 @@ class DatastorePageContainer extends React.Component {
               return (
                 <>
                   <SearchBox />
-                  <DatastoreNavigation />
+                  <DatastoreNavigation {...this.props} />
                   <div
                     css={{
                       marginTop: '-0.75rem',
@@ -283,9 +283,11 @@ Results.propTypes = {
 };
 
 function mapStateToProps (state) {
-  const activeFilters = state.filters.active[state.datastores.active];
+  const currentFilters = state.filters.active[state.datastores.active];
 
   return {
+    activeFilters: state.filters.active,
+    search: state.search,
     searching: state.search.searching,
     query: state.search.query,
     datastores: state.datastores,
@@ -294,7 +296,7 @@ function mapStateToProps (state) {
     }),
     location: state.router.location,
     isAdvanced: !!state.advanced[state.datastores.active],
-    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0,
+    activeFilterCount: currentFilters ? Object.keys(currentFilters).length : 0,
     institution: state.institution
   };
 }
