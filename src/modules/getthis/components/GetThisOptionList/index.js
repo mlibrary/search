@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from '../../../reusable';
 import { connect } from 'react-redux';
 import { DetailsList } from '../../../core';
 import GetThisOption from '../GetThisOption';
@@ -7,26 +8,26 @@ import PropTypes from 'prop-types';
 
 function GetThisOptions (props) {
   let section = (
-    <div className='alert'>
+    <Alert>
       <p>Loading holding options...</p>
-    </div>
+    </Alert>
   );
 
   if (props.record?.getthis) {
     const { status, options } = props.record.getthis;
 
     section = (
-      <div className='alert'>
+      <Alert>
         <p>Sorry, something unexpected happened.</p>
         <p><span className='strong'>Status:</span> {status}</p>
-      </div>
+      </Alert>
     );
 
     if (status === 'Success') {
       section = (
-        <div className='alert alert--error'>
+        <Alert type='error'>
           No options available.
-        </div>
+        </Alert>
       );
 
       if (options.length) {

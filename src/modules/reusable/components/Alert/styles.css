@@ -1,0 +1,28 @@
+.alert {
+  background: var(--search-color-blue-100);
+  border-bottom: solid 1px var(--search-color-blue-300);
+  color: var(--search-color-blue-500);
+  padding: 0.75rem 1.5rem;
+}
+
+.alert--error {
+  background: var(--search-color-red-100);
+  border-color: var(--search-color-red-200);
+  color: var(--search-color-red-300);
+}
+
+.alert--success {
+  background: var(--search-color-green-100);
+  border-color: var(--search-color-green-200);
+  color: var(--search-color-green-300);
+}
+
+.alert--warning {
+  background: var(--search-color-orange-100);
+  border-color: var(--search-color-orange-200);
+  color: var(--search-color-orange-300);
+}
+
+.alert a {
+  color: inherit;
+}

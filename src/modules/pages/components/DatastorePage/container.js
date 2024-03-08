@@ -54,6 +54,7 @@ class DatastorePageContainer extends React.Component {
   render () {
     const {
       searching,
+      profile,
       match,
       location,
       isAdvanced,
@@ -102,20 +103,7 @@ class DatastorePageContainer extends React.Component {
                 <>
                   <SearchBox />
                   <DatastoreNavigation {...this.props} />
-                  <div
-                    css={{
-                      marginTop: '-0.75rem',
-                      '.alert-inner': {
-                        display: 'flex',
-                        justifyContent: 'center'
-                      },
-                      ':empty': {
-                        display: 'none'
-                      }
-                    }}
-                  >
-                    <FlintAlerts datastore={activeDatastore.uid} />
-                  </div>
+                  <FlintAlerts datastore={activeDatastore.uid} profile={profile} />
                   <ConnectedSwitch>
                     <Route
                       path={match.url + '/record/:recordUid/get-this/:barcode'}
@@ -172,6 +160,7 @@ class DatastorePageContainer extends React.Component {
 
 DatastorePageContainer.propTypes = {
   match: PropTypes.object,
+  profile: PropTypes.object,
   activeDatastore: PropTypes.object,
   query: PropTypes.string,
   searching: PropTypes.bool,
@@ -287,6 +276,7 @@ function mapStateToProps (state) {
 
   return {
     activeFilters: state.filters.active,
+    profile: state.profile,
     search: state.search,
     searching: state.search.searching,
     query: state.search.query,
