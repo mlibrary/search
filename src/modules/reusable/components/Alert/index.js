@@ -1,22 +1,21 @@
 import React from 'react';
+import './styles.css';
 import PropTypes from 'prop-types';
 
 function Alert ({ type = 'informational', children }) {
   return (
-    <div className={`alert alert--${type}`}>
-      <div className='alert-inner font-small x-spacing'>
-        {children}
-      </div>
+    <div className={`alert alert--${type} font-small`}>
+      {children}
     </div>
   );
 }
 
 Alert.propTypes = {
   type: PropTypes.oneOf([
-    'informational',
     'error',
-    'warning',
-    'success'
+    'informational',
+    'success',
+    'warning'
   ]),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),

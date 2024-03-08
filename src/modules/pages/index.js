@@ -1,13 +1,11 @@
-import IndexPage from './components/IndexPage/';
-import NoMatch from './components/NoMatch/';
-import DatastorePage from './components/DatastorePage/';
-import AccessibilityPage from './components/AccessibilityPage';
 import AboutLibrarySearch from './components/AboutLibrarySearch';
+import AccessibilityPage from './components/AccessibilityPage';
+import DatastorePage from './components/DatastorePage/';
+import NoMatch from './components/NoMatch/';
 
 export {
-  IndexPage,
-  NoMatch,
-  DatastorePage,
+  AboutLibrarySearch,
   AccessibilityPage,
-  AboutLibrarySearch
+  DatastorePage,
+  NoMatch
 };

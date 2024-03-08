@@ -1,5 +1,5 @@
 import React from 'react';
-import { Anchor } from '../../../reusable';
+import { Alert, Anchor } from '../../../reusable';
 import { connect } from 'react-redux';
 import { getField, getFieldValue } from '../../../records/utilities';
 import { placeHold } from '../../../pride';
@@ -141,22 +141,22 @@ class GetThisForm extends React.Component {
     if (response) {
       if (response.status === 'Action Succeeded') {
         return (
-          <article className='alert alert-success'>
+          <Alert type='success'>
             <h4>You have successfully requested this item</h4>
             <ul className='u-margin-bottom-1 margin-left-2'>
               <li>We will email you when it is available for pickup.</li>
               <li>When it is available, we'll hold it for you for 7 days.</li>
             </ul>
             <Anchor href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</Anchor>
-          </article>
+          </Alert>
         );
       } else {
         return (
-          <article className='alert alert-warning'>
+          <Alert type='warning'>
             <h4>The hold/request could not be placed</h4>
             <p><span className='strong'>Status:</span> {response.status}</p>
             <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <Anchor href='mailto:circservices@umich.edu'>circservices@umich.edu</Anchor> or <Anchor href='tel:7347640401'>(734) 764-0401</Anchor> for assistance.</p>
-          </article>
+          </Alert>
         );
       }
     }
@@ -171,17 +171,15 @@ class GetThisForm extends React.Component {
 
     if (!form) {
       return (
-        <div className='alert alert-warning' role='alert'>
+        <Alert type='warning'>
           <p><span className='strong'>Error:</span> Unable to fetch details.</p>
-        </div>
+        </Alert>
       );
     }
 
     return (
       <>
-        <div role='alert'>
-          {this.renderResponse()}
-        </div>
+        {this.renderResponse()}
         {showForm && (
           <form action={form.action} method={form.method} onSubmit={this.handleSubmit}>
             {fields.map((field, key) => {

@@ -1,0 +1,69 @@
+.datastore-nav {
+  background: var(--search-color-grey-100);
+  border-bottom: solid 2px var(--search-color-grey-300);
+  overflow-x: auto;
+}
+
+.datastore-nav ol {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  .datastore-nav ol {
+    flex-direction: row;
+  }
+}
+
+.datastore-nav li + li {
+  border-top: 1px solid var(--search-color-grey-300);
+}
+
+@media (min-width: 600px) {
+  .datastore-nav li + li {
+    border: 0;
+  }
+}
+
+.datastore-nav a {
+  align-items: center;
+  border-color: transparent;
+  border-style: solid;
+  border-left-width: 3px;
+  display: flex;
+  height: 100%;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .datastore-nav a {
+    border-bottom-width: 2px;
+    border-left-width: 0;
+  }
+}
+
+.datastore-nav a:hover {
+  text-decoration: underline;
+}
+
+.datastore-nav a svg {
+  height: auto;
+  width: 1.5em;
+}
+
+.datastore-nav a[aria-current="page"] {
+  border-color: inherit;
+}
+
+.datastore-nav a:not([aria-current="page"]) {
+  color: var(--search-color-grey-700);
+}
+
+.datastore-nav a:not([aria-current="page"]) svg {
+  color: var(--search-color-grey-400);
+}

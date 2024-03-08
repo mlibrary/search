@@ -54,6 +54,7 @@ class DatastorePageContainer extends React.Component {
   render () {
     const {
       searching,
+      profile,
       match,
       location,
       isAdvanced,
@@ -101,21 +102,8 @@ class DatastorePageContainer extends React.Component {
               return (
                 <>
                   <SearchBox />
-                  <DatastoreNavigation />
-                  <div
-                    css={{
-                      marginTop: '-0.75rem',
-                      '.alert-inner': {
-                        display: 'flex',
-                        justifyContent: 'center'
-                      },
-                      ':empty': {
-                        display: 'none'
-                      }
-                    }}
-                  >
-                    <FlintAlerts datastore={activeDatastore.uid} />
-                  </div>
+                  <DatastoreNavigation {...this.props} />
+                  <FlintAlerts datastore={activeDatastore.uid} profile={profile} />
                   <ConnectedSwitch>
                     <Route
                       path={match.url + '/record/:recordUid/get-this/:barcode'}
@@ -133,8 +121,8 @@ class DatastorePageContainer extends React.Component {
                     <Route
                       path={match.url + '/list'}
                       exact
-                      render={(props) => {
-                        return <List />;
+                      render={() => {
+                        return <List {...this.props} />;
                       }}
                     />
                     <Route
@@ -172,6 +160,7 @@ class DatastorePageContainer extends React.Component {
 
 DatastorePageContainer.propTypes = {
   match: PropTypes.object,
+  profile: PropTypes.object,
   activeDatastore: PropTypes.object,
   query: PropTypes.string,
   searching: PropTypes.bool,
@@ -283,19 +272,24 @@ Results.propTypes = {
 };
 
 function mapStateToProps (state) {
-  const activeFilters = state.filters.active[state.datastores.active];
+  const currentDatastore = state.datastores.active;
+  const currentFilters = state.filters.active[currentDatastore];
 
   return {
+    activeFilters: state.filters.active,
+    profile: state.profile,
+    search: state.search,
     searching: state.search.searching,
     query: state.search.query,
     datastores: state.datastores,
     activeDatastore: findWhere(state.datastores.datastores, {
-      uid: state.datastores.active
+      uid: currentDatastore
     }),
     location: state.router.location,
-    isAdvanced: !!state.advanced[state.datastores.active],
-    activeFilterCount: activeFilters ? Object.keys(activeFilters).length : 0,
-    institution: state.institution
+    isAdvanced: !!state.advanced[currentDatastore],
+    activeFilterCount: currentFilters ? Object.keys(currentFilters).length : 0,
+    institution: state.institution,
+    list: state.lists[currentDatastore]
   };
 }
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Alert, Anchor } from '../../../reusable';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function FlintAlerts ({ datastore, profile }) {
@@ -23,13 +22,22 @@ function FlintAlerts ({ datastore, profile }) {
 
   return (
     <Alert type='warning'>
-      <span>{messages[datastore]}</span>
-      <button
-        className='btn btn--small btn--secondary no-background'
-        onClick={handleDismissClick}
+      <div
+        style={{
+          alignItems: 'center',
+          display: 'flex',
+          gap: '1rem',
+          justifyContent: 'center'
+        }}
       >
-        Dismiss
-      </button>
+        <span>{messages[datastore]}</span>
+        <button
+          className='btn btn--small btn--secondary no-background'
+          onClick={handleDismissClick}
+        >
+          Dismiss
+        </button>
+      </div>
     </Alert>
   );
 }
@@ -39,8 +47,4 @@ FlintAlerts.propTypes = {
   datastore: PropTypes.string
 };
 
-export default connect((state) => {
-  return {
-    profile: state.profile
-  };
-})(FlintAlerts);
+export default FlintAlerts;
