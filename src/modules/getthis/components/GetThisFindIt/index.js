@@ -1,62 +1,36 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { ResourceAccess } from '../../../reusable';
 import getHoldingByBarcode from '../../getHoldingByBarcode';
 import { StyledGetThisResourceAccessContainer } from '../GetThisRecord';
-import PropTypes from 'prop-types';
 
-function GetThisFindItHolding ({ holding }) {
-  return (
-    <div>
-      <p style={{ marginTop: '0' }}>Use this information to find it:</p>
+const GetThisFindIt = () => {
+  const { barcode } = useParams();
+  const record = useSelector((state) => {
+    return state.records.record;
+  });
 
-      <StyledGetThisResourceAccessContainer>
-        <ResourceAccess
-          {...holding[0]}
-          renderAnchor={() => {
-            return null;
-          }}
-        />
-      </StyledGetThisResourceAccessContainer>
-    </div>
-  );
-}
+  if (!record.resourceAccess) return null;
 
-GetThisFindItHolding.propTypes = {
-  holding: PropTypes.array
-};
+  const holding = getHoldingByBarcode(record.resourceAccess, barcode);
 
-class GetThisFindIt extends React.Component {
-  render () {
-    const { record } = this.props;
-    const { barcode } = this.props.match.params;
+  if (holding) {
+    return (
+      <>
+        <p className='u-margin-top-none'>Use this information to find it:</p>
 
-    if (record.resourceAccess) {
-      const holding = getHoldingByBarcode(record.resourceAccess, barcode);
-
-      if (holding) {
-        return (
-          <GetThisFindItHolding
-            holding={holding}
+        <StyledGetThisResourceAccessContainer>
+          <ResourceAccess
+            {...holding[0]}
+            renderAnchor={() => {
+              return null;
+            }}
           />
-        );
-      }
-    }
-
-    return null;
+        </StyledGetThisResourceAccessContainer>
+      </>
+    );
   }
-}
-
-GetThisFindIt.propTypes = {
-  record: PropTypes.object,
-  match: PropTypes.object
 };
 
-function mapStateToProps (state) {
-  return {
-    record: state.records.record
-  };
-}
-
-export default withRouter(connect(mapStateToProps)(GetThisFindIt));
+export default GetThisFindIt;
