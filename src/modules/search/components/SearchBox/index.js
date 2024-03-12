@@ -7,10 +7,12 @@ import { Anchor, Icon } from '../../../reusable';
 import qs from 'qs';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 
-function SearchBox ({ history, match, location }) {
+function SearchBox () {
+  const history = useHistory();
+  const params = useParams();
+  const location = useLocation();
   const { query } = useSelector((state) => {
     return state.search;
   });
@@ -95,7 +97,7 @@ function SearchBox ({ history, match, location }) {
     // Set new URL
     const newURL = qs.stringify({
       // Preserve existing URL's tate
-      ...qs.parse(document.location.search.substring(1), { allowDots: true }),
+      ...qs.parse(location.search?.substring(1), { allowDots: true }),
       // If new search, return the first page
       page: undefined,
       // Add new query
@@ -111,7 +113,7 @@ function SearchBox ({ history, match, location }) {
     if (browseOption) {
       let href = 'https://browse.workshop.search.lib.umich.edu';
       if (window.location.hostname === 'search.lib.umich.edu') {
-        href = `/${match.params.datastoreSlug}/browse`;
+        href = `/${params.datastoreSlug}/browse`;
       }
       if (window.location.hostname === 'localhost') {
         href = 'http://localhost:4567';
@@ -121,7 +123,7 @@ function SearchBox ({ history, match, location }) {
       // Do not submit if query remains unchanged
       if (query === newQuery) return;
       // Submit new search
-      history.push(`/${match.params.datastoreSlug}?${newURL}`);
+      history.push(`/${params.datastoreSlug}?${newURL}`);
     }
   }
 
@@ -281,7 +283,7 @@ function SearchBox ({ history, match, location }) {
           </button>
           {isAdvanced && (
             <Anchor
-              to={`/${match.params.datastoreSlug}/advanced${location.search}`}
+              to={`/${params.datastoreSlug}/advanced${location.search}`}
               css={{
                 alignSelf: 'center',
                 fontWeight: '600',
@@ -306,10 +308,4 @@ function SearchBox ({ history, match, location }) {
   );
 }
 
-SearchBox.propTypes = {
-  history: PropTypes.object,
-  match: PropTypes.object,
-  location: PropTypes.object
-};
-
-export default withRouter(SearchBox);
+export default SearchBox;
