@@ -1,34 +1,50 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import Record from '../Record';
 import KeywordSwitch from '../KeywordSwitch';
 import { Anchor } from '../../../reusable';
-import { findWhere } from '../../../reusable/underscore';
 import Sorts from '../Sorts';
 import RecordPlaceholder from '../RecordPlaceholder';
 import { SearchResultsMessage } from '../../../search';
 import { ResultsSummary } from '../../../records';
 import { Specialists } from '../../../specialists';
 import { GoToList } from '../../../lists';
-import PropTypes from 'prop-types';
+import { findWhere } from '../../../reusable/underscore';
 
-function RecordListContainer (props) {
-  const {
-    activeFilters,
-    activeRecords,
-    datastore,
-    datastoreUid,
-    institution,
-    list,
-    loadingRecords,
-    search,
-    searchQuery
-  } = props;
+function RecordListContainer () {
+  const history = useHistory();
+  const location = useLocation();
+  const searchQuery = location.search;
 
-  const pageNumber = search.page[datastoreUid] || 1;
+  const activeDatastore = useSelector((state) => {
+    return state.datastores.active;
+  });
+  const activeRecords = useSelector((state) => {
+    return state.records.records[activeDatastore] || [];
+  });
+  const activeFilters = useSelector((state) => {
+    return state.filters.active[activeDatastore];
+  });
+  const datastore = useSelector((state) => {
+    return findWhere(state.datastores.datastores, { uid: activeDatastore });
+  });
+  const loadingRecords = useSelector((state) => {
+    return state.records.loading[activeDatastore];
+  });
+  const list = useSelector((state) => {
+    return state.lists[activeDatastore];
+  });
+  const institution = useSelector((state) => {
+    return state.institution;
+  });
+  const search = useSelector((state) => {
+    return state.search;
+  });
 
-  if (search.data[datastoreUid] && search.data[datastoreUid].totalAvailable === 0) {
+  const pageNumber = search.page[activeDatastore] || 1;
+
+  if (search.data[activeDatastore] && search.data[activeDatastore].totalAvailable === 0) {
     return (
       <div id='search-results'>
         <div className='results-summary-container'>
@@ -52,12 +68,20 @@ function RecordListContainer (props) {
     );
   }
 
+  const props = {
+    activeFilters,
+    activeDatastore,
+    history,
+    institution,
+    search
+  };
+
   if (loadingRecords) {
     return (
       <div id='search-results'>
         <div className='results-summary-container'>
           <h2 className='results-summary' aria-live='polite'>Loading results for: <span style={{ fontWeight: '600' }}>{search.query}</span></h2>
-          <Sorts {...props} activeFilters={activeFilters} />
+          <Sorts {...props} />
         </div>
         <GoToList list={list} datastore={datastore} />
         <section className='results-list results-list-border'>
@@ -77,7 +101,7 @@ function RecordListContainer (props) {
     return (
       <Record
         record={record}
-        datastoreUid={datastoreUid}
+        datastoreUid={activeDatastore}
         type='medium'
         searchQuery={searchQuery}
         institution={institution}
@@ -90,7 +114,7 @@ function RecordListContainer (props) {
     <>
       <div className='results-summary-container'>
         <ResultsSummary />
-        <Sorts {...props} activeFilters={activeFilters} />
+        <Sorts {...props} />
         <SearchResultsMessage />
       </div>
       <GoToList list={list} datastore={datastore} />
@@ -133,30 +157,4 @@ function RecordListContainer (props) {
   );
 }
 
-RecordListContainer.propTypes = {
-  activeFilters: PropTypes.object,
-  activeRecords: PropTypes.array,
-  datastore: PropTypes.object,
-  datastoreUid: PropTypes.string,
-  institution: PropTypes.object,
-  list: PropTypes.array,
-  loadingRecords: PropTypes.bool,
-  search: PropTypes.object,
-  searchQuery: PropTypes.string
-};
-
-function mapStateToProps (state) {
-  return {
-    activeFilters: state.filters.active[state.datastores.active],
-    activeRecords: state.records.records[state.datastores.active] || [],
-    datastore: findWhere(state.datastores.datastores, { uid: state.datastores.active }),
-    datastoreUid: state.datastores.active,
-    institution: state.institution,
-    list: state.lists[state.datastores.active],
-    loadingRecords: state.records.loading[state.datastores.active],
-    search: state.search,
-    searchQuery: state.router.location.search
-  };
-}
-
-export default withRouter(connect(mapStateToProps)(RecordListContainer));
+export default RecordListContainer;

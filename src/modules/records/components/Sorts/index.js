@@ -5,11 +5,11 @@ import config from '../../../../config';
 import { stringifySearchQueryForURL } from '../../../pride';
 import PropTypes from 'prop-types';
 
-const Sorts = ({ activeFilters, datastoreUid, history, institution, search }) => {
+const Sorts = ({ activeFilters, activeDatastore, history, institution, search }) => {
   const { datastoreSlug } = useParams();
-  const sorts = (config.sorts[datastoreUid]?.sorts || [])
+  const sorts = (config.sorts[activeDatastore]?.sorts || [])
     .map((uid) => {
-      return findWhere(search.data[datastoreUid].sorts, { uid });
+      return findWhere(search.data[activeDatastore].sorts, { uid });
     }).filter((sort) => {
       return sort !== undefined;
     });
@@ -23,7 +23,7 @@ const Sorts = ({ activeFilters, datastoreUid, history, institution, search }) =>
     const queryString = stringifySearchQueryForURL({
       query: search.query,
       filter: activeFilters,
-      library: datastoreUid === 'mirlyn' ? institution.active : undefined,
+      library: activeDatastore === 'mirlyn' ? institution.active : undefined,
       sort: event.target.value
     });
 
@@ -40,7 +40,7 @@ const Sorts = ({ activeFilters, datastoreUid, history, institution, search }) =>
       <select
         id='sort-by'
         className='dropdown sorts-select'
-        value={search.sort[datastoreUid] || sorts[0].uid}
+        value={search.sort[activeDatastore] || sorts[0].uid}
         onChange={handleOnChange}
         autoComplete='off'
       >
@@ -58,7 +58,7 @@ const Sorts = ({ activeFilters, datastoreUid, history, institution, search }) =>
 
 Sorts.propTypes = {
   activeFilters: PropTypes.object,
-  datastoreUid: PropTypes.string,
+  activeDatastore: PropTypes.string,
   history: PropTypes.object,
   institution: PropTypes.object,
   search: PropTypes.object
