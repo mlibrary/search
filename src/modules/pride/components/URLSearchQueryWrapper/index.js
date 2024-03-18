@@ -1,6 +1,6 @@
 import { useEffect, memo } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useParams } from 'react-router-dom';
 import config from '../../../../config';
 import {
   setSearchQuery,
@@ -45,7 +45,7 @@ function handleURLState ({
   const updateRequired = {
     query: urlState.query && urlState.query !== query,
     filters: JSON.stringify(urlState.filter) !== JSON.stringify(activeFilters),
-    page: parseInt(urlState.page, 10) !== page,
+    page: parseInt(urlState.page, 10) !== (page || 1),
     sort: urlState.sort !== sort,
     institution: urlState.library && urlState.library !== institution.active
   };
@@ -99,89 +99,47 @@ function handleURLState ({
   dispatch(searching(Boolean(urlState.query || urlState.filter)));
 }
 
-const URLSearchQueryWrapper = (props) => {
+const URLSearchQueryWrapper = ({ children }) => {
   const dispatch = useDispatch();
-  const {
-    match,
-    isSearching,
-    query,
-    activeFilters,
-    location,
-    page,
-    sort,
-    institution,
-    children
-  } = props;
+  const location = useLocation();
+  const params = useParams();
+  const datastoreUid = useSelector((state) => {
+    return state.datastores.active;
+  });
+  const { query, page, activeFilters, isSearching, sort, institution } = useSelector((state) => {
+    return {
+      query: state.search.query,
+      page: state.search.page[datastoreUid],
+      activeFilters: state.filters.active[datastoreUid],
+      isSearching: state.search.searching,
+      sort: state.search.sort[datastoreUid],
+      institution: state.institution
+    };
+  });
   useEffect(() => {
-    const datastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug);
+    const datastoreUid = getDatastoreUidBySlug(params.datastoreSlug);
     switchPrideToDatastore(datastoreUid);
 
     handleURLState({
       isSearching,
       query,
-      activeFilters: activeFilters[datastoreUid],
+      activeFilters,
       location,
       datastoreUid,
-      page: page[datastoreUid],
-      sort: sort[datastoreUid],
+      page,
+      sort,
       institution
     }, dispatch);
-  }, [match.params.datastoreSlug, isSearching, query, location.pathname, activeFilters, location, page, sort, institution, dispatch]);
+  }, [params.datastoreSlug, isSearching, query, activeFilters, location, page, sort, institution, dispatch]);
 
   return children;
 };
 
 URLSearchQueryWrapper.propTypes = {
-  match: PropTypes.object,
-  datastoreUid: PropTypes.string,
-  isSearching: PropTypes.bool,
-  query: PropTypes.string,
-  activeFilters: PropTypes.object,
-  location: PropTypes.object,
-  page: PropTypes.object,
-  sort: PropTypes.object,
-  institution: PropTypes.object,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ])
 };
 
-const mapStateToProps = (state) => {
-  return {
-    query: state.search.query,
-    page: state.search.page,
-    activeFilters: state.filters.active,
-    location: state.router.location,
-    datastoreUid: state.datastores.active,
-    isSearching: state.search.searching,
-    institution: state.institution,
-    sort: state.search.sort
-  };
-};
-
-const mapDispatchToProps = {
-  setSearchQuery,
-  setSearchQueryInput,
-  setActiveFilters,
-  clearActiveFilters,
-  resetFilters,
-  searching,
-  setPage,
-  setSort,
-  setActiveInstitution,
-  setA11yMessage,
-  setParserMessage,
-  setActiveAffiliation
-};
-
-function getURLPath (props) {
-  return props.location.pathname + props.location.search;
-}
-
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(memo(URLSearchQueryWrapper, (prevProps, nextProps) => {
-  return getURLPath(nextProps) === getURLPath(prevProps);
-})));
+export default memo(URLSearchQueryWrapper);
