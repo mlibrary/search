@@ -9,10 +9,8 @@ import {
   searching,
   setPage,
   setSort,
-  resetSort,
   setParserMessage
 } from '../../../search/actions';
-import { loadingRecords } from '../../../records';
 import {
   resetFilters,
   setActiveFilters,
@@ -24,7 +22,6 @@ import {
   switchPrideToDatastore,
   getDatastoreUidBySlug
 } from '../../../pride';
-import { changeActiveDatastore } from '../../../datastores';
 import { setActiveInstitution } from '../../../institution';
 import { setA11yMessage } from '../../../a11y';
 import { affiliationCookieSetter, setActiveAffilitation } from '../../../affiliation';
@@ -197,11 +194,8 @@ export default withRouter(
         clearActiveFilters,
         resetFilters,
         searching,
-        loadingRecords,
-        changeActiveDatastore,
         setPage,
         setSort,
-        resetSort,
         setActiveInstitution,
         setA11yMessage,
         setParserMessage,
