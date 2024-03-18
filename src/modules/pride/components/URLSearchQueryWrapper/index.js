@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, memo } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
@@ -100,61 +100,36 @@ function handleURLState ({
   props.searching(Boolean(urlState.query || urlState.filter));
 }
 
-function getURLPath (props) {
-  return props.location.pathname + props.location.search;
-}
-
-class URLSearchQueryWrapper extends React.Component {
-  componentDidMount () {
-    const datastoreUid = getDatastoreUidBySlug(
-      this.props.match.params.datastoreSlug
-    );
-
+const URLSearchQueryWrapper = (props) => {
+  const {
+    match,
+    isSearching,
+    query,
+    activeFilters,
+    location,
+    page,
+    sort,
+    institution,
+    children
+  } = props;
+  useEffect(() => {
+    const datastoreUid = getDatastoreUidBySlug(match.params.datastoreSlug);
     switchPrideToDatastore(datastoreUid);
 
     handleURLState({
-      isSearching: this.props.isSearching,
-      query: this.props.query,
-      activeFilters: this.props.activeFilters[datastoreUid],
-      location: this.props.location,
+      isSearching,
+      query,
+      activeFilters: activeFilters[datastoreUid],
+      location,
       datastoreUid,
-      page: this.props.page[datastoreUid],
-      sort: this.props.sort[datastoreUid],
-      institution: this.props.institution
-    }, this.props);
-  }
+      page: page[datastoreUid],
+      sort: sort[datastoreUid],
+      institution
+    }, props);
+  }, [match.params.datastoreSlug, isSearching, query, location.pathname, activeFilters, location, page, sort, institution, props]);
 
-  shouldComponentUpdate (nextProps) {
-    const locationsDoNotMatch = getURLPath(nextProps) !== getURLPath(this.props);
-
-    if (locationsDoNotMatch) {
-      const datastoreUid = getDatastoreUidBySlug(
-        nextProps.match.params.datastoreSlug
-      );
-
-      if (this.props.datastoreUid !== datastoreUid) {
-        switchPrideToDatastore(datastoreUid);
-      }
-
-      handleURLState({
-        isSearching: nextProps.isSearching,
-        query: nextProps.query,
-        activeFilters: nextProps.activeFilters[datastoreUid],
-        location: nextProps.location,
-        datastoreUid,
-        page: nextProps.page[datastoreUid],
-        sort: nextProps.sort[datastoreUid],
-        institution: nextProps.institution
-      }, nextProps);
-    }
-
-    return locationsDoNotMatch;
-  }
-
-  render () {
-    return this.props.children;
-  }
-}
+  return children;
+};
 
 URLSearchQueryWrapper.propTypes = {
   match: PropTypes.object,
@@ -172,36 +147,43 @@ URLSearchQueryWrapper.propTypes = {
   ])
 };
 
-export default withRouter(
-  connect((state) => {
-    return {
-      query: state.search.query,
-      page: state.search.page,
-      f: state.filters.active,
-      activeFilters: state.filters.active,
-      location: state.router.location,
-      datastoreUid: state.datastores.active,
-      isSearching: state.search.searching,
-      institution: state.institution,
-      sort: state.search.sort
-    };
-  }, (dispatch) => {
-    return bindActionCreators(
-      {
-        setSearchQuery,
-        setSearchQueryInput,
-        setActiveFilters,
-        clearActiveFilters,
-        resetFilters,
-        searching,
-        setPage,
-        setSort,
-        setActiveInstitution,
-        setA11yMessage,
-        setParserMessage,
-        setActiveAffiliation
-      },
-      dispatch
-    );
-  })(URLSearchQueryWrapper)
-);
+const mapStateToProps = (state) => {
+  return {
+    query: state.search.query,
+    page: state.search.page,
+    activeFilters: state.filters.active,
+    location: state.router.location,
+    datastoreUid: state.datastores.active,
+    isSearching: state.search.searching,
+    institution: state.institution,
+    sort: state.search.sort
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    setSearchQuery,
+    setSearchQueryInput,
+    setActiveFilters,
+    clearActiveFilters,
+    resetFilters,
+    searching,
+    setPage,
+    setSort,
+    setActiveInstitution,
+    setA11yMessage,
+    setParserMessage,
+    setActiveAffiliation
+  }, dispatch);
+};
+
+function getURLPath (props) {
+  return props.location.pathname + props.location.search;
+}
+
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(memo(URLSearchQueryWrapper, (prevProps, nextProps) => {
+  return getURLPath(nextProps) === getURLPath(prevProps);
+})));
