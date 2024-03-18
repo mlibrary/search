@@ -40,140 +40,67 @@ function handleURLState ({
   institution
 }, props) {
   const urlState = getStateFromURL({ location });
-  let shouldRunSearch = false;
+
   props.setActiveAffilitation(urlState.affiliation);
   affiliationCookieSetter(urlState.affiliation);
 
-  if (datastoreUid) {
-    // URL has state
-    if (Object.keys(urlState).length > 0) {
-      // Query
-      if (urlState.query && urlState.query !== query) {
-        props.setSearchQuery(urlState.query);
-        props.setSearchQueryInput(urlState.query);
+  if (!datastoreUid) return null;
 
-        shouldRunSearch = true;
-      } else if (!urlState.query && query) {
-        props.setSearchQuery('');
-        props.setSearchQueryInput('');
-      }
+  const updateRequired = {
+    query: urlState.query && urlState.query !== query,
+    filters: JSON.stringify(urlState.filter) !== JSON.stringify(activeFilters),
+    page: parseInt(urlState.page, 10) !== page,
+    sort: urlState.sort !== sort,
+    institution: urlState.library && urlState.library !== institution.active
+  };
 
-      // Filters
-      if (JSON.stringify(urlState.filter) !== JSON.stringify(activeFilters)) {
-        if (urlState.filter) {
-          props.setActiveFilters({
-            datastoreUid,
-            filters: urlState.filter
-          });
-        } else {
-          props.clearActiveFilters({
-            datastoreUid
-          });
-        }
-        shouldRunSearch = true;
-      }
-
-      // Page
-      const urlStatePage = parseInt(urlState.page, 10);
-      if (urlStatePage && urlStatePage !== page) {
-        props.setPage({
-          page: urlStatePage,
-          datastoreUid
-        });
-
-        shouldRunSearch = true;
-      } else if (page && !urlStatePage && page !== 1) {
-        props.setPage({
-          page: 1,
-          datastoreUid
-        });
-
-        shouldRunSearch = true;
-      }
-
-      // Sort
-      if (urlState.sort !== sort) {
-        // Set sort to URL
-        if (urlState.sort) {
-          props.setSort({
-            sort: urlState.sort,
-            datastoreUid
-          });
-
-          shouldRunSearch = true;
-
-          // if no URL state
-        } else {
-          const configuredDefaultSort = config.sorts[datastoreUid].default;
-
-          // Sort should be set to default
-          if (sort !== configuredDefaultSort) {
-            props.setSort({
-              sort: configuredDefaultSort,
-              datastoreUid
-            });
-
-            shouldRunSearch = true;
-          }
-        }
-      }
-
-      // library aka institution
-      if (urlState.library && urlState.library !== institution.active) {
-        props.setActiveInstitution(urlState.library);
-
-        /*
-          Users can change their library, but that does not trigger a search.
-        */
-        const hasMoreThanLibraryInUrlState =
-          Object.keys(urlState).filter((key) => {
-            return key !== 'library';
-          }).length > 0;
-
-        if (hasMoreThanLibraryInUrlState) {
-          shouldRunSearch = true;
-        }
-      }
-
-      if (shouldRunSearch) {
-        props.setA11yMessage('Search modified.');
-        props.setParserMessage(null);
-        runSearch();
-      }
-    } else {
-      // URL does not have state,
-      props.resetFilters();
-
-      /*
-        You shouldn't do this in React, but this is being asked
-        and better than handling a ref across concerns
-      */
-      const el = document.getElementById('search-query');
-      if (el) {
-        el.value = '';
-      }
-
-      // Reset query
-      if (query.length > 0) {
-        props.setSearchQuery('');
-      }
+  // Run search and apply updates based on changes
+  if (Object.values(updateRequired).some(Boolean)) {
+    if (updateRequired.query) {
+      const newQuery = urlState.query || '';
+      props.setSearchQuery(newQuery);
+      props.setSearchQueryInput(newQuery);
     }
 
-    /*
-      Deciding when the UI should be in a "Searching" state.
-      Searching state will show results instead of the
-      landing page datastore information.
-
-      Criteria to be in a "Searching" state.
-        1. URL contains a query, or
-        2. URL contains a filter.
-    */
-    if (urlState.query || urlState.filter) {
-      props.searching(true);
-    } else {
-      props.searching(false);
+    if (updateRequired.filters) {
+      const actionProps = {
+        datastoreUid,
+        filters: urlState.filter || null
+      };
+      urlState.filter ? props.setActiveFilters(actionProps) : props.clearActiveFilters(actionProps);
     }
+
+    if (updateRequired.page) {
+      props.setPage({
+        page: urlState.page ? parseInt(urlState.page, 10) : 1,
+        datastoreUid
+      });
+    }
+
+    if (updateRequired.sort) {
+      props.setSort({
+        sort: urlState.sort || config.sorts[datastoreUid].default,
+        datastoreUid
+      });
+    }
+
+    if (updateRequired.institution) {
+      props.setActiveInstitution(urlState.library);
+    }
+
+    props.setA11yMessage('Search modified.');
+    props.setParserMessage(null);
+    runSearch();
   }
+
+  // If URL does not have a state, reset the filters and the query
+  if (!Object.keys(urlState).length) {
+    props.resetFilters();
+    props.setSearchQuery('');
+  }
+
+  // Decide if the UI should be in a "Searching" state based on URL having query or filter
+  props.searching(Boolean(urlState.query || urlState.filter));
 }
 
 function getURLPath (props) {
