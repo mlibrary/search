@@ -124,6 +124,7 @@ const URLSearchQueryWrapper = ({ children }) => {
   const institution = useSelector((state) => {
     return state.institution;
   });
+
   useEffect(() => {
     const datastoreUid = getDatastoreUidBySlug(params.datastoreSlug);
     switchPrideToDatastore(datastoreUid);
