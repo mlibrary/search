@@ -1,6 +1,5 @@
 import { useEffect, memo } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { connect, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import config from '../../../../config';
 import {
@@ -35,10 +34,10 @@ function handleURLState ({
   sort,
   location,
   institution
-}, props) {
+}, dispatch) {
   const urlState = getStateFromURL({ location });
 
-  props.setActiveAffiliation(urlState.affiliation);
+  dispatch(setActiveAffiliation(urlState.affiliation));
   affiliationCookieSetter(urlState.affiliation);
 
   if (!datastoreUid) return null;
@@ -55,8 +54,8 @@ function handleURLState ({
   if (Object.values(updateRequired).some(Boolean)) {
     if (updateRequired.query) {
       const newQuery = urlState.query || '';
-      props.setSearchQuery(newQuery);
-      props.setSearchQueryInput(newQuery);
+      dispatch(setSearchQuery(newQuery));
+      dispatch(setSearchQueryInput(newQuery));
     }
 
     if (updateRequired.filters) {
@@ -64,43 +63,44 @@ function handleURLState ({
         datastoreUid,
         filters: urlState.filter || null
       };
-      urlState.filter ? props.setActiveFilters(actionProps) : props.clearActiveFilters(actionProps);
+      dispatch(urlState.filter ? setActiveFilters(actionProps) : clearActiveFilters(actionProps));
     }
 
     if (updateRequired.page) {
-      props.setPage({
+      dispatch(setPage({
         page: urlState.page ? parseInt(urlState.page, 10) : 1,
         datastoreUid
-      });
+      }));
     }
 
     if (updateRequired.sort) {
-      props.setSort({
+      dispatch(setSort({
         sort: urlState.sort || config.sorts[datastoreUid].default,
         datastoreUid
-      });
+      }));
     }
 
     if (updateRequired.institution) {
-      props.setActiveInstitution(urlState.library);
+      dispatch(setActiveInstitution(urlState.library));
     }
 
-    props.setA11yMessage('Search modified.');
-    props.setParserMessage(null);
+    dispatch(setA11yMessage('Search modified.'));
+    dispatch(setParserMessage(null));
     runSearch();
   }
 
   // If URL does not have a state, reset the filters and the query
   if (!Object.keys(urlState).length) {
-    props.resetFilters();
-    props.setSearchQuery('');
+    dispatch(resetFilters());
+    dispatch(setSearchQuery(''));
   }
 
   // Decide if the UI should be in a "Searching" state based on URL having query or filter
-  props.searching(Boolean(urlState.query || urlState.filter));
+  dispatch(searching(Boolean(urlState.query || urlState.filter)));
 }
 
 const URLSearchQueryWrapper = (props) => {
+  const dispatch = useDispatch();
   const {
     match,
     isSearching,
@@ -125,8 +125,8 @@ const URLSearchQueryWrapper = (props) => {
       page: page[datastoreUid],
       sort: sort[datastoreUid],
       institution
-    }, props);
-  }, [match.params.datastoreSlug, isSearching, query, location.pathname, activeFilters, location, page, sort, institution, props]);
+    }, dispatch);
+  }, [match.params.datastoreSlug, isSearching, query, location.pathname, activeFilters, location, page, sort, institution, dispatch]);
 
   return children;
 };
@@ -160,21 +160,19 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    setSearchQuery,
-    setSearchQueryInput,
-    setActiveFilters,
-    clearActiveFilters,
-    resetFilters,
-    searching,
-    setPage,
-    setSort,
-    setActiveInstitution,
-    setA11yMessage,
-    setParserMessage,
-    setActiveAffiliation
-  }, dispatch);
+const mapDispatchToProps = {
+  setSearchQuery,
+  setSearchQueryInput,
+  setActiveFilters,
+  clearActiveFilters,
+  resetFilters,
+  searching,
+  setPage,
+  setSort,
+  setActiveInstitution,
+  setA11yMessage,
+  setParserMessage,
+  setActiveAffiliation
 };
 
 function getURLPath (props) {
