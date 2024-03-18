@@ -24,7 +24,7 @@ import {
 } from '../../../pride';
 import { setActiveInstitution } from '../../../institution';
 import { setA11yMessage } from '../../../a11y';
-import { affiliationCookieSetter, setActiveAffilitation } from '../../../affiliation';
+import { affiliationCookieSetter, setActiveAffiliation } from '../../../affiliation';
 import PropTypes from 'prop-types';
 
 function handleURLState ({
@@ -38,7 +38,7 @@ function handleURLState ({
 }, props) {
   const urlState = getStateFromURL({ location });
 
-  props.setActiveAffilitation(urlState.affiliation);
+  props.setActiveAffiliation(urlState.affiliation);
   affiliationCookieSetter(urlState.affiliation);
 
   if (!datastoreUid) return null;
@@ -199,7 +199,7 @@ export default withRouter(
         setActiveInstitution,
         setA11yMessage,
         setParserMessage,
-        setActiveAffilitation
+        setActiveAffiliation
       },
       dispatch
     );

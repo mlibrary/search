@@ -1,6 +1,6 @@
 import ChooseAffiliation from './components/choose-affiliation';
 import affiliationReducer from './reducer';
-import { setDefaultAffiliation, setActiveAffilitation } from './actions';
+import { setDefaultAffiliation, setActiveAffiliation } from './actions';
 
 export function affiliationCookieSetter (affiliation) {
   if (affiliation) {
@@ -12,5 +12,5 @@ export {
   ChooseAffiliation,
   affiliationReducer,
   setDefaultAffiliation,
-  setActiveAffilitation
+  setActiveAffiliation
 };
