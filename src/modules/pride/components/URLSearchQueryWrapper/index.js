@@ -106,15 +106,23 @@ const URLSearchQueryWrapper = ({ children }) => {
   const datastoreUid = useSelector((state) => {
     return state.datastores.active;
   });
-  const { query, page, activeFilters, isSearching, sort, institution } = useSelector((state) => {
-    return {
-      query: state.search.query,
-      page: state.search.page[datastoreUid],
-      activeFilters: state.filters.active[datastoreUid],
-      isSearching: state.search.searching,
-      sort: state.search.sort[datastoreUid],
-      institution: state.institution
-    };
+  const query = useSelector((state) => {
+    return state.search.query;
+  });
+  const page = useSelector((state) => {
+    return state.search.page[datastoreUid];
+  });
+  const activeFilters = useSelector((state) => {
+    return state.filters.active[datastoreUid];
+  });
+  const isSearching = useSelector((state) => {
+    return state.search.searching;
+  });
+  const sort = useSelector((state) => {
+    return state.search.sort[datastoreUid];
+  });
+  const institution = useSelector((state) => {
+    return state.institution;
   });
   useEffect(() => {
     const datastoreUid = getDatastoreUidBySlug(params.datastoreSlug);
