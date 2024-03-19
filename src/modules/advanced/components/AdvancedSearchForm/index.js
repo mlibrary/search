@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Icon, Alert } from '../../../reusable';
 import FieldInput from '../FieldInput';
 import FiltersContainer from '../FiltersContainer';
@@ -13,7 +13,7 @@ import {
 import PropTypes from 'prop-types';
 
 function AdvancedSearchForm (props) {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
 
@@ -111,15 +111,14 @@ function AdvancedSearchForm (props) {
         library
       });
 
-      const url = `/${datastore.slug}?${queryString}`;
-      history.push(url);
+      navigate(`/${datastore.slug}?${queryString}`);
     } else {
       setErrors([
         'A search term or option is required to submit an advanced search.'
       ]);
       window.scrollTo(0, 0);
     }
-  }, [history, institution, booleanTypes, fieldedSearches, activeFilters, datastore]);
+  }, [navigate, institution, booleanTypes, fieldedSearches, activeFilters, datastore]);
 
   return (
     <form className='y-spacing' onSubmit={handleSubmit}>

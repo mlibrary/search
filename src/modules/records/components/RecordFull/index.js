@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
 import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import ResourceAccess from '../../../resource-acccess';
@@ -31,7 +31,7 @@ const FullRecord = () => {
   const [activeAction, setActiveAction] = useState('');
 
   const params = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const record = useSelector((state) => {
     return state.records.record;
@@ -61,12 +61,12 @@ const FullRecord = () => {
       if (record.uid !== recordUid) {
         if (datastoreUid === 'mirlyn' && recordUid.length === 9) {
           // treat as an aleph id
-          history.push(`/catalog/record/${record.uid}`);
+          navigate(`/catalog/record/${record.uid}`);
         } else if (datastoreUid === 'onlinejournals' && recordUid.length === 9) {
           // treat as an aleph id
-          history.push(`/onlinejournals/record/${record.uid}`);
+          navigate(`/onlinejournals/record/${record.uid}`);
         } else if (record.alt_ids.includes(recordUid)) {
-          history.push(`/${datastore.slug}/record/${record.uid}`);
+          navigate(`/${datastore.slug}/record/${record.uid}`);
         } else {
           requestRecord({ recordUid, datastoreUid });
         }
@@ -82,7 +82,7 @@ const FullRecord = () => {
         activeDatastore.name
       ]);
     }
-  }, [record, recordUid, datastores, history, datastore.slug, datastoreUid]);
+  }, [record, recordUid, datastores, navigate, datastore.slug, datastoreUid]);
 
   if (!record) {
     return (

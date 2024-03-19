@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createSelector } from '@reduxjs/toolkit';
 import { stringifySearchQueryForURL } from '../../../pride';
 import PropTypes from 'prop-types';
@@ -18,7 +18,7 @@ const InstitutionSelect = ({ activeDatastore, institution }) => {
       return { activeFilters, searchQuery };
     }
   ));
-  const history = useHistory();
+  const navigate = useNavigate();
 
   if (uid !== 'mirlyn') {
     return null;
@@ -33,7 +33,7 @@ const InstitutionSelect = ({ activeDatastore, institution }) => {
       library: event.target.value
     });
 
-    history.push(`/${slug}?${queryString}`);
+    navigate(`/${slug}?${queryString}`);
   };
 
   return (

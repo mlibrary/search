@@ -7,10 +7,10 @@ import { Anchor, Icon } from '../../../reusable';
 import qs from 'qs';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 function SearchBox () {
-  const history = useHistory();
+  const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
   const { query } = useSelector((state) => {
@@ -123,7 +123,7 @@ function SearchBox () {
       // Do not submit if query remains unchanged
       if (query === newQuery) return;
       // Submit new search
-      history.push(`/${params.datastoreSlug}?${newURL}`);
+      navigate(`/${params.datastoreSlug}?${newURL}`);
     }
   }
 
