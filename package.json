@@ -22,9 +22,7 @@
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.2.1",
     "citeproc": "^2.4.63",
-    "connected-react-router": "^6.9.3",
     "core-js": "^3.36.0",
-    "history": "^4.10.1",
     "jsonschema": "^1.4.1",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
     "pride": "git+https://github.com/mlibrary/pride.git",
@@ -45,11 +43,6 @@
   "overrides": {
     "@redux-devtools/extension": {
       "redux": "^3.1.0 || ^4.0.0 || ^5.0.0"
-    },
-    "connected-react-router": {
-      "react": "^16.4.0 || ^17.0.0 || ^18.0.0",
-      "react-redux": "^6.0.0 || ^7.1.0 || ^8.0.0 || ^9.0.0",
-      "redux": "^3.6.0 || ^4.0.0 || ^5.0.0"
     },
     "jsdom": "latest",
     "rollup-plugin-terser": "npm:@rollup/plugin-terser@latest",
