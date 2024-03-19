@@ -33,8 +33,7 @@ const ConnectedRoutes = connect(mapStateToProps)(Routes);
 class DatastorePageContainer extends React.Component {
   componentDidMount () {
     // Switch Pride to the appropriate datastore
-    const { datastoreSlug } = this.props.match.params;
-    switchPrideToDatastore(datastoreSlug);
+    switchPrideToDatastore(this.props.datastoreSlug);
   }
 
   componentDidUpdate () {
@@ -100,7 +99,7 @@ class DatastorePageContainer extends React.Component {
             location={location}
             render={() => {
               return (
-                <>
+                <>asdf
                   <SearchBox />
                   <DatastoreNavigation {...this.props} />
                   <FlintAlerts datastore={activeDatastore.uid} profile={profile} />
@@ -159,6 +158,7 @@ class DatastorePageContainer extends React.Component {
 }
 
 DatastorePageContainer.propTypes = {
+  datastoreSlug: PropTypes.string,
   match: PropTypes.object,
   profile: PropTypes.object,
   activeDatastore: PropTypes.object,
