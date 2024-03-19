@@ -84,9 +84,7 @@ function DatastorePageContainer () {
     }
   }, [activeDatastore, query, location.pathname]);
 
-  if (activeDatastore === undefined) {
-    return null;
-  }
+  if (!activeDatastore) return null;
 
   return (
     <main className='main-container'>
