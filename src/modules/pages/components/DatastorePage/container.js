@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { findWhere } from '../../../reusable/underscore';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { NoMatch } from '../../../pages';
 import { SearchBox } from '../../../search';
 import { AdvancedSearch } from '../../../advanced';
@@ -28,7 +28,7 @@ import { setDocumentTitle } from '../../../a11y';
 import PropTypes from 'prop-types';
 import { H1, Icon } from '../../../reusable';
 
-const ConnectedSwitch = connect(mapStateToProps)(Switch);
+const ConnectedRoutes = connect(mapStateToProps)(Routes);
 
 class DatastorePageContainer extends React.Component {
   componentDidMount () {
@@ -69,7 +69,7 @@ class DatastorePageContainer extends React.Component {
 
     return (
       <main className='main-container'>
-        <Switch>
+        <Routes>
           <Route
             path='/:datastoreSlug/browse'
             location={location}
@@ -104,7 +104,7 @@ class DatastorePageContainer extends React.Component {
                   <SearchBox />
                   <DatastoreNavigation {...this.props} />
                   <FlintAlerts datastore={activeDatastore.uid} profile={profile} />
-                  <ConnectedSwitch>
+                  <ConnectedRoutes>
                     <Route
                       path={match.url + '/record/:recordUid/get-this/:barcode'}
                       render={(props) => {
@@ -147,12 +147,12 @@ class DatastorePageContainer extends React.Component {
                         );
                       }}
                     />
-                  </ConnectedSwitch>
+                  </ConnectedRoutes>
                 </>
               );
             }}
           />
-        </Switch>
+        </Routes>
       </main>
     );
   }

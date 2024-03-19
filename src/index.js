@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { connect, Provider } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Routes, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import './stylesheets/colors.css';
 import './stylesheets/main.css';
@@ -28,9 +28,9 @@ import { A11yLiveMessage } from './modules/a11y';
 import PropTypes from 'prop-types';
 
 /*
- * Connected Switch: Quirk/Bugfix
+ * Connected Routes: Quirk/Bugfix
  *
- * Why does it help to connect Switch?
+ * Why does it help to connect Routes?
  * Because it passes down the location prop which
  * is then used by Route instead of context.
  *
@@ -40,7 +40,7 @@ import PropTypes from 'prop-types';
 const mapStateToProps = (state) => {
   return { location: state.router.location };
 };
-const ConnectedSwitch = connect(mapStateToProps)(Switch);
+const ConnectedRoutes = connect(mapStateToProps)(Routes);
 
 function App () {
   return (
@@ -50,7 +50,7 @@ function App () {
         <ConnectedRouter history={history}>
           <ScrollToTop />
           <SearchHeader />
-          <ConnectedSwitch>
+          <ConnectedRoutes>
             <Route
               path='/librarywebsite'
               render={({ location }) => {
@@ -101,7 +101,7 @@ function App () {
               }}
             />
             <Route component={NoMatch} />
-          </ConnectedSwitch>
+          </ConnectedRoutes>
           <Footer />
         </ConnectedRouter>
       </div>
