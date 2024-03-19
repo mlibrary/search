@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { connect, Provider } from 'react-redux';
-import { Route, Routes, Redirect } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import './stylesheets/colors.css';
 import './stylesheets/main.css';
@@ -55,7 +55,7 @@ function App () {
               path='/librarywebsite'
               render={({ location }) => {
                 return (
-                  <Redirect
+                  <Navigate
                     to={{
                       ...location,
                       pathname: location.pathname.replace(/librarywebsite/, 'guidesandmore')
@@ -68,7 +68,7 @@ function App () {
             <Route
               path='/technical-overview' exact render={() => {
                 return (
-                  <Redirect to='/about-library-search' />
+                  <Navigate to='/about-library-search' />
                 );
               }}
             />
@@ -76,7 +76,7 @@ function App () {
             <Route
               path='/' exact render={() => {
                 return (
-                  <Redirect to='/everything' />
+                  <Navigate to='/everything' />
                 );
               }}
             />
