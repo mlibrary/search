@@ -42,7 +42,7 @@ function App () {
               path='accessibility'
               element={<AccessibilityPage />}
             />
-            <Route path=':datastoreSlug' element={<DatastoreRoute />} />
+            <Route path=':datastoreSlug/*' element={<DatastoreRoute />} />
             <Route path='*' element={<NoMatch />} />
           </Routes>
           <Footer />

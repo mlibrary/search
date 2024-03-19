@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Routes, Route, useLocation, useParams } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
-import { Route, Routes } from 'react-router-dom';
 import { NoMatch } from '../../../pages';
 import { SearchBox } from '../../../search';
 import { AdvancedSearch } from '../../../advanced';
@@ -28,17 +28,51 @@ import { setDocumentTitle } from '../../../a11y';
 import PropTypes from 'prop-types';
 import { H1, Icon } from '../../../reusable';
 
-const ConnectedRoutes = connect(mapStateToProps)(Routes);
+function DatastorePageContainer () {
+  const location = useLocation();
+  const params = useParams();
+  const dispatch = useDispatch();
 
-class DatastorePageContainer extends React.Component {
-  componentDidMount () {
-    // Switch Pride to the appropriate datastore
-    switchPrideToDatastore(this.props.datastoreSlug);
-  }
+  const {
+    activeFilters,
+    profile,
+    search,
+    searching,
+    query,
+    datastores,
+    activeDatastore,
+    isAdvanced,
+    activeFilterCount,
+    institution,
+    list
+  } = useSelector((state) => {
+    const currentDatastore = state.datastores.active;
+    const currentFilters = state.filters.active[currentDatastore];
 
-  componentDidUpdate () {
-    const { activeDatastore, query, location } = this.props;
+    return {
+      activeFilters: state.filters.active,
+      profile: state.profile,
+      search: state.search,
+      searching: state.search.searching,
+      query: state.search.query,
+      datastores: state.datastores,
+      activeDatastore: findWhere(state.datastores.datastores, {
+        uid: currentDatastore
+      }),
+      isAdvanced: !!state.advanced[currentDatastore],
+      activeFilterCount: currentFilters ? Object.keys(currentFilters).length : 0,
+      institution: state.institution,
+      list: state.lists[currentDatastore]
+    };
+  });
 
+  useEffect(() => {
+    if (params.datastoreSlug) {
+      switchPrideToDatastore(params.datastoreSlug);
+    }
+  }, [params.datastoreSlug, dispatch]);
+
+  useEffect(() => {
     if (activeDatastore) {
       if (query) {
         setDocumentTitle([query, activeDatastore.name]);
@@ -48,127 +82,71 @@ class DatastorePageContainer extends React.Component {
         setDocumentTitle([activeDatastore.name]);
       }
     }
+  }, [activeDatastore, query, location.pathname]);
+
+  if (activeDatastore === undefined) {
+    return null;
   }
 
-  render () {
-    const {
-      searching,
-      profile,
-      match,
-      location,
-      isAdvanced,
-      activeFilterCount,
-      activeDatastore,
-      institution
-    } = this.props;
-
-    if (activeDatastore === undefined) {
-      return null;
-    }
-
-    return (
-      <main className='main-container'>
-        <Routes>
-          <Route
-            path='/:datastoreSlug/browse'
-            location={location}
-            render={() => {
-              if (['databases', 'onlinejournals'].includes(activeDatastore.uid)) {
-                return <BrowsePage />;
-              }
-              return <NoMatch />;
-            }}
-          />
-          <Route
-            path='/:datastoreSlug/advanced'
-            location={location}
-            render={() => {
-              if (isAdvanced) {
-                return (
-                  <AdvancedSearch
-                    onChange={this.handleChange}
-                    searchQueryFromURL={location.search}
-                  />
-                );
-              }
-              return <NoMatch />;
-            }}
-          />
-          <Route
-            path='/:datastoreSlug'
-            location={location}
-            render={() => {
-              return (
-                <>asdf
-                  <SearchBox />
-                  <DatastoreNavigation {...this.props} />
-                  <FlintAlerts datastore={activeDatastore.uid} profile={profile} />
-                  <ConnectedRoutes>
-                    <Route
-                      path={match.url + '/record/:recordUid/get-this/:barcode'}
-                      render={(props) => {
-                        return <GetThisPage />;
-                      }}
-                    />
-                    <Route
-                      path={match.url + '/record/:recordUid'}
-                      exact
-                      render={(props) => {
-                        return <RecordFull />;
-                      }}
-                    />
-                    <Route
-                      path={match.url + '/list'}
-                      exact
-                      render={() => {
-                        return <List {...this.props} />;
-                      }}
-                    />
-                    <Route
-                      match={match.url}
-                      render={() => {
-                        if (!searching) {
-                          return <Landing activeDatastore={activeDatastore} institution={institution} />;
-                        }
-
-                        return (
-                          <>
-                            <H1 className='visually-hidden'>
-                              {activeDatastore.name}
-                            </H1>
-                            <DatastoreInfoContainer activeDatastore={activeDatastore} />
-                            <Results
-                              activeDatastore={activeDatastore}
-                              activeFilterCount={activeFilterCount}
-                              institution={institution}
-                            />
-                          </>
-                        );
-                      }}
-                    />
-                  </ConnectedRoutes>
-                </>
-              );
-            }}
-          />
-        </Routes>
-      </main>
-    );
-  }
+  return (
+    <main className='main-container'>
+      <Routes>
+        <Route
+          path='browse'
+          element={['databases', 'onlinejournals'].includes(activeDatastore.uid) ? <BrowsePage /> : <NoMatch />}
+        />
+        <Route
+          path='advanced'
+          element={isAdvanced ? <AdvancedSearch searchQueryFromURL={location.search} /> : <NoMatch />}
+        />
+        <Route
+          path='/*'
+          element={
+            <>
+              <SearchBox />
+              <DatastoreNavigation {...{ activeFilters, datastores, institution, search }} />
+              <FlintAlerts datastore={activeDatastore.uid} profile={profile} />
+              <Routes>
+                <Route
+                  path='record/:recordUid/get-this/:barcode'
+                  element={<GetThisPage />}
+                />
+                <Route
+                  path='record/:recordUid'
+                  element={<RecordFull />}
+                />
+                <Route
+                  path='list'
+                  element={<List {...{ profile, activeDatastore, institution, list }} />}
+                />
+                <Route
+                  index
+                  element={
+                    !searching
+                      ? (
+                        <Landing activeDatastore={activeDatastore} institution={institution} />
+                        )
+                      : (
+                        <>
+                          <H1 className='visually-hidden'>{activeDatastore.name}</H1>
+                          <DatastoreInfoContainer activeDatastore={activeDatastore} />
+                          <Results
+                            activeDatastore={activeDatastore}
+                            activeFilterCount={activeFilterCount}
+                            institution={institution}
+                          />
+                        </>
+                        )
+                  }
+                />
+              </Routes>
+            </>
+          }
+        />
+      </Routes>
+    </main>
+  );
 }
-
-DatastorePageContainer.propTypes = {
-  datastoreSlug: PropTypes.string,
-  match: PropTypes.object,
-  profile: PropTypes.object,
-  activeDatastore: PropTypes.object,
-  query: PropTypes.string,
-  searching: PropTypes.bool,
-  location: PropTypes.object,
-  isAdvanced: PropTypes.bool,
-  activeFilterCount: PropTypes.number,
-  institution: PropTypes.object
-};
 
 const Results = ({ activeDatastore, activeFilterCount, institution }) => {
   if (activeDatastore.isMultisearch) {
@@ -271,26 +249,4 @@ Results.propTypes = {
   institution: PropTypes.object
 };
 
-function mapStateToProps (state) {
-  const currentDatastore = state.datastores.active;
-  const currentFilters = state.filters.active[currentDatastore];
-
-  return {
-    activeFilters: state.filters.active,
-    profile: state.profile,
-    search: state.search,
-    searching: state.search.searching,
-    query: state.search.query,
-    datastores: state.datastores,
-    activeDatastore: findWhere(state.datastores.datastores, {
-      uid: currentDatastore
-    }),
-    location: state.router.location,
-    isAdvanced: !!state.advanced[currentDatastore],
-    activeFilterCount: currentFilters ? Object.keys(currentFilters).length : 0,
-    institution: state.institution,
-    list: state.lists[currentDatastore]
-  };
-}
-
-export default connect(mapStateToProps)(DatastorePageContainer);
+export default DatastorePageContainer;

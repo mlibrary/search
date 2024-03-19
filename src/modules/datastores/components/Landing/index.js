@@ -1,11 +1,11 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Anchor, H1 } from '../../../reusable';
 import { BrowseInfo } from '../../../browse';
 import PropTypes from 'prop-types';
 
 function Landing ({ activeDatastore, institution }) {
-  const location = useLocation();
+  const [searchParams] = useSearchParams();
   const { uid, name } = activeDatastore;
   const landingContent = {
     everything: {
@@ -49,18 +49,6 @@ function Landing ({ activeDatastore, institution }) {
     }
   };
 
-  const queryParam = (string) => {
-    return string.replaceAll(' ', '+');
-  };
-
-  const activeLibrary = (query) => {
-    if (location.query.library) {
-      return location.query.library.includes(query);
-    }
-
-    return query === queryParam(institution.defaultInstitution);
-  };
-
   return (
     <div className='container'>
       <H1 className='visually-hidden'>
@@ -78,12 +66,11 @@ function Landing ({ activeDatastore, institution }) {
             </h2>
             <p>
               {institution.options.map((library, index) => {
-                const query = queryParam(library);
                 return (
                   <Anchor
                     key={index}
-                    to={`?library=${query}`}
-                    className={`btn btn--secondary ${activeLibrary(query) ? 'btn--secondary--active' : ''}`}
+                    to={`?library=${library.replaceAll(' ', '+')}`}
+                    className={`btn btn--secondary ${library === (searchParams.get('library') || institution.defaultInstitution) ? 'btn--secondary--active' : ''}`}
                   >
                     {library}
                   </Anchor>
