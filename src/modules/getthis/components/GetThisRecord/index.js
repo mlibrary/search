@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import getHoldingByBarcode from '../../getHoldingByBarcode';
 import { TrimString } from '../../../core';
@@ -95,55 +95,45 @@ GetBarcode.propTypes = {
   barcode: PropTypes.string
 };
 
-class GetThisRecord extends React.Component {
-  render () {
-    const { record, barcode } = this.props;
+function GetThisRecord ({ barcode }) {
+  const record = useSelector((state) => {
+    return state.records.record;
+  });
 
-    if (!record) {
-      return <FullRecordPlaceholder />;
-    }
-
-    return (
-      <div className='container__rounded full-record-container u-margin-bottom-1'>
-        <RecordFullFormats formats={record.formats} />
-        <div className='record-container'>
-          <h2 className='full-record-title u-margin-bottom-none'>
-            {[].concat(record.names).map((title, index) => {
-              if (index > 0) {
-                return (
-                  <span className='vernacular vernacular-record-title' key={index}>
-                    <TrimString string={title} />
-                  </span>
-                );
-              }
-              return (
-                <TrimString string={title} key={index} />
-              );
-            })}
-          </h2>
-        </div>
-
-        <GetThisHolding record={record} barcode={barcode} />
-        <GetBarcode barcode={barcode} />
-      </div>
-    );
+  if (!record) {
+    return <FullRecordPlaceholder />;
   }
+
+  return (
+    <div className='container__rounded full-record-container u-margin-bottom-1'>
+      <RecordFullFormats formats={record.formats} />
+      <div className='record-container'>
+        <h2 className='full-record-title u-margin-bottom-none'>
+          {[].concat(record.names).map((title, index) => {
+            if (index > 0) {
+              return (
+                <span className='vernacular vernacular-record-title' key={index}>
+                  <TrimString string={title} />
+                </span>
+              );
+            }
+            return (
+              <TrimString string={title} key={index} />
+            );
+          })}
+        </h2>
+      </div>
+
+      <GetThisHolding record={record} barcode={barcode} />
+      <GetBarcode barcode={barcode} />
+    </div>
+  );
 }
 
 GetThisRecord.propTypes = {
-  record: PropTypes.object,
   barcode: PropTypes.string
 };
 
-function mapStateToProps (state) {
-  return {
-    record: state.records.record,
-    datastoreUid: state.datastores.active,
-    searchQuery: state.router.location.search,
-    institution: state.institution
-  };
-}
-
-export default connect(mapStateToProps)(GetThisRecord);
+export default GetThisRecord;
 
 export { StyledGetThisResourceAccessContainer };
