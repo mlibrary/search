@@ -19,7 +19,6 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
-    "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.2.1",
     "citeproc": "^2.4.63",
     "core-js": "^3.36.0",
@@ -41,9 +40,6 @@
     "underscore": "^1.13.6"
   },
   "overrides": {
-    "@redux-devtools/extension": {
-      "redux": "^3.1.0 || ^4.0.0 || ^5.0.0"
-    },
     "jsdom": "latest",
     "rollup-plugin-terser": "npm:@rollup/plugin-terser@latest",
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@latest",
