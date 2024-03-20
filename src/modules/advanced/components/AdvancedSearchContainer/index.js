@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
+import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
 import {
   Breadcrumb,
   H1,
@@ -69,7 +69,7 @@ class AdvancedSearchContainer extends React.Component {
             css={{
               boxShadow: 'rgba(0, 0, 0, 0.12) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 2px 4px 0px',
               padding: '1rem',
-              background: SEARCH_COLORS.grey[100],
+              background: 'var(--search-color-grey-100)',
               borderRadius: '0 0 4px 4px',
               [MEDIA_QUERIES.LARGESCREEN]: {
                 padding: '2rem'

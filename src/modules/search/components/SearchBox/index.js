@@ -2,7 +2,7 @@
 import { Global } from '@emotion/react';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { MEDIA_QUERIES, SEARCH_COLORS } from '../../../reusable/umich-lib-core-temp';
+import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
 import { Anchor, Icon } from '../../../reusable';
 import qs from 'qs';
 import SearchByOptions from '../SearchByOptions';
@@ -130,9 +130,9 @@ function SearchBox () {
   return (
     <form
       css={{
-        background: SEARCH_COLORS.blue['300'],
+        background: 'var(--search-color-blue-200)',
         paddingBottom: '0.75rem',
-        borderBottom: `solid 2px ${SEARCH_COLORS.blue['400']}`
+        borderBottom: 'solid 2px var(--search-color-blue-300)'
       }}
       onSubmit={(e) => {
         return handleSubmitSearch(e);
@@ -196,8 +196,8 @@ function SearchBox () {
               autoComplete='off'
               css={{
                 all: 'unset',
-                background: SEARCH_COLORS.grey['100'],
-                border: `solid 1px ${SEARCH_COLORS.blue['500']}`,
+                background: 'var(--search-color-grey-100)',
+                border: 'solid 1px var(--search-color-blue-400)',
                 borderRadius: '4px',
                 boxSizing: 'border-box',
                 height: '100%',
@@ -238,7 +238,7 @@ function SearchBox () {
               all: 'unset',
               background: 'white',
               boxSizing: 'border-box',
-              borderColor: `${SEARCH_COLORS.blue['500']} !important`,
+              borderColor: 'var(--search-color-blue-400) !important',
               borderRadius: '4px',
               gridArea: 'input',
               lineHeight: '1.6 important!',

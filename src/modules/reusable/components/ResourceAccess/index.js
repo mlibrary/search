@@ -9,10 +9,7 @@ import {
   ExpandableButton
 } from '../../../reusable';
 import styled from '@emotion/styled';
-import {
-  SEARCH_COLORS,
-  MEDIA_QUERIES
-} from '../../../reusable/umich-lib-core-temp';
+import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
 
 const FigureStyled = styled('figure')({
   overflowX: 'auto',
@@ -20,7 +17,7 @@ const FigureStyled = styled('figure')({
   margin: 0,
   padding: 0,
   'tr:not(:last-child)': {
-    borderBottom: `solid 1px ${SEARCH_COLORS.grey[400]}`
+    borderBottom: 'solid 1px var(--search-color-grey-400)'
   }
 });
 
@@ -45,8 +42,8 @@ const NotesListStyled = styled('ul')({
 
 const StyledTH = styled('th')({
   fontSize: '0.875rem',
-  color: SEARCH_COLORS.grey[600],
-  borderBottom: `solid 2px ${SEARCH_COLORS.grey[400]}`
+  color: 'var(--search-color-grey-700)',
+  borderBottom: 'solid 2px var(--search-color-grey-400)'
 });
 
 const tdAndTh = {
@@ -66,7 +63,7 @@ const TableStyled = styled('table')({
   tableLayout: 'fixed',
   tbody: {
     'tr:not(:last-child)': {
-      borderBottom: `solid 1px ${SEARCH_COLORS.grey[400]}`
+      borderBottom: 'solid 1px var(--search-color-grey-400)'
     }
   },
   td: tdAndTh,
