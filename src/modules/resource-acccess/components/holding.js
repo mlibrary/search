@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { INTENT_COLORS } from '../../reusable/umich-lib-core-temp';
 import { Anchor, Icon } from '../../reusable';
 import PropTypes from 'prop-types';
 
@@ -92,9 +91,7 @@ export default function Holding ({ holding }) {
       {holding.map((cell, i) => {
         return (
           <td
-            css={{
-              color: INTENT_COLORS[cell.intent]
-            }}
+            className={cell.intent && `intent__${[cell.intent]}`}
             key={i}
           >
             <Cell cell={cell} />

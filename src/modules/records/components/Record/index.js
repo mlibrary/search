@@ -7,7 +7,6 @@ import { getDatastoreSlugByUid } from '../../../pride';
 import { getField, getFieldValue } from '../../utilities';
 import { AddToListButton, isInList } from '../../../lists';
 import Zotero from '../Zotero';
-import { COLORS, SPACING } from '../../../reusable/umich-lib-core-temp';
 import ResourceAccess from '../../../resource-acccess';
 import PropTypes from 'prop-types';
 
@@ -40,8 +39,8 @@ function Header ({ record, datastoreUid, searchQuery }) {
       )}
       <span
         css={{
-          marginRight: SPACING['2XS'],
-          color: COLORS.neutral['300']
+          marginRight: 'var(--search-spacing-2xs)',
+          color: 'var(--ds-color-neutral-300)'
         }}
       >
         {record.position + 1}.
@@ -103,7 +102,7 @@ function Record (props) {
       <div
         className='record-holders-container'
         css={{
-          borderBottom: `solid 1px ${COLORS.neutral[100]}`
+          borderBottom: 'solid 1px var(--ds-color-neutral-100)'
         }}
       >
         <h4 className='visually-hidden'>{record.names[0]} is available at:</h4>

@@ -2,7 +2,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Icon from '../../../reusable/components/Icon';
-import { COLORS } from '../../../reusable/umich-lib-core-temp';
 
 export default function SearchResultsMessage () {
   const { parserMessage, query } = useSelector((state) => {
@@ -20,7 +19,7 @@ export default function SearchResultsMessage () {
         className='results-message'
         css={{
           width: '100%',
-          color: COLORS.neutral['400']
+          color: 'var(--ds-color-neutral-400)'
         }}
       >
         <p>
@@ -42,7 +41,7 @@ export default function SearchResultsMessage () {
       className='parser-message'
       css={{
         width: '100%',
-        color: COLORS.neutral['400']
+        color: 'var(--ds-color-neutral-400)'
       }}
     >
       <p aria-live='polite'>

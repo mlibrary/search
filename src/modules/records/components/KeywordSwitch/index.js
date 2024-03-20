@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Anchor, Icon } from '../../../reusable';
-import { COLORS } from '../../../reusable/umich-lib-core-temp';
 
 function KeywordSwitch (props) {
   const { datastore, query } = props;
@@ -25,7 +24,7 @@ function KeywordSwitch (props) {
     <div
       className={briefView ? 'record-preview' : 'container__rounded record'}
       style={{
-        borderLeft: `4px solid ${COLORS.maize[400]}`,
+        borderLeft: '4px solid var(--ds-color-maize-400)',
         display: 'flex',
         gap: '0.75rem',
         padding: '1rem',
@@ -36,7 +35,7 @@ function KeywordSwitch (props) {
         d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'
         size={24}
         style={{
-          color: `${COLORS.maize[500]}`,
+          color: 'var(--ds-color-maize-500)',
           flexShrink: '0'
         }}
       />

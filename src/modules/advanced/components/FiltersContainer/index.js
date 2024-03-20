@@ -5,7 +5,6 @@ import { Icon } from '../../../reusable';
 import getFilters from './getFilters';
 import AdvancedFilter from '../AdvancedFilter';
 import { setAdvancedFilter } from '../../../advanced';
-import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
 
 function ActiveAdvancedFilters (datastore) {
   const currentDatastore = datastore.datastore.uid;
@@ -61,17 +60,14 @@ function ActiveAdvancedFilters (datastore) {
       >
         <h2
           id='active-filters'
-          className='u-margin-top-none'
-          style={{
-            fontSize: '1rem',
-            marginBottom: SPACING.XS
-          }}
+          className='u-margin-top-none margin-bottom__xs'
+          style={{ fontSize: '1rem' }}
         >
           Active filters
         </h2>
         <span
           style={{
-            color: COLORS.neutral['300'],
+            color: 'var(--ds-color-neutral-300)',
             paddingRight: '0.5em'
           }}
         >

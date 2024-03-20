@@ -3,7 +3,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Icon from '../../reusable/components/Icon';
 import Holder from './holder';
-import { COLORS } from '../../reusable/umich-lib-core-temp/index';
 import PropTypes from 'prop-types';
 
 export default function Holders ({
@@ -54,8 +53,8 @@ export default function Holders ({
             <summary
               css={{
                 alignItems: 'center',
-                borderTop: `solid 1px ${COLORS.neutral['100']}`,
-                color: COLORS.neutral['300'],
+                borderTop: 'solid 1px var(--ds-color-neutral-100)',
+                color: 'var(--ds-color-neutral-300)',
                 cursor: 'pointer',
                 display: 'flex',
                 gap: '0.75rem',
@@ -64,7 +63,7 @@ export default function Holders ({
                   display: 'none'
                 },
                 'details[open] > &': {
-                  background: COLORS.blue['100']
+                  background: 'var(--ds-color-blue-100)'
                 },
                 '& > *': {
                   flexShrink: '0'
@@ -87,7 +86,7 @@ export default function Holders ({
                 <span
                   css={{
                     fontWeight: '600',
-                    color: COLORS.neutral['400'],
+                    color: 'var(--ds-color-neutral-400)',
                     'summary:hover &': {
                       textDecoration: 'underline'
                     }

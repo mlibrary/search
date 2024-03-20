@@ -6,7 +6,6 @@ import getHoldingByBarcode from '../../getHoldingByBarcode';
 import { TrimString } from '../../../core';
 import { RecordFullFormats, FullRecordPlaceholder } from '../../../records';
 import ResourceAccess from '../../../resource-acccess';
-import { COLORS } from '../../../reusable/umich-lib-core-temp';
 import PropTypes from 'prop-types';
 
 /*
@@ -45,7 +44,7 @@ function GetThisHolding ({ record, barcode }) {
       <StyledGetThisResourceAccessContainer>
         <div
           css={{
-            borderBottom: `solid 1px ${COLORS.neutral[100]}`
+            borderBottom: 'solid 1px var(--ds-color-neutral-100)'
           }}
         >
           <h3 className='visually-hidden'>Available at</h3>

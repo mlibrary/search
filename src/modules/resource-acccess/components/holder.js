@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import Holding from './holding';
-import { COLORS, SPACING } from '../../reusable/umich-lib-core-temp';
 import {
   Anchor,
   Expandable,
@@ -18,7 +17,7 @@ const notesList = (notes) => {
     return (
       <p
         css={{
-          color: COLORS.neutral['300']
+          color: 'var(--ds-color-neutral-300)'
         }}
       >
         {notes[0]}
@@ -33,8 +32,8 @@ const notesList = (notes) => {
           <li
             key={note + i}
             css={{
-              paddingBottom: SPACING.XS,
-              color: COLORS.neutral['300']
+              paddingBottom: 'var(--search-spacing-xs)',
+              color: 'var(--ds-color-neutral-300)'
             }}
           >
             {note}
@@ -62,7 +61,7 @@ export default function Holder ({
             display: 'inline-block',
             margin: '0',
             a: {
-              color: COLORS.neutral['400']
+              color: 'var(--ds-color-neutral-400)'
             }
           }}
         >
@@ -107,8 +106,8 @@ export default function Holder ({
                         scope='col'
                         key={i}
                         css={{
-                          borderBottom: `solid 2px ${COLORS.neutral['100']}`,
-                          color: COLORS.neutral['300'],
+                          borderBottom: 'solid 2px var(--ds-color-neutral-100)',
+                          color: 'var(--ds-color-neutral-300)',
                           fontWeight: '600'
                         }}
                       >

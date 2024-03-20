@@ -1,17 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
 import Icon from '../../../reusable/components/Icon';
 import { MultipleChoice } from '../../../core';
-import styled from '@emotion/styled';
 import SearchByOptions from '../../../search/components/SearchByOptions';
 import PropTypes from 'prop-types';
-
-const StyledFieldSet = styled('fieldset')({
-  [MEDIA_QUERIES.LARGESCREEN]: {
-    textAlign: 'center'
-  }
-});
 
 function FieldInput ({
   fieldedSearchIndex,
@@ -22,7 +14,7 @@ function FieldInput ({
   activeDatastore
 }) {
   return (
-    <StyledFieldSet className='y-spacing'>
+    <fieldset className='y-spacing advanced-fieldset'>
       <legend className='offpage'>Search field {fieldedSearchIndex + 1}</legend>
       {fieldedSearchIndex === 0
         ? null
@@ -92,7 +84,7 @@ function FieldInput ({
             : null}
         </div>
       </div>
-    </StyledFieldSet>
+    </fieldset>
   );
 };
 

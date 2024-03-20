@@ -10,11 +10,6 @@ import {
   ExpandableChildren,
   ExpandableButton
 } from '../../../reusable';
-import {
-  SPACING,
-  MEDIA_QUERIES,
-  COLORS
-} from '../../umich-lib-core-temp';
 import { stringifySearchQueryForURL } from '../../../pride';
 
 const visuallyHiddenCSS = {
@@ -32,12 +27,12 @@ export default function Metadata ({ data, kind }) {
   const isCondensed = kind === 'condensed';
   const metadataCSS = !isCondensed
     ? {
-        [MEDIA_QUERIES.LARGESCREEN]: {
+        '@media only screen and (min-width: 641px)': {
           display: 'grid',
           gridTemplateColumns: '10rem 1fr',
-          gridColumnGap: SPACING.S,
+          gridColumnGap: 'var(--search-spacing-s)',
           'dt:not(:first-of-type) + dd': {
-            paddingTop: SPACING.XS
+            paddingTop: 'var(--search-spacing-xs)'
           }
         }
       }
@@ -46,7 +41,7 @@ export default function Metadata ({ data, kind }) {
           ...visuallyHiddenCSS
         },
         'dt:not(:first-of-type) + dd': {
-          paddingTop: SPACING.XS
+          paddingTop: 'var(--search-spacing-xs)'
         }
       };
 
@@ -70,7 +65,7 @@ export default function Metadata ({ data, kind }) {
       css={{
         ...metadataCSS,
         'dt:not(:first-of-type)': {
-          paddingTop: SPACING.XS
+          paddingTop: 'var(--search-spacing-xs)'
         }
       }}
     >
@@ -113,7 +108,7 @@ export default function Metadata ({ data, kind }) {
                   name={d.termPlural ? d.termPlural : d.term}
                   count={d.description.length}
                   css={{
-                    marginTop: SPACING.XS
+                    marginTop: 'var(--search-spacing-xs)'
                   }}
                 />
               </dd>
@@ -150,7 +145,7 @@ function Description ({ data }) {
               {i > 0 && (
                 <span
                   css={{
-                    color: COLORS.neutral['300']
+                    color: 'var(--ds-color-neutral-300)'
                   }}
                 >
                   <Icon icon='navigate_next' />
@@ -171,8 +166,8 @@ function Description ({ data }) {
       {icon && (
         <span
           css={{
-            marginRight: SPACING['2XS'],
-            color: COLORS.neutral['300'],
+            marginRight: 'var(--search-spacing-2xs)',
+            color: 'var(--ds-color-neutral-300)',
             display: 'flex',
             alignItems: 'center'
           }}
@@ -197,7 +192,7 @@ function Description ({ data }) {
               css={{
                 maxWidth: '16rem',
                 width: '100%',
-                paddingTop: SPACING.XS
+                paddingTop: 'var(--search-spacing-xs)'
               }}
             />
           </div>
@@ -258,14 +253,14 @@ function DescriptionItemLink ({ href, search, browse, children }) {
         <SearchLink search={search}>{children}</SearchLink>
         <Anchor
           css={{
-            color: COLORS.neutral['300'],
+            color: 'var(--ds-color-neutral-300)',
             fontSize: '0.875rem',
             textDecoration: 'underline',
             ':hover': {
               textDecorationThickness: '2px'
             },
             ':before': {
-              background: COLORS.neutral['400'],
+              background: 'var(--ds-color-neutral-400)',
               content: '""',
               display: 'inline-block',
               height: '1em',

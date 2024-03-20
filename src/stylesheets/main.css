@@ -1701,6 +1701,22 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.intent__informational {
+  color: var(--search-color-blue-300);
+}
+
+.intent__success {
+  color: var(--search-color-green-300);
+}
+
+.intent__warning {
+  color: var(--search-color-orange-300);
+}
+
+.intent__error {
+  color: var(--search-color-red-300);
+}
+
 @-webkit-keyframes placeHolderShimmer {
   0% {
     background-position: -100vw 0;
@@ -2139,16 +2155,8 @@ body {
   display: flex;
 }
 
-.advanced-field-container fieldset {
-  margin: 1rem 0;
-}
-
-.advanced-field-container fieldset:first-child {
-  margin-top: 0;
-}
-
-@media (min-width: 600px) {
-  .advanced-field-container fieldset {
+@media (min-width: 641px) {
+  .advanced-fieldset {
     text-align: center;
   }
 }
