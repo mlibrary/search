@@ -1,153 +1,11 @@
 import React from 'react';
-import { useSelector, connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Icon } from '../../../reusable';
 import getFilters from './getFilters';
 import AdvancedFilter from '../AdvancedFilter';
 import { setAdvancedFilter } from '../../../advanced';
 import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
-
-class FiltersContainer extends React.Component {
-  changeAdvancedFilter = ({
-    filterType,
-    filterGroupUid,
-    filterValue
-  }) => {
-    const {
-      setAdvancedFilter,
-      datastore
-    } = this.props;
-
-    switch (filterType) {
-      case 'scope_down':
-        // Clear active filters
-        if (['institution', 'location'].includes(filterGroupUid) && filterValue) {
-          setAdvancedFilter({
-            datastoreUid: datastore.uid,
-            filterType,
-            filterGroupUid: 'collection',
-            filterValue: undefined,
-            onlyOneFilterValue: true
-          });
-
-          if (filterGroupUid === 'institution') {
-            setAdvancedFilter({
-              datastoreUid: datastore.uid,
-              filterType,
-              filterGroupUid: 'location',
-              filterValue: undefined,
-              onlyOneFilterValue: true
-            });
-          }
-        }
-
-        setAdvancedFilter({
-          datastoreUid: datastore.uid,
-          filterType,
-          filterGroupUid,
-          filterValue,
-          onlyOneFilterValue: true
-        });
-        break;
-      case 'checkbox':
-      case 'date_range_input':
-        setAdvancedFilter({
-          datastoreUid: datastore.uid,
-          filterGroupUid,
-          filterValue,
-          onlyOneFilterValue: true
-        });
-        break;
-      case 'multiple_select':
-        setAdvancedFilter({
-          datastoreUid: datastore.uid,
-          filterGroupUid,
-          filterValue
-        });
-        break;
-      default:
-        break;
-    }
-  };
-
-  render () {
-    const {
-      filters,
-      datastore
-    } = this.props;
-
-    if (!filters || filters.length === 0) {
-      return null;
-    }
-
-    const filterGroups = Object.keys(filters);
-
-    return (
-      <>
-        <ActiveAdvancedFilters datastore={datastore} />
-        <h2 className='heading-large'>Additional search options</h2>
-        <div className='advanced-filters-inner-container'>
-          {filterGroups.map((filterGroup, groupIndex) => {
-            return (
-              <React.Fragment key={groupIndex}>
-                {filterGroup !== 'undefined'
-                  ? (
-                    <div className='advanced-filter-container'>
-                      <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
-                      {filters[filterGroup].map((advancedFilter, index) => {
-                        return (
-                          <AdvancedFilter
-                            key={index}
-                            advancedFilter={advancedFilter}
-                            changeAdvancedFilter={this.changeAdvancedFilter}
-                          />
-                        );
-                      })}
-                    </div>
-                    )
-                  : (
-                    <>
-                      {filters[filterGroup].map((advancedFilter, index) => {
-                        return (
-                          <div key={index} className='advanced-filter-container'>
-                            <h2 className='advanced-filter-label-text'>{advancedFilter.name}</h2>
-                            <div className='advanced-filter-inner-container'>
-                              <AdvancedFilter
-                                advancedFilter={advancedFilter}
-                                changeAdvancedFilter={this.changeAdvancedFilter}
-                              />
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </>
-                    )}
-              </React.Fragment>
-            );
-          })}
-        </div>
-
-        <button
-          style={{ marginTop: '1rem' }}
-          className='btn btn--primary'
-          type='submit'
-        >
-          <Icon icon='search' size={24} /> Advanced Search
-        </button>
-      </>
-    );
-  }
-}
-
-FiltersContainer.propTypes = {
-  setAdvancedFilter: PropTypes.func,
-  datastore: PropTypes.object,
-  filters: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object
-  ])
-};
 
 function ActiveAdvancedFilters (datastore) {
   const currentDatastore = datastore.datastore.uid;
@@ -244,19 +102,126 @@ function ActiveAdvancedFilters (datastore) {
   );
 }
 
-function mapStateToProps (state, props) {
-  return {
-    filters: getFilters({
-      filterGroups: state.advanced[props.datastore.uid].filters,
-      activeFilters: state.advanced[props.datastore.uid].activeFilters
-    })
+function FiltersContainer ({ datastore }) {
+  const dispatch = useDispatch();
+  const filterGroups = useSelector((state) => {
+    return state.advanced[datastore.uid]?.filters;
+  });
+  const activeFilters = useSelector((state) => {
+    return state.advanced[datastore.uid]?.activeFilters;
+  });
+  const filters = getFilters({ filterGroups, activeFilters });
+
+  const changeAdvancedFilter = ({ filterType, filterGroupUid, filterValue }) => {
+    switch (filterType) {
+      case 'scope_down':
+        // Clear active filters
+        if (['institution', 'location'].includes(filterGroupUid) && filterValue) {
+          dispatch(setAdvancedFilter({
+            datastoreUid: datastore.uid,
+            filterType,
+            filterGroupUid: 'collection',
+            filterValue: undefined,
+            onlyOneFilterValue: true
+          }));
+          if (filterGroupUid === 'institution') {
+            dispatch(setAdvancedFilter({
+              datastoreUid: datastore.uid,
+              filterType,
+              filterGroupUid: 'location',
+              filterValue: undefined,
+              onlyOneFilterValue: true
+            }));
+          }
+        }
+        dispatch(setAdvancedFilter({
+          datastoreUid: datastore.uid,
+          filterType,
+          filterGroupUid,
+          filterValue,
+          onlyOneFilterValue: true
+        }));
+        break;
+      case 'checkbox':
+      case 'date_range_input':
+        dispatch(setAdvancedFilter({
+          datastoreUid: datastore.uid,
+          filterGroupUid,
+          filterValue,
+          onlyOneFilterValue: true
+        }));
+        break;
+      case 'multiple_select':
+        dispatch(setAdvancedFilter({
+          datastoreUid: datastore.uid,
+          filterGroupUid,
+          filterValue
+        }));
+        break;
+      default:
+        break;
+    }
   };
+
+  if (!filters || filters.length === 0) return null;
+
+  const filterGroupings = Object.keys(filters);
+
+  return (
+    <>
+      <ActiveAdvancedFilters datastore={datastore} />
+      <h2 className='heading-large'>Additional search options</h2>
+      <div className='advanced-filters-inner-container'>
+        {filterGroupings.map((filterGroup, groupIndex) => {
+          return (
+            <React.Fragment key={groupIndex}>
+              {filterGroup !== 'undefined'
+                ? (
+                  <div className='advanced-filter-container'>
+                    <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
+                    {filters[filterGroup].map((advancedFilter, index) => {
+                      return (
+                        <AdvancedFilter
+                          key={index}
+                          advancedFilter={advancedFilter}
+                          changeAdvancedFilter={changeAdvancedFilter}
+                        />
+                      );
+                    })}
+                  </div>
+                  )
+                : (
+                    filters[filterGroup].map((advancedFilter, index) => {
+                      return (
+                        <div key={index} className='advanced-filter-container'>
+                          <h2 className='advanced-filter-label-text'>{advancedFilter.name}</h2>
+                          <div className='advanced-filter-inner-container'>
+                            <AdvancedFilter
+                              advancedFilter={advancedFilter}
+                              changeAdvancedFilter={changeAdvancedFilter}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+            </React.Fragment>
+          );
+        })}
+      </div>
+      <button
+        style={{ marginTop: '1rem' }}
+        className='btn btn--primary'
+        type='submit'
+      >
+        <Icon icon='search' size={24} /> Advanced Search
+      </button>
+    </>
+  );
 }
 
-function mapDispatchToProps (dispatch) {
-  return bindActionCreators({
-    setAdvancedFilter
-  }, dispatch);
-}
+FiltersContainer.propTypes = {
+  datastore: PropTypes.object
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(FiltersContainer);
+export default FiltersContainer;
