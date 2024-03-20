@@ -13,7 +13,7 @@ function SearchHeader (props) {
       <nav
         aria-label='utility'
         css={{
-          background: 'var(--color-blue-400)',
+          background: 'var(--ds-color-blue-400)',
           gridTemplateColumns: 'repeat(4, auto)',
           alignItems: 'baseline',
           display: 'block',

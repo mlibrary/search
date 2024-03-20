@@ -1701,6 +1701,22 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.intent__informational {
+  color: var(--search-color-blue-300);
+}
+
+.intent__success {
+  color: var(--search-color-green-300);
+}
+
+.intent__warning {
+  color: var(--search-color-orange-300);
+}
+
+.intent__error {
+  color: var(--search-color-red-300);
+}
+
 @-webkit-keyframes placeHolderShimmer {
   0% {
     background-position: -100vw 0;

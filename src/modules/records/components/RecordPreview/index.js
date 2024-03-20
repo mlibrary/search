@@ -1,6 +1,5 @@
 import React from 'react';
 import { Anchor } from '../../../reusable';
-import { INTENT_COLORS } from '../../../reusable/umich-lib-core-temp';
 import Icon from '../../../reusable/components/Icon';
 import { Icon as SearchIcon, TrimString } from '../../../core';
 import { getField, getFieldValue } from '../../utilities';
@@ -80,7 +79,7 @@ function Footer ({ record, datastoreUid }) {
       {outage && (
         <p
           style={{
-            color: INTENT_COLORS.error,
+            color: 'var(--search-color-red-300)',
             marginBottom: '0',
             marginTop: '0.5rem'
           }}

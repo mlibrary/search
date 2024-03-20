@@ -11,7 +11,6 @@ import {
 import styled from '@emotion/styled';
 import {
   SEARCH_COLORS,
-  INTENT_COLORS,
   MEDIA_QUERIES
 } from '../../../reusable/umich-lib-core-temp';
 
@@ -214,7 +213,7 @@ class ResourceAccess extends React.Component {
                         <tr key={i}>
                           {row.map((cell, t) => {
                             return (
-                              <td key={t} style={{ color: `${INTENT_COLORS[cell.intent]}` }}>
+                              <td key={t} className={cell.intent && `intent__${[cell.intent]}`}>
                                 <Cell cell={cell} renderAnchor={renderAnchor} />
                               </td>
                             );
@@ -229,7 +228,7 @@ class ResourceAccess extends React.Component {
                     <tr>
                       {rows[0].map((cell, t) => {
                         return (
-                          <td key={t} style={{ color: `${INTENT_COLORS[cell.intent]}` }}>
+                          <td key={t} className={cell.intent && `intent__${[cell.intent]}`}>
                             <Cell cell={cell} renderAnchor={renderAnchor} />
                           </td>
                         );
@@ -248,7 +247,7 @@ class ResourceAccess extends React.Component {
                           <tr key={i}>
                             {row.map((cell, t) => {
                               return (
-                                <td key={t} style={{ color: `${INTENT_COLORS[cell.intent]}` }}>
+                                <td key={t} className={cell.intent && `intent__${[cell.intent]}`}>
                                   <Cell cell={cell} renderAnchor={renderAnchor} />
                                 </td>
                               );

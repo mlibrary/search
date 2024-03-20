@@ -15,10 +15,6 @@ export const MEDIA_QUERIES = {
   XLSCREEN: `@media only screen and (min-width: ${BREAKPOINTS.XLSCREEN}px)`
 };
 
-/*
-  Inspired by GitHub color system
-  https://styleguide.github.com/primer/support/color-system/
-*/
 export const COLORS = {
   maize: {
     400: '#FFCB05',
@@ -62,11 +58,4 @@ export const SEARCH_COLORS = {
   red: {
     600: '#C53B26'
   }
-};
-
-export const INTENT_COLORS = {
-  informational: SEARCH_COLORS.blue[400],
-  success: SEARCH_COLORS.green[600],
-  warning: SEARCH_COLORS.orange[600],
-  error: SEARCH_COLORS.red[600]
 };
