@@ -2,7 +2,6 @@
 import { Global } from '@emotion/react';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
 import { Anchor, Icon } from '../../../reusable';
 import qs from 'qs';
 import SearchByOptions from '../SearchByOptions';
@@ -152,7 +151,7 @@ function SearchBox () {
           maxWidth: '1280px',
           margin: '0 auto',
           padding: '0 1rem',
-          [MEDIA_QUERIES.LARGESCREEN]: {
+          '@media only screen and (min-width: 641px)': {
             padding: '0 2rem'
           }
         }}
@@ -165,7 +164,7 @@ function SearchBox () {
            'advanced advanced'`,
           gridTemplateColumns: '1fr auto',
           gridTemplateRows: 'auto',
-          [MEDIA_QUERIES.LARGESCREEN]: {
+          '@media only screen and (min-width: 641px)': {
             gridTemplateAreas:
             `'dropdown input button'
              'advanced advanced advanced'`,
@@ -206,7 +205,7 @@ function SearchBox () {
                 padding: '0.5rem 0.75rem',
                 paddingRight: '3rem',
                 width: '100%',
-                [MEDIA_QUERIES.LARGESCREEN]: {
+                '@media only screen and (min-width: 641px)': {
                   borderBottomRightRadius: '0',
                   borderTopRightRadius: '0'
                 }
@@ -245,7 +244,7 @@ function SearchBox () {
               marginTop: '0.75rem!important',
               maxWidth: '100%',
               width: 'auto!important',
-              [MEDIA_QUERIES.LARGESCREEN]: {
+              '@media only screen and (min-width: 641px)': {
                 borderLeft: '0 !important',
                 borderBottomLeftRadius: '0 !important',
                 borderTopLeftRadius: '0 !important'

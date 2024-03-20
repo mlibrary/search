@@ -9,7 +9,6 @@ import {
   ExpandableButton
 } from '../../../reusable';
 import styled from '@emotion/styled';
-import { MEDIA_QUERIES } from '../../../reusable/umich-lib-core-temp';
 
 const FigureStyled = styled('figure')({
   overflowX: 'auto',
@@ -22,7 +21,7 @@ const FigureStyled = styled('figure')({
 });
 
 const FigCaptionStyled = styled('figcaption')({
-  [MEDIA_QUERIES.LARGESCREEN]: {
+  '@media only screen and (min-width: 641px)': {
     display: 'flex',
     alignItems: 'baseline',
     flexWrap: 'wrap'

@@ -2155,16 +2155,8 @@ body {
   display: flex;
 }
 
-.advanced-field-container fieldset {
-  margin: 1rem 0;
-}
-
-.advanced-field-container fieldset:first-child {
-  margin-top: 0;
-}
-
-@media (min-width: 600px) {
-  .advanced-field-container fieldset {
+@media (min-width: 641px) {
+  .advanced-fieldset {
     text-align: center;
   }
 }

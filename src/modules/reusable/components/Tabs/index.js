@@ -5,7 +5,6 @@ import {
   Tabs as UnstyledTabs,
   TabPanel as UnstyledTabPanel
 } from 'react-tabs';
-import { MEDIA_QUERIES } from '../../umich-lib-core-temp';
 
 const Tabs = styled(UnstyledTabs)({
   width: '100%'
@@ -16,7 +15,7 @@ const TabList = styled(UnstyledTabList)({
   margin: 0,
   padding: 0,
   borderLeft: 'solid 2px var(--search-color-grey-400)',
-  [MEDIA_QUERIES.LARGESCREEN]: {
+  '@media only screen and (min-width: 641px)': {
     display: 'flex',
     alignItems: 'baseline',
     borderLeft: 'none',
@@ -31,7 +30,7 @@ const dynamicTabStyles = (props) => {
       color: 'var(--search-color-blue-400)',
       borderLeft: 'solid 3px var(--search-color-blue-400)',
       background: 'var(--search-color-grey-200)',
-      [MEDIA_QUERIES.LARGESCREEN]: {
+      '@media only screen and (min-width: 641px)': {
         borderLeft: 'none',
         background: 'none',
         border: 'solid 1px var(--search-color-grey-400)',
@@ -42,7 +41,7 @@ const dynamicTabStyles = (props) => {
   } else {
     return {
       ':hover': {
-        [MEDIA_QUERIES.LARGESCREEN]: {
+        '@media only screen and (min-width: 641px)': {
           borderBottom: 'solid 2px var(--search-color-grey-500)'
         }
       }
@@ -58,7 +57,7 @@ const Tab = styled(UnstyledTab)(
     padding: '0.5rem 1.25rem',
     borderLeft: 'solid 3px transparent',
     marginLeft: '-2px',
-    [MEDIA_QUERIES.LARGESCREEN]: {
+    '@media only screen and (min-width: 641px)': {
       marginBottom: '-2px',
       marginLeft: 0,
       borderLeft: 'none'
@@ -71,7 +70,7 @@ const TabPanel = styled(UnstyledTabPanel)({
   ':empty': {
     display: 'none'
   },
-  [MEDIA_QUERIES.LARGESCREEN]: {
+  '@media only screen and (min-width: 641px)': {
     padding: '0.5rem 0'
   }
 });

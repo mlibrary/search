@@ -1,0 +1,35 @@
+m-website-header > nav {
+  background: var(--ds-color-blue-400);
+  grid-template-columns: repeat(4, auto);
+  align-items: baseline;
+  display: block;
+}
+
+m-website-header > nav > * {
+  color: white;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+m-website-header > nav > *:not(:last-child) {
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+m-website-header > nav a {
+  text-decoration: none!important;
+}
+
+m-website-header > nav a:hover {
+  text-decoration: underline!important;
+}
+
+@media only screen and (min-width: 641px) {
+  m-website-header > nav > * {
+    margin: 0;
+  }
+
+  m-website-header > nav > *:not(:last-child) {
+    margin-bottom: 0;
+  }
+}

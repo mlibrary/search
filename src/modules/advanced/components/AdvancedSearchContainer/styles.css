@@ -1,0 +1,12 @@
+.tab-panel-container {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 2px 4px 0px;
+  padding: 1rem;
+  background: var(--search-color-grey-100);
+  border-radius: 0 0 4px 4px;
+}
+
+@media only screen and (min-width: 641px) {
+  .tab-panel-container {
+    padding: 2rem;
+  }
+}

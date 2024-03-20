@@ -10,7 +10,6 @@ import {
   ExpandableChildren,
   ExpandableButton
 } from '../../../reusable';
-import { MEDIA_QUERIES } from '../../umich-lib-core-temp';
 import { stringifySearchQueryForURL } from '../../../pride';
 
 const visuallyHiddenCSS = {
@@ -28,7 +27,7 @@ export default function Metadata ({ data, kind }) {
   const isCondensed = kind === 'condensed';
   const metadataCSS = !isCondensed
     ? {
-        [MEDIA_QUERIES.LARGESCREEN]: {
+        '@media only screen and (min-width: 641px)': {
           display: 'grid',
           gridTemplateColumns: '10rem 1fr',
           gridColumnGap: 'var(--search-spacing-s)',
