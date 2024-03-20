@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
-import { COLORS } from '../../reusable/umich-lib-core-temp';
 import { Dialog } from '../../reusable';
 
 export default function ChooseAffiliation () {
@@ -64,7 +63,7 @@ export default function ChooseAffiliation () {
         <button
           className='btn btn--secondary no-background'
           css={{
-            borderColor: COLORS.blue[300],
+            borderColor: 'var(--ds-color-blue-300)',
             color: 'white',
             display: 'flex',
             padding: '0',
@@ -77,7 +76,7 @@ export default function ChooseAffiliation () {
                 textDecoration: 'underline'
               },
               '&.active-affiliation': {
-                background: COLORS.blue[300]
+                background: 'var(--ds-color-blue-300)'
               }
             }
           }}
@@ -100,7 +99,7 @@ export default function ChooseAffiliation () {
       <button
         className='btn btn--secondary no-background'
         css={{
-          borderColor: COLORS.blue[300],
+          borderColor: 'var(--ds-color-blue-300)',
           color: 'white',
           display: 'flex',
           padding: '0',
@@ -113,7 +112,7 @@ export default function ChooseAffiliation () {
               textDecoration: 'underline'
             },
             '&.active-affiliation': {
-              background: COLORS.blue[300]
+              background: 'var(--ds-color-blue-300)'
             }
           }
         }}

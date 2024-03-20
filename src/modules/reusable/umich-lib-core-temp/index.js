@@ -15,27 +15,6 @@ export const MEDIA_QUERIES = {
   XLSCREEN: `@media only screen and (min-width: ${BREAKPOINTS.XLSCREEN}px)`
 };
 
-export const COLORS = {
-  maize: {
-    400: '#FFCB05',
-    500: '#EABA02'
-  },
-  blue: {
-    100: '#F7F8F9',
-    300: '#4C6781'
-  },
-  neutral: {
-    100: '#E5E9ED',
-    300: '#637381',
-    400: '#212B36'
-  },
-  green: {
-    100: '#EAF8EE',
-    200: '#96DBAA',
-    500: '#198539'
-  }
-};
-
 export const SEARCH_COLORS = {
   grey: {
     600: '#262626',

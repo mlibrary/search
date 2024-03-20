@@ -8,7 +8,7 @@ import {
   ExpandableButton,
   Icon
 } from '../../../reusable';
-import { SPACING, COLORS } from '../../../reusable/umich-lib-core-temp';
+import { SPACING } from '../../../reusable/umich-lib-core-temp';
 import CheckboxFilters from '../CheckboxFilters';
 import {
   getURLWithoutFilters,
@@ -20,7 +20,7 @@ import PropTypes from 'prop-types';
 
 const filterGroupStyles = {
   padding: `0 ${SPACING.M}`,
-  borderBottom: `solid 1px ${COLORS.neutral['100']}`
+  borderBottom: 'solid 1px var(--ds-color-neutral-100)'
 };
 
 function FiltersLoadingContainer ({ children }) {
@@ -165,7 +165,7 @@ function ActiveFilters () {
               display: 'inline-block',
               paddingTop: SPACING.XS,
               textDecoration: 'underline',
-              color: COLORS.neutral['300']
+              color: 'var(--ds-color-neutral-300)'
             }}
           >
             Clear all active filters
@@ -186,9 +186,9 @@ function ActiveFilterItem ({ group, value }) {
       to={url}
       css={{
         padding: `${SPACING.XS} ${SPACING.S}`,
-        color: COLORS.green['500'],
-        background: COLORS.green['100'],
-        border: `solid 1px ${COLORS.green['200']}`,
+        color: 'var(--ds-color-green-500)',
+        background: 'var(--ds-color-green-100)',
+        border: 'solid 1px var(--ds-color-green-200)',
         borderRadius: '4px',
         display: 'flex',
         justifyContent: 'space-between',
@@ -291,7 +291,7 @@ function FilterGroupMultiselect ({ filters, group, uid, uuid, activeFilters }) {
         <span>{group.metadata.name}</span>
         <span
           css={{
-            color: COLORS.neutral['300']
+            color: 'var(--ds-color-neutral-300)'
           }}
         >
           <Icon
@@ -398,7 +398,7 @@ function Filter ({ value, count, url }) {
       }}
     >
       <span css={{ marginRight: SPACING.XS }}>{value}</span>
-      <span css={{ color: COLORS.neutral['400'] }}>
+      <span css={{ color: 'var(--ds-color-neutral-400)' }}>
         {count?.toLocaleString()}
       </span>
     </Anchor>

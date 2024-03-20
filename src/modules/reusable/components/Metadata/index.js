@@ -12,8 +12,7 @@ import {
 } from '../../../reusable';
 import {
   SPACING,
-  MEDIA_QUERIES,
-  COLORS
+  MEDIA_QUERIES
 } from '../../umich-lib-core-temp';
 import { stringifySearchQueryForURL } from '../../../pride';
 
@@ -150,7 +149,7 @@ function Description ({ data }) {
               {i > 0 && (
                 <span
                   css={{
-                    color: COLORS.neutral['300']
+                    color: 'var(--ds-color-neutral-300)'
                   }}
                 >
                   <Icon icon='navigate_next' />
@@ -172,7 +171,7 @@ function Description ({ data }) {
         <span
           css={{
             marginRight: SPACING['2XS'],
-            color: COLORS.neutral['300'],
+            color: 'var(--ds-color-neutral-300)',
             display: 'flex',
             alignItems: 'center'
           }}
@@ -258,14 +257,14 @@ function DescriptionItemLink ({ href, search, browse, children }) {
         <SearchLink search={search}>{children}</SearchLink>
         <Anchor
           css={{
-            color: COLORS.neutral['300'],
+            color: 'var(--ds-color-neutral-300)',
             fontSize: '0.875rem',
             textDecoration: 'underline',
             ':hover': {
               textDecorationThickness: '2px'
             },
             ':before': {
-              background: COLORS.neutral['400'],
+              background: 'var(--ds-color-neutral-400)',
               content: '""',
               display: 'inline-block',
               height: '1em',

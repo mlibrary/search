@@ -5,7 +5,6 @@ import _ from 'underscore';
 import { Checkbox } from '../../../core';
 import { isInList } from '../../../lists';
 import { setA11yMessage } from '../../../a11y';
-import { COLORS } from '../../../reusable/umich-lib-core-temp';
 import prejudice from '../../prejudice';
 import PropTypes from 'prop-types';
 
@@ -54,7 +53,7 @@ class AddToListButton extends React.Component {
     return (
       <div
         className='add-to-list-checkbox-container' css={{
-          color: COLORS.neutral['300']
+          color: 'var(--ds-color-neutral-300)'
         }}
       >
         <Checkbox
