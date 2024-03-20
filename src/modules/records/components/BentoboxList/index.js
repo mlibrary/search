@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import KeywordSwitch from '../KeywordSwitch';
 import { Anchor } from '../../../reusable';
 import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
@@ -118,7 +119,8 @@ function BentoboxList () {
   const search = useSelector((state) => {
     return state.search;
   });
-  const searchQuery = window.location.search;
+  const location = useLocation();
+  const searchQuery = location.search;
 
   return (
     <article className='bentobox-list' id='search-results'>
