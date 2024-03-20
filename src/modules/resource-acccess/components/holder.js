@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import Holding from './holding';
-import { SPACING } from '../../reusable/umich-lib-core-temp';
 import {
   Anchor,
   Expandable,
@@ -33,7 +32,7 @@ const notesList = (notes) => {
           <li
             key={note + i}
             css={{
-              paddingBottom: SPACING.XS,
+              paddingBottom: 'var(--search-spacing-xs)',
               color: 'var(--ds-color-neutral-300)'
             }}
           >

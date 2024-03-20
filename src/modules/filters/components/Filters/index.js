@@ -8,7 +8,6 @@ import {
   ExpandableButton,
   Icon
 } from '../../../reusable';
-import { SPACING } from '../../../reusable/umich-lib-core-temp';
 import CheckboxFilters from '../CheckboxFilters';
 import {
   getURLWithoutFilters,
@@ -17,11 +16,6 @@ import {
   newSearch
 } from '../../utilities';
 import PropTypes from 'prop-types';
-
-const filterGroupStyles = {
-  padding: `0 ${SPACING.M}`,
-  borderBottom: 'solid 1px var(--ds-color-neutral-100)'
-};
 
 function FiltersLoadingContainer ({ children }) {
   const { datastores, search, records } = useSelector((state) => {
@@ -118,18 +112,15 @@ function ActiveFilters () {
   return (
     <section
       aria-label='active-filters'
+      className='padding-y__s padding-x__m'
       css={{
-        ...filterGroupStyles,
-        padding: `${SPACING.S} ${SPACING.M}`
+        borderBottom: 'solid 1px var(--ds-color-neutral-100)'
       }}
     >
       <h2
         id='active-filters'
-        css={{
-          fontSize: '1rem',
-          marginTop: '0',
-          marginBottom: SPACING.XS
-        }}
+        className='margin-top__none margin-bottom__xs'
+        css={{ fontSize: '1rem' }}
       >
         Active filters
       </h2>
@@ -145,7 +136,7 @@ function ActiveFilters () {
             <li
               key={i + item.group + item.value}
               css={{
-                marginBottom: SPACING.XS,
+                marginBottom: 'var(--search-spacing-xs)',
                 ':last-of-type': {
                   marginBottom: 0
                 }
@@ -161,9 +152,9 @@ function ActiveFilters () {
         items.length > 1 &&
           <Anchor
             to={getURLWithoutFilters()}
+            className='padding-top__xs'
             css={{
               display: 'inline-block',
-              paddingTop: SPACING.XS,
               textDecoration: 'underline',
               color: 'var(--ds-color-neutral-300)'
             }}
@@ -184,8 +175,8 @@ function ActiveFilterItem ({ group, value }) {
   return (
     <Anchor
       to={url}
+      className='padding-y__xs padding-x__s'
       css={{
-        padding: `${SPACING.XS} ${SPACING.S}`,
         color: 'var(--ds-color-green-500)',
         background: 'var(--ds-color-green-100)',
         border: 'solid 1px var(--ds-color-green-200)',
@@ -345,17 +336,11 @@ function FilterGroupFilters ({ group, hidden = false, filters }) {
           </ExpandableChildren>
         </ul>
 
-        <div
-          css={{
-            padding: `${SPACING['2XS']} 0`
-          }}
-        >
+        <div className='padding-y__2xs padding-x__none'>
           <ExpandableButton
             name={group.metadata.name + ' filters'}
             count={filters.length}
-            css={{
-              marginBottom: SPACING.XS
-            }}
+            className='margin-bottom__xs'
           />
         </div>
       </Expandable>
@@ -389,7 +374,7 @@ function Filter ({ value, count, url }) {
       css={{
         display: 'flex',
         justifyContent: 'space-between',
-        padding: `${SPACING['2XS']} 0`,
+        padding: 'var(--search-spacing-2xs) 0',
         ':hover': {
           'span:first-of-type': {
             textDecoration: 'underline'
@@ -397,7 +382,7 @@ function Filter ({ value, count, url }) {
         }
       }}
     >
-      <span css={{ marginRight: SPACING.XS }}>{value}</span>
+      <span className='margin-right__xs'>{value}</span>
       <span css={{ color: 'var(--ds-color-neutral-400)' }}>
         {count?.toLocaleString()}
       </span>

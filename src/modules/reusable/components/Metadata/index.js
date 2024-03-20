@@ -10,10 +10,7 @@ import {
   ExpandableChildren,
   ExpandableButton
 } from '../../../reusable';
-import {
-  SPACING,
-  MEDIA_QUERIES
-} from '../../umich-lib-core-temp';
+import { MEDIA_QUERIES } from '../../umich-lib-core-temp';
 import { stringifySearchQueryForURL } from '../../../pride';
 
 const visuallyHiddenCSS = {
@@ -34,9 +31,9 @@ export default function Metadata ({ data, kind }) {
         [MEDIA_QUERIES.LARGESCREEN]: {
           display: 'grid',
           gridTemplateColumns: '10rem 1fr',
-          gridColumnGap: SPACING.S,
+          gridColumnGap: 'var(--search-spacing-s)',
           'dt:not(:first-of-type) + dd': {
-            paddingTop: SPACING.XS
+            paddingTop: 'var(--search-spacing-xs)'
           }
         }
       }
@@ -45,7 +42,7 @@ export default function Metadata ({ data, kind }) {
           ...visuallyHiddenCSS
         },
         'dt:not(:first-of-type) + dd': {
-          paddingTop: SPACING.XS
+          paddingTop: 'var(--search-spacing-xs)'
         }
       };
 
@@ -69,7 +66,7 @@ export default function Metadata ({ data, kind }) {
       css={{
         ...metadataCSS,
         'dt:not(:first-of-type)': {
-          paddingTop: SPACING.XS
+          paddingTop: 'var(--search-spacing-xs)'
         }
       }}
     >
@@ -112,7 +109,7 @@ export default function Metadata ({ data, kind }) {
                   name={d.termPlural ? d.termPlural : d.term}
                   count={d.description.length}
                   css={{
-                    marginTop: SPACING.XS
+                    marginTop: 'var(--search-spacing-xs)'
                   }}
                 />
               </dd>
@@ -170,7 +167,7 @@ function Description ({ data }) {
       {icon && (
         <span
           css={{
-            marginRight: SPACING['2XS'],
+            marginRight: 'var(--search-spacing-2xs)',
             color: 'var(--ds-color-neutral-300)',
             display: 'flex',
             alignItems: 'center'
@@ -196,7 +193,7 @@ function Description ({ data }) {
               css={{
                 maxWidth: '16rem',
                 width: '100%',
-                paddingTop: SPACING.XS
+                paddingTop: 'var(--search-spacing-xs)'
               }}
             />
           </div>

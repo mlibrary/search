@@ -2,7 +2,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Anchor, Icon } from '../../../reusable';
-import { SPACING } from '../../../reusable/umich-lib-core-temp';
 import { getURLWithFilterRemoved, newSearch } from '../../utilities';
 import PropTypes from 'prop-types';
 
@@ -25,7 +24,7 @@ export default function CheckBoxFiltersContainer () {
   return (
     <ul css={{
       margin: 0,
-      padding: `${SPACING.S} 0`,
+      padding: 'var(--search-spacing-s) 0',
       borderBottom: 'solid 1px var(--ds-color-neutral-100)',
       listStyle: 'none'
     }}
@@ -69,9 +68,9 @@ function CheckboxFilter ({ label, isChecked, url }) {
   return (
     <Anchor
       to={url}
+      className='padding-y__2xs padding-x__m'
       css={{
         display: 'flex',
-        padding: `${SPACING['2XS']} ${SPACING.M}`,
         color: 'var(--ds-color-neutral-400)',
         ':hover': {
           textDecoration: 'underline'
@@ -79,9 +78,9 @@ function CheckboxFilter ({ label, isChecked, url }) {
       }}
     >
       <span
+        className='margin-right__2xs'
         css={{
           color: isChecked ? '#126DC1' : 'var(--ds-color-neutral-300)',
-          marginRight: SPACING['2XS'],
           lineHeight: '100%'
         }}
       >

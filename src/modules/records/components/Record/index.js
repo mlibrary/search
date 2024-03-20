@@ -7,7 +7,6 @@ import { getDatastoreSlugByUid } from '../../../pride';
 import { getField, getFieldValue } from '../../utilities';
 import { AddToListButton, isInList } from '../../../lists';
 import Zotero from '../Zotero';
-import { SPACING } from '../../../reusable/umich-lib-core-temp';
 import ResourceAccess from '../../../resource-acccess';
 import PropTypes from 'prop-types';
 
@@ -40,7 +39,7 @@ function Header ({ record, datastoreUid, searchQuery }) {
       )}
       <span
         css={{
-          marginRight: SPACING['2XS'],
+          marginRight: 'var(--search-spacing-2xs)',
           color: 'var(--ds-color-neutral-300)'
         }}
       >
