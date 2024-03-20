@@ -31,7 +31,6 @@ These dependencies have been updated to their latest versions:
 - `react-router-dom`
 - `react-scripts`
 - `react-tabs`
-- `redux`
 - `regenerator-runtime`
 - `underscore`
 - `url`
