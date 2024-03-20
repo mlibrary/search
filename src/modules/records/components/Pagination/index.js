@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { stringifySearchQueryForURL } from '../../../pride';
 import './styles.css';
 import { Anchor } from '../../../reusable';
 
 const Pagination = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const location = useLocation();
   const {
     activeDatastoreUid,
     filters,
@@ -48,13 +49,13 @@ const Pagination = () => {
       sort
     });
 
-    return `${history.location.pathname}?${queryString}`;
+    return `${location.pathname}?${queryString}`;
   };
 
   const toPreviousPage = page === 1 ? undefined : createSearchQuery(page - 1);
   const toNextPage = total === 0 || page === total ? undefined : createSearchQuery(page + 1);
   const watchPageChange = (newPage) => {
-    return history.push(createSearchQuery(newPage));
+    return navigate(createSearchQuery(newPage));
   };
 
   const handleSubmit = (e) => {

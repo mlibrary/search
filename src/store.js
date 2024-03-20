@@ -9,8 +9,6 @@ import { institutionReducer } from './modules/institution';
 import { ADD_PROFILE } from './modules/profile/actions';
 import { ADD_LIST } from './modules/lists/actions';
 import { recordsReducer } from './modules/records';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-import history from './history';
 import { searchReducer } from './modules/search';
 import { ADD_SPECIALISTS } from './modules/specialists/actions';
 
@@ -32,12 +30,8 @@ const store = configureStore({
     lists: simpleReducer(ADD_LIST),
     profile: simpleReducer(ADD_PROFILE),
     records: recordsReducer,
-    router: connectRouter(history),
     search: searchReducer,
     specialists: simpleReducer(ADD_SPECIALISTS, [])
-  },
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(routerMiddleware(history));
   }
 });
 

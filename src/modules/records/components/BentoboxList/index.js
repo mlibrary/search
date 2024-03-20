@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import KeywordSwitch from '../KeywordSwitch';
 import { Anchor } from '../../../reusable';
 import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
@@ -7,7 +8,7 @@ import { Specialists } from '../../../specialists';
 import { getMultiSearchRecords } from '../../../pride';
 import { Icon } from '../../../core';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function BentoboxResultsNum ({ totalResults }) {
   // Results have loaded
@@ -108,10 +109,22 @@ BentoFooter.propTypes = {
   searchQuery: PropTypes.string
 };
 
-function BentoboxList (props) {
+function BentoboxList () {
+  const allRecords = useSelector((state) => {
+    return state.records.records;
+  });
+  const datastoreUid = useSelector((state) => {
+    return state.datastores.active;
+  });
+  const search = useSelector((state) => {
+    return state.search;
+  });
+  const location = useLocation();
+  const searchQuery = location.search;
+
   return (
     <article className='bentobox-list' id='search-results'>
-      {getMultiSearchRecords(props.datastoreUid, props.allRecords).map((bentobox, index) => {
+      {getMultiSearchRecords(datastoreUid, allRecords).map((bentobox, index) => {
         if (!bentobox.records) {
           return null;
         }
@@ -123,21 +136,21 @@ function BentoboxList (props) {
               <div className='container__rounded'>
                 <Anchor
                   className='bentobox-heading-container'
-                  to={`/${bentobox.slug}${props.searchQuery}`}
+                  to={`/${bentobox.slug}${searchQuery}`}
                 >
                   <h2 className='bentobox-heading'>{bentobox.name}</h2>
-                  <BentoboxResultsNum totalResults={props.search.data[bentobox.uid].totalAvailable} />
+                  <BentoboxResultsNum totalResults={search.data[bentobox.uid].totalAvailable} />
                 </Anchor>
                 <BentoResults
-                  search={props.search}
+                  search={search}
                   bentobox={bentobox}
-                  searchQuery={props.searchQuery}
-                  datastoreUid={props.datastoreUid}
+                  searchQuery={searchQuery}
+                  datastoreUid={datastoreUid}
                 />
                 <BentoFooter
                   bentobox={bentobox}
-                  search={props.search}
-                  searchQuery={props.searchQuery}
+                  search={search}
+                  searchQuery={searchQuery}
                 />
               </div>
             </section>
@@ -148,20 +161,4 @@ function BentoboxList (props) {
   );
 }
 
-BentoboxList.propTypes = {
-  allRecords: PropTypes.object,
-  datastoreUid: PropTypes.string,
-  search: PropTypes.object,
-  searchQuery: PropTypes.string
-};
-
-function mapStateToProps (state) {
-  return {
-    allRecords: state.records.records,
-    datastoreUid: state.datastores.active,
-    search: state.search,
-    searchQuery: state.router.location.search
-  };
-}
-
-export default connect(mapStateToProps)(BentoboxList);
+export default BentoboxList;

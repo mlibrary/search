@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Record from '../Record';
 import KeywordSwitch from '../KeywordSwitch';
 import { Anchor } from '../../../reusable';
@@ -13,7 +13,6 @@ import { GoToList } from '../../../lists';
 import { findWhere } from '../../../reusable/underscore';
 
 function RecordListContainer () {
-  const history = useHistory();
   const location = useLocation();
   const searchQuery = location.search;
 
@@ -71,7 +70,6 @@ function RecordListContainer () {
   const props = {
     activeFilters,
     activeDatastore,
-    history,
     institution,
     search
   };

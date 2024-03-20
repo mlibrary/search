@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { Record } from '../../../records';
 import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import { setA11yMessage as setA11yMessageAction } from '../../../a11y';
@@ -10,10 +11,11 @@ import PropTypes from 'prop-types';
 function List (props) {
   const [active, setActive] = useState('');
   const dispatch = useDispatch();
+  const location = useLocation();
   const setA11yMessage = (message) => {
     return dispatch(setA11yMessageAction(message));
   };
-  const { activeDatastore, institution, list, location } = props;
+  const { activeDatastore, institution, list } = props;
   const { name, slug, uid } = activeDatastore;
   const tempList = list || [];
   const listLength = tempList.length;
@@ -83,7 +85,6 @@ List.propTypes = {
   activeDatastore: PropTypes.object,
   institution: PropTypes.object,
   list: PropTypes.array,
-  location: PropTypes.object,
   setA11yMessage: PropTypes.func
 };
 

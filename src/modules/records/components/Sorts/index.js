@@ -1,12 +1,13 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
 import config from '../../../../config';
 import { stringifySearchQueryForURL } from '../../../pride';
 import PropTypes from 'prop-types';
 
-const Sorts = ({ activeFilters, activeDatastore, history, institution, search }) => {
+const Sorts = ({ activeFilters, activeDatastore, institution, search }) => {
   const { datastoreSlug } = useParams();
+  const navigate = useNavigate();
   const sorts = (config.sorts[activeDatastore]?.sorts || [])
     .map((uid) => {
       return findWhere(search.data[activeDatastore].sorts, { uid });
@@ -27,7 +28,7 @@ const Sorts = ({ activeFilters, activeDatastore, history, institution, search })
       sort: event.target.value
     });
 
-    history.push(`/${datastoreSlug}?${queryString}`);
+    navigate(`/${datastoreSlug}?${queryString}`);
   };
 
   if (!sorts.length) return null;
@@ -59,7 +60,6 @@ const Sorts = ({ activeFilters, activeDatastore, history, institution, search })
 Sorts.propTypes = {
   activeFilters: PropTypes.object,
   activeDatastore: PropTypes.string,
-  history: PropTypes.object,
   institution: PropTypes.object,
   search: PropTypes.object
 };

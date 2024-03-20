@@ -5,10 +5,8 @@ Monthly dependency update to help maintain Search.
 These dependencies have been updated to their latest versions:
 - `@emotion/react`
 - `@emotion/styled`
-- `@redux-devtools/extension`
 - `@reduxjs/toolkit`
 - `citeproc`
-- `connected-react-router`
 - `core-js`
 - `eslint`
 - `eslint-config-standard`
@@ -19,7 +17,6 @@ These dependencies have been updated to their latest versions:
 - `eslint-plugin-node`
 - `eslint-plugin-promise`
 - `eslint-plugin-react`
-- `history`
 - `jsonschema`
 - `prejudice`
 - `pride`
