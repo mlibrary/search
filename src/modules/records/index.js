@@ -1,57 +1,57 @@
-import RecordList from './components/RecordList';
+import BentoboxList from './components/BentoboxList';
+import Bookplate from './components/Bookplate';
+import FullRecordPlaceholder from './components/FullRecordPlaceholder';
+import KeywordSwitch from './components/KeywordSwitch';
 import Pagination from './components/Pagination';
+import Record from './components/Record';
+import RecordDescription from './components/RecordDescription';
 import RecordFull from './components/RecordFull';
 import RecordFullFormats from './components/RecordFullFormats';
-import Record from './components/Record';
-import RecordPlaceholder from './components/RecordPlaceholder';
-import FullRecordPlaceholder from './components/FullRecordPlaceholder';
-import ResultsSummary from './components/ResultsSummary';
-import BentoboxList from './components/BentoboxList';
-import ViewMARC from './components/ViewMARC';
-import Bookplate from './components/Bookplate';
-import RecommendedResource from './components/RecommendedResource';
-import RecordDescription from './components/RecordDescription';
-import Zotero from './components/Zotero';
+import RecordList from './components/RecordList';
 import RecordMetadata from './components/RecordMetadata';
-import KeywordSwitch from './components/KeywordSwitch';
+import RecordPlaceholder from './components/RecordPlaceholder';
+import RecommendedResource from './components/RecommendedResource';
+import ResultsSummary from './components/ResultsSummary';
+import ViewMARC from './components/ViewMARC';
+import Zotero from './components/Zotero';
 import recordsReducer from './reducer';
 import {
-  addRecords,
-  clearRecords,
-  setRecord,
-  clearRecord,
-  loadingRecords,
   addHoldings,
+  addRecords,
+  clearRecord,
+  clearRecords,
   loadingHoldings,
-  setRecordHoldings,
-  setRecordGetThis
+  loadingRecords,
+  setRecord,
+  setRecordGetThis,
+  setRecordHoldings
 } from './actions';
 
 export {
-  RecordList,
-  RecordFull,
-  Pagination,
-  ResultsSummary,
-  recordsReducer,
-  addRecords,
-  Record,
-  RecordFullFormats,
-  RecordPlaceholder,
-  FullRecordPlaceholder,
-  clearRecords,
-  setRecord,
-  clearRecord,
-  loadingRecords,
-  BentoboxList,
   addHoldings,
-  loadingHoldings,
-  setRecordHoldings,
-  setRecordGetThis,
-  ViewMARC,
+  addRecords,
+  BentoboxList,
   Bookplate,
-  RecommendedResource,
+  clearRecord,
+  clearRecords,
+  FullRecordPlaceholder,
+  KeywordSwitch,
+  loadingHoldings,
+  loadingRecords,
+  Pagination,
+  Record,
   RecordDescription,
-  Zotero,
+  RecordFull,
+  RecordFullFormats,
+  RecordList,
   RecordMetadata,
-  KeywordSwitch
+  RecordPlaceholder,
+  recordsReducer,
+  RecommendedResource,
+  ResultsSummary,
+  setRecord,
+  setRecordGetThis,
+  setRecordHoldings,
+  ViewMARC,
+  Zotero
 };
