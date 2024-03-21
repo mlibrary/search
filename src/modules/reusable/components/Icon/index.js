@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
 
 const icons = {
   archive: 'M3,3H21V7H3V3M4,8H20V21H4V8M9.5,11A0.5,0.5 0 0,0 9,11.5V13H15V11.5A0.5,0.5 0 0,0 14.5,11H9.5Z',
@@ -19,6 +18,7 @@ const icons = {
   find_in_page: 'M20 19.59V8l-6-6H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c.45 0 .85-.15 1.19-.4l-4.43-4.43c-.8.52-1.74.83-2.76.83-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5c0 1.02-.31 1.96-.83 2.75L20 19.59zM9 13c0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3-3 1.34-3 3z',
   format_quote: 'M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z',
   insert_drive_file: 'M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z',
+  launch: 'M11.9994,0.99805 L11.9994,2.99805 L15.5854,2.99805 L5.7564,12.826 L7.1704,14.241 L16.9994,4.41205 L16.9994,7.99805 L18.9994,7.99805 L18.9994,0.99805 L11.9994,0.99805 Z M16.9994,16.998 L2.9994,16.998 L2.9994,2.99805 L9.9994,2.99805 L9.9994,0.99805 L2.9994,0.99805 C1.8944,0.99805 0.9994,1.89404 0.9994,2.99805 L0.9994,16.998 C0.9994,18.1021 1.8944,18.998 2.9994,18.998 L16.9994,18.998 C18.1034,18.998 18.9994,18.1021 18.9994,16.998 L18.9994,9.998 L16.9994,9.998 L16.9994,16.998 L16.9994,16.998 Z',
   library_books: 'M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z',
   map: 'M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z',
   multi_result: 'M9,4 L9,9 L16,9 L16,4 L9,4 Z M9,20 L16,20 L16,11 L9,11 L9,20 Z M0,20 L7,20 L7,15 L0,15 L0,20 Z M0,13 L7,13 L7,4 L0,4 L0,13 L0,13 Z',
@@ -46,53 +46,35 @@ const icons = {
   web: 'M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z'
 };
 
-const StyledSVG = styled('svg')({
-  display: 'inline-block',
-  verticalAlign: 'middle',
-  fill: 'currentColor'
-});
-
-/**
-  Use this to render SVG icons.
-*/
-const Icon = ({
-  icon,
-  size,
-  title,
-  className,
-  d,
-  ...other
-}) => {
+const Icon = ({ icon, size = 16, title, d, style, ...rest }) => {
+  size += /^[0-9]+$/.test(size) ? 'px' : '';
   return (
-    <StyledSVG
-      width={`${size}px`}
-      height={`${size}px`}
+    <svg
+      width={size}
+      height={size}
       viewBox='0 0 24 24'
-      className={className}
+      style={{
+        display: 'inline-block',
+        fill: 'currentColor',
+        verticalAlign: 'middle',
+        ...style
+      }}
       focusable='false'
       role={title ? 'img' : 'presentation'}
-      {...other}
+      {...rest}
     >
       {title && <title>{title}</title>}
       <path d={d || icons[icon]} />
-    </StyledSVG>
+    </svg>
   );
 };
 
 Icon.propTypes = {
-  /** Icon name. */
   icon: PropTypes.string,
-  /** Size of the icon in pixels. */
   size: PropTypes.number,
-  /** Include a title if this icon requires a text alternative. */
   title: PropTypes.string,
-  className: PropTypes.string,
-  d: PropTypes.string
+  d: PropTypes.string,
+  style: PropTypes.object
 };
 
-Icon.defaultProps = {
-  size: 16
-};
-
-export { icons };
 export default Icon;
