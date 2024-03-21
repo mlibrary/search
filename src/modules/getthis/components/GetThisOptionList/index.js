@@ -1,7 +1,6 @@
 import React from 'react';
 import { Alert } from '../../../reusable';
 import { connect } from 'react-redux';
-import { DetailsList } from '../../../core';
 import GetThisOption from '../GetThisOption';
 import { Authentication } from '../../../profile';
 import PropTypes from 'prop-types';
@@ -32,13 +31,13 @@ function GetThisOptions (props) {
 
       if (options.length) {
         section = (
-          <DetailsList className='get-this-options'>
+          <>
             {options.map((option, key) => {
               return (
                 <GetThisOption option={option} key={key} />
               );
             })}
-          </DetailsList>
+          </>
         );
       }
     }
