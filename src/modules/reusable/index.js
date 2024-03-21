@@ -9,6 +9,7 @@ import Icon from './components/Icon';
 import Metadata from './components/Metadata';
 import ResourceAccess from './components/ResourceAccess';
 import { Tab, TabList, Tabs, TabPanel } from './components/Tabs';
+import TruncateText from './components/TruncateText';
 
 export {
   Alert,
@@ -27,5 +28,6 @@ export {
   Tab,
   TabList,
   Tabs,
-  TabPanel
+  TabPanel,
+  TruncateText
 };

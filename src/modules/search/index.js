@@ -1,30 +1,27 @@
 import SearchBox from './components/SearchBox';
-import ClearSearchButton from './components/ClearSearchButton';
 import SearchResultsMessage from './components/SearchResultsMessage';
-
 import searchReducer from './reducer';
 import {
-  setSearchQuery,
-  setSearchQueryInput,
-  setSearchData,
-  searching,
-  setPage,
   clearSearch,
   resetSort,
-  setParserMessage
+  searching,
+  setPage,
+  setSearchData,
+  setParserMessage,
+  setSearchQuery,
+  setSearchQueryInput
 } from './actions';
 
 export {
-  SearchBox,
-  searchReducer,
-  setSearchQuery,
-  setSearchQueryInput,
-  setSearchData,
-  setPage,
-  searching,
-  ClearSearchButton,
   clearSearch,
   resetSort,
+  searchReducer,
+  SearchBox,
+  SearchResultsMessage,
+  searching,
+  setPage,
+  setSearchData,
   setParserMessage,
-  SearchResultsMessage
+  setSearchQuery,
+  setSearchQueryInput
 };

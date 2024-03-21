@@ -17,7 +17,7 @@ function AdvancedSearchContainer () {
   const activeDatastore = datastores[activeDatastoreIndex];
 
   return (
-    <div className='container container-narrow margin-top__m'>
+    <div className='container container-narrow' style={{ marginTop: 'var(--search-spacing-m)' }}>
       <Breadcrumb
         items={[
           { text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${document.location.search}` },

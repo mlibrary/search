@@ -1,6 +1,5 @@
 import Checkbox from './components/Checkbox';
 import DateRangeInput from './components/DateRangeInput';
-import DetailsList from './components/DetailsList';
 import Footer from './components/Footer';
 import Icon from './components/Icon';
 import MultipleChoice from './components/MultipleChoice';
@@ -12,7 +11,6 @@ import TrimString from './components/TrimString';
 export {
   Checkbox,
   DateRangeInput,
-  DetailsList,
   Footer,
   Icon,
   MultipleChoice,

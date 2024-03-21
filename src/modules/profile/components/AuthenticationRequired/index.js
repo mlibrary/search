@@ -2,14 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Authentication from '../Authentication';
 
-function AuthenticationRequired (props) {
-  if (!props.children) {
-    return null;
-  }
+function AuthenticationRequired ({ profile, children }) {
+  if (!children) return null;
 
-  if (props.profile?.status === 'Logged in') {
-    return props.children;
-  }
+  if (profile?.status === 'Logged in') return children;
 
   return (
     <Authentication button>
