@@ -29,7 +29,7 @@ const Specialists = ({ show = 3 }) => {
         <h2 className='specialists__heading'>Talk to a Library Specialist</h2>
         <Anchor href='https://www.lib.umich.edu/research-and-scholarship/help-research/find-specialist'>
           Find more specialists
-          <Icon icon='launch' size='18' className='icon' />
+          <Icon icon='open_in_new' size='18' className='icon' />
         </Anchor>
       </header>
       <ol className='specialists__list'>
@@ -43,7 +43,7 @@ const Specialists = ({ show = 3 }) => {
                   <h3 className='specialists__heading'>
                     <Anchor href={url}>
                       {name}
-                      <Icon icon='launch' size='18' className='icon' />
+                      <Icon icon='open_in_new' size='18' className='icon' />
                     </Anchor>
                   </h3>
                   {jobTitle && <p>{jobTitle}</p>}

@@ -49,7 +49,7 @@ function Header ({ record, datastoreUid, searchQuery }) {
               key={index}
             >
               <TrimString string={title} />
-              <Icon icon='launch' className='icon' size='1.125rem' />
+              <Icon icon='open_in_new' className='icon' size='1.125rem' />
             </Anchor>
           );
         })}

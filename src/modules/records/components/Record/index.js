@@ -61,7 +61,7 @@ function Header ({ record, datastoreUid, searchQuery }) {
             >
               <TrimString string={title} />
             </Anchor>
-            {datastoreUid === 'website' && <Icon icon='launch' className='icon' size='1.125rem' />}
+            {datastoreUid === 'website' && <Icon icon='open_in_new' className='icon' size='1.125rem' />}
           </span>
         );
       })}
