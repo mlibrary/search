@@ -1,86 +1,64 @@
-/** @jsxImportSource @emotion/react */
-import React from 'react';
-import { connect } from 'react-redux';
-import _ from 'underscore';
-import { Checkbox } from '../../../core';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Checkbox } from '../../../reusable';
+import { findWhere } from '../../../reusable/underscore';
 import { isInList } from '../../../lists';
-import { setA11yMessage } from '../../../a11y';
 import prejudice from '../../prejudice';
 import PropTypes from 'prop-types';
 
-class AddToListButton extends React.Component {
-  state = {
-    waitingToBeAddedToList: false
-  };
-
-  componentDidUpdate () {
-    const { list, item } = this.props;
-    const inList = isInList(list, item.uid);
-
-    if (inList && this.state.waitingToBeAddedToList) {
-      this.setState({ waitingToBeAddedToList: false });
-    }
+function AddToListButton ({ item }) {
+  const [waitingToBeAddedToList, setWaitingToBeAddedToList] = useState(false);
+  const datastore = useSelector((state) => {
+    return findWhere(state.datastores.datastores, { uid: state.datastores.active });
   }
+  );
+  const list = useSelector((state) => {
+    return state.lists[state.datastores.active];
+  });
 
-  handleClick = (inList, item) => {
-    if (!this.state.waitingToBeAddedToList) {
+  useEffect(() => {
+    if (isInList(list, item.uid) && waitingToBeAddedToList) {
+      setWaitingToBeAddedToList(false);
+    }
+  }, [list, item.uid, waitingToBeAddedToList]);
+
+  const handleClick = (inList, item) => {
+    if (!waitingToBeAddedToList) {
       if (inList) {
         prejudice.removeRecord(item);
       } else {
-        this.setState({ waitingToBeAddedToList: true });
+        setWaitingToBeAddedToList(true);
         prejudice.addRecord(item);
       }
     }
   };
 
-  render () {
-    const { list, item, datastore } = this.props;
-    const getRecordTitle = item.fields.filter((field) => {
-      return field.uid === 'title';
-    })[0].value;
-    const inList = isInList(list, item.uid);
+  const inList = isInList(list, item.uid);
+  const getRecordTitle = item.fields.filter((field) => {
+    return field.uid === 'title';
+  })[0].value;
 
-    /*
-      Re: SEARCH-881
-      Do not render checkbox while holdings are loading.
-      This is a workaround for a race condition when
-      adding records to a list before holdings have loaded.
-    */
-    if (item.loadingHoldings) {
-      return null;
-    }
-
-    return (
-      <div
-        className='add-to-list-checkbox-container' css={{
-          color: 'var(--ds-color-neutral-300)'
-        }}
-      >
-        <Checkbox
-          handleClick={() => {
-            return this.handleClick(inList, item);
-          }}
-          isChecked={inList}
-          label={`Add "${getRecordTitle}" to my temporary ${datastore.name} list`}
-          hideLabel
-          uid={item.uid}
-        />
-      </div>
-    );
+  if (item.loadingHoldings) {
+    return null;
   }
+
+  return (
+    <div className='add-to-list-checkbox-container'>
+      <Checkbox
+        handleClick={() => {
+          return handleClick(inList, item);
+        }}
+        isChecked={inList}
+        label={`Add "${getRecordTitle}" to my temporary ${datastore?.name} list`}
+        hideLabel
+        uid={item.uid}
+      />
+    </div>
+  );
 }
 
 AddToListButton.propTypes = {
-  list: PropTypes.array,
-  item: PropTypes.object,
-  datastore: PropTypes.object
+  item: PropTypes.object.isRequired
 };
 
-function mapStateToProps (state) {
-  return {
-    datastore: _.findWhere(state.datastores.datastores, { uid: state.datastores.active }),
-    list: state.lists[state.datastores.active]
-  };
-}
-
-export default connect(mapStateToProps, { setA11yMessage })(AddToListButton);
+export default AddToListButton;

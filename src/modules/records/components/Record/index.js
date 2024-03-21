@@ -1,7 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
-import { Anchor } from '../../../reusable';
-import { TrimString, Icon } from '../../../core';
+import { Anchor, Icon } from '../../../reusable';
+import { TrimString } from '../../../core';
 import { RecommendedResource, RecordMetadata } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
 import { getField, getFieldValue } from '../../utilities';
@@ -38,7 +37,7 @@ function Header ({ record, datastoreUid, searchQuery }) {
         />
       )}
       <span
-        css={{
+        style={{
           marginRight: 'var(--search-spacing-2xs)',
           color: 'var(--ds-color-neutral-300)'
         }}
@@ -62,7 +61,7 @@ function Header ({ record, datastoreUid, searchQuery }) {
             >
               <TrimString string={title} />
             </Anchor>
-            {datastoreUid === 'website' && <Icon name='launch' />}
+            {datastoreUid === 'website' && <Icon icon='launch' className='icon' size='1.125rem' />}
           </span>
         );
       })}
@@ -101,7 +100,7 @@ function Record (props) {
 
       <div
         className='record-holders-container'
-        css={{
+        style={{
           borderBottom: 'solid 1px var(--ds-color-neutral-100)'
         }}
       >

@@ -80,18 +80,10 @@ function CheckboxFilter ({ label, isChecked, url }) {
       <span
         className='margin-right__2xs'
         css={{
-          color: isChecked ? '#126DC1' : 'var(--ds-color-neutral-300)',
-          lineHeight: '100%'
+          color: isChecked ? 'var(--search-color-blue-400)' : 'var(--ds-color-neutral-300)'
         }}
       >
-        <Icon
-          d={
-            isChecked
-              ? 'M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'
-              : 'M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'
-          }
-          size={22}
-        />
+        <Icon icon={`checkbox_${!isChecked ? 'un' : ''}checked`} size='22' />
       </span>
       {label}
     </Anchor>

@@ -17,8 +17,6 @@
 .specialists a > .icon {
   color: var(--search-color-grey-600);
   margin-left: 0.5rem;
-  position: relative;
-  top: 0.125rem;
   width: 0.85rem;
 }
 

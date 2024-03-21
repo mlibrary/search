@@ -1795,8 +1795,6 @@ body {
 .record-preview-heading .icon {
   color: var(--search-color-grey-600);
   margin-left: 0.25rem;
-  position: relative;
-  top: 0.25rem;
   width: 0.85rem;
 }
 
@@ -2713,6 +2711,7 @@ input.get-this-field-input-year {
 }
 
 .add-to-list-checkbox-container {
+  color: var(--ds-color-neutral-300);
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
@@ -2728,7 +2727,7 @@ input.get-this-field-input-year {
 
 .add-to-list-checkbox-container .checkbox {
   margin: 0;
-  padding: 0.25rem;
+  padding: 0 0.25rem;
   font-size: 0;
 }
 

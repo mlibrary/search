@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import './styles.css';
-import { Anchor } from '../../../reusable';
-import { Icon } from '../../../core';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import { setA11yMessage } from '../../../a11y';
-import { connect } from 'react-redux';
+import { Anchor, Icon } from '../../../reusable';
+import PropTypes from 'prop-types';
 
-const Specialists = ({ loadingUserData, show = 3, specialists, setA11yMessage }) => {
+const Specialists = ({ show = 3 }) => {
   const [showSpecialists, setShowSpecialists] = useState(false);
+  const specialists = useSelector((state) => {
+    return state.specialists;
+  });
+  const dispatch = useDispatch();
   const specialistsLength = specialists?.length;
 
-  if (loadingUserData || !specialistsLength) {
-    return null;
-  }
+  if (!specialistsLength) return null;
 
-  const message = (a11y = false) => {
+  const message = (a11y) => {
     return `Show${a11y ? 'ing' : ''} ${showSpecialists ? 'fewer' : `all ${specialistsLength}`} Library Specialists`;
   };
   const toggleSpecialists = () => {
-    setA11yMessage(message(true));
+    dispatch(setA11yMessage(message(true)));
     setShowSpecialists(!showSpecialists);
   };
 
@@ -28,25 +29,26 @@ const Specialists = ({ loadingUserData, show = 3, specialists, setA11yMessage })
         <h2 className='specialists__heading'>Talk to a Library Specialist</h2>
         <Anchor href='https://www.lib.umich.edu/research-and-scholarship/help-research/find-specialist'>
           Find more specialists
-          <Icon name='launch' />
+          <Icon icon='launch' size='18' className='icon' />
         </Anchor>
       </header>
       <ol className='specialists__list'>
         {specialists.map((specialist, index) => {
+          const { picture, url, name, job_title: jobTitle, phone, email } = specialist;
           if (showSpecialists || (show > index)) {
             return (
               <li className='specialist' key={`specialist-${index}`}>
-                <img src={specialist.picture} alt='' className='specialist__picture' />
+                <img src={picture} alt='' className='specialist__picture' />
                 <section>
                   <h3 className='specialists__heading'>
-                    <Anchor href={specialist.url}>
-                      {specialist.name}
-                      <Icon name='launch' />
+                    <Anchor href={url}>
+                      {name}
+                      <Icon icon='launch' size='18' className='icon' />
                     </Anchor>
                   </h3>
-                  {specialist.job_title && (<p>{specialist.job_title}</p>)}
-                  {(specialist.phone && specialist.phone !== '000-000-0000') && (<Anchor href={`tel:+1-${specialist.phone}`}>{specialist.phone}</Anchor>)}
-                  {specialist.email && (<Anchor href={`mailto:${specialist.email}`}>{specialist.email}</Anchor>)}
+                  {jobTitle && <p>{jobTitle}</p>}
+                  {(phone !== '000-000-0000' && phone) && <Anchor href={`tel:+1-${phone}`}>{phone}</Anchor>}
+                  {email && <Anchor href={`mailto:${email}`}>{email}</Anchor>}
                 </section>
               </li>
             );
@@ -68,14 +70,7 @@ const Specialists = ({ loadingUserData, show = 3, specialists, setA11yMessage })
 };
 
 Specialists.propTypes = {
-  setA11yMessage: PropTypes.func,
-  loadingUserData: PropTypes.bool,
-  show: PropTypes.number,
-  specialists: PropTypes.array
+  show: PropTypes.number
 };
 
-export default connect((state) => {
-  return {
-    specialists: state.specialists
-  };
-}, { setA11yMessage })(Specialists);
+export default Specialists;
