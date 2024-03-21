@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { requestRecord, requestGetThis } from '../../../pride';
-import { GetThisOptionList, GetThisRecord } from '../../../getthis';
+import { GetThisOptions, GetThisRecord } from '../../../getthis';
 import { Alert, Breadcrumb, H1 } from '../../../reusable';
 
 const GetThisPage = () => {
@@ -43,7 +43,12 @@ const GetThisPage = () => {
         : (
           <>
             <GetThisRecord barcode={barcode} />
-            <GetThisOptionList record={record} />
+            <section className='card get-this-section y-spacing'>
+              <h2 className='fieldset-label margin-top__none'>
+                How would you like to get this item?
+              </h2>
+              <GetThisOptions record={record} />
+            </section>
           </>
           )}
     </article>
