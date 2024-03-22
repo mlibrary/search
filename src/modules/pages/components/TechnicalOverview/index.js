@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../../../a11y';
 import { Anchor, H1 } from '../../../reusable';
 import schematicImage from './schematic.png';
 
 function TechnicalOverview () {
-  setDocumentTitle(['Technical overview']);
+  useEffect(() => {
+    setDocumentTitle(['Technical overview']);
+  }, []);
 
   return (
     <div className='container container-narrow'>

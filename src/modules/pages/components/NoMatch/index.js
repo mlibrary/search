@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../../../a11y';
 import { Anchor, H1 } from '../../../reusable';
 
 function NoMatch () {
-  setDocumentTitle(['404']);
+  useEffect(() => {
+    setDocumentTitle(['404']);
+  }, []);
 
   return (
     <div className='container container-narrow'>
