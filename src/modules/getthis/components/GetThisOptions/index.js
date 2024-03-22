@@ -50,7 +50,7 @@ function GetThisOptions ({ record }) {
 }
 
 GetThisOptions.propTypes = {
-  record: PropTypes.object.isRequired
+  record: PropTypes.object
 };
 
 export default GetThisOptions;

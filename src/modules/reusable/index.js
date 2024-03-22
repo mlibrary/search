@@ -8,7 +8,6 @@ import { Expandable, ExpandableButton, ExpandableChildren, ExpandableProvider } 
 import H1 from './components/H1';
 import Icon from './components/Icon';
 import Metadata from './components/Metadata';
-import ResourceAccess from './components/ResourceAccess';
 import { Tab, TabList, Tabs, TabPanel } from './components/Tabs';
 import TruncateText from './components/TruncateText';
 
@@ -26,7 +25,6 @@ export {
   H1,
   Icon,
   Metadata,
-  ResourceAccess,
   Tab,
   TabList,
   Tabs,

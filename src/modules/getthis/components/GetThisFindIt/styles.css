@@ -1,0 +1,51 @@
+figure {
+  overflow-x: auto;
+  overflow-y: visible;
+  margin: 0;
+  padding: 0;
+};
+
+figure tr:not(:last-child) {
+  border-bottom: solid 1px var(--search-color-grey-400);
+}
+
+figure table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  min-width: 30rem;
+  table-layout: fixed;
+  width: 100%;
+}
+
+figure table tbody tr:not(:last-child),
+figure table th {
+  border-bottom: solid 1px var(--search-color-grey-400);
+}
+
+figure table td,
+figure table th {
+  padding: 0.5rem 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+figure table td:not(:last-child),
+figure table th:not(:last-child) {
+  padding-right: 1rem;
+}
+
+figure table th {
+  color: var(--search-color-grey-700);
+  border-bottom-width: 2px;
+}
+
+figure table th,
+figure .notes-list {
+  font-size: 0.875rem;
+}
+
+figure .notes-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

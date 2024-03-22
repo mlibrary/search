@@ -1,0 +1,18 @@
+.get-this-resource-access-container table {
+  min-width: auto;
+  table-layout: auto;
+}
+
+.get-this-resource-access-container td:first-of-type,
+.get-this-resource-access-container th:first-of-type {
+  display: none;
+}
+
+.get-this-resource-access-container td:first-of-type + *,
+.get-this-resource-access-container th:first-of-type + * {
+  padding-left: 0;
+}
+
+.get-this-resource-access-container a {
+  text-decoration: underline;
+}
