@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../../../a11y';
 import { Anchor, H1 } from '../../../reusable';
 import schematicImage from './schematic.png';
 
 function AboutLibrarySearch () {
-  setDocumentTitle(['About Library Search']);
+  useEffect(() => {
+    setDocumentTitle(['About Library Search']);
+  }, []);
 
   return (
     <div className='container container-narrow'>

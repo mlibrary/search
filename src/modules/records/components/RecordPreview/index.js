@@ -1,7 +1,6 @@
 import React from 'react';
-import { Anchor } from '../../../reusable';
-import Icon from '../../../reusable/components/Icon';
-import { Icon as SearchIcon, TrimString } from '../../../core';
+import { Anchor, Icon } from '../../../reusable';
+import { TrimString } from '../../../core';
 import { getField, getFieldValue } from '../../utilities';
 import { getDatastoreSlugByUid } from '../../../pride';
 import { RecommendedResource, Zotero, RecordMetadata } from '../../../records';
@@ -50,7 +49,7 @@ function Header ({ record, datastoreUid, searchQuery }) {
               key={index}
             >
               <TrimString string={title} />
-              <SearchIcon name='launch' />
+              <Icon icon='open_in_new' className='icon' size='1.125rem' />
             </Anchor>
           );
         })}

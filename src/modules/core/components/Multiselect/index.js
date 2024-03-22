@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Checkbox } from '../../../core';
+import { Checkbox } from '../../../reusable';
 
 function Multiselect (props) {
   const [filterQuery, setFilterQuery] = useState('');

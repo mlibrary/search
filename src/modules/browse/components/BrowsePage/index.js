@@ -1,11 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { BrowseAtoZ, BrowseByFilters } from '../../../browse';
 import { Breadcrumb, H1 } from '../../../reusable';
-import PropTypes from 'prop-types';
 
-function BrowsePage (props) {
-  const { datastore, browse } = props;
+function BrowsePage () {
+  const activeDatastoreUid = useSelector((state) => {
+    return state.datastores.active;
+  });
+  const datastore = useSelector((state) => {
+    return state.datastores.datastores.find((datastore) => {
+      return datastore.uid === activeDatastoreUid;
+    });
+  }
+  );
+  const browse = useSelector((state) => {
+    return state.browse[activeDatastoreUid];
+  });
 
   return (
     <div className='container container-narrow u-margin-top-1'>
@@ -23,16 +33,4 @@ function BrowsePage (props) {
   );
 }
 
-BrowsePage.propTypes = {
-  browse: PropTypes.object,
-  datastore: PropTypes.object
-};
-
-export default connect((state) => {
-  return {
-    datastore: state.datastores.datastores.filter((datastore) => {
-      return datastore.uid === state.datastores.active;
-    })[0],
-    browse: state.browse[state.datastores.active]
-  };
-})(BrowsePage);
+export default BrowsePage;

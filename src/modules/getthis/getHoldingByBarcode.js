@@ -5,7 +5,7 @@
   structure and pick out the holding that matches
   the passed in barcode. Remove everything else, but keep
   the holding container information. In other words,
-  it should maintain the resource acccess data shape, but
+  it should maintain the resource access data shape, but
   only contain the holding that matches the barcode.
 
   If it can't be found, return undefined.

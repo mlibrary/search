@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import EmailAction from '../EmailAction';
 import TextAction from '../TextAction';
 import FileAction from '../FileAction';
@@ -11,6 +11,9 @@ import PropTypes from 'prop-types';
 
 function ActionsList (props) {
   const [alert, setAlert] = useState(null);
+  const profile = useSelector((state) => {
+    return state.profile;
+  });
   const actions = [
     {
       uid: 'email',
@@ -46,7 +49,7 @@ function ActionsList (props) {
       uid: 'permalink',
       action: 'permalink',
       name: 'Copy link',
-      icon_d: 'M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z'
+      icon: 'link'
     }
   ];
 
@@ -68,14 +71,13 @@ function ActionsList (props) {
                   <button
                     className={`button-link lists-action-button ${activeClassName}`}
                     onClick={() => {
-                      // Click to toggle active state
                       props.setActive(!isActive ? action : undefined);
                       setAlert(null);
                     }}
                     aria-pressed={!!isActive}
                   >
                     <span style={{ opacity: '0.75' }}>
-                      <Icon size={20} d={action.icon_d} icon={action.icon} />
+                      <Icon size={20} icon={action.icon} />
                     </span>{action.name}
                   </button>
                 </li>
@@ -83,7 +85,7 @@ function ActionsList (props) {
             })}
           </ul>
           {props.active?.action === 'email' && (
-            <AuthenticationRequired profile={props.profile}>
+            <AuthenticationRequired profile={profile}>
               <EmailAction
                 action={props.active}
                 {...props}
@@ -91,7 +93,7 @@ function ActionsList (props) {
             </AuthenticationRequired>
           )}
           {props.active?.action === 'text' && (
-            <AuthenticationRequired profile={props.profile}>
+            <AuthenticationRequired profile={profile}>
               <TextAction
                 action={props.active}
                 {...props}
@@ -134,14 +136,7 @@ ActionsList.propTypes = {
     PropTypes.string,
     PropTypes.object
   ]),
-  setActive: PropTypes.func,
-  profile: PropTypes.object
+  setActive: PropTypes.func
 };
 
-function mapStateToProps (state) {
-  return {
-    profile: state.profile
-  };
-}
-
-export default connect(mapStateToProps)(ActionsList);
+export default ActionsList;

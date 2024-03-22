@@ -51,11 +51,6 @@
   text-decoration: underline;
 }
 
-.datastore-nav a svg {
-  height: auto;
-  width: 1.5em;
-}
-
 .datastore-nav a[aria-current="page"] {
   border-color: inherit;
 }

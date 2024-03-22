@@ -1,33 +1,11 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
+import './styles.css';
 import { useSelector } from 'react-redux';
-import styled from '@emotion/styled';
 import getHoldingByBarcode from '../../getHoldingByBarcode';
 import { TrimString } from '../../../core';
 import { RecordFullFormats, FullRecordPlaceholder } from '../../../records';
 import ResourceAccess from '../../../resource-acccess';
 import PropTypes from 'prop-types';
-
-/*
-  Hide the first column on the Get This page. No need for users to
-  use "Get this" link when they're already at the Get This page.
-*/
-
-const StyledGetThisResourceAccessContainer = styled('div')({
-  'td:first-of-type, th:first-of-type': {
-    display: 'none'
-  },
-  'td:first-of-type + *, th:first-of-type + *': {
-    paddingLeft: '0'
-  },
-  a: {
-    textDecoration: 'underline'
-  },
-  table: {
-    minWidth: 'auto',
-    tableLayout: 'auto'
-  }
-});
 
 function GetThisHolding ({ record, barcode }) {
   const holding = getHoldingByBarcode(record.resourceAccess, barcode);
@@ -41,16 +19,15 @@ function GetThisHolding ({ record, barcode }) {
     };
 
     return (
-      <StyledGetThisResourceAccessContainer>
-        <div
-          css={{
-            borderBottom: 'solid 1px var(--ds-color-neutral-100)'
-          }}
-        >
-          <h3 className='visually-hidden'>Available at</h3>
-          <ResourceAccess record={recordData} />
-        </div>
-      </StyledGetThisResourceAccessContainer>
+      <div
+        className='get-this-resource-access-container'
+        style={{
+          borderBottom: 'solid 1px var(--ds-color-neutral-100)'
+        }}
+      >
+        <h3 className='visually-hidden'>Available at</h3>
+        <ResourceAccess record={recordData} />
+      </div>
     );
   }
 
@@ -66,21 +43,11 @@ function GetBarcode ({ barcode }) {
   if (barcode) {
     return (
       <section className='record-container'>
-        <p
-          css={{
-            fontSize: '1rem',
-            marginTop: '0',
-            marginBottom: '0',
-            fontWeight: 600
-          }}
-        >
-          Barcode:{' '}
-          <span
-            css={{
-              color: '#637381',
-              fontWeight: 400
-            }}
-          >
+        <p className='margin-y__none'>
+          <span style={{ fontWeight: 600 }}>
+            Barcode:{' '}
+          </span>
+          <span style={{ color: 'var(--ds-color-neutral-300)' }}>
             {barcode}
           </span>
         </p>
@@ -134,5 +101,3 @@ GetThisRecord.propTypes = {
 };
 
 export default GetThisRecord;
-
-export { StyledGetThisResourceAccessContainer };

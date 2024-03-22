@@ -1,12 +1,11 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import KeywordSwitch from '../KeywordSwitch';
-import { Anchor } from '../../../reusable';
+import { Anchor, Icon } from '../../../reusable';
 import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
 import RecordPreview from '../RecordPreview';
 import { Specialists } from '../../../specialists';
 import { getMultiSearchRecords } from '../../../pride';
-import { Icon } from '../../../core';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
@@ -98,7 +97,7 @@ function BentoFooter ({ bentobox, search, searchQuery }) {
       className='bentobox-footer-container'
       to={`/${bentobox.slug}${searchQuery}`}
     >
-      <span>{`View all ${bentobox.name} results`}</span><Icon name='arrow-forward' />
+      <span>{`View all ${bentobox.name} results`}</span><Icon icon='arrow_forward' size='1.5rem' />
     </Anchor>
   );
 };

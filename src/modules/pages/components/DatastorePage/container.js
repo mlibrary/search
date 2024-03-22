@@ -74,13 +74,15 @@ function DatastorePageContainer () {
 
   useEffect(() => {
     if (activeDatastore) {
+      const titleSegments = [activeDatastore.name];
+
       if (query) {
-        setDocumentTitle([query, activeDatastore.name]);
+        titleSegments.unshift(query);
       } else if (location.pathname.endsWith('/browse')) {
-        setDocumentTitle(['Browse', activeDatastore.name]);
-      } else {
-        setDocumentTitle([activeDatastore.name]);
+        titleSegments.unshift('Browse');
       }
+
+      setDocumentTitle(titleSegments);
     }
   }, [activeDatastore, query, location.pathname]);
 

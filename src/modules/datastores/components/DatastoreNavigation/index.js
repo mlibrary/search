@@ -22,7 +22,7 @@ function DatastoreNavigation ({ activeFilters, datastores, institution, search }
                 to={`/${datastore.slug}${queryString ? `?${queryString}` : ''}`}
                 aria-current={datastores.active === datastore.uid && 'page'}
               >
-                {datastore.isMultisearch && <Icon icon='multi_result' />}
+                {datastore.isMultisearch && <Icon icon='multi_result' size='1.5em' />}
                 {datastore.name}
               </Anchor>
             </li>

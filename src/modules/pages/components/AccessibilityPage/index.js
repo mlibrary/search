@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../../../a11y';
 import { Anchor, H1 } from '../../../reusable';
 
 function AccessibilityPage () {
-  setDocumentTitle(['Accessibility']);
+  useEffect(() => {
+    setDocumentTitle(['Accessibility']);
+  }, []);
 
   return (
     <div className='container container-narrow'>
