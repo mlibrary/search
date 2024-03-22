@@ -1,52 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Alert, Anchor } from '../../../reusable';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getField, getFieldValue } from '../../../records/utilities';
 import { placeHold } from '../../../pride';
 import PropTypes from 'prop-types';
 
-const Select = ({ field, setFieldChange }) => {
-  const { name, value, options } = field;
-
-  return (
-    <select id={name} name={name} className='dropdown' value={value} onChange={setFieldChange} autoComplete='off'>
-      {options.map((option, key) => {
-        return (
-          <option
-            key={key}
-            value={option.value}
-            disabled={option.disabled && 'disabled'}
-          >
-            {option.name}
-          </option>
-        );
-      })}
-    </select>
-  );
-};
-
-Select.propTypes = {
-  field: PropTypes.object,
-  setFieldChange: PropTypes.func
-};
-
 const Field = ({ field, setFieldChange, loading }) => {
-  const { type, name, value } = field;
+  const { type, name, value, options } = field;
 
   if (type === 'hidden') {
-    return (
-      <input id={name} type={type} name={name} value={value} onChange={setFieldChange} />
-    );
-  } else if (type === 'select') {
+    return <input id={name} type={type} name={name} value={value} onChange={setFieldChange} />;
+  }
+
+  if (type === 'select') {
     return (
       <div className='form-group'>
         {field.label && (
           <label className='form-label' htmlFor={field.name}>{field.label}</label>
         )}
-        <Select field={field} setFieldChange={setFieldChange} />
+        <select id={name} name={name} className='dropdown' value={value} onChange={setFieldChange} autoComplete='off'>
+          {options.map((option, key) => {
+            return (
+              <option
+                key={key}
+                value={option.value}
+                disabled={option.disabled && 'disabled'}
+              >
+                {option.name}
+              </option>
+            );
+          })}
+        </select>
       </div>
     );
-  } else if (type === 'submit') {
+  }
+
+  if (type === 'submit') {
     return (
       <button
         className='button margin-right-1'
@@ -62,9 +51,7 @@ const Field = ({ field, setFieldChange, loading }) => {
 
   return (
     <div className='form-group'>
-      {field.label && (
-        <label className='form-label' htmlFor={field.name}>{field.label}</label>
-      )}
+      {field.label && <label className='form-label' htmlFor={field.name}>{field.label}</label>}
       <input className='form-control' id={name} type={type} name={name} value={value} onChange={setFieldChange} />
     </div>
   );
@@ -76,135 +63,107 @@ Field.propTypes = {
   loading: PropTypes.bool
 };
 
-class GetThisForm extends React.Component {
-  state = {
-    fields: this.props.form.fields
+const GetThisForm = ({ form }) => {
+  const [fields, setFields] = useState(form.fields);
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null);
+
+  const recordId = useSelector((state) => {
+    return getFieldValue(getField(state.records.record.fields, 'id'))[0];
+  });
+  const datastoreUid = useSelector((state) => {
+    return state.datastores.active;
+  });
+
+  const setFieldChange = (event) => {
+    const updatedFields = fields.map((field) => {
+      return field.name === event.target.name ? { ...field, value: event.target.value } : field;
+    }
+    );
+    setFields(updatedFields);
   };
 
-  setFieldChange = (event) => {
-    // Update field with user changed value.
-    const fields = this.state.fields.reduce((acc, field) => {
-      if (field.name === event.target.name) {
-        return acc.concat({
-          ...field,
-          value: event.target.value
-        });
-      } else {
-        return acc.concat(field);
-      }
-    }, []);
-
-    this.setState({ fields });
-  };
-
-  handleSubmit = (event) => {
-    const { datastoreUid, recordId, form } = this.props;
-    const { loading, fields } = this.state;
-
-    // Submitted form is type ajax and not already loading.
+  const handleSubmit = (event) => {
     if (form.type === 'ajax' && !loading) {
       event.preventDefault();
+      setLoading(true);
 
       const getFieldValueByName = (name) => {
-        const field = fields.filter((field) => {
+        return fields.find((field) => {
           return field.name === name;
-        })[0];
-
-        if (field) {
-          return field.value;
-        }
+        })?.value;
       };
       const callback = (response) => {
-        this.setState({ loading: false });
-        this.setState({ response });
+        setLoading(false);
+        setResponse(response);
       };
-      const item = getFieldValueByName('item');
-      const location = getFieldValueByName('pickup_location');
-      const date = getFieldValueByName('not_needed_after').replace(/-/g, '');
-
-      this.setState({ loading: true });
 
       placeHold({
         datastoreUid,
         recordId,
-        item,
-        location,
-        date,
+        item: getFieldValueByName('item'),
+        location: getFieldValueByName('pickup_location'),
+        date: getFieldValueByName('not_needed_after')?.replace(/-/g, ''),
         callback
       });
     }
   };
 
-  renderResponse = () => {
-    const { response } = this.state;
-
-    if (response) {
-      if (response.status === 'Action Succeeded') {
-        return (
-          <Alert type='success'>
-            <h4>You have successfully requested this item</h4>
-            <ul className='u-margin-bottom-1 margin-left-2'>
-              <li>We will email you when it is available for pickup.</li>
-              <li>When it is available, we'll hold it for you for 7 days.</li>
-            </ul>
-            <Anchor href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</Anchor>
-          </Alert>
-        );
-      } else {
-        return (
-          <Alert type='warning'>
-            <h4>The hold/request could not be placed</h4>
-            <p><span className='strong'>Status:</span> {response.status}</p>
-            <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <Anchor href='mailto:circservices@umich.edu'>circservices@umich.edu</Anchor> or <Anchor href='tel:7347640401'>(734) 764-0401</Anchor> for assistance.</p>
-          </Alert>
-        );
-      }
-    }
-
-    return null;
-  };
-
-  render () {
-    const { form } = this.props;
-    const { fields, loading, response } = this.state;
-    const showForm = !response || response.status !== 'Action Succeeded';
-
-    if (!form) {
-      return (
-        <Alert type='warning'>
-          <p><span className='strong'>Error:</span> Unable to fetch details.</p>
-        </Alert>
-      );
-    }
+  const renderResponse = () => {
+    if (!response) return null;
+    const success = response.status === 'Action Succeeded';
 
     return (
-      <>
-        {this.renderResponse()}
-        {showForm && (
-          <form action={form.action} method={form.method} onSubmit={this.handleSubmit}>
-            {fields.map((field, key) => {
-              return (
-                <Field field={field} key={key} setFieldChange={this.setFieldChange} loading={loading} />
-              );
-            })}
-          </form>
-        )}
-      </>
+      <Alert type={success ? 'success' : 'warning'}>
+        <h4>{success ? 'You have successfully requested this item' : 'The hold/request could not be placed'}</h4>
+        {success
+          ? (
+            <>
+              <ul className='u-margin-bottom-1 margin-left-2'>
+                <li>We will email you when it is available for pickup.</li>
+                <li>When it is available, we'll hold it for you for 7 days.</li>
+              </ul>
+              <Anchor href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</Anchor>
+            </>
+            )
+          : (
+            <>
+              <p><span className='strong'>Status:</span> {response.status}</p>
+              <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <Anchor href='mailto:circservices@umich.edu'>circservices@umich.edu</Anchor> or <Anchor href='tel:7347640401'>(734) 764-0401</Anchor> for assistance.</p>
+            </>
+            )}
+      </Alert>
+    );
+  };
+
+  const showForm = !response || response.status !== 'Action Succeeded';
+
+  if (!form) {
+    return (
+      <Alert type='warning'>
+        <p><span className='strong'>Error:</span> Unable to fetch details.</p>
+      </Alert>
     );
   }
-}
 
-GetThisForm.propTypes = {
-  form: PropTypes.object,
-  datastoreUid: PropTypes.string,
-  recordId: PropTypes.string
+  return (
+    <>
+      {renderResponse()}
+      {showForm && (
+        <form action={form.action} method={form.method} onSubmit={handleSubmit}>
+          {fields.map((field, index) => {
+            return (
+              <Field field={field} key={index} setFieldChange={setFieldChange} loading={loading} />
+            );
+          })}
+        </form>
+      )}
+    </>
+  );
 };
 
-function mapStateToProps (state) {
-  return {
-    recordId: getFieldValue(getField(state.records.record.fields, 'id'))[0],
-    datastoreUid: state.datastores.active
-  };
-}
+GetThisForm.propTypes = {
+  form: PropTypes.object
+};
 
-export default connect(mapStateToProps)(GetThisForm);
+export default GetThisForm;
