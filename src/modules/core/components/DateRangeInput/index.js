@@ -2,6 +2,31 @@ import React from 'react';
 import { MultipleChoice } from '../../../core';
 import PropTypes from 'prop-types';
 
+function YearInput ({ query, setQuery, point = 'start' }) {
+  return (
+    <div>
+      <label htmlFor='date-range-start-date'>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
+      <input
+        className='date-range-input-text'
+        id={`date-range-${point}-date`}
+        aria-describedby={`date-range-${point}-date-description`}
+        type='text'
+        value={query}
+        onChange={setQuery}
+        autoComplete='on'
+        pattern='[0-9]{4}'
+      />
+      <small id={`date-range-${point}-date-description`}>Please enter this format: YYYY</small>
+    </div>
+  );
+}
+
+YearInput.propTypes = {
+  query: PropTypes.string,
+  setQuery: PropTypes.func,
+  point: PropTypes.string
+};
+
 class DateRangeInput extends React.Component {
   constructor (props) {
     super(props);
@@ -11,10 +36,6 @@ class DateRangeInput extends React.Component {
     this.handleEndQueryChange = this.handleEndQueryChange.bind(this);
 
     this.handleStateChange = this.handleStateChange.bind(this);
-
-    this.renderDateInputs = this.renderDateInputs.bind(this);
-    this.renderBeginQueryInput = this.renderBeginQueryInput.bind(this);
-    this.renderEndQueryInput = this.renderEndQueryInput.bind(this);
 
     this.state = {
       dateRangeOptions: ['Before', 'After', 'Between', 'In'],
@@ -65,85 +86,10 @@ class DateRangeInput extends React.Component {
     this.handleStateChange({ beginQuery, endQuery, selectedRange });
   }
 
-  renderBeginQueryInput () {
-    const { beginQuery } = this.state;
-
-    return (
-      <div>
-        <label htmlFor='date-range-start-date'>Start date</label>
-        <input
-          className='date-range-input-text'
-          id='date-range-start-date'
-          aria-describedby='date-range-start-date-description'
-          type='text'
-          value={beginQuery}
-          onChange={(e) => {
-            return this.handleBeginQueryChange(e.target.value);
-          }}
-          autoComplete='on'
-          pattern='[0-9]{4}'
-        />
-        <small id='date-range-start-date-description'>Please enter this format: YYYY</small>
-      </div>
-    );
-  }
-
-  renderEndQueryInput () {
-    const { endQuery } = this.state;
-
-    return (
-      <div>
-        <label htmlFor='date-range-end-date'>End date</label>
-        <input
-          className='date-range-input-text'
-          type='text'
-          id='date-range-end-date'
-          aria-describedby='date-range-end-date-description'
-          value={endQuery}
-          onChange={(e) => {
-            return this.handleEndQueryChange(e.target.value);
-          }}
-          autoComplete='on'
-          pattern='[0-9]{4}'
-        />
-        <small id='date-range-end-date-description'>Please enter this format: YYYY</small>
-      </div>
-    );
-  }
-
-  renderDateInputs () {
-    const { dateRangeOptions, selectedRangeOption } = this.state;
+  render () {
+    const { dateRangeOptions, selectedRangeOption, beginQuery, endQuery } = this.state;
 
     const rangeOption = dateRangeOptions[selectedRangeOption];
-
-    switch (rangeOption) {
-      case 'Before':
-        return (
-          <div className='date-range-container'>
-            {this.renderEndQueryInput()}
-          </div>
-        );
-      case 'In':
-      case 'After':
-        return (
-          <div className='date-range-container'>
-            {this.renderBeginQueryInput()}
-          </div>
-        );
-      case 'Between':
-        return (
-          <div className='date-range-container'>
-            {this.renderBeginQueryInput()}
-            {this.renderEndQueryInput()}
-          </div>
-        );
-      default:
-        return null;
-    }
-  }
-
-  render () {
-    const { dateRangeOptions, selectedRangeOption } = this.state;
 
     return (
       <div className='date-range-input'>
@@ -154,7 +100,27 @@ class DateRangeInput extends React.Component {
           selectedIndex={selectedRangeOption}
           onMultipleChoiceChange={this.handleRangeChange}
         />
-        {this.renderDateInputs()}
+        <div className='date-range-container'>
+          {
+            rangeOption !== 'Before' &&
+              <YearInput
+                query={beginQuery}
+                setQuery={(e) => {
+                  return this.handleBeginQueryChange(e.target.value);
+                }}
+              />
+          }
+          {
+            ['Before', 'Between'].includes(rangeOption) &&
+              <YearInput
+                query={endQuery}
+                setQuery={(e) => {
+                  return this.handleEndQueryChange(e.target.value);
+                }}
+                point='end'
+              />
+          }
+        </div>
       </div>
     );
   }
