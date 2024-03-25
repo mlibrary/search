@@ -11,7 +11,7 @@ function NewTabPanel ({ isActive, children, id, ...rest }) {
       style={{ display: isActive ? 'block' : 'none' }}
       {...rest}
     >
-      {children} <a href=''>Test</a>
+      {children}
     </div>
   );
 }
