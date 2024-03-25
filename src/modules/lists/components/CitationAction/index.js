@@ -104,26 +104,31 @@ function CitationAction (props) {
                 )
               : (
                 <>
-                  <label htmlFor={`${citationOption.name}-label`} className='margin-top__s'>
+                  <label
+                    htmlFor={`${citationOption.name}-label`}
+                    className='margin-top__s'
+                    id={`${citationOption.name}-label`}
+                  >
                     {citationOption.name} citation
                   </label>
                   <div
                     style={{
-                      border: 'solid 1px rgba(0, 0, 0, 0.3)',
-                      boxShadow: 'inset 0 1px 4px rgba(0, 0, 0, 0.08)',
-                      borderRadius: '4px',
-                      padding: '0.5rem 0.75rem',
+                      border: 'solid 1px var(--search-color-grey-400)',
+                      boxShadow: 'none',
                       overflowY: 'auto',
                       maxHeight: '40vh'
                     }}
-                    className='y-spacing copy-citation'
+                    className='y-spacing copy-citation padding-y__xs padding-x__s container__rounded'
                     contentEditable
                     aria-describedby={`${citationOption.id}-disclaimer`}
                     aria-labelledby={`${citationOption.name}-label`}
                     role='textbox'
                     dangerouslySetInnerHTML={{ __html: citation }}
                   />
-                  <p className='font-small citation-disclaimer'>
+                  <p
+                    className='font-small citation-disclaimer'
+                    id={`${citationOption.id}-disclaimer`}
+                  >
                     These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.
                   </p>
                   <button
