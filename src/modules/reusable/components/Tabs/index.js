@@ -1,88 +1,76 @@
-import styled from '@emotion/styled';
-import {
-  Tab as UnstyledTab,
-  TabList as UnstyledTabList,
-  Tabs as UnstyledTabs,
-  TabPanel as UnstyledTabPanel
-} from 'react-tabs';
+import React, { useState, useEffect, useRef } from 'react';
+import './styles.css';
+import PropTypes from 'prop-types';
 
-const Tabs = styled(UnstyledTabs)({
-  width: '100%'
-});
+function Tabs ({ children, defaultActiveIndex = 0, ...rest }) {
+  const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
+  const tabsRef = useRef([]);
 
-const TabList = styled(UnstyledTabList)({
-  listStyle: 'none',
-  margin: 0,
-  padding: 0,
-  borderLeft: 'solid 2px var(--search-color-grey-400)',
-  '@media only screen and (min-width: 641px)': {
-    display: 'flex',
-    alignItems: 'baseline',
-    borderLeft: 'none',
-    borderBottom: 'solid 2px var(--search-color-grey-400)'
-  }
-});
-
-const dynamicTabStyles = (props) => {
-  if (props.selected) {
-    return {
-      fontWeight: '600',
-      color: 'var(--search-color-blue-400)',
-      borderLeft: 'solid 3px var(--search-color-blue-400)',
-      background: 'var(--search-color-grey-200)',
-      '@media only screen and (min-width: 641px)': {
-        borderLeft: 'none',
-        background: 'none',
-        border: 'solid 1px var(--search-color-grey-400)',
-        borderTop: 'solid 3px var(--search-color-blue-400)',
-        borderBottom: 'solid 2px white'
-      }
-    };
-  } else {
-    return {
-      ':hover': {
-        '@media only screen and (min-width: 641px)': {
-          borderBottom: 'solid 2px var(--search-color-grey-500)'
-        }
-      }
-    };
-  }
-
-  // return {}
-};
-
-const Tab = styled(UnstyledTab)(
-  {
-    cursor: 'pointer',
-    padding: '0.5rem 1.25rem',
-    borderLeft: 'solid 3px transparent',
-    marginLeft: '-2px',
-    '@media only screen and (min-width: 641px)': {
-      marginBottom: '-2px',
-      marginLeft: 0,
-      borderLeft: 'none'
+  const updateTabRefs = (el, index) => {
+    if (el) {
+      tabsRef.current[index] = el;
     }
-  },
-  dynamicTabStyles
-);
+  };
 
-const TabPanel = styled(UnstyledTabPanel)({
-  ':empty': {
-    display: 'none'
-  },
-  '@media only screen and (min-width: 641px)': {
-    padding: '0.5rem 0'
-  }
-});
+  useEffect(() => {
+    tabsRef.current[activeIndex]?.focus();
+  }, [activeIndex]);
 
-Tab.tabsRole = 'Tab';
-Tabs.tabsRole = 'Tabs';
-TabPanel.tabsRole = 'TabPanel';
-TabList.tabsRole = 'TabList';
+  const handleKeyDown = (event) => {
+    let newIndex;
+    if (event.key === 'ArrowRight') {
+      newIndex = activeIndex < tabsRef.current.length - 1 ? activeIndex + 1 : 0;
+      setActiveIndex(newIndex);
+      event.preventDefault();
+    } else if (event.key === 'ArrowLeft') {
+      newIndex = activeIndex > 0 ? activeIndex - 1 : tabsRef.current.length - 1;
+      setActiveIndex(newIndex);
+      event.preventDefault();
+    }
+  };
 
-export {
-  Tab,
-  TabList,
-  Tabs,
-  TabPanel
+  const childrenByDisplayName = (displayName) => {
+    return React.Children.toArray(children).filter((child) => {
+      return child.type.displayName === displayName;
+    });
+  };
+
+  return (
+    <>
+      <div role='tablist' onKeyDown={handleKeyDown} {...rest}>
+        {childrenByDisplayName('Tab').map((child, index) => {
+          return React.cloneElement(child, {
+            onClick: () => {
+              return setActiveIndex(index);
+            },
+            ref: (el) => {
+              return updateTabRefs(el, index);
+            },
+            isActive: index === activeIndex,
+            id: `tab-${index}`,
+            ariaControls: `panel-${index}`,
+            tabIndex: index === activeIndex ? 0 : -1
+          });
+        })}
+        <div />
+      </div>
+      {childrenByDisplayName('TabPanel').map((child, index) => {
+        return React.cloneElement(child, {
+          isActive: index === activeIndex,
+          id: `panel-${index}`,
+          'aria-labelledby': `tab-${index}`
+        });
+      })}
+    </>
+  );
+}
+
+Tabs.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+  defaultActiveIndex: PropTypes.number
 };
+
+export default Tabs;

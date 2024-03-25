@@ -4,7 +4,6 @@ Monthly dependency update to help maintain Search.
 ## NPM
 These dependencies have been updated to their latest versions:
 - `@emotion/react`
-- `@emotion/styled`
 - `@reduxjs/toolkit`
 - `citeproc`
 - `core-js`
@@ -28,7 +27,6 @@ These dependencies have been updated to their latest versions:
 - `react-redux`
 - `react-router-dom`
 - `react-scripts`
-- `react-tabs`
 - `regenerator-runtime`
 - `underscore`
 - `url`

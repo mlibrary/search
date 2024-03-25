@@ -2959,17 +2959,6 @@ input.get-this-field-input-year {
   margin-top: 1rem;
 }
 
-.lists-action .react-tabs__tab--selected {
-  border-bottom-color: #FAFAFA;
-}
-
-@media only screen and (min-width: 641px) {
-  .advanced-tabs .react-tabs__tab--selected {
-    background: #FAFAFA;
-    border-bottom-color: #FAFAFA;
-  }
-}
-
 .full-record__actions-container {
   background: #FAFAFA;
   border-radius: 4px;
