@@ -52,6 +52,7 @@ function Tabs ({ children, defaultActiveIndex = 0, ...rest }) {
             tabIndex: index === activeIndex ? 0 : -1
           });
         })}
+        <div />
       </div>
       {childrenByDisplayName('TabPanel').map((child, index) => {
         return React.cloneElement(child, {
