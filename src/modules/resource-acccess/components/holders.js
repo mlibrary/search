@@ -23,11 +23,17 @@ export default function Holders ({
       (Object.keys(mirlyn).includes('search_only') && mirlyn.search_only.includes('true'))
     )
   ) {
-    record.resourceAccess.forEach((resource) => {
-      resource.rows = resource.rows.filter((row) => {
-        return row[0].text !== 'Search only (no full text)';
-      });
-    });
+    record = {
+      ...record,
+      resourceAccess: record.resourceAccess.map((resource) => {
+        return {
+          ...resource,
+          rows: resource.rows.filter((row) => {
+            return row[0].text !== 'Search only (no full text)';
+          })
+        };
+      })
+    };
   }
   return (
     <>
