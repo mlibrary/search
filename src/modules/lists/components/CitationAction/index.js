@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Tabs, TabList, Tab, TabPanel } from '../../../reusable';
+import { NewTabs, NewTab, NewTabPanel } from '../../../reusable';
 import { cite } from '../../../citations';
 import PropTypes from 'prop-types';
 
@@ -71,8 +71,8 @@ function CitationAction (props) {
     fetchCitations();
   }, [props.viewType, props.record, props.datastore, props.list]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(document.querySelector('.copy-citation').innerText);
+  const handleCopy = (citationId) => {
+    navigator.clipboard.writeText(document.getElementById(`citation-text-${citationId}`).innerText);
     props.setAlert({
       intent: 'success',
       text: 'Citation copied to clipboard!'
@@ -85,19 +85,17 @@ function CitationAction (props) {
   }
 
   return (
-    <Tabs>
-      <TabList>
-        {citationOptions.map((citationOption) => {
-          return (
-            <Tab key={citationOption.name}>{citationOption.name}</Tab>
-          );
-        })}
-      </TabList>
+    <NewTabs>
+      {citationOptions.map((citationOption) => {
+        return (
+          <NewTab key={citationOption.name}>{citationOption.name}</NewTab>
+        );
+      })}
 
       {citationOptions.map((citationOption) => {
         const citation = citations[citationOption.id];
         return (
-          <TabPanel key={`${citationOption.name}-panel`}>
+          <NewTabPanel key={`${citationOption.name}-panel`}>
             {!citation
               ? (
                 <p>Loading citation...</p>
@@ -112,6 +110,7 @@ function CitationAction (props) {
                     {citationOption.name} citation
                   </label>
                   <div
+                    id={`citation-text-${citationOption.id}`}
                     style={{
                       border: 'solid 1px var(--search-color-grey-400)',
                       boxShadow: 'none',
@@ -132,17 +131,19 @@ function CitationAction (props) {
                     These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.
                   </p>
                   <button
-                    onClick={handleCopy}
+                    onClick={() => {
+                      return handleCopy(citationOption.id);
+                    }}
                     className='btn btn--primary'
                   >
                     Copy citation
                   </button>
                 </>
                 )}
-          </TabPanel>
+          </NewTabPanel>
         );
       })}
-    </Tabs>
+    </NewTabs>
   );
 }
 
