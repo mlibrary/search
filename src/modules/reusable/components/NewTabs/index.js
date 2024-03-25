@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-function NewTabs ({ children, defaultActiveIndex, ...rest }) {
+function NewTabs ({ children, defaultActiveIndex = 0, ...rest }) {
   const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
   const tabsRef = useRef([]);
 

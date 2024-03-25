@@ -11,6 +11,7 @@ const NewTab = forwardRef(({ onClick, isActive, id, ariaControls, children, ...r
       tabIndex={isActive ? 0 : -1}
       ref={ref}
       onClick={onClick}
+      type='button'
       {...rest}
     >
       {children}
