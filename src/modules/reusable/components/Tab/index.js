@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-const NewTab = forwardRef(({ onClick, isActive, id, ariaControls, children, ...rest }, ref) => {
+const Tab = forwardRef(({ onClick, isActive, id, ariaControls, children, ...rest }, ref) => {
   return (
     <button
       role='tab'
@@ -19,9 +19,9 @@ const NewTab = forwardRef(({ onClick, isActive, id, ariaControls, children, ...r
   );
 });
 
-NewTab.displayName = 'NewTab';
+Tab.displayName = 'Tab';
 
-NewTab.propTypes = {
+Tab.propTypes = {
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
   id: PropTypes.string,
@@ -32,4 +32,4 @@ NewTab.propTypes = {
   ]).isRequired
 };
 
-export default NewTab;
+export default Tab;

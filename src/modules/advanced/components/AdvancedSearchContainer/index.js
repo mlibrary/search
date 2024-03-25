@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 import { useSelector } from 'react-redux';
-import { Breadcrumb, H1, NewTabs, NewTabPanel, NewTab } from '../../../reusable';
+import { Breadcrumb, H1, Tabs, TabPanel, Tab } from '../../../reusable';
 import AdvancedSearchForm from '../AdvancedSearchForm';
 
 function AdvancedSearchContainer () {
@@ -28,22 +28,22 @@ function AdvancedSearchContainer () {
       <H1 className='heading-xlarge'>Advanced Search</H1>
       <p className='font-lede'>Select a search category below for associated advanced search options.</p>
 
-      <NewTabs defaultActiveIndex={activeDatastoreIndex}>
+      <Tabs defaultActiveIndex={activeDatastoreIndex}>
         {datastores.map((ds) => {
           return (
-            <NewTab key={`tab-${ds.uid}`}>
+            <Tab key={`tab-${ds.uid}`}>
               {ds.name}
-            </NewTab>
+            </Tab>
           );
         })}
         {datastores.map((ds) => {
           return (
-            <NewTabPanel key={`panel-${ds.uid}`} className='tab-panel-container'>
+            <TabPanel key={`panel-${ds.uid}`} className='tab-panel-container'>
               <AdvancedSearchForm datastore={ds} />
-            </NewTabPanel>
+            </TabPanel>
           );
         })}
-      </NewTabs>
+      </Tabs>
     </div>
   );
 }

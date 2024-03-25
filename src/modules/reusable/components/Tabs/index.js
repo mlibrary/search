@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-function NewTabs ({ children, defaultActiveIndex = 0, ...rest }) {
+function Tabs ({ children, defaultActiveIndex = 0, ...rest }) {
   const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
   const tabsRef = useRef([]);
 
@@ -37,7 +37,7 @@ function NewTabs ({ children, defaultActiveIndex = 0, ...rest }) {
   return (
     <>
       <div role='tablist' onKeyDown={handleKeyDown} {...rest}>
-        {childrenByDisplayName('NewTab').map((child, index) => {
+        {childrenByDisplayName('Tab').map((child, index) => {
           return React.cloneElement(child, {
             onClick: () => {
               return setActiveIndex(index);
@@ -52,7 +52,7 @@ function NewTabs ({ children, defaultActiveIndex = 0, ...rest }) {
           });
         })}
       </div>
-      {childrenByDisplayName('NewTabPanel').map((child, index) => {
+      {childrenByDisplayName('TabPanel').map((child, index) => {
         return React.cloneElement(child, {
           isActive: index === activeIndex,
           id: `panel-${index}`,
@@ -63,7 +63,7 @@ function NewTabs ({ children, defaultActiveIndex = 0, ...rest }) {
   );
 }
 
-NewTabs.propTypes = {
+Tabs.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
@@ -71,4 +71,4 @@ NewTabs.propTypes = {
   defaultActiveIndex: PropTypes.number
 };
 
-export default NewTabs;
+export default Tabs;

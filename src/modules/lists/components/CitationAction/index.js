@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NewTabs, NewTab, NewTabPanel } from '../../../reusable';
+import { Tabs, Tab, TabPanel } from '../../../reusable';
 import { cite } from '../../../citations';
 import PropTypes from 'prop-types';
 
@@ -85,17 +85,17 @@ function CitationAction (props) {
   }
 
   return (
-    <NewTabs>
+    <Tabs>
       {citationOptions.map((citationOption) => {
         return (
-          <NewTab key={citationOption.name}>{citationOption.name}</NewTab>
+          <Tab key={citationOption.name}>{citationOption.name}</Tab>
         );
       })}
 
       {citationOptions.map((citationOption) => {
         const citation = citations[citationOption.id];
         return (
-          <NewTabPanel key={`${citationOption.name}-panel`}>
+          <TabPanel key={`${citationOption.name}-panel`}>
             {!citation
               ? (
                 <p>Loading citation...</p>
@@ -140,10 +140,10 @@ function CitationAction (props) {
                   </button>
                 </>
                 )}
-          </NewTabPanel>
+          </TabPanel>
         );
       })}
-    </NewTabs>
+    </Tabs>
   );
 }
 
