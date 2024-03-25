@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import './styles.css';
 import PropTypes from 'prop-types';
 
 function Tabs ({ children, defaultActiveIndex = 0, ...rest }) {
