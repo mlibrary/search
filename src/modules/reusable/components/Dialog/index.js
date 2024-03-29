@@ -1,91 +1,66 @@
 /** @jsxImportSource @emotion/react */
 import React, { useRef, useEffect } from 'react';
+import './styles.css';
 import PropTypes from 'prop-types';
 
-export default function Dialog ({ closeOnOutsideClick, onRequestClose, open, ...props }) {
+const Dialog = ({ isOpen, onClose, children }) => {
   const dialogRef = useRef(null);
-  const lastActiveElement = useRef(null);
+  const wasOpen = useRef(isOpen);
 
   useEffect(() => {
-    const dialogNode = dialogRef.current;
-    if (!dialogNode.hasAttribute('open') && open) {
-      lastActiveElement.current = document.activeElement;
-      dialogNode.showModal();
-      document.querySelector('body').style.overflow = 'hidden';
-    } else {
-      dialogNode.close();
-      lastActiveElement?.current?.focus();
-    }
-  }, [open]);
-
-  useEffect(() => {
-    const dialogNode = dialogRef.current;
-    const handleCancel = (event) => {
-      event.preventDefault();
-      onRequestClose();
+    const handleEscapeKeyPress = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
     };
-    dialogNode.addEventListener('cancel', handleCancel);
+
+    if (isOpen && !wasOpen.current) {
+      dialogRef.current.showModal();
+    }
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscapeKeyPress);
+      document.querySelector('body').style.overflow = 'hidden';
+    } else if (dialogRef.current) {
+      dialogRef.current.close();
+    }
+
+    wasOpen.current = isOpen;
+
     return () => {
-      dialogNode.removeEventListener('cancel', handleCancel);
+      document.removeEventListener('keydown', handleEscapeKeyPress);
       document.querySelector('body').style.overflow = 'auto';
     };
-  }, [onRequestClose]);
+  }, [isOpen, onClose]);
 
-  function handleOutsideClick (event) {
-    const dialogNode = dialogRef.current;
-    if (closeOnOutsideClick && event.target === dialogNode) {
-      onRequestClose();
-    }
-  }
+  if (!children) return null;
+
+  const handleCloseClick = (event) => {
+    event.stopPropagation();
+    onClose();
+  };
 
   return (
-    <dialog
-      ref={dialogRef}
-      css={{
-        border: '0',
-        height: '100%',
-        maxHeight: '100%',
-        maxWidth: '100%',
-        width: '100%',
-        padding: '0',
-        '@media only screen and (min-width: 640px)': {
-          borderRadius: '4px',
-          boxShadow: `
-            0 0 0 1px rgba(16, 22, 26, 0.1),
-            0 4px 8px rgba(16, 22, 26, 0.2),
-            0 18px 46px 6px rgba(16, 22, 26, 0.2)
-          `,
-          height: 'max-content',
-          marginTop: '200px',
-          maxHeight: 'calc(100vh - 400px)',
-          maxWidth: '42.5rem'
-        },
-        '::backdrop': {
-          background: 'rgba(16, 22, 26, 0.7);'
-        }
-      }}
-      onClick={(event) => {
-        return handleOutsideClick(event);
-      }}
-    >
-      <div
-        css={{
-          height: '100%',
-          width: '100%',
-          padding: '1rem',
-          '@media only screen and (min-width: 640px)': {
-            height: 'auto',
-            padding: '2rem'
-          }
-        }}
-        {...props}
-      />
+    <dialog ref={dialogRef}>
+      <div className='dialog-container'>
+        <section>
+          {children}
+        </section>
+        <button onClick={handleCloseClick} className='btn btn--small btn--secondary'>
+          Dismiss
+        </button>
+      </div>
     </dialog>
   );
-}
+};
+
+export default Dialog;
 
 Dialog.propTypes = {
-  closeOnOutsideClick: PropTypes.bool,
-  onRequestClose: PropTypes.func,
-  open: PropTypes.bool
+  onClose: PropTypes.func,
+  isOpen: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };

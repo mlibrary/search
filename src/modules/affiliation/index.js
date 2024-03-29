@@ -1,5 +1,5 @@
 import affiliationReducer from './reducer';
-import ChooseAffiliation from './components/choose-affiliation';
+import ChooseAffiliation from './components/ChooseAffiliation';
 import { setActiveAffiliation, setDefaultAffiliation } from './actions';
 
 export {
