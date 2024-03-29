@@ -54,7 +54,7 @@ function List (props) {
             <section className='lists-section'>
               <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>Actions</h2>
               <span className='text-small'>Select what to do with this list.</span>
-              <ActionsList {...props} setActive={setActive} active={active} prejudice={prejudice.instance} />
+              <ActionsList {...props} setActive={setActive} active={active} prejudice={prejudice.instance} datastore={activeDatastore} />
             </section>
             {tempList.map((record, index) => {
               return (

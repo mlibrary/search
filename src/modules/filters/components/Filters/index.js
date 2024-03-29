@@ -282,17 +282,14 @@ function FilterGroupMultiselect ({ filters, group, uid, uuid, activeFilters }) {
         <span>{group.metadata.name}</span>
         <span
           css={{
-            color: 'var(--ds-color-neutral-300)'
+            color: 'var(--ds-color-neutral-300)',
+            'details:not([open]) > summary > & > svg:first-of-type, details[open] > summary > & > svg:last-of-type': {
+              display: 'none!important'
+            }
           }}
         >
-          <Icon
-            size={24}
-            d='M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z'
-          />
-          <Icon
-            size={24}
-            d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z'
-          />
+          <Icon size={24} icon='expand_less' />
+          <Icon size={24} icon='expand_more' />
         </span>
       </summary>
       <FilterGroupFilters
