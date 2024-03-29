@@ -5,6 +5,19 @@ import { useSelector } from 'react-redux';
 import qs from 'qs';
 import { Dialog } from '../../reusable';
 
+function oldSafari () {
+  const ua = navigator.userAgent;
+  const safariVersionMatch = ua.match(/Version\/([0-9._]+) Safari/);
+
+  if (!safariVersionMatch) return false;
+
+  const [major, minor = 0] = safariVersionMatch[1].split('.').map((part) => {
+    return parseInt(part, 10);
+  });
+
+  return major < 15 || (major === 15 && minor < 4);
+}
+
 export default function ChooseAffiliation () {
   const { defaultAffiliation, affiliationOptions } = useSelector((state) => {
     return state.affiliation;
@@ -41,23 +54,7 @@ export default function ChooseAffiliation () {
   const closeDialog = () => {
     return setDialogOpen(false);
   };
-  /*
-    Safari <15.4 does not support the `close()` method used for the native <dialog> HTML5 element.
-    If the user is on an unsupported version of Safari, display just buttons.
-  */
-  const userAgent = navigator.userAgent;
-  let oldSafari = false;
-  if ([' Version/', ' Safari/'].every((spec) => {
-    return userAgent.includes(spec);
-  })) {
-    // Split userAgent up at `Version/`
-    const agentSplit = userAgent.split('Version/');
-    // Split the second element of the new array
-    const version = agentSplit[1].split(' ');
-    // Turn the first element of the array into an integer, and compare it to 15.4
-    oldSafari = parseFloat(version[0]) < 15.4;
-  }
-  if (oldSafari) {
+  if (oldSafari()) {
     return (
       <div>
         <button
