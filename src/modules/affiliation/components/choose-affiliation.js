@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
-import { useCookies } from 'react-cookie';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
 import { Dialog } from '../../reusable';
 
 function oldSafari () {
-  const ua = navigator.userAgent;
-  const safariVersionMatch = ua.match(/Version\/([0-9._]+) Safari/);
+  const safariVersionMatch = navigator.userAgent.match(/Version\/([0-9._]+) Safari/);
 
   if (!safariVersionMatch) return false;
 
@@ -22,12 +20,21 @@ export default function ChooseAffiliation () {
   const { defaultAffiliation, affiliationOptions } = useSelector((state) => {
     return state.affiliation;
   });
-  const [cookies] = useCookies(['affiliation']);
-  let affiliation = cookies.affiliation || defaultAffiliation;
+
+  let affiliation = localStorage.getItem('affiliation') || defaultAffiliation;
+
   const urlParams = new URLSearchParams(window.location.search);
   affiliation = urlParams.get('affiliation') || affiliation;
+
+  useEffect(() => {
+    localStorage.setItem('affiliation', affiliation);
+  }, [affiliation]);
+
   const alternativeAffiliation = affiliation === 'flint' ? 'aa' : 'flint';
+
   const changeAffiliation = () => {
+    localStorage.setItem('affiliation', alternativeAffiliation);
+
     const parsed = qs.parse(document.location.search.substring(1), {
       allowDots: true
     });
@@ -45,6 +52,7 @@ export default function ChooseAffiliation () {
         format: 'RFC1738'
       });
   };
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const toggleDialog = () => {
     return setDialogOpen((bool) => {
