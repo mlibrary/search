@@ -23,7 +23,7 @@ import {
 } from '../../../pride';
 import { setActiveInstitution } from '../../../institution';
 import { setA11yMessage } from '../../../a11y';
-import { affiliationCookieSetter, setActiveAffiliation } from '../../../affiliation';
+import { setActiveAffiliation } from '../../../affiliation';
 import PropTypes from 'prop-types';
 
 function handleURLState ({
@@ -38,7 +38,9 @@ function handleURLState ({
   const urlState = getStateFromURL({ location });
 
   dispatch(setActiveAffiliation(urlState.affiliation));
-  affiliationCookieSetter(urlState.affiliation);
+  if (urlState.affiliation) {
+    localStorage.setItem('affiliation', urlState.affiliation);
+  }
 
   if (!datastoreUid) return null;
 

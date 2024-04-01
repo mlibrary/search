@@ -22,7 +22,6 @@ These dependencies have been updated to their latest versions:
 - `prop-types`
 - `qs`
 - `react`
-- `react-cookie`
 - `react-dom`
 - `react-redux`
 - `react-router-dom`

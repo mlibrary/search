@@ -1,0 +1,35 @@
+.choose-affiliation-container > .btn--secondary {
+  border-color: var(--ds-color-blue-300);
+  color: white;
+  display: flex;
+  padding: 0;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+
+.choose-affiliation-container > .btn--secondary > div {
+  padding: 0.25rem 0.5rem;
+}
+
+.choose-affiliation-container > .btn--secondary > div:hover {
+  text-decoration: underline;
+}
+
+.choose-affiliation-container > .btn--secondary > div.active-affiliation {
+  background: var(--ds-color-blue-300);
+}
+
+.choose-affiliation-container .dialog-buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media only screen and (min-width: 640px) {
+  .choose-affiliation-container .dialog-buttons {
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
