@@ -63,9 +63,11 @@ export default function ChooseAffiliation () {
     <div className='choose-affiliation-container'>
       <button
         className='btn btn--secondary font-small no-background'
-        onClick={() => {
-          return oldSafari() ? changeAffiliation : setDialogOpen(true);
-        }}
+        onClick={oldSafari()
+          ? changeAffiliation
+          : () => {
+              return setDialogOpen(true);
+            }}
         role={oldSafari() ? 'link' : undefined}
       >
         {Object.keys(affiliationOptions).map((campusAffiliation, index) => {
