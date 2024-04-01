@@ -18,7 +18,6 @@ function oldSafari () {
 
 export default function ChooseAffiliation () {
   const { defaultAffiliation, affiliationOptions } = useSelector((state) => {
-    console.log(state.affiliation);
     return state.affiliation;
   });
 
