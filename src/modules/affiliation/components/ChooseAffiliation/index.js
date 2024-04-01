@@ -66,11 +66,12 @@ export default function ChooseAffiliation () {
         onClick={() => {
           return oldSafari() ? changeAffiliation : setDialogOpen(true);
         }}
+        role={oldSafari() ? 'link' : undefined}
       >
         {Object.keys(affiliationOptions).map((campusAffiliation, index) => {
           const currentAffiliation = affiliation === campusAffiliation;
           return (
-            <div className={currentAffiliation && 'active-affiliation'} key={`${campusAffiliation}-${index}`}>
+            <div className={currentAffiliation ? 'active-affiliation' : undefined} key={`${campusAffiliation}-${index}`}>
               <span className='visually-hidden'>{currentAffiliation ? 'Current' : 'Choose'} campus affiliation: </span>
               {affiliationOptions[campusAffiliation]}
             </div>
