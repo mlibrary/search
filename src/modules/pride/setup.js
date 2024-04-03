@@ -32,6 +32,7 @@ import { addBrowseFilter, organizeByParents } from '../browse';
 import { addSpecialists } from '../specialists';
 import prejudice from '../lists/prejudice';
 import { setupProfile } from '../profile';
+import { findWhere } from '../reusable/underscore';
 
 // Pride Internal Configuration
 Object.assign(Pride.Settings, {
@@ -365,7 +366,7 @@ const setupSearches = () => {
       const multiSearchInternalObjects = [];
 
       _.each(multiDatastoreConfig.datastores, (ds) => {
-        const foundSearchObj = _.findWhere(allSearchObjects, { uid: ds });
+        const foundSearchObj = findWhere(allSearchObjects, { uid: ds });
 
         if (foundSearchObj) {
           multiSearchInternalObjects.push(foundSearchObj);
@@ -388,7 +389,7 @@ const setupSearches = () => {
   );
 
   const publicSearchObjects = multiSearchObjects.concat(allSearchObjects);
-  const defaultSearchObject = _.findWhere(publicSearchObjects, {
+  const defaultSearchObject = findWhere(publicSearchObjects, {
     uid: config.datastores.default
   });
   const remainingSearchObjects = _.reject(publicSearchObjects, (searchObj) => {
@@ -506,7 +507,7 @@ const setupAdvancedSearch = () => {
     if (config.advanced[dsUid].fields) {
       config.advanced[dsUid].fields.forEach((fieldUid) => {
         const fields = getPotentialbooleanField(dsUid);
-        const fieldExists = _.findWhere(fields, { uid: fieldUid });
+        const fieldExists = findWhere(fields, { uid: fieldUid });
 
         if (fieldExists) {
           store.dispatch(
@@ -541,7 +542,7 @@ const setupAdvancedSearch = () => {
       );
       const configuredFilterGroups = config.advanced[dsUid].filters.reduce(
         (prev, filterGroupConfig) => {
-          const foundFilterGroup = _.findWhere(availableFilterGroups, {
+          const foundFilterGroup = findWhere(availableFilterGroups, {
             uid: filterGroupConfig.uid
           });
 
@@ -626,7 +627,7 @@ const setupBrowse = () => {
 
   ['databases', 'onlinejournals'].forEach((datastoreUid) => {
     const facets = Pride.AllDatastores.get(datastoreUid).get('facets');
-    const facet = _.findWhere(facets, { uid: 'academic_discipline' });
+    const facet = findWhere(facets, { uid: 'academic_discipline' });
     const filters = organizeByParents(facet.values.sort(compareFacetName));
 
     store.dispatch(
