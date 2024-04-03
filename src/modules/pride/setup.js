@@ -40,17 +40,14 @@ Object.assign(Pride.Settings, {
   obnoxious: false
 });
 
-Pride.Messenger.addObserver(function (msg) {
-  console.log(['info', msg]);
-}, 'info');
-Pride.Messenger.addObserver(function (msg) {
-  console.log(['warning', msg]);
-}, 'warning');
-Pride.Messenger.addObserver(function (msg) {
-  console.log(['error', msg]);
-
-  store.dispatch(setParserMessage(msg));
-}, 'error');
+['info', 'warning', 'error'].forEach(function (type) {
+  Pride.Messenger.addObserver(function (msg) {
+    console.log([type, msg]);
+    if (type === 'error') {
+      store.dispatch(setParserMessage(msg));
+    }
+  }, type);
+});
 
 let searchSwitcher;
 
