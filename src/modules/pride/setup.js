@@ -425,56 +425,25 @@ const switchPrideToDatastore = (slug) => {
 };
 
 const runSearch = () => {
-  const state = store.getState();
-  const { query } = state.search;
+  const { search, filters, institution, defaultInstitution, datastores } = store.getState();
 
-  const statePage = state.search.page[state.datastores.active];
-  const page = statePage || 1;
-  let facets = state.filters.active[state.datastores.active] || {};
-  const sort = state.search.sort[state.datastores.active];
-  let fieldTree;
-
-  if (query === '*') {
-    fieldTree = {}; // search all
-  } else {
-    fieldTree = prideParseField('all_fields', query);
-  }
-
-  // Inject library/institution filter with facets.
-  // The backend whitelists facets, so
-  // the FE can always includes the institution in
-  // a search. This is useful and allows including
-  // institution in an Everything search so that
-  // catalog works as expect, but other datastores
-  // can ignore it.
-  // For more background: SEARCH-871
-  facets = {
-    ...facets,
-    institution: state.institution.active || state.defaultInstitution
-  };
-
-  const prideConfig = {
-    field_tree: fieldTree,
-    raw_query: query,
-    page,
-    facets,
-    sort,
-    count: 10
-  };
-
-  const datastores = state.datastores.datastores;
-
-  datastores.forEach((datastore) => {
+  datastores.datastores.forEach((datastore) => {
     if (!datastore.isMultisearch) {
-      store.dispatch(
-        loadingRecords({
-          datastoreUid: datastore.uid,
-          loading: true
-        })
-      );
+      store.dispatch(loadingRecords({ datastoreUid: datastore.uid, loading: true }));
     }
   });
-  searchSwitcher.set(prideConfig).run();
+
+  searchSwitcher.set({
+    field_tree: search.query === '*' ? {} : prideParseField('all_fields', search.query),
+    raw_query: search.query,
+    page: search.page[datastores.active] || 1,
+    facets: {
+      ...filters.active[datastores.active] || {},
+      institution: institution.active || defaultInstitution
+    },
+    sort: search.sort[datastores.active],
+    count: 10
+  }).run();
 };
 
 // All available advanced and forced fields from config
