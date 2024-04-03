@@ -52,45 +52,35 @@ Object.assign(Pride.Settings, {
 let searchSwitcher;
 
 const handleSearchData = (data, datastoreUid) => {
+  const { count, page, total_pages: totalPages, total_available: totalAvailable, sorts, selected_sort: selectedSort, fields, specialists } = data;
+
   const payload = {
     data: {
-      count: data.count,
-      page: data.page,
-      totalPages: data.total_pages,
-      totalAvailable: data.total_available,
-      sorts: data.sorts,
-      selectedSort: data.selected_sort,
-      fields: data.fields
+      count,
+      page,
+      totalPages,
+      totalAvailable,
+      sorts,
+      selectedSort,
+      fields
     },
     datastoreUid
   };
 
   const activeDatastore = store.getState().datastores.active;
 
-  if (
-    (activeDatastore === 'everything' || activeDatastore === datastoreUid) &&
-    data.specialists
-  ) {
-    store.dispatch(addSpecialists(data.specialists));
+  if (['everything', datastoreUid].includes(activeDatastore) && specialists) {
+    store.dispatch(addSpecialists(specialists));
   }
 
   store.dispatch(setSearchData(payload));
 
-  const records = store.getState().records.records[datastoreUid];
-  const recordsLength = _.values(records).length;
-  const count = data.count; // page count
-  const page = data.page;
-  const totalAvailable = data.total_available;
+  const records = store.getState().records.records[datastoreUid] || {};
+  const recordsLength = Object.values(records).length;
   const lastPage = (page - 1) * count + recordsLength === totalAvailable;
 
-  // Check to see if records have loaded.
   if (recordsLength === count || lastPage) {
-    store.dispatch(
-      loadingRecords({
-        datastoreUid,
-        loading: false
-      })
-    );
+    store.dispatch(loadingRecords({ datastoreUid, loading: false }));
   }
 };
 
