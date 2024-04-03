@@ -477,16 +477,11 @@ const runSearch = () => {
   searchSwitcher.set(prideConfig).run();
 };
 
-// All available advanced fields and
-// forced fields from config
-const getPotentialbooleanField = (dsUid) => {
-  const dsData = store.getState().search.data[dsUid];
-  const spectrumFields = dsData ? dsData.fields : [];
-  const dsForcedFields = config.advanced[dsUid].forcedFields;
-  const configForcedFields = dsForcedFields || [];
-  const potentialbooleanField = spectrumFields.concat(configForcedFields);
-
-  return potentialbooleanField;
+// All available advanced and forced fields from config
+const getPotentialBooleanField = (dsUid) => {
+  const spectrumFields = store.getState().search.data[dsUid]?.fields ?? [];
+  const configForcedFields = config.advanced[dsUid].forcedFields ?? [];
+  return spectrumFields.concat(configForcedFields);
 };
 
 const setupAdvancedSearch = () => {
@@ -500,7 +495,7 @@ const setupAdvancedSearch = () => {
     // Setup Advanced Fields
     if (config.advanced[dsUid].fields) {
       config.advanced[dsUid].fields.forEach((fieldUid) => {
-        const fields = getPotentialbooleanField(dsUid);
+        const fields = getPotentialBooleanField(dsUid);
         const fieldExists = findWhere(fields, { uid: fieldUid });
 
         if (fieldExists) {
