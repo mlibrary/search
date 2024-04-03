@@ -1,12 +1,9 @@
 import { Pride } from 'pride';
 import _ from 'underscore';
-
 import config from '../../config';
 import store from '../../store';
 import { renderApp, renderPrideFailedToLoad } from '../../index';
-
 import { addDatastore, changeActiveDatastore } from '../datastores';
-
 import {
   addRecords,
   clearRecords,
@@ -14,44 +11,34 @@ import {
   addHoldings,
   setRecordHoldings
 } from '../records';
-
 import { getField, getFieldValue } from '../records/utilities';
-
 import { setSearchData, setParserMessage } from '../search';
-
 import {
   addAdvancedField,
   addAdvancedBooleanTypes,
   addFieldedSearch,
   addAdvancedFilterGroups
 } from '../advanced';
-
 import { addFilters, clearFilters, setFilterGroupOrder } from '../filters';
-
 import {
   getDatastoreSlug,
   getDatastoreName,
   getDatastoreUidBySlug,
   prideParseField
 } from './utils';
-
 import { setDefaultInstitution } from '../institution';
-
 import { setDefaultAffiliation } from '../affiliation';
-
 import { addBrowseFilter, organizeByParents } from '../browse';
-
 import { addSpecialists } from '../specialists';
-
 import prejudice from '../lists/prejudice';
 import { setupProfile } from '../profile';
 
-/*
-  Pride Internal Configuration
-*/
-Pride.Settings.datastores_url = config.spectrum;
-Pride.Settings.connection_attempts = 2;
-Pride.Settings.obnoxious = false; // Console log messages
+// Pride Internal Configuration
+Object.assign(Pride.Settings, {
+  datastores_url: config.spectrum,
+  connection_attempts: 2,
+  obnoxious: false
+});
 
 Pride.Messenger.addObserver(function (msg) {
   console.log(['info', msg]);
