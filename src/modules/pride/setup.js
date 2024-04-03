@@ -418,16 +418,10 @@ const setupSearches = () => {
 const switchPrideToDatastore = (slug) => {
   const uid = getDatastoreUidBySlug(slug);
 
-  if (!uid) {
-    return false;
+  if (uid && searchSwitcher) {
+    store.dispatch(changeActiveDatastore(uid));
+    searchSwitcher.switchTo(uid);
   }
-
-  if (!searchSwitcher) {
-    return false;
-  }
-
-  store.dispatch(changeActiveDatastore(uid));
-  searchSwitcher.switchTo(uid);
 };
 
 const runSearch = () => {
