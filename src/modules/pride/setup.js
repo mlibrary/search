@@ -84,11 +84,6 @@ const handleSearchData = (data, datastoreUid) => {
   }
 };
 
-const getFullRecordUid = () => {
-  const record = store.getState().records.record;
-  return record ? record.uid : undefined;
-};
-
 const setupObservers = (searchObj) => {
   // TODO: Only listen to this overserver if new search is made.
   searchObj.resultsObservers.add(function (results) {
@@ -127,7 +122,7 @@ const setupObservers = (searchObj) => {
 
       if (recordsHaveHoldings) {
         const holdingsCallback = (dsUid, uid, data) => {
-          const fullRecordUid = getFullRecordUid();
+          const fullRecordUid = store.getState().records.record?.uid;
 
           store.dispatch(
             addHoldings({
