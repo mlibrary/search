@@ -31,7 +31,7 @@ import { setDefaultAffiliation } from '../affiliation';
 import { addBrowseFilter, organizeByParents } from '../browse';
 import { addSpecialists } from '../specialists';
 import prejudice from '../lists/prejudice';
-import { setupProfile } from '../profile';
+import { addProfile } from '../profile';
 import { findWhere } from '../reusable/underscore';
 
 // Pride Internal Configuration
@@ -592,14 +592,6 @@ const setupAdvancedSearch = () => {
   });
 };
 
-const setupDefaultInstitution = () => {
-  store.dispatch(setDefaultInstitution(Pride.Settings.default_institution));
-};
-
-const setupDefaultAffiliation = () => {
-  store.dispatch(setDefaultAffiliation(Pride.Settings.affiliation));
-};
-
 const compareFacetName = (a, b) => {
   return a.name.toUpperCase().localeCompare(b.name.toUpperCase());
 };
@@ -641,12 +633,15 @@ const initializePride = () => {
     success: () => {
       setupSearches();
       setupAdvancedSearch();
-      setupDefaultInstitution();
-      setupDefaultAffiliation();
+      store.dispatch(setDefaultInstitution(Pride.Settings.default_institution));
+      store.dispatch(setDefaultAffiliation(Pride.Settings.affiliation));
       setupBrowse();
       renderApp();
       prejudice.initialize();
-      setupProfile();
+      // Setup profile
+      prejudice.instance.addProfileObserver((data) => {
+        store.dispatch(addProfile(data));
+      });
     },
     failure: () => {
       renderPrideFailedToLoad();
