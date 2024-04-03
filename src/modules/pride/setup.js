@@ -592,35 +592,24 @@ const setupAdvancedSearch = () => {
   });
 };
 
-const compareFacetName = (a, b) => {
-  return a.name.toUpperCase().localeCompare(b.name.toUpperCase());
-};
-
 const setupBrowse = () => {
-  /*
-    To setup browse
-
-    1) Know what datastores have a browse.
-    2) Get from Pride a full list of filters used for browse.
-    3) Organize filters by parents.
-    4) Add filters to browse state.
-  */
-
   ['databases', 'onlinejournals'].forEach((datastoreUid) => {
     const facets = Pride.AllDatastores.get(datastoreUid).get('facets');
-    const facet = findWhere(facets, { uid: 'academic_discipline' });
-    const filters = organizeByParents(facet.values.sort(compareFacetName));
+    const facet = facets.find((f) => {
+      return f.uid === 'academic_discipline';
+    });
+    const compareFacetName = (a, b) => {
+      return a.name.toUpperCase().localeCompare(b.name.toUpperCase());
+    };
 
-    store.dispatch(
-      addBrowseFilter({
-        datastoreUid,
-        filter: {
-          uid: facet.uid,
-          name: facet.metadata.name,
-          filters
-        }
-      })
-    );
+    store.dispatch(addBrowseFilter({
+      datastoreUid,
+      filter: {
+        uid: facet.uid,
+        name: facet.metadata.name,
+        filters: organizeByParents(facet.values.sort(compareFacetName))
+      }
+    }));
   });
 };
 
