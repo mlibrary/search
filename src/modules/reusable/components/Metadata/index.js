@@ -2,7 +2,6 @@
 import React from 'react';
 import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
   Anchor,
   Icon,
@@ -10,7 +9,9 @@ import {
   ExpandableChildren,
   ExpandableButton
 } from '../../../reusable';
+import { BrowseLink } from '../../../browse';
 import { stringifySearchQueryForURL } from '../../../pride';
+import PropTypes from 'prop-types';
 
 const visuallyHiddenCSS = {
   border: 0,
@@ -230,14 +231,6 @@ DescriptionItem.propTypes = {
   children: PropTypes.array
 };
 
-function browseLinkByEnvironment (type, value) {
-  let browseLink = 'https://search.lib.umich.edu/catalog/browse';
-  if (process.env.NODE_ENV === 'development') {
-    browseLink = 'https://browse.workshop.search.lib.umich.edu';
-  }
-  return `${browseLink}/${type}?query=${value}`;
-}
-
 function DescriptionItemLink ({ href, search, browse, children }) {
   if (href) {
     return (
@@ -251,7 +244,7 @@ function DescriptionItemLink ({ href, search, browse, children }) {
     return (
       <span>
         <SearchLink search={search}>{children}</SearchLink>
-        <Anchor
+        <BrowseLink
           css={{
             color: 'var(--ds-color-neutral-300)',
             fontSize: '0.875rem',
@@ -269,10 +262,11 @@ function DescriptionItemLink ({ href, search, browse, children }) {
               width: '1px'
             }
           }}
-          href={browseLinkByEnvironment(browse.type, browse.value)}
+          type={browse.type}
+          value={browse.value}
         >
           {browse.text}
-        </Anchor>
+        </BrowseLink>
       </span>
     );
   }
