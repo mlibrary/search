@@ -25,6 +25,7 @@ import {
   GoToList
 } from '../../../lists';
 import { NoMatch } from '../../../pages';
+import { ShelfBrowse } from '../../../browse';
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance();
 
 const FullRecord = () => {
@@ -177,6 +178,7 @@ const FullRecord = () => {
           <ResourceAccess record={record} />
         </section>
       </div>
+      {datastoreUid === 'mirlyn' && <ShelfBrowse />}
       <div className='full-record__actions-container'>
         <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>
           Actions{' '}
