@@ -8,10 +8,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Use Node.js 16.20.2
+      - name: Use Node.js 20.5.1
         uses: actions/setup-node@v4
         with:
-          node-version: 16.20.2
+          node-version: 20.5.1
       - name: Install dependencies
         run: npm install
 
@@ -26,7 +26,7 @@ jobs:
       - name: "Package: Staging"
         run: tar -C build --transform s/./search/ -czf search-staging.tar.gz .
       - name: "Upload Release Asset: Staging"
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -43,7 +43,7 @@ jobs:
       - name: "Package: Production"
         run: tar -C build --transform s/./search/ -czf search-production.tar.gz .
       - name: "Upload Release Asset: Production"
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -60,7 +60,7 @@ jobs:
       - name: "Package: Local"
         run: tar -C build --transform s/./search/ -czf search-local.tar.gz .
       - name: "Upload Release Asset: Local"
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -75,7 +75,7 @@ jobs:
       - name: "Package: Origin"
         run: tar -C build --transform s/./search/ -czf search-origin.tar.gz .
       - name: "Upload Release Asset: Origin"
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
