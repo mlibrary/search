@@ -1,40 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MultipleChoiceOption = ({
-  name,
-  option,
-  index,
-  isActive,
-  onMultipleChoiceChange
-}) => {
-  return (
-    <label
-      className='multiple-choice'
-      key={index}
-      htmlFor={`${name}-radio-${index}`}
-    >
-      <input
-        type='radio'
-        checked={`${isActive ? 'selected' : ''}`}
-        value={option}
-        onChange={onMultipleChoiceChange}
-        id={`${name}-radio-${index}`}
-        name={name}
-      />
-      <span>{option}</span>
-    </label>
-  );
-};
-
-MultipleChoiceOption.propTypes = {
-  name: PropTypes.string,
-  option: PropTypes.string,
-  index: PropTypes.number,
-  isActive: PropTypes.bool,
-  onMultipleChoiceChange: PropTypes.func
-};
-
 const MultipleChoice = ({
   name,
   options,
@@ -43,26 +9,35 @@ const MultipleChoice = ({
   onMultipleChoiceChange
 }) => {
   return (
-    <fieldset className='no-margin'>
+    <fieldset>
       {heading && (
         <legend className='offscreen'>{heading}</legend>
       )}
 
       {options.map((option, index) => {
-        return MultipleChoiceOption({
-          name,
-          option,
-          index,
-          isActive: selectedIndex === index,
-          onMultipleChoiceChange: () => {
-            return onMultipleChoiceChange({
-              option,
-              index
-            });
-          }
-        });
-      }
-      )}
+        return (
+          <label
+            className='multiple-choice'
+            key={index}
+            htmlFor={`${name}-radio-${index}`}
+          >
+            <input
+              type='radio'
+              checked={`${selectedIndex === index ? 'selected' : ''}`}
+              value={option}
+              onChange={() => {
+                return onMultipleChoiceChange({
+                  option,
+                  index
+                });
+              }}
+              id={`${name}-radio-${index}`}
+              name={name}
+            />
+            <span>{option}</span>
+          </label>
+        );
+      })}
     </fieldset>
   );
 };
