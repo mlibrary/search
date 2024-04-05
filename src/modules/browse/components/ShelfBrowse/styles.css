@@ -1,3 +1,16 @@
 .shelf-browse {
   order: 3;
+  padding: 1.5rem;
+}
+
+.shelf-browse > header {
+  align-items: baseline;
+  display: flex;
+  gap: 1rem;
+}
+
+.shelf-browse > header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
 }
