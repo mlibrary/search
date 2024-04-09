@@ -1,5 +1,4 @@
 import React from 'react';
-import { MultipleChoice } from '../../../core';
 import SearchByOptions from '../../../search/components/SearchByOptions';
 import Icon from '../../../reusable/components/Icon';
 import PropTypes from 'prop-types';
@@ -16,20 +15,30 @@ function FieldInput ({
 
   return (
     <fieldset className='y-spacing advanced-fieldset'>
-      <legend className='offpage'>Search field {fieldedSearchIndex + 1}</legend>
+      <legend className='visually-hidden'>Search field {fieldedSearchIndex + 1}</legend>
       {notFirst && (
-        <MultipleChoice
-          name={`search-field-${fieldedSearchIndex}-booleans`}
-          heading={`Boolean operator for field ${fieldedSearchIndex} and field ${fieldedSearchIndex + 1}`}
-          options={['AND', 'OR', 'NOT']}
-          selectedIndex={fieldedSearch.booleanType}
-          onMultipleChoiceChange={({ index }) => {
-            return changeFieldedSearch({
-              fieldedSearchIndex,
-              booleanType: index
-            });
-          }}
-        />
+        <fieldset className='flex__responsive'>
+          <legend className='visually-hidden'>Boolean operator for field {fieldedSearchIndex} and field {fieldedSearchIndex + 1}</legend>
+          {['AND', 'OR', 'NOT'].map((option, index) => {
+            return (
+              <label key={index}>
+                <input
+                  type='radio'
+                  name={`search-field-${fieldedSearchIndex}-booleans`}
+                  value={option}
+                  checked={fieldedSearch.booleanType === index}
+                  onChange={() => {
+                    return changeFieldedSearch({
+                      fieldedSearchIndex,
+                      booleanType: index
+                    });
+                  }}
+                />
+                {option}
+              </label>
+            );
+          })}
+        </fieldset>
       )}
       <div className='advanced-input-container'>
         <select

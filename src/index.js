@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './stylesheets/colors.css';
 import './stylesheets/spacing.css';
+import './stylesheets/forms.css';
 import './stylesheets/main.css';
 import './stylesheets/utilities.css';
 import { Alert } from './modules/reusable';
