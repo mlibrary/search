@@ -2109,9 +2109,13 @@ body {
   display: flex;
 }
 
+.advanced-fieldset fieldset {
+  flex-direction: row;
+}
+
 @media (min-width: 641px) {
-  .advanced-fieldset {
-    text-align: center;
+  .advanced-fieldset fieldset {
+    justify-content: center;
   }
 }
 
