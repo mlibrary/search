@@ -44,9 +44,11 @@ function Multiselect (props) {
         onChange={(event) => {
           setFilterQuery(event.target.value);
         }}
+        autoComplete='on'
       />
-      <p id={props.filterGroupUid} className='offscreen'>Below this edit box is a list of check oxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
+      <p id={props.filterGroupUid} className='visually-hidden'>Below this edit box is a list of check boxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
       <fieldset className='multiselect-options'>
+        <legend className='visually-hidden'>Filter Options</legend>
         <ul className='multiselect-options-list'>
           {props.options.map((option, index) => {
             if (isOptionFiltered(option) && !showOnlySelectedOptions) {

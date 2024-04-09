@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function YearInput ({ query, setQuery, point = 'start' }) {
   return (
     <div>
-      <label htmlFor='date-range-start-date'>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
+      <label htmlFor={`date-range-${point}-date`}>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
       <input
         className='date-range-input-text'
         id={`date-range-${point}-date`}
