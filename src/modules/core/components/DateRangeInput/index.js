@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { MultipleChoice } from '../../../core';
 import PropTypes from 'prop-types';
 
 function YearInput ({ query, setQuery, point = 'start' }) {
   return (
     <div>
-      <label htmlFor='date-range-start-date'>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
+      <label htmlFor={`date-range-${point}-date`}>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
       <input
         className='date-range-input-text'
         id={`date-range-${point}-date`}
@@ -48,10 +47,6 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [beginQueryState, endQueryState, selectedRangeOptionState]);
 
-  const handleRangeChange = (index) => {
-    setSelectedRangeOption(index);
-  };
-
   const handleBeginQueryChange = (query) => {
     setBeginQuery(query);
   };
@@ -64,15 +59,25 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
 
   return (
     <div className='date-range-input'>
-      <MultipleChoice
-        name='date-range-input'
-        heading='Select the type of date range to search on'
-        options={dateRangeOptions}
-        selectedIndex={selectedRangeOptionState}
-        onMultipleChoiceChange={(e) => {
-          return handleRangeChange(e.index);
-        }}
-      />
+      <fieldset className='flex__responsive'>
+        <legend className='visually-hidden'>Select the type of date range to search on</legend>
+        {dateRangeOptions.map((option, index) => {
+          return (
+            <label key={index}>
+              <input
+                type='radio'
+                name='date-range-input'
+                value={option}
+                checked={selectedRangeOptionState === index}
+                onChange={() => {
+                  return setSelectedRangeOption(index);
+                }}
+              />
+              {option}
+            </label>
+          );
+        })}
+      </fieldset>
       <div className='date-range-container'>
         {
           rangeOption !== 'Before' &&
