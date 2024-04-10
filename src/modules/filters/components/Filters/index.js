@@ -18,14 +18,17 @@ import {
 import PropTypes from 'prop-types';
 
 function FiltersLoadingContainer ({ children }) {
-  const { datastores, search, records } = useSelector((state) => {
-    return state;
+  const { searching } = useSelector((state) => {
+    return state.search;
   });
-  const isLoading = search.searching && records.loading[datastores.active];
+  const { active } = useSelector((state) => {
+    return state.datastores;
+  });
+  const { loading } = useSelector((state) => {
+    return state.records;
+  });
 
-  if (isLoading) {
-    return null;
-  }
+  if (searching && loading[active]) return null;
 
   return children;
 }
@@ -37,45 +40,16 @@ FiltersLoadingContainer.propTypes = {
   ])
 };
 
-export default function Filters () {
-  const { datastores, filters } = useSelector((state) => {
-    return state;
-  });
-  const { order } = filters;
-
-  if (!order) {
-    return null;
-  }
-
-  return (
-    <section
-      aria-label='filters'
-      css={{
-        background: '#FAFAFA'
-      }}
-    >
-      <ActiveFilters />
-      <CheckboxFilters />
-      <FiltersLoadingContainer>
-        {order.map((uid) => {
-          return (
-            <FilterGroupContainer uid={uid} key={datastores.active + uid} />
-          );
-        })}
-      </FiltersLoadingContainer>
-    </section>
-  );
-}
-
 function ActiveFilters () {
-  const { datastores, filters } = useSelector((state) => {
-    return state;
+  const { active: activeDatastore } = useSelector((state) => {
+    return state.datastores;
   });
-  const active = filters.active[datastores.active];
+  const { active: activeFilters, groups } = useSelector((state) => {
+    return state.filters;
+  });
+  const active = activeFilters[activeDatastore];
 
-  if (!active) {
-    return null;
-  }
+  if (!active) return null;
 
   /*
     input:
@@ -84,7 +58,7 @@ function ActiveFilters () {
       format: ['Science', 'Biology']
     }
 
-    expected output:
+    output:
     [
       { group: 'subject', value: 'Birds' },
       { group: 'subject', value: 'Birds North America' },
@@ -94,7 +68,7 @@ function ActiveFilters () {
   */
   const items = Object.keys(active).reduce((acc, group) => {
     // Just don't show the checkbox filters as active filter items.
-    if (!filters.groups[group] || filters.groups[group].type !== 'checkbox') {
+    if (!groups[group] || groups[group].type !== 'checkbox') {
       const activeFiltersToAdd = active[group].map((value) => {
         return { group, value };
       });
@@ -105,9 +79,7 @@ function ActiveFilters () {
     return acc;
   }, []);
 
-  if (items.length === 0) {
-    return null;
-  }
+  if (items.length === 0) return null;
 
   return (
     <section
@@ -125,12 +97,7 @@ function ActiveFilters () {
         Active filters
       </h2>
 
-      <ul
-        css={{
-          margin: 0,
-          listStyle: 'none'
-        }}
-      >
+      <ul className='list__unstyled'>
         {items.map((item, i) => {
           return (
             <li
@@ -205,50 +172,43 @@ ActiveFilterItem.propTypes = {
 };
 
 function FilterGroupContainer ({ uid }) {
-  const { datastores, filters } = useSelector((state) => {
+  const { active: activeDatastore } = useSelector((state) => {
+    return state.datastores;
+  });
+  const { filters } = useSelector((state) => {
     return state;
   });
   const group = filters.groups[uid];
 
-  if (!group || group.filters.length === 0) {
+  if (!group || group.filters.length === 0 || group.type !== 'multiselect') {
     return null;
   }
 
-  const activeFilters = filters.active[datastores.active]
-    ? filters.active[datastores.active][uid]
+  const activeFilters = filters.active[activeDatastore]
+    ? filters.active[activeDatastore][uid]
     : null;
-
-  const uuid = datastores.active + '-' + uid;
 
   const props = {
     uid,
-    uuid,
     group,
-    datastores,
     filters,
     activeFilters
   };
 
-  if (group.type === 'multiselect') {
-    return <FilterGroupMultiselect {...props} />;
-  }
-
-  return null;
+  return <FilterGroupMultiselect {...props} />;
 }
 
 FilterGroupContainer.propTypes = {
   uid: PropTypes.string
 };
 
-function FilterGroupMultiselect ({ filters, group, uid, uuid, activeFilters }) {
+function FilterGroupMultiselect ({ filters, group, uid, activeFilters }) {
   const filtersWithoutActive = filterOutActiveFilters({
     active: activeFilters,
     filters: filters.groups[uid].filters
   });
 
-  if (filtersWithoutActive.length === 0) {
-    return null;
-  }
+  if (filtersWithoutActive.length === 0) return null;
 
   return (
     <details
@@ -292,10 +252,29 @@ function FilterGroupMultiselect ({ filters, group, uid, uuid, activeFilters }) {
           <Icon size={24} icon='expand_more' />
         </span>
       </summary>
-      <FilterGroupFilters
-        group={group}
-        filters={filtersWithoutActive}
-      />
+      <div>
+        <Expandable>
+          <ul className='list__unstyled'>
+            <ExpandableChildren show={5}>
+              {filtersWithoutActive.map((filter, i) => {
+                return (
+                  <li key={group.metadata.name + filter.value + i}>
+                    <FilterContainer group={group} {...filter} />
+                  </li>
+                );
+              })}
+            </ExpandableChildren>
+          </ul>
+
+          <div className='padding-y__2xs padding-x__none'>
+            <ExpandableButton
+              name={group.metadata.name + ' filters'}
+              count={filtersWithoutActive.length}
+              className='margin-bottom__xs'
+            />
+          </div>
+        </Expandable>
+      </div>
     </details>
   );
 }
@@ -308,63 +287,10 @@ FilterGroupMultiselect.propTypes = {
   activeFilters: PropTypes.array
 };
 
-function FilterGroupFilters ({ group, hidden = false, filters }) {
-  if (hidden || filters.length === 0) {
-    return null;
-  }
-
-  return (
-    <div>
-      <Expandable>
-        <ul
-          css={{
-            listStyle: 'none',
-            margin: '0'
-          }}
-        >
-          <ExpandableChildren show={5}>
-            {filters.map((f, i) => {
-              return (
-                <li key={group.metadata.name + f.value + i}>
-                  <FilterContainer group={group} {...f} />
-                </li>
-              );
-            })}
-          </ExpandableChildren>
-        </ul>
-
-        <div className='padding-y__2xs padding-x__none'>
-          <ExpandableButton
-            name={group.metadata.name + ' filters'}
-            count={filters.length}
-            className='margin-bottom__xs'
-          />
-        </div>
-      </Expandable>
-    </div>
-  );
-}
-
-FilterGroupFilters.propTypes = {
-  group: PropTypes.object,
-  hidden: PropTypes.bool,
-  filters: PropTypes.array
-};
-
 function FilterContainer ({ group, value, count }) {
   const search = newSearch({ filter: { [group.uid]: value }, page: undefined });
   const url = document.location.pathname + '?' + search;
 
-  return <Filter url={url} value={value} count={count} />;
-}
-
-FilterContainer.propTypes = {
-  group: PropTypes.object,
-  value: PropTypes.string,
-  count: PropTypes.number
-};
-
-function Filter ({ value, count, url }) {
   return (
     <Anchor
       to={url}
@@ -387,8 +313,38 @@ function Filter ({ value, count, url }) {
   );
 }
 
-Filter.propTypes = {
+FilterContainer.propTypes = {
+  group: PropTypes.object,
   value: PropTypes.string,
-  count: PropTypes.number,
-  url: PropTypes.string
+  count: PropTypes.number
 };
+
+export default function Filters () {
+  const { active } = useSelector((state) => {
+    return state.datastores;
+  });
+  const { order } = useSelector((state) => {
+    return state.filters;
+  });
+
+  if (!order) return null;
+
+  return (
+    <section
+      aria-label='filters'
+      css={{
+        background: '#FAFAFA'
+      }}
+    >
+      <ActiveFilters />
+      <CheckboxFilters />
+      <FiltersLoadingContainer>
+        {order.map((uid) => {
+          return (
+            <FilterGroupContainer uid={uid} key={active + uid} />
+          );
+        })}
+      </FiltersLoadingContainer>
+    </section>
+  );
+}
