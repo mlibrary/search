@@ -62,23 +62,20 @@ function ActiveFilters () {
   return (
     <section
       className='padding-y__s padding-x__m'
-      css={{
+      style={{
         borderBottom: 'solid 1px var(--ds-color-neutral-100)'
       }}
     >
-      <h2
-        id='active-filters'
-        className='margin-top__none margin-bottom__xs'
-        css={{ fontSize: '1rem' }}
-      >
+      <h2 className='margin-top__none margin-bottom__xs marc__heading'>
         Active filters
       </h2>
 
       <ul className='list__unstyled'>
         {items.map((item, i) => {
+          const { group, value } = item;
           return (
             <li
-              key={i + item.group + item.value}
+              key={i + group + value}
               css={{
                 marginBottom: 'var(--search-spacing-xs)',
                 ':last-of-type': {
@@ -86,7 +83,29 @@ function ActiveFilters () {
                 }
               }}
             >
-              <ActiveFilterItem {...item} />
+              <Anchor
+                to={getURLWithFilterRemoved({ group, value })}
+                className='padding-y__xs padding-x__s'
+                css={{
+                  color: 'var(--ds-color-green-500)',
+                  background: 'var(--ds-color-green-100)',
+                  border: 'solid 1px var(--ds-color-green-200)',
+                  borderRadius: '4px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  ':hover': {
+                    textDecoration: 'underline'
+                  }
+                }}
+              >
+                <span>
+                  {groups[group] ? groups[group].metadata.name : group}: {value}
+                </span>
+                <span>
+                  <Icon icon='close' />
+                </span>
+              </Anchor>
             </li>
           );
         })}
@@ -109,44 +128,6 @@ function ActiveFilters () {
     </section>
   );
 }
-
-function ActiveFilterItem ({ group, value }) {
-  const { groups } = useSelector((state) => {
-    return state.filters;
-  });
-  const url = getURLWithFilterRemoved({ group, value });
-
-  return (
-    <Anchor
-      to={url}
-      className='padding-y__xs padding-x__s'
-      css={{
-        color: 'var(--ds-color-green-500)',
-        background: 'var(--ds-color-green-100)',
-        border: 'solid 1px var(--ds-color-green-200)',
-        borderRadius: '4px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        ':hover': {
-          textDecoration: 'underline'
-        }
-      }}
-    >
-      <span>
-        {groups[group] ? groups[group].metadata.name : group}: {value}
-      </span>
-      <span>
-        <Icon icon='close' />
-      </span>
-    </Anchor>
-  );
-}
-
-ActiveFilterItem.propTypes = {
-  group: PropTypes.string,
-  value: PropTypes.string
-};
 
 function FilterGroupContainer ({ uid }) {
   const { active: activeDatastore } = useSelector((state) => {
@@ -232,9 +213,28 @@ function FilterGroupMultiselect ({ filters, group, uid, activeFilters }) {
           <ul className='list__unstyled'>
             <ExpandableChildren show={5}>
               {filtersWithoutActive.map((filter, i) => {
+                const search = newSearch({ filter: { [group.uid]: filter.value }, page: undefined });
                 return (
                   <li key={group.metadata.name + filter.value + i}>
-                    <FilterContainer group={group} {...filter} />
+                    <Anchor
+                      to={`${document.location.pathname}?${search}`}
+                      css={{
+                        display: 'flex',
+                        gap: '0.5rem',
+                        justifyContent: 'space-between',
+                        padding: 'var(--search-spacing-2xs) 0',
+                        ':hover': {
+                          'span:first-of-type': {
+                            textDecoration: 'underline'
+                          }
+                        }
+                      }}
+                    >
+                      <span>{filter.value}</span>
+                      <span css={{ color: 'var(--ds-color-neutral-400)' }}>
+                        {filter.count?.toLocaleString()}
+                      </span>
+                    </Anchor>
                   </li>
                 );
               })}
@@ -258,40 +258,7 @@ FilterGroupMultiselect.propTypes = {
   filters: PropTypes.object,
   group: PropTypes.object,
   uid: PropTypes.string,
-  uuid: PropTypes.string,
   activeFilters: PropTypes.array
-};
-
-function FilterContainer ({ group, value, count }) {
-  const search = newSearch({ filter: { [group.uid]: value }, page: undefined });
-  const url = document.location.pathname + '?' + search;
-
-  return (
-    <Anchor
-      to={url}
-      css={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        padding: 'var(--search-spacing-2xs) 0',
-        ':hover': {
-          'span:first-of-type': {
-            textDecoration: 'underline'
-          }
-        }
-      }}
-    >
-      <span className='margin-right__xs'>{value}</span>
-      <span css={{ color: 'var(--ds-color-neutral-400)' }}>
-        {count?.toLocaleString()}
-      </span>
-    </Anchor>
-  );
-}
-
-FilterContainer.propTypes = {
-  group: PropTypes.object,
-  value: PropTypes.string,
-  count: PropTypes.number
 };
 
 export default function Filters () {
