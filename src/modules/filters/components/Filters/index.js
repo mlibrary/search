@@ -10,12 +10,7 @@ import {
   Icon
 } from '../../../reusable';
 import CheckboxFilters from '../CheckboxFilters';
-import {
-  getURLWithoutFilters,
-  getURLWithFilterRemoved,
-  filterOutActiveFilters,
-  newSearch
-} from '../../utilities';
+import { getURLWithFiltersRemoved, newSearch } from '../../utilities';
 import PropTypes from 'prop-types';
 
 function ActiveFilters () {
@@ -84,7 +79,7 @@ function ActiveFilters () {
               }}
             >
               <Anchor
-                to={getURLWithFilterRemoved({ group, value })}
+                to={getURLWithFiltersRemoved({ group, value })}
                 className='padding-y__xs padding-x__s'
                 css={{
                   color: 'var(--ds-color-green-500)',
@@ -92,6 +87,7 @@ function ActiveFilters () {
                   border: 'solid 1px var(--ds-color-green-200)',
                   borderRadius: '4px',
                   display: 'flex',
+                  gap: '0.5rem',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   ':hover': {
@@ -99,12 +95,8 @@ function ActiveFilters () {
                   }
                 }}
               >
-                <span>
-                  {groups[group] ? groups[group].metadata.name : group}: {value}
-                </span>
-                <span>
-                  <Icon icon='close' />
-                </span>
+                {groups[group] ? groups[group].metadata.name : group}: {value}
+                <Icon icon='close' />
               </Anchor>
             </li>
           );
@@ -114,7 +106,7 @@ function ActiveFilters () {
       {
         items.length > 1 &&
           <Anchor
-            to={getURLWithoutFilters()}
+            to={getURLWithFiltersRemoved({ all: true })}
             className='padding-top__xs'
             css={{
               display: 'inline-block',
@@ -159,10 +151,12 @@ FilterGroupContainer.propTypes = {
 };
 
 function FilterGroupMultiselect ({ filters, group, uid, activeFilters }) {
-  const filtersWithoutActive = filterOutActiveFilters({
-    active: activeFilters,
-    filters: filters.groups[uid].filters
-  });
+  const currentFilters = filters.groups[uid].filters;
+  const filtersWithoutActive = !activeFilters
+    ? currentFilters
+    : currentFilters.filter(({ value }) => {
+      return !activeFilters.includes(value);
+    });
 
   if (!filtersWithoutActive.length) return null;
 

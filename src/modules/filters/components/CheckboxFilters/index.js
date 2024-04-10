@@ -2,7 +2,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Anchor, Icon } from '../../../reusable';
-import { getURLWithFilterRemoved, newSearch } from '../../utilities';
+import { getURLWithFiltersRemoved, newSearch } from '../../utilities';
 import PropTypes from 'prop-types';
 
 export default function CheckBoxFiltersContainer () {
@@ -53,7 +53,7 @@ function CheckboxFilterContainer ({ uid }) {
       isChecked={isActive ? isActive[0] === 'true' : preSelected}
       url={
         isActive
-          ? getURLWithFilterRemoved({ group: uid, value: isActive[0] })
+          ? getURLWithFiltersRemoved({ group: uid, value: isActive[0] })
           : document.location.pathname + '?' + newSearch({ filter: { [uid]: !preSelected }, page: undefined })
       }
     />
