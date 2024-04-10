@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { stringifySearchQueryForURL } from '../../../pride';
+import { stringifySearch } from '../../../search';
 import './styles.css';
 import { Anchor } from '../../../reusable';
 
@@ -41,7 +41,7 @@ const Pagination = () => {
   }
 
   const createSearchQuery = (newPage) => {
-    const queryString = stringifySearchQueryForURL({
+    const queryString = stringifySearch({
       filter: filters,
       library: activeDatastoreUid === 'mirlyn' ? institution.active : undefined,
       page: newPage,

@@ -1,8 +1,4 @@
-import qs from 'qs';
-
-export function getSearchStateFromURL () {
-  return qs.parse(document.location.search.substring(1), { allowDots: true });
-};
+import { getSearchStateFromURL, stringifySearch } from '../../search';
 
 const newSearchFilter = ({ proposed = {}, existing = {} }) => {
   const groups = Object.keys(proposed).concat(Object.keys(existing));
@@ -16,15 +12,6 @@ const newSearchFilter = ({ proposed = {}, existing = {} }) => {
 
   return filter;
 };
-
-export function stringifySearch (searchStateObj) {
-  return qs.stringify(searchStateObj, {
-    arrayFormat: 'repeat',
-    encodeValuesOnly: true,
-    allowDots: true,
-    format: 'RFC1738'
-  });
-}
 
 export function newSearch (data) {
   const urlSearchState = getSearchStateFromURL();

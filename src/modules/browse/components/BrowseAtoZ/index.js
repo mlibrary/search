@@ -1,24 +1,16 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import qs from 'qs';
+import { stringifySearch } from '../../../search';
 import { Anchor } from '../../../reusable';
 
 function BrowseAtoZ () {
   const { datastoreSlug } = useParams();
   const createBrowseTo = ({ query, filter }) => {
-    const queryString = qs.stringify(
-      {
-        query,
-        filter,
-        sort: 'title_asc'
-      },
-      {
-        arrayFormat: 'repeat',
-        encodeValuesOnly: true,
-        allowDots: true,
-        format: 'RFC1738'
-      }
-    );
+    const queryString = stringifySearch({
+      query,
+      filter,
+      sort: 'title_asc'
+    });
     return `/${datastoreSlug}?${queryString}`;
   };
 

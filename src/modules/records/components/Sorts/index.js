@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
 import config from '../../../../config';
-import { stringifySearchQueryForURL } from '../../../pride';
+import { stringifySearch } from '../../../search';
 import PropTypes from 'prop-types';
 
 const Sorts = ({ activeFilters, activeDatastore, institution, search }) => {
@@ -21,7 +21,7 @@ const Sorts = ({ activeFilters, activeDatastore, institution, search }) => {
       sortByElement: event.target.options[event.target.selectedIndex]
     });
 
-    const queryString = stringifySearchQueryForURL({
+    const queryString = stringifySearch({
       query: search.query,
       filter: activeFilters,
       library: activeDatastore === 'mirlyn' ? institution.active : undefined,

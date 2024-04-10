@@ -2,7 +2,7 @@ import React from 'react';
 import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import qs from 'qs';
+import { stringifySearch } from '../../../search';
 
 function NestedList ({ filter, browserFilterTo }) {
   return (
@@ -49,14 +49,9 @@ function BrowseByFilters ({ filters }) {
 
   const browserFilterTo = (uid) => {
     return (value) => {
-      const queryString = qs.stringify({
+      const queryString = stringifySearch({
         filter: { [uid]: value },
         sort: 'title_asc'
-      }, {
-        arrayFormat: 'repeat',
-        encodeValuesOnly: true,
-        allowDots: true,
-        format: 'RFC1738'
       });
       return `/${datastoreSlug}?${queryString}`;
     };

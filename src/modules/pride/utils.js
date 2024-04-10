@@ -1,8 +1,7 @@
 import { Pride } from 'pride';
 import _ from 'underscore';
-import qs from 'qs';
 import { Validator } from 'jsonschema';
-
+import { getSearchStateFromURL } from '../search';
 import store from '../../store';
 import config from '../../config';
 
@@ -139,9 +138,7 @@ const getStateFromURL = ({ location }) => {
   const urlStateString = _.clone(location).search;
 
   if (urlStateString.length) {
-    const parsed = _.clone(
-      qs.parse(urlStateString.substring(1), { allowDots: true })
-    );
+    const parsed = _.clone(getSearchStateFromURL(urlStateString));
     const isValid = isValidURLSearchQuery({ urlState: parsed });
 
     if (!isValid) {
@@ -222,26 +219,6 @@ const requestGetThis = ({ datastoreUid, recordUid, barcode }) => {
   record.getGetThis(barcode, callback);
 };
 
-const stringifySearchQueryForURL = ({ query, filter, library, page, sort }) => {
-  const SearchQueryString = qs.stringify(
-    {
-      query: query === '' ? undefined : query,
-      filter,
-      library,
-      page: page && page > 1 ? page : undefined,
-      sort
-    },
-    {
-      arrayFormat: 'repeat',
-      encodeValuesOnly: true,
-      allowDots: true,
-      format: 'RFC1738'
-    }
-  );
-
-  return SearchQueryString;
-};
-
 // Code originally Pride.FieldTree.parseField
 const prideParseField = (fieldName, content) => {
   if (!content) {
@@ -287,7 +264,6 @@ export {
   getStateFromURL,
   requestRecord,
   isValidURLSearchQuery,
-  stringifySearchQueryForURL,
   prideParseField,
   parseField,
   isFieldASearchLink,
