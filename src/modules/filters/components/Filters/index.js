@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useSelector } from 'react-redux';
+import './styles.css';
 import {
   Anchor,
   Expandable,
@@ -16,29 +17,6 @@ import {
   newSearch
 } from '../../utilities';
 import PropTypes from 'prop-types';
-
-function FiltersLoadingContainer ({ children }) {
-  const { searching } = useSelector((state) => {
-    return state.search;
-  });
-  const { active } = useSelector((state) => {
-    return state.datastores;
-  });
-  const { loading } = useSelector((state) => {
-    return state.records;
-  });
-
-  if (searching && loading[active]) return null;
-
-  return children;
-}
-
-FiltersLoadingContainer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
-};
 
 function ActiveFilters () {
   const { active: activeDatastore } = useSelector((state) => {
@@ -79,11 +57,10 @@ function ActiveFilters () {
     return acc;
   }, []);
 
-  if (items.length === 0) return null;
+  if (!items.length) return null;
 
   return (
     <section
-      aria-label='active-filters'
       className='padding-y__s padding-x__m'
       css={{
         borderBottom: 'solid 1px var(--ds-color-neutral-100)'
@@ -180,9 +157,7 @@ function FilterGroupContainer ({ uid }) {
   });
   const group = filters.groups[uid];
 
-  if (!group || group.filters.length === 0 || group.type !== 'multiselect') {
-    return null;
-  }
+  if (!group || !group.filters.length || group.type !== 'multiselect') return null;
 
   const activeFilters = filters.active[activeDatastore]
     ? filters.active[activeDatastore][uid]
@@ -208,7 +183,7 @@ function FilterGroupMultiselect ({ filters, group, uid, activeFilters }) {
     filters: filters.groups[uid].filters
   });
 
-  if (filtersWithoutActive.length === 0) return null;
+  if (!filtersWithoutActive.length) return null;
 
   return (
     <details
@@ -320,31 +295,30 @@ FilterContainer.propTypes = {
 };
 
 export default function Filters () {
+  const { searching } = useSelector((state) => {
+    return state.search;
+  });
   const { active } = useSelector((state) => {
     return state.datastores;
+  });
+  const { loading } = useSelector((state) => {
+    return state.records;
   });
   const { order } = useSelector((state) => {
     return state.filters;
   });
 
-  if (!order) return null;
+  if (!order || (searching && loading[active])) return null;
 
   return (
-    <section
-      aria-label='filters'
-      css={{
-        background: '#FAFAFA'
-      }}
-    >
+    <section aria-label='filters' css={{ background: '#FAFAFA' }}>
       <ActiveFilters />
       <CheckboxFilters />
-      <FiltersLoadingContainer>
-        {order.map((uid) => {
-          return (
-            <FilterGroupContainer uid={uid} key={active + uid} />
-          );
-        })}
-      </FiltersLoadingContainer>
+      {order.map((uid) => {
+        return (
+          <FilterGroupContainer uid={uid} key={uid} />
+        );
+      })}
     </section>
   );
 }
