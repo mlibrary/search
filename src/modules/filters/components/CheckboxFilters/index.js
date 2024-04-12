@@ -44,15 +44,15 @@ function CheckboxFilter ({ uid }) {
     return state.datastores;
   });
   const { metadata, preSelected } = groups[uid];
-  const isActive = activeFilters[activeDatastore]?.[uid];
-  const isChecked = isActive ? isActive[0] === 'true' : preSelected;
+  const isActive = activeFilters[activeDatastore]?.[uid]?.[0];
+  const isChecked = isActive ? isActive === 'true' : preSelected;
 
   return (
     <Anchor
       to={
-        isActive
-          ? getURLWithFiltersRemoved({ group: uid, value: isActive[0] })
-          : `${document.location.pathname}?${newSearch({ filter: { [uid]: !preSelected }, page: undefined })}`
+        preSelected !== isChecked
+          ? getURLWithFiltersRemoved({ group: uid, value: isActive })
+          : `${document.location.pathname}?${newSearch({ filter: { [uid]: String(!isChecked) }, page: undefined })}`
       }
       className='padding-y__2xs padding-x__m'
       css={{
