@@ -11,6 +11,7 @@ import RecordList from './components/RecordList';
 import RecordMetadata from './components/RecordMetadata';
 import RecordPlaceholder from './components/RecordPlaceholder';
 import RecommendedResource from './components/RecommendedResource';
+import Results from './components/Results';
 import ResultsSummary from './components/ResultsSummary';
 import ViewMARC from './components/ViewMARC';
 import Zotero from './components/Zotero';
@@ -48,6 +49,7 @@ export {
   RecordPlaceholder,
   recordsReducer,
   RecommendedResource,
+  Results,
   ResultsSummary,
   setRecord,
   setRecordGetThis,

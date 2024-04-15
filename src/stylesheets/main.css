@@ -928,27 +928,6 @@ details[open] > summary svg.expand_more {
   margin-bottom: 1rem;
 }
 
-.small-screen-filter-details {
-  border-radius: 4px;
-  background: #FAFAFA;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-}
-
-.small-screen-filter-summary {
-  text-decoration: underline;
-  color: var(--search-color-grey-600);
-  cursor: pointer;
-  padding: 0.75rem 1rem;
-  border-radius: 4px;
-}
-
-.small-screen-filter-summary--active-filters {
-  background: #E2F4EB;
-  border: solid 1px rgba(5, 124, 66, 0.4);
-  color: #057C42;
-}
-
 .filters-heading {
   padding: 0.75rem 1rem;
   margin: 0;
