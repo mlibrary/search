@@ -11,10 +11,18 @@
     0 2px 4px 0 rgba(0, 0, 0, 0.24);
 }
 
+.flex,
 .flex__responsive {
   display: flex;
-  flex-direction: column;
   gap: 0.5rem 1rem;
+}
+
+.flex {
+  flex-direction: row;
+}
+
+.flex__responsive {
+  flex-direction: column;
 }
 
 @media (min-width: 640px) {
@@ -27,4 +35,18 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+a[class$="-checkbox"] {
+  color: var(--ds-color-neutral-400);
+  gap: 0.25rem;
+}
+
+a[class$="-checkbox"] > svg {
+  color: var(--ds-color-neutral-300);
+  flex-shrink: 0;
+}
+
+a.active-checkbox > svg {
+  color: var(--search-color-blue-400);
 }

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './styles.css';
@@ -55,12 +54,7 @@ function ActiveFilters () {
   if (!items.length) return null;
 
   return (
-    <section
-      className='padding-y__s padding-x__m'
-      style={{
-        borderBottom: 'solid 1px var(--ds-color-neutral-100)'
-      }}
-    >
+    <section className='padding-y__s padding-x__m active-filters'>
       <h2 className='margin-top__none margin-bottom__xs marc__heading'>
         Active filters
       </h2>
@@ -71,29 +65,11 @@ function ActiveFilters () {
           return (
             <li
               key={i + group + value}
-              css={{
-                marginBottom: 'var(--search-spacing-xs)',
-                ':last-of-type': {
-                  marginBottom: 0
-                }
-              }}
+              className='margin-bottom__xs'
             >
               <Anchor
                 to={getURLWithFiltersRemoved({ group, value })}
-                className='padding-y__xs padding-x__s'
-                css={{
-                  color: 'var(--ds-color-green-500)',
-                  background: 'var(--ds-color-green-100)',
-                  border: 'solid 1px var(--ds-color-green-200)',
-                  borderRadius: '4px',
-                  display: 'flex',
-                  gap: '0.5rem',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  ':hover': {
-                    textDecoration: 'underline'
-                  }
-                }}
+                className='padding-y__xs padding-x__s remove-filter underline__hover'
               >
                 {groups[group] ? groups[group].metadata.name : group}: {value}
                 <Icon icon='close' />
@@ -107,12 +83,7 @@ function ActiveFilters () {
         items.length > 1 &&
           <Anchor
             to={getURLWithFiltersRemoved({ all: true })}
-            className='padding-top__xs'
-            css={{
-              display: 'inline-block',
-              textDecoration: 'underline',
-              color: 'var(--ds-color-neutral-300)'
-            }}
+            className='underline underline__hover-thick text-grey'
           >
             Clear all active filters
           </Anchor>
@@ -122,111 +93,51 @@ function ActiveFilters () {
 }
 
 function FilterGroupContainer ({ uid }) {
-  const { active: activeDatastore } = useSelector((state) => {
-    return state.datastores;
+  const activeDatastore = useSelector((state) => {
+    return state.datastores.active;
   });
-  const { filters } = useSelector((state) => {
-    return state;
+  const { groups, active: activeFilters } = useSelector((state) => {
+    return state.filters;
   });
-  const group = filters.groups[uid];
+  const group = groups[uid];
 
   if (!group || !group.filters.length || group.type !== 'multiselect') return null;
 
-  const activeFilters = filters.active[activeDatastore]
-    ? filters.active[activeDatastore][uid]
-    : null;
-
-  const props = {
-    uid,
-    group,
-    filters,
-    activeFilters
-  };
-
-  return <FilterGroupMultiselect {...props} />;
-}
-
-FilterGroupContainer.propTypes = {
-  uid: PropTypes.string
-};
-
-function FilterGroupMultiselect ({ filters, group, uid, activeFilters }) {
-  const currentFilters = filters.groups[uid].filters;
-  const filtersWithoutActive = !activeFilters
-    ? currentFilters
-    : currentFilters.filter(({ value }) => {
-      return !activeFilters.includes(value);
-    });
+  const activeDatastoreFilters = activeFilters[activeDatastore]?.[uid] ?? [];
+  const filtersWithoutActive = group.filters.filter((filter) => {
+    return !activeDatastoreFilters.includes(filter.value);
+  });
 
   if (!filtersWithoutActive.length) return null;
+
+  const { name } = group.metadata;
 
   return (
     <details
       open={group.preExpanded}
-      css={{
-        borderBottom: '1px solid rgb(229, 233, 237)',
-        '& > *': {
-          padding: '0 0.75rem'
-        },
-        '&:not([open]) > summary svg:first-of-type, &[open] > summary svg:last-of-type': {
-          display: 'none'
-        }
-      }}
+      className='filter-details'
     >
-      <summary
-        css={{
-          cursor: 'pointer',
-          display: 'flex',
-          fontWeight: '600',
-          justifyContent: 'space-between',
-          listStyle: 'none',
-          padding: '0.75rem!important',
-          '&::-webkit-details-marker': {
-            display: 'none'
-          },
-          ':hover': {
-            textDecoration: 'underline'
-          }
-        }}
-      >
-        <span>{group.metadata.name}</span>
-        <span
-          css={{
-            color: 'var(--ds-color-neutral-300)',
-            'details:not([open]) > summary > & > svg:first-of-type, details[open] > summary > & > svg:last-of-type': {
-              display: 'none!important'
-            }
-          }}
-        >
-          <Icon size={24} icon='expand_less' />
-          <Icon size={24} icon='expand_more' />
-        </span>
+      <summary>
+        <span>{name}</span>
+        <Icon size={24} icon='expand_less' className='expand_less' />
+        <Icon size={24} icon='expand_more' className='expand_more' />
       </summary>
-      <div>
+      <div className='padding-x__s padding-bottom__s'>
         <Expandable>
-          <ul className='list__unstyled'>
+          <ul className='list__unstyled filter-list'>
             <ExpandableChildren show={5}>
               {filtersWithoutActive.map((filter, i) => {
-                const search = newSearch({ filter: { [group.uid]: filter.value }, page: undefined });
+                const { value, count } = filter;
+                const search = newSearch({ filter: { [uid]: value }, page: undefined });
                 return (
-                  <li key={group.metadata.name + filter.value + i}>
+                  <li key={name + value + i}>
                     <Anchor
                       to={`${document.location.pathname}?${search}`}
-                      css={{
-                        display: 'flex',
-                        gap: '0.5rem',
-                        justifyContent: 'space-between',
-                        padding: 'var(--search-spacing-2xs) 0',
-                        ':hover': {
-                          'span:first-of-type': {
-                            textDecoration: 'underline'
-                          }
-                        }
-                      }}
+                      className='flex filter-option'
                     >
-                      <span>{filter.value}</span>
-                      <span css={{ color: 'var(--ds-color-neutral-400)' }}>
-                        {filter.count?.toLocaleString()}
+                      <span className='filter-name'>{value}</span>
+                      <span className='filter-count'>
+                        {count?.toLocaleString()}
                       </span>
                     </Anchor>
                   </li>
@@ -235,24 +146,20 @@ function FilterGroupMultiselect ({ filters, group, uid, activeFilters }) {
             </ExpandableChildren>
           </ul>
 
-          <div className='padding-y__2xs padding-x__none'>
+          {filtersWithoutActive.length > 5 && (
             <ExpandableButton
-              name={group.metadata.name + ' filters'}
+              name={`${name} filters`}
               count={filtersWithoutActive.length}
-              className='margin-bottom__xs'
             />
-          </div>
+          )}
         </Expandable>
       </div>
     </details>
   );
 }
 
-FilterGroupMultiselect.propTypes = {
-  filters: PropTypes.object,
-  group: PropTypes.object,
-  uid: PropTypes.string,
-  activeFilters: PropTypes.array
+FilterGroupContainer.propTypes = {
+  uid: PropTypes.string
 };
 
 export default function Filters () {
@@ -272,7 +179,7 @@ export default function Filters () {
   if (!order || (searching && loading[active])) return null;
 
   return (
-    <section aria-label='filters' css={{ background: '#FAFAFA' }}>
+    <section aria-label='filters' className='filter-container'>
       <ActiveFilters />
       <CheckboxFilters />
       {order.map((uid) => {

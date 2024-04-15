@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Anchor, Icon } from '../../../reusable';
@@ -19,12 +18,7 @@ export default function CheckBoxFiltersContainer () {
   if (!checkboxes.length) return null;
 
   return (
-    <ul
-      className='list__unstyled padding-y__s'
-      style={{
-        borderBottom: 'solid 1px var(--ds-color-neutral-100)'
-      }}
-    >
+    <ul className='list__unstyled padding-y__s active-filters'>
       {checkboxes.map((checkbox) => {
         return (
           <li key={checkbox.uid}>
@@ -40,8 +34,8 @@ function CheckboxFilter ({ uid }) {
   const { groups, active: activeFilters } = useSelector((state) => {
     return state.filters;
   });
-  const { active: activeDatastore } = useSelector((state) => {
-    return state.datastores;
+  const activeDatastore = useSelector((state) => {
+    return state.datastores.active;
   });
   const { metadata, preSelected } = groups[uid];
   const isActive = activeFilters[activeDatastore]?.[uid]?.[0];
@@ -54,23 +48,9 @@ function CheckboxFilter ({ uid }) {
           ? getURLWithFiltersRemoved({ group: uid, value: isActive })
           : `${document.location.pathname}?${newSearch({ filter: { [uid]: String(!isChecked) }, page: undefined })}`
       }
-      className='padding-y__2xs padding-x__m'
-      css={{
-        display: 'flex',
-        color: 'var(--ds-color-neutral-400)',
-        ':hover': {
-          textDecoration: 'underline'
-        }
-      }}
+      className={`padding-y__2xs padding-x__m flex underline__hover ${isChecked ? 'active-checkbox' : 'inactive-checkbox'}`}
     >
-      <span
-        className='margin-right__2xs'
-        css={{
-          color: isChecked ? 'var(--search-color-blue-400)' : 'var(--ds-color-neutral-300)'
-        }}
-      >
-        <Icon icon={`checkbox_${!isChecked ? 'un' : ''}checked`} size='22' />
-      </span>
+      <Icon icon={`checkbox_${!isChecked ? 'un' : ''}checked`} size='22' />
       {metadata.name}
     </Anchor>
   );
