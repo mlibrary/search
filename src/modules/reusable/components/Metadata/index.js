@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import { createSelector } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import {
   Anchor,
@@ -282,28 +281,27 @@ DescriptionItemLink.propTypes = {
 };
 
 function SearchLink ({ children, search }) {
-  const { datastores, institution } = useSelector(createSelector(
-    (state) => {
-      return state.datastores;
-    },
-    (state) => {
-      return state.institution;
-    },
-    (datastores, institution) => {
-      return { datastores, institution };
-    }
-  ));
-  const activeDatastore = datastores.datastores.find((ds) => {
-    return ds.uid === datastores.active;
+  const { active: activeInstitution, defaultInstitution } = useSelector((state) => {
+    return state.institution;
   });
-  const to = `/${activeDatastore.slug}?${createSearchURL({
-    ...search,
-    institution,
-    datastoreUid: activeDatastore.uid
-  })}`;
+  const { datastores, active: activeDatastore } = useSelector((state) => {
+    return state.datastores;
+  });
+  const { type, scope, value } = search || {};
+  const query =
+    type === 'fielded'
+      ? `${scope}:${value}`
+      : type === 'specified'
+        ? value
+        : {};
+  const filter = type === 'filtered' ? { [scope]: value } : {};
+  const { uid, slug } = datastores.find((datastore) => {
+    return datastore.uid === activeDatastore;
+  });
+  const library = uid === 'mirlyn' ? (activeInstitution || defaultInstitution) : {};
 
   return (
-    <Anchor to={to}>
+    <Anchor to={`/${slug}?${stringifySearch({ query, filter, library })}`}>
       {children}
     </Anchor>
   );
@@ -313,26 +311,3 @@ SearchLink.propTypes = {
   children: PropTypes.array,
   search: PropTypes.object
 };
-
-function createSearchURL ({ type, scope, value, institution, datastoreUid }) {
-  const query =
-    type === 'fielded'
-      ? `${scope}:${value}`
-      : type === 'specified'
-        ? value
-        : {};
-  const filter = type === 'filtered' ? { [scope]: value } : {};
-  let library = {};
-
-  if (datastoreUid === 'mirlyn') {
-    library = institution.active
-      ? institution.active
-      : institution.defaultInstitution;
-  }
-
-  return stringifySearch({
-    query,
-    filter,
-    library
-  });
-}
