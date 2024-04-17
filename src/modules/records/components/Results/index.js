@@ -59,7 +59,7 @@ const Results = ({ activeDatastore, activeFilterCount, institution }) => {
           </button>
         )}
         {(isVisible || windowWidth >= 980) && (
-          <div id='filter-details' style={{ display: 'block' }}>
+          <div id='filter-details'>
             <InstitutionSelect activeDatastore={activeDatastore} institution={institution} />
             <Filters />
             <BrowseInfo datastore={activeDatastore} />
