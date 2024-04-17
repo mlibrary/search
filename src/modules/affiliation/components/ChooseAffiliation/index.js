@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import qs from 'qs';
+import { getSearchStateFromURL, stringifySearch } from '../../../search';
 import './styles.css';
 import { Dialog } from '../../../reusable';
 
@@ -35,9 +35,7 @@ export default function ChooseAffiliation () {
   const changeAffiliation = () => {
     localStorage.setItem('affiliation', alternativeAffiliation);
 
-    const parsed = qs.parse(document.location.search.substring(1), {
-      allowDots: true
-    });
+    const parsed = getSearchStateFromURL();
     const withAffiliation = {
       ...parsed,
       affiliation: alternativeAffiliation
@@ -45,12 +43,7 @@ export default function ChooseAffiliation () {
     document.location.href =
       document.location.pathname +
       '?' +
-      qs.stringify(withAffiliation, {
-        arrayFormat: 'repeat',
-        encodeValuesOnly: true,
-        allowDots: true,
-        format: 'RFC1738'
-      });
+      stringifySearch(withAffiliation);
   };
 
   const [isDialogOpen, setDialogOpen] = useState(false);

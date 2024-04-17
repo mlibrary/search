@@ -1,158 +1,115 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import Record from '../Record';
 import KeywordSwitch from '../KeywordSwitch';
 import { Anchor } from '../../../reusable';
 import Sorts from '../Sorts';
-import RecordPlaceholder from '../RecordPlaceholder';
 import { SearchResultsMessage } from '../../../search';
-import { ResultsSummary } from '../../../records';
 import { Specialists } from '../../../specialists';
 import { GoToList } from '../../../lists';
-import { findWhere } from '../../../reusable/underscore';
 
-function RecordListContainer () {
-  const location = useLocation();
-  const searchQuery = location.search;
-
-  const activeDatastore = useSelector((state) => {
-    return state.datastores.active;
+function RecordList () {
+  const { active: activeDatastore, datastores } = useSelector((state) => {
+    return state.datastores;
   });
-  const activeRecords = useSelector((state) => {
-    return state.records.records[activeDatastore] || [];
-  });
-  const activeFilters = useSelector((state) => {
-    return state.filters.active[activeDatastore];
-  });
-  const datastore = useSelector((state) => {
-    return findWhere(state.datastores.datastores, { uid: activeDatastore });
-  });
-  const loadingRecords = useSelector((state) => {
-    return state.records.loading[activeDatastore];
+  const { loading, records } = useSelector((state) => {
+    return state.records;
   });
   const list = useSelector((state) => {
     return state.lists[activeDatastore];
   });
-  const institution = useSelector((state) => {
-    return state.institution;
-  });
-  const search = useSelector((state) => {
+  const { data, query } = useSelector((state) => {
     return state.search;
   });
 
-  const pageNumber = search.page[activeDatastore] || 1;
+  const { count, page, totalAvailable = 0, totalPages } = data[activeDatastore];
+  const noResults = totalAvailable === 0;
+  const endRange = totalAvailable <= count || page === totalPages
+    ? totalAvailable
+    : (Math.min(page * count, totalAvailable));
+  const datastore = datastores.find((ds) => {
+    return ds.uid === activeDatastore;
+  });
+  const loadingRecords = loading[activeDatastore];
+  const activeRecords = records[activeDatastore] || [];
 
-  if (search.data[activeDatastore] && search.data[activeDatastore].totalAvailable === 0) {
-    return (
-      <div id='search-results'>
-        <div className='results-summary-container'>
-          <h2 className='results-summary' aria-live='polite'><span className='strong'>No results</span> match your search: <span style={{ fontWeight: 600 }}>{search.query}</span></h2>
-        </div>
+  const message = () => {
+    if (!noResults) {
+      return <>{(page * count - (count - 1)).toLocaleString()} to {endRange.toLocaleString()} of {totalAvailable.toLocaleString()} {datastore.name} result{totalAvailable !== 1 && 's'}</>;
+    }
 
-        <KeywordSwitch datastore={datastore} query={search.query} />
-
-        <div className='no-results-suggestions'>
-          <h2 className='heading-small' style={{ marginTop: '0' }}>Other suggestions</h2>
-          <ul style={{ marginBottom: 0 }}>
-            <li>Try looking at the other search categories linked below the search box.</li>
-            <li>Check your spelling.</li>
-            <li>Try more general keywords.</li>
-            <li>Try different keywords that mean the same thing.</li>
-            <li>Try using <Anchor to={`${datastore.slug}/advanced`}>Advanced Search</Anchor> to construct a targeted query.</li>
-            <li>Use <Anchor href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</Anchor> and we will help you find what you're looking for.</li>
-          </ul>
-        </div>
-      </div>
-    );
-  }
-
-  const props = {
-    activeFilters,
-    activeDatastore,
-    institution,
-    search
-  };
-
-  if (loadingRecords) {
-    return (
-      <div id='search-results'>
-        <div className='results-summary-container'>
-          <h2 className='results-summary' aria-live='polite'>Loading results for: <span style={{ fontWeight: '600' }}>{search.query}</span></h2>
-          <Sorts {...props} />
-        </div>
-        <GoToList list={list} datastore={datastore} />
-        <section className='results-list results-list-border'>
-          {[...Array(10)].map((elementInArray, index) => {
-            return <RecordPlaceholder key={'placeholder-' + index} />;
-          })}
-        </section>
-      </div>
-    );
-  }
-
-  if (!activeRecords) {
-    return null;
-  }
-
-  const showRecord = (record) => {
-    return (
-      <Record
-        record={record}
-        datastoreUid={activeDatastore}
-        type='medium'
-        searchQuery={searchQuery}
-        institution={institution}
-        list={list}
-      />
-    );
+    return <>{loadingRecords ? 'Loading results for: ' : (<><span className='strong'>No results</span> match your search: </>)} <span className='strong'>{query}</span></>;
   };
 
   return (
     <>
       <div className='results-summary-container'>
-        <ResultsSummary />
-        <Sorts {...props} />
-        <SearchResultsMessage />
+        <h2 className='results-summary' aria-live='polite'>
+          {message()}
+        </h2>
+        {!noResults && <Sorts {...{ activeDatastore }} />}
+        {!loadingRecords && <SearchResultsMessage />}
       </div>
-      <GoToList list={list} datastore={datastore} />
-      <div className='results-list results-list-border search-results' id='search-results'>
-        {(pageNumber === 1)
-          ? (
-            <>
-              {activeRecords.map((record, index) => {
-                const resultsPosition = activeRecords.length < 3 ? activeRecords.length - 1 : 2;
-                if (index === resultsPosition) {
+      {noResults && !loadingRecords
+        ? (
+          <>
+            <KeywordSwitch {...{ datastore, query }} />
+            <div className='no-results-suggestions'>
+              <h2 className='heading-small margin-top__none'>Other suggestions</h2>
+              <ul className='margin-bottom__none'>
+                <li>Try looking at the other search categories linked below the search box.</li>
+                <li>Check your spelling.</li>
+                <li>Try more general keywords.</li>
+                <li>Try different keywords that mean the same thing.</li>
+                <li>Try using <Anchor to={`${datastore.slug}/advanced`}>Advanced Search</Anchor> to construct a targeted query.</li>
+                <li>Use <Anchor href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</Anchor> and we will help you find what you're looking for.</li>
+              </ul>
+            </div>
+          </>
+          )
+        : (
+          <>
+            <GoToList {...{ datastore, list }} />
+            <div className='results-list results-list-border search-results'>
+              {loadingRecords
+                ? [...Array(count)].map((elementInArray, index) => {
+                    return (
+                      <div className='container__rounded record' key={'placeholder-' + index}>
+                        <div className='record-container placeholder-container margin-top__m'>
+                          <div className='placeholder placeholder-title' />
+                          <div className='placeholder placeholder-line' />
+                          <div className='placeholder placeholder-line placeholder-line-alt' />
+                          <div className='placeholder placeholder-line' />
+                        </div>
+                        <div className='resource-access-container'>
+                          <div className='access-placeholder-container'>
+                            <div className='placeholder placeholder-access placeholder-inline' />
+                            <div className='placeholder placeholder-inline' />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                : activeRecords.map((record, index) => {
                   return (
-                    <React.Fragment key={record.uid + '-keyword-switch'}>
-                      <KeywordSwitch datastore={datastore} query={search.query} />
-                      {showRecord(record)}
+                    <React.Fragment key={record.uid}>
+                      {(page === 1 && index === Math.min(activeRecords.length - 1, 2)) && <KeywordSwitch {...{ datastore, query }} />}
+                      {(page === 1 && index === 3) && <Specialists />}
+                      <Record
+                        {...{
+                          record,
+                          datastoreUid: activeDatastore,
+                          list
+                        }}
+                      />
                     </React.Fragment>
                   );
-                }
-                return (
-                  <React.Fragment key={record.uid + '-specialists'}>
-                    {index === 3 && <Specialists />}
-                    {showRecord(record)}
-                  </React.Fragment>
-                );
-              })}
-            </>
-            )
-          : (
-            <>
-              {activeRecords.map((record) => {
-                return (
-                  <React.Fragment key={record.uid}>
-                    {showRecord(record)}
-                  </React.Fragment>
-                );
-              })}
-            </>
-            )}
-      </div>
+                })}
+            </div>
+          </>
+          )}
     </>
   );
 }
 
-export default RecordListContainer;
+export default RecordList;

@@ -10,7 +10,7 @@ import {
   ExpandableButton
 } from '../../../reusable';
 import { BrowseLink } from '../../../browse';
-import { stringifySearchQueryForURL } from '../../../pride';
+import { stringifySearch } from '../../../search';
 import PropTypes from 'prop-types';
 
 const visuallyHiddenCSS = {
@@ -330,7 +330,7 @@ function createSearchURL ({ type, scope, value, institution, datastoreUid }) {
       : institution.defaultInstitution;
   }
 
-  return stringifySearchQueryForURL({
+  return stringifySearch({
     query,
     filter,
     library

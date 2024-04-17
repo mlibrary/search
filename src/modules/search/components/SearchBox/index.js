@@ -3,9 +3,9 @@ import { Global } from '@emotion/react';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Anchor, Icon } from '../../../reusable';
-import qs from 'qs';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
+import { getSearchStateFromURL, stringifySearch } from '../../utilities';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 function SearchBox () {
@@ -94,18 +94,13 @@ function SearchBox () {
     const newQuery = (browseOption || dropdownOption === defaultField) ? inputQuery : `${dropdownOption}:(${inputQuery})`;
 
     // Set new URL
-    const newURL = qs.stringify({
+    const newURL = stringifySearch({
       // Preserve existing URL's tate
-      ...qs.parse(location.search?.substring(1), { allowDots: true }),
+      ...getSearchStateFromURL(location.search),
       // If new search, return the first page
       page: undefined,
       // Add new query
       query: newQuery
-    }, {
-      arrayFormat: 'repeat',
-      encodeValuesOnly: true,
-      allowDots: true,
-      format: 'RFC1738'
     });
 
     // Redirect users if browse option has been submitted

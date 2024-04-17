@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createSelector } from '@reduxjs/toolkit';
-import { stringifySearchQueryForURL } from '../../../pride';
+import { stringifySearch } from '../../../search';
 import PropTypes from 'prop-types';
 
 const InstitutionSelect = ({ activeDatastore, institution }) => {
@@ -27,7 +27,7 @@ const InstitutionSelect = ({ activeDatastore, institution }) => {
   const { active, defaultInstitution, options } = institution;
 
   const handleChange = (event) => {
-    const queryString = stringifySearchQueryForURL({
+    const queryString = stringifySearch({
       query: searchQuery,
       filter: activeFilters,
       library: event.target.value

@@ -1,0 +1,21 @@
+.small-screen-filter-summary {
+  background: var(--search-color-grey-100);
+  border-radius: 4px;
+  color: var(--search-color-grey-600);
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  text-decoration: underline;
+  width: 100%;
+}
+
+.small-screen-filter-summary--active-filters {
+  background: var(--ds-color-green-100);
+  border: solid 1px var(--ds-color-green-200);
+  color: var(--ds-color-green-500);
+}
+
+.small-screen-filter-summary--active-filters:hover {
+  border-color: var(--ds-color-green-300);
+}

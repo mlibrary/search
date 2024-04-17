@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-import { stringifySearchQueryForURL } from '../../../pride';
+import { stringifySearch } from '../../../search';
 import { Anchor, Icon } from '../../../reusable';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,7 @@ function DatastoreNavigation ({ activeFilters, datastores, institution, search }
     <nav className='datastore-nav' aria-label='Datastores'>
       <ol>
         {datastores.datastores.map((datastore) => {
-          const queryString = stringifySearchQueryForURL({
+          const queryString = stringifySearch({
             query: search.query,
             filter: activeFilters[datastore.uid],
             page: search.page[datastore.uid] === 1 ? undefined : search.page[datastore.uid],

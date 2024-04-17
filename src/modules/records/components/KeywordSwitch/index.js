@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Anchor, Icon } from '../../../reusable';
 
-function KeywordSwitch (props) {
-  const { datastore, query } = props;
+function KeywordSwitch ({ datastore, query }) {
   const exactQuery = 'exact:(';
   const isExactSearch = query.startsWith(exactQuery);
   const isContainsSearch = query.startsWith('contains:(') || query.startsWith('keyword:(') || !query.includes(':(');
@@ -43,7 +42,7 @@ function KeywordSwitch (props) {
         <p className='no-margin'>
           {!briefView && isContainsSearch ? 'Seeing less precise results than you expected?' : 'Not seeing the results you expected?'}
           <Anchor
-            to={`${datastore.slug}?query=${querySearch}`}
+            to={`?query=${querySearch}`}
             style={{ display: 'block' }}
           >
             {linkText()}

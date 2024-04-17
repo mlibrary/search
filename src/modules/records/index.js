@@ -9,9 +9,8 @@ import RecordFull from './components/RecordFull';
 import RecordFullFormats from './components/RecordFullFormats';
 import RecordList from './components/RecordList';
 import RecordMetadata from './components/RecordMetadata';
-import RecordPlaceholder from './components/RecordPlaceholder';
 import RecommendedResource from './components/RecommendedResource';
-import ResultsSummary from './components/ResultsSummary';
+import Results from './components/Results';
 import ViewMARC from './components/ViewMARC';
 import Zotero from './components/Zotero';
 import recordsReducer from './reducer';
@@ -45,10 +44,9 @@ export {
   RecordFullFormats,
   RecordList,
   RecordMetadata,
-  RecordPlaceholder,
   recordsReducer,
   RecommendedResource,
-  ResultsSummary,
+  Results,
   setRecord,
   setRecordGetThis,
   setRecordHoldings,
