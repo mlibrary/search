@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { Anchor, Icon } from '../../../reusable';
 import { TrimString } from '../../../core';
 import { RecommendedResource, RecordMetadata } from '../../../records';
@@ -9,11 +10,12 @@ import Zotero from '../Zotero';
 import ResourceAccess from '../../../resource-acccess';
 import PropTypes from 'prop-types';
 
-function Header ({ record, datastoreUid, searchQuery }) {
+function Header ({ record, datastoreUid }) {
+  const location = useLocation();
   const recordUid = getFieldValue(getField(record.fields, 'id'))[0];
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const pictureField = getField(record.fields, 'picture');
-  let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${searchQuery}`;
+  let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${location.search}`;
   let recordHeaderClassName = 'record-title';
 
   // Special Library Website case
@@ -65,37 +67,28 @@ function Header ({ record, datastoreUid, searchQuery }) {
           </span>
         );
       })}
-      <RecommendedResource record={record} />
+      <RecommendedResource {...{ record }} />
     </h3>
   );
 };
 
 Header.propTypes = {
   record: PropTypes.object,
-  datastoreUid: PropTypes.string,
-  searchQuery: PropTypes.string
+  datastoreUid: PropTypes.string
 };
 
-function Record (props) {
-  if (!getField(props.record.fields, 'id')) {
-    return null;
-  }
-
-  const { record } = props;
+function Record ({ record, list, datastoreUid }) {
+  if (!getField(record.fields, 'id')) return null;
 
   return (
-    <article className={'container__rounded record' + (isInList(props.list, record.uid) ? ' record--highlight' : '')}>
+    <article className={`container__rounded record ${(isInList(list, record.uid) ? ' record--highlight' : '')}`}>
       <div className='record-container record-medium-container'>
         <div className='record-title-and-actions-container '>
-          <Header
-            record={record}
-            datastoreUid={props.datastoreUid}
-            searchQuery={props.searchQuery}
-          />
+          <Header {...{ record, datastoreUid }} />
           <AddToListButton item={record} />
         </div>
-        <Zotero record={record} />
-        <RecordMetadata record={record} />
+        <Zotero {...{ record }} />
+        <RecordMetadata {...{ record }} />
       </div>
 
       <div
@@ -105,7 +98,7 @@ function Record (props) {
         }}
       >
         <h4 className='visually-hidden'>{record.names[0]} is available at:</h4>
-        <ResourceAccess record={record} />
+        <ResourceAccess {...{ record }} />
       </div>
     </article>
   );
@@ -114,7 +107,6 @@ function Record (props) {
 Record.propTypes = {
   record: PropTypes.object,
   datastoreUid: PropTypes.string,
-  searchQuery: PropTypes.string,
   list: PropTypes.array
 };
 

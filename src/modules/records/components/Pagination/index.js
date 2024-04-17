@@ -1,33 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { stringifySearchQueryForURL } from '../../../pride';
+import { stringifySearch } from '../../../search';
 import './styles.css';
 import { Anchor } from '../../../reusable';
 
 const Pagination = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const {
-    activeDatastoreUid,
-    filters,
-    institution,
-    page,
-    records,
-    search,
-    sort,
-    total
-  } = useSelector((state) => {
-    return {
-      activeDatastoreUid: state.datastores.active,
-      filters: state.filters.active[state.datastores.active],
-      institution: state.institution,
-      page: state.search.data[state.datastores.active].page,
-      records: state.records.records[state.datastores.active],
-      search: state.search,
-      sort: state.search.sort[state.datastores.active],
-      total: state.search.data[state.datastores.active].totalPages
-    };
+  const activeDatastoreUid = useSelector((state) => {
+    return state.datastores.active;
+  });
+  const institution = useSelector((state) => {
+    return state.institution.active;
+  });
+  const filter = useSelector((state) => {
+    return state.filters.active[activeDatastoreUid];
+  });
+  const { data, query, sort } = useSelector((state) => {
+    return state.search;
+  });
+  const { page, totalPages } = data[activeDatastoreUid];
+  const records = useSelector((state) => {
+    return state.records.records[activeDatastoreUid];
   });
 
   const [currentPage, setCurrentPage] = useState(page);
@@ -36,24 +31,22 @@ const Pagination = () => {
     setCurrentPage(page);
   }, [page]);
 
-  if (!records || records.length === 0) {
-    return null;
-  }
+  if (!records || records.length === 0) return null;
 
   const createSearchQuery = (newPage) => {
-    const queryString = stringifySearchQueryForURL({
-      filter: filters,
-      library: activeDatastoreUid === 'mirlyn' ? institution.active : undefined,
+    const queryString = stringifySearch({
+      filter,
+      library: activeDatastoreUid === 'mirlyn' ? institution : undefined,
       page: newPage,
-      query: search.query,
-      sort
+      query,
+      sort: sort[activeDatastoreUid]
     });
 
     return `${location.pathname}?${queryString}`;
   };
 
   const toPreviousPage = page === 1 ? undefined : createSearchQuery(page - 1);
-  const toNextPage = total === 0 || page === total ? undefined : createSearchQuery(page + 1);
+  const toNextPage = totalPages === 0 || page === totalPages ? undefined : createSearchQuery(page + 1);
   const watchPageChange = (newPage) => {
     return navigate(createSearchQuery(newPage));
   };
@@ -61,7 +54,7 @@ const Pagination = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const pageNum = parseInt(currentPage, 10);
-    if (Number.isInteger(pageNum) && pageNum > 0 && pageNum <= total) {
+    if (Number.isInteger(pageNum) && pageNum > 0 && pageNum <= totalPages) {
       watchPageChange(pageNum);
     }
   };
@@ -70,7 +63,7 @@ const Pagination = () => {
     setCurrentPage(e.target.value);
   };
 
-  const totalConverted = total?.toLocaleString();
+  const totalConverted = totalPages?.toLocaleString();
 
   return (
     <nav className='pagination-container' aria-label='Pagination'>

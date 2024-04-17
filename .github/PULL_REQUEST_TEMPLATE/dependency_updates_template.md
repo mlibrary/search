@@ -26,7 +26,6 @@ These dependencies have been updated to their latest versions:
 - `react-redux`
 - `react-router-dom`
 - `react-scripts`
-- `regenerator-runtime`
 - `underscore`
 - `url`
 

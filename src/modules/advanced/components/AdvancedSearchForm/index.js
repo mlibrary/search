@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Icon, Alert } from '../../../reusable';
 import FieldInput from '../FieldInput';
 import FiltersContainer from '../FiltersContainer';
-import { stringifySearchQueryForURL } from '../../../pride';
+import { stringifySearch } from '../../../search';
 import {
   addFieldedSearch,
   removeFieldedSearch,
@@ -105,7 +105,7 @@ function AdvancedSearchForm (props) {
           filter = { ...filter, institution: undefined }; // remove inst from filter obj
         }
       }
-      const queryString = stringifySearchQueryForURL({
+      const queryString = stringifySearch({
         query,
         filter,
         library

@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 const searchOptions = () => {
   return [
     {
@@ -112,18 +114,32 @@ const searchOptionsDatastores = () => {
 };
 
 const filterOptions = (fields, browse = false) => {
-  if (browse) {
-    return fields.filter((field) => {
-      return field.uid.includes('browse_by');
-    });
-  }
   return fields.filter((field) => {
-    return !field.uid.includes('browse_by');
+    return browse === field.uid.includes('browse_by');
+  });
+};
+
+const getSearchStateFromURL = (location = document.location.search) => {
+  return qs.parse(location?.substring(1), { allowDots: true });
+};
+
+const stringifySearch = ({ query, page, ...rest }) => {
+  return qs.stringify({
+    query: query || undefined,
+    page: page > 1 ? page : undefined,
+    ...rest
+  }, {
+    arrayFormat: 'repeat',
+    encodeValuesOnly: true,
+    allowDots: true,
+    format: 'RFC1738'
   });
 };
 
 export {
   searchOptions,
   searchOptionsDatastores,
-  filterOptions
+  filterOptions,
+  getSearchStateFromURL,
+  stringifySearch
 };

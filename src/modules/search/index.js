@@ -11,9 +11,11 @@ import {
   setSearchQuery,
   setSearchQueryInput
 } from './actions';
+import { getSearchStateFromURL, stringifySearch } from './utilities';
 
 export {
   clearSearch,
+  getSearchStateFromURL,
   resetSort,
   searchReducer,
   SearchBox,
@@ -23,5 +25,6 @@ export {
   setSearchData,
   setParserMessage,
   setSearchQuery,
-  setSearchQueryInput
+  setSearchQueryInput,
+  stringifySearch
 };
