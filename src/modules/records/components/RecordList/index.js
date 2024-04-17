@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import Record from '../Record';
 import KeywordSwitch from '../KeywordSwitch';
 import { Anchor } from '../../../reusable';
@@ -10,28 +9,19 @@ import { Specialists } from '../../../specialists';
 import { GoToList } from '../../../lists';
 
 function RecordList () {
-  const location = useLocation();
-
   const { active: activeDatastore, datastores } = useSelector((state) => {
     return state.datastores;
   });
   const { loading, records } = useSelector((state) => {
     return state.records;
   });
-  const activeFilters = useSelector((state) => {
-    return state.filters.active[activeDatastore];
-  });
   const list = useSelector((state) => {
     return state.lists[activeDatastore];
   });
-  const institution = useSelector((state) => {
-    return state.institution;
-  });
-  const search = useSelector((state) => {
+  const { data, query } = useSelector((state) => {
     return state.search;
   });
 
-  const { data, query } = search;
   const { count, page, totalAvailable = 0, totalPages } = data[activeDatastore];
   const noResults = totalAvailable === 0;
   const endRange = totalAvailable <= count || page === totalPages
@@ -57,13 +47,13 @@ function RecordList () {
         <h2 className='results-summary' aria-live='polite'>
           {message()}
         </h2>
-        {!noResults && <Sorts {...{ activeFilters, activeDatastore, institution, search }} />}
+        {!noResults && <Sorts {...{ activeDatastore }} />}
         {!loadingRecords && <SearchResultsMessage />}
       </div>
       {noResults && !loadingRecords
         ? (
           <>
-            <KeywordSwitch datastore={datastore} query={query} />
+            <KeywordSwitch {...{ datastore, query }} />
             <div className='no-results-suggestions'>
               <h2 className='heading-small margin-top__none'>Other suggestions</h2>
               <ul className='margin-bottom__none'>
@@ -79,7 +69,7 @@ function RecordList () {
           )
         : (
           <>
-            <GoToList list={list} datastore={datastore} />
+            <GoToList {...{ datastore, list }} />
             <div className='results-list results-list-border search-results'>
               {loadingRecords
                 ? [...Array(count)].map((elementInArray, index) => {
@@ -103,15 +93,12 @@ function RecordList () {
                 : activeRecords.map((record, index) => {
                   return (
                     <React.Fragment key={record.uid}>
-                      {(page === 1 && index === Math.min(activeRecords.length - 1, 2)) && <KeywordSwitch datastore={datastore} query={query} />}
+                      {(page === 1 && index === Math.min(activeRecords.length - 1, 2)) && <KeywordSwitch {...{ datastore, query }} />}
                       {(page === 1 && index === 3) && <Specialists />}
                       <Record
                         {...{
                           record,
                           datastoreUid: activeDatastore,
-                          type: 'medium',
-                          searchQuery: location.search,
-                          institution,
                           list
                         }}
                       />

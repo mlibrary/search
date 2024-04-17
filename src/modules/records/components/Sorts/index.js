@@ -1,16 +1,26 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
 import config from '../../../../config';
 import { stringifySearch } from '../../../search';
 import PropTypes from 'prop-types';
 
-const Sorts = ({ activeFilters, activeDatastore, institution, search }) => {
+const Sorts = ({ activeDatastore }) => {
+  const { data, query, sort } = useSelector((state) => {
+    return state.search;
+  });
+  const filter = useSelector((state) => {
+    return state.filters.active[activeDatastore];
+  });
+  const institution = useSelector((state) => {
+    return state.institution.active;
+  });
   const { datastoreSlug } = useParams();
   const navigate = useNavigate();
   const sorts = (config.sorts[activeDatastore]?.sorts || [])
     .map((uid) => {
-      return findWhere(search.data[activeDatastore].sorts, { uid });
+      return findWhere(data[activeDatastore].sorts, { uid });
     }).filter((sort) => {
       return sort !== undefined;
     });
@@ -22,9 +32,9 @@ const Sorts = ({ activeFilters, activeDatastore, institution, search }) => {
     });
 
     const queryString = stringifySearch({
-      query: search.query,
-      filter: activeFilters,
-      library: activeDatastore === 'mirlyn' ? institution.active : undefined,
+      query,
+      filter,
+      library: activeDatastore === 'mirlyn' ? institution : undefined,
       sort: event.target.value
     });
 
@@ -41,7 +51,7 @@ const Sorts = ({ activeFilters, activeDatastore, institution, search }) => {
       <select
         id='sort-by'
         className='dropdown sorts-select'
-        value={search.sort[activeDatastore] || sorts[0].uid}
+        value={sort[activeDatastore] || sorts[0].uid}
         onChange={handleOnChange}
         autoComplete='off'
       >
@@ -58,10 +68,7 @@ const Sorts = ({ activeFilters, activeDatastore, institution, search }) => {
 };
 
 Sorts.propTypes = {
-  activeFilters: PropTypes.object,
-  activeDatastore: PropTypes.string,
-  institution: PropTypes.object,
-  search: PropTypes.object
+  activeDatastore: PropTypes.string
 };
 
 export default Sorts;
