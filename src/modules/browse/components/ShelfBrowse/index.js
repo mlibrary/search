@@ -29,9 +29,12 @@ function ShelfBrowse () {
   const itemsPerPage = 5;
   const maxPages = Math.ceil(items.length / itemsPerPage);
   // Calculate the middle starting page
-  const [currentPage, setCurrentPage] = useState(Math.floor(maxPages / 2));
+  const middlePage = Math.floor(maxPages / 2);
+  const [currentPage, setCurrentPage] = useState(middlePage);
 
   if (!callNumberBrowse) return null;
+
+  const { type, value, text } = callNumberBrowse;
 
   const moveCarousel = (direction) => {
     setCurrentPage((prevPage) => {
@@ -55,42 +58,54 @@ function ShelfBrowse () {
 
   return (
     <section className='shelf-browse container__rounded'>
-      <header>
-        <h2>Shelf browse</h2>
+      <header className='flex__responsive'>
+        <h2 className='margin-y__none'>Shelf browse</h2>
         <BrowseLink
-          type={callNumberBrowse.type}
-          value={callNumberBrowse.value}
+          type={type}
+          value={value}
         >
-          {callNumberBrowse.text}
+          {text}
         </BrowseLink>
       </header>
-      <div className='shelf-browse-carousel' aria-label='Carousel component' tabIndex='0'>
+      <div className='shelf-browse-carousel' aria-label='Shelf browse carousel'>
         <button
+          className='btn no-background'
           aria-label='Previous items'
           onClick={() => {
             return moveCarousel(-1);
           }}
         >
-          <Icon icon='expand_more' /> Previous
+          <Icon icon='chevron_left' size='24' />
         </button>
-        <ul>
+        <ul className='list__unstyled flex self-browse-items'>
           {currentItems.map((item, index) => {
             return (
-              <li key={index}>
-                {item} {index}
+              <li key={index} className='self-browse-items'>
+                <a href='' className='container__rounded'>
+                  {item} {index}
+                </a>
               </li>
             );
           })}
         </ul>
         <button
+          className='btn no-background'
           aria-label='Next items'
           onClick={() => {
             return moveCarousel(1);
           }}
         >
-          Next <Icon icon='expand_less' />
+          <Icon icon='chevron_right' size='24' />
         </button>
       </div>
+      <button
+        className='btn btn--secondary shelf-browse-carousel-return'
+        onClick={() => {
+          return setCurrentPage(middlePage);
+        }}
+      >
+        Return to current item
+      </button>
     </section>
   );
 }
