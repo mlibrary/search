@@ -1,0 +1,14 @@
+.metadata-list {
+  flex-direction: column;
+}
+
+.metadata-list-item > * {
+  flex: 1 1 auto;
+}
+
+@media (min-width: 640px) {
+  .metadata-list-item > dt {
+    flex-shrink: 0;
+    max-width: 10rem;
+  }
+}

@@ -1,6 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useSelector } from 'react-redux';
+import './styles.css';
 import {
   Anchor,
   Icon,
@@ -12,108 +12,39 @@ import { BrowseLink } from '../../../browse';
 import { stringifySearch } from '../../../search';
 import PropTypes from 'prop-types';
 
-const visuallyHiddenCSS = {
-  border: 0,
-  clip: 'rect(0 0 0 0)',
-  height: '1px',
-  margin: '-1px',
-  overflow: 'hidden',
-  padding: 0,
-  position: 'absolute',
-  width: '1px'
-};
-
 export default function Metadata ({ data, kind }) {
-  const isCondensed = kind === 'condensed';
-  const metadataCSS = !isCondensed
-    ? {
-        '@media only screen and (min-width: 641px)': {
-          display: 'grid',
-          gridTemplateColumns: '10rem 1fr',
-          gridColumnGap: 'var(--search-spacing-s)',
-          'dt:not(:first-of-type) + dd': {
-            paddingTop: 'var(--search-spacing-xs)'
-          }
-        }
-      }
-    : {
-        dt: {
-          ...visuallyHiddenCSS
-        },
-        'dt:not(:first-of-type) + dd': {
-          paddingTop: 'var(--search-spacing-xs)'
-        }
-      };
-
-  // Only show expandable if more than 5.
-  function expandable (desc) {
-    if (desc.length <= 5) {
-      return {
-        show: desc.length,
-        expandable: false
-      };
-    }
-
-    return {
-      show: 4,
-      expandable: true
-    };
-  }
-
   return (
-    <dl
-      css={{
-        ...metadataCSS,
-        'dt:not(:first-of-type)': {
-          paddingTop: 'var(--search-spacing-xs)'
-        }
-      }}
-    >
-      {data.map((d, i) => {
+    <dl className='flex__responsive metadata-list'>
+      {data.map((datum, datumIndex) => {
+        const isExpandable = datum.description.length > 5;
         return (
-          <Expandable key={'expandable-metadata-dt-dd-' + i}>
-            <dt
-              css={{
-                gridColumnStart: '1'
-              }}
-            >
-              {d.term}
-            </dt>
-            <ExpandableChildren show={expandable(d.description).show}>
-              {d.description.map((d, i) => {
-                return (
-                  <dd
-                    css={{
-                      gridColumnStart: '2',
-                      display: 'flex',
-                      alignItems: 'top'
-                    }}
-                    key={'metadata-dd-' + i}
-                  >
-                    <Description data={d} />
-                  </dd>
-                );
-              })}
-            </ExpandableChildren>
+          <div className='flex__responsive metadata-list-item' key={'expandable-metadata-dt-dd-' + datumIndex}>
+            <Expandable>
+              <dt className={kind === 'condensed' ? 'visually-hidden' : ''}>
+                <span>{datum.term}</span>
+              </dt>
+              <div className='metadata-details'>
+                <ExpandableChildren show={isExpandable ? 4 : datum.description.length}>
+                  {datum.description.map((d, i) => {
+                    return (
+                      <dd key={'metadata-dd-' + i}>
+                        <Description data={d} />
+                      </dd>
+                    );
+                  })}
+                </ExpandableChildren>
 
-            {expandable(d.description).expandable && (
-              <dd
-                css={{
-                  gridColumnStart: '2',
-                  display: 'flex',
-                  alignItems: 'top'
-                }}
-              >
-                <ExpandableButton
-                  name={d.termPlural ? d.termPlural : d.term}
-                  count={d.description.length}
-                  css={{
-                    marginTop: 'var(--search-spacing-xs)'
-                  }}
-                />
-              </dd>
-            )}
-          </Expandable>
+                {isExpandable && (
+                  <dd>
+                    <ExpandableButton
+                      name={datum.termPlural ? datum.termPlural : datum.term}
+                      count={datum.description.length}
+                    />
+                  </dd>
+                )}
+              </div>
+            </Expandable>
+          </div>
         );
       })}
     </dl>
@@ -128,29 +59,14 @@ Metadata.propTypes = {
 function Description ({ data }) {
   if (Array.isArray(data)) {
     return (
-      <ol
-        css={{
-          margin: '0',
-          padding: '0'
-        }}
-      >
+      <ol className='list__unstyled'>
         {data.map((d, i) => {
           return (
             <li
-              css={{
-                display: 'inline-block'
-              }}
               key={'description-li-' + i}
+              style={{ display: 'inline-block' }}
             >
-              {i > 0 && (
-                <span
-                  css={{
-                    color: 'var(--ds-color-neutral-300)'
-                  }}
-                >
-                  <Icon icon='navigate_next' />
-                </span>
-              )}
+              {i > 0 && <Icon icon='navigate_next' className='text-grey__light' />}
               <Description data={d} />
             </li>
           );
@@ -163,43 +79,30 @@ function Description ({ data }) {
 
   return (
     <DescriptionItem {...data}>
-      {icon && (
-        <span
-          css={{
-            marginRight: 'var(--search-spacing-2xs)',
-            color: 'var(--ds-color-neutral-300)',
-            display: 'flex',
-            alignItems: 'center'
-          }}
-        >
-          <Icon icon={icon} size={19} />
-        </span>
-      )}
+      {icon &&
+        <Icon
+          icon={icon}
+          size={19}
+          className='margin-right__2xs text-grey__light'
+        />}
 
       {image
         ? (
           <div>
-            <span
-              css={{
-                display: 'block'
-              }}
-            >
+            <p className='margin__none'>
               {text}
-            </span>
+            </p>
             <img
               src={image}
               alt=''
-              css={{
-                maxWidth: '16rem',
-                width: '100%',
-                paddingTop: 'var(--search-spacing-xs)'
+              className='padding-top__xs'
+              style={{
+                maxWidth: '16rem'
               }}
             />
           </div>
           )
-        : (
-          <>{text}</>
-          )}
+        : text}
     </DescriptionItem>
   );
 }
@@ -239,38 +142,22 @@ function DescriptionItemLink ({ href, search, browse, children }) {
     );
   }
 
-  if (browse) {
-    return (
-      <span>
-        <SearchLink search={search}>{children}</SearchLink>
-        <BrowseLink
-          css={{
-            color: 'var(--ds-color-neutral-300)',
-            fontSize: '0.875rem',
-            textDecoration: 'underline',
-            ':hover': {
-              textDecorationThickness: '2px'
-            },
-            ':before': {
-              background: 'var(--ds-color-neutral-400)',
-              content: '""',
-              display: 'inline-block',
-              height: '1em',
-              margin: '0 0.5rem',
-              verticalAlign: 'middle',
-              width: '1px'
-            }
-          }}
-          type={browse.type}
-          value={browse.value}
-        >
-          {browse.text}
-        </BrowseLink>
-      </span>
-    );
-  }
-
-  return <SearchLink search={search}>{children}</SearchLink>;
+  return (
+    <>
+      <SearchLink search={search}>{children}</SearchLink>
+      {browse &&
+        <>
+          <span className='text-grey font-small margin-x__2xs'>|</span>
+          <BrowseLink
+            className='text-grey font-small underline underline__hover-thick'
+            type={browse.type}
+            value={browse.value}
+          >
+            {browse.text}
+          </BrowseLink>
+        </>}
+    </>
+  );
 }
 
 DescriptionItemLink.propTypes = {
@@ -287,7 +174,10 @@ function SearchLink ({ children, search }) {
   const { datastores, active: activeDatastore } = useSelector((state) => {
     return state.datastores;
   });
-  const { type, scope, value } = search || {};
+
+  if (!search) return children;
+
+  const { type, scope, value = children } = search;
   const query =
     type === 'fielded'
       ? `${scope}:${value}`
@@ -308,6 +198,9 @@ function SearchLink ({ children, search }) {
 }
 
 SearchLink.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
   search: PropTypes.object
 };
