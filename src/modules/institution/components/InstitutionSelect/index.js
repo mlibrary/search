@@ -1,35 +1,27 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createSelector } from '@reduxjs/toolkit';
 import { stringifySearch } from '../../../search';
 import PropTypes from 'prop-types';
 
 const InstitutionSelect = ({ activeDatastore, institution }) => {
   const { uid, slug } = activeDatastore;
-  const { activeFilters, searchQuery } = useSelector(createSelector(
-    (state) => {
-      return state.filters.active[uid];
-    },
-    (state) => {
-      return state.search.query;
-    },
-    (activeFilters, searchQuery) => {
-      return { activeFilters, searchQuery };
-    }
-  ));
+  const filter = useSelector((state) => {
+    return state.filters.active[uid];
+  });
+  const { query } = useSelector((state) => {
+    return state.search;
+  });
   const navigate = useNavigate();
 
-  if (uid !== 'mirlyn') {
-    return null;
-  }
+  if (uid !== 'mirlyn') return null;
 
   const { active, defaultInstitution, options } = institution;
 
   const handleChange = (event) => {
     const queryString = stringifySearch({
-      query: searchQuery,
-      filter: activeFilters,
+      query,
+      filter,
       library: event.target.value
     });
 

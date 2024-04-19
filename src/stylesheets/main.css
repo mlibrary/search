@@ -232,6 +232,11 @@ a:not([class], [id]):hover,
   background: #CCE6FF;
 }
 
+img {
+  height: auto;
+  max-width: 100%;
+}
+
 ol,
 ul {
   margin-left: 3rem;
@@ -287,6 +292,10 @@ sup {
 
 .text-grey {
   color: var(--search-color-grey-600);
+}
+
+.text-grey__light {
+  color: var(--ds-color-neutral-300);
 }
 
 small[id*="-description"] {
