@@ -32,6 +32,9 @@ const store = configureStore({
     records: recordsReducer,
     search: searchReducer,
     specialists: simpleReducer(ADD_SPECIALISTS, [])
+  },
+  middleware: (getDefaultMiddleware) => {
+    return [...getDefaultMiddleware({ immutableCheck: false })];
   }
 });
 
