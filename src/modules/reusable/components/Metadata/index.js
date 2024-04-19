@@ -114,7 +114,7 @@ export default function Metadata ({ data, kind }) {
     <dl className='flex__responsive metadata-list'>
       {data.map((datum, datumIndex) => {
         const { description, term, termPlural } = datum;
-        const isExpandable = description.length > 1;
+        const isExpandable = description.length > 5;
         return (
           <div className='flex__responsive metadata-list-item' key={datumIndex}>
             <Expandable>
@@ -122,7 +122,7 @@ export default function Metadata ({ data, kind }) {
                 {term}
               </dt>
               <div className='metadata-details'>
-                <ExpandableChildren show={isExpandable ? 1 : description.length}>
+                <ExpandableChildren show={isExpandable ? 4 : description.length}>
                   {description.map((d, i) => {
                     return (
                       <dd key={i}>
