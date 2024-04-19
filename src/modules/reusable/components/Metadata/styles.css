@@ -3,12 +3,13 @@
 }
 
 .metadata-list-item > * {
-  flex: 1 1 auto;
+  flex-grow: 1;
 }
 
 @media (min-width: 640px) {
   .metadata-list-item > dt {
     flex-shrink: 0;
+    flex-basis: 10rem;
     max-width: 10rem;
   }
 }
