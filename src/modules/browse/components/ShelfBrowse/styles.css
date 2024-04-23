@@ -65,6 +65,16 @@
   grid-area: list;
 }
 
+.shelf-browse-carousel > ul > li {
+  flex: 1;
+}
+
+.shelf-browse-carousel > ul > li > a,
+.shelf-browse-carousel > ul > li > a > .container__rounded {
+  display: block;
+  height: 100%;
+}
+
 .shelf-browse-carousel > button:last-of-type {
   grid-area: next;
 }

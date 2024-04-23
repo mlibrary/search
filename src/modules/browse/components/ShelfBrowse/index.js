@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './styles.css';
 import BrowseLink from '../BrowseLink';
 import { Icon } from '../../../reusable';
+import relatedItems from './test-data';
 
 function findCallNumberBrowse (metadata) {
   const callNumber = metadata.find((item) => {
@@ -18,14 +19,21 @@ function findCallNumberBrowse (metadata) {
   return browse?.browse;
 }
 
-function ShelfBrowse () {
-  const { full } = useSelector((state) => {
-    return state.records.record.metadata;
-  });
+const getMetadata = (items) => {
+  return items.reduce((obj, item) => {
+    if (item?.uid) {
+      obj[item.uid] = item;
+    }
+    return obj;
+  }, {});
+};
 
-  const callNumberBrowse = findCallNumberBrowse(full);
-  console.log(callNumberBrowse);
-  const items = Array(22).fill('item');
+function ShelfBrowse () {
+  const { uid, metadata } = useSelector((state) => {
+    return state.records.record;
+  });
+  const callNumberBrowse = findCallNumberBrowse(metadata.full);
+  const items = relatedItems;
   const itemsPerPage = 5;
   const maxPages = Math.ceil(items.length / itemsPerPage);
   // Calculate the middle starting page
@@ -79,10 +87,23 @@ function ShelfBrowse () {
         </button>
         <ul className='list__unstyled flex self-browse-items'>
           {currentItems.map((item, index) => {
+            const metadata = getMetadata(item);
+            const { id } = metadata;
             return (
               <li key={index} className='self-browse-items'>
-                <a href='' className='container__rounded'>
-                  {item} {index}
+                <a href=''>
+                  {id.value === uid && <p>CURRENT</p>}
+                  <dl className='container__rounded'>
+                    {['title', 'author', 'published_year', 'callnumber_browse'].map((key) => {
+                      console.log(metadata[key]);
+                      return (
+                        <React.Fragment key={key}>
+                          <dt className='visually-hidden'>{metadata[key].name}</dt>
+                          <dd>{metadata[key].value}</dd>
+                        </React.Fragment>
+                      );
+                    })}
+                  </dl>
                 </a>
               </li>
             );
