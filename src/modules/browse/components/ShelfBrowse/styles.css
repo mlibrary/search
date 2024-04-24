@@ -27,14 +27,11 @@
 
 .shelf-browse > header {
   grid-area: header;
-}
-
-.shelf-browse > header h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 0.875rem;
 }
 
 .shelf-browse-carousel {
+  align-items: center;
   display: grid;
   gap: 1rem;
   grid-area: carousel;
@@ -57,22 +54,75 @@
   color: var(--search-color-blue-500);
 }
 
+.shelf-browse-carousel > button:disabled svg {
+  color: var(--search-color-grey-500);
+}
+
 .shelf-browse-carousel > button:first-of-type {
   grid-area: prev;
 }
 
-.shelf-browse-carousel > ul {
+.shelf-browse-items {
+  font-family: "noto-sans-semicondensed", sans-serif;
+  font-size: 0.75rem;
   grid-area: list;
 }
 
-.shelf-browse-carousel > ul > li {
+.shelf-browse-item {
   flex: 1;
 }
 
-.shelf-browse-carousel > ul > li > a,
-.shelf-browse-carousel > ul > li > a > .container__rounded {
-  display: block;
+.shelf-browse-item > a,
+.shelf-browse-item > a > dl {
   height: 100%;
+}
+
+.shelf-browse-item > a {
+  color: inherit;
+  display: block;
+}
+
+.shelf-browse-item-current > a {
+  border: 4px solid var(--search-color-blue-500);
+}
+
+.shelf-browse-item dl {
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.shelf-browse-item .this-item {
+  align-self: baseline;
+  background: var(--search-color-blue-500);
+  color: white;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  margin-left: -0.75rem;
+  padding: 0.25rem  1.5rem 0.25rem 0.75rem;
+  text-transform: uppercase;
+  clip-path: polygon(0% 0%, 100% 0, calc(100% - 0.75rem) 50%, 100% 100%, 0% 100%);
+}
+
+.shelf-browse-item dd {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.shelf-browse-item .this-item,
+.shelf-browse-item .item-term-title,
+.shelf-browse-item .item-term-callnumber_browse {
+  font-weight: 700;
+}
+
+.shelf-browse-item .item-term-title {
+  color: var(--search-color-blue-400);
+  text-decoration: underline;
+}
+
+.shelf-browse-item > a:hover .item-term-title {
+  text-decoration-thickness: 2px;
 }
 
 .shelf-browse-carousel > button:last-of-type {

@@ -67,7 +67,7 @@ function ShelfBrowse () {
   return (
     <section className='shelf-browse container__rounded'>
       <header className='flex__responsive'>
-        <h2 className='margin-y__none'>Shelf browse</h2>
+        <h2 className='margin-y__none heading-medium'>Shelf browse</h2>
         <BrowseLink
           type={type}
           value={value}
@@ -85,21 +85,20 @@ function ShelfBrowse () {
         >
           <Icon icon='chevron_left' size='24' />
         </button>
-        <ul className='list__unstyled flex self-browse-items'>
+        <ul className='list__unstyled flex shelf-browse-items'>
           {currentItems.map((item, index) => {
             const metadata = getMetadata(item);
-            const { id } = metadata;
+            const currentItem = metadata.id.value === uid;
             return (
-              <li key={index} className='self-browse-items'>
-                <a href=''>
-                  {id.value === uid && <p>CURRENT</p>}
-                  <dl className='container__rounded'>
+              <li key={index} className={`shelf-browse-item ${currentItem ? 'shelf-browse-item-current' : null}`}>
+                <a href='' className='underline__none container__rounded padding__s'>
+                  <dl className='flex'>
+                    {currentItem && <p className='margin__none this-item'>This item</p>}
                     {['title', 'author', 'published_year', 'callnumber_browse'].map((key) => {
-                      console.log(metadata[key]);
-                      return (
+                      return metadata[key]?.value?.[0] && (
                         <React.Fragment key={key}>
                           <dt className='visually-hidden'>{metadata[key].name}</dt>
-                          <dd>{metadata[key].value}</dd>
+                          <dd className={`item-term-${key}`}>{metadata[key].value[0]}</dd>
                         </React.Fragment>
                       );
                     })}
@@ -120,7 +119,7 @@ function ShelfBrowse () {
         </button>
       </div>
       <button
-        className='btn btn--secondary shelf-browse-carousel-return'
+        className='btn btn--secondary btn--small shelf-browse-carousel-return'
         onClick={() => {
           return setCurrentPage(middlePage);
         }}
