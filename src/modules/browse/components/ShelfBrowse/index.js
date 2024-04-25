@@ -87,11 +87,12 @@ function ShelfBrowse () {
       </header>
       <div className='shelf-browse-carousel' aria-label='Shelf browse carousel'>
         <button
-          className='btn no-background'
           aria-label='Previous items'
+          disabled={currentPage === 0}
           onClick={() => {
             return moveCarousel(-1);
           }}
+          className='btn no-background'
         >
           <Icon icon='chevron_left' size='24' />
         </button>
@@ -119,11 +120,12 @@ function ShelfBrowse () {
           })}
         </ul>
         <button
-          className='btn no-background'
           aria-label='Next items'
+          disabled={currentPage === (maxPages - 1)}
           onClick={() => {
             return moveCarousel(1);
           }}
+          className='btn no-background'
         >
           <Icon icon='chevron_right' size='24' />
         </button>
