@@ -39,22 +39,32 @@ function ShelfBrowse () {
   // Calculate the middle starting page
   const middlePage = Math.floor(maxPages / 2);
   const [currentPage, setCurrentPage] = useState(middlePage);
+  const [animationClass, setAnimationClass] = useState('');
 
   if (!callNumberBrowse) return null;
 
   const { type, value, text } = callNumberBrowse;
 
   const moveCarousel = (direction) => {
-    setCurrentPage((prevPage) => {
-      let newPage = prevPage + direction;
-      if (newPage < 0) {
-        newPage = maxPages - 1;
-      }
-      if (newPage >= maxPages) {
-        newPage = 0;
-      }
-      return newPage;
-    });
+    const getDirection = direction === 1 ? 'next' : 'previous';
+    setAnimationClass(`animation-out-${getDirection}`);
+    const timeInterval = 250;
+    setTimeout(() => {
+      setAnimationClass(`animation-in-${getDirection}`);
+      setCurrentPage((prevPage) => {
+        let newPage = prevPage + direction;
+        if (newPage < 0) {
+          newPage = maxPages - 1;
+        }
+        if (newPage >= maxPages) {
+          newPage = 0;
+        }
+        return newPage;
+      });
+    }, timeInterval);
+    setTimeout(() => {
+      setAnimationClass('');
+    }, timeInterval * 2);
   };
 
   // Calculate item index range for the current page
@@ -90,8 +100,8 @@ function ShelfBrowse () {
             const metadata = getMetadata(item);
             const currentItem = metadata.id.value === uid;
             return (
-              <li key={index} className={`shelf-browse-item ${currentItem ? 'shelf-browse-item-current' : null}`}>
-                <a href='' className='underline__none container__rounded padding__s'>
+              <li key={index} className={`shelf-browse-item ${currentItem ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
+                <a href='' className={`underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${currentItem ? 'xs' : 's'}`}>
                   <dl className='flex'>
                     {currentItem && <p className='margin__none this-item'>This item</p>}
                     {['title', 'author', 'published_year', 'callnumber_browse'].map((key) => {
