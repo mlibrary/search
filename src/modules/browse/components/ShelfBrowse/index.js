@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import './styles.css';
 import BrowseLink from '../BrowseLink';
-import { Icon } from '../../../reusable';
+import { Icon, useWindowWidth } from '../../../reusable';
 import relatedItems from './test-data';
 
 function findCallNumberBrowse (metadata) {
@@ -32,14 +32,21 @@ function ShelfBrowse () {
   const { uid, metadata } = useSelector((state) => {
     return state.records.record;
   });
-  const callNumberBrowse = findCallNumberBrowse(metadata.full);
   const items = relatedItems;
-  const itemsPerPage = 5;
+  const windowWidth = useWindowWidth();
+  let itemsPerPage = 5;
+  if (windowWidth < 820) {
+    itemsPerPage = 3;
+  }
+  if (windowWidth < 640) {
+    itemsPerPage = 1;
+  }
   const maxPages = Math.ceil(items.length / itemsPerPage);
   // Calculate the middle starting page
   const middlePage = Math.floor(maxPages / 2);
   const [currentPage, setCurrentPage] = useState(middlePage);
   const [animationClass, setAnimationClass] = useState('');
+  const callNumberBrowse = findCallNumberBrowse(metadata.full);
 
   if (!callNumberBrowse) return null;
 
@@ -48,7 +55,7 @@ function ShelfBrowse () {
   const moveCarousel = (direction) => {
     const getDirection = direction === 1 ? 'next' : 'previous';
     setAnimationClass(`animation-out-${getDirection}`);
-    const timeInterval = 250;
+    const animationDuration = 250;
     setTimeout(() => {
       setAnimationClass(`animation-in-${getDirection}`);
       setCurrentPage((prevPage) => {
@@ -61,17 +68,14 @@ function ShelfBrowse () {
         }
         return newPage;
       });
-    }, timeInterval);
+    }, animationDuration);
     setTimeout(() => {
       setAnimationClass('');
-    }, timeInterval * 2);
+    }, animationDuration * 2);
   };
 
-  // Calculate item index range for the current page
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
-  // Subset of items to display on the current page
   const currentItems = items.slice(startIndex, endIndex);
 
   return (

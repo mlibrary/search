@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
 import { BentoboxList, RecordList, Pagination } from '../../index';
-import { Icon } from '../../../reusable';
+import { Icon, useWindowWidth } from '../../../reusable';
 import { InstitutionSelect } from '../../../institution';
 import { Filters } from '../../../filters';
 import { BrowseInfo } from '../../../browse';
@@ -9,19 +9,7 @@ import PropTypes from 'prop-types';
 
 const Results = ({ activeDatastore, activeFilterCount, institution }) => {
   const [isVisible, setIsDivVisible] = useState(true);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      return window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const windowWidth = useWindowWidth();
 
   useEffect(() => {
     if (windowWidth >= 980 && !isVisible) {
