@@ -86,12 +86,13 @@ function ShelfBrowse () {
           type={type}
           value={value}
         >
-          {text}
+          <Icon icon='list' size='24' className='margin-right__xs' />{text}
         </BrowseLink>
       </header>
       <div className='shelf-browse-carousel' aria-label='Shelf browse carousel'>
         <button
-          aria-label='Previous items'
+          aria-label={`Previous ${itemsPerPage} items`}
+          title={`Previous ${itemsPerPage} items`}
           disabled={currentPage === 0}
           onClick={() => {
             return moveCarousel(-1);
@@ -106,9 +107,13 @@ function ShelfBrowse () {
             const currentItem = metadata.id.value === uid;
             return (
               <li key={index} className={`shelf-browse-item ${currentItem ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
-                <a href='' className={`underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${currentItem ? 'xs' : 's'}`}>
+                <BrowseLink
+                  type={type}
+                  value={metadata.callnumber_browse?.value?.[0]}
+                  className={`underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${currentItem ? 'xs' : 's'}`}
+                >
                   <dl className='flex'>
-                    {currentItem && <p className='margin__none this-item'>This item</p>}
+                    {currentItem && <p className='margin__none this-item'>Current Record</p>}
                     {['title', 'author', 'published_year', 'callnumber_browse'].map((key) => {
                       return metadata[key]?.value?.[0] && (
                         <React.Fragment key={key}>
@@ -118,13 +123,14 @@ function ShelfBrowse () {
                       );
                     })}
                   </dl>
-                </a>
+                </BrowseLink>
               </li>
             );
           })}
         </ul>
         <button
-          aria-label='Next items'
+          aria-label={`Next ${itemsPerPage} items`}
+          title={`Next ${itemsPerPage} items`}
           disabled={currentPage === (maxPages - 1)}
           onClick={() => {
             return moveCarousel(1);
@@ -139,6 +145,7 @@ function ShelfBrowse () {
         onClick={() => {
           return setCurrentPage(middlePage);
         }}
+        disabled={currentPage === middlePage}
       >
         Return to current item
       </button>
