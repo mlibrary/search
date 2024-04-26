@@ -51,11 +51,11 @@ function ShelfBrowse () {
   if (!callNumberBrowse) return null;
 
   const { type, value, text } = callNumberBrowse;
+  const animationDuration = 250;
 
   const moveCarousel = (direction) => {
     const getDirection = direction === 1 ? 'next' : 'previous';
     setAnimationClass(`animation-out-${getDirection}`);
-    const animationDuration = 250;
     setTimeout(() => {
       setAnimationClass(`animation-in-${getDirection}`);
       setCurrentPage((prevPage) => {
@@ -143,7 +143,14 @@ function ShelfBrowse () {
       <button
         className='btn btn--secondary btn--small shelf-browse-carousel-return'
         onClick={() => {
-          return setCurrentPage(middlePage);
+          setAnimationClass('animation-out');
+          setTimeout(() => {
+            setCurrentPage(middlePage);
+            setAnimationClass('animation-in');
+          }, animationDuration);
+          setTimeout(() => {
+            setAnimationClass('');
+          }, animationDuration * 2);
         }}
         disabled={currentPage === middlePage}
       >

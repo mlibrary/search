@@ -76,6 +76,10 @@
   flex: 1;
 }
 
+.shelf-browse-item.animation-out {
+  animation: 0.25s ease-in-out fadeOut forwards;
+}
+
 .shelf-browse-item.animation-out-next {
   animation:
     0.25s ease-in-out fadeOut forwards,
@@ -88,6 +92,10 @@
     0.25s ease-in-out slideOutFromRight forwards;
 }
 
+.shelf-browse-item.animation-in {
+  animation: 0.25s ease-in-out fadeIn forwards;
+}
+
 .shelf-browse-item.animation-in-next {
   animation:
     0.25s ease-in-out fadeIn forwards,
@@ -98,6 +106,12 @@
   animation:
     0.25s ease-in-out fadeIn forwards,
     0.25s ease-in-out slideInFromLeft forwards;
+}
+
+@media (prefers-reduced-motion) {
+  .shelf-browse-item[class*="animation-"] {
+    animation: none;
+  }
 }
 
 .shelf-browse-item > a,
