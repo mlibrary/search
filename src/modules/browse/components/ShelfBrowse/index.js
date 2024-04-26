@@ -77,6 +77,8 @@ function ShelfBrowse () {
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = items.slice(startIndex, endIndex);
+  const firstPage = currentPage === 0;
+  const lastPage = currentPage === maxPages - 1;
 
   return (
     <section className='shelf-browse container__rounded'>
@@ -93,7 +95,7 @@ function ShelfBrowse () {
         <button
           aria-label={`Previous ${itemsPerPage} items`}
           title={`Previous ${itemsPerPage} items`}
-          disabled={currentPage === 0}
+          disabled={firstPage}
           onClick={() => {
             return moveCarousel(-1);
           }}
@@ -105,8 +107,11 @@ function ShelfBrowse () {
           {currentItems.map((item, index) => {
             const metadata = getMetadata(item);
             const currentItem = metadata.id.value === uid;
+            const firstOrLastItem = (firstPage && index === 0) || (lastPage && currentItems.length - 1 === index);
+            const fields = ['title', 'author', 'published_year', 'callnumber_browse'];
+            const showFields = firstOrLastItem ? [fields.pop()] : fields;
             return (
-              <li key={index} className={`shelf-browse-item ${currentItem ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
+              <li key={index} className={`shelf-browse-item ${(currentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
                 <BrowseLink
                   type={type}
                   value={metadata.callnumber_browse?.value?.[0]}
@@ -114,7 +119,13 @@ function ShelfBrowse () {
                 >
                   <dl className='flex'>
                     {currentItem && <p className='margin__none this-item'>Current Record</p>}
-                    {['title', 'author', 'published_year', 'callnumber_browse'].map((key) => {
+                    {firstOrLastItem && (
+                      <>
+                        <Icon icon='list' size='24' className='item-term-title' />
+                        <span className='item-term-title'>Continue browsing in {type} list</span>
+                      </>
+                    )}
+                    {showFields.map((key) => {
                       return metadata[key]?.value?.[0] && (
                         <React.Fragment key={key}>
                           <dt className='visually-hidden'>{metadata[key].name}</dt>
@@ -131,7 +142,7 @@ function ShelfBrowse () {
         <button
           aria-label={`Next ${itemsPerPage} items`}
           title={`Next ${itemsPerPage} items`}
-          disabled={currentPage === (maxPages - 1)}
+          disabled={lastPage}
           onClick={() => {
             return moveCarousel(1);
           }}
