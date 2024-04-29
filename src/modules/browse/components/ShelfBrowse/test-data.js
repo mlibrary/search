@@ -56,15 +56,13 @@ generateObject('990006759030106381', 'The Bittern.', 'Damariscotta, Me., H. E. B
 generateObject('990035617640106381', 'Blätter aus dem Naumann-Museum.', 'Köthen : Naumann-Museum', 'QL 671 .B655', '1990');
 generateObject('990006363030106381', 'Blue bird.', 'Cleveland, Cincinnati : Cleveland Bird Lovers Association', 'QL671 .B656', '');
 generateObject('990004962230106381', 'Blue jay.', 'Regina, Saskatchewan Natural History Society', 'QL671 .B658', '');
-//
+// MIDDLE SLIDE
 generateObject('990000560340106381', 'The Bluebird.', 'St. Louis, Missouri Audubon Society', 'QL671 .B66', '');
 generateObject('990005469460106381', 'Bird notes.', 'Sandy, Bedfordshire, Eng. [etc.] : Royal Society for the Protection of Birds', 'QL 671 .B67', '');
-// MIDDLE
-generateObject('990006758990106381', 'Birds.', 'Royal Society for the Protection of Birds', 'QL671 .B678', '1966');
-// MIDDLE
+generateObject('990006758990106381', 'Birds.', 'Royal Society for the Protection of Birds', 'QL671 .B678', '1966'); // CURRENT RECORD
 generateObject('990129583230106381', "Nature's home : the RSPB magazine.", 'Sandy, Bedfordshire : RSPB', 'QL671 .B6781', '2013');
 generateObject('11012368819', 'Bird notes.', 'Sandy, Bedfordshire', 'QL671 .B688', '1902-1925');
-//
+// MIDDLE SLIDE
 generateObject('990123688190106381', 'Bird notes.', 'Brighton : Foreign Bird Club : National British Bird and Mule Club', 'QL671 .B688', '1902-1925');
 generateObject('990035390150106381', 'The birds of Sumatra : an annotated check-list / by J. G. van Marle & Karel H. Voous ; in cooperation with Geoffrey W.H. Davison & David R. Wells.', 'Marle, J. G. van (John G.)', 'QL 671 .B692 no.10', '1988');
 generateObject('990035390340106381', 'The birds of the Philippines : an annotated check-list / by Edward C. Dickinson, Robert S. Kennedy & Kenneth C. Parkes ; with maps by Emily McGowan.', 'Dickinson, Edward C.', 'QL 671 .B692 no.12', '1991');

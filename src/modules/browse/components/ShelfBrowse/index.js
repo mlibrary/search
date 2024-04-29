@@ -42,7 +42,6 @@ function ShelfBrowse () {
     itemsPerPage = 1;
   }
   const maxPages = Math.ceil(items.length / itemsPerPage);
-  // Calculate the middle starting page
   const middlePage = Math.floor(maxPages / 2);
   const [currentPage, setCurrentPage] = useState(middlePage);
   const [animationClass, setAnimationClass] = useState('');
@@ -103,11 +102,16 @@ function ShelfBrowse () {
         >
           <Icon icon='chevron_left' size='24' />
         </button>
-        <ul className='list__unstyled flex shelf-browse-items'>
+        <ul
+          className='list__unstyled shelf-browse-items'
+          style={{
+            gridTemplateColumns: `repeat(${itemsPerPage}, 1fr)`
+          }}
+        >
           {currentItems.map((item, index) => {
             const metadata = getMetadata(item);
             const currentItem = metadata.id.value === uid;
-            const firstOrLastItem = (firstPage && index === 0) || (lastPage && currentItems.length - 1 === index);
+            const firstOrLastItem = !currentItem && ((firstPage && index === 0) || (lastPage && currentItems.length - 1 === index));
             const fields = ['title', 'author', 'published_year', 'callnumber_browse'];
             const showFields = firstOrLastItem ? [fields.pop()] : fields;
             return (

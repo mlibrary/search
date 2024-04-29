@@ -67,13 +67,16 @@
 }
 
 .shelf-browse-items {
+  display: grid;
+  column-gap: 1rem;
   font-family: "noto-sans-semicondensed", sans-serif;
   font-size: 0.75rem;
   grid-area: list;
+  grid-template-rows: 1fr auto;
 }
 
 .shelf-browse-item {
-  flex: 1;
+  grid-row: 3 / 2;
 }
 
 .shelf-browse-item.animation-out {
@@ -122,6 +125,10 @@
 .shelf-browse-item > a {
   color: inherit;
   display: block;
+}
+
+.shelf-browse-item-current {
+  grid-row: 3 / 1;
 }
 
 .shelf-browse-item-current > a {
