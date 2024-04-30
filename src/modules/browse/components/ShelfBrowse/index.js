@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles.css';
 import BrowseLink from '../BrowseLink';
 import { Icon, useWindowWidth } from '../../../reusable';
@@ -45,12 +45,33 @@ function ShelfBrowse () {
   const middlePage = Math.floor(maxPages / 2);
   const [currentPage, setCurrentPage] = useState(middlePage);
   const [animationClass, setAnimationClass] = useState('');
+  const animationDuration = 250;
+  const debounce = (func) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func.apply(this, args);
+      }, animationDuration);
+    };
+  };
+
+  useEffect(() => {
+    const handleResize = debounce(() => {
+      setCurrentPage(middlePage);
+    });
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      return window.removeEventListener('resize', handleResize);
+    };
+  }, [middlePage]);
   const callNumberBrowse = findCallNumberBrowse(metadata.full);
 
   if (!callNumberBrowse) return null;
 
   const { type, value, text } = callNumberBrowse;
-  const animationDuration = 250;
 
   const moveCarousel = (direction) => {
     const getDirection = direction === 1 ? 'next' : 'previous';
