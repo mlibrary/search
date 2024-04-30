@@ -103,7 +103,7 @@ function ShelfBrowse () {
           <Icon icon='chevron_left' size='24' />
         </button>
         <ul
-          className='list__unstyled shelf-browse-items'
+          className={`list__unstyled shelf-browse-items ${firstPage ? 'shelf-browse-first-page' : lastPage ? 'shelf-browse-last-page' : ''}`}
           style={{
             gridTemplateColumns: `repeat(${itemsPerPage}, 1fr)`
           }}
