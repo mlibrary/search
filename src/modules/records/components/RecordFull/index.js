@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
 import { Anchor, Breadcrumb, H1 } from '../../../reusable';
-import ResourceAccess from '../../../resource-acccess';
+import { ResourceAccess } from '../../../resource-acccess';
 import { TrimString } from '../../../core';
 import { getField, getFieldValue } from '../../utilities';
 import {

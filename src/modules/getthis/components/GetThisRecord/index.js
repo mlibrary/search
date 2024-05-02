@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import getHoldingByBarcode from '../../getHoldingByBarcode';
 import { TrimString } from '../../../core';
 import { RecordFullFormats, FullRecordPlaceholder } from '../../../records';
-import ResourceAccess from '../../../resource-acccess';
+import { ResourceAccess } from '../../../resource-acccess';
 import PropTypes from 'prop-types';
 
 function GetThisHolding ({ record, barcode }) {
@@ -13,8 +13,7 @@ function GetThisHolding ({ record, barcode }) {
   if (holding) {
     const recordData = {
       resourceAccess: [].concat({
-        ...holding[0],
-        preExpanded: true
+        ...holding[0]
       })
     };
 

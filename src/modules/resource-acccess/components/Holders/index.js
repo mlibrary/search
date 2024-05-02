@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Icon from '../../reusable/components/Icon';
-import Holder from './holder';
+import { Icon } from '../../../reusable';
+import Holder from '../Holder';
 import PropTypes from 'prop-types';
 
 export default function Holders ({ record, context }) {

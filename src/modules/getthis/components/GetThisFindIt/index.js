@@ -67,10 +67,7 @@ const GetThisFindIt = () => {
           <Expandable>
             {caption && (
               <figcaption>
-                <span
-                  style={{ fontWeight: '600' }}
-                  className='margin-right__m'
-                >
+                <span className='margin-right__m strong'>
                   {caption}
                 </span>
                 {captionLink && (

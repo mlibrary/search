@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React from 'react';
-import Holding from './holding';
+import Holding from '../Holding';
 import {
   Anchor,
   Expandable,
-  ExpandableProvider,
   ExpandableChildren,
   ExpandableButton
-} from '../../reusable';
+} from '../../../reusable';
 import PropTypes from 'prop-types';
 
 const notesList = (notes) => {
@@ -45,6 +44,7 @@ export default function Holder ({
   preExpanded,
   ...rest
 }) {
+  const isExpandable = rows.length > 10;
   return (
     <div {...rest}>
       {captionLink && (
@@ -58,8 +58,9 @@ export default function Holder ({
       {notesList(notes)}
 
       {rows && (
-        <Expandable>
+        <Expandable { ...preExpanded }>
           <div
+            className='holder-container'
             style={{
               overflowX: 'auto'
             }}
@@ -101,7 +102,21 @@ export default function Holder ({
                 </tr>
               </thead>
               <tbody>
-                <HolderRows rows={rows} />
+              <ExpandableChildren show={isExpandable ? 10 : rows.length}>
+                {rows.map((row, i) => {
+                  return <Holding holding={row} key={i} />;
+                })}
+              </ExpandableChildren>
+              {isExpandable && (
+                <tr>
+                  <td
+                    colSpan={`${rows[0].length}`}
+                    style={{ wordBreak: 'break-word' }}
+                  >
+                    <ExpandableButton count={rows.length} />
+                  </td>
+                </tr>
+              )}
               </tbody>
             </table>
           </div>
@@ -117,80 +132,4 @@ Holder.propTypes = {
   captionLink: PropTypes.object,
   notes: PropTypes.array,
   preExpanded: PropTypes.bool
-};
-
-function HolderRows ({ rows }) {
-  /*
-    Just render the holdings.
-  */
-  if (rows <= 10) {
-    return (
-      <>
-        {rows.map((row, i) => {
-          return (
-            <Holding holding={row} key={i} />
-          );
-        })}
-      </>
-    );
-  }
-
-  function renderExpandableButton () {
-    return (
-      <tr>
-        <td
-          colSpan={`${rows[0].length}`}
-          style={{
-            wordBreak: 'break-word'
-          }}
-        >
-          <ExpandableButton count={rows.length} />
-        </td>
-      </tr>
-    );
-  }
-
-  /*
-    We need fancy expandable buttons now.
-    Too many holdings.
-
-    Show first 10 holdings.
-    Then an expandable button.
-    The rest of holdings.
-    Then finally an expandable button.
-  */
-  return (
-    <>
-      {rows.slice(0, 10).map((row, i) => {
-        return (
-          <Holding holding={row} key={i} />
-        );
-      })}
-      {rows.length > 10 && (
-        <>{renderExpandableButton()}</>
-      )}
-      <ExpandableChildren show={0}>
-        {rows.slice(10).map((row, i) => {
-          return (
-            <Holding holding={row} key={i} />
-          );
-        })}
-      </ExpandableChildren>
-      <ExpandableProvider>
-        {(context) => {
-          return (
-            <>
-              {context.expanded && (
-                <>{renderExpandableButton()}</>
-              )}
-            </>
-          );
-        }}
-      </ExpandableProvider>
-    </>
-  );
-}
-
-HolderRows.propTypes = {
-  rows: PropTypes.array
 };

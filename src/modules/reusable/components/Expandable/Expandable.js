@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 export const ExpandableContext = createContext();
 
-const Expandable = (props) => {
-  const [expanded, setExpanded] = useState(false);
+const Expandable = ({ children, preExpanded = false }) => {
+  const [expanded, setExpanded] = useState(preExpanded);
   const [disabled, setDisabled] = useState(false);
 
   const toggleExpanded = useCallback(() => {
@@ -19,7 +19,7 @@ const Expandable = (props) => {
 
   return (
     <ExpandableContext.Provider value={{ expanded, disabled, toggleExpanded, disable }}>
-      {props.children}
+      {children}
     </ExpandableContext.Provider>
   );
 };
@@ -28,7 +28,8 @@ Expandable.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  preExpanded: PropTypes.bool
 };
 
 export default Expandable;
