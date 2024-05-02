@@ -3,9 +3,7 @@ import { Pride } from 'pride';
 import config from '../../config';
 import store from './../../store';
 import _ from 'underscore';
-import {
-  addList
-} from './actions';
+import { addList } from './actions';
 
 const prejudice = new Prejudice({
   recordEngine: Pride,
@@ -29,16 +27,16 @@ const clearRecords = (datastoreUid) => {
   prejudice.clearRecords(datastoreUid);
 };
 
-const addRecordsToList = (records) => {
+const addRecordsToList = () => {
   store.dispatch(addList(_.groupBy(listRecords(), 'datastore')));
 };
 
-const observer = (records) => {
-  addRecordsToList(records);
+const observer = () => {
+  addRecordsToList();
 };
 
 const initialize = () => {
-  addRecordsToList(listRecords());
+  addRecordsToList();
   Pride.PreferenceEngine.registerEngine(prejudice);
 };
 

@@ -5,10 +5,7 @@ import Icon from '../../reusable/components/Icon';
 import Holder from './holder';
 import PropTypes from 'prop-types';
 
-export default function Holders ({
-  record,
-  context
-}) {
+export default function Holders ({ record, context }) {
   const { mirlyn } = useSelector((state) => {
     return state.filters.active;
   });
@@ -36,9 +33,9 @@ export default function Holders ({
     <>
       {record.resourceAccess.map((data, i) => {
         const { rows, caption, type } = data;
-        if (!rows.length) {
-          return null;
-        }
+
+        if (!rows.length) return null;
+
         return (
           <details
             key={record.datastore + record.uid + '-' + i}

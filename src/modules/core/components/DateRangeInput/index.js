@@ -44,7 +44,6 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
   useEffect(() => {
     const selectedRange = dateRangeOptions[selectedRangeOptionState];
     handleStateChange(beginQueryState, endQueryState, selectedRange);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [beginQueryState, endQueryState, selectedRangeOptionState]);
 
   const handleBeginQueryChange = (query) => {

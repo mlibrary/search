@@ -117,7 +117,7 @@ const advancedFieldedSearchingReducer = (state, action) => {
   return state;
 };
 
-const filterGroupReducer = ({ filterGroup, filterGroupUid, onlyOneFilterValue, filterValue }) => {
+const filterGroupReducer = ({ filterGroup, onlyOneFilterValue, filterValue }) => {
   if (filterValue === undefined) {
     return undefined;
   }
@@ -170,7 +170,6 @@ const advancedFilterReducer = (state, action) => {
             ...state[dsUid].activeFilters,
             [filterGroupUid]: filterGroupReducer({
               filterGroup: state[dsUid].activeFilters ? state[dsUid].activeFilters[filterGroupUid] : undefined,
-              filterGroupUid,
               onlyOneFilterValue: action.payload.onlyOneFilterValue,
               filterValue
             })

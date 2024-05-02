@@ -121,7 +121,7 @@ const GetThisForm = ({ form }) => {
             <>
               <ul className='u-margin-bottom-1 margin-left-2'>
                 <li>We will email you when it is available for pickup.</li>
-                <li>When it is available, we'll hold it for you for 7 days.</li>
+                <li>When it is available, we&apos;ll hold it for you for 7 days.</li>
               </ul>
               <Anchor href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</Anchor>
             </>

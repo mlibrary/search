@@ -28,7 +28,7 @@ function SearchTip ({ activeDatastore, field }) {
     if (selectOption.uid === 'academic_discipline') return <>Search academic disciplines (e.g., International business; Latin american and caribbean studies). <Anchor href='/databases/browse'>Browse all Databases</Anchor> alphabetically or by academic discipline.</>;
     if (selectOption.uid === 'publisher') return <>Search names of publishers of databases.</>;
     if (selectOption.uid === 'call_number_starts_with') return <>Search the first few letters and numbers of a call number (e.g., RC662.4 .H38 2016; QH 105). <Anchor href='https://www.loc.gov/catdir/cpso/lcco/'>Learn about the meaning of call numbers<span className='visually-hidden'> (link points to external site)</span></Anchor>.</>;
-    if (selectOption.uid === 'series') return <>Search the series title of a group of thematically-related books. Use ‘title’ search to find unique titles within a series (e.g., Politics of Race and Ethnicity, Brill's Annotated Bibliographies, Oxford Choral Music).</>;
+    if (selectOption.uid === 'series') return <>Search the series title of a group of thematically-related books. Use &lsquo;title&rsquo; search to find unique titles within a series (e.g., Politics of Race and Ethnicity, Brill&apos;s Annotated Bibliographies, Oxford Choral Music).</>;
     if (selectOption.uid === 'publication_date') return <>Search by year (YYYY) (e.g., 2021; 1942).</>;
     if (selectOption.uid === 'isn') return <>Search by ISSN (8-digit code), ISBN (13 or 10-digit code), or OCLC number (e.g., 0040-781X; 0747581088; 921446069).</>;
     if (selectOption.uid === 'issn') return <>Search by ISSN (8-digit code) (e.g., 0040-781X).</>;

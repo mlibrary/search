@@ -15,11 +15,7 @@ const notesList = (notes) => {
 
   if (notes.length === 1) {
     return (
-      <p
-        css={{
-          color: 'var(--ds-color-neutral-300)'
-        }}
-      >
+      <p className='text-grey__light'>
         {notes[0]}
       </p>
     );
@@ -31,10 +27,7 @@ const notesList = (notes) => {
         return (
           <li
             key={note + i}
-            css={{
-              paddingBottom: 'var(--search-spacing-xs)',
-              color: 'var(--ds-color-neutral-300)'
-            }}
+            className='text-grey__light padding-bottom__xs'
           >
             {note}
           </li>
@@ -45,7 +38,6 @@ const notesList = (notes) => {
 };
 
 export default function Holder ({
-  record,
   headings,
   rows,
   captionLink,
@@ -56,16 +48,8 @@ export default function Holder ({
   return (
     <div {...rest}>
       {captionLink && (
-        <p
-          css={{
-            display: 'inline-block',
-            margin: '0',
-            a: {
-              color: 'var(--ds-color-neutral-400)'
-            }
-          }}
-        >
-          <Anchor href={captionLink.href}>
+        <p className='margin__none'>
+          <Anchor href={captionLink.href} style={{ color: 'var(--ds-color-neutral-400)' }}>
             {captionLink.text}
           </Anchor>
         </p>
@@ -76,7 +60,7 @@ export default function Holder ({
       {rows && (
         <Expandable>
           <div
-            css={{
+            style={{
               overflowX: 'auto'
             }}
           >
@@ -105,10 +89,9 @@ export default function Holder ({
                       <th
                         scope='col'
                         key={i}
-                        css={{
+                        className='text-grey__light strong'
+                        style={{
                           borderBottom: 'solid 2px var(--ds-color-neutral-100)',
-                          color: 'var(--ds-color-neutral-300)',
-                          fontWeight: '600'
                         }}
                       >
                         {heading}
@@ -129,7 +112,6 @@ export default function Holder ({
 }
 
 Holder.propTypes = {
-  record: PropTypes.object,
   headings: PropTypes.array,
   rows: PropTypes.array,
   captionLink: PropTypes.object,
@@ -158,7 +140,7 @@ function HolderRows ({ rows }) {
       <tr>
         <td
           colSpan={`${rows[0].length}`}
-          css={{
+          style={{
             wordBreak: 'break-word'
           }}
         >
