@@ -1,5 +1,5 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
+import './styles.css';
 import Holding from '../Holding';
 import {
   Anchor,
@@ -59,30 +59,8 @@ export default function Holder ({
 
       {rows && (
         <Expandable { ...preExpanded }>
-          <div
-            className='holder-container'
-            style={{
-              overflowX: 'auto'
-            }}
-          >
-            <table
-              css={{
-                minWidth: '24rem',
-                tableLayout: 'fixed',
-                textAlign: 'left',
-                width: '100%',
-                'tr > *': {
-                  padding: '0.5rem 0',
-                  width: 'auto',
-                  '& + *': {
-                    paddingLeft: '1.5rem'
-                  },
-                  '&:nth-of-type(3):last-of-type': {
-                    width: '50%'
-                  }
-                }
-              }}
-            >
+          <div className='holder-container'>
+            <table>
               <thead>
                 <tr>
                   {headings.map((heading, i) => {
@@ -91,9 +69,6 @@ export default function Holder ({
                         scope='col'
                         key={i}
                         className='text-grey__light strong'
-                        style={{
-                          borderBottom: 'solid 2px var(--ds-color-neutral-100)',
-                        }}
                       >
                         {heading}
                       </th>
