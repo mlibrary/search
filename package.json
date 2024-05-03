@@ -28,6 +28,7 @@
   },
   "overrides": {
     "jsdom": "latest",
+    "postcss": "latest",
     "rollup-plugin-terser": "npm:@rollup/plugin-terser@latest",
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@latest",
     "svgo": "latest",
