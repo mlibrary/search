@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-proposal-private-property-in-object": "npm:@babel/plugin-transform-private-property-in-object",
     "@eslint/js": "^9.1.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
@@ -28,6 +28,11 @@
     "underscore": "^1.13.6"
   },
   "overrides": {
+    "@babel/plugin-proposal-class-properties": "npm:@babel/plugin-transform-class-properties",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "npm:@babel/plugin-transform-nullish-coalescing-operator",
+    "@babel/plugin-proposal-numeric-separator": "npm:@babel/plugin-transform-numeric-separator",
+    "@babel/plugin-proposal-optional-chaining": "npm:@babel/plugin-transform-optional-chaining",
+    "@babel/plugin-proposal-private-methods": "npm:@babel/plugin-transform-private-methods",
     "jsdom": "latest",
     "postcss": "latest",
     "rollup-plugin-terser": "npm:@rollup/plugin-terser@latest",
