@@ -4,8 +4,8 @@
   "private": true,
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
-    "@eslint/js": "^9.1.1",
-    "eslint": "^8.57.0",
+    "@eslint/js": "^9.2.0",
+    "eslint": "^9.2.0",
     "eslint-plugin-react": "^7.34.1",
     "globals": "^15.1.0",
     "react-scripts": "^5.0.1",
@@ -27,15 +27,18 @@
     "underscore": "^1.13.6"
   },
   "overrides": {
+    "eslint-plugin-react": {
+      "eslint": "latest"
+    },
     "react-scripts": {
+      "@babel/plugin-proposal-private-property-in-object": "npm:@babel/plugin-transform-private-property-in-object",
       "@svgr/webpack": "latest",
       "babel-preset-react-app": {
         "@babel/plugin-proposal-class-properties": "npm:@babel/plugin-transform-class-properties",
         "@babel/plugin-proposal-nullish-coalescing-operator": "npm:@babel/plugin-transform-nullish-coalescing-operator",
         "@babel/plugin-proposal-numeric-separator": "npm:@babel/plugin-transform-numeric-separator",
         "@babel/plugin-proposal-optional-chaining": "npm:@babel/plugin-transform-optional-chaining",
-        "@babel/plugin-proposal-private-methods": "npm:@babel/plugin-transform-private-methods",
-        "@babel/plugin-proposal-private-property-in-object": "npm:@babel/plugin-transform-private-property-in-object"
+        "@babel/plugin-proposal-private-methods": "npm:@babel/plugin-transform-private-methods"
       },
       "css-minimizer-webpack-plugin": "latest",
       "jest": "latest",
