@@ -36,6 +36,7 @@
     "jsdom": "latest",
     "postcss": "latest",
     "rollup-plugin-terser": "npm:@rollup/plugin-terser@latest",
+    "source-map-loader": "latest",
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@latest",
     "svgo": "latest",
     "workbox-build": "latest"
