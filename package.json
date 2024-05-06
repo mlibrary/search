@@ -28,7 +28,8 @@
   },
   "overrides": {
     "react-scripts": {
-      "@svgr/webpack": "latest"
+      "@svgr/webpack": "latest",
+      "typescript": "latest"
     }
   },
   "scripts": {
