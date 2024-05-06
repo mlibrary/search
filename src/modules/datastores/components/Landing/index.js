@@ -9,7 +9,7 @@ function Landing ({ activeDatastore, institution }) {
   const { uid, name } = activeDatastore;
   const landingContent = {
     everything: {
-      headingText: (<>Search <span className='strong'>Everything</span> to see a broad sampling of results from across 'Library Search' and to explore specific areas and records in greater detail.</>),
+      headingText: (<>Search <span className='strong'>Everything</span> to see a broad sampling of results from across &lsquo;Library Search&rsquo; and to explore specific areas and records in greater detail.</>),
       content: (
         <>
           <p>You will see results from the <Anchor to='/catalog'>Catalog</Anchor>, <Anchor to='/articles'>Articles</Anchor>, <Anchor to='/databases'>Databases</Anchor>, <Anchor to='/onlinejournals'>Online Journals</Anchor>, and <Anchor to='/guidesandmore'>Guides and More</Anchor> pages.</p>
@@ -22,7 +22,7 @@ function Landing ({ activeDatastore, institution }) {
       content: (<p>Your results will include everything in our physical collection (books, audio, video, maps, musical scores, archival materials, and more), as well as materials available online such as electronic books, streaming audio and video, and online journals.</p>)
     },
     primo: {
-      headingText: (<><span className='strong'>Articles</span> is a gateway to discovering a wide range of the library's resources.</>),
+      headingText: (<><span className='strong'>Articles</span> is a gateway to discovering a wide range of the library&apos;s resources.</>),
       content: (<p>Your results will include scholarly journal articles, newspaper articles, book chapters, conference proceedings, and more. To focus your search on a specific subject area, try looking for databases.</p>)
     },
     databases: {

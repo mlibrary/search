@@ -4,15 +4,10 @@
   "private": true,
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
+    "@eslint/js": "^9.2.0",
     "eslint": "^8.57.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-config-standard-jsx": "^11.0.0",
-    "eslint-config-standard-react": "^13.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.1.0",
     "react-scripts": "^5.0.1",
     "url": "^0.11.3"
   },
@@ -43,7 +38,7 @@
     "build:dev": "CI=false REACT_APP_LOGIN_BASE_URL=http://localhost:3000 REACT_APP_SPECTRUM_BASE_URL=http://localhost:3000/spectrum npm run build && gtar -C build --transform s/./search/ -czf search.local.tar.gz .",
     "develop": "npm run start",
     "eject": "react-scripts eject",
-    "lint": "npx eslint src/**/*.js",
+    "lint": "npx eslint src",
     "reinstall": "rm -rf node_modules && npm install",
     "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} REACT_APP_LOGIN_BASE_URL=${REACT_APP_LOGIN_BASE_URL:-https://search-staging.www.lib.umich.edu} react-scripts start",
     "test": "react-scripts test --env=jsdom"
