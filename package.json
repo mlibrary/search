@@ -17,7 +17,6 @@
     "url": "^0.11.3"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
     "@reduxjs/toolkit": "^2.2.3",
     "citeproc": "^2.4.63",
     "core-js": "^3.37.0",
