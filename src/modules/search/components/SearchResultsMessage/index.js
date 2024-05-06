@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Icon from '../../../reusable/components/Icon';
@@ -8,87 +7,36 @@ export default function SearchResultsMessage () {
     return state.search;
   });
 
-  const createMarkup = (html) => {
-    return { __html: html };
-  };
-
-  // Check if there is a message from the parser and render the query if no message
   if (!parserMessage) {
     return (
-      <section
-        className='results-message'
-        css={{
-          width: '100%',
-          color: 'var(--ds-color-neutral-400)'
-        }}
-      >
-        <p>
-          Showing results for:{' '}
-          <strong
-            css={{
-              fontWeight: '600'
-            }}
-          >
-            {query}
-          </strong>
-        </p>
-      </section>
+      <p className='margin__none' aria-live='polite'>
+        Showing results for: <span className='strong'>{query}</span>
+      </p>
     );
   }
 
+  const { actual, details, original } = parserMessage.data;
+
   return (
-    <section
-      className='parser-message'
-      css={{
-        width: '100%',
-        color: 'var(--ds-color-neutral-400)'
-      }}
-    >
-      <p aria-live='polite'>
-        Showing results for:{' '}
-        <strong
-          css={{
-            fontWeight: '600'
-          }}
-        >
-          {parserMessage.data.actual}
-        </strong>
+    <section>
+      <p className='margin__none' aria-live='polite'>
+        Showing results for: <span className='strong'>{actual}</span>
       </p>
-
-      <p
-        css={{
-          fontSize: '0.875rem',
-          paddingBottom: '0.25em'
-        }}
-      >
-        You searched for:{' '}
-        <strong
-          css={{
-            fontWeight: '600'
-          }}
-        >
-          {parserMessage.data.original}
-        </strong>
+      <p className='font-small margin__none'>
+        You searched for: <span className='strong'>{original}</span>
       </p>
-
       <span
-        className='details-container'
-        css={{
+        className='flex parser-message font-small'
+        style={{
+          alignItems: 'baseline',
           color: '#AA5600',
-          fontSize: '0.875rem',
-          display: 'inline-flex',
-          alignContent: 'center',
-          padding: '0.25em'
+          gap: '0.5rem'
         }}
       >
-        <Icon icon='warning' size={15} />
+        <div><Icon icon='warning' size={15} /></div>
         <p
-          css={{
-            paddingLeft: '0.25em',
-            width: '97%'
-          }}
           className='details-message'
-          dangerouslySetInnerHTML={createMarkup(parserMessage.data.details)}
+          dangerouslySetInnerHTML={{ __html: details }}
         />
       </span>
     </section>
