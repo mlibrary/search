@@ -1,5 +1,5 @@
 # Search
-This repository contains the front-end code for [search.lib.umich.edu](https://search.lib.umich.edu/) that generates the UI and connects to the middle and backend.c
+This repository contains the front-end code for [search.lib.umich.edu](https://search.lib.umich.edu/) that generates the UI and connects to the middle and backend.
 
 ## Getting Started
 ### 1. Clone Search
