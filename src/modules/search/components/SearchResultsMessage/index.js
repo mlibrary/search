@@ -34,7 +34,7 @@ export default function SearchResultsMessage () {
         }}
       >
         <div><Icon icon='warning' size={15} /></div>
-        <p 
+        <p
           className='details-message'
           dangerouslySetInnerHTML={{ __html: details }}
         />

@@ -58,7 +58,7 @@ export default function Holder ({
       {notesList(notes)}
 
       {rows && (
-        <Expandable { ...preExpanded }>
+        <Expandable {...preExpanded}>
           <div className='holder-container'>
             <table>
               <thead>
@@ -77,21 +77,21 @@ export default function Holder ({
                 </tr>
               </thead>
               <tbody>
-              <ExpandableChildren show={isExpandable ? 10 : rows.length}>
-                {rows.map((row, i) => {
-                  return <Holding holding={row} key={i} />;
-                })}
-              </ExpandableChildren>
-              {isExpandable && (
-                <tr>
-                  <td
-                    colSpan={`${rows[0].length}`}
-                    style={{ wordBreak: 'break-word' }}
-                  >
-                    <ExpandableButton count={rows.length} />
-                  </td>
-                </tr>
-              )}
+                <ExpandableChildren show={isExpandable ? 10 : rows.length}>
+                  {rows.map((row, i) => {
+                    return <Holding holding={row} key={i} />;
+                  })}
+                </ExpandableChildren>
+                {isExpandable && (
+                  <tr>
+                    <td
+                      colSpan={`${rows[0].length}`}
+                      style={{ wordBreak: 'break-word' }}
+                    >
+                      <ExpandableButton count={rows.length} />
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

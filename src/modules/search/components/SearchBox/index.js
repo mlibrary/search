@@ -128,52 +128,52 @@ function SearchBox () {
       }}
     >
       <div className='container container-medium'>
-          <div className='search-box-dropdown'>
-            <select
-              aria-label='Select an option'
-              className='dropdown'
-              value={field}
-              onChange={(e) => {
-                return setOption(e);
-              }}
-              autoComplete='off'
-            >
-              <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
-            </select>
-            <Icon
-              icon='expand_more'
-              size={24}
-            />
-          </div>
-          <input
-            type='text'
-            aria-label={field.startsWith('browse_by_') ? 'Browse for' : 'Search for'}
-            value={inputQuery}
+        <div className='search-box-dropdown'>
+          <select
+            aria-label='Select an option'
+            className='dropdown'
+            value={field}
             onChange={(e) => {
-              return setInputQuery(e.target.value);
+              return setOption(e);
             }}
-            autoComplete='on'
-            name='query'
-          />
-          <button
-            className='btn btn--primary'
-            type='submit'
+            autoComplete='off'
           >
-            <Icon icon='search' size={24} />
-            <span className='offpage'>
-              Search
-            </span>
-          </button>
-          {isAdvanced && (
-            <Anchor
-              to={`/${params.datastoreSlug}/advanced${location.search}`}
-              className='strong underline__hover'
-            >
-              <span className='visually-hidden'>{activeDatastore.name}</span>
-              <span>Advanced</span>
-              <span className='visually-hidden'>Search</span>
-            </Anchor>
-          )}
+            <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
+          </select>
+          <Icon
+            icon='expand_more'
+            size={24}
+          />
+        </div>
+        <input
+          type='text'
+          aria-label={field.startsWith('browse_by_') ? 'Browse for' : 'Search for'}
+          value={inputQuery}
+          onChange={(e) => {
+            return setInputQuery(e.target.value);
+          }}
+          autoComplete='on'
+          name='query'
+        />
+        <button
+          className='btn btn--primary'
+          type='submit'
+        >
+          <Icon icon='search' size={24} />
+          <span className='offpage'>
+            Search
+          </span>
+        </button>
+        {isAdvanced && (
+          <Anchor
+            to={`/${params.datastoreSlug}/advanced${location.search}`}
+            className='strong underline__hover'
+          >
+            <span className='visually-hidden'>{activeDatastore.name}</span>
+            <span>Advanced</span>
+            <span className='visually-hidden'>Search</span>
+          </Anchor>
+        )}
         <SearchTip activeDatastore={activeDatastore.uid} field={field} />
       </div>
     </form>

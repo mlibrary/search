@@ -21,8 +21,9 @@ function ResourceAccess ({ record }) {
 
   return (
     <ContextProvider render={(context) => {
-      return <Holders {...{ record, context}} />;
-    }} />
+      return <Holders {...{ record, context }} />;
+    }}
+    />
   );
 }
 
