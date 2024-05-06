@@ -32,6 +32,7 @@
       "css-minimizer-webpack-plugin": "latest",
       "jest": "latest",
       "resolve-url-loader": "latest",
+      "source-map-loader": "latest",
       "typescript": "latest",
       "workbox-webpack-plugin": "latest"
     }
