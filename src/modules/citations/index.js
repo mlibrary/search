@@ -1,8 +1,5 @@
 import CSL from 'citeproc';
-import {
-  requestRecordCSL,
-  getStyle
-} from './utils';
+import { requestRecordCSL, getStyle } from './utils';
 
 function cite (records, chosenStyleID, cb) {
   /*
@@ -34,7 +31,7 @@ function cite (records, chosenStyleID, cb) {
     const itemIDs = Object.keys(citations);
 
     const citeprocSys = {
-      retrieveLocale: function (lang) {
+      retrieveLocale: function () {
         const xhr = new XMLHttpRequest();
         const path = require('./locales-en-US.xml');
         xhr.open('GET', path, false);
@@ -68,6 +65,4 @@ function cite (records, chosenStyleID, cb) {
   }
 }
 
-export {
-  cite
-};
+export { cite };
