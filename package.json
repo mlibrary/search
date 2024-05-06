@@ -29,6 +29,7 @@
   "overrides": {
     "react-scripts": {
       "@svgr/webpack": "latest",
+      "css-minimizer-webpack-plugin": "latest",
       "resolve-url-loader": "latest",
       "typescript": "latest"
     }
