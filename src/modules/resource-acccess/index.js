@@ -1,3 +1,11 @@
-import ResourceAccessContainer from './components/resource-access-container';
+import Holder from './components/Holder';
+import Holders from './components/Holders';
+import Holding from './components/Holding';
+import ResourceAccess from './components/ResourceAccess';
 
-export default ResourceAccessContainer;
+export {
+  Holder,
+  Holders,
+  Holding,
+  ResourceAccess
+};
