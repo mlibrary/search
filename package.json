@@ -28,6 +28,7 @@
   },
   "overrides": {
     "react-scripts": {
+      "@babel/plugin-proposal-private-property-in-object": "npm:@babel/plugin-transform-private-property-in-object",
       "@svgr/webpack": "latest",
       "babel-preset-react-app": {
         "@babel/plugin-proposal-class-properties": "npm:@babel/plugin-transform-class-properties",
