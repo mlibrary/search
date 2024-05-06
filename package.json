@@ -27,11 +27,9 @@
     "underscore": "^1.13.6"
   },
   "overrides": {
-    "jsdom": "latest",
-    "rollup-plugin-terser": "npm:@rollup/plugin-terser@latest",
-    "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@latest",
-    "svgo": "latest",
-    "workbox-build": "latest"
+    "react-scripts": {
+      "@svgr/webpack": "latest"
+    }
   },
   "scripts": {
     "build": "react-scripts build",
