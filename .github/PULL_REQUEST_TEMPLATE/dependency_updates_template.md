@@ -9,7 +9,6 @@ These dependencies have been updated to their latest versions:
 - `core-js`
 - `eslint`
 - `eslint-plugin-react`
-- `jsonschema`
 - `prejudice`
 - `pride`
 - `prop-types`
@@ -20,7 +19,6 @@ These dependencies have been updated to their latest versions:
 - `react-router-dom`
 - `react-scripts`
 - `underscore`
-- `url`
 
 ## Workflows
 These actions have been updated to their latest versions:
