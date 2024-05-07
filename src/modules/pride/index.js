@@ -1,16 +1,13 @@
 import { initializePride, switchPrideToDatastore, runSearch } from './setup';
 import {
-  isSlugADatastore,
+  getDatastoreByUid,
   getDatastoreUidBySlug,
   getDatastoreSlugByUid,
-  getDatastoreName,
   getMultiSearchRecords,
   getStateFromURL,
   requestRecord,
   isValidURLSearchQuery,
   prideParseField,
-  parseField,
-  isFieldASearchLink,
   requestGetThis
 } from './utils';
 
@@ -20,10 +17,9 @@ import URLSearchQueryWrapper from './components/URLSearchQueryWrapper';
 
 export {
   initializePride,
-  isSlugADatastore,
   switchPrideToDatastore,
   runSearch,
-  getDatastoreName,
+  getDatastoreByUid,
   getDatastoreUidBySlug,
   getMultiSearchRecords,
   URLSearchQueryWrapper,
@@ -32,8 +28,6 @@ export {
   requestRecord,
   isValidURLSearchQuery,
   prideParseField,
-  parseField,
-  isFieldASearchLink,
   requestGetThis,
   placeHold
 };

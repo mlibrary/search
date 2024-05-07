@@ -29,8 +29,7 @@ import {
 import { addFilters, clearFilters, setFilterGroupOrder } from '../filters';
 
 import {
-  getDatastoreSlug,
-  getDatastoreName,
+  getDatastoreByUid,
   getDatastoreUidBySlug,
   prideParseField
 } from './utils';
@@ -432,12 +431,11 @@ const setupSearches = () => {
   );
 
   _.each(publicSearchObjects, function (searchObj) {
-    const name = getDatastoreName(searchObj.uid);
-    const slug = getDatastoreSlug(searchObj.uid);
+    const datastore = getDatastoreByUid(searchObj.uid);
     const ds = {
       uid: searchObj.uid,
-      name,
-      slug: slug || searchObj.uid,
+      name: datastore?.name,
+      slug: datastore?.slug || datastore?.uid || searchObj.uid,
       isMultisearch: searchObj.searches !== undefined
     };
 
