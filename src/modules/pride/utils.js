@@ -1,6 +1,5 @@
 import { Pride } from 'pride';
 import _ from 'underscore';
-import { Validator } from 'jsonschema';
 import { getSearchStateFromURL } from '../search';
 import store from '../../store';
 import config from '../../config';
@@ -101,32 +100,31 @@ const getDatastoreSlugByUid = (uid) => {
 };
 
 const isValidURLSearchQuery = ({ urlState }) => {
-  const v = new Validator();
-  const schema = {
-    type: 'object',
-    properties: {
-      filter: {
-        type: 'object',
-        patternProperties: {
-          '^([A-Za-z0-9_])+$': {
-            type: ['string', 'array']
-          }
-        }
-      },
-      query: {
-        type: 'string'
-      },
-      page: {
-        type: 'string'
-      },
-      sort: {
-        type: 'string'
-      }
-    }
-  };
-  const validated = v.validate(urlState, schema);
+  // Ensure urlState is an object but not null
+  if (typeof urlState !== 'object' || urlState === null) return false;
 
-  return validated.errors.length === 0;
+  // Short-circuit to invalidate if non-string truthy values are found
+  if ((urlState.query && typeof urlState.query !== 'string') ||
+      (urlState.page && typeof urlState.page !== 'string') ||
+      (urlState.sort && typeof urlState.sort !== 'string')) {
+    return false;
+  }
+
+  // Check 'filter' property if it exists
+  if (Object.prototype.hasOwnProperty.call(urlState, 'filter')) {
+    const { filter } = urlState;
+    if (typeof filter !== 'object' || filter === null) return false;
+
+    for (const [prop, value] of Object.entries(filter)) {
+      if (!/^([A-Za-z0-9_])+$/.test(prop)) return false;
+      const isStringOrArray = typeof value === 'string' || Array.isArray(value) && value.every((item) => {
+        return typeof item === 'string';
+      });
+      if (!isStringOrArray) return false;
+    }
+  }
+
+  return true;
 };
 
 /**
