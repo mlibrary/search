@@ -9,7 +9,6 @@ These dependencies have been updated to their latest versions:
 - `core-js`
 - `eslint`
 - `eslint-plugin-react`
-- `jsonschema`
 - `prejudice`
 - `pride`
 - `prop-types`
