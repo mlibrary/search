@@ -1,45 +1,13 @@
-import _ from 'underscore';
+import { findWhere } from '../../../reusable/underscore';
 import store from '../../../../store';
 
-/*
-// Example of what to return:
-  // Return three filters:
-  //  - institution
-  //  - location
-  //  - collection
-
-  // Any active filters?
-  //  - no? Then use defaults
-  //  - yes? Then scope accordingly
-
-  [
-    {
-      uid: 'institution',
-      label: 'Library',
-      activeFilter: 'All libraries'
-      filters: [
-        'All libraries'
-        'William L. Clements Library'
-        // ...
-      ]
-    },
-    {
-      uid: 'location',
-      // ...
-    },
-    {
-      uid: 'collection',
-      // ...
-    }
-  ]
-*/
-const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
+const getCatalogNarrowSearchToOptions = (data, activeFilters) => { 
   function getActiveFilter ({ uid, defaultFilter, filters }) {
     if (activeFilters && activeFilters[uid]) {
       return activeFilters[uid][0];
     }
 
-    if (_.contains(filters, defaultFilter)) {
+    if (filters.includes(defaultFilter)) {
       return defaultFilter;
     }
 
@@ -51,7 +19,7 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
     ? state.institution.active
     : state.institution.defaultInstitution;
 
-  const inst = _.findWhere(data.filters, { uid: 'institution' });
+  const inst = findWhere(data.filters, { uid: 'institution' });
   const instFilterLabels = inst.values.map((filter) => {
     return filter.label;
   });
@@ -61,22 +29,22 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
     filters: instFilterLabels
   });
 
-  const location = _.findWhere(inst.values, { label: instActiveFilter });
+  const location = findWhere(inst.values, { label: instActiveFilter });
   const locationFilterLabels = location.values.map((value) => {
     return value.label;
   });
-  const locationDefault = _.findWhere(data.defaults, { uid: 'location' });
+  const locationDefault = findWhere(data.defaults, { uid: 'location' });
   const locationActiveFilter = getActiveFilter({
     uid: 'location',
     defaultFilter: locationDefault.value,
     filters: locationFilterLabels
   });
 
-  const collection = _.findWhere(location.values, { label: locationActiveFilter });
+  const collection = findWhere(location.values, { label: locationActiveFilter });
   const collectionFilterLabels = collection.values.map((value) => {
     return value.label;
   });
-  const collectionDefault = _.findWhere(data.defaults, { uid: 'collection' });
+  const collectionDefault = findWhere(data.defaults, { uid: 'collection' });
   const collectionActiveFilter = getActiveFilter({
     uid: 'collection',
     defaultFilter: collectionDefault.value,
@@ -116,31 +84,31 @@ const getFilters = ({ filterGroups, activeFilters }) => {
     // Special case for narrowing search...
     if (filterGroup.uid === 'narrow_search') {
       const options = getCatalogNarrowSearchToOptions(filterGroup, activeFilters);
-      return {
-        ...filterGroup,
-        options
-      };
+      return { ...filterGroup, options };
     }
+
+    // Mapping filters and checking if they are active
+    const filters = filterGroup.filters.map((filterValue) => {
+      const isActive = activeFilters?.[filterGroup.uid]?.includes(filterValue) || false;
+      return { value: filterValue, isActive };
+    });
 
     return {
       ...filterGroup,
-      filters: filterGroup.filters.map((filterValue) => {
-        let isActive = false;
-
-        if (activeFilters && activeFilters[filterGroup.uid]) {
-          isActive = _.contains(activeFilters[filterGroup.uid], filterValue);
-        }
-
-        return {
-          value: filterValue,
-          isActive
-        };
-      }),
-      activeFilters: activeFilters ? activeFilters[filterGroup.uid] : []
+      filters,
+      activeFilters: activeFilters?.[filterGroup.uid] || []
     };
   });
 
-  return _.groupBy(advancedFilters, 'groupBy');
+  // Group filters by 'groupBy' property
+  return advancedFilters.reduce((acc, filter) => {
+    const { groupBy } = filter;
+    if (!acc[groupBy]) {
+      acc[groupBy] = [];
+    }
+    acc[groupBy].push(filter);
+    return acc;
+  }, {});
 };
 
 export default getFilters;
