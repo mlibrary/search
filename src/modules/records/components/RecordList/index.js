@@ -43,7 +43,7 @@ function RecordList () {
 
   return (
     <>
-      <div className='results-summary-container'>
+      <div className='results-summary-container flex__responsive container__rounded'>
         <h2 className='results-summary' aria-live='polite'>
           {message()}
         </h2>

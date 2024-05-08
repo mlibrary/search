@@ -780,32 +780,17 @@ details[open] > summary svg.expand_more {
   list-style: none;
 }
 
-/*
-  Search Summary // Records List Bar and Parser Message
-*/
 .results-summary-container {
-  margin-bottom: 0.75rem;
+  align-items: baseline;
+  box-shadow: none!important;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem!important;
+  justify-content: space-between;
   padding: 0.5rem 1.25rem;
-  background: white;
-  background: #FAFAFA;
-  border-radius: 4px;
 }
 
-.results-summary-container>* {
-  margin-top: 0.5rem;
-}
-
-@media (min-width: 600px) {
-  .results-summary-container {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .results-summary-container>* {
-    margin-top: 0;
-  }
+.results-summary-container > p {
+  flex-grow: 1;
 }
 
 .parser-message p,
