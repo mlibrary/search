@@ -23,6 +23,10 @@
   border-color: solid 1px var(--ds-color-green-300);
 }
 
+.remove-filter > svg {
+  flex-shrink: 0;
+}
+
 .filter-list > li + li,
 .filter-list + * {
   margin-top: 0.5rem;

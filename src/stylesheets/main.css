@@ -773,71 +773,6 @@ details[open] > summary svg.expand_more {
   background: #FAFAFA;
 }
 
-.search-box-container-full {
-  background: var(--search-color-blue-200);
-  border-bottom: solid 2px #CCE6FF;
-}
-
-.search-box-container {
-  position: relative;
-  max-width: 50rem;
-  margin: 0 auto;
-}
-
-.search-box-form {
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-}
-
-@media (max-width: 600px) {
-  .search-box-form {
-    display: block;
-  }
-}
-
-.search-box {
-  display: flex;
-  width: 100%;
-}
-
-.search-box-advanced {
-  text-align: center;
-}
-
-@media (max-width: 600px) {
-  .search-box-advanced {
-    margin-bottom: -0.75rem;
-    margin-top: 0.25rem;
-  }
-}
-
-.search-box-button {
-  margin-left: 0.75rem;
-  margin-right: 0;
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 1rem;
-}
-
-@media (min-width: 600px) {
-  .search-box-button .icon {
-    align-self: center;
-    margin-right: 0.5rem;
-  }
-}
-
-.search-box-button-text {
-  font-weight: 600;
-}
-
-@media (max-width: 600px) {
-  .search-box-button-text {
-    position: absolute;
-    left: -999em;
-  }
-}
-
 /*
   Multiple results container // aka Bento box
 */
@@ -850,32 +785,17 @@ details[open] > summary svg.expand_more {
   list-style: none;
 }
 
-/*
-  Search Summary // Records List Bar and Parser Message
-*/
 .results-summary-container {
-  margin-bottom: 0.75rem;
+  align-items: baseline;
+  box-shadow: none!important;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem!important;
+  justify-content: space-between;
   padding: 0.5rem 1.25rem;
-  background: white;
-  background: #FAFAFA;
-  border-radius: 4px;
 }
 
-.results-summary-container>* {
-  margin-top: 0.5rem;
-}
-
-@media (min-width: 600px) {
-  .results-summary-container {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .results-summary-container>* {
-    margin-top: 0;
-  }
+.results-summary-container > p {
+  flex-grow: 1;
 }
 
 .parser-message p,

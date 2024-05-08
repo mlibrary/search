@@ -91,7 +91,7 @@ export default function ChooseAffiliation () {
             </button>
           </div>
           <p className='font-small margin-bottom__none'>
-            You can still use Library Search if you're not affiliated with either campus.
+            You can still use Library Search if you&apos;re not affiliated with either campus.
           </p>
         </Dialog>
       )}

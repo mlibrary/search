@@ -1,0 +1,11 @@
+.search-tip {
+  align-items: baseline;
+}
+
+.search-tip > svg {
+  flex-shrink: 0;
+}
+
+.search-tip > p {
+  flex-grow: 1;
+}

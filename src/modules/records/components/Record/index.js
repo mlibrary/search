@@ -7,7 +7,7 @@ import { getDatastoreSlugByUid } from '../../../pride';
 import { getField, getFieldValue } from '../../utilities';
 import { AddToListButton, isInList } from '../../../lists';
 import Zotero from '../Zotero';
-import ResourceAccess from '../../../resource-acccess';
+import { ResourceAccess } from '../../../resource-acccess';
 import PropTypes from 'prop-types';
 
 function Header ({ record, datastoreUid }) {

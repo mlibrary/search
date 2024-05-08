@@ -1,5 +1,5 @@
 import React from 'react';
-import { Anchor, Icon, TruncateText } from '../../reusable';
+import { Anchor, Icon, TruncateText } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 function Cell ({ cell }) {

@@ -22,9 +22,6 @@ Add links to any documentation or issues that can help give more background info
 ## Anything else?
 _Optional_. If appropriate, provide additional notes the reviewers should be made aware of. They can be about any "gotchas" or even changes that are expected to be made in the future, but are not applied to this pull request.
 
-To align with [current React practices](https://react.dev/learn/your-first-component), these class components have been converted to functional components:
-- `ComponentName`
-
 ## Testing
 - Make sure the PR is consistent in these browsers:
   - [x] Chrome

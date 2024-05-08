@@ -14,7 +14,8 @@ const config = {
       },
       {
         uid: 'databases',
-        name: 'Databases'
+        name: 'Databases',
+        slug: 'databases'
       },
       {
         uid: 'onlinejournals',
@@ -29,6 +30,7 @@ const config = {
       {
         uid: 'everything',
         name: 'Everything',
+        slug: 'everything',
         datastores: [
           'mirlyn',
           'primo',

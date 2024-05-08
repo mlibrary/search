@@ -1,5 +1,4 @@
 import * as actions from '../actions/';
-import _ from 'underscore';
 
 const initialState = {
   booleanTypes: []
@@ -117,35 +116,23 @@ const advancedFieldedSearchingReducer = (state, action) => {
   return state;
 };
 
-const filterGroupReducer = ({ filterGroup, filterGroupUid, onlyOneFilterValue, filterValue }) => {
-  if (filterValue === undefined) {
-    return undefined;
-  }
+const filterGroupReducer = ({ filterGroup, onlyOneFilterValue, filterValue }) => {
+  if (filterValue === undefined) return undefined;
 
-  // filter group has no active filters, so add it.
-  if (!filterGroup || onlyOneFilterValue) {
-    return [].concat(filterValue);
-  }
+  // Add filter group if no active filters
+  if (!filterGroup || onlyOneFilterValue) return [filterValue];
 
-  // filter group exists
-  if (filterGroup) {
+  if (filterGroup.includes(filterValue)) {
     // Remove filter value
-    if (_.contains(filterGroup, filterValue)) {
-      const newFilters = _.filter(filterGroup, (item) => {
-        return item !== filterValue;
-      });
+    const newFilters = filterGroup.filter((item) => {
+      return item !== filterValue;
+    });
 
-      if (newFilters.length === 0) {
-        return undefined;
-      } else {
-        return newFilters;
-      }
-
-    // Add filter value to existing filter group list
-    } else {
-      return filterGroup.concat(filterValue);
-    }
+    return newFilters.length === 0 ? undefined : newFilters;
   }
+
+  // Add filter value to existing filter group list
+  return [...filterGroup, filterValue];
 };
 
 const advancedFilterReducer = (state, action) => {
@@ -170,7 +157,6 @@ const advancedFilterReducer = (state, action) => {
             ...state[dsUid].activeFilters,
             [filterGroupUid]: filterGroupReducer({
               filterGroup: state[dsUid].activeFilters ? state[dsUid].activeFilters[filterGroupUid] : undefined,
-              filterGroupUid,
               onlyOneFilterValue: action.payload.onlyOneFilterValue,
               filterValue
             })
