@@ -121,17 +121,11 @@ const getStateFromURL = ({ location }) => {
   return parsed;
 };
 
-const fetchRecordFromState = ({ datastoreUid, recordUid }) => {
-  const state = store.getState();
-
-  return findWhere(state.records.records[datastoreUid], { uid: recordUid });
-};
-
 const requestRecord = ({ datastoreUid, recordUid }) => {
   // Requesting a record ordered options:
   // 1. Is the record in the results? Use that.
   // 2. If not, then ask Pride to fetch the record.
-  const recordFromState = fetchRecordFromState({ datastoreUid, recordUid });
+  const recordFromState = findWhere(store.getState().records.records[datastoreUid], { uid: recordUid });
 
   if (recordFromState) {
     store.dispatch(setRecord(recordFromState));
