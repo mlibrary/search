@@ -1,12 +1,8 @@
 import { Pride } from 'pride';
-import _ from 'underscore';
-
 import config from '../../config';
 import store from '../../store';
 import { renderApp, renderPrideFailedToLoad } from '../../index';
-
 import { addDatastore, changeActiveDatastore } from '../datastores';
-
 import {
   addRecords,
   clearRecords,
@@ -14,36 +10,27 @@ import {
   addHoldings,
   setRecordHoldings
 } from '../records';
-
 import { getField, getFieldValue } from '../records/utilities';
-
 import { setSearchData, setParserMessage } from '../search';
-
 import {
   addAdvancedField,
   addAdvancedBooleanTypes,
   addFieldedSearch,
   addAdvancedFilterGroups
 } from '../advanced';
-
 import { addFilters, clearFilters, setFilterGroupOrder } from '../filters';
-
 import {
   getDatastoreByUid,
   getDatastoreUidBySlug,
   prideParseField
 } from './utils';
-
 import { setDefaultInstitution } from '../institution';
-
 import { setDefaultAffiliation } from '../affiliation';
-
 import { addBrowseFilter, organizeByParents } from '../browse';
-
 import { addSpecialists } from '../specialists';
-
 import prejudice from '../lists/prejudice';
 import { setupProfile } from '../profile';
+import { findWhere } from '../reusable/underscore';
 
 /*
   Pride Internal Configuration
@@ -67,35 +54,30 @@ Pride.Messenger.addObserver(function (msg) {
 let searchSwitcher;
 
 const handleSearchData = (data, datastoreUid) => {
-  const payload = {
-    data: {
-      count: data.count,
-      page: data.page,
-      totalPages: data.total_pages,
-      totalAvailable: data.total_available,
-      sorts: data.sorts,
-      selectedSort: data.selected_sort,
-      fields: data.fields
-    },
-    datastoreUid
-  };
+  const {
+    specialists,
+    count,
+    page,
+    total_pages: totalPages,
+    total_available: totalAvailable,
+    sorts,
+    selected_sort: selectedSort,
+    fields
+  } = data;
+  const { datastores, records } = store.getState();
+  const { active: activeDatastore } = datastores;
 
-  const activeDatastore = store.getState().datastores.active;
-
-  if (
-    (activeDatastore === 'everything' || activeDatastore === datastoreUid) &&
-    data.specialists
-  ) {
-    store.dispatch(addSpecialists(data.specialists));
+  if (['everything', activeDatastore].includes(datastoreUid) && specialists) {
+    store.dispatch(addSpecialists(specialists));
   }
 
-  store.dispatch(setSearchData(payload));
+  store.dispatch(setSearchData({
+    data: { count, page, totalPages, totalAvailable, sorts, selectedSort, fields },
+    datastoreUid
+  }));
 
-  const records = store.getState().records.records[datastoreUid];
-  const recordsLength = _.values(records).length;
-  const count = data.count; // page count
-  const page = data.page;
-  const totalAvailable = data.total_available;
+  const datastoreRecords = records.records[datastoreUid] || [];
+  const recordsLength = Object.values(datastoreRecords).length;
   const lastPage = (page - 1) * count + recordsLength === totalAvailable;
 
   // Check to see if records have loaded.
@@ -109,36 +91,27 @@ const handleSearchData = (data, datastoreUid) => {
   }
 };
 
-const getFullRecordUid = () => {
-  const record = store.getState().records.record;
-  return record ? record.uid : undefined;
-};
-
 const setupObservers = (searchObj) => {
-  // TODO: Only listen to this overserver if new search is made.
   searchObj.resultsObservers.add(function (results) {
     store.dispatch(clearRecords(searchObj.uid));
 
     // Does results contain undefined records
-    if (!_.contains(results, undefined)) {
+    if (!results.includes(undefined)) {
       const recordsHaveHoldings = searchObj.uid === 'mirlyn';
 
       // Build a list of records from Pride results
       const records = results.reduce((accumulator, result) => {
         result.renderFull((data) => {
-          const uid = getFieldValue(getField(data.fields, 'id'))[0];
-          const resourceAccess = getFieldValue(
-            getField(data.fields, 'resource_access')
-          );
-
-          accumulator = accumulator.concat({
-            uid,
+          const { fields } = data;
+    
+          accumulator.push({
+            uid: getFieldValue(getField(fields, 'id'))[0],
             ...data,
-            resourceAccess: resourceAccess || undefined,
-            loadingHoldings: recordsHaveHoldings ? true : undefined
+            resourceAccess: getFieldValue(getField(fields, 'resource_access')) || undefined,
+            loadingHoldings: recordsHaveHoldings || undefined
           });
         });
-
+    
         return accumulator;
       }, []);
 
@@ -152,7 +125,7 @@ const setupObservers = (searchObj) => {
 
       if (recordsHaveHoldings) {
         const holdingsCallback = (dsUid, uid, data) => {
-          const fullRecordUid = getFullRecordUid();
+          const fullRecordUid = store.getState().records.record?.uid;
 
           store.dispatch(
             addHoldings({
@@ -171,14 +144,12 @@ const setupObservers = (searchObj) => {
           }
         };
 
-        _.each(results, (result) => {
+        results.forEach((result) => {
           result.renderFull((data) => {
             const uid = getFieldValue(getField(data.fields, 'id'))[0];
-
             result.getHoldings((data) => {
               return holdingsCallback(searchObj.uid, uid, data);
-            }
-            );
+            });
           });
         });
       }
@@ -341,88 +312,55 @@ class SearchSwitcher {
 }
 
 const setupSearches = () => {
+  const { list, default: defaultDatastore } = config.datastores;
+  const datastores = Array.from(new Set(
+    list.reduce((memo, datastore) => {
+      return memo.concat(datastore.datastores || `${datastore.uid}`);
+    }, [])
+  ));
   const allDatastores = Pride.AllDatastores.array;
-  const datastores = _.uniq(
-    _.reduce(
-      config.datastores.list,
-      (memo, dsConfig) => {
-        if (!dsConfig.datastores) {
-          memo = memo.concat([`${dsConfig.uid}`]);
-        } else {
-          memo = memo.concat(dsConfig.datastores);
-        }
-        return memo;
-      },
-      []
-    )
-  );
 
-  const allSearchObjects = _.reduce(
-    datastores,
-    (memo, uid) => {
-      const foundDatastore = _.find(allDatastores, function (ds) {
-        return ds.get('uid') === uid;
+  const allSearchObjects = datastores.reduce((memo, uid) => {
+    const foundDatastore = allDatastores.find((datastore) => {
+      return datastore.get('uid') === uid;
+    });
+  
+    if (foundDatastore !== undefined) {
+      const searchObj = foundDatastore.baseSearch();
+      searchObj.set({ count: 10 });
+      setupObservers(searchObj);
+      memo.push(searchObj);
+    }
+  
+    return memo;
+  }, []);
+
+  const multiSearchDatastores = list.filter((datastore) => {
+    return datastore.datastores;
+  });
+
+  const multiSearchObjects = multiSearchDatastores.reduce((memo, multiDatastoreConfig) => {
+    const multiSearchInternalObjects = multiDatastoreConfig.datastores.map((datastore) => {
+      return allSearchObjects.find((searchObj) => {
+        return searchObj.uid === datastore;
       });
-
-      if (foundDatastore !== undefined) {
-        const searchObj = foundDatastore.baseSearch();
-
-        searchObj.set({ count: 10 }); // default page count for single result datastores
-        setupObservers(searchObj);
-
-        memo.push(searchObj);
-      }
-
-      return memo;
-    },
-    []
-  );
-
-  const multiSearchDatastores = _.reduce(
-    config.datastores.list,
-    (memo, dsConfig) => {
-      if (dsConfig.datastores) {
-        memo.push(dsConfig);
-      }
-      return memo;
-    },
-    []
-  );
-
-  const multiSearchObjects = _.reduce(
-    multiSearchDatastores,
-    (memo, multiDatastoreConfig) => {
-      const multiSearchInternalObjects = [];
-
-      _.each(multiDatastoreConfig.datastores, (ds) => {
-        const foundSearchObj = _.findWhere(allSearchObjects, { uid: ds });
-
-        if (foundSearchObj) {
-          multiSearchInternalObjects.push(foundSearchObj);
-        }
-      });
-
-      if (multiSearchInternalObjects.length > 0) {
-        memo.push(
-          new MultiSearch(
-            multiDatastoreConfig.uid,
-            true,
-            multiSearchInternalObjects
-          )
-        );
-      }
-
-      return memo;
-    },
-    []
-  );
+    }).filter((foundSearchObj) => {
+      return !!foundSearchObj;
+    });
+  
+    if (multiSearchInternalObjects.length) {
+      memo.push(new MultiSearch(multiDatastoreConfig.uid, true, multiSearchInternalObjects));
+    }
+  
+    return memo;
+  }, []);
 
   const publicSearchObjects = multiSearchObjects.concat(allSearchObjects);
-  const defaultSearchObject = _.findWhere(publicSearchObjects, {
-    uid: config.datastores.default
+  const defaultSearchObject = publicSearchObjects.find((searchObj) => {
+    return searchObj.uid === defaultDatastore;
   });
-  const remainingSearchObjects = _.reject(publicSearchObjects, (searchObj) => {
-    return searchObj.uid === config.datastores.default;
+  const remainingSearchObjects = publicSearchObjects.filter((searchObj) => {
+    return searchObj.uid !== defaultDatastore;
   });
 
   searchSwitcher = new SearchSwitcher(
@@ -430,27 +368,21 @@ const setupSearches = () => {
     remainingSearchObjects
   );
 
-  _.each(publicSearchObjects, function (searchObj) {
+  publicSearchObjects.forEach((searchObj) => {
     const datastore = getDatastoreByUid(searchObj.uid);
-    const ds = {
+    store.dispatch(addDatastore({
       uid: searchObj.uid,
       name: datastore?.name,
-      slug: datastore?.slug || datastore?.uid || searchObj.uid,
+      slug: datastore?.slug || searchObj.uid,
       isMultisearch: searchObj.searches !== undefined
-    };
-
-    store.dispatch(addDatastore(ds));
+    }));
   });
 };
 
 const switchPrideToDatastore = (slug) => {
   const uid = getDatastoreUidBySlug(slug);
 
-  if (!uid) {
-    return false;
-  }
-
-  if (!searchSwitcher) {
+  if (!uid || !searchSwitcher) {
     return false;
   }
 
@@ -474,14 +406,6 @@ const runSearch = () => {
     fieldTree = prideParseField('all_fields', query);
   }
 
-  // Inject library/institution filter with facets.
-  // The backend whitelists facets, so
-  // the FE can always includes the institution in
-  // a search. This is useful and allows including
-  // institution in an Everything search so that
-  // catalog works as expect, but other datastores
-  // can ignore it.
-  // For more background: SEARCH-871
   facets = {
     ...facets,
     institution: state.institution.active || state.defaultInstitution
@@ -535,7 +459,7 @@ const setupAdvancedSearch = () => {
     if (config.advanced[dsUid].fields) {
       config.advanced[dsUid].fields.forEach((fieldUid) => {
         const fields = getPotentialbooleanField(dsUid);
-        const fieldExists = _.findWhere(fields, { uid: fieldUid });
+        const fieldExists = findWhere(fields, { uid: fieldUid });
 
         if (fieldExists) {
           store.dispatch(
@@ -570,7 +494,7 @@ const setupAdvancedSearch = () => {
       );
       const configuredFilterGroups = config.advanced[dsUid].filters.reduce(
         (prev, filterGroupConfig) => {
-          const foundFilterGroup = _.findWhere(availableFilterGroups, {
+          const foundFilterGroup = findWhere(availableFilterGroups, {
             uid: filterGroupConfig.uid
           });
 
@@ -643,8 +567,7 @@ const compareFacetName = (a, b) => {
   return comparison;
 };
 
-const setupBrowse = () => {
-  /*
+/*
     To setup browse
 
     1) Know what datastores have a browse.
@@ -653,9 +576,10 @@ const setupBrowse = () => {
     4) Add filters to browse state.
   */
 
+const setupBrowse = () => {
   ['databases', 'onlinejournals'].forEach((datastoreUid) => {
     const facets = Pride.AllDatastores.get(datastoreUid).get('facets');
-    const facet = _.findWhere(facets, { uid: 'academic_discipline' });
+    const facet = findWhere(facets, { uid: 'academic_discipline' });
     const filters = organizeByParents(facet.values.sort(compareFacetName));
 
     store.dispatch(
