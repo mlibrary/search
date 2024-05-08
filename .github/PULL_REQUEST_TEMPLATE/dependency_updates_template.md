@@ -6,7 +6,6 @@ These dependencies have been updated to their latest versions:
 - `@eslint/js`
 - `@reduxjs/toolkit`
 - `citeproc`
-- `core-js`
 - `eslint`
 - `eslint-plugin-react`
 - `prejudice`

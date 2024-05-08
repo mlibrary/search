@@ -13,7 +13,6 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
     "citeproc": "^2.4.63",
-    "core-js": "^3.37.0",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
     "pride": "git+https://github.com/mlibrary/pride.git",
     "prop-types": "^15.8.1",
