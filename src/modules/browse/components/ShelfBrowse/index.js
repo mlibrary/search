@@ -5,7 +5,7 @@ import BrowseLink from '../BrowseLink';
 import { Icon, useWindowWidth } from '../../../reusable';
 import relatedItems from './test-data';
 
-function findObjectWithValue(items, valueToMatch) {
+function findObjectWithValue (items, valueToMatch) {
   for (let index = 0; index < items.length; index++) {
     for (let i = 0; i < items[index].length; i++) {
       const item = items[index][i];
