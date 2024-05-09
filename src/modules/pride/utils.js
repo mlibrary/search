@@ -76,9 +76,9 @@ const isValidURLSearchQuery = ({ urlState }) => {
 
     for (const [prop, value] of Object.entries(filter)) {
       if (!/^([A-Za-z0-9_])+$/.test(prop)) return false;
-      const isStringOrArray = typeof value === 'string' || Array.isArray(value) && value.every((item) => {
+      const isStringOrArray = typeof value === 'string' || (Array.isArray(value) && value.every((item) => {
         return typeof item === 'string';
-      });
+      }));
       if (!isStringOrArray) return false;
     }
   }

@@ -22,7 +22,7 @@ const addRecordsToList = () => {
     group[datastore].push(record);
     return group;
   }, {});
-  
+
   store.dispatch(addList(groupedRecords));
 };
 

@@ -55,10 +55,10 @@ const filtersReducer = function filterReducer (state = initialState, action) {
       active: {
         ...state.active,
         [datastoreUid]: Object.fromEntries(Object.entries(filters).map(
-            ([filterUid, filterValue]) => {
-              return [filterUid, [...filterValue]];
-            }
-          ))
+          ([filterUid, filterValue]) => {
+            return [filterUid, [...filterValue]];
+          }
+        ))
       }
     };
   }
