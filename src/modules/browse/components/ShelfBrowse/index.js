@@ -111,6 +111,7 @@ function ShelfBrowse () {
   const currentItems = items.slice(startIndex, endIndex);
   const firstPage = currentPage === 0;
   const lastPage = currentPage === maxPages - 1;
+  const buttonLabel = `${itemsPerPage} item${itemsPerPage !== 1 ? 's' : ''}`;
 
   return (
     <section className='shelf-browse container__rounded'>
@@ -125,8 +126,8 @@ function ShelfBrowse () {
       </header>
       <div className='shelf-browse-carousel' aria-label='Shelf browse carousel'>
         <button
-          aria-label={`Previous ${itemsPerPage} items`}
-          title={`Previous ${itemsPerPage} items`}
+          aria-label={`Previous ${buttonLabel}`}
+          title={`Previous ${buttonLabel}`}
           disabled={firstPage}
           onClick={() => {
             return moveCarousel(-1);
@@ -177,8 +178,8 @@ function ShelfBrowse () {
           })}
         </ul>
         <button
-          aria-label={`Next ${itemsPerPage} items`}
-          title={`Next ${itemsPerPage} items`}
+          aria-label={`Next ${buttonLabel}`}
+          title={`Next ${buttonLabel}`}
           disabled={lastPage}
           onClick={() => {
             return moveCarousel(1);
