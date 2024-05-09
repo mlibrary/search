@@ -7,6 +7,8 @@ These dependencies have been updated to their latest versions:
 - `@reduxjs/toolkit`
 - `citeproc`
 - `eslint`
+- `eslint-plugin-import`
+- `eslint-plugin-n`
 - `eslint-plugin-react`
 - `prejudice`
 - `pride`
