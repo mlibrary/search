@@ -1,7 +1,7 @@
 import { findWhere } from '../../../reusable/underscore';
 import store from '../../../../store';
 
-const getCatalogNarrowSearchToOptions = (data, activeFilters) => { 
+const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
   function getActiveFilter ({ uid, defaultFilter, filters }) {
     if (activeFilters && activeFilters[uid]) {
       return activeFilters[uid][0];

@@ -103,7 +103,7 @@ const setupObservers = (searchObj) => {
       const records = results.reduce((accumulator, result) => {
         result.renderFull((data) => {
           const { fields } = data;
-    
+
           accumulator.push({
             uid: getFieldValue(getField(fields, 'id'))[0],
             ...data,
@@ -111,7 +111,7 @@ const setupObservers = (searchObj) => {
             loadingHoldings: recordsHaveHoldings || undefined
           });
         });
-    
+
         return accumulator;
       }, []);
 
@@ -324,14 +324,14 @@ const setupSearches = () => {
     const foundDatastore = allDatastores.find((datastore) => {
       return datastore.get('uid') === uid;
     });
-  
+
     if (foundDatastore !== undefined) {
       const searchObj = foundDatastore.baseSearch();
       searchObj.set({ count: 10 });
       setupObservers(searchObj);
       memo.push(searchObj);
     }
-  
+
     return memo;
   }, []);
 
@@ -347,11 +347,11 @@ const setupSearches = () => {
     }).filter((foundSearchObj) => {
       return !!foundSearchObj;
     });
-  
+
     if (multiSearchInternalObjects.length) {
       memo.push(new MultiSearch(multiDatastoreConfig.uid, true, multiSearchInternalObjects));
     }
-  
+
     return memo;
   }, []);
 
