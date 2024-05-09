@@ -5,6 +5,18 @@ import BrowseLink from '../BrowseLink';
 import { Icon, useWindowWidth } from '../../../reusable';
 import relatedItems from './test-data';
 
+function findObjectWithValue(items, valueToMatch) {
+  for (let index = 0; index < items.length; index++) {
+    for (let i = 0; i < items[index].length; i++) {
+      const item = items[index][i];
+      if (item.uid === 'id' && item.value === valueToMatch) {
+        return index;
+      }
+    }
+  }
+  return 'null';
+}
+
 function findCallNumberBrowse (metadata) {
   const callNumber = metadata.find((item) => {
     return item.term === 'Call Number';
@@ -41,8 +53,7 @@ function ShelfBrowse () {
   if (windowWidth < 640) {
     itemsPerPage = 1;
   }
-  const maxPages = Math.ceil(items.length / itemsPerPage);
-  const middlePage = Math.floor(maxPages / 2);
+  const middlePage = Math.floor(findObjectWithValue(items, uid) / itemsPerPage);
   const [currentPage, setCurrentPage] = useState(middlePage);
   const [animationClass, setAnimationClass] = useState('');
   const animationDuration = 250;
@@ -72,6 +83,7 @@ function ShelfBrowse () {
   if (!callNumberBrowse) return null;
 
   const { type, value, text } = callNumberBrowse;
+  const maxPages = Math.ceil(items.length / itemsPerPage);
 
   const moveCarousel = (direction) => {
     const getDirection = direction === 1 ? 'next' : 'previous';
