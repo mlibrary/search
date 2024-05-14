@@ -1,14 +1,14 @@
 import CSL from 'citeproc';
-import { requestRecordCSL, getStyle } from './utils';
+import { getStyle, requestRecordCSL } from './utils';
 
 function cite (records, chosenStyleID, cb) {
   /*
-    Turn records into this shape:
-    {
-      [id]: { ...record data },
-      ...
-    }
-  */
+   * Turn records into this shape:
+   * {
+   *   [id]: { ...record data },
+   *   ...
+   * }
+   */
   let csls = {};
 
   records.forEach((record) => {
@@ -31,7 +31,7 @@ function cite (records, chosenStyleID, cb) {
     const itemIDs = Object.keys(citations);
 
     const citeprocSys = {
-      retrieveLocale: function () {
+      retrieveLocale () {
         const xhr = new XMLHttpRequest();
         const path = require('./locales-en-US.xml');
         xhr.open('GET', path, false);
@@ -39,7 +39,7 @@ function cite (records, chosenStyleID, cb) {
         xhr.send(null);
         return xhr.responseText;
       },
-      retrieveItem: function (id) {
+      retrieveItem (id) {
         return citations[id];
       }
     };
@@ -61,7 +61,7 @@ function cite (records, chosenStyleID, cb) {
 
     const output = processorOutput();
 
-    cb(chosenStyleID, output); // callback
+    cb(chosenStyleID, output); // Callback
   }
 }
 

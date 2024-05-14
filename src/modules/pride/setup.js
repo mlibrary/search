@@ -4,19 +4,19 @@ import store from '../../store';
 import { renderApp, renderPrideFailedToLoad } from '../../index';
 import { addDatastore, changeActiveDatastore } from '../datastores';
 import {
+  addHoldings,
   addRecords,
   clearRecords,
   loadingRecords,
-  addHoldings,
   setRecordHoldings
 } from '../records';
 import { getField, getFieldValue } from '../records/utilities';
-import { setSearchData, setParserMessage } from '../search';
+import { setParserMessage, setSearchData } from '../search';
 import {
-  addAdvancedField,
   addAdvancedBooleanTypes,
-  addFieldedSearch,
-  addAdvancedFilterGroups
+  addAdvancedField,
+  addAdvancedFilterGroups,
+  addFieldedSearch
 } from '../advanced';
 import { addFilters, clearFilters, setFilterGroupOrder } from '../filters';
 import {
@@ -32,20 +32,18 @@ import prejudice from '../lists/prejudice';
 import { setupProfile } from '../profile';
 import { findWhere } from '../reusable/underscore';
 
-/*
-  Pride Internal Configuration
-*/
+// Pride Internal Configuration
 Pride.Settings.datastores_url = config.spectrum;
 Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = false; // Console log messages
 
-Pride.Messenger.addObserver(function (msg) {
+Pride.Messenger.addObserver((msg) => {
   console.log(['info', msg]);
 }, 'info');
-Pride.Messenger.addObserver(function (msg) {
+Pride.Messenger.addObserver((msg) => {
   console.log(['warning', msg]);
 }, 'warning');
-Pride.Messenger.addObserver(function (msg) {
+Pride.Messenger.addObserver((msg) => {
   console.log(['error', msg]);
 
   store.dispatch(setParserMessage(msg));
@@ -92,7 +90,7 @@ const handleSearchData = (data, datastoreUid) => {
 };
 
 const setupObservers = (searchObj) => {
-  searchObj.resultsObservers.add(function (results) {
+  searchObj.resultsObservers.add((results) => {
     store.dispatch(clearRecords(searchObj.uid));
 
     // Does results contain undefined records
@@ -135,10 +133,12 @@ const setupObservers = (searchObj) => {
             })
           );
 
-          // If the result holdings in the callback need
-          // to be used in the full record.
-          // A record from results is stored seperate from
-          // a full record.
+          /*
+           * If the result holdings in the callback need
+           * to be used in the full record.
+           * A record from results is stored seperate from
+           * a full record.
+           */
           if (uid === fullRecordUid) {
             store.dispatch(setRecordHoldings(data));
           }
@@ -158,15 +158,13 @@ const setupObservers = (searchObj) => {
     handleSearchData(searchObj.getData(), searchObj.uid);
   });
 
-  searchObj.facetsObservers.add(function (filterGroups) {
+  searchObj.facetsObservers.add((filterGroups) => {
     const activeDatastore = store.getState().datastores.active;
 
     if (activeDatastore === searchObj.uid) {
       store.dispatch(clearFilters());
 
-      /*
-        Set the filter order in state.
-      */
+      // Set the filter order in state.
       store.dispatch(
         setFilterGroupOrder({
           order: filterGroups.map((fg) => {
@@ -345,7 +343,7 @@ const setupSearches = () => {
         return searchObj.uid === datastore;
       });
     }).filter((foundSearchObj) => {
-      return !!foundSearchObj;
+      return Boolean(foundSearchObj);
     });
 
     if (multiSearchInternalObjects.length) {
@@ -401,7 +399,7 @@ const runSearch = () => {
   let fieldTree;
 
   if (query === '*') {
-    fieldTree = {}; // search all
+    fieldTree = {}; // Search all
   } else {
     fieldTree = prideParseField('all_fields', query);
   }
@@ -420,7 +418,7 @@ const runSearch = () => {
     count: 10
   };
 
-  const datastores = state.datastores.datastores;
+  const { datastores } = state.datastores;
 
   datastores.forEach((datastore) => {
     if (!datastore.isMultisearch) {
@@ -435,8 +433,7 @@ const runSearch = () => {
   searchSwitcher.set(prideConfig).run();
 };
 
-// All available advanced fields and
-// forced fields from config
+// All available advanced fields and forced fields from config
 const getPotentialbooleanField = (dsUid) => {
   const dsData = store.getState().search.data[dsUid];
   const spectrumFields = dsData ? dsData.fields : [];
@@ -512,21 +509,23 @@ const setupAdvancedSearch = () => {
                 .sort(),
               activeFilters: []
             });
-          } else {
-            // for filter groups that are configured, but not typical
-            // or in the filters available in Pride.
-            if (filterGroupConfig.uid === 'narrow_search') {
-              const hierarchy = Pride.AllDatastores.get(dsUid).get('hierarchy');
+          }
+          /*
+           * For filter groups that are configured, but not typical
+           * Or in the filters available in Pride.
+           */
+          if (filterGroupConfig.uid === 'narrow_search') {
+            const hierarchy = Pride.AllDatastores.get(dsUid).get('hierarchy');
 
-              if (hierarchy) {
-                return prev.concat({
-                  ...filterGroupConfig,
-                  filters: [].concat(hierarchy),
-                  activeFilters: []
-                });
-              }
+            if (hierarchy) {
+              return prev.concat({
+                ...filterGroupConfig,
+                filters: [].concat(hierarchy),
+                activeFilters: []
+              });
             }
           }
+
           return prev;
         },
         []
@@ -568,13 +567,13 @@ const compareFacetName = (a, b) => {
 };
 
 /*
-    To setup browse
-
-    1) Know what datastores have a browse.
-    2) Get from Pride a full list of filters used for browse.
-    3) Organize filters by parents.
-    4) Add filters to browse state.
-  */
+ * To setup browse
+ *
+ * 1) Know what datastores have a browse.
+ * 2) Get from Pride a full list of filters used for browse.
+ * 3) Organize filters by parents.
+ * 4) Add filters to browse state.
+ */
 
 const setupBrowse = () => {
   ['databases', 'onlinejournals'].forEach((datastoreUid) => {
@@ -596,9 +595,9 @@ const setupBrowse = () => {
 };
 
 /*
-  Initialize Pride kicks off Pride's internal init and checks if
-  communication with the back-end (Spectrum) is established.
-*/
+ * Initialize Pride kicks off Pride's internal init and checks if
+ * communication with the back-end (Spectrum) is established.
+ */
 const initializePride = () => {
   Pride.init({
     success: () => {

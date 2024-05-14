@@ -50,9 +50,10 @@ const recordsReducer = (state = recordsInitialState, action) => {
   }
 
   if (action.type === actions.CLEAR_RECORD) {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       record: null
-    });
+    };
   }
 
   if (action.type === actions.CLEAR_RECORDS) {
@@ -66,27 +67,29 @@ const recordsReducer = (state = recordsInitialState, action) => {
   }
 
   if (action.type === actions.LOADING_RECORDS) {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       loading: {
         ...state.loading,
         [action.payload.datastoreUid]: action.payload.loading
       }
-    });
+    };
   }
 
   if (action.type === actions.SET_RECORD) {
-    return Object.assign({}, state, {
-      record: action.payload
-    });
+    return {
+      ...state,
+      record: action.payload };
   }
 
   if (action.type === actions.SET_RECORD_GET_THIS) {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       record: {
         ...state.record,
         getthis: action.payload
       }
-    });
+    };
   }
 
   if (action.type === actions.SET_RECORD_HOLDINGS) {

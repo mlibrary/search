@@ -31,7 +31,7 @@ function ActiveFilters () {
    *   subject: ['Birds', 'Birds North America'],
    *   format: ['Science', 'Biology']
    * }
-   * 
+   *
    * output:
    * [
    *   { group: 'subject', value: 'Birds' },
