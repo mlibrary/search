@@ -6,6 +6,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.0.1",
     "@eslint/js": "^9.2.0",
+    "@stylistic/eslint-plugin": "^2.1.0",
     "eslint": "^9.2.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^17.7.0",
