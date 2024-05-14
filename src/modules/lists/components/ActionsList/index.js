@@ -88,6 +88,7 @@ function ActionsList (props) {
             <AuthenticationRequired profile={profile}>
               <EmailAction
                 action={props.active}
+                emailAddress={profile?.email || ''}
                 {...props}
               />
             </AuthenticationRequired>
@@ -96,6 +97,7 @@ function ActionsList (props) {
             <AuthenticationRequired profile={profile}>
               <TextAction
                 action={props.active}
+                phoneNumber={profile?.text || ''}
                 {...props}
               />
             </AuthenticationRequired>
