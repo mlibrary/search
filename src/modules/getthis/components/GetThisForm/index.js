@@ -110,7 +110,9 @@ const GetThisForm = ({ form }) => {
   };
 
   const renderResponse = () => {
-    if (!response) return null;
+    if (!response) {
+      return null;
+    }
     const success = response.status === 'Action Succeeded';
 
     return (

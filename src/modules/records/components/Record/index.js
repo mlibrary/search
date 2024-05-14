@@ -78,7 +78,9 @@ Header.propTypes = {
 };
 
 function Record ({ record, list, datastoreUid }) {
-  if (!getField(record.fields, 'id')) return null;
+  if (!getField(record.fields, 'id')) {
+    return null;
+  }
 
   return (
     <article className={`container__rounded record ${(isInList(list, record.uid) ? ' record--highlight' : '')}`}>

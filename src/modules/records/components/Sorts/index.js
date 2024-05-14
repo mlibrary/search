@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
 import config from '../../../../config';
 import { stringifySearch } from '../../../search';
@@ -41,7 +41,9 @@ const Sorts = ({ activeDatastore }) => {
     navigate(`/${datastoreSlug}?${queryString}`);
   };
 
-  if (!sorts.length) return null;
+  if (!sorts.length) {
+    return null;
+  }
 
   return (
     <div>

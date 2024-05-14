@@ -4,13 +4,15 @@ import Holding from '../Holding';
 import {
   Anchor,
   Expandable,
-  ExpandableChildren,
-  ExpandableButton
+  ExpandableButton,
+  ExpandableChildren
 } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 const notesList = (notes) => {
-  if (!notes) return null;
+  if (!notes) {
+    return null;
+  }
 
   if (notes.length === 1) {
     return (

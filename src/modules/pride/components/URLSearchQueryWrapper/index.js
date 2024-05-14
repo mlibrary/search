@@ -1,25 +1,25 @@
-import { useEffect, memo } from 'react';
+import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import config from '../../../../config';
 import {
-  setSearchQuery,
-  setSearchQueryInput,
   searching,
   setPage,
-  setSort,
-  setParserMessage
+  setParserMessage,
+  setSearchQuery,
+  setSearchQueryInput,
+  setSort
 } from '../../../search/actions';
 import {
+  clearActiveFilters,
   resetFilters,
-  setActiveFilters,
-  clearActiveFilters
+  setActiveFilters
 } from '../../../filters';
 import {
+  getDatastoreUidBySlug,
   getStateFromURL,
   runSearch,
-  switchPrideToDatastore,
-  getDatastoreUidBySlug
+  switchPrideToDatastore
 } from '../../../pride';
 import { setActiveInstitution } from '../../../institution';
 import { setA11yMessage } from '../../../a11y';
@@ -42,7 +42,9 @@ function handleURLState ({
     localStorage.setItem('affiliation', urlState.affiliation);
   }
 
-  if (!datastoreUid) return null;
+  if (!datastoreUid) {
+    return null;
+  }
 
   const updateRequired = {
     query: urlState.query && urlState.query !== query,

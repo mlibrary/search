@@ -7,7 +7,9 @@ const NarrowSearchTo = ({ options, handleChange }) => {
       {options.map((option) => {
         const { filters, label, activeFilter } = option;
 
-        if (filters.length <= 1) return null;
+        if (filters.length <= 1) {
+          return null;
+        }
 
         const slug = `narrow-search-to-${label.toLowerCase().replaceAll(' ', '-')}`;
 

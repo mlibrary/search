@@ -3,7 +3,9 @@ import { Alert, Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 function ActionStatusMessage ({ action, status }) {
-  if (!status) return null;
+  if (!status) {
+    return null;
+  }
 
   let type = 'warning';
   let message = <>We&apos;re sorry. Something went wrong. Please use <Anchor href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</Anchor> for help.</>;

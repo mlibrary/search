@@ -7,7 +7,7 @@ function Checkbox ({ isChecked, handleClick, label, hideLabel, uid }) {
     <div
       className='checkbox'
       role='checkbox'
-      aria-checked={!!isChecked}
+      aria-checked={Boolean(isChecked)}
       tabIndex='0'
       onClick={handleClick}
       onKeyDown={(event) => {

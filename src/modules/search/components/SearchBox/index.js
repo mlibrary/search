@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './styles.css';
 import { Anchor, Icon } from '../../../reusable';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
 import { getSearchStateFromURL, stringifySearch } from '../../utilities';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 function SearchBox () {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ function SearchBox () {
     return state.advanced[state.datastores.active];
   });
   const isAdvanced = useSelector((state) => {
-    return !!state.advanced[state.datastores.active];
+    return Boolean(state.advanced[state.datastores.active]);
   });
   const activeDatastore = useSelector(
     (state) => {
@@ -78,8 +78,10 @@ function SearchBox () {
   function handleSubmitSearch (e) {
     e.preventDefault();
 
-    // Get the dropdown's current value because `field` does not change
-    // when switching to a different datastore, and the active datastore does not have the queried option
+    /*
+     * Get the dropdown's current value because `field` does not change
+     * when switching to a different datastore, and the active datastore does not have the queried option
+     */
     const dropdown = document.querySelector('.search-box-dropdown > select.dropdown');
     const dropdownOption = dropdown.value;
 
@@ -114,7 +116,9 @@ function SearchBox () {
       window.location.href = `${href}/${dropdownOption.replace('browse_by_', '')}?${newURL}`;
     } else {
       // Do not submit if query remains unchanged
-      if (query === newQuery) return;
+      if (query === newQuery) {
+        return;
+      }
       // Submit new search
       navigate(`/${params.datastoreSlug}?${newURL}`);
     }

@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Icon, Alert } from '../../../reusable';
+import { Alert, Icon } from '../../../reusable';
 import FieldInput from '../FieldInput';
 import FiltersContainer from '../FiltersContainer';
 import { stringifySearch } from '../../../search';
@@ -33,7 +33,9 @@ function AdvancedSearchForm (props) {
   const activeFilters = useSelector((state) => {
     const currentFilters = state.advanced[datastore.uid].activeFilters || {};
     Object.keys(currentFilters).forEach((filter) => {
-      if (!currentFilters[filter]) delete currentFilters[filter];
+      if (!currentFilters[filter]) {
+        delete currentFilters[filter];
+      }
     });
     return currentFilters;
   });
@@ -67,8 +69,10 @@ function AdvancedSearchForm (props) {
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
 
-    // Build the query
-    // example: 'title:parrots AND author:charles'
+    /*
+     * Build the query
+     * example: 'title:parrots AND author:charles'
+     */
     const query = fieldedSearches
       .reduce((memo, fieldedSearch) => {
         if (fieldedSearch.query.length) {
@@ -91,8 +95,10 @@ function AdvancedSearchForm (props) {
 
     let filter = activeFilters;
 
-    // TODO: Build the filters
-    // Submit search if query or filters are active
+    /*
+     * TODO: Build the filters
+     * Submit search if query or filters are active
+     */
     if (query.length > 0 || hasActiveFilters) {
       let library;
 
@@ -101,8 +107,8 @@ function AdvancedSearchForm (props) {
           ? institution.active
           : institution.defaultInstitution;
         if (filter.institution) {
-          library = filter.institution[0]; // inst overrides library
-          filter = { ...filter, institution: undefined }; // remove inst from filter obj
+          library = filter.institution[0]; // Inst overrides library
+          filter = { ...filter, institution: undefined }; // Remove inst from filter obj
         }
       }
       const queryString = stringifySearch({

@@ -14,7 +14,9 @@ const InstitutionSelect = ({ activeDatastore, institution }) => {
   });
   const navigate = useNavigate();
 
-  if (uid !== 'mirlyn') return null;
+  if (uid !== 'mirlyn') {
+    return null;
+  }
 
   const { active, defaultInstitution, options } = institution;
 

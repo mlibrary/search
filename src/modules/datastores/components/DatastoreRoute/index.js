@@ -1,8 +1,8 @@
 import React from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import config from '../../../../config';
 import { URLSearchQueryWrapper, getStateFromURL } from '../../../pride';
-import { NoMatch, DatastorePage } from '../../../pages';
+import { DatastorePage, NoMatch } from '../../../pages';
 
 function DatastoreRoute () {
   const { datastoreSlug } = useParams();

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './styles.css';
 import PropTypes from 'prop-types';
 
@@ -32,7 +32,9 @@ const Dialog = ({ isOpen, onClose, children }) => {
     };
   }, [isOpen, onClose]);
 
-  if (!children) return null;
+  if (!children) {
+    return null;
+  }
 
   const handleCloseClick = (event) => {
     event.stopPropagation();

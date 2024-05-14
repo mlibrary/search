@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   Anchor,
-  Icon,
   Expandable,
-  ExpandableProvider,
-  ExpandableChildren,
   ExpandableButton,
+  ExpandableChildren,
+  ExpandableProvider,
+  Icon,
   TruncateText
 } from '../../../reusable';
 import getHoldingByBarcode from '../../getHoldingByBarcode';
@@ -44,11 +44,15 @@ const GetThisFindIt = () => {
     return state.records.record?.resourceAccess;
   });
 
-  if (!resourceAccess) return null;
+  if (!resourceAccess) {
+    return null;
+  }
 
   const holding = getHoldingByBarcode(resourceAccess, barcode);
 
-  if (!holding) return null;
+  if (!holding) {
+    return null;
+  }
 
   const {
     caption,

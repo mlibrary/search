@@ -1,5 +1,5 @@
 import React from 'react';
-import { searchOptions, searchOptionsDatastores, filterOptions } from '../../utilities';
+import { filterOptions, searchOptions, searchOptionsDatastores } from '../../utilities';
 import PropTypes from 'prop-types';
 
 const listOptions = (options) => {

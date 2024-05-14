@@ -1,5 +1,5 @@
 import React from 'react';
-import { Multiselect, DateRangeInput } from '../../../core';
+import { DateRangeInput, Multiselect } from '../../../core';
 import { Checkbox } from '../../../reusable';
 import NarrowSearchTo from '../NarrowSearchTo';
 import PropTypes from 'prop-types';

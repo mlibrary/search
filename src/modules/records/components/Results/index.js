@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css';
-import { BentoboxList, RecordList, Pagination } from '../../index';
+import { BentoboxList, Pagination, RecordList } from '../../index';
 import { Icon } from '../../../reusable';
 import { InstitutionSelect } from '../../../institution';
 import { Filters } from '../../../filters';

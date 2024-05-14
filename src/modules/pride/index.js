@@ -1,14 +1,14 @@
-import { initializePride, switchPrideToDatastore, runSearch } from './setup';
+import { initializePride, runSearch, switchPrideToDatastore } from './setup';
 import {
   getDatastoreByUid,
-  getDatastoreUidBySlug,
   getDatastoreSlugByUid,
+  getDatastoreUidBySlug,
   getMultiSearchRecords,
   getStateFromURL,
-  requestRecord,
   isValidURLSearchQuery,
   prideParseField,
-  requestGetThis
+  requestGetThis,
+  requestRecord
 } from './utils';
 
 import { placeHold } from './getthis';

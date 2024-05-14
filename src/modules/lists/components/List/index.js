@@ -33,7 +33,7 @@ function List (props) {
       <div className='lists-header'>
         <H1 className='heading-xlarge'>My Temporary {name} List</H1>
         <div className='lists-header-info'>
-          {!!listLength && (
+          {Boolean(listLength) && (
             <button
               className='button-link underline lists-remove-all text-small'
               onClick={() => {

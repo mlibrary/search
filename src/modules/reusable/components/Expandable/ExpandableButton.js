@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 const ExpandableButton = ({ count, name, ...rest }) => {
   const context = useContext(ExpandableContext);
 
-  if (context.disabled) return null;
+  if (context.disabled) {
+    return null;
+  }
 
   const handleToggleExpanded = () => {
     context.toggleExpanded();

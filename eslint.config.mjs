@@ -35,15 +35,18 @@ export default [
   {
     plugins: {
       '@stylistic': stylistic,
-      'import': fixupPluginRules(pluginImport),
-      'n': pluginN
+      import: fixupPluginRules(pluginImport),
+      n: pluginN
     }
   },
   ...fixupConfigRules(pluginReactConfig),
   stylistic.configs['recommended-flat'],
   {
     rules: {
-      ...pluginJs.configs.recommended.rules,
+      ...pluginJs.configs.all.rules,
+
+      'arrow-body-style': ['error', 'always'],
+      'one-var': ['error', { initialized: 'never' }],
 
       'import/export': 'error',
       'import/first': 'error',
@@ -62,6 +65,7 @@ export default [
 
       '@stylistic/brace-style': ['error', '1tbs'],
       '@stylistic/comma-dangle': ['error', 'never'],
+      '@stylistic/spaced-comment': ['error', 'always', { 'block': { 'balanced': true } }],
       '@stylistic/jsx-quotes': ['error', 'prefer-single'],
       '@stylistic/jsx-one-expression-per-line': ['error', { allow: 'single-line' }],
       '@stylistic/operator-linebreak': ['error', 'before'],

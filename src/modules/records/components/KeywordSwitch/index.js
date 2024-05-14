@@ -7,7 +7,9 @@ function KeywordSwitch ({ datastore, query }) {
   const isExactSearch = query.startsWith(exactQuery);
   const isContainsSearch = query.startsWith('contains:(') || query.startsWith('keyword:(') || !query.includes(':(');
 
-  if (datastore.uid !== 'primo' || (!isExactSearch && !isContainsSearch)) return null;
+  if (datastore.uid !== 'primo' || (!isExactSearch && !isContainsSearch)) {
+    return null;
+  }
 
   const strippedQuery = query.includes(':(') ? query.slice((query.indexOf('(') + 1), -1) : query;
   const querySearch = isExactSearch ? strippedQuery : `${exactQuery}${strippedQuery})`;

@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Routes, Route, useLocation, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
 import { NoMatch } from '../../../pages';
 import { SearchBox } from '../../../search';
 import { AdvancedSearch } from '../../../advanced';
 import {
-  DatastoreNavigation,
   DatastoreInfoContainer,
-  Landing,
-  FlintAlerts
+  DatastoreNavigation,
+  FlintAlerts,
+  Landing
 } from '../../../datastores';
 import { BrowsePage } from '../../../browse';
-import { Results, RecordFull } from '../../../records';
+import { RecordFull, Results } from '../../../records';
 import { GetThisPage } from '../../../getthis';
 import { switchPrideToDatastore } from '../../../pride';
 import { List } from '../../../lists';
@@ -47,7 +47,7 @@ function DatastorePage () {
   const currentFilters = activeFilters[currentDatastore];
   const activeFilterCount = currentFilters ? Object.keys(currentFilters).length : 0;
   const isAdvanced = useSelector((state) => {
-    return !!state.advanced[currentDatastore];
+    return Boolean(state.advanced[currentDatastore]);
   });
   const list = useSelector((state) => {
     return state.lists[currentDatastore];
@@ -73,7 +73,9 @@ function DatastorePage () {
     }
   }, [activeDatastore, query, location.pathname]);
 
-  if (!activeDatastore) return null;
+  if (!activeDatastore) {
+    return null;
+  }
 
   return (
     <main className='main-container'>

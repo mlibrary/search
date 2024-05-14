@@ -3,11 +3,11 @@ import filtersReducer from './reducer';
 
 import {
   addFilters,
-  clearFilters,
-  setActiveFilters,
   clearActiveFilters,
-  setFilterGroupOrder,
-  resetFilters
+  clearFilters,
+  resetFilters,
+  setActiveFilters,
+  setFilterGroupOrder
 } from './actions';
 
 export {

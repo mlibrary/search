@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 import { useSelector } from 'react-redux';
-import { Breadcrumb, H1, Tabs, TabPanel, Tab } from '../../../reusable';
+import { Breadcrumb, H1, Tab, TabPanel, Tabs } from '../../../reusable';
 import AdvancedSearchForm from '../AdvancedSearchForm';
 
 function AdvancedSearchContainer () {

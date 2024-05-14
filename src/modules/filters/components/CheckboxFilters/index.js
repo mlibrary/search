@@ -15,7 +15,9 @@ export default function CheckBoxFiltersContainer () {
     return acc;
   }, []);
 
-  if (!checkboxes.length) return null;
+  if (!checkboxes.length) {
+    return null;
+  }
 
   return (
     <ul className='list__unstyled padding-y__s active-filters'>

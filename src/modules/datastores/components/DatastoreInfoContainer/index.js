@@ -11,7 +11,9 @@ function DatastoreInfoContainer ({ activeDatastore }) {
     });
   };
 
-  if (hide.includes(uid)) return null;
+  if (hide.includes(uid)) {
+    return null;
+  }
 
   const information = {
     everything: (<>results from the Catalog, Articles, Databases, Online Journals, and Guides and More pages.</>),

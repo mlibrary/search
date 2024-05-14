@@ -3,7 +3,7 @@ import { Anchor, Icon } from '../../../reusable';
 import { TrimString } from '../../../core';
 import { getField, getFieldValue } from '../../utilities';
 import { getDatastoreSlugByUid } from '../../../pride';
-import { RecommendedResource, Zotero, RecordMetadata } from '../../../records';
+import { RecommendedResource, RecordMetadata, Zotero } from '../../../records';
 import PropTypes from 'prop-types';
 
 function Header ({ record, datastoreUid, searchQuery }) {
@@ -97,7 +97,7 @@ function Footer ({ record, datastoreUid }) {
             style={{
               marginBottom: '0'
             }}
-            key={record.uid + '-resource-' + index}
+            key={`${record.uid}-resource-${index}`}
           >
             <Anchor href={accessCell.href}>
               {accessCell.text}

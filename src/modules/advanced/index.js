@@ -3,13 +3,13 @@ import advancedReducer from './reducer';
 
 // Actions
 import {
-  addAdvancedField,
   addAdvancedBooleanTypes,
+  addAdvancedField,
+  addAdvancedFilterGroups,
   addFieldedSearch,
   removeFieldedSearch,
-  setFieldedSearch,
-  addAdvancedFilterGroups,
-  setAdvancedFilter
+  setAdvancedFilter,
+  setFieldedSearch
 } from './actions';
 
 // Components

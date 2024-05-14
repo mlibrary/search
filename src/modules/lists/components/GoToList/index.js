@@ -6,7 +6,9 @@ import PropTypes from 'prop-types';
 function GoToList ({ list, datastore }) {
   const location = useLocation();
 
-  if (!list) return null;
+  if (!list) {
+    return null;
+  }
 
   return (
     <section className='lists-link-container lists-link' aria-live='polite'>

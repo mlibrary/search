@@ -17,7 +17,7 @@ function Anchor (props) {
     );
   }
 
-  let href = props.href;
+  let { href } = props;
 
   // Set `utm_source` query parameter if the URL goes to an external website
   if (href.startsWith('http') && !href.startsWith(window.location.origin)) {

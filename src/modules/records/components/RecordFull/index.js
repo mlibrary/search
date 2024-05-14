@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
 import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import { ResourceAccess } from '../../../resource-acccess';
 import { TrimString } from '../../../core';
 import { getField, getFieldValue } from '../../utilities';
 import {
-  ViewMARC,
-  RecordFullFormats,
   FullRecordPlaceholder,
   RecommendedResource,
   RecordDescription,
-  Zotero,
-  RecordMetadata
+  RecordFullFormats,
+  RecordMetadata,
+  ViewMARC,
+  Zotero
 } from '../../../records';
 import { requestRecord } from '../../../pride';
 import { setDocumentTitle } from '../../../a11y';
 import {
   ActionsList,
-  prejudice,
   AddToListButton,
+  GoToList,
   isInList,
-  GoToList
+  prejudice
 } from '../../../lists';
 import { NoMatch } from '../../../pages';
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance();
@@ -43,7 +43,7 @@ const FullRecord = () => {
     return state.lists[datastores.active];
   });
 
-  const recordUid = params.recordUid;
+  const { recordUid } = params;
   const datastoreUid = datastores.active;
   const datastore = findWhere(datastores.datastores, {
     uid: datastoreUid
@@ -60,10 +60,10 @@ const FullRecord = () => {
     if (record) {
       if (record.uid !== recordUid) {
         if (datastoreUid === 'mirlyn' && recordUid.length === 9) {
-          // treat as an aleph id
+          // Treat as an aleph id
           navigate(`/catalog/record/${record.uid}`);
         } else if (datastoreUid === 'onlinejournals' && recordUid.length === 9) {
-          // treat as an aleph id
+          // Treat as an aleph id
           navigate(`/onlinejournals/record/${record.uid}`);
         } else if (record.alt_ids.includes(recordUid)) {
           navigate(`/${datastore.slug}/record/${record.uid}`);
@@ -105,8 +105,10 @@ const FullRecord = () => {
     return <NoMatch />;
   }
 
-  // Check if the record in state matches the record ID in the URL
-  // If they don't match, then the new record is still being fetched.
+  /*
+   * Check if the record in state matches the record ID in the URL
+   * If they don't match, then the new record is still being fetched.
+   */
   const recordUidValue = getFieldValue(getField(record.fields, 'id'))[0];
   if (recordUidValue !== recordUid) {
     return (
@@ -200,7 +202,9 @@ const FullRecord = () => {
       </div>
       {inDatastore && (() => {
         const indexingDate = findWhere(record.fields, { uid: 'indexing_date' });
-        if (!indexingDate) return null;
+        if (!indexingDate) {
+          return null;
+        }
         return (
           <p style={{ color: 'var(--search-color-grey-600)', marginTop: 0, order: 3 }}>
             <span style={{ fontWeight: 600 }}>{indexingDate.name}:</span> {indexingDate.value}

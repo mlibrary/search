@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import './styles.css';
 import {
   Anchor,
-  Icon,
   Expandable,
+  ExpandableButton,
   ExpandableChildren,
-  ExpandableButton
+  Icon
 } from '../../../reusable';
 import { BrowseLink } from '../../../browse';
 import { stringifySearch } from '../../../search';

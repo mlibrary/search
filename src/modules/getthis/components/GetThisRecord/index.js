@@ -3,7 +3,7 @@ import './styles.css';
 import { useSelector } from 'react-redux';
 import getHoldingByBarcode from '../../getHoldingByBarcode';
 import { TrimString } from '../../../core';
-import { RecordFullFormats, FullRecordPlaceholder } from '../../../records';
+import { FullRecordPlaceholder, RecordFullFormats } from '../../../records';
 import { ResourceAccess } from '../../../resource-acccess';
 import PropTypes from 'prop-types';
 

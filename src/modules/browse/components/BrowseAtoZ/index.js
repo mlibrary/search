@@ -23,7 +23,7 @@ function BrowseAtoZ () {
             <li className='browse-item' key={key}>
               <Anchor
                 className='browse-button'
-                to={createBrowseTo({ query: 'browse_starts_with:' + character })}
+                to={createBrowseTo({ query: `browse_starts_with:${character}` })}
               >
                 {character}
               </Anchor>

@@ -159,7 +159,9 @@ function FiltersContainer ({ datastore }) {
     }
   };
 
-  if (!filters || filters.length === 0) return null;
+  if (!filters || filters.length === 0) {
+    return null;
+  }
 
   const filterGroupings = Object.keys(filters);
 

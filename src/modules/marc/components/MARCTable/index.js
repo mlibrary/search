@@ -12,7 +12,7 @@ const FieldValue = ({ field }) => {
     return value;
   };
 
-  const subfields = value.subfields;
+  const { subfields } = value;
   return (
     <>
       {subfields?.map((subfield, index) => {

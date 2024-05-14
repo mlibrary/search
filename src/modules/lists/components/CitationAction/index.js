@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Tabs, Tab, TabPanel } from '../../../reusable';
+import React, { useEffect, useState } from 'react';
+import { Tab, TabPanel, Tabs } from '../../../reusable';
 import { cite } from '../../../citations';
 import PropTypes from 'prop-types';
 

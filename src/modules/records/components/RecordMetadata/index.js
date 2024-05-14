@@ -3,9 +3,11 @@ import { ContextProvider, Metadata } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 export default function RecordMetadata ({ kind, record }) {
-  const metadata = record.metadata;
+  const { metadata } = record;
 
-  if (!metadata) return null;
+  if (!metadata) {
+    return null;
+  }
 
   return (
     <ContextProvider

@@ -4,8 +4,8 @@ import './styles.css';
 import {
   Anchor,
   Expandable,
-  ExpandableChildren,
   ExpandableButton,
+  ExpandableChildren,
   Icon
 } from '../../../reusable';
 import CheckboxFilters from '../CheckboxFilters';
@@ -21,23 +21,25 @@ function ActiveFilters () {
   });
   const active = activeFilters[activeDatastore];
 
-  if (!active) return null;
+  if (!active) {
+    return null;
+  }
 
   /*
-    input:
-    {
-      subject: ['Birds', 'Birds North America'],
-      format: ['Science', 'Biology']
-    }
-
-    output:
-    [
-      { group: 'subject', value: 'Birds' },
-      { group: 'subject', value: 'Birds North America' },
-      { group: 'format', value: 'Science' },
-      { group: 'format', value: 'Biology' }
-    ]
-  */
+   * Input:
+   * {
+   *   subject: ['Birds', 'Birds North America'],
+   *   format: ['Science', 'Biology']
+   * }
+   * 
+   * output:
+   * [
+   *   { group: 'subject', value: 'Birds' },
+   *   { group: 'subject', value: 'Birds North America' },
+   *   { group: 'format', value: 'Science' },
+   *   { group: 'format', value: 'Biology' }
+   * ]
+   */
   const items = Object.keys(active).reduce((acc, group) => {
     // Just don't show the checkbox filters as active filter items.
     if (!groups[group] || groups[group].type !== 'checkbox') {
@@ -51,7 +53,9 @@ function ActiveFilters () {
     return acc;
   }, []);
 
-  if (!items.length) return null;
+  if (!items.length) {
+    return null;
+  }
 
   return (
     <section className='padding-y__s padding-x__m active-filters'>
@@ -104,14 +108,18 @@ function FilterGroupContainer ({ uid }) {
   });
   const group = groups[uid];
 
-  if (!group || !group.filters.length || group.type !== 'multiselect') return null;
+  if (!group || !group.filters.length || group.type !== 'multiselect') {
+    return null;
+  }
 
   const activeDatastoreFilters = activeFilters[activeDatastore]?.[uid] ?? [];
   const filtersWithoutActive = group.filters.filter((filter) => {
     return !activeDatastoreFilters.includes(filter.value);
   });
 
-  if (!filtersWithoutActive.length) return null;
+  if (!filtersWithoutActive.length) {
+    return null;
+  }
 
   const { name } = group.metadata;
 
@@ -179,7 +187,9 @@ export default function Filters () {
     return state.filters;
   });
 
-  if (!order || (searching && loading[active])) return null;
+  if (!order || (searching && loading[active])) {
+    return null;
+  }
 
   return (
     <section aria-label='filters' className='filter-container'>

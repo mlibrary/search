@@ -6,7 +6,9 @@ import PropTypes from 'prop-types';
 function ResourceAccess ({ record }) {
   const { datastore, loadingHoldings, resourceAccess } = record;
 
-  if (datastore === 'website') return null;
+  if (datastore === 'website') {
+    return null;
+  }
 
   if (loadingHoldings || (datastore === 'mirlyn' && !resourceAccess.length)) {
     return (

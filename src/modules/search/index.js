@@ -6,8 +6,8 @@ import {
   resetSort,
   searching,
   setPage,
-  setSearchData,
   setParserMessage,
+  setSearchData,
   setSearchQuery,
   setSearchQueryInput
 } from './actions';

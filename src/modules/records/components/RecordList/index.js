@@ -74,7 +74,7 @@ function RecordList () {
               {loadingRecords
                 ? [...Array(count)].map((elementInArray, index) => {
                     return (
-                      <div className='container__rounded record' key={'placeholder-' + index}>
+                      <div className='container__rounded record' key={`placeholder-${index}`}>
                         <div className='record-container placeholder-container margin-top__m'>
                           <div className='placeholder placeholder-title' />
                           <div className='placeholder placeholder-line' />

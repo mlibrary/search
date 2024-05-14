@@ -1,7 +1,7 @@
 import institutionReducer from './reducer/';
 import {
-  setDefaultInstitution,
-  setActiveInstitution
+  setActiveInstitution,
+  setDefaultInstitution
 } from './actions';
 import InstitutionSelect from './components/InstitutionSelect';
 export {

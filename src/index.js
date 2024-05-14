@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './stylesheets/colors.css';
 import './stylesheets/forms.css';
 import './stylesheets/main.css';
@@ -9,7 +9,7 @@ import './stylesheets/spacing.css';
 import './stylesheets/utilities.css';
 import { Alert } from './modules/reusable';
 import { initializePride } from './modules/pride';
-import { NoMatch, AccessibilityPage, AboutLibrarySearch } from './modules/pages';
+import { AboutLibrarySearch, AccessibilityPage, NoMatch } from './modules/pages';
 import { DatastoreRoute } from './modules/datastores';
 import store from './store';
 import { Footer, ScrollToTop, SearchHeader } from './modules/core';

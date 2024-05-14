@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getSearchStateFromURL, stringifySearch } from '../../../search';
 import './styles.css';
@@ -7,7 +7,9 @@ import { Dialog } from '../../../reusable';
 function oldSafari () {
   const safariVersionMatch = navigator.userAgent.match(/Version\/([0-9._]+) Safari/);
 
-  if (!safariVersionMatch) return false;
+  if (!safariVersionMatch) {
+    return false;
+  }
 
   const [major, minor = 0] = safariVersionMatch[1].split('.').map((part) => {
     return parseInt(part, 10);
@@ -41,9 +43,9 @@ export default function ChooseAffiliation () {
       affiliation: alternativeAffiliation
     };
     document.location.href
-      = document.location.pathname
-      + '?'
-      + stringifySearch(withAffiliation);
+      = `${document.location.pathname
+       }?${
+       stringifySearch(withAffiliation)}`;
   };
 
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -58,7 +60,9 @@ export default function ChooseAffiliation () {
         className='btn btn--secondary font-small no-background'
         onClick={oldSafari()
           ? changeAffiliation
-          : () => setDialogOpen(true)}
+          : () => {
+              return setDialogOpen(true);
+        }}
         role={oldSafari() ? 'link' : undefined}
       >
         {Object.keys(affiliationOptions).map((campusAffiliation, index) => {

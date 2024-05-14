@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Checkbox } from '../../../reusable';
 import { findWhere } from '../../../reusable/underscore';

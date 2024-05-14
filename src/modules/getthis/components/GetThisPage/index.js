@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
-import { requestRecord, requestGetThis } from '../../../pride';
+import { useLocation, useParams } from 'react-router-dom';
+import { requestGetThis, requestRecord } from '../../../pride';
 import { GetThisOptions, GetThisRecord } from '../../../getthis';
 import { Alert, Breadcrumb, H1 } from '../../../reusable';
 

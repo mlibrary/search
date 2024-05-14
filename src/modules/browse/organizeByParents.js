@@ -24,15 +24,13 @@ function organizeByParents (array) {
   return array.reduce((result, item) => {
     if (!item.parents.length) {
       const children = getChildren(array, item.name);
-      result = result.concat(Object.assign({ children }, item));
+      result = result.concat({ children, ...item });
     }
 
     item.parents.forEach((parent) => {
       if (parentIsNotInArray(array, parent) && parentIsNotInArray(result, parent)) {
         const children = getChildren(array, parent);
-        result = result.concat(Object.assign({ children }, {
-          name: parent
-        }));
+        result = result.concat({ children, name: parent });
       }
     });
 

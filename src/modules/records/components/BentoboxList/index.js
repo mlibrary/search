@@ -56,7 +56,7 @@ function BentoResults ({ search, bentobox, searchQuery }) {
       {bentobox.records.map((record, index) => {
         if (index === 0) {
           return (
-            <div key={index + 'keyword-switch'}>
+            <div key={`${index}keyword-switch`}>
               <KeywordSwitch datastore={bentobox} query={search.query} />
               <RecordPreview
                 key={index}

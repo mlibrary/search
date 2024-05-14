@@ -5,26 +5,26 @@ const initialState = {
 };
 
 /*
-  Example State
-
-  {
-    mirlyn: {
-      fields: [
-        {
-          uid: 'title'
-        },
-        {
-          uid: 'author',
-          name: 'a custom name overriding the given name'
-        }
-        // ...
-      ],
-      filters: [
-        //... to be figured out..
-      ]
-    }
-  }
-*/
+ *Example State
+ *
+ *{
+ *  mirlyn: {
+ *    fields: [
+ *      {
+ *        uid: 'title'
+ *      },
+ *      {
+ *        uid: 'author',
+ *        name: 'a custom name overriding the given name'
+ *      }
+ *      // ...
+ *    ],
+ *    filters: [
+ *      //... to be figured out..
+ *    ]
+ *  }
+ *}
+ */
 
 const advancedFieldReducer = (state, action) => {
   const dsUid = action.payload.datastoreUid;
@@ -117,10 +117,14 @@ const advancedFieldedSearchingReducer = (state, action) => {
 };
 
 const filterGroupReducer = ({ filterGroup, onlyOneFilterValue, filterValue }) => {
-  if (filterValue === undefined) return undefined;
+  if (filterValue === undefined) {
+    return undefined;
+  }
 
   // Add filter group if no active filters
-  if (!filterGroup || onlyOneFilterValue) return [filterValue];
+  if (!filterGroup || onlyOneFilterValue) {
+    return [filterValue];
+  }
 
   if (filterGroup.includes(filterValue)) {
     // Remove filter value

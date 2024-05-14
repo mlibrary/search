@@ -6,7 +6,7 @@ import FileAction from '../FileAction';
 import PermalinkAction from '../PermalinkAction';
 import CitationAction from '../CitationAction';
 import { AuthenticationRequired } from '../../../profile';
-import { ContextProvider, Icon, Alert } from '../../../reusable';
+import { Alert, ContextProvider, Icon } from '../../../reusable';
 import PropTypes from 'prop-types';
 
 function ActionsList (props) {
@@ -74,7 +74,7 @@ function ActionsList (props) {
                       props.setActive(!isActive ? action : undefined);
                       setAlert(null);
                     }}
-                    aria-pressed={!!isActive}
+                    aria-pressed={Boolean(isActive)}
                   >
                     <span style={{ opacity: '0.75' }}>
                       <Icon size={20} icon={action.icon} />

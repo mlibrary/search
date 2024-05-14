@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { stringifySearch } from '../../../search';
 import './styles.css';
@@ -31,7 +31,9 @@ const Pagination = () => {
     setCurrentPage(page);
   }, [page]);
 
-  if (!records || records.length === 0) return null;
+  if (!records || records.length === 0) {
+    return null;
+  }
 
   const createSearchQuery = (newPage) => {
     const queryString = stringifySearch({

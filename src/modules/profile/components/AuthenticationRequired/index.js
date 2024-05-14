@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 import Authentication from '../Authentication';
 
 function AuthenticationRequired ({ profile, children }) {
-  if (!children) return null;
+  if (!children) {
+    return null;
+  }
 
-  if (profile?.status === 'Logged in') return children;
+  if (profile?.status === 'Logged in') {
+    return children;
+  }
 
   return (
     <Authentication button>
