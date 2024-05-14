@@ -8,8 +8,6 @@
     "@eslint/js": "^9.2.0",
     "@stylistic/eslint-plugin": "^2.1.0",
     "eslint": "^9.2.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^17.7.0",
     "eslint-plugin-react": "^7.34.1",
     "globals": "^15.2.0",
     "react-scripts": "^5.0.1"
@@ -28,9 +26,6 @@
   },
   "overrides": {
     "@babel/plugin-proposal-private-property-in-object": "npm:@babel/plugin-transform-private-property-in-object",
-    "eslint-plugin-import": {
-      "eslint": "latest"
-    },
     "eslint-plugin-react": {
       "eslint": "latest"
     },

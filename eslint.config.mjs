@@ -1,9 +1,7 @@
 import globals from 'globals';
-import { fixupPluginRules, fixupConfigRules } from '@eslint/compat';
+import { fixupConfigRules } from '@eslint/compat';
 import pluginJs from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
-import * as pluginImport from 'eslint-plugin-import';
-import pluginN from 'eslint-plugin-n';
 import pluginReactConfig from 'eslint-plugin-react/configs/recommended.js';
 
 export default [
@@ -34,9 +32,7 @@ export default [
   },
   {
     plugins: {
-      '@stylistic': stylistic,
-      import: fixupPluginRules(pluginImport),
-      n: pluginN
+      '@stylistic': stylistic
     }
   },
   ...fixupConfigRules(pluginReactConfig),
@@ -46,22 +42,8 @@ export default [
       ...pluginJs.configs.all.rules,
 
       'arrow-body-style': ['error', 'always'],
+      'no-ternary': 'off',
       'one-var': ['error', { initialized: 'never' }],
-
-      'import/export': 'error',
-      'import/first': 'error',
-      'import/no-absolute-path': ['error', { esmodule: true, commonjs: true, amd: false }],
-      'import/no-duplicates': 'error',
-      'import/no-named-default': 'error',
-      'import/no-webpack-loader-syntax': 'error',
-
-      'n/handle-callback-err': ['error', '^(err|error)$'],
-      'n/no-callback-literal': 'error',
-      'n/no-deprecated-api': 'error',
-      'n/no-exports-assign': 'error',
-      'n/no-new-require': 'error',
-      'n/no-path-concat': 'error',
-      'n/process-exit-as-throw': 'error',
 
       '@stylistic/brace-style': ['error', '1tbs'],
       '@stylistic/comma-dangle': ['error', 'never'],
