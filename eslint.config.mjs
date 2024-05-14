@@ -1,4 +1,5 @@
 import globals from 'globals';
+import { fixupPluginRules, fixupConfigRules } from "@eslint/compat";
 import * as pluginImport from 'eslint-plugin-import';
 import pluginN from 'eslint-plugin-n';
 import pluginJs from '@eslint/js';
@@ -32,7 +33,7 @@ export default [
   },
   {
     plugins: {
-      import: pluginImport,
+      import: fixupPluginRules(pluginImport),
       n: pluginN
     }
   },
@@ -275,5 +276,5 @@ export default [
     }
   },
   pluginJs.configs.recommended,
-  pluginReactConfig
+  ...fixupConfigRules(pluginReactConfig)
 ];
