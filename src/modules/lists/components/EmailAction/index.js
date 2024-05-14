@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
 import PropTypes from 'prop-types';
 
-function EmailAction (props) {
-  const [email, setEmail] = useState(props.profile.email || '');
+function EmailAction ({ emailAddress, prejudice, datastore, setActive, action }) {
+  const [email, setEmail] = useState(emailAddress);
   const [status, setStatus] = useState(undefined);
 
   const setCloseStatus = () => {
-    props.setActive('');
+    setActive('');
     setStatus(undefined);
   };
 
@@ -17,13 +17,13 @@ function EmailAction (props) {
 
   return (
     <section className='lists-action'>
-      <ActionStatusMessage status={status} action={props.action} setCloseStatus={setCloseStatus} />
+      <ActionStatusMessage status={status} action={action} setCloseStatus={setCloseStatus} />
       {(!status || status.status_code !== 'action.response.success') &&
         <form
           className='lists-action-form'
           onSubmit={(event) => {
             event.preventDefault();
-            props.prejudice.act('email', props.datastore.uid, email, handleSubmitCallback);
+            prejudice.act('email', datastore.uid, email, handleSubmitCallback);
           }}
         >
           <div className='lists-action-field-container'>
@@ -52,7 +52,7 @@ function EmailAction (props) {
 }
 
 EmailAction.propTypes = {
-  profile: PropTypes.object,
+  emailAddress: PropTypes.string,
   prejudice: PropTypes.object,
   datastore: PropTypes.object,
   setActive: PropTypes.func,

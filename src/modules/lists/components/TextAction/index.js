@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
 import PropTypes from 'prop-types';
 
-function TextAction (props) {
-  const [text, setText] = useState(props.profile.text || '');
+function TextAction ({ phoneNumber, prejudice, datastore, setActive, action }) {
+  const [text, setText] = useState(phoneNumber);
   const [status, setStatus] = useState(undefined);
 
   const setCloseStatus = () => {
-    props.setActive('');
+    setActive('');
     setStatus(undefined);
   };
 
@@ -17,13 +17,13 @@ function TextAction (props) {
 
   return (
     <section className='lists-action'>
-      <ActionStatusMessage status={status} action={props.action} setCloseStatus={setCloseStatus} />
+      <ActionStatusMessage status={status} action={action} setCloseStatus={setCloseStatus} />
       {(!status || status.status_code !== 'action.response.success') &&
         <form
           className='lists-action-form'
           onSubmit={(event) => {
             event.preventDefault();
-            props.prejudice.act('text', props.datastore.uid, text, handleSubmitCallback);
+            prejudice.act('text', datastore.uid, text, handleSubmitCallback);
           }}
         >
           <div className='lists-action-field-container'>
@@ -55,7 +55,7 @@ function TextAction (props) {
 }
 
 TextAction.propTypes = {
-  profile: PropTypes.object,
+  phoneNumber: PropTypes.string,
   prejudice: PropTypes.object,
   datastore: PropTypes.object,
   setActive: PropTypes.func,
