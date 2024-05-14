@@ -78,7 +78,8 @@ function ActionsList (props) {
                   >
                     <span style={{ opacity: '0.75' }}>
                       <Icon size={20} icon={action.icon} />
-                    </span>{action.name}
+                    </span>
+                    {action.name}
                   </button>
                 </li>
               );

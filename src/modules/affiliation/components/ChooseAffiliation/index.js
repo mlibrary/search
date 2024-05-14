@@ -40,10 +40,10 @@ export default function ChooseAffiliation () {
       ...parsed,
       affiliation: alternativeAffiliation
     };
-    document.location.href =
-      document.location.pathname +
-      '?' +
-      stringifySearch(withAffiliation);
+    document.location.href
+      = document.location.pathname
+      + '?'
+      + stringifySearch(withAffiliation);
   };
 
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -58,9 +58,7 @@ export default function ChooseAffiliation () {
         className='btn btn--secondary font-small no-background'
         onClick={oldSafari()
           ? changeAffiliation
-          : () => {
-              return setDialogOpen(true);
-            }}
+          : () => setDialogOpen(true)}
         role={oldSafari() ? 'link' : undefined}
       >
         {Object.keys(affiliationOptions).map((campusAffiliation, index) => {

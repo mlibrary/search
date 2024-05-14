@@ -37,7 +37,7 @@ function DescriptionItem ({ href, search, browse, children }) {
   return (
     <>
       {(href || search) ? <Anchor {...{ href, to }}>{children}</Anchor> : children}
-      {browse &&
+      {browse && (
         <>
           <span className='text-grey font-small margin-x__2xs'>|</span>
           <BrowseLink
@@ -47,7 +47,8 @@ function DescriptionItem ({ href, search, browse, children }) {
           >
             {browse.text}
           </BrowseLink>
-        </>}
+        </>
+      )}
     </>
   );
 }
@@ -83,21 +84,23 @@ function Description ({ data }) {
   return (
     <DescriptionItem {...data}>
       <span style={{ display: image ? 'block' : 'initial' }}>
-        {icon &&
+        {icon && (
           <Icon
             icon={icon}
             size={19}
             className='margin-right__2xs text-grey__light'
-          />}
+          />
+        )}
         {text}
       </span>
-      {image &&
+      {image && (
         <img
           src={image}
           alt=''
           className='padding-top__xs'
           style={{ maxWidth: '16rem' }}
-        />}
+        />
+      )}
     </DescriptionItem>
   );
 }

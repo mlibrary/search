@@ -63,9 +63,9 @@ const isValidURLSearchQuery = ({ urlState }) => {
   if (typeof urlState !== 'object' || urlState === null) return false;
 
   // Short-circuit to invalidate if non-string truthy values are found
-  if ((urlState.query && typeof urlState.query !== 'string') ||
-      (urlState.page && typeof urlState.page !== 'string') ||
-      (urlState.sort && typeof urlState.sort !== 'string')) {
+  if ((urlState.query && typeof urlState.query !== 'string')
+    || (urlState.page && typeof urlState.page !== 'string')
+    || (urlState.sort && typeof urlState.sort !== 'string')) {
     return false;
   }
 
@@ -173,7 +173,7 @@ const prideParseField = (fieldName, content) => {
 
   try {
     return Pride.Parser.parse(content, { defaultFieldName: fieldName });
-  } catch (error) {
+  } catch {
     return new (Pride.Core.nodeFactory('raw'))(content);
   }
 };

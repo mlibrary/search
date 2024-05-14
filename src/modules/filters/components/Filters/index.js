@@ -71,7 +71,9 @@ function ActiveFilters () {
                 to={getURLWithFiltersRemoved({ group, value })}
                 className='padding-y__xs padding-x__s remove-filter underline__hover'
               >
-                {groups[group] ? groups[group].metadata.name : group}: {value}
+                {groups[group] ? groups[group].metadata.name : group}
+                :
+                {value}
                 <Icon icon='close' />
               </Anchor>
             </li>
@@ -80,14 +82,15 @@ function ActiveFilters () {
       </ul>
 
       {
-        items.length > 1 &&
+        items.length > 1 && (
           <Anchor
             to={getURLWithFiltersRemoved({ all: true })}
             className='underline underline__hover-thick text-grey'
           >
             Clear all active filters
           </Anchor>
-      }
+        )
+}
     </section>
   );
 }

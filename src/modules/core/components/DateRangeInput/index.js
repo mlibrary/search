@@ -79,16 +79,17 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
       </fieldset>
       <div className='date-range-container'>
         {
-          rangeOption !== 'Before' &&
+          rangeOption !== 'Before' && (
             <YearInput
               query={beginQueryState}
               setQuery={(e) => {
                 return handleBeginQueryChange(e.target.value);
               }}
             />
-        }
+          )
+}
         {
-          ['Before', 'Between'].includes(rangeOption) &&
+          ['Before', 'Between'].includes(rangeOption) && (
             <YearInput
               query={endQueryState}
               setQuery={(e) => {
@@ -96,7 +97,8 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
               }}
               point='end'
             />
-        }
+          )
+}
       </div>
     </div>
   );

@@ -156,14 +156,19 @@ const FullRecord = () => {
           <Zotero record={record} />
           <h2 className='full-record__record-info'>Record info:</h2>
           <RecordMetadata record={record} />
-          {inDatastore &&
-            <p>The University of Michigan Library aims to describe library materials in a
+          {inDatastore && (
+            <p>
+              The University of Michigan Library aims to describe library materials in a
               way that respects the people and communities who create, use, and are
               represented in our collections. Report harmful or offensive language in catalog
               records, finding aids, or elsewhere in our collections anonymously through
-              our <Anchor href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform'>metadata feedback form</Anchor>.
-              More information at <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata'>Remediation of Harmful Language.</Anchor>
-            </p>}
+              our
+              <Anchor href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform'>metadata feedback form</Anchor>
+              .
+              More information at
+              <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata'>Remediation of Harmful Language.</Anchor>
+            </p>
+          )}
         </div>
         <section aria-labelledby='available-at'>
           <div
@@ -179,7 +184,8 @@ const FullRecord = () => {
       </div>
       <div className='full-record__actions-container'>
         <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>
-          Actions{' '}
+          Actions
+          {' '}
           <span className='text-small lists-actions__heading-tag'>
             Select what to do with this record.
           </span>

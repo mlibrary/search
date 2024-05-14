@@ -18,7 +18,7 @@ function EmailAction (props) {
   return (
     <section className='lists-action'>
       <ActionStatusMessage status={status} action={props.action} setCloseStatus={setCloseStatus} />
-      {(!status || status.status_code !== 'action.response.success') &&
+      {(!status || status.status_code !== 'action.response.success') && (
         <form
           className='lists-action-form'
           onSubmit={(event) => {
@@ -46,7 +46,8 @@ function EmailAction (props) {
           >
             Send email
           </button>
-        </form>}
+        </form>
+      )}
     </section>
   );
 }

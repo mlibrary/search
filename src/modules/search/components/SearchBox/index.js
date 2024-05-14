@@ -42,11 +42,11 @@ function SearchBox () {
     let getInput = query;
     // Check if the query is a single fielded search that exists in the current datastore
     if (
-      query &&
-      ![' AND ', ' OR ', ' NOT '].some((operator) => {
+      query
+      && ![' AND ', ' OR ', ' NOT '].some((operator) => {
         return query.includes(operator);
-      }) &&
-      fieldIDs.some((field) => {
+      })
+      && fieldIDs.some((field) => {
         return query.startsWith(`${field}:`);
       })
     ) {

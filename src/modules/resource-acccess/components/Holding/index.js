@@ -12,7 +12,8 @@ function Cell ({ cell }) {
             marginRight: '0.25rem',
             marginTop: '-2px'
           }}
-        />)}
+        />
+      )}
 
       {(() => {
         if (cell.href) {

@@ -6,11 +6,11 @@ export default function Authentication (props) {
   return (
     <Anchor
       href={
-        (process.env.REACT_APP_LOGIN_BASE_URL || window.location.origin) +
-        '/' +
-        (props.logout ? 'logout' : 'login') +
-        '?dest=' +
-        encodeURIComponent(document.location.pathname + document.location.search)
+        (process.env.REACT_APP_LOGIN_BASE_URL || window.location.origin)
+        + '/'
+        + (props.logout ? 'logout' : 'login')
+        + '?dest='
+        + encodeURIComponent(document.location.pathname + document.location.search)
       }
       className={props.button && 'button'}
     >

@@ -64,7 +64,8 @@ export default [
       '@stylistic/comma-dangle': ['error', 'never'],
       '@stylistic/jsx-quotes': ['error', 'prefer-single'],
       '@stylistic/jsx-one-expression-per-line': ['error', { allow: 'single-line' }],
-      '@stylistic/operator-linebreak': ['error', 'after'],
+      '@stylistic/operator-linebreak': ['error', 'before'],
+      '@stylistic/quote-props': ['error', 'as-needed'],
       '@stylistic/semi': ['error', 'always'],
       '@stylistic/space-before-function-paren': ['error', 'always']
     }

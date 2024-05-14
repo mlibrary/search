@@ -88,7 +88,7 @@ function DatastorePage () {
         />
         <Route
           path='/*'
-          element={
+          element={(
             <>
               <SearchBox />
               <DatastoreNavigation {...{ activeFilters, datastores, institution, search }} />
@@ -128,7 +128,7 @@ function DatastorePage () {
                 />
               </Routes>
             </>
-          }
+          )}
         />
       </Routes>
     </main>

@@ -14,10 +14,10 @@ export default function Holders ({ record, context }) {
     - If true, remove all 'Search only (no full text)' holdings
   */
   if (
-    record.datastore === 'mirlyn' &&
-    (
-      !mirlyn ||
-      (Object.keys(mirlyn).includes('search_only') && mirlyn.search_only.includes('true'))
+    record.datastore === 'mirlyn'
+    && (
+      !mirlyn
+      || (Object.keys(mirlyn).includes('search_only') && mirlyn.search_only.includes('true'))
     )
   ) {
     // UNCOMMENT THE BLOCK BELOW WHEN READY TO LAUNCH

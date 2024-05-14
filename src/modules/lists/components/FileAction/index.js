@@ -5,7 +5,8 @@ function FileAction ({ prejudice, datastore }) {
   return (
     <section className='lists-action'>
       <form
-        className='lists-action-form' onSubmit={(event) => {
+        className='lists-action-form'
+        onSubmit={(event) => {
           event.preventDefault();
           prejudice.act('file', datastore.uid, 'export-ris', () => { /** Callback must be a function */ });
         }}

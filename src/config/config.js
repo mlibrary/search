@@ -238,7 +238,7 @@ const config = {
         },
         {
           uid: 'holdings_only',
-          name: "Add results beyond the library's holdings",
+          name: 'Add results beyond the library\'s holdings',
           groupBy: 'Access Options',
           type: 'checkbox',
           conditions: {
