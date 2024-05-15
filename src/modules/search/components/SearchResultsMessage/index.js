@@ -1,6 +1,6 @@
+import Icon from '../../../reusable/components/Icon';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Icon from '../../../reusable/components/Icon';
 
 export default function SearchResultsMessage () {
   const { parserMessage, query } = useSelector((state) => {

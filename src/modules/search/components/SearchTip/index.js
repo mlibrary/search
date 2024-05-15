@@ -1,8 +1,8 @@
-import React from 'react';
 import './styles.css';
 import { Anchor, Icon } from '../../../reusable';
 import { searchOptions, searchOptionsDatastores } from '../../utilities';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 function SearchTip ({ activeDatastore, field }) {
   // Check if current datastore is found in any of the search options

@@ -1,6 +1,6 @@
-import React from 'react';
 import { filterOptions, searchOptions, searchOptionsDatastores } from '../../utilities';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const listOptions = (options) => {
   return options.map((option) => {

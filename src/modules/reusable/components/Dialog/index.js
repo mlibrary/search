@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
 import './styles.css';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-const Dialog = ({ isOpen, onClose, children }) => {
+const Dialog = ({ children, isOpen, onClose }) => {
   const dialogRef = useRef(null);
   const wasOpen = useRef(isOpen);
 

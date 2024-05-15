@@ -25,8 +25,8 @@ const ExpandableButton = ({ count, name, ...rest }) => {
 };
 
 ExpandableButton.propTypes = {
-  name: PropTypes.string,
-  count: PropTypes.number
+  count: PropTypes.number,
+  name: PropTypes.string
 };
 
 export default ExpandableButton;

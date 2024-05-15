@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-function H1 ({ children, className }) {
+const H1 = ({ children, className }) => {
   if (!children) {
     return null;
   }
@@ -11,7 +11,7 @@ function H1 ({ children, className }) {
       {children}
     </h1>
   );
-}
+};
 
 H1.propTypes = {
   children: PropTypes.oneOfType([

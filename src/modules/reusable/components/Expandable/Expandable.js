@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const ExpandableContext = createContext();
 
-const Expandable = (props) => {
+const Expandable = ({ children }) => {
   const [expanded, setExpanded] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -18,8 +18,8 @@ const Expandable = (props) => {
   }, [setDisabled]);
 
   return (
-    <ExpandableContext.Provider value={{ expanded, disabled, toggleExpanded, disable }}>
-      {props.children}
+    <ExpandableContext.Provider value={{ disable, disabled, expanded, toggleExpanded }}>
+      {children}
     </ExpandableContext.Provider>
   );
 };

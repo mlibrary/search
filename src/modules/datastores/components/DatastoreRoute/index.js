@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import config from '../../../../config';
-import { URLSearchQueryWrapper, getStateFromURL } from '../../../pride';
+import { getStateFromURL, URLSearchQueryWrapper } from '../../../pride';
 import { DatastorePage, NoMatch } from '../../../pages';
 
 function DatastoreRoute () {

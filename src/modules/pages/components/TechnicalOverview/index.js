@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { setDocumentTitle } from '../../../a11y';
 import { Anchor, H1 } from '../../../reusable';
+import React, { useEffect } from 'react';
 import schematicImage from './schematic.png';
+import { setDocumentTitle } from '../../../a11y';
 
 function TechnicalOverview () {
   useEffect(() => {

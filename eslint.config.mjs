@@ -14,7 +14,7 @@ export default [
   },
   {
     languageOptions: {
-      ecmaVersion: 2022,
+      ecmaVersion: 2021,
       globals: {
         ...globals.browser,
         ...globals.es2021,
@@ -42,8 +42,12 @@ export default [
       ...pluginJs.configs.all.rules,
 
       'arrow-body-style': ['error', 'always'],
+      'default-param-last': 'off',
+      'max-lines-per-function': 'off',
       'no-ternary': 'off',
+      'no-magic-numbers': 'off',
       'one-var': ['error', { initialized: 'never' }],
+      'sort-imports': ['error', { 'ignoreCase': true }], 
 
       '@stylistic/brace-style': ['error', '1tbs'],
       '@stylistic/comma-dangle': ['error', 'never'],
