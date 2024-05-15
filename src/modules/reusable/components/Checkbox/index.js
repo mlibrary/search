@@ -1,8 +1,8 @@
-import React from 'react';
 import { Icon } from '../../../reusable';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-function Checkbox ({ isChecked, handleClick, label, hideLabel, uid }) {
+const Checkbox = ({ handleClick, hideLabel, isChecked, label, uid }) => {
   return (
     <div
       className='checkbox'
@@ -17,8 +17,8 @@ function Checkbox ({ isChecked, handleClick, label, hideLabel, uid }) {
         }
       }}
     >
-      <span className={`filter-checkbox-${!isChecked ? 'un' : ''}checked`}>
-        <Icon icon={`checkbox_${!isChecked ? 'un' : ''}checked`} className='icon' size='22' />
+      <span className={`filter-checkbox-${isChecked ? '' : 'un'}checked`}>
+        <Icon icon={`checkbox_${isChecked ? '' : 'un'}checked`} className='icon' size='22' />
       </span>
       <span className={hideLabel ? 'offscreen' : 'filter-name'}>
         {label}
@@ -30,13 +30,13 @@ function Checkbox ({ isChecked, handleClick, label, hideLabel, uid }) {
       )}
     </div>
   );
-}
+};
 
 Checkbox.propTypes = {
-  isChecked: PropTypes.bool,
   handleClick: PropTypes.func,
-  label: PropTypes.string,
   hideLabel: PropTypes.bool,
+  isChecked: PropTypes.bool,
+  label: PropTypes.string,
   uid: PropTypes.string
 };
 

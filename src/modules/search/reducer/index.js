@@ -1,13 +1,13 @@
 import * as actions from '../actions/';
 
 const initialState = {
-  searching: false,
-  query: '',
-  queryInput: '',
   data: null,
   page: {},
-  sort: {},
-  parserMessage: null
+  parserMessage: null,
+  query: '',
+  queryInput: '',
+  searching: false,
+  sort: {}
 };
 
 const searchReducer = function searchReducer (state = initialState, action) {

@@ -42,8 +42,11 @@ export default [
       ...pluginJs.configs.all.rules,
 
       'arrow-body-style': ['error', 'always'],
+      'complexity': 'off',
       'default-param-last': 'off',
+      'max-lines': 'off',
       'max-lines-per-function': 'off',
+      'max-statements': 'off',
       'no-ternary': 'off',
       'no-magic-numbers': 'off',
       'one-var': ['error', { initialized: 'never' }],

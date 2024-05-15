@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { findWhere } from '../../../reusable/underscore';
+import {
+  ActionsList,
+  AddToListButton,
+  GoToList,
+  isInList,
+  prejudice
+} from '../../../lists';
 import { Anchor, Breadcrumb, H1 } from '../../../reusable';
-import { ResourceAccess } from '../../../resource-acccess';
-import { TrimString } from '../../../core';
-import { getField, getFieldValue } from '../../utilities';
 import {
   FullRecordPlaceholder,
   RecommendedResource,
@@ -15,16 +15,16 @@ import {
   ViewMARC,
   Zotero
 } from '../../../records';
-import { requestRecord } from '../../../pride';
-import { setDocumentTitle } from '../../../a11y';
-import {
-  ActionsList,
-  AddToListButton,
-  GoToList,
-  isInList,
-  prejudice
-} from '../../../lists';
+import { getField, getFieldValue } from '../../utilities';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { findWhere } from '../../../reusable/underscore';
 import { NoMatch } from '../../../pages';
+import { requestRecord } from '../../../pride';
+import { ResourceAccess } from '../../../resource-acccess';
+import { setDocumentTitle } from '../../../a11y';
+import { TrimString } from '../../../core';
+import { useSelector } from 'react-redux';
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance();
 
 const FullRecord = () => {
@@ -50,11 +50,11 @@ const FullRecord = () => {
   });
 
   useEffect(() => {
-    requestRecord({ recordUid, datastoreUid });
+    requestRecord({ datastoreUid, recordUid });
     prejudiceInstance = prejudice.createVariableStorageDriverInstance();
     prejudiceInstance.clearRecords();
-    prejudiceInstance.addRecord({ recordUid, datastoreUid });
-  }, [recordUid, datastoreUid]);
+    prejudiceInstance.addRecord({ datastoreUid, recordUid });
+  }, [datastoreUid, recordUid]);
 
   useEffect(() => {
     if (record) {
@@ -68,7 +68,7 @@ const FullRecord = () => {
         } else if (record.alt_ids.includes(recordUid)) {
           navigate(`/${datastore.slug}/record/${record.uid}`);
         } else {
-          requestRecord({ recordUid, datastoreUid });
+          requestRecord({ datastoreUid, recordUid });
         }
       }
 
@@ -109,7 +109,7 @@ const FullRecord = () => {
    * Check if the record in state matches the record ID in the URL
    * If they don't match, then the new record is still being fetched.
    */
-  const recordUidValue = getFieldValue(getField(record.fields, 'id'))[0];
+  const [recordUidValue] = getFieldValue(getField(record.fields, 'id'));
   if (recordUidValue !== recordUid) {
     return (
       <div className='container container-narrow'>
@@ -165,9 +165,10 @@ const FullRecord = () => {
               represented in our collections. Report harmful or offensive language in catalog
               records, finding aids, or elsewhere in our collections anonymously through
               our
+              {' '}
               <Anchor href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform'>metadata feedback form</Anchor>
-              .
-              More information at
+              . More information at
+              {' '}
               <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata'>Remediation of Harmful Language.</Anchor>
             </p>
           )}

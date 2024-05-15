@@ -1,9 +1,9 @@
-import React from 'react';
-import Holders from '../Holders';
 import { ContextProvider } from '../../../reusable';
+import Holders from '../Holders';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-function ResourceAccess ({ record }) {
+const ResourceAccess = ({ record }) => {
   const { datastore, loadingHoldings, resourceAccess } = record;
 
   if (datastore === 'website') {
@@ -23,7 +23,7 @@ function ResourceAccess ({ record }) {
 
   return (
     <ContextProvider render={(context) => {
-      return <Holders {...{ record, context }} />;
+      return <Holders {...{ context, record }} />;
     }}
     />
   );

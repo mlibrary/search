@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
 import './styles.css';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Tabs ({ children, defaultActiveIndex = 0, ...rest }) {
+const Tabs = ({ children, defaultActiveIndex = 0, ...rest }) => {
   const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
   const tabsRef = useRef([]);
 
@@ -17,13 +17,14 @@ function Tabs ({ children, defaultActiveIndex = 0, ...rest }) {
   }, [activeIndex]);
 
   const handleKeyDown = (event) => {
-    let newIndex;
-    if (event.key === 'ArrowRight') {
-      newIndex = activeIndex < tabsRef.current.length - 1 ? activeIndex + 1 : 0;
-      setActiveIndex(newIndex);
-      event.preventDefault();
-    } else if (event.key === 'ArrowLeft') {
-      newIndex = activeIndex > 0 ? activeIndex - 1 : tabsRef.current.length - 1;
+    const { key } = event;
+    const { length } = tabsRef.current;
+
+    if (['ArrowLeft', 'ArrowRight'].includes(key)) {
+      const newIndex = (key === 'ArrowRight')
+        ? (activeIndex + 1) % length
+        : (activeIndex - 1 + length) % length;
+
       setActiveIndex(newIndex);
       event.preventDefault();
     }
@@ -40,15 +41,15 @@ function Tabs ({ children, defaultActiveIndex = 0, ...rest }) {
       <div role='tablist' onKeyDown={handleKeyDown} {...rest}>
         {childrenByDisplayName('Tab').map((child, index) => {
           return React.cloneElement(child, {
+            ariaControls: `panel-${index}`,
+            id: `tab-${index}`,
+            isActive: index === activeIndex,
             onClick: () => {
               return setActiveIndex(index);
             },
             ref: (el) => {
               return updateTabRefs(el, index);
             },
-            isActive: index === activeIndex,
-            id: `tab-${index}`,
-            ariaControls: `panel-${index}`,
             tabIndex: index === activeIndex ? 0 : -1
           });
         })}
@@ -56,14 +57,14 @@ function Tabs ({ children, defaultActiveIndex = 0, ...rest }) {
       </div>
       {childrenByDisplayName('TabPanel').map((child, index) => {
         return React.cloneElement(child, {
-          isActive: index === activeIndex,
+          'aria-labelledby': `tab-${index}`,
           id: `panel-${index}`,
-          'aria-labelledby': `tab-${index}`
+          isActive: index === activeIndex
         });
       })}
     </>
   );
-}
+};
 
 Tabs.propTypes = {
   children: PropTypes.oneOfType([

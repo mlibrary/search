@@ -1,5 +1,3 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import './styles.css';
 import {
   Anchor,
@@ -9,10 +7,12 @@ import {
   Icon
 } from '../../../reusable';
 import { BrowseLink } from '../../../browse';
-import { stringifySearch } from '../../../search';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { stringifySearch } from '../../../search';
+import { useSelector } from 'react-redux';
 
-function DescriptionItem ({ href, search, browse, children }) {
+const DescriptionItem = ({ browse, children, href, search }) => {
   const { active: activeInstitution, defaultInstitution } = useSelector((state) => {
     return state.institution;
   });
@@ -23,20 +23,20 @@ function DescriptionItem ({ href, search, browse, children }) {
     });
   });
 
-  let to;
+  const anchorAttributes = { href };
 
   if (search) {
     const { scope, type, value } = search;
-    to = `/${slug}?${stringifySearch({
-      query: type === 'fielded' ? `${scope}:${value}` : value,
+    anchorAttributes.to = `/${slug}?${stringifySearch({
       filter: type === 'filtered' ? { [scope]: value } : {},
-      library: uid === 'mirlyn' ? (activeInstitution || defaultInstitution) : {}
+      library: uid === 'mirlyn' ? (activeInstitution || defaultInstitution) : {},
+      query: type === 'fielded' ? `${scope}:${value}` : value
     })}`;
   }
 
   return (
     <>
-      {(href || search) ? <Anchor {...{ href, to }}>{children}</Anchor> : children}
+      {(href || search) ? <Anchor {...anchorAttributes}>{children}</Anchor> : children}
       {browse && (
         <>
           <span className='text-grey font-small margin-x__2xs'>|</span>
@@ -51,19 +51,19 @@ function DescriptionItem ({ href, search, browse, children }) {
       )}
     </>
   );
-}
+};
 
 DescriptionItem.propTypes = {
-  href: PropTypes.string,
-  search: PropTypes.object,
   browse: PropTypes.object,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ])
+  ]),
+  href: PropTypes.string,
+  search: PropTypes.object
 };
 
-function Description ({ data }) {
+const Description = ({ data }) => {
   if (Array.isArray(data)) {
     return (
       <ol className='list__unstyled'>
@@ -79,7 +79,7 @@ function Description ({ data }) {
     );
   }
 
-  const { icon, text, image } = data;
+  const { icon, image, text } = data;
 
   return (
     <DescriptionItem {...data}>
@@ -103,7 +103,7 @@ function Description ({ data }) {
       )}
     </DescriptionItem>
   );
-}
+};
 
 Description.propTypes = {
   data: PropTypes.oneOfType([
@@ -126,10 +126,10 @@ export default function Metadata ({ data, kind }) {
               </dt>
               <div className='metadata-details'>
                 <ExpandableChildren show={isExpandable ? 4 : description.length}>
-                  {description.map((d, i) => {
+                  {description.map((descriptor, index) => {
                     return (
-                      <dd key={i}>
-                        <Description data={d} />
+                      <dd key={index}>
+                        <Description data={descriptor} />
                       </dd>
                     );
                   })}

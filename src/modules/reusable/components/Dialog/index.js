@@ -58,10 +58,10 @@ const Dialog = ({ children, isOpen, onClose }) => {
 export default Dialog;
 
 Dialog.propTypes = {
-  onClose: PropTypes.func,
-  isOpen: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ])
+  ]),
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func
 };

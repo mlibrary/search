@@ -4,7 +4,7 @@ import { searchOptions, searchOptionsDatastores } from '../../utilities';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function SearchTip ({ activeDatastore, field }) {
+const SearchTip = ({ activeDatastore, field }) => {
   // Check if current datastore is found in any of the search options
   if (!searchOptionsDatastores().includes(activeDatastore)) {
     return null;

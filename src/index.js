@@ -1,21 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './stylesheets/colors.css';
 import './stylesheets/forms.css';
 import './stylesheets/main.css';
 import './stylesheets/spacing.css';
 import './stylesheets/utilities.css';
-import { Alert } from './modules/reusable';
-import { initializePride } from './modules/pride';
 import { AboutLibrarySearch, AccessibilityPage, NoMatch } from './modules/pages';
-import { DatastoreRoute } from './modules/datastores';
-import store from './store';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Footer, ScrollToTop, SearchHeader } from './modules/core';
 import { A11yLiveMessage } from './modules/a11y';
+import { Alert } from './modules/reusable';
+import { DatastoreRoute } from './modules/datastores';
+import { initializePride } from './modules/pride';
+import { Provider } from 'react-redux';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import store from './store';
 
-function App () {
+const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -52,7 +52,7 @@ function App () {
       </BrowserRouter>
     </Provider>
   );
-}
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

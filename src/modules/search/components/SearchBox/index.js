@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import './styles.css';
 import { Anchor, Icon } from '../../../reusable';
+import { getSearchStateFromURL, stringifySearch } from '../../utilities';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
-import { getSearchStateFromURL, stringifySearch } from '../../utilities';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-function SearchBox () {
+const SearchBox = () => {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
@@ -29,7 +29,7 @@ function SearchBox () {
   );
   const [inputQuery, setInputQuery] = useState(query);
   const defaultField = fields[0].uid;
-  const [field, setField] = useState(defaultField);
+  const [currentField, setcurrentField] = useState(defaultField);
 
   // Set field and input when `activeDatastore`, `query`, or `fields` changes
   useEffect(() => {
@@ -37,7 +37,7 @@ function SearchBox () {
       return field.uid;
     });
     // Set default value of field
-    let getField = fieldIDs[0];
+    let [getField] = fieldIDs;
     // Set default value of input
     let getInput = query;
     // Check if the query is a single fielded search that exists in the current datastore
@@ -62,21 +62,21 @@ function SearchBox () {
       }
     }
     // Set field value
-    setField(getField);
+    setcurrentField(getField);
     // Set input value
     setInputQuery(getInput);
   }, [activeDatastore, query, fields]);
 
-  function setOption (e) {
+  const setOption = (event) => {
     window.dataLayer.push({
       event: 'selectionMade',
-      selectedElement: e.target.options[e.target.selectedIndex]
+      selectedElement: event.target.options[event.target.selectedIndex]
     });
-    return setField(e.target.value);
-  }
+    return setcurrentField(event.target.value);
+  };
 
-  function handleSubmitSearch (e) {
-    e.preventDefault();
+  const handleSubmitSearch = (event) => {
+    event.preventDefault();
 
     /*
      * Get the dropdown's current value because `field` does not change
@@ -86,7 +86,7 @@ function SearchBox () {
     const dropdownOption = dropdown.value;
 
     // Change `field` to current dropdown value
-    dropdown.dispatchEvent(new Event('change', setField(dropdownOption)));
+    dropdown.dispatchEvent(new Event('change', setcurrentField(dropdownOption)));
 
     // Check if browse option
     const browseOption = dropdownOption.startsWith('browse_by_');
@@ -99,7 +99,7 @@ function SearchBox () {
       // Preserve existing URL's tate
       ...getSearchStateFromURL(location.search),
       // If new search, return the first page
-      page: undefined,
+      page: 1,
       // Add new query
       query: newQuery
     });
@@ -122,13 +122,13 @@ function SearchBox () {
       // Submit new search
       navigate(`/${params.datastoreSlug}?${newURL}`);
     }
-  }
+  };
 
   return (
     <form
       className='search-box-form'
-      onSubmit={(e) => {
-        return handleSubmitSearch(e);
+      onSubmit={(event) => {
+        return handleSubmitSearch(event);
       }}
     >
       <div className='container container-medium'>
@@ -136,9 +136,9 @@ function SearchBox () {
           <select
             aria-label='Select an option'
             className='dropdown'
-            value={field}
-            onChange={(e) => {
-              return setOption(e);
+            value={currentField}
+            onChange={(event) => {
+              return setOption(event);
             }}
             autoComplete='off'
           >
@@ -151,10 +151,10 @@ function SearchBox () {
         </div>
         <input
           type='text'
-          aria-label={field.startsWith('browse_by_') ? 'Browse for' : 'Search for'}
+          aria-label={currentField.startsWith('browse_by_') ? 'Browse for' : 'Search for'}
           value={inputQuery}
-          onChange={(e) => {
-            return setInputQuery(e.target.value);
+          onChange={(event) => {
+            return setInputQuery(event.target.value);
           }}
           autoComplete='on'
           name='query'
@@ -178,10 +178,10 @@ function SearchBox () {
             <span className='visually-hidden'>Search</span>
           </Anchor>
         )}
-        <SearchTip activeDatastore={activeDatastore.uid} field={field} />
+        <SearchTip activeDatastore={activeDatastore.uid} field={currentField} />
       </div>
     </form>
   );
-}
+};
 
 export default SearchBox;

@@ -1,11 +1,11 @@
+import './styles.css';
+import Holder from '../Holder';
+import { Icon } from '../../../reusable';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import './styles.css';
-import { Icon } from '../../../reusable';
-import Holder from '../Holder';
-import PropTypes from 'prop-types';
 
-export default function Holders ({ record, context }) {
+const Holders = ({ context, record }) => {
   const { mirlyn } = useSelector((state) => {
     return state.filters.active;
   });
@@ -31,7 +31,7 @@ export default function Holders ({ record, context }) {
   }
   return (
     <>
-      {record.resourceAccess.map((data, i) => {
+      {record.resourceAccess.map((data, index) => {
         const { rows, caption, type } = data;
 
         if (!rows.length) {
@@ -40,7 +40,7 @@ export default function Holders ({ record, context }) {
 
         return (
           <details
-            key={`${record.datastore + record.uid}-${i}`}
+            key={`${record.datastore + record.uid}-${index}`}
             className='holders-details'
             open={record.resourceAccess.length === 1}
           >
@@ -66,9 +66,11 @@ export default function Holders ({ record, context }) {
       })}
     </>
   );
-}
+};
 
 Holders.propTypes = {
-  record: PropTypes.object,
-  context: PropTypes.object
+  context: PropTypes.object,
+  record: PropTypes.object
 };
+
+export default Holders;

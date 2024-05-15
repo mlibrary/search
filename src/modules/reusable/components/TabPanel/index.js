@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function TabPanel ({ children, id, isActive, ...rest }) {
+const TabPanel = ({ children, id, isActive, ...rest }) => {
   return (
     <div
       role='tabpanel'
@@ -14,7 +14,7 @@ function TabPanel ({ children, id, isActive, ...rest }) {
       {children}
     </div>
   );
-}
+};
 
 TabPanel.displayName = 'TabPanel';
 

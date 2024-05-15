@@ -1,8 +1,8 @@
-import React from 'react';
 import { Anchor, Icon, TruncateText } from '../../../reusable';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-function Cell ({ cell }) {
+const Cell = ({ cell }) => {
   return (
     <>
       {cell.icon && (
@@ -46,11 +46,11 @@ Cell.propTypes = {
 export default function Holding ({ holding }) {
   return (
     <tr>
-      {holding.map((cell, i) => {
+      {holding.map((cell, index) => {
         return (
           <td
             className={cell.intent && `intent__${[cell.intent]}`}
-            key={i}
+            key={index}
           >
             <Cell cell={cell} />
           </td>
