@@ -65,8 +65,7 @@ const config = {
       filters: [
         {
           conditions: {
-            checked: true,
-            unchecked: undefined
+            checked: true
           },
           groupBy: 'Access Options',
           type: 'checkbox',
@@ -74,7 +73,6 @@ const config = {
         },
         {
           conditions: {
-            checked: undefined,
             default: 'checked',
             unchecked: false
           },
@@ -172,8 +170,7 @@ const config = {
       filters: [
         {
           conditions: {
-            checked: true,
-            unchecked: undefined
+            checked: true
           },
           groupBy: 'Access Options',
           name: 'Limit to articles available online',
@@ -182,8 +179,7 @@ const config = {
         },
         {
           conditions: {
-            checked: true,
-            unchecked: undefined
+            checked: true
           },
           groupBy: 'Access Options',
           name: 'Limit to articles from scholarly journals',
@@ -192,8 +188,7 @@ const config = {
         },
         {
           conditions: {
-            checked: false,
-            unchecked: undefined
+            checked: false
           },
           groupBy: 'Access Options',
           name: 'Add results beyond the library\'s holdings',
@@ -202,8 +197,7 @@ const config = {
         },
         {
           conditions: {
-            checked: true,
-            unchecked: undefined
+            checked: true
           },
           groupBy: 'Access Options',
           name: 'Exclude newspaper holdings',
