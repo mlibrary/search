@@ -1,5 +1,3 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import './styles.css';
 import {
   Anchor,
@@ -8,11 +6,13 @@ import {
   ExpandableChildren,
   Icon
 } from '../../../reusable';
-import CheckboxFilters from '../CheckboxFilters';
 import { getURLWithFiltersRemoved, newSearch } from '../../utilities';
+import CheckboxFilters from '../CheckboxFilters';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-function ActiveFilters () {
+const ActiveFilters = () => {
   const { active: activeDatastore } = useSelector((state) => {
     return state.datastores;
   });
@@ -47,7 +47,7 @@ function ActiveFilters () {
         return { group, value };
       });
 
-      acc = acc.concat(activeFiltersToAdd);
+      return [...acc, ...activeFiltersToAdd];
     }
 
     return acc;
@@ -64,11 +64,11 @@ function ActiveFilters () {
       </h2>
 
       <ul className='list__unstyled'>
-        {items.map((item, i) => {
+        {items.map((item, index) => {
           const { group, value } = item;
           return (
             <li
-              key={i + group + value}
+              key={index + group + value}
               className='margin-bottom__xs'
             >
               <Anchor
@@ -97,9 +97,9 @@ function ActiveFilters () {
 }
     </section>
   );
-}
+};
 
-function FilterGroupContainer ({ uid }) {
+const FilterGroupContainer = ({ uid }) => {
   const activeDatastore = useSelector((state) => {
     return state.datastores.active;
   });
@@ -137,11 +137,11 @@ function FilterGroupContainer ({ uid }) {
         <Expandable>
           <ul className='list__unstyled filter-list'>
             <ExpandableChildren show={5}>
-              {filtersWithoutActive.map((filter, i) => {
+              {filtersWithoutActive.map((filter, index) => {
                 const { value, count } = filter;
-                const search = newSearch({ filter: { [uid]: value }, page: undefined });
+                const search = newSearch({ filter: { [uid]: value }, page: 1 });
                 return (
-                  <li key={name + value + i}>
+                  <li key={name + value + index}>
                     <Anchor
                       to={`${document.location.pathname}?${search}`}
                       className='flex filter-option'
@@ -167,13 +167,13 @@ function FilterGroupContainer ({ uid }) {
       </div>
     </details>
   );
-}
+};
 
 FilterGroupContainer.propTypes = {
   uid: PropTypes.string
 };
 
-export default function Filters () {
+const Filters = () => {
   const { searching } = useSelector((state) => {
     return state.search;
   });
@@ -202,4 +202,6 @@ export default function Filters () {
       })}
     </section>
   );
-}
+};
+
+export default Filters;
