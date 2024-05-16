@@ -1,12 +1,11 @@
 import * as actions from '../actions/';
 
 const initialState = {
-  active: undefined,
-  defaultAffiliation: 'aa',
   affiliationOptions: {
     aa: 'Ann Arbor',
     flint: 'Flint'
-  }
+  },
+  defaultAffiliation: 'aa'
 };
 
 const affiliationReducer = (state = initialState, action) => {
