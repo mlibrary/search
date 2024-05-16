@@ -27,7 +27,7 @@ const ResourceAccess = ({ record }) => {
     }}
     />
   );
-}
+};
 
 ResourceAccess.propTypes = {
   record: PropTypes.object

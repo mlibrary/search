@@ -2,8 +2,8 @@ import { findWhere } from '../../../reusable/underscore';
 import store from '../../../../store';
 
 const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
-  function getActiveFilter ({ uid, defaultFilter, filters }) {
-    if (activeFilters && activeFilters[uid]) {
+  const getActiveFilter = ({ defaultFilter, filters, uid }) => {
+    if (activeFilters?.[uid]) {
       return activeFilters[uid][0];
     }
 
@@ -12,7 +12,7 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
     }
 
     return filters[0];
-  }
+  };
 
   const state = store.getState();
   const library = state.institution.active
@@ -24,9 +24,9 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
     return filter.label;
   });
   const instActiveFilter = getActiveFilter({
-    uid: 'institution',
     defaultFilter: library,
-    filters: instFilterLabels
+    filters: instFilterLabels,
+    uid: 'institution'
   });
 
   const location = findWhere(inst.values, { label: instActiveFilter });
@@ -35,9 +35,9 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
   });
   const locationDefault = findWhere(data.defaults, { uid: 'location' });
   const locationActiveFilter = getActiveFilter({
-    uid: 'location',
     defaultFilter: locationDefault.value,
-    filters: locationFilterLabels
+    filters: locationFilterLabels,
+    uid: 'location'
   });
 
   const collection = findWhere(location.values, { label: locationActiveFilter });
@@ -46,33 +46,31 @@ const getCatalogNarrowSearchToOptions = (data, activeFilters) => {
   });
   const collectionDefault = findWhere(data.defaults, { uid: 'collection' });
   const collectionActiveFilter = getActiveFilter({
-    uid: 'collection',
     defaultFilter: collectionDefault.value,
-    filters: collectionFilterLabels
+    filters: collectionFilterLabels,
+    uid: 'collection'
   });
 
-  const options = [
+  return [
     {
-      uid: 'institution',
-      label: inst.field,
+      activeFilter: instActiveFilter,
       filters: instFilterLabels,
-      activeFilter: instActiveFilter
+      label: inst.field,
+      uid: 'institution'
     },
     {
-      uid: 'location',
-      label: location.field,
+      activeFilter: locationActiveFilter,
       filters: locationFilterLabels,
-      activeFilter: locationActiveFilter
+      label: location.field,
+      uid: 'location'
     },
     {
-      uid: 'collection',
-      label: collection.field,
+      activeFilter: collectionActiveFilter,
       filters: collectionFilterLabels,
-      activeFilter: collectionActiveFilter
+      label: collection.field,
+      uid: 'collection'
     }
   ];
-
-  return options;
 };
 
 const getFilters = ({ filterGroups, activeFilters }) => {
@@ -90,13 +88,13 @@ const getFilters = ({ filterGroups, activeFilters }) => {
     // Mapping filters and checking if they are active
     const filters = filterGroup.filters.map((filterValue) => {
       const isActive = activeFilters?.[filterGroup.uid]?.includes(filterValue) || false;
-      return { value: filterValue, isActive };
+      return { isActive, value: filterValue };
     });
 
     return {
       ...filterGroup,
-      filters,
-      activeFilters: activeFilters?.[filterGroup.uid] || []
+      activeFilters: activeFilters?.[filterGroup.uid] || [],
+      filters
     };
   });
 

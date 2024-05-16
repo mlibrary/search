@@ -77,7 +77,7 @@ function ActiveFilters () {
               >
                 {groups[group] ? groups[group].metadata.name : group}
                 :
-                {value}
+                {` ${value}`}
                 <Icon icon='close' />
               </Anchor>
             </li>

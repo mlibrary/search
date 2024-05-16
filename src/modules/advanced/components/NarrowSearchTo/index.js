@@ -1,11 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-const NarrowSearchTo = ({ options, handleChange }) => {
+const NarrowSearchTo = ({ handleChange, options }) => {
   return (
     <>
       {options.map((option) => {
-        const { filters, label, activeFilter } = option;
+        const { activeFilter, filters, label } = option;
 
         if (filters.length <= 1) {
           return null;
@@ -22,8 +22,8 @@ const NarrowSearchTo = ({ options, handleChange }) => {
             <select
               className='dropdown narrow-search-to-dropdown'
               id={slug}
-              onChange={(e) => {
-                return handleChange({ uid: option.uid, value: e.target.value });
+              onChange={(event) => {
+                return handleChange({ uid: option.uid, value: event.target.value });
               }}
               value={activeFilter}
               autoComplete='off'
@@ -44,8 +44,8 @@ const NarrowSearchTo = ({ options, handleChange }) => {
 };
 
 NarrowSearchTo.propTypes = {
-  options: PropTypes.array,
-  handleChange: PropTypes.func
+  handleChange: PropTypes.func,
+  options: PropTypes.array
 };
 
 export default NarrowSearchTo;
