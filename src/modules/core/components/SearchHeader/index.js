@@ -1,11 +1,11 @@
-import React from 'react';
 import './styles.css';
-import { useSelector } from 'react-redux';
-import { ChooseAffiliation } from '../../../affiliation';
 import { Anchor } from '../../../reusable';
 import { Authentication } from '../../../profile';
+import { ChooseAffiliation } from '../../../affiliation';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-function SearchHeader () {
+const SearchHeader = () => {
   const isAuthenticated = useSelector((state) => {
     return state.profile.status === 'Logged in';
   });
@@ -19,6 +19,6 @@ function SearchHeader () {
       </nav>
     </m-website-header>
   );
-}
+};
 
 export default SearchHeader;

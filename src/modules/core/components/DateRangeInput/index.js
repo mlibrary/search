@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function YearInput ({ query, setQuery, point = 'start' }) {
+const YearInput = ({ point = 'start', query, setQuery }) => {
   return (
     <div>
       <label htmlFor={`date-range-${point}-date`}>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
@@ -18,12 +18,12 @@ function YearInput ({ query, setQuery, point = 'start' }) {
       <small id={`date-range-${point}-date-description`}>Please enter this format: YYYY</small>
     </div>
   );
-}
+};
 
 YearInput.propTypes = {
+  point: PropTypes.string,
   query: PropTypes.string,
-  setQuery: PropTypes.func,
-  point: PropTypes.string
+  setQuery: PropTypes.func
 };
 
 const dateRangeOptions = ['Before', 'After', 'Between', 'In'];
@@ -35,9 +35,9 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
 
   const handleStateChange = (beginQueryVal, endQueryVal, selectedRange) => {
     handleSelection({
-      selectedRange,
       beginDateQuery: beginQueryVal,
-      endDateQuery: endQueryVal
+      endDateQuery: endQueryVal,
+      selectedRange
     });
   };
 
@@ -82,8 +82,8 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
           rangeOption !== 'Before' && (
             <YearInput
               query={beginQueryState}
-              setQuery={(e) => {
-                return handleBeginQueryChange(e.target.value);
+              setQuery={(event) => {
+                return handleBeginQueryChange(event.target.value);
               }}
             />
           )
@@ -92,8 +92,8 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
           ['Before', 'Between'].includes(rangeOption) && (
             <YearInput
               query={endQueryState}
-              setQuery={(e) => {
-                return handleEndQueryChange(e.target.value);
+              setQuery={(event) => {
+                return handleEndQueryChange(event.target.value);
               }}
               point='end'
             />
@@ -107,8 +107,8 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
 DateRangeInput.propTypes = {
   beginQuery: PropTypes.string,
   endQuery: PropTypes.string,
-  selectedRangeOption: PropTypes.number,
-  handleSelection: PropTypes.func
+  handleSelection: PropTypes.func,
+  selectedRangeOption: PropTypes.number
 };
 
 export default DateRangeInput;
