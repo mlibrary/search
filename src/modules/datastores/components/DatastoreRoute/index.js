@@ -1,10 +1,10 @@
-import React from 'react';
+import { DatastorePage, NoMatch } from '../../../pages';
+import { getStateFromURL, URLSearchQueryWrapper } from '../../../pride';
 import { useLocation, useParams } from 'react-router-dom';
 import config from '../../../../config';
-import { getStateFromURL, URLSearchQueryWrapper } from '../../../pride';
-import { DatastorePage, NoMatch } from '../../../pages';
+import React from 'react';
 
-function DatastoreRoute () {
+const DatastoreRoute = () => {
   const { datastoreSlug } = useParams();
   const location = useLocation();
   const { list } = config.datastores;
@@ -26,6 +26,6 @@ function DatastoreRoute () {
   }
 
   return <NoMatch />;
-}
+};
 
 export default DatastoreRoute;
