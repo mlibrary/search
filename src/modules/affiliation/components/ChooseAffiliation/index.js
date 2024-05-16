@@ -65,12 +65,12 @@ const ChooseAffiliation = () => {
                 return setDialogOpen(true);
               }
         }
-        role={oldSafari() && 'link'}
+        role={oldSafari() ? 'link' : 'button'}
       >
         {Object.keys(affiliationOptions).map((campusAffiliation, index) => {
           const currentAffiliation = affiliation === campusAffiliation;
           return (
-            <div className={currentAffiliation && 'active-affiliation'} key={`${campusAffiliation}-${index}`}>
+            <div className={currentAffiliation ? 'active-affiliation' : ''} key={`${campusAffiliation}-${index}`}>
               <span className='visually-hidden'>{currentAffiliation ? 'Current' : 'Choose'} campus affiliation: </span>
               {affiliationOptions[campusAffiliation]}
             </div>
