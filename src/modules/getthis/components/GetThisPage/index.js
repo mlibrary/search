@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
-import { requestGetThis, requestRecord } from '../../../pride';
-import { GetThisOptions, GetThisRecord } from '../../../getthis';
 import { Alert, Breadcrumb, H1 } from '../../../reusable';
+import { GetThisOptions, GetThisRecord } from '../../../getthis';
+import React, { useEffect } from 'react';
+import { requestGetThis, requestRecord } from '../../../pride';
+import { useLocation, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const GetThisPage = () => {
-  const { recordUid, barcode } = useParams();
+  const { barcode, recordUid } = useParams();
   const location = useLocation();
-  const record = useSelector((state) => {
-    return state.records.record;
+  const { record } = useSelector((state) => {
+    return state.records;
   });
-  const datastoreUid = useSelector((state) => {
-    return state.datastores.active;
+  const { active: datastoreUid } = useSelector((state) => {
+    return state.datastores;
   });
 
   useEffect(() => {
-    requestRecord({ recordUid, datastoreUid });
-    requestGetThis({ datastoreUid, recordUid, barcode });
+    requestRecord({ datastoreUid, recordUid });
+    requestGetThis({ barcode, datastoreUid, recordUid });
   }, [recordUid, datastoreUid, barcode]);
 
   return (

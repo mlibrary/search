@@ -1,67 +1,13 @@
-import React from 'react';
 import './styles.css';
-import { useSelector } from 'react-redux';
-import getHoldingByBarcode from '../../getHoldingByBarcode';
-import { TrimString } from '../../../core';
 import { FullRecordPlaceholder, RecordFullFormats } from '../../../records';
-import { ResourceAccess } from '../../../resource-acccess';
+import getHoldingByBarcode from '../../getHoldingByBarcode';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { ResourceAccess } from '../../../resource-acccess';
+import { TrimString } from '../../../core';
+import { useSelector } from 'react-redux';
 
-function GetThisHolding ({ record, barcode }) {
-  const holding = getHoldingByBarcode(record.resourceAccess, barcode);
-
-  if (holding) {
-    const recordData = {
-      resourceAccess: [].concat({
-        ...holding[0],
-        preExpanded: true
-      })
-    };
-
-    return (
-      <div
-        className='get-this-resource-access-container'
-        style={{
-          borderBottom: 'solid 1px var(--ds-color-neutral-100)'
-        }}
-      >
-        <h3 className='visually-hidden'>Available at</h3>
-        <ResourceAccess record={recordData} />
-      </div>
-    );
-  }
-
-  return null;
-}
-
-GetThisHolding.propTypes = {
-  record: PropTypes.object,
-  barcode: PropTypes.string
-};
-
-function GetBarcode ({ barcode }) {
-  if (barcode) {
-    return (
-      <section className='record-container'>
-        <p className='margin-y__none'>
-          <span style={{ fontWeight: 600 }}>
-            Barcode:{' '}
-          </span>
-          <span style={{ color: 'var(--ds-color-neutral-300)' }}>
-            {barcode}
-          </span>
-        </p>
-      </section>
-    );
-  }
-  return null;
-}
-
-GetBarcode.propTypes = {
-  barcode: PropTypes.string
-};
-
-function GetThisRecord ({ barcode }) {
+const GetThisRecord = ({ barcode }) => {
   const record = useSelector((state) => {
     return state.records.record;
   });
@@ -69,6 +15,8 @@ function GetThisRecord ({ barcode }) {
   if (!record) {
     return <FullRecordPlaceholder />;
   }
+
+  const holding = getHoldingByBarcode(record.resourceAccess, barcode);
 
   return (
     <div className='container__rounded full-record-container u-margin-bottom-1'>
@@ -90,11 +38,38 @@ function GetThisRecord ({ barcode }) {
         </h2>
       </div>
 
-      <GetThisHolding record={record} barcode={barcode} />
-      <GetBarcode barcode={barcode} />
+      {holding && (
+        <div
+          className='get-this-resource-access-container'
+          style={{
+            borderBottom: 'solid 1px var(--ds-color-neutral-100)'
+          }}
+        >
+          <h3 className='visually-hidden'>Available at</h3>
+          <ResourceAccess record={{
+            resourceAccess: [].concat({
+              ...holding[0],
+              preExpanded: true
+            })
+          }}
+          />
+        </div>
+      )}
+      {barcode && (
+        <section className='record-container'>
+          <p className='margin-y__none'>
+            <span className='strong'>
+              Barcode:{' '}
+            </span>
+            <span className='text-grey__light'>
+              {barcode}
+            </span>
+          </p>
+        </section>
+      )}
     </div>
   );
-}
+};
 
 GetThisRecord.propTypes = {
   barcode: PropTypes.string
