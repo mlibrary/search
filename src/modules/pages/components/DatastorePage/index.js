@@ -1,31 +1,31 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes, useLocation, useParams } from 'react-router-dom';
-import { findWhere } from '../../../reusable/underscore';
-import { NoMatch } from '../../../pages';
-import { SearchBox } from '../../../search';
-import { AdvancedSearch } from '../../../advanced';
 import {
   DatastoreInfoContainer,
   DatastoreNavigation,
   FlintAlerts,
   Landing
 } from '../../../datastores';
-import { BrowsePage } from '../../../browse';
+import React, { useEffect } from 'react';
 import { RecordFull, Results } from '../../../records';
+import { Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdvancedSearch } from '../../../advanced';
+import { BrowsePage } from '../../../browse';
+import { findWhere } from '../../../reusable/underscore';
 import { GetThisPage } from '../../../getthis';
-import { switchPrideToDatastore } from '../../../pride';
-import { List } from '../../../lists';
-import { setDocumentTitle } from '../../../a11y';
 import { H1 } from '../../../reusable';
+import { List } from '../../../lists';
+import { NoMatch } from '../../../pages';
+import { SearchBox } from '../../../search';
+import { setDocumentTitle } from '../../../a11y';
+import { switchPrideToDatastore } from '../../../pride';
 
-function DatastorePage () {
+const DatastorePage = () => {
   const location = useLocation();
   const params = useParams();
   const dispatch = useDispatch();
 
-  const activeFilters = useSelector((state) => {
-    return state.filters.active;
+  const { active: activeFilters } = useSelector((state) => {
+    return state.filters;
   });
   const datastores = useSelector((state) => {
     return state.datastores;
@@ -106,16 +106,13 @@ function DatastorePage () {
                 />
                 <Route
                   path='list'
-                  element={<List {...{ profile, activeDatastore, institution, list }} />}
+                  element={<List {...{ activeDatastore, institution, list, profile }} />}
                 />
                 <Route
                   index
                   element={
-                    !searching
+                    searching
                       ? (
-                        <Landing activeDatastore={activeDatastore} institution={institution} />
-                        )
-                      : (
                         <>
                           <H1 className='visually-hidden'>{activeDatastore.name}</H1>
                           <DatastoreInfoContainer activeDatastore={activeDatastore} />
@@ -126,6 +123,9 @@ function DatastorePage () {
                           />
                         </>
                         )
+                      : (
+                        <Landing activeDatastore={activeDatastore} institution={institution} />
+                        )
                   }
                 />
               </Routes>
@@ -135,6 +135,6 @@ function DatastorePage () {
       </Routes>
     </main>
   );
-}
+};
 
 export default DatastorePage;

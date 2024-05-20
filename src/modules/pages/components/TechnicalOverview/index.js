@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import schematicImage from './schematic.png';
 import { setDocumentTitle } from '../../../a11y';
 
-function TechnicalOverview () {
+const TechnicalOverview = () => {
   useEffect(() => {
     setDocumentTitle(['Technical overview']);
   }, []);
