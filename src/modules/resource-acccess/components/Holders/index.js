@@ -34,7 +34,7 @@ const Holders = ({ context, record }) => {
       {record.resourceAccess.map((data, index) => {
         const { rows, caption, type } = data;
 
-        if (!rows.length) {
+        if (!rows?.length) {
           return null;
         }
 
