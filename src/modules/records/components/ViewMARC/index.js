@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getField, getFieldValue } from '../../utilities';
-import { MARCTable } from '../../../marc';
+import MARCTable from '../MARCTable';
 import PropTypes from 'prop-types';
 
 const ViewMARC = ({ record }) => {

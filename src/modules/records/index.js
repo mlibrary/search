@@ -2,6 +2,7 @@ import BentoboxList from './components/BentoboxList';
 import Bookplate from './components/Bookplate';
 import FullRecordPlaceholder from './components/FullRecordPlaceholder';
 import KeywordSwitch from './components/KeywordSwitch';
+import MARCTable from './components/MARCTable';
 import Pagination from './components/Pagination';
 import Record from './components/Record';
 import RecordDescription from './components/RecordDescription';
@@ -37,6 +38,7 @@ export {
   KeywordSwitch,
   loadingHoldings,
   loadingRecords,
+  MARCTable,
   Pagination,
   Record,
   RecordDescription,

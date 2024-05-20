@@ -1,12 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-
-const name = (field) => {
-  return Object.keys(field)[0];
-};
+import React from 'react';
 
 const FieldValue = ({ field }) => {
-  const value = field[name(field)];
+  const [name] = Object.keys(field);
+  const value = field[name];
 
   if (typeof value === 'string') {
     return value;
@@ -16,7 +13,7 @@ const FieldValue = ({ field }) => {
   return (
     <>
       {subfields?.map((subfield, index) => {
-        const subfieldName = name(subfield);
+        const [subfieldName] = Object.keys(subfield);
         return (
           <span className='marc__subfield' key={index}>
             <span className='strong'>|{subfieldName}</span> {subfield[subfieldName]}
@@ -31,7 +28,7 @@ FieldValue.propTypes = {
   field: PropTypes.object.isRequired
 };
 
-function MARCTable ({ marc }) {
+const MARCTable = ({ marc }) => {
   return (
     <div className='marc__container'>
       <h2 className='marc__heading'>MARC Data</h2>
@@ -44,7 +41,7 @@ function MARCTable ({ marc }) {
             </tr>
           )}
           {marc.fields.map((field, index) => {
-            const fieldName = name(field);
+            const [fieldName] = Object.keys(field);
             return (
               <tr key={index}>
                 <td className='marc__field-name'>
@@ -67,7 +64,7 @@ function MARCTable ({ marc }) {
       </table>
     </div>
   );
-}
+};
 
 MARCTable.propTypes = {
   marc: PropTypes.object
