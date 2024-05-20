@@ -1,57 +1,58 @@
+import { Alert, ContextProvider, Icon } from '../../../reusable';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { AuthenticationRequired } from '../../../profile';
+import CitationAction from '../CitationAction';
 import EmailAction from '../EmailAction';
-import TextAction from '../TextAction';
 import FileAction from '../FileAction';
 import PermalinkAction from '../PermalinkAction';
-import CitationAction from '../CitationAction';
-import { AuthenticationRequired } from '../../../profile';
-import { Alert, ContextProvider, Icon } from '../../../reusable';
 import PropTypes from 'prop-types';
+import TextAction from '../TextAction';
+import { useSelector } from 'react-redux';
 
-function ActionsList (props) {
+const actions = [
+  {
+    action: 'email',
+    icon: 'email',
+    name: 'Email',
+    uid: 'email'
+  },
+  {
+    action: 'text',
+    icon: 'chat',
+    name: 'Text',
+    uid: 'text'
+  },
+  {
+    action: 'citation',
+    icon: 'format_quote',
+    name: 'Citation',
+    uid: 'citation'
+  },
+  {
+    action: 'file',
+    icon: 'insert_drive_file',
+    name: 'Export Citation (EndNote)',
+    uid: 'endnote'
+  },
+  {
+    action: 'file',
+    icon: 'insert_drive_file',
+    name: 'Export Citation (RIS)',
+    uid: 'ris'
+  },
+  {
+    action: 'permalink',
+    icon: 'link',
+    name: 'Copy link',
+    uid: 'permalink'
+  }
+];
+
+const ActionsList = (props) => {
   const [alert, setAlert] = useState(null);
   const profile = useSelector((state) => {
     return state.profile;
   });
-  const actions = [
-    {
-      uid: 'email',
-      action: 'email',
-      name: 'Email',
-      icon: 'email'
-    },
-    {
-      uid: 'text',
-      action: 'text',
-      name: 'Text',
-      icon: 'chat'
-    },
-    {
-      uid: 'citation',
-      action: 'citation',
-      name: 'Citation',
-      icon: 'format_quote'
-    },
-    {
-      uid: 'endnote',
-      action: 'file',
-      name: 'Export Citation (EndNote)',
-      icon: 'insert_drive_file'
-    },
-    {
-      uid: 'ris',
-      action: 'file',
-      name: 'Export Citation (RIS)',
-      icon: 'insert_drive_file'
-    },
-    {
-      uid: 'permalink',
-      action: 'permalink',
-      name: 'Copy link',
-      icon: 'link'
-    }
-  ];
 
   return (
     <ContextProvider render={(data) => {
@@ -71,7 +72,7 @@ function ActionsList (props) {
                   <button
                     className={`button-link lists-action-button ${activeClassName}`}
                     onClick={() => {
-                      props.setActive(!isActive ? action : undefined);
+                      props.setActive(isActive ? null : action);
                       setAlert(null);
                     }}
                     aria-pressed={Boolean(isActive)}
@@ -132,7 +133,7 @@ function ActionsList (props) {
     }}
     />
   );
-}
+};
 
 ActionsList.propTypes = {
   active: PropTypes.oneOfType([

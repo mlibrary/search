@@ -35,20 +35,19 @@ const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCitations = async () => {
+    const fetchCitations = () => {
       setLoading(true);
 
-      const records = viewType === 'Full'
-        ? [
-            { recordUid: record.uid, datastoreUid: datastore.uid }
-          ]
-        : viewType === 'List' && list.length
-          ? list.map((record) => {
-            return {
-              recordUid: record.uid, datastoreUid: datastore.uid
-            };
-          })
-          : [];
+      let records = [];
+
+      if (viewType === 'Full') {
+        records = [{ datastoreUid: datastore.uid, recordUid: record.uid }];
+      }
+      if (viewType === 'List' && list.length > 0) {
+        records = list.map((item) => {
+          return { datastoreUid: datastore.uid, recordUid: item.uid };
+        });
+      }
 
       if (records.length === 0) {
         setLoading(false);
@@ -111,8 +110,8 @@ const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType
                     style={{
                       border: 'solid 1px var(--search-color-grey-400)',
                       boxShadow: 'none',
-                      overflowY: 'auto',
-                      maxHeight: '40vh'
+                      maxHeight: '40vh',
+                      overflowY: 'auto'
                     }}
                     className='y-spacing copy-citation padding-y__xs padding-x__s container__rounded'
                     contentEditable
@@ -145,7 +144,7 @@ const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType
       })}
     </Tabs>
   );
-}
+};
 
 CitationAction.propTypes = {
   datastore: PropTypes.shape({

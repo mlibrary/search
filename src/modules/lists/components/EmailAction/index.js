@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
 import PropTypes from 'prop-types';
 
-function EmailAction ({ emailAddress, prejudice, datastore, setActive, action }) {
+const EmailAction = ({ action, datastore, emailAddress, prejudice, setActive }) => {
   const [email, setEmail] = useState(emailAddress);
-  const [status, setStatus] = useState(undefined);
+  const [status, setStatus] = useState();
 
   const setCloseStatus = () => {
     setActive('');
-    setStatus(undefined);
+    setStatus(null);
   };
 
   const handleSubmitCallback = (data) => {
@@ -50,14 +50,14 @@ function EmailAction ({ emailAddress, prejudice, datastore, setActive, action })
       )}
     </section>
   );
-}
+};
 
 EmailAction.propTypes = {
+  action: PropTypes.object,
+  datastore: PropTypes.object,
   emailAddress: PropTypes.string,
   prejudice: PropTypes.object,
-  datastore: PropTypes.object,
-  setActive: PropTypes.func,
-  action: PropTypes.object
+  setActive: PropTypes.func
 };
 
 export default EmailAction;

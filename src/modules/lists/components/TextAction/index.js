@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
 import PropTypes from 'prop-types';
 
-function TextAction ({ phoneNumber, prejudice, datastore, setActive, action }) {
+const TextAction = ({ action, datastore, phoneNumber, prejudice, setActive }) => {
   const [text, setText] = useState(phoneNumber);
-  const [status, setStatus] = useState(undefined);
+  const [status, setStatus] = useState();
 
   const setCloseStatus = () => {
     setActive('');
-    setStatus(undefined);
+    setStatus(null);
   };
 
   const handleSubmitCallback = (data) => {
@@ -53,14 +53,14 @@ function TextAction ({ phoneNumber, prejudice, datastore, setActive, action }) {
       )}
     </section>
   );
-}
+};
 
 TextAction.propTypes = {
+  action: PropTypes.object,
+  datastore: PropTypes.object,
   phoneNumber: PropTypes.string,
   prejudice: PropTypes.object,
-  datastore: PropTypes.object,
-  setActive: PropTypes.func,
-  action: PropTypes.object
+  setActive: PropTypes.func
 };
 
 export default TextAction;

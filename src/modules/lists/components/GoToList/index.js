@@ -1,9 +1,9 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 
-function GoToList ({ list, datastore }) {
+const GoToList = ({ datastore, list }) => {
   const location = useLocation();
 
   if (!list) {
@@ -18,11 +18,11 @@ function GoToList ({ list, datastore }) {
       <p className='lists-count-tag'><span className='strong'>{list.length || 0}</span> in list</p>
     </section>
   );
-}
+};
 
 GoToList.propTypes = {
-  list: PropTypes.array,
-  datastore: PropTypes.object
+  datastore: PropTypes.object,
+  list: PropTypes.array
 };
 
 export default GoToList;

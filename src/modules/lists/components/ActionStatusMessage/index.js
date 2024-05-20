@@ -1,8 +1,8 @@
-import React from 'react';
 import { Alert, Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-function ActionStatusMessage ({ action, status }) {
+const ActionStatusMessage = ({ action, status }) => {
   if (!status) {
     return null;
   }
@@ -32,7 +32,7 @@ function ActionStatusMessage ({ action, status }) {
       {message}
     </Alert>
   );
-}
+};
 
 ActionStatusMessage.propTypes = {
   action: PropTypes.object,

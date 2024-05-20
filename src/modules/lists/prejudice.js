@@ -1,13 +1,13 @@
+import { addList } from './actions';
+import config from '../../config';
 import Prejudice from 'prejudice';
 import { Pride } from 'pride';
-import config from '../../config';
 import store from '../../store';
-import { addList } from './actions';
 
 const prejudice = new Prejudice({
-  recordEngine: Pride,
+  actionBaseUrl: config.spectrum,
   datastores: config.datastores.list,
-  actionBaseUrl: config.spectrum
+  recordEngine: Pride
 });
 
 const addRecord = (record) => {
@@ -18,7 +18,7 @@ const addRecordsToList = () => {
   const records = prejudice.listRecords();
   const groupedRecords = records.reduce((group, record) => {
     const { datastore } = record;
-    group[datastore] = group[datastore] || [];
+    group[datastore] ||= [];
     group[datastore].push(record);
     return group;
   }, {});
@@ -32,10 +32,10 @@ const clearRecords = (datastoreUid) => {
 
 const createVariableStorageDriverInstance = () => {
   const inst = new Prejudice({
-    recordEngine: Pride,
+    actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development,
     datastores: config.datastores.list,
-    recordStorage: Prejudice.VariableStorageDriver,
-    actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development
+    recordEngine: Pride,
+    recordStorage: Prejudice.VariableStorageDriver
   });
 
   return inst;
