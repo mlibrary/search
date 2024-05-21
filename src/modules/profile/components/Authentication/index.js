@@ -1,29 +1,31 @@
-import React from 'react';
 import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-export default function Authentication (props) {
+const Authentication = ({ button, children, logout }) => {
   return (
     <Anchor
       href={
         `${process.env.REACT_APP_LOGIN_BASE_URL || window.location.origin
          }/${
-         props.logout ? 'logout' : 'login'
+         logout ? 'logout' : 'login'
          }?dest=${
          encodeURIComponent(document.location.pathname + document.location.search)}`
       }
-      className={props.button && 'button'}
+      className={button && 'button'}
     >
-      {props.children || `Log ${props.logout ? 'out' : 'in'}`}
+      {children || `Log ${logout ? 'out' : 'in'}`}
     </Anchor>
   );
-}
+};
 
 Authentication.propTypes = {
-  logout: PropTypes.bool,
   button: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ])
+  ]),
+  logout: PropTypes.bool
 };
+
+export default Authentication;
