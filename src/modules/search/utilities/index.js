@@ -123,11 +123,12 @@ const getSearchStateFromURL = (location = document.location.search) => {
   return qs.parse(location?.substring(1), { allowDots: true });
 };
 
-const stringifySearch = ({ page, query, ...rest }) => {
+const stringifySearch = ({ library, page, query, ...rest }) => {
   return qs.stringify({
     ...query && { query },
-    ...page > 1 && { page },
-    ...rest
+    ...library && { library },
+    ...rest,
+    ...page > 1 && { page }
   }, {
     allowDots: true,
     arrayFormat: 'repeat',
