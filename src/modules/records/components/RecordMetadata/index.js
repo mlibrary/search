@@ -1,8 +1,8 @@
-import React from 'react';
 import { ContextProvider, Metadata } from '../../../reusable';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-export default function RecordMetadata ({ kind, record }) {
+const RecordMetadata = ({ kind, record }) => {
   const { metadata } = record;
 
   if (!metadata) {
@@ -21,9 +21,11 @@ export default function RecordMetadata ({ kind, record }) {
       }}
     />
   );
-}
+};
 
 RecordMetadata.propTypes = {
   kind: PropTypes.string,
   record: PropTypes.object
 };
+
+export default RecordMetadata;

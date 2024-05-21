@@ -2,26 +2,24 @@ import * as actions from '../actions';
 
 const recordsInitialState = {
   loading: false,
-  records: null,
-  record: null
+  record: null,
+  records: null
 };
 
 const recordsReducer = (state = recordsInitialState, action) => {
   if (action.type === actions.ADD_HOLDINGS) {
     const { datastoreUid, recordUid, holdings } = action.payload;
-    // Find the record index using native JavaScript
     const recordIndex = state.records[datastoreUid].findIndex((item) => {
       return item.uid === recordUid;
     });
 
-    if (recordIndex !== -1) { // If the record is found in the array
-      // Construct a new records object with updated holdings
+    if (recordIndex !== -1) {
       const newRecords = [
         ...state.records[datastoreUid].slice(0, recordIndex),
         {
           ...state.records[datastoreUid][recordIndex],
-          resourceAccess: holdings.filter(Boolean), // Remove falsy values using filter
-          loadingHoldings: false
+          loadingHoldings: false,
+          resourceAccess: holdings.filter(Boolean)
         },
         ...state.records[datastoreUid].slice(recordIndex + 1)
       ];
@@ -35,7 +33,6 @@ const recordsReducer = (state = recordsInitialState, action) => {
       };
     }
 
-    // Return unchanged state if the record index is not found
     return state;
   }
 
@@ -61,7 +58,7 @@ const recordsReducer = (state = recordsInitialState, action) => {
       ...state,
       records: {
         ...state.records,
-        [action.payload]: undefined
+        [action.payload]: null
       }
     };
   }

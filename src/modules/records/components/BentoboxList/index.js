@@ -1,18 +1,18 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import KeywordSwitch from '../KeywordSwitch';
 import { Anchor, Icon } from '../../../reusable';
-import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
-import RecordPreview from '../RecordPreview';
-import { Specialists } from '../../../specialists';
 import { getMultiSearchRecords } from '../../../pride';
+import KeywordSwitch from '../KeywordSwitch';
 import PropTypes from 'prop-types';
+import React from 'react';
+import RecordPreview from '../RecordPreview';
+import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
+import { Specialists } from '../../../specialists';
+import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function BentoboxResultsNum ({ totalResults }) {
+const BentoboxResultsNum = ({ totalResults }) => {
   // Results have loaded
   if (typeof totalResults === 'number') {
-    return <span className='bentobox-results-info'>{totalResults.toLocaleString()} {`Result${totalResults !== 1 ? 's' : ''}`}</span>;
+    return <span className='bentobox-results-info'>{totalResults.toLocaleString()} {`Result${totalResults === 1 ? '' : 's'}`}</span>;
   }
 
   // Loading results
@@ -23,7 +23,7 @@ BentoboxResultsNum.propTypes = {
   totalResults: PropTypes.number
 };
 
-function BentoResults ({ search, bentobox, searchQuery }) {
+const BentoResults = ({ bentobox, search, searchQuery }) => {
   // No results
   if (search.data[bentobox.uid]?.totalAvailable === 0) {
     return (
@@ -86,7 +86,7 @@ BentoResults.propTypes = {
   searchQuery: PropTypes.string
 };
 
-function BentoFooter ({ bentobox, search, searchQuery }) {
+const BentoFooter = ({ bentobox, search, searchQuery }) => {
   // Loading or no results
   if (search.data[bentobox.uid]?.totalAvailable === 0 || bentobox.records.length === 0) {
     return null;
@@ -108,12 +108,12 @@ BentoFooter.propTypes = {
   searchQuery: PropTypes.string
 };
 
-function BentoboxList () {
-  const allRecords = useSelector((state) => {
-    return state.records.records;
+const BentoboxList = () => {
+  const { records } = useSelector((state) => {
+    return state.records;
   });
-  const datastoreUid = useSelector((state) => {
-    return state.datastores.active;
+  const { active: datastoreUid } = useSelector((state) => {
+    return state.datastores;
   });
   const search = useSelector((state) => {
     return state.search;
@@ -123,7 +123,7 @@ function BentoboxList () {
 
   return (
     <article className='bentobox-list' id='search-results'>
-      {getMultiSearchRecords(datastoreUid, allRecords).map((bentobox, index) => {
+      {getMultiSearchRecords(datastoreUid, records).map((bentobox, index) => {
         if (!bentobox.records) {
           return null;
         }
@@ -140,17 +140,8 @@ function BentoboxList () {
                   <h2 className='bentobox-heading'>{bentobox.name}</h2>
                   <BentoboxResultsNum totalResults={search.data[bentobox.uid].totalAvailable} />
                 </Anchor>
-                <BentoResults
-                  search={search}
-                  bentobox={bentobox}
-                  searchQuery={searchQuery}
-                  datastoreUid={datastoreUid}
-                />
-                <BentoFooter
-                  bentobox={bentobox}
-                  search={search}
-                  searchQuery={searchQuery}
-                />
+                <BentoResults {...{ bentobox, datastoreUid, search, searchQuery }} />
+                <BentoFooter {...{ bentobox, search, searchQuery }} />
               </div>
             </section>
           </React.Fragment>
@@ -158,6 +149,6 @@ function BentoboxList () {
       })}
     </article>
   );
-}
+};
 
 export default BentoboxList;

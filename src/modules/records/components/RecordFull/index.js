@@ -155,6 +155,7 @@ const FullRecord = () => {
             <AddToListButton item={record} />
           </div>
           <RecordDescription record={record} />
+          asdf
           <Zotero record={record} />
           <h2 className='full-record__record-info'>Record info:</h2>
           <RecordMetadata record={record} />

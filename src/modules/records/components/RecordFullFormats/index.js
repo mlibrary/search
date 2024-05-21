@@ -1,8 +1,8 @@
-import React from 'react';
 import Icon from '../../../reusable/components/Icon';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-export default function RecordFullFormats ({ formats }) {
+const RecordFullFormats = ({ formats }) => {
   return (
     <div className='full-record-header'>
 
@@ -21,8 +21,10 @@ export default function RecordFullFormats ({ formats }) {
       })}
     </div>
   );
-}
+};
 
 RecordFullFormats.propTypes = {
   formats: PropTypes.array
 };
+
+export default RecordFullFormats;

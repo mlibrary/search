@@ -1,14 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import Record from '../Record';
-import KeywordSwitch from '../KeywordSwitch';
 import { Anchor } from '../../../reusable';
-import Sorts from '../Sorts';
-import { SearchResultsMessage } from '../../../search';
-import { Specialists } from '../../../specialists';
 import { GoToList } from '../../../lists';
+import KeywordSwitch from '../KeywordSwitch';
+import React from 'react';
+import Record from '../Record';
+import { SearchResultsMessage } from '../../../search';
+import Sorts from '../Sorts';
+import { Specialists } from '../../../specialists';
+import { useSelector } from 'react-redux';
 
-function RecordList () {
+const RecordList = () => {
   const { active: activeDatastore, datastores } = useSelector((state) => {
     return state.datastores;
   });
@@ -95,13 +95,7 @@ function RecordList () {
                     <React.Fragment key={record.uid}>
                       {(page === 1 && index === Math.min(activeRecords.length - 1, 2)) && <KeywordSwitch {...{ datastore, query }} />}
                       {(page === 1 && index === 3) && <Specialists />}
-                      <Record
-                        {...{
-                          record,
-                          datastoreUid: activeDatastore,
-                          list
-                        }}
-                      />
+                      <Record {...{ datastoreUid: activeDatastore, list, record }} />
                     </React.Fragment>
                   );
                 })}
@@ -110,6 +104,6 @@ function RecordList () {
           )}
     </>
   );
-}
+};
 
 export default RecordList;

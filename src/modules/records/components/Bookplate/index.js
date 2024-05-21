@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-const Bookplate = ({ imageUrl, description }) => {
+const Bookplate = ({ description, imageUrl }) => {
   return (
     <div>
       <p className='bookplate-description'>This purchase made possible by the {description}</p>
@@ -11,8 +11,8 @@ const Bookplate = ({ imageUrl, description }) => {
 };
 
 Bookplate.propTypes = {
-  imageUrl: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
+  imageUrl: PropTypes.string
 };
 
 export default Bookplate;

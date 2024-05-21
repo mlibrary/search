@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { getField, getFieldValue } from '../../utilities';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 /*
@@ -20,24 +20,20 @@ import PropTypes from 'prop-types';
  *
  * And tell Zotero COinS was created.
  */
-function Zotero ({ record }) {
+const Zotero = ({ record }) => {
   const [z3988, setZ3988] = useState(null);
-  const value = getFieldValue(getField(record.fields, 'z3988'))[0];
+  const [value] = getFieldValue(getField(record.fields, 'z3988'));
 
   useEffect(() => {
     setZ3988(value);
   }, [value]);
 
   useEffect(() => {
-    try {
-      document.dispatchEvent(new Event('ZoteroItemUpdated', {
-        bubbles: true,
-        cancelable: true
-      }));
-    } catch (error) {
-      console.error(error);
-    }
-  }, [z3988]); // Only change when z3988 changes.
+    document.dispatchEvent(new Event('ZoteroItemUpdated', {
+      bubbles: true,
+      cancelable: true
+    }));
+  }, [z3988]);
 
   if (!z3988) {
     return null;
@@ -47,7 +43,7 @@ function Zotero ({ record }) {
   return (
     <span title={z3988} className='Z3988' tabIndex='-1' />
   );
-}
+};
 
 Zotero.propTypes = {
   record: PropTypes.object
