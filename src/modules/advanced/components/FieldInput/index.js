@@ -1,16 +1,16 @@
-import React from 'react';
-import SearchByOptions from '../../../search/components/SearchByOptions';
 import Icon from '../../../reusable/components/Icon';
 import PropTypes from 'prop-types';
+import React from 'react';
+import SearchByOptions from '../../../search/components/SearchByOptions';
 
-function FieldInput ({
-  fieldedSearchIndex,
-  fieldedSearch,
-  fields,
+const FieldInput = ({
+  activeDatastore,
   changeFieldedSearch,
-  handleRemoveFieldedSearch,
-  activeDatastore
-}) {
+  fieldedSearch,
+  fieldedSearchIndex,
+  fields,
+  handleRemoveFieldedSearch
+}) => {
   const notFirst = fieldedSearchIndex > 0;
 
   return (
@@ -29,8 +29,8 @@ function FieldInput ({
                   checked={fieldedSearch.booleanType === index}
                   onChange={() => {
                     return changeFieldedSearch({
-                      fieldedSearchIndex,
-                      booleanType: index
+                      booleanType: index,
+                      fieldedSearchIndex
                     });
                   }}
                 />
@@ -88,12 +88,12 @@ function FieldInput ({
 };
 
 FieldInput.propTypes = {
-  fieldedSearchIndex: PropTypes.number,
-  fieldedSearch: PropTypes.object,
-  fields: PropTypes.array,
+  activeDatastore: PropTypes.object,
   changeFieldedSearch: PropTypes.func,
-  handleRemoveFieldedSearch: PropTypes.func,
-  activeDatastore: PropTypes.object
+  fieldedSearch: PropTypes.object,
+  fieldedSearchIndex: PropTypes.number,
+  fields: PropTypes.array,
+  handleRemoveFieldedSearch: PropTypes.func
 };
 
 export default FieldInput;

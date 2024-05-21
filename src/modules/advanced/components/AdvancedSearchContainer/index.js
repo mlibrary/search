@@ -1,10 +1,10 @@
-import React from 'react';
 import './styles.css';
-import { useSelector } from 'react-redux';
-import { Breadcrumb, H1, Tabs, TabPanel, Tab } from '../../../reusable';
+import { Breadcrumb, H1, Tab, TabPanel, Tabs } from '../../../reusable';
 import AdvancedSearchForm from '../AdvancedSearchForm';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-function AdvancedSearchContainer () {
+const AdvancedSearchContainer = () => {
   const datastores = useSelector((state) => {
     return state.datastores.datastores;
   });
@@ -46,6 +46,6 @@ function AdvancedSearchContainer () {
       </Tabs>
     </div>
   );
-}
+};
 
 export default AdvancedSearchContainer;

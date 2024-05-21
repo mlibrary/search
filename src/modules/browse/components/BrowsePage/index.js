@@ -1,15 +1,15 @@
+import { Breadcrumb, H1 } from '../../../reusable';
+import { BrowseAtoZ, BrowseByFilters } from '../../../browse';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { BrowseAtoZ, BrowseByFilters } from '../../../browse';
-import { Breadcrumb, H1 } from '../../../reusable';
 
-function BrowsePage () {
+const BrowsePage = () => {
   const activeDatastoreUid = useSelector((state) => {
     return state.datastores.active;
   });
   const datastore = useSelector((state) => {
-    return state.datastores.datastores.find((datastore) => {
-      return datastore.uid === activeDatastoreUid;
+    return state.datastores.datastores.find((ds) => {
+      return ds.uid === activeDatastoreUid;
     });
   }
   );
@@ -31,6 +31,6 @@ function BrowsePage () {
       <BrowseByFilters filters={browse} />
     </div>
   );
-}
+};
 
 export default BrowsePage;

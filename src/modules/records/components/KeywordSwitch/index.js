@@ -1,13 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Anchor, Icon } from '../../../reusable';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-function KeywordSwitch ({ datastore, query }) {
+const KeywordSwitch = ({ datastore, query }) => {
   const exactQuery = 'exact:(';
   const isExactSearch = query.startsWith(exactQuery);
   const isContainsSearch = query.startsWith('contains:(') || query.startsWith('keyword:(') || !query.includes(':(');
 
-  if (datastore.uid !== 'primo' || (!isExactSearch && !isContainsSearch)) return null;
+  if (datastore.uid !== 'primo' || (!isExactSearch && !isContainsSearch)) {
+    return null;
+  }
 
   const strippedQuery = query.includes(':(') ? query.slice((query.indexOf('(') + 1), -1) : query;
   const querySearch = isExactSearch ? strippedQuery : `${exactQuery}${strippedQuery})`;
@@ -51,7 +53,7 @@ function KeywordSwitch ({ datastore, query }) {
       </div>
     </div>
   );
-}
+};
 
 KeywordSwitch.propTypes = {
   datastore: PropTypes.object,

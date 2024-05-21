@@ -1,6 +1,6 @@
 import { getSearchStateFromURL, stringifySearch } from '../../search';
 
-const newSearchFilter = ({ proposed = {}, existing = {} }) => {
+const newSearchFilter = ({ existing = {}, proposed = {} }) => {
   const groups = Object.keys(proposed).concat(Object.keys(existing));
   const filter = groups.reduce((acc, group) => {
     const uniqueValues = new Set([].concat(proposed[group] || []).concat(existing[group] || []));
@@ -13,11 +13,11 @@ const newSearchFilter = ({ proposed = {}, existing = {} }) => {
   return filter;
 };
 
-export function newSearch (data) {
+const newSearch = (data) => {
   const urlSearchState = getSearchStateFromURL();
   const filter = newSearchFilter({
-    proposed: data.filter,
-    existing: urlSearchState.filter
+    existing: urlSearchState.filter,
+    proposed: data.filter
   });
 
   return stringifySearch({
@@ -25,9 +25,9 @@ export function newSearch (data) {
     ...data,
     filter
   });
-}
+};
 
-export function getURLWithFiltersRemoved ({ group, value, all = false }) {
+const getURLWithFiltersRemoved = ({ all = false, group, value }) => {
   const { pathname, search } = window.location;
   const queryParams = new URLSearchParams(search);
   if (all) {
@@ -41,4 +41,6 @@ export function getURLWithFiltersRemoved ({ group, value, all = false }) {
     queryParams.delete(`filter.${group}`, value);
   }
   return `${pathname}?${queryParams}`;
-}
+};
+
+export { getURLWithFiltersRemoved, newSearch };

@@ -5,34 +5,30 @@ const initialState = {
 };
 
 /*
-  Example State
-
-  {
-    mirlyn: {
-      fields: [
-        {
-          uid: 'title'
-        },
-        {
-          uid: 'author',
-          name: 'a custom name overriding the given name'
-        }
-        // ...
-      ],
-      filters: [
-        //... to be figured out..
-      ]
-    }
-  }
-*/
+ *Example State
+ *
+ *{
+ *  mirlyn: {
+ *    fields: [
+ *      {
+ *        uid: 'title'
+ *      },
+ *      {
+ *        uid: 'author',
+ *        name: 'a custom name overriding the given name'
+ *      }
+ *      // ...
+ *    ],
+ *    filters: [
+ *      //... to be figured out..
+ *    ]
+ *  }
+ *}
+ */
 
 const advancedFieldReducer = (state, action) => {
   const dsUid = action.payload.datastoreUid;
-  let fields = [];
-
-  if (state[dsUid] && state[dsUid].fields) {
-    fields = state[dsUid].fields;
-  }
+  const fields = state[dsUid]?.fields || [];
 
   switch (action.type) {
     case actions.ADD_ADVANCED_FIELD:
@@ -60,9 +56,9 @@ const advancedFieldedSearchingReducer = (state, action) => {
 
   if (action.type === actions.ADD_FIELDED_SEARCH) {
     const newFieldedSearch = {
+      booleanType: 0,
       field: action.payload.field,
-      query: '',
-      booleanType: 0
+      query: ''
     };
 
     return {
@@ -92,9 +88,9 @@ const advancedFieldedSearchingReducer = (state, action) => {
           }
 
           return {
+            booleanType: booleanType ? booleanType : state[dsUid].fieldedSearches[index].booleanTypes,
             field: selectedFieldUid || state[dsUid].fieldedSearches[index].field,
-            query: newQuery,
-            booleanType: booleanType === undefined ? state[dsUid].fieldedSearches[index].booleanType : booleanType
+            query: newQuery
           };
         })
       }
@@ -116,11 +112,15 @@ const advancedFieldedSearchingReducer = (state, action) => {
   return state;
 };
 
-const filterGroupReducer = ({ filterGroup, onlyOneFilterValue, filterValue }) => {
-  if (filterValue === undefined) return undefined;
+const filterGroupReducer = ({ filterGroup, filterValue, onlyOneFilterValue }) => {
+  if (!filterValue) {
+    return null;
+  }
 
   // Add filter group if no active filters
-  if (!filterGroup || onlyOneFilterValue) return [filterValue];
+  if (!filterGroup || onlyOneFilterValue) {
+    return [filterValue];
+  }
 
   if (filterGroup.includes(filterValue)) {
     // Remove filter value
@@ -128,7 +128,7 @@ const filterGroupReducer = ({ filterGroup, onlyOneFilterValue, filterValue }) =>
       return item !== filterValue;
     });
 
-    return newFilters.length === 0 ? undefined : newFilters;
+    return newFilters.length === 0 ? null : newFilters;
   }
 
   // Add filter value to existing filter group list
@@ -156,9 +156,9 @@ const advancedFilterReducer = (state, action) => {
           activeFilters: {
             ...state[dsUid].activeFilters,
             [filterGroupUid]: filterGroupReducer({
-              filterGroup: state[dsUid].activeFilters ? state[dsUid].activeFilters[filterGroupUid] : undefined,
-              onlyOneFilterValue: action.payload.onlyOneFilterValue,
-              filterValue
+              filterGroup: state[dsUid].activeFilters?.[filterGroupUid],
+              filterValue,
+              onlyOneFilterValue: action.payload.onlyOneFilterValue
             })
           }
         }

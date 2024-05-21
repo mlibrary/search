@@ -3,12 +3,12 @@ Monthly dependency update to help maintain Search.
 
 ## NPM
 These dependencies have been updated to their latest versions:
+- `@eslint/compat`
 - `@eslint/js`
 - `@reduxjs/toolkit`
+- `@stylistic/eslint-plugin`
 - `citeproc`
 - `eslint`
-- `eslint-plugin-import`
-- `eslint-plugin-n`
 - `eslint-plugin-react`
 - `prejudice`
 - `pride`

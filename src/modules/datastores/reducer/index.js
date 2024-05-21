@@ -7,19 +7,14 @@ const datastoresReducer = (
   },
   action
 ) => {
-  const { type, payload } = action;
+  const { payload, type } = action;
 
   if (type === ADD_DATASTORE) {
     return {
       ...state,
       datastores: [
         ...state.datastores,
-        {
-          uid: payload.uid,
-          name: payload.name,
-          slug: payload.slug,
-          isMultisearch: payload.isMultisearch
-        }
+        { ...payload }
       ]
     };
   }

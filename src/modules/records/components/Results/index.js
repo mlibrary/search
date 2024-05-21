@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
 import './styles.css';
-import { BentoboxList, RecordList, Pagination } from '../../index';
+import { BentoboxList, Pagination, RecordList } from '../../index';
+import React, { useEffect, useState } from 'react';
+import { BrowseInfo } from '../../../browse';
+import { Filters } from '../../../filters';
 import { Icon } from '../../../reusable';
 import { InstitutionSelect } from '../../../institution';
-import { Filters } from '../../../filters';
-import { BrowseInfo } from '../../../browse';
 import PropTypes from 'prop-types';
 
 const Results = ({ activeDatastore, activeFilterCount, institution }) => {

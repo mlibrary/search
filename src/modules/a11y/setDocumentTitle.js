@@ -1,7 +1,7 @@
-import store from './../../store';
 import { setA11yMessage } from './';
+import store from './../../store';
 
-function setDocumentTitle (titles) {
+const setDocumentTitle = (titles) => {
   const documentTitle = titles.concat('Library Search').join(' - ');
 
   document.title = documentTitle;

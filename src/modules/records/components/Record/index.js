@@ -1,18 +1,18 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { AddToListButton, isInList } from '../../../lists';
 import { Anchor, Icon } from '../../../reusable';
-import { TrimString } from '../../../core';
+import { getField, getFieldValue } from '../../utilities';
 import { RecommendedResource, RecordMetadata } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
-import { getField, getFieldValue } from '../../utilities';
-import { AddToListButton, isInList } from '../../../lists';
-import Zotero from '../Zotero';
-import { ResourceAccess } from '../../../resource-acccess';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { ResourceAccess } from '../../../resource-acccess';
+import { TrimString } from '../../../core';
+import { useLocation } from 'react-router-dom';
+import Zotero from '../Zotero';
 
-function Header ({ record, datastoreUid }) {
+const Header = ({ datastoreUid, record }) => {
   const location = useLocation();
-  const recordUid = getFieldValue(getField(record.fields, 'id'))[0];
+  const [recordUid] = getFieldValue(getField(record.fields, 'id'));
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const pictureField = getField(record.fields, 'picture');
   let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${location.search}`;
@@ -38,12 +38,7 @@ function Header ({ record, datastoreUid }) {
           className='record-person__profile-picture'
         />
       )}
-      <span
-        style={{
-          marginRight: 'var(--search-spacing-2xs)',
-          color: 'var(--ds-color-neutral-300)'
-        }}
-      >
+      <span className='margin-right__2xs text-grey__light'>
         {record.position + 1}.
       </span>
       {[].concat(record.names).map((title, index) => {
@@ -57,7 +52,7 @@ function Header ({ record, datastoreUid }) {
         return (
           <span key={index}>
             <Anchor
-              to={datastoreUid !== 'website' ? recordTitleLink : ''}
+              to={datastoreUid === 'website' ? '' : recordTitleLink}
               href={datastoreUid === 'website' ? recordTitleLink : ''}
               className='record-title-link'
             >
@@ -73,18 +68,20 @@ function Header ({ record, datastoreUid }) {
 };
 
 Header.propTypes = {
-  record: PropTypes.object,
-  datastoreUid: PropTypes.string
+  datastoreUid: PropTypes.string,
+  record: PropTypes.object
 };
 
-function Record ({ record, list, datastoreUid }) {
-  if (!getField(record.fields, 'id')) return null;
+const Record = ({ datastoreUid, list, record }) => {
+  if (!getField(record.fields, 'id')) {
+    return null;
+  }
 
   return (
     <article className={`container__rounded record ${(isInList(list, record.uid) ? ' record--highlight' : '')}`}>
       <div className='record-container record-medium-container'>
         <div className='record-title-and-actions-container '>
-          <Header {...{ record, datastoreUid }} />
+          <Header {...{ datastoreUid, record }} />
           <AddToListButton item={record} />
         </div>
         <Zotero {...{ record }} />
@@ -102,12 +99,12 @@ function Record ({ record, list, datastoreUid }) {
       </div>
     </article>
   );
-}
+};
 
 Record.propTypes = {
-  record: PropTypes.object,
   datastoreUid: PropTypes.string,
-  list: PropTypes.array
+  list: PropTypes.array,
+  record: PropTypes.object
 };
 
 export default Record;

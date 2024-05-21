@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
 import PropTypes from 'prop-types';
 
-function TextAction ({ phoneNumber, prejudice, datastore, setActive, action }) {
+const TextAction = ({ action, datastore, phoneNumber, prejudice, setActive }) => {
   const [text, setText] = useState(phoneNumber);
-  const [status, setStatus] = useState(undefined);
+  const [status, setStatus] = useState();
 
   const setCloseStatus = () => {
     setActive('');
-    setStatus(undefined);
+    setStatus(null);
   };
 
   const handleSubmitCallback = (data) => {
@@ -18,7 +18,7 @@ function TextAction ({ phoneNumber, prejudice, datastore, setActive, action }) {
   return (
     <section className='lists-action'>
       <ActionStatusMessage status={status} action={action} setCloseStatus={setCloseStatus} />
-      {(!status || status.status_code !== 'action.response.success') &&
+      {(!status || status.status_code !== 'action.response.success') && (
         <form
           className='lists-action-form'
           onSubmit={(event) => {
@@ -49,17 +49,18 @@ function TextAction ({ phoneNumber, prejudice, datastore, setActive, action }) {
           >
             Send text
           </button>
-        </form>}
+        </form>
+      )}
     </section>
   );
-}
+};
 
 TextAction.propTypes = {
+  action: PropTypes.object,
+  datastore: PropTypes.object,
   phoneNumber: PropTypes.string,
   prejudice: PropTypes.object,
-  datastore: PropTypes.object,
-  setActive: PropTypes.func,
-  action: PropTypes.object
+  setActive: PropTypes.func
 };
 
 export default TextAction;

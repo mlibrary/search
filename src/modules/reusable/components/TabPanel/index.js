@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-function TabPanel ({ isActive, children, id, ...rest }) {
+const TabPanel = ({ children, id, isActive, ...rest }) => {
   return (
     <div
       role='tabpanel'
@@ -14,17 +14,17 @@ function TabPanel ({ isActive, children, id, ...rest }) {
       {children}
     </div>
   );
-}
+};
 
 TabPanel.displayName = 'TabPanel';
 
 TabPanel.propTypes = {
-  isActive: PropTypes.bool,
-  id: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  id: PropTypes.string,
+  isActive: PropTypes.bool
 };
 
 export default TabPanel;

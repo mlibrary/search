@@ -1,10 +1,10 @@
-import React from 'react';
 import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import { stringifySearch } from '../../../search';
+import { useParams } from 'react-router-dom';
 
-function NestedList ({ filter, browserFilterTo }) {
+const NestedList = ({ browserFilterTo, filter }) => {
   return (
     <li>
       {filter.value
@@ -32,19 +32,19 @@ function NestedList ({ filter, browserFilterTo }) {
       )}
     </li>
   );
-}
+};
 
 NestedList.propTypes = {
   browserFilterTo: PropTypes.func.isRequired,
   filter: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    children: PropTypes.array,
     count: PropTypes.number,
-    children: PropTypes.array
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string
   }).isRequired
 };
 
-function BrowseByFilters ({ filters }) {
+const BrowseByFilters = ({ filters }) => {
   const { datastoreSlug } = useParams();
 
   const browserFilterTo = (uid) => {
@@ -79,12 +79,12 @@ function BrowseByFilters ({ filters }) {
       })}
     </>
   );
-}
+};
 
 BrowseByFilters.propTypes = {
   filters: PropTypes.objectOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    filters: PropTypes.array.isRequired
+    filters: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired
   })).isRequired
 };
 

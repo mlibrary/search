@@ -1,16 +1,18 @@
-import React from 'react';
 import './styles.css';
-import Holding from '../Holding';
 import {
   Anchor,
   Expandable,
-  ExpandableChildren,
-  ExpandableButton
+  ExpandableButton,
+  ExpandableChildren
 } from '../../../reusable';
+import Holding from '../Holding';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const notesList = (notes) => {
-  if (!notes) return null;
+  if (!notes) {
+    return null;
+  }
 
   if (notes.length === 1) {
     return (
@@ -22,10 +24,10 @@ const notesList = (notes) => {
 
   return (
     <ul>
-      {notes.map((note, i) => {
+      {notes.map((note, index) => {
         return (
           <li
-            key={note + i}
+            key={note + index}
             className='text-grey__light padding-bottom__xs'
           >
             {note}
@@ -36,14 +38,7 @@ const notesList = (notes) => {
   );
 };
 
-export default function Holder ({
-  headings,
-  rows,
-  captionLink,
-  notes,
-  preExpanded,
-  ...rest
-}) {
+const Holder = ({ captionLink, headings, notes, preExpanded, rows, ...rest }) => {
   const isExpandable = rows.length > 10;
   return (
     <div {...rest}>
@@ -63,11 +58,11 @@ export default function Holder ({
             <table>
               <thead>
                 <tr>
-                  {headings.map((heading, i) => {
+                  {headings.map((heading, index) => {
                     return (
                       <th
                         scope='col'
-                        key={i}
+                        key={index}
                         className='text-grey__light strong'
                       >
                         {heading}
@@ -78,8 +73,8 @@ export default function Holder ({
               </thead>
               <tbody>
                 <ExpandableChildren show={isExpandable ? 10 : rows.length}>
-                  {rows.map((row, i) => {
-                    return <Holding holding={row} key={i} />;
+                  {rows.map((row, index) => {
+                    return <Holding holding={row} key={index} />;
                   })}
                 </ExpandableChildren>
                 {isExpandable && (
@@ -99,12 +94,14 @@ export default function Holder ({
       )}
     </div>
   );
-}
+};
 
 Holder.propTypes = {
-  headings: PropTypes.array,
-  rows: PropTypes.array,
   captionLink: PropTypes.object,
+  headings: PropTypes.array,
   notes: PropTypes.array,
-  preExpanded: PropTypes.bool
+  preExpanded: PropTypes.bool,
+  rows: PropTypes.array
 };
+
+export default Holder;

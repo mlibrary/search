@@ -1,14 +1,14 @@
+import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import React, { useState } from 'react';
+import ActionsList from '../ActionsList';
+import prejudice from '../../prejudice';
+import PropTypes from 'prop-types';
+import { Record } from '../../../records';
+import { setA11yMessage as setA11yMessageAction } from '../../../a11y';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Record } from '../../../records';
-import { Anchor, Breadcrumb, H1 } from '../../../reusable';
-import { setA11yMessage as setA11yMessageAction } from '../../../a11y';
-import prejudice from '../../prejudice';
-import ActionsList from '../ActionsList';
-import PropTypes from 'prop-types';
 
-function List (props) {
+const List = (props) => {
   const [active, setActive] = useState('');
   const dispatch = useDispatch();
   const location = useLocation();
@@ -33,7 +33,7 @@ function List (props) {
       <div className='lists-header'>
         <H1 className='heading-xlarge'>My Temporary {name} List</H1>
         <div className='lists-header-info'>
-          {!!listLength &&
+          {Boolean(listLength) && (
             <button
               className='button-link underline lists-remove-all text-small'
               onClick={() => {
@@ -43,7 +43,8 @@ function List (props) {
               }}
             >
               Remove all
-            </button>}
+            </button>
+          )}
           <p className='lists-count-tag'><span className='strong'>{listLength}</span> in list</p>
         </div>
       </div>
@@ -79,7 +80,7 @@ function List (props) {
           )}
     </article>
   );
-}
+};
 
 List.propTypes = {
   activeDatastore: PropTypes.object,

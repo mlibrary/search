@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import './styles.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { setA11yMessage } from '../../../a11y';
 import { Anchor, Icon } from '../../../reusable';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setA11yMessage } from '../../../a11y';
 
 const Specialists = ({ show = 3 }) => {
   const [showSpecialists, setShowSpecialists] = useState(false);
@@ -13,7 +13,9 @@ const Specialists = ({ show = 3 }) => {
   const dispatch = useDispatch();
   const specialistsLength = specialists?.length;
 
-  if (!specialistsLength) return null;
+  if (!specialistsLength) {
+    return null;
+  }
 
   const message = (a11y) => {
     return `Show${a11y ? 'ing' : ''} ${showSpecialists ? 'fewer' : `all ${specialistsLength}`} Library Specialists`;

@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react';
 import './styles.css';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-const Dialog = ({ isOpen, onClose, children }) => {
+const Dialog = ({ children, isOpen, onClose }) => {
   const dialogRef = useRef(null);
   const wasOpen = useRef(isOpen);
 
@@ -32,7 +32,9 @@ const Dialog = ({ isOpen, onClose, children }) => {
     };
   }, [isOpen, onClose]);
 
-  if (!children) return null;
+  if (!children) {
+    return null;
+  }
 
   const handleCloseClick = (event) => {
     event.stopPropagation();
@@ -56,10 +58,10 @@ const Dialog = ({ isOpen, onClose, children }) => {
 export default Dialog;
 
 Dialog.propTypes = {
-  onClose: PropTypes.func,
-  isOpen: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ])
+  ]),
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func
 };

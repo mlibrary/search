@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function TrimString ({ string, expandable, trimLength = 240 }) {
+const TrimString = ({ expandable, string, trimLength = 240 }) => {
   const [show, setShow] = useState(false);
 
   const handleShowToggleClick = () => {
@@ -24,12 +24,12 @@ function TrimString ({ string, expandable, trimLength = 240 }) {
       )}
     </>
   );
-}
+};
 
 TrimString.propTypes = {
+  expandable: PropTypes.bool,
   string: PropTypes.string,
-  trimLength: PropTypes.number,
-  expandable: PropTypes.bool
+  trimLength: PropTypes.number
 };
 
 export default TrimString;

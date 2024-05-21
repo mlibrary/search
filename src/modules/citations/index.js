@@ -1,68 +1,46 @@
 import CSL from 'citeproc';
-import { requestRecordCSL, getStyle } from './utils';
+import { Pride } from 'pride';
 
-function cite (records, chosenStyleID, cb) {
-  /*
-    Turn records into this shape:
-    {
-      [id]: { ...record data },
-      ...
-    }
-  */
-  let csls = {};
+const getStyle = (chosenStyleID) => {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', require(`./csls/${chosenStyleID}.csl`), false);
+  xhr.send(null);
+
+  return xhr.responseText;
+};
+
+const retrieveLocale = () => {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', require('./locales-en-US.xml'), false);
+  xhr.send(null);
+
+  return xhr.responseText;
+};
+
+const cite = (records, chosenStyleID, cb) => {
+  const csls = {};
 
   records.forEach((record) => {
-    function callback (data) {
-      csls = {
-        ...csls,
-        [data.id]: data
-      };
+    Pride.requestRecord(record.datastoreUid, record.recordUid).renderCSL((data) => {
+      csls[data.id] = data;
 
       if (Object.keys(csls).length === records.length) {
-        // We're done waiting for all the CSLs.
-        proceed(csls);
-      }
-    }
+        const citeprocSys = {
+          retrieveItem (id) {
+            return csls[id];
+          },
+          retrieveLocale
+        };
 
-    requestRecordCSL({ ...record, callback });
+        const styleAsText = getStyle(chosenStyleID);
+        const citeproc = new CSL.Engine(citeprocSys, styleAsText);
+        citeproc.updateItems(Object.keys(csls));
+        const result = citeproc.makeBibliography();
+
+        cb(chosenStyleID, result[1].join('\n'));
+      }
+    });
   });
-
-  function proceed (citations) {
-    const itemIDs = Object.keys(citations);
-
-    const citeprocSys = {
-      retrieveLocale: function () {
-        const xhr = new XMLHttpRequest();
-        const path = require('./locales-en-US.xml');
-        xhr.open('GET', path, false);
-
-        xhr.send(null);
-        return xhr.responseText;
-      },
-      retrieveItem: function (id) {
-        return citations[id];
-      }
-    };
-
-    function getProcessor (styleID) {
-      const styleAsText = getStyle(styleID);
-      const citeproc = new CSL.Engine(citeprocSys, styleAsText);
-
-      return citeproc;
-    };
-
-    function processorOutput () {
-      const citeproc = getProcessor(chosenStyleID);
-      citeproc.updateItems(itemIDs);
-      const result = citeproc.makeBibliography();
-
-      return result[1].join('\n');
-    }
-
-    const output = processorOutput();
-
-    cb(chosenStyleID, output); // callback
-  }
-}
+};
 
 export { cite };

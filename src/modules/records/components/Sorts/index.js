@@ -1,10 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
-import { findWhere } from '../../../reusable/underscore';
+import { useNavigate, useParams } from 'react-router-dom';
 import config from '../../../../config';
-import { stringifySearch } from '../../../search';
+import { findWhere } from '../../../reusable/underscore';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { stringifySearch } from '../../../search';
+import { useSelector } from 'react-redux';
 
 const Sorts = ({ activeDatastore }) => {
   const { data, query, sort } = useSelector((state) => {
@@ -21,8 +21,8 @@ const Sorts = ({ activeDatastore }) => {
   const sorts = (config.sorts[activeDatastore]?.sorts || [])
     .map((uid) => {
       return findWhere(data[activeDatastore].sorts, { uid });
-    }).filter((sort) => {
-      return sort !== undefined;
+    }).filter((sortType) => {
+      return typeof sortType !== 'undefined';
     });
 
   const handleOnChange = (event) => {
@@ -32,16 +32,18 @@ const Sorts = ({ activeDatastore }) => {
     });
 
     const queryString = stringifySearch({
-      query,
       filter,
-      library: activeDatastore === 'mirlyn' ? institution : undefined,
+      library: activeDatastore === 'mirlyn' ? institution : null,
+      query,
       sort: event.target.value
     });
 
     navigate(`/${datastoreSlug}?${queryString}`);
   };
 
-  if (!sorts.length) return null;
+  if (!sorts.length) {
+    return null;
+  }
 
   return (
     <div>
