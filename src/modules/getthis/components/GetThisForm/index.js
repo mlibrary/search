@@ -1,7 +1,7 @@
 import { Alert, Anchor } from '../../../reusable';
 import { getField, getFieldValue } from '../../../records/utilities';
 import React, { useState } from 'react';
-import { placeHold } from '../../../pride';
+import { Pride } from 'pride';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
@@ -98,13 +98,11 @@ const GetThisForm = ({ form }) => {
         setResponse(res);
       };
 
-      placeHold({
-        callback,
-        datastoreUid,
-        date: getFieldValueByName('not_needed_after')?.replace(/-/gu, ''),
+      Pride.requestRecord(datastoreUid, recordId).placeHold({
+        callbackFunction: callback,
         item: getFieldValueByName('item'),
-        location: getFieldValueByName('pickup_location'),
-        recordId
+        notNeededAfter: getFieldValueByName('not_needed_after')?.replace(/-/gu, ''),
+        pickupLocation: getFieldValueByName('pickup_location')
       });
     }
   };

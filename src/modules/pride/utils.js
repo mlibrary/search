@@ -1,10 +1,10 @@
-import { Pride } from 'pride';
+import { getField, getFieldValue } from '../records/utilities';
+import { setRecord, setRecordGetThis, setRecordHoldings } from '../records';
+import config from '../../config';
 import { findWhere } from '../reusable/underscore';
 import { getSearchStateFromURL } from '../search';
+import { Pride } from 'pride';
 import store from '../../store';
-import config from '../../config';
-import { setRecord, setRecordGetThis, setRecordHoldings } from '../records';
-import { getField, getFieldValue } from '../records/utilities';
 
 const getDatastoreByUid = (uid) => {
   return config.datastores.list.find((datastore) => {
@@ -26,8 +26,7 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
   const configDs = getDatastoreByUid(activeDatastore);
 
   if (!configDs) {
-    console.error('Config error: getMultiSearchRecords');
-    return undefined;
+    return null;
   }
 
   const { datastores } = configDs;
@@ -42,9 +41,9 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
 
   const bentoBoxes = datastores.reduce(
     (memo, datastore) => {
-      const { uid, name, slug } = getDatastoreByUid(datastore);
+      const { name, slug, uid } = getDatastoreByUid(datastore);
       const records = (multiSearchRecords[datastore] && Object.values(multiSearchRecords[datastore]).splice(0, 3)) || [];
-      memo.push({ uid, name, slug, records });
+      memo.push({ name, records, slug, uid });
 
       return memo;
     }, []
@@ -79,7 +78,7 @@ const isValidURLSearchQuery = ({ urlState }) => {
     }
 
     for (const [prop, value] of Object.entries(filter)) {
-      if (!/^([A-Za-z0-9_])+$/.test(prop)) {
+      if (!/^[A-Za-z0-9_]+$/u.test(prop)) {
         return false;
       }
       const isStringOrArray = typeof value === 'string' || (Array.isArray(value) && value.every((item) => {
@@ -110,7 +109,7 @@ const getStateFromURL = ({ location }) => {
   const isValid = isValidURLSearchQuery({ urlState: parsed });
 
   if (!isValid) {
-    return undefined;
+    return null;
   }
 
   if (parsed.filter) {
@@ -149,8 +148,8 @@ const requestRecord = ({ datastoreUid, recordUid }) => {
 
       store.dispatch(
         setRecord({
-          uid: recordUid,
           resourceAccess,
+          uid: recordUid,
           ...record
         })
       );
@@ -193,13 +192,13 @@ const prideParseField = (fieldName, content) => {
 };
 
 export {
-  getMultiSearchRecords,
   getDatastoreByUid,
-  getDatastoreUidBySlug,
   getDatastoreSlugByUid,
+  getDatastoreUidBySlug,
+  getMultiSearchRecords,
   getStateFromURL,
-  requestRecord,
   isValidURLSearchQuery,
   prideParseField,
+  requestRecord,
   requestGetThis
 };

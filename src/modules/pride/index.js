@@ -1,4 +1,3 @@
-import { initializePride, runSearch, switchPrideToDatastore } from './setup';
 import {
   getDatastoreByUid,
   getDatastoreSlugByUid,
@@ -10,24 +9,21 @@ import {
   requestGetThis,
   requestRecord
 } from './utils';
-
-import { placeHold } from './getthis';
-
+import { initializePride, runSearch, switchPrideToDatastore } from './setup';
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper';
 
 export {
-  initializePride,
-  switchPrideToDatastore,
-  runSearch,
   getDatastoreByUid,
+  getDatastoreSlugByUid,
   getDatastoreUidBySlug,
   getMultiSearchRecords,
-  URLSearchQueryWrapper,
   getStateFromURL,
-  getDatastoreSlugByUid,
-  requestRecord,
+  initializePride,
   isValidURLSearchQuery,
   prideParseField,
   requestGetThis,
-  placeHold
+  requestRecord,
+  runSearch,
+  switchPrideToDatastore,
+  URLSearchQueryWrapper
 };
