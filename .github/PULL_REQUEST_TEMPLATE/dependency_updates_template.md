@@ -9,8 +9,6 @@ These dependencies have been updated to their latest versions:
 - `@stylistic/eslint-plugin`
 - `citeproc`
 - `eslint`
-- `eslint-plugin-import`
-- `eslint-plugin-n`
 - `eslint-plugin-react`
 - `prejudice`
 - `pride`
