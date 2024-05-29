@@ -1,0 +1,68 @@
+{
+  "name": "U-M Library Search",
+  "short_name": "Lib Search",
+  "id": "/everything",
+  "start_url": "/everything",
+  "theme_color": "#00274c",
+  "background_color": "#fff",
+  "description": "Library Search is the University of Michigan Library's discovery interface.",
+  "display": "standalone",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "images/pwa/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/pwa/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/pwa/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "display_override": ["window-controls-overlay"],
+  "screenshots": [
+    {
+      "src": "/images/pwa/screenshot-narrow.jpg",
+      "type": "image/jpg",
+      "sizes": "390x844",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/images/pwa/screenshot-wide.jpg",
+      "type": "image/jpg",
+      "sizes": "1300x874",
+      "form_factor": "wide"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+catalog",
+      "url": "/catalog?type=%s"
+    },
+    {
+      "protocol": "web+articles",
+      "url": "/articles?type=%s"
+    },
+    {
+      "protocol": "web+databases",
+      "url": "/databases?type=%s"
+    },
+    {
+      "protocol": "web+onlinejournals",
+      "url": "/onlinejournals?type=%s"
+    },
+    {
+      "protocol": "web+guidesandmore",
+      "url": "/guidesandmore?type=%s"
+    }
+  ]
+}
