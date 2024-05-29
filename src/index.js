@@ -1,7 +1,5 @@
-import './stylesheets/colors.css';
 import './stylesheets/forms.css';
 import './stylesheets/main.css';
-import './stylesheets/spacing.css';
 import './stylesheets/utilities.css';
 import { AboutLibrarySearch, AccessibilityPage, NoMatch } from './modules/pages';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';

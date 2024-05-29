@@ -11,6 +11,23 @@
   <meta name="theme-color" content="#00274C" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" crossorigin="use-credentials" />
   <meta name="description" content="Library Search is the University of Michigan Library's discovery interface." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="styles/main.css" as="style" />
+  <link rel="preload" href="styles/colors.css" as="style" />
+  <link rel="preload" href="styles/spacing.css" as="style" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300..700&display=swap" as="style" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300..700&display=swap" />
+  <link rel="stylesheet" href="styles/colors.css" />
+  <link rel="stylesheet" href="styles/spacing.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <noscript>
+    <style>
+      .loading {
+        display: none;
+      }
+    </style>
+  </noscript>
   <!-- Google Tag Manager -->
   <script>
     (function (w, d, s, l, i) {
@@ -57,6 +74,17 @@
   </script>
 </head>
 <body>
-  
+  <div id="root">
+    <div class="initial-load">
+      <img src="%PUBLIC_URL%/images/logo.svg" alt="University of Michigan Library" width="238" height="36" />
+      <noscript>
+        <p class="no-js margin-bottom__none">You need to enable JavaScript to run this app.</p>
+      </noscript>
+      <div class="loading">
+        <div class="loading-bar"></div>
+        <p class="margin-bottom__none">Loading Search ...</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

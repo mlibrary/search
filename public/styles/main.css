@@ -1,0 +1,64 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Sans", sans-serif;
+  min-height: 100%;
+}
+
+.initial-load {
+  margin: 0 auto;
+  max-width: max-content;
+  padding: calc(50vh - 75px) 1rem;
+  text-align: center;
+}
+
+.initial-load img {
+  max-width: 250px;
+  width: 100%;
+}
+
+.initial-load > * + * {
+  margin-top: 1rem;
+}
+
+.no-js {
+  background: var(--search-color-red-100);
+  border: 1px solid var(--search-color-red-200);
+  border-radius: 4px;
+  color: var(--search-color-red-300);
+  padding: 0.5rem 1rem;
+}
+
+.loading-bar {
+  animation: placeHolderShimmer 25s linear infinite forwards;
+  background: linear-gradient(to left, var(--search-color-grey-200) 20%, var(--search-color-grey-400) 50%, var(--search-color-grey-200) 80%);
+  border-radius: 4px;
+  height: 0.6rem;
+}
+
+@-webkit-keyframes placeHolderShimmer {
+  0% {
+    background-position: -100vw 0;
+  }
+
+  100% {
+    background-position: 100vw 0;
+  }
+}
