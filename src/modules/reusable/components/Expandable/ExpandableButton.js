@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 const ExpandableButton = ({ count, name, ...rest }) => {
   const context = useContext(ExpandableContext);
 
-  if (context.disabled) return null;
+  if (context.disabled) {
+    return null;
+  }
 
   const handleToggleExpanded = () => {
     context.toggleExpanded();
@@ -23,8 +25,8 @@ const ExpandableButton = ({ count, name, ...rest }) => {
 };
 
 ExpandableButton.propTypes = {
-  name: PropTypes.string,
-  count: PropTypes.number
+  count: PropTypes.number,
+  name: PropTypes.string
 };
 
 export default ExpandableButton;

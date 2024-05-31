@@ -1,14 +1,13 @@
-import Filters from './components/Filters';
-import filtersReducer from './reducer';
-
 import {
   addFilters,
-  clearFilters,
-  setActiveFilters,
   clearActiveFilters,
-  setFilterGroupOrder,
-  resetFilters
+  clearFilters,
+  resetFilters,
+  setActiveFilters,
+  setFilterGroupOrder
 } from './actions';
+import Filters from './components/Filters';
+import filtersReducer from './reducer';
 
 export {
   Filters,

@@ -1,5 +1,5 @@
 export const ADD_PROFILE = 'profile/ADD_PROFILE';
 
-export function addProfile (payload) {
-  return { type: ADD_PROFILE, payload };
-}
+export const addProfile = (payload) => {
+  return { payload, type: ADD_PROFILE };
+};

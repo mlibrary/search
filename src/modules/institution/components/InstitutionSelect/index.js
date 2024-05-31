@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { stringifySearch } from '../../../search';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { stringifySearch } from '../../../search';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const InstitutionSelect = ({ activeDatastore, institution }) => {
-  const { uid, slug } = activeDatastore;
+  const { slug, uid } = activeDatastore;
   const filter = useSelector((state) => {
     return state.filters.active[uid];
   });
@@ -14,15 +14,17 @@ const InstitutionSelect = ({ activeDatastore, institution }) => {
   });
   const navigate = useNavigate();
 
-  if (uid !== 'mirlyn') return null;
+  if (uid !== 'mirlyn') {
+    return null;
+  }
 
   const { active, defaultInstitution, options } = institution;
 
   const handleChange = (event) => {
     const queryString = stringifySearch({
-      query,
       filter,
-      library: event.target.value
+      library: event.target.value,
+      query
     });
 
     navigate(`/${slug}?${queryString}`);

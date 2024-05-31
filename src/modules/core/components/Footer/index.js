@@ -1,7 +1,7 @@
-import React from 'react';
 import { Anchor, Icon } from '../../../reusable';
+import React from 'react';
 
-function Footer () {
+const Footer = () => {
   return (
     <>
       <aside className='container container-narrow feedback-container'>

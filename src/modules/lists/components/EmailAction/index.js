@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
 import PropTypes from 'prop-types';
 
-function EmailAction (props) {
-  const [email, setEmail] = useState(props.profile.email || '');
-  const [status, setStatus] = useState(undefined);
+const EmailAction = ({ action, datastore, emailAddress, prejudice, setActive }) => {
+  const [email, setEmail] = useState(emailAddress);
+  const [status, setStatus] = useState();
 
   const setCloseStatus = () => {
-    props.setActive('');
-    setStatus(undefined);
+    setActive('');
+    setStatus(null);
   };
 
   const handleSubmitCallback = (data) => {
@@ -17,13 +17,13 @@ function EmailAction (props) {
 
   return (
     <section className='lists-action'>
-      <ActionStatusMessage status={status} action={props.action} setCloseStatus={setCloseStatus} />
-      {(!status || status.status_code !== 'action.response.success') &&
+      <ActionStatusMessage status={status} action={action} setCloseStatus={setCloseStatus} />
+      {(!status || status.status_code !== 'action.response.success') && (
         <form
           className='lists-action-form'
           onSubmit={(event) => {
             event.preventDefault();
-            props.prejudice.act('email', props.datastore.uid, email, handleSubmitCallback);
+            prejudice.act('email', datastore.uid, email, handleSubmitCallback);
           }}
         >
           <div className='lists-action-field-container'>
@@ -46,17 +46,18 @@ function EmailAction (props) {
           >
             Send email
           </button>
-        </form>}
+        </form>
+      )}
     </section>
   );
-}
+};
 
 EmailAction.propTypes = {
-  profile: PropTypes.object,
-  prejudice: PropTypes.object,
+  action: PropTypes.object,
   datastore: PropTypes.object,
-  setActive: PropTypes.func,
-  action: PropTypes.object
+  emailAddress: PropTypes.string,
+  prejudice: PropTypes.object,
+  setActive: PropTypes.func
 };
 
 export default EmailAction;

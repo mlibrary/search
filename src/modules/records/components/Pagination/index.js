@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { stringifySearch } from '../../../search';
 import './styles.css';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Anchor } from '../../../reusable';
+import { stringifySearch } from '../../../search';
+import { useSelector } from 'react-redux';
 
 const Pagination = () => {
   const navigate = useNavigate();
@@ -31,12 +31,14 @@ const Pagination = () => {
     setCurrentPage(page);
   }, [page]);
 
-  if (!records || records.length === 0) return null;
+  if (!records || records.length === 0) {
+    return null;
+  }
 
   const createSearchQuery = (newPage) => {
     const queryString = stringifySearch({
       filter,
-      library: activeDatastoreUid === 'mirlyn' ? institution : undefined,
+      library: activeDatastoreUid === 'mirlyn' ? institution : null,
       page: newPage,
       query,
       sort: sort[activeDatastoreUid]
@@ -45,22 +47,22 @@ const Pagination = () => {
     return `${location.pathname}?${queryString}`;
   };
 
-  const toPreviousPage = page === 1 ? undefined : createSearchQuery(page - 1);
-  const toNextPage = totalPages === 0 || page === totalPages ? undefined : createSearchQuery(page + 1);
+  const toPreviousPage = page === 1 ? null : createSearchQuery(page - 1);
+  const toNextPage = totalPages === 0 || page === totalPages ? null : createSearchQuery(page + 1);
   const watchPageChange = (newPage) => {
     return navigate(createSearchQuery(newPage));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const pageNum = parseInt(currentPage, 10);
     if (Number.isInteger(pageNum) && pageNum > 0 && pageNum <= totalPages) {
       watchPageChange(pageNum);
     }
   };
 
-  const handleInputChange = (e) => {
-    setCurrentPage(e.target.value);
+  const handleInputChange = (event) => {
+    setCurrentPage(event.target.value);
   };
 
   const totalConverted = totalPages?.toLocaleString();

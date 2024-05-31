@@ -1,6 +1,6 @@
-import React, { useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
 import { ExpandableContext } from './Expandable';
+import PropTypes from 'prop-types';
 
 const ExpandableChildren = ({ children, show = 3 }) => {
   const context = useContext(ExpandableContext);

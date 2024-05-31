@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
 import PropTypes from 'prop-types';
 
-function TextAction (props) {
-  const [text, setText] = useState(props.profile.text || '');
-  const [status, setStatus] = useState(undefined);
+const TextAction = ({ action, datastore, phoneNumber, prejudice, setActive }) => {
+  const [text, setText] = useState(phoneNumber);
+  const [status, setStatus] = useState();
 
   const setCloseStatus = () => {
-    props.setActive('');
-    setStatus(undefined);
+    setActive('');
+    setStatus(null);
   };
 
   const handleSubmitCallback = (data) => {
@@ -17,13 +17,13 @@ function TextAction (props) {
 
   return (
     <section className='lists-action'>
-      <ActionStatusMessage status={status} action={props.action} setCloseStatus={setCloseStatus} />
-      {(!status || status.status_code !== 'action.response.success') &&
+      <ActionStatusMessage status={status} action={action} setCloseStatus={setCloseStatus} />
+      {(!status || status.status_code !== 'action.response.success') && (
         <form
           className='lists-action-form'
           onSubmit={(event) => {
             event.preventDefault();
-            props.prejudice.act('text', props.datastore.uid, text, handleSubmitCallback);
+            prejudice.act('text', datastore.uid, text, handleSubmitCallback);
           }}
         >
           <div className='lists-action-field-container'>
@@ -49,17 +49,18 @@ function TextAction (props) {
           >
             Send text
           </button>
-        </form>}
+        </form>
+      )}
     </section>
   );
-}
+};
 
 TextAction.propTypes = {
-  profile: PropTypes.object,
-  prejudice: PropTypes.object,
+  action: PropTypes.object,
   datastore: PropTypes.object,
-  setActive: PropTypes.func,
-  action: PropTypes.object
+  phoneNumber: PropTypes.string,
+  prejudice: PropTypes.object,
+  setActive: PropTypes.func
 };
 
 export default TextAction;

@@ -1,10 +1,10 @@
-import { Pride } from 'pride';
+import { getField, getFieldValue } from '../records/utilities';
+import { setRecord, setRecordGetThis, setRecordHoldings } from '../records';
+import config from '../../config';
 import { findWhere } from '../reusable/underscore';
 import { getSearchStateFromURL } from '../search';
+import { Pride } from 'pride';
 import store from '../../store';
-import config from '../../config';
-import { setRecord, setRecordHoldings, setRecordGetThis } from '../records';
-import { getField, getFieldValue } from '../records/utilities';
 
 const getDatastoreByUid = (uid) => {
   return config.datastores.list.find((datastore) => {
@@ -26,8 +26,7 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
   const configDs = getDatastoreByUid(activeDatastore);
 
   if (!configDs) {
-    console.error('Config error: getMultiSearchRecords');
-    return undefined;
+    return null;
   }
 
   const { datastores } = configDs;
@@ -42,9 +41,9 @@ const getMultiSearchRecords = (activeDatastore, allRecords) => {
 
   const bentoBoxes = datastores.reduce(
     (memo, datastore) => {
-      const { uid, name, slug } = getDatastoreByUid(datastore);
+      const { name, slug, uid } = getDatastoreByUid(datastore);
       const records = (multiSearchRecords[datastore] && Object.values(multiSearchRecords[datastore]).splice(0, 3)) || [];
-      memo.push({ uid, name, slug, records });
+      memo.push({ name, records, slug, uid });
 
       return memo;
     }, []
@@ -60,26 +59,34 @@ const getDatastoreSlugByUid = (uid) => {
 };
 const isValidURLSearchQuery = ({ urlState }) => {
   // Ensure urlState is an object but not null
-  if (typeof urlState !== 'object' || urlState === null) return false;
+  if (typeof urlState !== 'object' || urlState === null) {
+    return false;
+  }
 
   // Short-circuit to invalidate if non-string truthy values are found
-  if ((urlState.query && typeof urlState.query !== 'string') ||
-      (urlState.page && typeof urlState.page !== 'string') ||
-      (urlState.sort && typeof urlState.sort !== 'string')) {
+  if ((urlState.query && typeof urlState.query !== 'string')
+    || (urlState.page && typeof urlState.page !== 'string')
+    || (urlState.sort && typeof urlState.sort !== 'string')) {
     return false;
   }
 
   // Check 'filter' property if it exists
-  if (Object.prototype.hasOwnProperty.call(urlState, 'filter')) {
+  if (Object.hasOwn(urlState, 'filter')) {
     const { filter } = urlState;
-    if (typeof filter !== 'object' || filter === null) return false;
+    if (typeof filter !== 'object' || filter === null) {
+      return false;
+    }
 
     for (const [prop, value] of Object.entries(filter)) {
-      if (!/^([A-Za-z0-9_])+$/.test(prop)) return false;
+      if (!/^[A-Za-z0-9_]+$/u.test(prop)) {
+        return false;
+      }
       const isStringOrArray = typeof value === 'string' || (Array.isArray(value) && value.every((item) => {
         return typeof item === 'string';
       }));
-      if (!isStringOrArray) return false;
+      if (!isStringOrArray) {
+        return false;
+      }
     }
   }
 
@@ -87,7 +94,7 @@ const isValidURLSearchQuery = ({ urlState }) => {
 };
 
 /**
- * getStateFromURL() takes a location {Object}, then returns
+ * GetStateFromURL() takes a location {Object}, then returns
  * matching datastore Object or undefined if no state exists
  * in the URL (from the location {Object}).
  */
@@ -101,7 +108,9 @@ const getStateFromURL = ({ location }) => {
   const parsed = { ...getSearchStateFromURL(urlStateString) };
   const isValid = isValidURLSearchQuery({ urlState: parsed });
 
-  if (!isValid) return undefined;
+  if (!isValid) {
+    return null;
+  }
 
   if (parsed.filter) {
     if (parsed.filter.collection === 'All collections') {
@@ -122,9 +131,11 @@ const getStateFromURL = ({ location }) => {
 };
 
 const requestRecord = ({ datastoreUid, recordUid }) => {
-  // Requesting a record ordered options:
-  // 1. Is the record in the results? Use that.
-  // 2. If not, then ask Pride to fetch the record.
+  /*
+   * Requesting a record ordered options:
+   * 1. Is the record in the results? Use that.
+   * 2. If not, then ask Pride to fetch the record.
+   */
   const recordFromState = findWhere(store.getState().records.records[datastoreUid], { uid: recordUid });
 
   if (recordFromState) {
@@ -137,16 +148,18 @@ const requestRecord = ({ datastoreUid, recordUid }) => {
 
       store.dispatch(
         setRecord({
-          uid: recordUid,
           resourceAccess,
+          uid: recordUid,
           ...record
         })
       );
     };
     const record = Pride.requestRecord(datastoreUid, recordUid, callback);
 
-    // We only want to send holdings requests for
-    // record types that have holdings (e.g. the catalog)
+    /*
+     * We only want to send holdings requests for
+     * record types that have holdings (e.g. the catalog)
+     */
     if (datastoreUid === 'mirlyn') {
       record.getHoldings((data) => {
         store.dispatch(setRecordHoldings(data));
@@ -173,19 +186,19 @@ const prideParseField = (fieldName, content) => {
 
   try {
     return Pride.Parser.parse(content, { defaultFieldName: fieldName });
-  } catch (error) {
+  } catch {
     return new (Pride.Core.nodeFactory('raw'))(content);
   }
 };
 
 export {
-  getMultiSearchRecords,
   getDatastoreByUid,
-  getDatastoreUidBySlug,
   getDatastoreSlugByUid,
+  getDatastoreUidBySlug,
+  getMultiSearchRecords,
   getStateFromURL,
-  requestRecord,
   isValidURLSearchQuery,
   prideParseField,
+  requestRecord,
   requestGetThis
 };

@@ -1,34 +1,23 @@
-// Reducer
-import advancedReducer from './reducer';
-
-// Actions
 import {
-  addAdvancedField,
   addAdvancedBooleanTypes,
+  addAdvancedField,
+  addAdvancedFilterGroups,
   addFieldedSearch,
   removeFieldedSearch,
-  setFieldedSearch,
-  addAdvancedFilterGroups,
-  setAdvancedFilter
+  setAdvancedFilter,
+  setFieldedSearch
 } from './actions';
-
-// Components
+import advancedReducer from './reducer';
 import AdvancedSearch from './components/AdvancedSearchContainer';
 
-// All public exports
 export {
-  // Reducer
-  advancedReducer,
-
-  // Actions
-  addAdvancedField,
   addAdvancedBooleanTypes,
-  addFieldedSearch,
-  removeFieldedSearch,
-  setFieldedSearch,
+  addAdvancedField,
   addAdvancedFilterGroups,
+  addFieldedSearch,
+  advancedReducer,
+  AdvancedSearch,
+  removeFieldedSearch,
   setAdvancedFilter,
-
-  // Components
-  AdvancedSearch
+  setFieldedSearch
 };

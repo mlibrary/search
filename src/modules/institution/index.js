@@ -1,12 +1,10 @@
+import { setActiveInstitution, setDefaultInstitution } from './actions';
 import institutionReducer from './reducer/';
-import {
-  setDefaultInstitution,
-  setActiveInstitution
-} from './actions';
 import InstitutionSelect from './components/InstitutionSelect';
+
 export {
   institutionReducer,
-  setDefaultInstitution,
+  InstitutionSelect,
   setActiveInstitution,
-  InstitutionSelect
+  setDefaultInstitution
 };

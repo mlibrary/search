@@ -1,27 +1,16 @@
-import React from 'react';
 import { getField, getFieldValue } from '../../utilities';
 import PropTypes from 'prop-types';
-
-function createMarkup (markupString) {
-  return { __html: markupString };
-}
+import React from 'react';
 
 const RecordDescription = ({ record }) => {
-  const abstract = getField(record.fields, 'abstract');
-  const desc = getField(record.fields, 'description');
-  const descField = abstract || desc;
-  const description = getFieldValue(descField)[0];
+  const descField = getField(record.fields, 'abstract') || getField(record.fields, 'description');
+  const [description] = getFieldValue(descField);
 
   if (!description) {
     return null;
   }
 
-  return (
-    <p
-      className='full-record__description'
-      dangerouslySetInnerHTML={createMarkup(description)}
-    />
-  );
+  return <p className='full-record__description' dangerouslySetInnerHTML={{ __html: description }} />;
 };
 
 RecordDescription.propTypes = {

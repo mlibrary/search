@@ -3,7 +3,7 @@ import GetThisFindIt from '../GetThisFindIt';
 import { GetThisForm } from '../../../getthis';
 import PropTypes from 'prop-types';
 
-function GetThisOption ({ option }) {
+const GetThisOption = ({ option }) => {
   const detailsRef = useRef(null);
 
   return (
@@ -46,7 +46,7 @@ function GetThisOption ({ option }) {
       </div>
     </details>
   );
-}
+};
 
 GetThisOption.propTypes = {
   option: PropTypes.object

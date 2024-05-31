@@ -1,44 +1,46 @@
+import './styles.css';
+import Holder from '../Holder';
+import { Icon } from '../../../reusable';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import './styles.css';
-import { Icon } from '../../../reusable';
-import Holder from '../Holder';
-import PropTypes from 'prop-types';
 
-export default function Holders ({ record, context }) {
+const Holders = ({ context, record }) => {
   const { mirlyn } = useSelector((state) => {
     return state.filters.active;
   });
   /*
-    - Check if the record is under 'Catalog', and the 'Remove search-only HathiTrust materials' is checked
-    - If true, remove all 'Search only (no full text)' holdings
-  */
+   * - Check if the record is under 'Catalog', and the 'Remove search-only HathiTrust materials' is checked
+   * - If true, remove all 'Search only (no full text)' holdings
+   */
   if (
-    record.datastore === 'mirlyn' &&
-    (
-      !mirlyn ||
-      (Object.keys(mirlyn).includes('search_only') && mirlyn.search_only.includes('true'))
+    record.datastore === 'mirlyn'
+    && (
+      !mirlyn
+      || (Object.keys(mirlyn).includes('search_only') && mirlyn.search_only.includes('true'))
     )
   ) {
     // UNCOMMENT THE BLOCK BELOW WHEN READY TO LAUNCH
     /*
-    record.resourceAccess.forEach((resource) => {
-      resource.rows = resource.rows.filter((row) => {
-        return row[0].text !== 'Search only (no full text)';
-      });
-    });
-    */
+     * Record.resourceAccess.forEach((resource) => {
+     *   resource.rows = resource.rows.filter((row) => {
+     *     return row[0].text !== 'Search only (no full text)';
+     *   });
+     * });
+     */
   }
   return (
     <>
-      {record.resourceAccess.map((data, i) => {
+      {record.resourceAccess.map((data, index) => {
         const { rows, caption, type } = data;
 
-        if (!rows.length) return null;
+        if (!rows?.length) {
+          return null;
+        }
 
         return (
           <details
-            key={record.datastore + record.uid + '-' + i}
+            key={`${record.datastore + record.uid}-${index}`}
             className='holders-details'
             open={record.resourceAccess.length === 1}
           >
@@ -64,9 +66,11 @@ export default function Holders ({ record, context }) {
       })}
     </>
   );
-}
+};
 
 Holders.propTypes = {
-  record: PropTypes.object,
-  context: PropTypes.object
+  context: PropTypes.object,
+  record: PropTypes.object
 };
+
+export default Holders;

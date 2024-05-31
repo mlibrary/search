@@ -10,10 +10,10 @@ import {
 const initialState = {
   active: {},
   groups: {},
-  order: undefined
+  order: null
 };
 
-const filtersReducer = function filterReducer (state = initialState, action) {
+const filtersReducer = (state = initialState, action) => {
   if (action.type === ADD_FILTERS) {
     return {
       ...state,

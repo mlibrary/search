@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { getSearchStateFromURL, stringifySearch } from '../../../search';
 import './styles.css';
+import { getSearchStateFromURL, stringifySearch } from '../../../search';
+import React, { useEffect, useState } from 'react';
 import { Dialog } from '../../../reusable';
+import { useSelector } from 'react-redux';
 
-function oldSafari () {
-  const safariVersionMatch = navigator.userAgent.match(/Version\/([0-9._]+) Safari/);
+const oldSafari = () => {
+  const safariVersionMatch = navigator.userAgent.match(/Version\/(?<version>[0-9._]+) Safari/u);
 
-  if (!safariVersionMatch) return false;
+  if (!safariVersionMatch?.groups?.version) {
+    return false;
+  }
 
   const [major, minor = 0] = safariVersionMatch[1].split('.').map((part) => {
     return parseInt(part, 10);
   });
 
   return major < 15 || (major === 15 && minor < 4);
-}
+};
 
-export default function ChooseAffiliation () {
+const ChooseAffiliation = () => {
   const { defaultAffiliation, affiliationOptions } = useSelector((state) => {
     return state.affiliation;
   });
@@ -40,10 +42,10 @@ export default function ChooseAffiliation () {
       ...parsed,
       affiliation: alternativeAffiliation
     };
-    document.location.href =
-      document.location.pathname +
-      '?' +
-      stringifySearch(withAffiliation);
+    document.location.href
+      = `${document.location.pathname
+       }?${
+       stringifySearch(withAffiliation)}`;
   };
 
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -56,17 +58,19 @@ export default function ChooseAffiliation () {
     <div className='choose-affiliation-container'>
       <button
         className='btn btn--secondary font-small no-background'
-        onClick={oldSafari()
-          ? changeAffiliation
-          : () => {
-              return setDialogOpen(true);
-            }}
-        role={oldSafari() ? 'link' : undefined}
+        onClick={
+          oldSafari()
+            ? changeAffiliation
+            : () => {
+                return setDialogOpen(true);
+              }
+        }
+        role={oldSafari() ? 'link' : 'button'}
       >
         {Object.keys(affiliationOptions).map((campusAffiliation, index) => {
           const currentAffiliation = affiliation === campusAffiliation;
           return (
-            <div className={currentAffiliation ? 'active-affiliation' : undefined} key={`${campusAffiliation}-${index}`}>
+            <div className={currentAffiliation ? 'active-affiliation' : ''} key={`${campusAffiliation}-${index}`}>
               <span className='visually-hidden'>{currentAffiliation ? 'Current' : 'Choose'} campus affiliation: </span>
               {affiliationOptions[campusAffiliation]}
             </div>
@@ -97,4 +101,6 @@ export default function ChooseAffiliation () {
       )}
     </div>
   );
-}
+};
+
+export default ChooseAffiliation;

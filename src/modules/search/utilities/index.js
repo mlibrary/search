@@ -3,105 +3,105 @@ import qs from 'qs';
 const searchOptions = () => {
   return [
     {
+      datastore: ['everything', 'mirlyn', 'databases', 'onlinejournals', 'website'],
       name: 'Keyword',
-      uid: 'keyword',
-      datastore: ['everything', 'mirlyn', 'databases', 'onlinejournals', 'website']
+      uid: 'keyword'
     },
     {
+      datastore: ['primo'],
       name: 'Keyword (contains)',
-      uid: 'keyword',
-      datastore: ['primo']
+      uid: 'keyword'
     },
     {
+      datastore: ['primo'],
       name: 'Keyword (is exact)',
-      uid: 'exact',
-      datastore: ['primo']
+      uid: 'exact'
     },
     {
+      datastore: ['everything', 'mirlyn', 'primo', 'databases', 'onlinejournals', 'website'],
       name: 'Title',
-      uid: 'title',
-      datastore: ['everything', 'mirlyn', 'primo', 'databases', 'onlinejournals', 'website']
+      uid: 'title'
     },
     {
+      datastore: ['mirlyn', 'databases', 'onlinejournals'],
       name: 'Title starts with',
-      uid: 'title_starts_with',
-      datastore: ['mirlyn', 'databases', 'onlinejournals']
+      uid: 'title_starts_with'
     },
     {
+      datastore: ['everything', 'mirlyn', 'primo'],
       name: 'Author',
-      uid: 'author',
-      datastore: ['everything', 'mirlyn', 'primo']
+      uid: 'author'
     },
     {
+      datastore: ['mirlyn'],
       name: 'Journal/Serial Title',
-      uid: 'journal_title',
-      datastore: ['mirlyn']
+      uid: 'journal_title'
     },
     {
+      datastore: ['mirlyn', 'primo', 'onlinejournals'],
       name: 'Subject',
-      uid: 'subject',
-      datastore: ['mirlyn', 'primo', 'onlinejournals']
+      uid: 'subject'
     },
     {
+      datastore: ['mirlyn', 'onlinejournals'],
       name: 'LC Subject starts with',
-      uid: 'lc_subject_starts_with',
-      datastore: ['mirlyn', 'onlinejournals']
+      uid: 'lc_subject_starts_with'
     },
     {
+      datastore: ['databases', 'onlinejournals'],
       name: 'Academic Discipline',
-      uid: 'academic_discipline',
-      datastore: ['databases', 'onlinejournals']
+      uid: 'academic_discipline'
     },
     {
+      datastore: ['databases'],
       name: 'Publisher',
-      uid: 'publisher',
-      datastore: ['databases']
+      uid: 'publisher'
     },
     {
+      datastore: ['mirlyn', 'onlinejournals'],
       name: 'Call Number starts with',
-      uid: 'call_number_starts_with',
-      datastore: ['mirlyn', 'onlinejournals']
+      uid: 'call_number_starts_with'
     },
     {
+      datastore: ['mirlyn'],
       name: 'Series (transcribed)',
-      uid: 'series',
-      datastore: ['mirlyn']
+      uid: 'series'
     },
     {
+      datastore: ['primo'],
       name: 'Date',
-      uid: 'publication_date',
-      datastore: ['primo']
+      uid: 'publication_date'
     },
     {
+      datastore: ['mirlyn', 'onlinejournals'],
       name: 'ISBN/ISSN/OCLC/etc',
-      uid: 'isn',
-      datastore: ['mirlyn', 'onlinejournals']
+      uid: 'isn'
     },
     {
+      datastore: ['primo'],
       name: 'ISSN',
-      uid: 'issn',
-      datastore: ['primo']
+      uid: 'issn'
     },
     {
+      datastore: ['primo'],
       name: 'ISBN',
-      uid: 'isbn',
-      datastore: ['primo']
+      uid: 'isbn'
     },
     {
+      datastore: ['mirlyn'],
       name: 'Browse by call number (LC and Dewey)',
-      uid: 'browse_by_callnumber',
       selected: 'selected',
-      datastore: ['mirlyn']
+      uid: 'browse_by_callnumber'
     },
     {
+      datastore: ['mirlyn'],
       name: 'Browse by author',
-      uid: 'browse_by_author',
-      datastore: ['mirlyn']
+      uid: 'browse_by_author'
     },
     {
+      datastore: ['mirlyn'],
       name: 'Browse by subject',
-      uid: 'browse_by_subject',
-      datastore: ['mirlyn']
+      uid: 'browse_by_subject'
     }
   ];
 };
@@ -123,23 +123,24 @@ const getSearchStateFromURL = (location = document.location.search) => {
   return qs.parse(location?.substring(1), { allowDots: true });
 };
 
-const stringifySearch = ({ query, page, ...rest }) => {
+const stringifySearch = ({ library, page, query, ...rest }) => {
   return qs.stringify({
-    query: query || undefined,
-    page: page > 1 ? page : undefined,
-    ...rest
+    ...query && { query },
+    ...library && { library },
+    ...rest,
+    ...page > 1 && { page }
   }, {
+    allowDots: true,
     arrayFormat: 'repeat',
     encodeValuesOnly: true,
-    allowDots: true,
     format: 'RFC1738'
   });
 };
 
 export {
-  searchOptions,
-  searchOptionsDatastores,
   filterOptions,
   getSearchStateFromURL,
+  searchOptions,
+  searchOptionsDatastores,
   stringifySearch
 };

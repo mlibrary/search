@@ -1,16 +1,23 @@
-import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { findWhere } from '../../underscore';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-function ContextProvider ({ render }) {
+const ContextProvider = ({ render }) => {
   const location = useLocation();
   const params = useParams();
 
   let viewType = 'Medium';
-  location.pathname.endsWith('/everything') && (viewType = 'Preview');
-  params.recordUid !== undefined && (viewType = 'Full');
-  location.pathname.endsWith('/list') && (viewType = 'List');
+
+  if (location.pathname.endsWith('/everything')) {
+    viewType = 'Preview';
+  }
+  if (params.recordUid) {
+    viewType = 'Full';
+  }
+  if (location.pathname.endsWith('/list')) {
+    viewType = 'List';
+  }
 
   const activeDatastoreUid = useSelector((state) => {
     return state.datastores.active;
@@ -23,7 +30,7 @@ function ContextProvider ({ render }) {
   );
 
   return render({ datastore, viewType });
-}
+};
 
 ContextProvider.propTypes = {
   render: PropTypes.func.isRequired

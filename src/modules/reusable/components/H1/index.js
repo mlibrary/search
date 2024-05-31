@@ -1,15 +1,17 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-function H1 ({ children, className }) {
-  if (!children) return null;
+const H1 = ({ children, className }) => {
+  if (!children) {
+    return null;
+  }
 
   return (
     <h1 className={className} id='maincontent' tabIndex='-1'>
       {children}
     </h1>
   );
-}
+};
 
 H1.propTypes = {
   children: PropTypes.oneOfType([

@@ -1,20 +1,20 @@
-import React from 'react';
 import './styles.css';
-import { stringifySearch } from '../../../search';
 import { Anchor, Icon } from '../../../reusable';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { stringifySearch } from '../../../search';
 
-function DatastoreNavigation ({ activeFilters, datastores, institution, search }) {
+const DatastoreNavigation = ({ activeFilters, datastores, institution, search }) => {
   return (
     <nav className='datastore-nav' aria-label='Datastores'>
       <ol>
         {datastores.datastores.map((datastore) => {
           const queryString = stringifySearch({
-            query: search.query,
             filter: activeFilters[datastore.uid],
-            page: search.page[datastore.uid] === 1 ? undefined : search.page[datastore.uid],
-            sort: search.sort[datastore.uid],
-            library: datastore.uid === 'mirlyn' ? institution.active : undefined
+            library: datastore.uid === 'mirlyn' ? institution.active : null,
+            page: search.page[datastore.uid] === 1 ? null : search.page[datastore.uid],
+            query: search.query,
+            sort: search.sort[datastore.uid]
           });
           return (
             <li key={datastore.uid}>

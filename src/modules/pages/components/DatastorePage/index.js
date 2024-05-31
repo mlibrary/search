@@ -1,31 +1,31 @@
+import {
+  DatastoreInfoContainer,
+  DatastoreNavigation,
+  FlintAlerts,
+  Landing
+} from '../../../datastores';
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Routes, Route, useLocation, useParams } from 'react-router-dom';
+import { RecordFull, Results } from '../../../records';
+import { Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AdvancedSearch } from '../../../advanced';
+import { BrowsePage } from '../../../browse';
 import { findWhere } from '../../../reusable/underscore';
+import { GetThisPage } from '../../../getthis';
+import { H1 } from '../../../reusable';
+import { List } from '../../../lists';
 import { NoMatch } from '../../../pages';
 import { SearchBox } from '../../../search';
-import { AdvancedSearch } from '../../../advanced';
-import {
-  DatastoreNavigation,
-  DatastoreInfoContainer,
-  Landing,
-  FlintAlerts
-} from '../../../datastores';
-import { BrowsePage } from '../../../browse';
-import { Results, RecordFull } from '../../../records';
-import { GetThisPage } from '../../../getthis';
-import { switchPrideToDatastore } from '../../../pride';
-import { List } from '../../../lists';
 import { setDocumentTitle } from '../../../a11y';
-import { H1 } from '../../../reusable';
+import { switchPrideToDatastore } from '../../../pride';
 
-function DatastorePage () {
+const DatastorePage = () => {
   const location = useLocation();
   const params = useParams();
   const dispatch = useDispatch();
 
-  const activeFilters = useSelector((state) => {
-    return state.filters.active;
+  const { active: activeFilters } = useSelector((state) => {
+    return state.filters;
   });
   const datastores = useSelector((state) => {
     return state.datastores;
@@ -47,7 +47,7 @@ function DatastorePage () {
   const currentFilters = activeFilters[currentDatastore];
   const activeFilterCount = currentFilters ? Object.keys(currentFilters).length : 0;
   const isAdvanced = useSelector((state) => {
-    return !!state.advanced[currentDatastore];
+    return Boolean(state.advanced[currentDatastore]);
   });
   const list = useSelector((state) => {
     return state.lists[currentDatastore];
@@ -73,7 +73,9 @@ function DatastorePage () {
     }
   }, [activeDatastore, query, location.pathname]);
 
-  if (!activeDatastore) return null;
+  if (!activeDatastore) {
+    return null;
+  }
 
   return (
     <main className='main-container'>
@@ -88,7 +90,7 @@ function DatastorePage () {
         />
         <Route
           path='/*'
-          element={
+          element={(
             <>
               <SearchBox />
               <DatastoreNavigation {...{ activeFilters, datastores, institution, search }} />
@@ -104,16 +106,13 @@ function DatastorePage () {
                 />
                 <Route
                   path='list'
-                  element={<List {...{ profile, activeDatastore, institution, list }} />}
+                  element={<List {...{ activeDatastore, institution, list, profile }} />}
                 />
                 <Route
                   index
                   element={
-                    !searching
+                    searching
                       ? (
-                        <Landing activeDatastore={activeDatastore} institution={institution} />
-                        )
-                      : (
                         <>
                           <H1 className='visually-hidden'>{activeDatastore.name}</H1>
                           <DatastoreInfoContainer activeDatastore={activeDatastore} />
@@ -124,15 +123,18 @@ function DatastorePage () {
                           />
                         </>
                         )
+                      : (
+                        <Landing activeDatastore={activeDatastore} institution={institution} />
+                        )
                   }
                 />
               </Routes>
             </>
-          }
+          )}
         />
       </Routes>
     </main>
   );
-}
+};
 
 export default DatastorePage;

@@ -1,18 +1,18 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import './styles.css';
 import {
   Anchor,
   Expandable,
-  ExpandableChildren,
   ExpandableButton,
+  ExpandableChildren,
   Icon
 } from '../../../reusable';
-import CheckboxFilters from '../CheckboxFilters';
 import { getURLWithFiltersRemoved, newSearch } from '../../utilities';
+import CheckboxFilters from '../CheckboxFilters';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-function ActiveFilters () {
+const ActiveFilters = () => {
   const { active: activeDatastore } = useSelector((state) => {
     return state.datastores;
   });
@@ -21,23 +21,25 @@ function ActiveFilters () {
   });
   const active = activeFilters[activeDatastore];
 
-  if (!active) return null;
+  if (!active) {
+    return null;
+  }
 
   /*
-    input:
-    {
-      subject: ['Birds', 'Birds North America'],
-      format: ['Science', 'Biology']
-    }
-
-    output:
-    [
-      { group: 'subject', value: 'Birds' },
-      { group: 'subject', value: 'Birds North America' },
-      { group: 'format', value: 'Science' },
-      { group: 'format', value: 'Biology' }
-    ]
-  */
+   * Input:
+   * {
+   *   subject: ['Birds', 'Birds North America'],
+   *   format: ['Science', 'Biology']
+   * }
+   *
+   * output:
+   * [
+   *   { group: 'subject', value: 'Birds' },
+   *   { group: 'subject', value: 'Birds North America' },
+   *   { group: 'format', value: 'Science' },
+   *   { group: 'format', value: 'Biology' }
+   * ]
+   */
   const items = Object.keys(active).reduce((acc, group) => {
     // Just don't show the checkbox filters as active filter items.
     if (!groups[group] || groups[group].type !== 'checkbox') {
@@ -45,13 +47,15 @@ function ActiveFilters () {
         return { group, value };
       });
 
-      acc = acc.concat(activeFiltersToAdd);
+      return [...acc, ...activeFiltersToAdd];
     }
 
     return acc;
   }, []);
 
-  if (!items.length) return null;
+  if (!items.length) {
+    return null;
+  }
 
   return (
     <section className='padding-y__s padding-x__m active-filters'>
@@ -60,18 +64,20 @@ function ActiveFilters () {
       </h2>
 
       <ul className='list__unstyled'>
-        {items.map((item, i) => {
+        {items.map((item, index) => {
           const { group, value } = item;
           return (
             <li
-              key={i + group + value}
+              key={index + group + value}
               className='margin-bottom__xs'
             >
               <Anchor
                 to={getURLWithFiltersRemoved({ group, value })}
                 className='padding-y__xs padding-x__s remove-filter underline__hover'
               >
-                {groups[group] ? groups[group].metadata.name : group}: {value}
+                {groups[group] ? groups[group].metadata.name : group}
+                :
+                {` ${value}`}
                 <Icon icon='close' />
               </Anchor>
             </li>
@@ -80,19 +86,20 @@ function ActiveFilters () {
       </ul>
 
       {
-        items.length > 1 &&
+        items.length > 1 && (
           <Anchor
             to={getURLWithFiltersRemoved({ all: true })}
             className='underline underline__hover-thick text-grey'
           >
             Clear all active filters
           </Anchor>
-      }
+        )
+}
     </section>
   );
-}
+};
 
-function FilterGroupContainer ({ uid }) {
+const FilterGroupContainer = ({ uid }) => {
   const activeDatastore = useSelector((state) => {
     return state.datastores.active;
   });
@@ -101,14 +108,18 @@ function FilterGroupContainer ({ uid }) {
   });
   const group = groups[uid];
 
-  if (!group || !group.filters.length || group.type !== 'multiselect') return null;
+  if (!group || !group.filters.length || group.type !== 'multiselect') {
+    return null;
+  }
 
   const activeDatastoreFilters = activeFilters[activeDatastore]?.[uid] ?? [];
   const filtersWithoutActive = group.filters.filter((filter) => {
     return !activeDatastoreFilters.includes(filter.value);
   });
 
-  if (!filtersWithoutActive.length) return null;
+  if (!filtersWithoutActive.length) {
+    return null;
+  }
 
   const { name } = group.metadata;
 
@@ -126,11 +137,11 @@ function FilterGroupContainer ({ uid }) {
         <Expandable>
           <ul className='list__unstyled filter-list'>
             <ExpandableChildren show={5}>
-              {filtersWithoutActive.map((filter, i) => {
+              {filtersWithoutActive.map((filter, index) => {
                 const { value, count } = filter;
-                const search = newSearch({ filter: { [uid]: value }, page: undefined });
+                const search = newSearch({ filter: { [uid]: value }, page: 1 });
                 return (
-                  <li key={name + value + i}>
+                  <li key={name + value + index}>
                     <Anchor
                       to={`${document.location.pathname}?${search}`}
                       className='flex filter-option'
@@ -156,13 +167,13 @@ function FilterGroupContainer ({ uid }) {
       </div>
     </details>
   );
-}
+};
 
 FilterGroupContainer.propTypes = {
   uid: PropTypes.string
 };
 
-export default function Filters () {
+const Filters = () => {
   const { searching } = useSelector((state) => {
     return state.search;
   });
@@ -176,7 +187,9 @@ export default function Filters () {
     return state.filters;
   });
 
-  if (!order || (searching && loading[active])) return null;
+  if (!order || (searching && loading[active])) {
+    return null;
+  }
 
   return (
     <section aria-label='filters' className='filter-container'>
@@ -189,4 +202,6 @@ export default function Filters () {
       })}
     </section>
   );
-}
+};
+
+export default Filters;

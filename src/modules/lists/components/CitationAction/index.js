@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Tabs, Tab, TabPanel } from '../../../reusable';
+import React, { useEffect, useState } from 'react';
+import { Tab, TabPanel, Tabs } from '../../../reusable';
 import { cite } from '../../../citations';
 import PropTypes from 'prop-types';
 
@@ -30,25 +30,24 @@ const citationOptions = [
   }
 ];
 
-function CitationAction (props) {
+const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType }) => {
   const [citations, setCitations] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCitations = async () => {
+    const fetchCitations = () => {
       setLoading(true);
 
-      const records = props.viewType === 'Full'
-        ? [
-            { recordUid: props.record.uid, datastoreUid: props.datastore.uid }
-          ]
-        : props.viewType === 'List' && props.list.length
-          ? props.list.map((record) => {
-            return {
-              recordUid: record.uid, datastoreUid: props.datastore.uid
-            };
-          })
-          : [];
+      let records = [];
+
+      if (viewType === 'Full') {
+        records = [{ datastoreUid: datastore.uid, recordUid: record.uid }];
+      }
+      if (viewType === 'List' && list.length > 0) {
+        records = list.map((item) => {
+          return { datastoreUid: datastore.uid, recordUid: item.uid };
+        });
+      }
 
       if (records.length === 0) {
         setLoading(false);
@@ -69,15 +68,15 @@ function CitationAction (props) {
       setLoading(false);
     };
     fetchCitations();
-  }, [props.viewType, props.record, props.datastore, props.list]);
+  }, [viewType, record, datastore, list]);
 
   const handleCopy = (citationId) => {
     navigator.clipboard.writeText(document.getElementById(`citation-text-${citationId}`).innerText);
-    props.setAlert({
+    setAlert({
       intent: 'success',
       text: 'Citation copied to clipboard!'
     });
-    props.setActive('');
+    setActive('');
   };
 
   if (loading) {
@@ -96,11 +95,8 @@ function CitationAction (props) {
         const citation = citations[citationOption.id];
         return (
           <TabPanel key={`${citationOption.name}-panel`}>
-            {!citation
+            {citation
               ? (
-                <p>Loading citation...</p>
-                )
-              : (
                 <>
                   <label
                     htmlFor={`${citationOption.name}-label`}
@@ -114,8 +110,8 @@ function CitationAction (props) {
                     style={{
                       border: 'solid 1px var(--search-color-grey-400)',
                       boxShadow: 'none',
-                      overflowY: 'auto',
-                      maxHeight: '40vh'
+                      maxHeight: '40vh',
+                      overflowY: 'auto'
                     }}
                     className='y-spacing copy-citation padding-y__xs padding-x__s container__rounded'
                     contentEditable
@@ -139,27 +135,30 @@ function CitationAction (props) {
                     Copy citation
                   </button>
                 </>
+                )
+              : (
+                <p>Loading citation...</p>
                 )}
           </TabPanel>
         );
       })}
     </Tabs>
   );
-}
+};
 
 CitationAction.propTypes = {
-  setActive: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired,
-  viewType: PropTypes.oneOf(['Full', 'List']).isRequired,
   datastore: PropTypes.shape({
     uid: PropTypes.string.isRequired
   }).isRequired,
+  list: PropTypes.arrayOf(PropTypes.shape({
+    uid: PropTypes.string.isRequired
+  })),
   record: PropTypes.shape({
     uid: PropTypes.string.isRequired
   }),
-  list: PropTypes.arrayOf(PropTypes.shape({
-    uid: PropTypes.string.isRequired
-  }))
+  setActive: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+  viewType: PropTypes.oneOf(['Full', 'List']).isRequired
 };
 
 export default CitationAction;
