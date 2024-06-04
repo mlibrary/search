@@ -4,16 +4,16 @@
   "private": true,
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
-    "@eslint/compat": "^1.0.1",
-    "@eslint/js": "^9.2.0",
+    "@eslint/compat": "^1.0.3",
+    "@eslint/js": "^9.4.0",
     "@stylistic/eslint-plugin": "^2.1.0",
-    "eslint": "^9.2.0",
-    "eslint-plugin-react": "^7.34.1",
-    "globals": "^15.2.0",
+    "eslint": "^9.4.0",
+    "eslint-plugin-react": "^7.34.2",
+    "globals": "^15.3.0",
     "react-scripts": "^5.0.1"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.2.4",
+    "@reduxjs/toolkit": "^2.2.5",
     "citeproc": "^2.4.63",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
     "pride": "git+https://github.com/mlibrary/pride.git",
