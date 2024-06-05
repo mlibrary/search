@@ -10,6 +10,7 @@ These dependencies have been updated to their latest versions:
 - `citeproc`
 - `eslint`
 - `eslint-plugin-react`
+- `globals`
 - `prejudice`
 - `pride`
 - `prop-types`
