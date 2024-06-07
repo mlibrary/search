@@ -8,10 +8,9 @@ const ShelfBrowse = () => {
   });
 
   const callNumberBrowse = full
-    .map((metadata) => {
+    .flatMap((metadata) => {
       return metadata.description;
     })
-    .flat()
     .find((callNumber) => {
       return callNumber.browse?.type === 'callnumber';
     });
@@ -20,7 +19,7 @@ const ShelfBrowse = () => {
     return null;
   }
 
-  return <ShelfBrowseCarousel />;
+  return <ShelfBrowseCarousel callNumber={callNumberBrowse.browse.value} />;
 };
 
 export default ShelfBrowse;

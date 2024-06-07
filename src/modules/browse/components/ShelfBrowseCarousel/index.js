@@ -1,50 +1,14 @@
 import './styles.css';
 import { Icon, useWindowWidth } from '../../../reusable';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import BrowseLink from '../BrowseLink';
+import PropTypes from 'prop-types';
 import relatedItems from './test-data';
-import { useSelector } from 'react-redux';
 
-const findObjectWithValue = (items, valueToMatch) => {
-  for (let index = 0; index < items.length; index++) {
-    for (let i = 0; i < items[index].length; i++) {
-      const item = items[index][i];
-      if (item.uid === 'id' && item.value === valueToMatch) {
-        return index;
-      }
-    }
-  }
-  return 'null';
-}
-
-const findCallNumberBrowse = (metadata) => {
-  const callNumber = metadata.find((item) => {
-    return item.term === 'Call Number';
+const ShelfBrowseCarousel = ({ callNumber, items = relatedItems }) => {
+  const callNumberIndex = items.findIndex((item) => {
+    return item.call_number === callNumber;
   });
-
-  if (!callNumber) return null;
-
-  const browse = callNumber.description.find((description) => {
-    return Object.keys(description).includes('browse');
-  });
-
-  return browse?.browse;
-}
-
-const getMetadata = (items) => {
-  return items.reduce((obj, item) => {
-    if (item?.uid) {
-      obj[item.uid] = item;
-    }
-    return obj;
-  }, {});
-};
-
-const ShelfBrowseCarousel = () => {
-  const { uid, metadata } = useSelector((state) => {
-    return state.records.record;
-  });
-  const items = relatedItems;
   const windowWidth = useWindowWidth();
   let itemsPerPage = 5;
   if (windowWidth < 820) {
@@ -53,16 +17,16 @@ const ShelfBrowseCarousel = () => {
   if (windowWidth < 640) {
     itemsPerPage = 1;
   }
-  const middlePage = Math.floor(findObjectWithValue(items, uid) / itemsPerPage);
+  const middlePage = Math.floor(callNumberIndex / itemsPerPage);
   const [currentPage, setCurrentPage] = useState(middlePage);
   const [animationClass, setAnimationClass] = useState('');
   const animationDuration = 250;
   const debounce = (func) => {
-    let timer;
+    let timer = null;
     return (...args) => {
       clearTimeout(timer);
       timer = setTimeout(() => {
-        func.apply(this, args);
+        func(...args);
       }, animationDuration);
     };
   };
@@ -78,11 +42,7 @@ const ShelfBrowseCarousel = () => {
       return window.removeEventListener('resize', handleResize);
     };
   }, [middlePage]);
-  const callNumberBrowse = findCallNumberBrowse(metadata.full);
 
-  if (!callNumberBrowse) return null;
-
-  const { type, value, text } = callNumberBrowse;
   const maxPages = Math.ceil(items.length / itemsPerPage);
 
   const moveCarousel = (direction) => {
@@ -111,17 +71,14 @@ const ShelfBrowseCarousel = () => {
   const currentItems = items.slice(startIndex, endIndex);
   const firstPage = currentPage === 0;
   const lastPage = currentPage === maxPages - 1;
-  const buttonLabel = `${itemsPerPage} item${itemsPerPage !== 1 ? 's' : ''}`;
+  const buttonLabel = `${itemsPerPage} item${itemsPerPage === 1 ? '' : 's'}`;
 
   return (
     <section className='shelf-browse container__rounded'>
       <header className='flex__responsive'>
         <h2 className='margin-y__none heading-medium'>Shelf browse</h2>
-        <BrowseLink
-          type={type}
-          value={value}
-        >
-          <Icon icon='list' size='24' className='margin-right__xs' />{text}
+        <BrowseLink value={callNumber}>
+          <Icon icon='list' size='24' className='margin-right__xs' />Browse in call number list
         </BrowseLink>
       </header>
       <div className='shelf-browse-carousel' aria-label='Shelf browse carousel'>
@@ -137,22 +94,20 @@ const ShelfBrowseCarousel = () => {
           <Icon icon='chevron_left' size='24' />
         </button>
         <ul
-          className={`list__unstyled shelf-browse-items ${firstPage ? 'shelf-browse-first-page' : lastPage ? 'shelf-browse-last-page' : ''}`}
+          className='list__unstyled shelf-browse-items'
           style={{
             gridTemplateColumns: `repeat(${itemsPerPage}, 1fr)`
           }}
         >
           {currentItems.map((item, index) => {
-            const metadata = getMetadata(item);
-            const currentItem = metadata.id.value === uid;
+            const currentItem = item.call_number === callNumber;
             const firstOrLastItem = !currentItem && ((firstPage && index === 0) || (lastPage && currentItems.length - 1 === index));
-            const fields = ['title', 'author', 'published_year', 'callnumber_browse'];
+            const fields = ['title', 'author', 'date', 'call_number'];
             const showFields = firstOrLastItem ? [fields.pop()] : fields;
             return (
               <li key={index} className={`shelf-browse-item ${(currentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
                 <BrowseLink
-                  type={type}
-                  value={metadata.callnumber_browse?.value?.[0]}
+                  value={item.call_number}
                   className={`underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${currentItem ? 'xs' : 's'}`}
                 >
                   <dl className='flex'>
@@ -160,14 +115,14 @@ const ShelfBrowseCarousel = () => {
                     {firstOrLastItem && (
                       <>
                         <Icon icon='list' size='24' className='item-term-title' />
-                        <span className='item-term-title'>Continue browsing in {type} list</span>
+                        <span className='item-term-title'>Continue browsing in call number list</span>
                       </>
                     )}
                     {showFields.map((key) => {
-                      return metadata[key]?.value?.[0] && (
+                      return item[key] && (
                         <React.Fragment key={key}>
-                          <dt className='visually-hidden'>{metadata[key].name}</dt>
-                          <dd className={`item-term-${key}`}>{metadata[key].value[0]}</dd>
+                          <dt className='visually-hidden'>{key.replaceAll('_', ' ')}</dt>
+                          <dd className={`item-term-${key}`}>{item[key]}</dd>
                         </React.Fragment>
                       );
                     })}
@@ -207,6 +162,11 @@ const ShelfBrowseCarousel = () => {
       </button>
     </section>
   );
-}
+};
+
+ShelfBrowseCarousel.propTypes = {
+  callNumber: PropTypes.string,
+  items: PropTypes.array
+};
 
 export default ShelfBrowseCarousel;
