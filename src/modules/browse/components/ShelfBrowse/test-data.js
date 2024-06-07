@@ -1,5 +1,5 @@
 /* eslint 'camelcase': 'off' */
-const relatedItems = [
+const testData = [
   {
     author: 'Van Horn, Michele Ann.',
     call_number: 'QL 671 .B645 no.88',
@@ -317,4 +317,4 @@ const relatedItems = [
   }
 ];
 
-export default relatedItems;
+export default testData;

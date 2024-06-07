@@ -3,9 +3,8 @@ import { Icon, useWindowWidth } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
 import BrowseLink from '../BrowseLink';
 import PropTypes from 'prop-types';
-import relatedItems from './test-data';
 
-const ShelfBrowseCarousel = ({ callNumber, items = relatedItems }) => {
+const ShelfBrowseCarousel = ({ callNumber, items }) => {
   const callNumberIndex = items.findIndex((item) => {
     return item.call_number === callNumber;
   });
