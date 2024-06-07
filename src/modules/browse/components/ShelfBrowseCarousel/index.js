@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux';
-import React, { useState, useEffect } from 'react';
 import './styles.css';
-import BrowseLink from '../BrowseLink';
 import { Icon, useWindowWidth } from '../../../reusable';
+import React, { useState, useEffect } from 'react';
+import BrowseLink from '../BrowseLink';
 import relatedItems from './test-data';
-import { number } from 'prop-types';
+import { useSelector } from 'react-redux';
 
-function findObjectWithValue (items, valueToMatch) {
+const findObjectWithValue = (items, valueToMatch) => {
   for (let index = 0; index < items.length; index++) {
     for (let i = 0; i < items[index].length; i++) {
       const item = items[index][i];
@@ -18,7 +17,7 @@ function findObjectWithValue (items, valueToMatch) {
   return 'null';
 }
 
-function findCallNumberBrowse (metadata) {
+const findCallNumberBrowse = (metadata) => {
   const callNumber = metadata.find((item) => {
     return item.term === 'Call Number';
   });
@@ -41,7 +40,7 @@ const getMetadata = (items) => {
   }, {});
 };
 
-function ShelfBrowseCarousel () {
+const ShelfBrowseCarousel = () => {
   const { uid, metadata } = useSelector((state) => {
     return state.records.record;
   });
