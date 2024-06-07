@@ -7,6 +7,7 @@ import BrowsePage from './components/BrowsePage/';
 import browseReducer from './reducer/';
 import organizeByParents from './organizeByParents';
 import ShelfBrowse from './components/ShelfBrowse/';
+import ShelfBrowseCarousel from './components/ShelfBrowseCarousel/';
 
 export {
   addBrowseFilter,
@@ -17,5 +18,6 @@ export {
   BrowsePage,
   browseReducer,
   organizeByParents,
-  ShelfBrowse
+  ShelfBrowse,
+  ShelfBrowseCarousel
 };

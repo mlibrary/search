@@ -175,10 +175,7 @@ const FullRecord = () => {
           )}
         </div>
         <section aria-labelledby='available-at'>
-          <div
-            className='record-container'
-            style={{ paddingBottom: '0.25rem' }}
-          >
+          <div className='record-container padding-bottom__2xs'>
             <h2 className='full-record__record-info' id='available-at'>
               Available at:
             </h2>
@@ -186,7 +183,7 @@ const FullRecord = () => {
           <ResourceAccess record={record} />
         </section>
       </div>
-      {datastoreUid === 'mirlyn' && <ShelfBrowse />}
+      {datastoreUid === 'mirlyn' && <ShelfBrowse record={record} />}
       <div className='full-record__actions-container'>
         <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>
           Actions
