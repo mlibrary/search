@@ -10,6 +10,7 @@ import {
   requestRecord
 } from './utils';
 import { initializePride, runSearch, switchPrideToDatastore } from './setup';
+import { placeHold } from './getthis';
 import URLSearchQueryWrapper from './components/URLSearchQueryWrapper';
 
 export {
@@ -20,6 +21,7 @@ export {
   getStateFromURL,
   initializePride,
   isValidURLSearchQuery,
+  placeHold,
   prideParseField,
   requestGetThis,
   requestRecord,

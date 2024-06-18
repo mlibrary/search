@@ -1,12 +1,12 @@
-import { Alert, Anchor } from '../../../reusable';
-import { getField, getFieldValue } from '../../../records/utilities';
 import React, { useState } from 'react';
-import { Pride } from 'pride';
-import PropTypes from 'prop-types';
+import { Alert, Anchor } from '../../../reusable';
 import { useSelector } from 'react-redux';
+import { getField, getFieldValue } from '../../../records/utilities';
+import { placeHold } from '../../../pride';
+import PropTypes from 'prop-types';
 
-const Field = ({ field, loading, setFieldChange }) => {
-  const { name, options, type, value } = field;
+const Field = ({ field, setFieldChange, loading }) => {
+  const { type, name, value, options } = field;
 
   if (type === 'hidden') {
     return <input id={name} type={type} name={name} value={value} onChange={setFieldChange} />;
@@ -59,8 +59,8 @@ const Field = ({ field, loading, setFieldChange }) => {
 
 Field.propTypes = {
   field: PropTypes.object,
-  loading: PropTypes.bool,
-  setFieldChange: PropTypes.func
+  setFieldChange: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 const GetThisForm = ({ form }) => {
@@ -93,24 +93,24 @@ const GetThisForm = ({ form }) => {
           return field.name === name;
         })?.value;
       };
-      const callback = (res) => {
+      const callback = (response) => {
         setLoading(false);
-        setResponse(res);
+        setResponse(response);
       };
 
-      Pride.requestRecord(datastoreUid, recordId).placeHold({
-        callbackFunction: callback,
+      placeHold({
+        datastoreUid,
+        recordId,
         item: getFieldValueByName('item'),
-        notNeededAfter: getFieldValueByName('not_needed_after')?.replace(/-/gu, ''),
-        pickupLocation: getFieldValueByName('pickup_location')
+        location: getFieldValueByName('pickup_location'),
+        date: getFieldValueByName('not_needed_after')?.replace(/-/g, ''),
+        callback
       });
     }
   };
 
   const renderResponse = () => {
-    if (!response) {
-      return null;
-    }
+    if (!response) return null;
     const success = response.status === 'Action Succeeded';
 
     return (
