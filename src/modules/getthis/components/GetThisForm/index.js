@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
 import { Alert, Anchor } from '../../../reusable';
-import { useSelector } from 'react-redux';
 import { getField, getFieldValue } from '../../../records/utilities';
+import React, { useState } from 'react';
 import { placeHold } from '../../../pride';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const Field = ({ field, setFieldChange, loading }) => {
+const Field = ({ field, loading, setFieldChange }) => {
   const { type, name, value, options } = field;
 
   if (type === 'hidden') {
@@ -59,8 +59,8 @@ const Field = ({ field, setFieldChange, loading }) => {
 
 Field.propTypes = {
   field: PropTypes.object,
-  setFieldChange: PropTypes.func,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  setFieldChange: PropTypes.func
 };
 
 const GetThisForm = ({ form }) => {
@@ -93,24 +93,26 @@ const GetThisForm = ({ form }) => {
           return field.name === name;
         })?.value;
       };
-      const callback = (response) => {
+      const callback = (res) => {
         setLoading(false);
-        setResponse(response);
+        setResponse(res);
       };
 
       placeHold({
+        callback,
         datastoreUid,
-        recordId,
+        date: getFieldValueByName('not_needed_after')?.replace(/-/gu, ''),
         item: getFieldValueByName('item'),
         location: getFieldValueByName('pickup_location'),
-        date: getFieldValueByName('not_needed_after')?.replace(/-/g, ''),
-        callback
+        recordId
       });
     }
   };
 
   const renderResponse = () => {
-    if (!response) return null;
+    if (!response) {
+      return null;
+    }
     const success = response.status === 'Action Succeeded';
 
     return (
