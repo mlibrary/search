@@ -1,5 +1,5 @@
 import './styles.css';
-import { Icon, useWindowWidth } from '../../../reusable';
+import { Anchor, Icon, useWindowWidth } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
 import BrowseLink from '../BrowseLink';
 import PropTypes from 'prop-types';
@@ -104,12 +104,16 @@ const ShelfBrowseCarousel = ({ callNumber, items, uid }) => {
           {currentItems.map((item, index) => {
             const isCurrentItem = currentItem(item);
             const firstOrLastItem = !isCurrentItem && ((firstPage && index === 0) || (lastPage && currentItems.length - 1 === index));
-            const fields = ['title', 'author', 'date', 'call_number'];
-            const showFields = firstOrLastItem ? [fields.pop()] : fields;
+            const fields = firstOrLastItem ? ['call_number'] : Object.keys(item).slice(0, -1);
+            const basePath = 'https://search.lib.umich.edu';
+            const anchorAttributes = firstOrLastItem
+              ? { href: `${basePath}/catalog/browse/callnumber?query=${item.call_number}` }
+              : { to: item.url.replace(basePath, '') + window.location.search };
+
             return (
               <li key={index} className={`shelf-browse-item ${(isCurrentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
-                <BrowseLink
-                  value={item.call_number}
+                <Anchor
+                  {...anchorAttributes}
                   className={`underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${isCurrentItem ? 'xs' : 's'}`}
                 >
                   <dl className='flex'>
@@ -120,7 +124,7 @@ const ShelfBrowseCarousel = ({ callNumber, items, uid }) => {
                         <span className='item-term-title'>Continue browsing in call number list</span>
                       </>
                     )}
-                    {showFields.map((key) => {
+                    {fields.map((key) => {
                       return item[key] && (
                         <React.Fragment key={key}>
                           <dt className='visually-hidden'>{key.replaceAll('_', ' ')}</dt>
@@ -129,7 +133,7 @@ const ShelfBrowseCarousel = ({ callNumber, items, uid }) => {
                       );
                     })}
                   </dl>
-                </BrowseLink>
+                </Anchor>
               </li>
             );
           })}
