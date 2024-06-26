@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ShelfBrowseCarousel from '../ShelfBrowseCarousel';
-import testData from './test-data';
 import { useSelector } from 'react-redux';
 
 const ShelfBrowse = () => {
-  const [shelfData, setShelfData] = useState(testData);
+  const [shelfData, setShelfData] = useState();
   const { full } = useSelector((state) => {
     return state.records.record.metadata;
   });
@@ -34,7 +33,7 @@ const ShelfBrowse = () => {
         setShelfData(data);
       } catch (err) {
         console.error(err);
-        setShelfData(testData);
+        setShelfData();
       }
     };
 
