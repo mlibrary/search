@@ -12,6 +12,7 @@ import Tab from './components/Tab';
 import TabPanel from './components/TabPanel';
 import Tabs from './components/Tabs';
 import TruncateText from './components/TruncateText';
+import useWindowWidth from './components/useWindowWidth';
 
 export {
   Alert,
@@ -30,5 +31,6 @@ export {
   Tab,
   Tabs,
   TabPanel,
-  TruncateText
+  TruncateText,
+  useWindowWidth
 };
