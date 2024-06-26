@@ -5,8 +5,11 @@ import BrowseLink from '../BrowseLink';
 import PropTypes from 'prop-types';
 
 const ShelfBrowseCarousel = ({ callNumber, items, uid }) => {
+  const currentItem = (item) => {
+    return item.call_number === callNumber && item.url.endsWith(uid);
+  };
   const callNumberIndex = items.findIndex((item) => {
-    return item.call_number === callNumber;
+    return currentItem(item);
   });
   const windowWidth = useWindowWidth();
   let itemsPerPage = 5;
@@ -99,18 +102,18 @@ const ShelfBrowseCarousel = ({ callNumber, items, uid }) => {
           }}
         >
           {currentItems.map((item, index) => {
-            const currentItem = item.call_number === callNumber && item.url.endsWith(uid);
-            const firstOrLastItem = !currentItem && ((firstPage && index === 0) || (lastPage && currentItems.length - 1 === index));
+            const isCurrentItem = currentItem(item);
+            const firstOrLastItem = !isCurrentItem && ((firstPage && index === 0) || (lastPage && currentItems.length - 1 === index));
             const fields = ['title', 'author', 'date', 'call_number'];
             const showFields = firstOrLastItem ? [fields.pop()] : fields;
             return (
-              <li key={index} className={`shelf-browse-item ${(currentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
+              <li key={index} className={`shelf-browse-item ${(isCurrentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
                 <BrowseLink
                   value={item.call_number}
-                  className={`underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${currentItem ? 'xs' : 's'}`}
+                  className={`underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${isCurrentItem ? 'xs' : 's'}`}
                 >
                   <dl className='flex'>
-                    {currentItem && <p className='margin__none this-item'>Current Record</p>}
+                    {isCurrentItem && <p className='margin__none this-item'>Current Record</p>}
                     {firstOrLastItem && (
                       <>
                         <Icon icon='list' size='24' className='item-term-title' />

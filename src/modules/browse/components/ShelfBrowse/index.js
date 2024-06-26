@@ -31,8 +31,7 @@ const ShelfBrowse = () => {
         }
         const data = await response.json();
         setShelfData(data);
-      } catch (err) {
-        console.error(err);
+      } catch {
         setShelfData();
       }
     };
