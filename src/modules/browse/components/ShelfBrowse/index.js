@@ -20,7 +20,7 @@ const ShelfBrowse = () => {
     return null;
   }
 
-  const callNumber = callNumberBrowse.browse.value;
+  const callNumber = callNumberBrowse.browse.value.trim();
 
   useEffect(() => {
     const fetchShelfData = async () => {
