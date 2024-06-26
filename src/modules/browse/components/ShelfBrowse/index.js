@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux';
 
 const ShelfBrowse = () => {
   const [shelfData, setShelfData] = useState();
-  const { full } = useSelector((state) => {
-    return state.records.record.metadata;
+  const { metadata, uid } = useSelector((state) => {
+    return state.records.record;
   });
 
-  const callNumberBrowse = full
-    .flatMap((metadata) => {
-      return metadata.description;
+  const callNumberBrowse = metadata.full
+    .flatMap((data) => {
+      return data.description;
     })
     .find((callNumber) => {
       return callNumber.browse?.type === 'callnumber';
@@ -44,7 +44,7 @@ const ShelfBrowse = () => {
     return null;
   }
 
-  return <ShelfBrowseCarousel {...{ callNumber, items: shelfData }} />;
+  return <ShelfBrowseCarousel {...{ callNumber, items: shelfData, uid }} />;
 };
 
 export default ShelfBrowse;

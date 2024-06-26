@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import BrowseLink from '../BrowseLink';
 import PropTypes from 'prop-types';
 
-const ShelfBrowseCarousel = ({ callNumber, items }) => {
+const ShelfBrowseCarousel = ({ callNumber, items, uid }) => {
   const callNumberIndex = items.findIndex((item) => {
     return item.call_number === callNumber;
   });
@@ -99,7 +99,7 @@ const ShelfBrowseCarousel = ({ callNumber, items }) => {
           }}
         >
           {currentItems.map((item, index) => {
-            const currentItem = item.call_number === callNumber;
+            const currentItem = item.call_number === callNumber && item.url.endsWith(uid);
             const firstOrLastItem = !currentItem && ((firstPage && index === 0) || (lastPage && currentItems.length - 1 === index));
             const fields = ['title', 'author', 'date', 'call_number'];
             const showFields = firstOrLastItem ? [fields.pop()] : fields;
@@ -165,7 +165,8 @@ const ShelfBrowseCarousel = ({ callNumber, items }) => {
 
 ShelfBrowseCarousel.propTypes = {
   callNumber: PropTypes.string,
-  items: PropTypes.array
+  items: PropTypes.array,
+  uid: PropTypes.string
 };
 
 export default ShelfBrowseCarousel;
