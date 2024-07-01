@@ -9,13 +9,13 @@ const NestedList = ({ browserFilterTo, filter }) => {
     <li>
       {filter.value
         ? (
-          <Anchor to={browserFilterTo(filter.value)} className='browse-filter-link'>
-            <span className='browse-filter-link__text'>{filter.name}</span>
-            <span className='browse-filter-link__count'>({filter.count})</span>
-          </Anchor>
+            <Anchor to={browserFilterTo(filter.value)} className='browse-filter-link'>
+              <span className='browse-filter-link__text'>{filter.name}</span>
+              <span className='browse-filter-link__count'>({filter.count})</span>
+            </Anchor>
           )
         : (
-          <h3 className='heading-medium'>{filter.name}</h3>
+            <h3 className='heading-medium'>{filter.name}</h3>
           )}
       {filter.children && (
         <ul>

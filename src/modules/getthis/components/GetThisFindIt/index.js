@@ -102,42 +102,8 @@ const GetThisFindIt = () => {
               <tbody>
                 {rows.length <= 2
                   ? (
-                    <>
-                      {rows.map((row, index) => {
-                        return (
-                          <tr key={index}>
-                            {row.map((cell, num) => {
-                              return (
-                                <td key={num} className={cell.intent ? `intent__${[cell.intent]}` : ''}>
-                                  <Cell {...cell} />
-                                </td>
-                              );
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </>
-                    )
-                  : (
-                    <>
-                      <tr>
-                        {rows[0].map((cell, index) => {
-                          return (
-                            <td key={index} className={cell.intent ? `intent__${[cell.intent]}` : ''}>
-                              <Cell {...cell} />
-                            </td>
-                          );
-                        })}
-                      </tr>
-                      {rows.length > 6 && (
-                        <tr>
-                          <td colSpan={`${headings.length}`}>
-                            <ExpandableButton count={rows.length} name={name} />
-                          </td>
-                        </tr>
-                      )}
-                      <ExpandableChildren show={0}>
-                        {rows.slice(1).map((row, index) => {
+                      <>
+                        {rows.map((row, index) => {
                           return (
                             <tr key={index}>
                               {row.map((cell, num) => {
@@ -150,19 +116,53 @@ const GetThisFindIt = () => {
                             </tr>
                           );
                         })}
-                      </ExpandableChildren>
-                      <ExpandableProvider>
-                        {(context) => {
-                          return (context.expanded || rows.length <= 6) && (
-                            <tr>
-                              <td colSpan={headings.length.toString()}>
-                                <ExpandableButton count={rows.length} name={name} />
+                      </>
+                    )
+                  : (
+                      <>
+                        <tr>
+                          {rows[0].map((cell, index) => {
+                            return (
+                              <td key={index} className={cell.intent ? `intent__${[cell.intent]}` : ''}>
+                                <Cell {...cell} />
                               </td>
-                            </tr>
-                          );
-                        }}
-                      </ExpandableProvider>
-                    </>
+                            );
+                          })}
+                        </tr>
+                        {rows.length > 6 && (
+                          <tr>
+                            <td colSpan={`${headings.length}`}>
+                              <ExpandableButton count={rows.length} name={name} />
+                            </td>
+                          </tr>
+                        )}
+                        <ExpandableChildren show={0}>
+                          {rows.slice(1).map((row, index) => {
+                            return (
+                              <tr key={index}>
+                                {row.map((cell, num) => {
+                                  return (
+                                    <td key={num} className={cell.intent ? `intent__${[cell.intent]}` : ''}>
+                                      <Cell {...cell} />
+                                    </td>
+                                  );
+                                })}
+                              </tr>
+                            );
+                          })}
+                        </ExpandableChildren>
+                        <ExpandableProvider>
+                          {(context) => {
+                            return (context.expanded || rows.length <= 6) && (
+                              <tr>
+                                <td colSpan={headings.length.toString()}>
+                                  <ExpandableButton count={rows.length} name={name} />
+                                </td>
+                              </tr>
+                            );
+                          }}
+                        </ExpandableProvider>
+                      </>
                     )}
               </tbody>
             </table>

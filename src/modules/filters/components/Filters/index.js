@@ -94,7 +94,7 @@ const ActiveFilters = () => {
             Clear all active filters
           </Anchor>
         )
-}
+      }
     </section>
   );
 };
