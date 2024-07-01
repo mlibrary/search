@@ -19,10 +19,10 @@ const GetThisOption = ({ option }) => {
         <div className='get-this-option-column'>
           {option.form
             ? (
-              <>
-                {option.orientation && <div dangerouslySetInnerHTML={{ __html: option.orientation }} />}
-                <GetThisForm label={option.label} form={option.form} />
-              </>
+                <>
+                  {option.orientation && <div dangerouslySetInnerHTML={{ __html: option.orientation }} />}
+                  <GetThisForm label={option.label} form={option.form} />
+                </>
               )
             : option.label === 'Find it in the library' && <GetThisFindIt />}
         </div>

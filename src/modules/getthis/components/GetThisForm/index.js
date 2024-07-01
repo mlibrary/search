@@ -118,19 +118,19 @@ const GetThisForm = ({ form }) => {
         <h4>{success ? 'You have successfully requested this item' : 'The hold/request could not be placed'}</h4>
         {success
           ? (
-            <>
-              <ul className='u-margin-bottom-1 margin-left-2'>
-                <li>We will email you when it is available for pickup.</li>
-                <li>When it is available, we&apos;ll hold it for you for 7 days.</li>
-              </ul>
-              <Anchor href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</Anchor>
-            </>
+              <>
+                <ul className='u-margin-bottom-1 margin-left-2'>
+                  <li>We will email you when it is available for pickup.</li>
+                  <li>When it is available, we&apos;ll hold it for you for 7 days.</li>
+                </ul>
+                <Anchor href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</Anchor>
+              </>
             )
           : (
-            <>
-              <p><span className='strong'>Status:</span> {response.status}</p>
-              <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <Anchor href='mailto:circservices@umich.edu'>circservices@umich.edu</Anchor> or <Anchor href='tel:7347640401'>(734) 764-0401</Anchor> for assistance.</p>
-            </>
+              <>
+                <p><span className='strong'>Status:</span> {response.status}</p>
+                <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <Anchor href='mailto:circservices@umich.edu'>circservices@umich.edu</Anchor> or <Anchor href='tel:7347640401'>(734) 764-0401</Anchor> for assistance.</p>
+              </>
             )}
       </Alert>
     );

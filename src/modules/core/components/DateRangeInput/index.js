@@ -87,7 +87,7 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
               }}
             />
           )
-}
+        }
         {
           ['Before', 'Between'].includes(rangeOption) && (
             <YearInput
@@ -98,7 +98,7 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
               point='end'
             />
           )
-}
+        }
       </div>
     </div>
   );

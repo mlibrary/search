@@ -183,18 +183,18 @@ const FiltersContainer = ({ datastore }) => {
                     })
                   )
                 : (
-                  <div className='advanced-filter-container'>
-                    <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
-                    {filters[filterGroup].map((advancedFilter, index) => {
-                      return (
-                        <AdvancedFilter
-                          key={index}
-                          advancedFilter={advancedFilter}
-                          changeAdvancedFilter={changeAdvancedFilter}
-                        />
-                      );
-                    })}
-                  </div>
+                    <div className='advanced-filter-container'>
+                      <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
+                      {filters[filterGroup].map((advancedFilter, index) => {
+                        return (
+                          <AdvancedFilter
+                            key={index}
+                            advancedFilter={advancedFilter}
+                            changeAdvancedFilter={changeAdvancedFilter}
+                          />
+                        );
+                      })}
+                    </div>
                   )}
             </React.Fragment>
           );

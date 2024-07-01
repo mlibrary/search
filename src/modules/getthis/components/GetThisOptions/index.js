@@ -26,18 +26,18 @@ const GetThisOptions = ({ record }) => {
   if (status === 'Success') {
     return options?.length
       ? (
-        <>
-          {options.map((option, index) => {
-            return (
-              <GetThisOption option={option} key={index} />
-            );
-          })}
-        </>
+          <>
+            {options.map((option, index) => {
+              return (
+                <GetThisOption option={option} key={index} />
+              );
+            })}
+          </>
         )
       : (
-        <Alert type='error'>
-          No options available.
-        </Alert>
+          <Alert type='error'>
+            No options available.
+          </Alert>
         );
   }
 
