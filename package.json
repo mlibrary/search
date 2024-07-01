@@ -16,7 +16,7 @@
     "@reduxjs/toolkit": "^2.2.6",
     "citeproc": "^2.4.63",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
-    "pride": "file:../pride",
+    "pride": "git+https://github.com/mlibrary/pride.git",
     "prop-types": "^15.8.1",
     "qs": "^6.12.1",
     "react": "^18.3.1",
