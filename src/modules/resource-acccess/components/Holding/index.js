@@ -49,7 +49,7 @@ export default function Holding ({ holding }) {
       {holding.map((cell, index) => {
         return (
           <td
-            className={cell.intent && `intent__${[cell.intent]}`}
+            className={(index === 0 && 'access-link-cell') || (cell.intent && `intent__${[cell.intent]}`)}
             key={index}
           >
             <Cell cell={cell} />
