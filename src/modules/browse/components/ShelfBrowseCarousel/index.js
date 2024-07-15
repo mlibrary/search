@@ -164,7 +164,7 @@ const ShelfBrowseCarousel = ({ callNumber, items, uid }) => {
         }}
         disabled={currentPage === middlePage}
       >
-        Return to current item
+        Return to current record
       </button>
     </section>
   );
