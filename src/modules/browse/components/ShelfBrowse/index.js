@@ -25,7 +25,7 @@ const ShelfBrowse = () => {
   useEffect(() => {
     const fetchShelfData = async () => {
       try {
-        const response = await fetch(`https://browse.workshop.search.lib.umich.edu/carousel?query=${callNumber}`);
+        const response = await fetch(`https://search.lib.umich.edu/catalog/browse/carousel?query=${callNumber}`);
         if (!response.ok) {
           throw new Error(`HTTP Error! status: ${response.status}`);
         }
