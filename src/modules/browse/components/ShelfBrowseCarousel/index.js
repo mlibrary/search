@@ -73,7 +73,7 @@ const ShelfBrowseCarousel = ({ callNumber, items, uid }) => {
   const currentItems = items.slice(startIndex, endIndex);
   const firstPage = currentPage === 0;
   const lastPage = currentPage === maxPages - 1;
-  const buttonLabel = `${itemsPerPage} item${itemsPerPage === 1 ? '' : 's'}`;
+  const buttonLabel = `${itemsPerPage} record${itemsPerPage === 1 ? '' : 's'}`;
 
   return (
     <section className='shelf-browse container__rounded'>
