@@ -16,7 +16,7 @@ const TechnicalOverview = () => {
         <p>Library Search is built in three main layers to allow for flexibility in the front end and back end data repositories. A different front end application should not require rewriting the search queries, while conversely changes to one or more back-end search indexes or repositories would not require updates to the user interface. The middle layer acts as translator between the front and back ends.</p>
         <p>For more information about Library Search, please contact <Anchor href='mailto:library-search-feedback@umich.edu'>library-search-feedback@umich.edu</Anchor>.</p>
         <h2>High-Level Schematic</h2>
-        <p><img src={schematicImage} alt='' style={{ height: 'auto', maxWidth: '100%' }} /></p>
+        <p><img src={schematicImage} alt='' /></p>
         <h2>Front-End / User Interface</h2>
         <p>The user interface for Library Search, shown at the top of the above schematic, is a Single Page Application built with <Anchor href='https://reactjs.org/'>React</Anchor> (JavaScript library for building UIs) and developed in-house. It aims to meet the latest <Anchor href='https://www.w3.org/WAI/WCAG21/quickref/?versions=2.1'>WCAG AA Standards</Anchor> and is responsive. Its role is to display the search interface to the user, pass user search queries or other interactions to the Pride and Prejudice middleware components as JSON objects, and format data returned from Pride and Prejudice into what the user sees and interacts with.</p>
         <h3>Middleware</h3>

@@ -171,10 +171,7 @@ const FullRecord = () => {
           )}
         </div>
         <section aria-labelledby='available-at'>
-          <div
-            className='record-container'
-            style={{ paddingBottom: '0.25rem' }}
-          >
+          <div className='record-container padding-bottom__2xs'>
             <h2 className='full-record__record-info' id='available-at'>
               Available at:
             </h2>
@@ -204,8 +201,8 @@ const FullRecord = () => {
           return null;
         }
         return (
-          <p style={{ color: 'var(--search-color-grey-600)', marginTop: 0, order: 3 }}>
-            <span style={{ fontWeight: 600 }}>{indexingDate.name}:</span> {indexingDate.value}
+          <p className='margin-top__none text-grey full-record__date-last-indexed'>
+            <span className='strong'>{indexingDate.name}:</span> {indexingDate.value}
           </p>
         );
       })()}

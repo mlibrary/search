@@ -23,6 +23,11 @@
   color: var(--search-color-orange-300);
 }
 
+.alert--flint {
+  align-items: center;
+  justify-content: center;
+}
+
 .alert a {
   color: inherit;
 }

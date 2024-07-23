@@ -24,7 +24,7 @@ const GetThisOption = ({ option }) => {
                   <GetThisForm label={option.label} form={option.form} />
                 </>
               )
-            : option.label === 'Find it in the library' && <GetThisFindIt />}
+            : option.label === 'Get it off the shelves' && <GetThisFindIt />}
         </div>
 
         {option.description && (

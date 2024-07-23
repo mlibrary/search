@@ -8,10 +8,7 @@ const Cell = ({ cell }) => {
       {cell.icon && (
         <Icon
           icon={cell.icon}
-          style={{
-            marginRight: '0.25rem',
-            marginTop: '-2px'
-          }}
+          className='margin-right__2xs'
         />
       )}
 

@@ -48,7 +48,7 @@ const List = (props) => {
           <p className='lists-count-tag'><span className='strong'>{listLength}</span> in list</p>
         </div>
       </div>
-      <p className='font-lede' style={{ marginTop: '0' }}>Items in this list are stored temporarily (within a single session).</p>
+      <p className='font-lede margin-top__none'>Items in this list are stored temporarily (within a single session).</p>
       {listLength
         ? (
             <>

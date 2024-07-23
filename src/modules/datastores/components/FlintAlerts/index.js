@@ -22,14 +22,7 @@ const FlintAlerts = ({ datastore, profile }) => {
 
   return (
     <Alert type='warning'>
-      <div
-        style={{
-          alignItems: 'center',
-          display: 'flex',
-          gap: '1rem',
-          justifyContent: 'center'
-        }}
-      >
+      <div className='flex alert--flint'>
         <span>{messages[datastore]}</span>
         <button
           className='btn btn--small btn--secondary no-background'

@@ -26,7 +26,7 @@ const AboutLibrarySearch = () => {
           <li><em>Pride</em>, which handles searches</li>
           <li><em>Prejudice</em>, which handles integrations with the campus directory for authentication and other services</li>
         </ul>
-        <p><img src={schematicImage} alt='' style={{ height: 'auto', maxWidth: '100%' }} /></p>
+        <p><img src={schematicImage} alt='' /></p>
         <h2>Flexibility</h2>
         <p>Library Search is designed to separate the user experience from the particular system that provides or manages the data. This allowed us, in summer 2021, to switch library management systems and article discovery systems from Aleph and Summon to Alma and Primo with minimal need for changes to the user experience. This approach brings several other benefits, as well:</p>
         <ul>

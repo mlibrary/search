@@ -44,7 +44,7 @@ const Holder = ({ captionLink, headings, notes, preExpanded, rows, ...rest }) =>
     <div {...rest}>
       {captionLink && (
         <p className='margin__none'>
-          <Anchor href={captionLink.href} style={{ color: 'var(--ds-color-neutral-400)' }}>
+          <Anchor href={captionLink.href} className='btn--tertiary'>
             {captionLink.text}
           </Anchor>
         </p>
@@ -79,10 +79,7 @@ const Holder = ({ captionLink, headings, notes, preExpanded, rows, ...rest }) =>
                 </ExpandableChildren>
                 {isExpandable && (
                   <tr>
-                    <td
-                      colSpan={`${rows[0].length}`}
-                      style={{ wordBreak: 'break-word' }}
-                    >
+                    <td colSpan={`${rows[0].length}`}>
                       <ExpandableButton count={rows.length} />
                     </td>
                   </tr>
