@@ -162,11 +162,11 @@ const FullRecord = () => {
             <p>
               The University of Michigan Library aims to describe its collections in a way that respects the people and communities who create, use, and are represented in them. We encourage you to
               {' '}
-              <Anchor href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform?utm_source=library-search'>contact us</Anchor>
+              <Anchor href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform'>contact us</Anchor>
               {' '}
               anonymously if you encounter harmful or problematic language in catalog records or finding aids. More information about our policies and practices is available at
               {' '}
-              <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata?utm_source=library-search'>Remediation of Harmful Language</Anchor>
+              <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-descriptions-collection-material'>Remediation of Harmful Language</Anchor>
               .
             </p>
           )}
