@@ -113,18 +113,18 @@ const DatastorePage = () => {
                   element={
                     searching
                       ? (
-                        <>
-                          <H1 className='visually-hidden'>{activeDatastore.name}</H1>
-                          <DatastoreInfoContainer activeDatastore={activeDatastore} />
-                          <Results
-                            activeDatastore={activeDatastore}
-                            activeFilterCount={activeFilterCount}
-                            institution={institution}
-                          />
-                        </>
+                          <>
+                            <H1 className='visually-hidden'>{activeDatastore.name}</H1>
+                            <DatastoreInfoContainer activeDatastore={activeDatastore} />
+                            <Results
+                              activeDatastore={activeDatastore}
+                              activeFilterCount={activeFilterCount}
+                              institution={institution}
+                            />
+                          </>
                         )
                       : (
-                        <Landing activeDatastore={activeDatastore} institution={institution} />
+                          <Landing activeDatastore={activeDatastore} institution={institution} />
                         )
                   }
                 />

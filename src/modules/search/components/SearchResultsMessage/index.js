@@ -25,14 +25,7 @@ export default function SearchResultsMessage () {
       <p className='font-small margin__none'>
         You searched for: <span className='strong'>{original}</span>
       </p>
-      <span
-        className='flex parser-message font-small'
-        style={{
-          alignItems: 'baseline',
-          color: '#AA5600',
-          gap: '0.5rem'
-        }}
-      >
+      <span className='flex parser-message font-small intent__warning'>
         <div><Icon icon='warning' size={15} /></div>
         <p
           className='details-message'

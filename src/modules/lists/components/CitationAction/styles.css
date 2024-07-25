@@ -1,0 +1,6 @@
+.copy-citation {
+  border: solid 1px var(--search-color-grey-400);
+  box-shadow: none;
+  max-height: 40vh;
+  overflow-y: auto;
+}

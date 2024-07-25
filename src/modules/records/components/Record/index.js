@@ -80,7 +80,7 @@ const Record = ({ datastoreUid, list, record }) => {
   return (
     <article className={`container__rounded record ${(isInList(list, record.uid) ? ' record--highlight' : '')}`}>
       <div className='record-container record-medium-container'>
-        <div className='record-title-and-actions-container '>
+        <div className='record-title-and-actions-container'>
           <Header {...{ datastoreUid, record }} />
           <AddToListButton item={record} />
         </div>
@@ -88,12 +88,7 @@ const Record = ({ datastoreUid, list, record }) => {
         <RecordMetadata {...{ record }} />
       </div>
 
-      <div
-        className='record-holders-container'
-        style={{
-          borderBottom: 'solid 1px var(--ds-color-neutral-100)'
-        }}
-      >
+      <div className='record-holders-container'>
         <h4 className='visually-hidden'>{record.names[0]} is available at:</h4>
         <ResourceAccess {...{ record }} />
       </div>

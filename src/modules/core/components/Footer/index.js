@@ -10,13 +10,11 @@ const Footer = () => {
           target='_blank'
           rel='noopener noreferrer'
           aria-label='Give feedback about this page - Opens in new window'
-          style={{ padding: '.15em' }}
         >
           Give feedback about this page
           <Icon
             icon='open_in_new'
-            size={22}
-            style={{ paddingLeft: '.25em' }}
+            className='margin-left__2xs'
           />
         </Anchor>
       </aside>

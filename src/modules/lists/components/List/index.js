@@ -48,35 +48,35 @@ const List = (props) => {
           <p className='lists-count-tag'><span className='strong'>{listLength}</span> in list</p>
         </div>
       </div>
-      <p className='font-lede' style={{ marginTop: '0' }}>Items in this list are stored temporarily (within a single session).</p>
+      <p className='font-lede margin-top__none'>Items in this list are stored temporarily (within a single session).</p>
       {listLength
         ? (
-          <>
-            <section className='lists-section'>
-              <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>Actions</h2>
-              <span className='text-small'>Select what to do with this list.</span>
-              <ActionsList {...props} setActive={setActive} active={active} prejudice={prejudice.instance} datastore={activeDatastore} />
-            </section>
-            {tempList.map((record, index) => {
-              return (
-                <Record
-                  record={record}
-                  datastoreUid={uid}
-                  key={index}
-                  institution={institution}
-                  searchQuery={location.search}
-                  type='medium'
-                  list={tempList}
-                />
-              );
-            }
-            )}
-          </>
+            <>
+              <section className='lists-section'>
+                <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>Actions</h2>
+                <span className='text-small'>Select what to do with this list.</span>
+                <ActionsList {...props} setActive={setActive} active={active} prejudice={prejudice.instance} datastore={activeDatastore} />
+              </section>
+              {tempList.map((record, index) => {
+                return (
+                  <Record
+                    record={record}
+                    datastoreUid={uid}
+                    key={index}
+                    institution={institution}
+                    searchQuery={location.search}
+                    type='medium'
+                    list={tempList}
+                  />
+                );
+              }
+              )}
+            </>
           )
         : (
-          <section className='container__rounded record-container'>
-            <p><span className='strong'>This list is empty</span>. <Anchor to={to}>Go back to {name}</Anchor> to add to this list.</p>
-          </section>
+            <section className='container__rounded record-container'>
+              <p><span className='strong'>This list is empty</span>. <Anchor to={to}>Go back to {name}</Anchor> to add to this list.</p>
+            </section>
           )}
     </article>
   );

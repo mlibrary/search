@@ -1,3 +1,4 @@
+import './styles.css';
 import React, { useEffect, useState } from 'react';
 import { Tab, TabPanel, Tabs } from '../../../reusable';
 import { cite } from '../../../citations';
@@ -97,47 +98,41 @@ const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType
           <TabPanel key={`${citationOption.name}-panel`}>
             {citation
               ? (
-                <>
-                  <label
-                    htmlFor={`${citationOption.name}-label`}
-                    className='margin-top__s'
-                    id={`${citationOption.name}-label`}
-                  >
-                    {citationOption.name} citation
-                  </label>
-                  <div
-                    id={`citation-text-${citationOption.id}`}
-                    style={{
-                      border: 'solid 1px var(--search-color-grey-400)',
-                      boxShadow: 'none',
-                      maxHeight: '40vh',
-                      overflowY: 'auto'
-                    }}
-                    className='y-spacing copy-citation padding-y__xs padding-x__s container__rounded'
-                    contentEditable
-                    aria-describedby={`${citationOption.id}-disclaimer`}
-                    aria-labelledby={`${citationOption.name}-label`}
-                    role='textbox'
-                    dangerouslySetInnerHTML={{ __html: citation }}
-                  />
-                  <p
-                    className='font-small citation-disclaimer'
-                    id={`${citationOption.id}-disclaimer`}
-                  >
-                    These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.
-                  </p>
-                  <button
-                    onClick={() => {
-                      return handleCopy(citationOption.id);
-                    }}
-                    className='btn btn--primary'
-                  >
-                    Copy citation
-                  </button>
-                </>
+                  <>
+                    <label
+                      htmlFor={`${citationOption.name}-label`}
+                      className='margin-top__s'
+                      id={`${citationOption.name}-label`}
+                    >
+                      {citationOption.name} citation
+                    </label>
+                    <div
+                      id={`citation-text-${citationOption.id}`}
+                      className='y-spacing copy-citation padding-y__xs padding-x__s container__rounded'
+                      contentEditable
+                      aria-describedby={`${citationOption.id}-disclaimer`}
+                      aria-labelledby={`${citationOption.name}-label`}
+                      role='textbox'
+                      dangerouslySetInnerHTML={{ __html: citation }}
+                    />
+                    <p
+                      className='font-small citation-disclaimer'
+                      id={`${citationOption.id}-disclaimer`}
+                    >
+                      These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.
+                    </p>
+                    <button
+                      onClick={() => {
+                        return handleCopy(citationOption.id);
+                      }}
+                      className='btn btn--primary'
+                    >
+                      Copy citation
+                    </button>
+                  </>
                 )
               : (
-                <p>Loading citation...</p>
+                  <p>Loading citation...</p>
                 )}
           </TabPanel>
         );

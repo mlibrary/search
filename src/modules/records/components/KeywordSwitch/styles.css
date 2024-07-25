@@ -1,0 +1,9 @@
+.keyword-switch {
+  border-left: 4px solid var(--ds-color-maize-400);
+  gap: 0.75rem;
+}
+
+.keyword-switch > svg {
+  color: var(--ds-color-maize-500);
+  flex-shrink: 0;
+}

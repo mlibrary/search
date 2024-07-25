@@ -34,22 +34,22 @@ const GetThisPage = () => {
       <H1 className='heading-xlarge'>Get This</H1>
       {record?.fields?.length === 0 && record?.names?.length === 0
         ? (
-          <section className='container__rounded page'>
-            <Alert type='error'>
-              <span className='strong'>Error:</span> Unable to find this record.
-            </Alert>
-          </section>
+            <section className='container__rounded page'>
+              <Alert type='error'>
+                <span className='strong'>Error:</span> Unable to find this record.
+              </Alert>
+            </section>
           )
         : (
-          <>
-            <GetThisRecord barcode={barcode} />
-            <section className='card get-this-section y-spacing'>
-              <h2 className='fieldset-label margin-top__none'>
-                How would you like to get this item?
-              </h2>
-              <GetThisOptions record={record} />
-            </section>
-          </>
+            <>
+              <GetThisRecord barcode={barcode} />
+              <section className='card get-this-section y-spacing'>
+                <h2 className='fieldset-label margin-top__none'>
+                  How would you like to get this item?
+                </h2>
+                <GetThisOptions record={record} />
+              </section>
+            </>
           )}
     </article>
   );

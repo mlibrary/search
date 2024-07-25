@@ -161,16 +161,14 @@ const FullRecord = () => {
           <RecordMetadata record={record} />
           {inDatastore && (
             <p>
-              The University of Michigan Library aims to describe library materials in a
-              way that respects the people and communities who create, use, and are
-              represented in our collections. Report harmful or offensive language in catalog
-              records, finding aids, or elsewhere in our collections anonymously through
-              our
+              The University of Michigan Library aims to describe its collections in a way that respects the people and communities who create, use, and are represented in them. We encourage you to
               {' '}
-              <Anchor href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform'>metadata feedback form</Anchor>
-              . More information at
+              <Anchor href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform'>contact us</Anchor>
               {' '}
-              <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata'>Remediation of Harmful Language.</Anchor>
+              anonymously if you encounter harmful or problematic language in catalog records or finding aids. More information about our policies and practices is available at
+              {' '}
+              <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-descriptions-collection-material'>Remediation of Harmful Language</Anchor>
+              .
             </p>
           )}
         </div>
@@ -206,8 +204,8 @@ const FullRecord = () => {
           return null;
         }
         return (
-          <p style={{ color: 'var(--search-color-grey-600)', marginTop: 0, order: 3 }}>
-            <span style={{ fontWeight: 600 }}>{indexingDate.name}:</span> {indexingDate.value}
+          <p className='margin-top__none text-grey full-record__date-last-indexed'>
+            <span className='strong'>{indexingDate.name}:</span> {indexingDate.value}
           </p>
         );
       })()}

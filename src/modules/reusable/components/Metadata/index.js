@@ -69,7 +69,7 @@ const Description = ({ data }) => {
       <ol className='list__unstyled'>
         {data.map((datum, index) => {
           return (
-            <li key={index} style={{ display: 'inline-block' }}>
+            <li key={index}>
               {index > 0 && <Icon icon='navigate_next' className='text-grey__light' />}
               <Description data={datum} />
             </li>
@@ -98,7 +98,6 @@ const Description = ({ data }) => {
           src={image}
           alt=''
           className='padding-top__xs'
-          style={{ maxWidth: '16rem' }}
         />
       )}
     </DescriptionItem>

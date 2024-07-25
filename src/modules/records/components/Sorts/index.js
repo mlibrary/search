@@ -47,7 +47,7 @@ const Sorts = ({ activeDatastore }) => {
 
   return (
     <div>
-      <label className='sorts-label sorts-label-text' htmlFor='sort-by' style={{ display: 'inline-block' }}>
+      <label className='sorts-label sorts-label-text' htmlFor='sort-by'>
         Sort by
       </label>
       <select
