@@ -509,7 +509,12 @@ textarea {
   background: white;
 }
 
-.btn--secondary:hover {
+.btn--secondary:disabled {
+  border-color: var(--search-color-grey-500);
+  color: var(--search-color-grey-500);
+}
+
+.btn--secondary:not(:disabled):hover {
   border-color: var(--search-color-grey-600);
   box-shadow:
     0 0 0 2px #fff,

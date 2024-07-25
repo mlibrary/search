@@ -23,6 +23,7 @@ import { NoMatch } from '../../../pages';
 import { requestRecord } from '../../../pride';
 import { ResourceAccess } from '../../../resource-acccess';
 import { setDocumentTitle } from '../../../a11y';
+import { ShelfBrowse } from '../../../browse';
 import { TrimString } from '../../../core';
 import { useSelector } from 'react-redux';
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance();
@@ -180,6 +181,7 @@ const FullRecord = () => {
           <ResourceAccess record={record} />
         </section>
       </div>
+      {datastoreUid === 'mirlyn' && <ShelfBrowse record={record} />}
       <div className='full-record__actions-container'>
         <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>
           Actions
