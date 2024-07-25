@@ -1,3 +1,4 @@
+import './styles.css';
 import {
   addFieldedSearch,
   removeFieldedSearch,
@@ -113,14 +114,11 @@ const AdvancedSearchForm = ({ datastore }) => {
 
   return (
     <form className='y-spacing' onSubmit={handleSubmit}>
-      <h2 style={{ fontSize: '1.87rem' }}>{datastore.name} Search</h2>
+      <h2 className='h1'>{datastore.name} Search</h2>
       {errors.map((error, index) => {
         return (
           <Alert type='error' key={index}>
-            <div
-              className='x-spacing'
-              style={{ fontSize: '1rem' }}
-            >
+            <div className='x-spacing h4'>
               <Icon icon='error' size={20} />
               <span>{error}</span>
             </div>
@@ -145,20 +143,13 @@ const AdvancedSearchForm = ({ datastore }) => {
           />
         );
       })}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around'
-        }}
+      <button
+        className='btn btn--small btn--secondary add-another-field'
+        onClick={handleAddAnotherFieldedSearch}
+        type='button'
       >
-        <button
-          className='btn btn--small btn--secondary'
-          onClick={handleAddAnotherFieldedSearch}
-          type='button'
-        >
-          Add another field
-        </button>
-      </div>
+        Add another field
+      </button>
 
       <button
         className='btn btn--primary margin-top__m'

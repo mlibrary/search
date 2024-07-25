@@ -13,3 +13,11 @@
     max-width: 10rem;
   }
 }
+
+.metadata-details img {
+  max-width: 16rem;
+}
+
+.metadata-details ol.list__unstyled > li {
+  display: inline-block;
+}

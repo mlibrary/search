@@ -122,7 +122,8 @@ body {
 /*
   Headings
 */
-h1 {
+h1,
+.h1 {
   font-size: 1.87rem;
 }
 
@@ -140,7 +141,8 @@ h3 {
   font-size: 1.25rem;
 }
 
-h4 {
+h4,
+.h4 {
   font-size: 1rem;
 }
 
@@ -791,6 +793,11 @@ details[open] > summary svg.expand_more {
 
 .results-summary-container > p {
   flex-grow: 1;
+}
+
+.parser-message {
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
 .parser-message p,
@@ -1964,6 +1971,7 @@ body {
 }
 
 .sorts-label-text {
+  display: inline-block;
   padding-right: 0.5rem;
 }
 
@@ -2538,6 +2546,10 @@ input.get-this-field-input-year {
   }
 }
 
+.record-holders-container {
+  border-bottom: solid 1px var(--ds-color-neutral-100);
+}
+
 .lists-link-container {
   outline: solid 2px rgba(18, 109, 193, 0.6);
   z-index: 99;
@@ -2768,6 +2780,10 @@ input.get-this-field-input-year {
 
 .full-record__actions-container .lists-action {
   margin-top: 0.5rem;
+}
+
+.full-record__date-last-indexed {
+  order: 3;
 }
 
 .lists-actions__heading-tag {

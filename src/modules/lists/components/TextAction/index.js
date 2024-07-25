@@ -45,9 +45,8 @@ const TextAction = ({ action, datastore, phoneNumber, prejudice, setActive }) =>
           <button
             className='btn btn--primary'
             type='submit'
-            style={{ whiteSpace: 'nowrap' }}
           >
-            Send text
+            Send&nbsp;text
           </button>
         </form>
       )}

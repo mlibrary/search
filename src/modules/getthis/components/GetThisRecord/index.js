@@ -39,12 +39,7 @@ const GetThisRecord = ({ barcode }) => {
       </div>
 
       {holding && (
-        <div
-          className='get-this-resource-access-container'
-          style={{
-            borderBottom: 'solid 1px var(--ds-color-neutral-100)'
-          }}
-        >
+        <div className='get-this-resource-access-container record-holders-container'>
           <h3 className='visually-hidden'>Available at</h3>
           <ResourceAccess record={{
             resourceAccess: [].concat({

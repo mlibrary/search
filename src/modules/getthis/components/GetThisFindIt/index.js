@@ -21,7 +21,6 @@ const Cell = ({ href, html, icon, text }) => {
         <Icon
           icon={icon}
           className='margin-right__2xs'
-          style={{ marginTop: '-2px' }}
         />
       )}
       {href && <Anchor href={href}>{text}</Anchor>}

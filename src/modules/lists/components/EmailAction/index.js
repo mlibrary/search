@@ -42,9 +42,8 @@ const EmailAction = ({ action, datastore, emailAddress, prejudice, setActive }) 
           <button
             className='btn btn--primary'
             type='submit'
-            style={{ whiteSpace: 'nowrap' }}
           >
-            Send email
+            Send&nbsp;email
           </button>
         </form>
       )}

@@ -76,10 +76,7 @@ const Footer = ({ datastoreUid, record }) => {
   return (
     <>
       {outage && (
-        <p
-          className='margin-bottom__none margin-top__xs'
-          style={{ color: 'var(--search-color-red-300)' }}
-        >
+        <p className='margin-bottom__none margin-top__xs intent__error'>
           <Icon icon='warning' /> {outage}
         </p>
       )}

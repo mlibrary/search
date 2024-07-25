@@ -1,3 +1,4 @@
+import './styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import AdvancedFilter from '../AdvancedFilter';
 import getFilters from './getFilters';
@@ -51,36 +52,22 @@ const ActiveAdvancedFilters = (datastore) => {
 
   return (
     <section aria-label='active-filters'>
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '0.25em'
-        }}
+      <h2
+        id='active-filters'
+        className='u-margin-top-none margin-bottom__xs h4'
       >
-        <h2
-          id='active-filters'
-          className='u-margin-top-none margin-bottom__xs'
-          style={{ fontSize: '1rem' }}
-        >
-          Active filters
-        </h2>
+        Active filters
+        {' '}
         <span className='text-grey__light padding-right__xs'>
           ({items.length})
         </span>
-      </div>
+      </h2>
 
       <p className='font-small u-margin-top-none'>
         Unselect active filters through the options below.
       </p>
 
-      <ul
-        style={{
-          fontSize: '0.9rem',
-          marginLeft: '2.5rem',
-          marginTop: '0'
-        }}
-      >
+      <ul className='margin-top__none active-filter-list'>
         {items.map((item, index) => {
           return (
             <li key={index + item.group + item.value}>
@@ -201,8 +188,7 @@ const FiltersContainer = ({ datastore }) => {
         })}
       </div>
       <button
-        style={{ marginTop: '1rem' }}
-        className='btn btn--primary'
+        className='btn btn--primary margin-top__m'
         type='submit'
       >
         <Icon icon='search' size={24} /> Advanced Search
