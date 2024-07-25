@@ -77,9 +77,7 @@ const ActionsList = (props) => {
                     }}
                     aria-pressed={Boolean(isActive)}
                   >
-                    <span style={{ opacity: '0.75' }}>
-                      <Icon size={20} icon={action.icon} />
-                    </span>
+                    <Icon size={20} icon={action.icon} className={isActive ? null : 'text-grey'} />
                     {action.name}
                   </button>
                 </li>

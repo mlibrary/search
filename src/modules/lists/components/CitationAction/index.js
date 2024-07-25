@@ -1,3 +1,4 @@
+import './styles.css';
 import React, { useEffect, useState } from 'react';
 import { Tab, TabPanel, Tabs } from '../../../reusable';
 import { cite } from '../../../citations';
@@ -107,12 +108,6 @@ const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType
                     </label>
                     <div
                       id={`citation-text-${citationOption.id}`}
-                      style={{
-                        border: 'solid 1px var(--search-color-grey-400)',
-                        boxShadow: 'none',
-                        maxHeight: '40vh',
-                        overflowY: 'auto'
-                      }}
                       className='y-spacing copy-citation padding-y__xs padding-x__s container__rounded'
                       contentEditable
                       aria-describedby={`${citationOption.id}-disclaimer`}

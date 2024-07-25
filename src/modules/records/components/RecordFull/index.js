@@ -166,7 +166,8 @@ const FullRecord = () => {
               {' '}
               anonymously if you encounter harmful or problematic language in catalog records or finding aids. More information about our policies and practices is available at
               {' '}
-              <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata?utm_source=library-search'>Remediation of Harmful Language</Anchor>.
+              <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata?utm_source=library-search'>Remediation of Harmful Language</Anchor>
+              .
             </p>
           )}
         </div>
