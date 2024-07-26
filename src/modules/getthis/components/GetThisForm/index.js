@@ -98,12 +98,12 @@ const GetThisForm = ({ form }) => {
         setResponse(res);
       };
 
-      Pride.requestRecord(datastoreUid, recordId).placeHold({
-        callbackFunction: callback,
-        item: getFieldValueByName('item'),
-        notNeededAfter: getFieldValueByName('not_needed_after')?.replace(/-/gu, ''),
-        pickupLocation: getFieldValueByName('pickup_location')
-      });
+      Pride.requestRecord(datastoreUid, recordId).placeHold(
+        getFieldValueByName('item'),
+        getFieldValueByName('pickup_location'),
+        getFieldValueByName('not_needed_after')?.replace(/-/gu, ''),
+        callback
+      );
     }
   };
 
