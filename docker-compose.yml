@@ -1,0 +1,27 @@
+---
+version: '3'
+services:
+  proxy:
+    image: "nginx:latest"
+    volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+    - "3000:3000"
+
+  backend:
+    image: "bertrama/spectrum-unstable:latest"
+    command: script/docker-startup
+    env_file:
+    - .env
+    
+
+  web:
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+    command: tail -f /dev/null
+    env_file:
+    - .env
+    volumes:
+    - .:/app
