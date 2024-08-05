@@ -114,7 +114,7 @@ const ShelfBrowseCarousel = ({ callNumber, items, uid }) => {
               <li key={index} className={`shelf-browse-item ${(isCurrentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
                 <Anchor
                   {...anchorAttributes}
-                  className={`underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${isCurrentItem ? 'xs' : 's'}`}
+                  className={`focus underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${isCurrentItem ? 'xs' : 's'}`}
                 >
                   <dl className='flex'>
                     {isCurrentItem && <p className='margin__none this-item'>Current Record</p>}
