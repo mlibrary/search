@@ -50,3 +50,9 @@ a[class$="-checkbox"] > svg {
 a.active-checkbox > svg {
   color: var(--search-color-blue-400);
 }
+
+.focus:focus {
+  border-radius: 2px;
+  box-shadow: var(--ds-color-maize-400) 0px 0px 0px 2px, var(--ds-color-blue-400) 0px 0px 0px 3px;
+  outline: 0;
+}
