@@ -24,6 +24,7 @@ const ShelfBrowse = () => {
 
   useEffect(() => {
     const fetchShelfData = async () => {
+      setShelfData('loading');
       try {
         const response = await fetch(`https://search.lib.umich.edu/catalog/browse/carousel?query=${callNumber}`);
         if (!response.ok) {
@@ -41,6 +42,10 @@ const ShelfBrowse = () => {
 
   if (!shelfData) {
     return null;
+  }
+
+  if (shelfData === 'loading') {
+    return <p>Loading...</p>;
   }
 
   return <ShelfBrowseCarousel {...{ callNumber, items: shelfData, uid }} />;
