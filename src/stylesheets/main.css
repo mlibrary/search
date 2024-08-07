@@ -1524,7 +1524,7 @@ body {
   color: var(--search-color-red-300);
 }
 
-@-webkit-keyframes placeHolderShimmer {
+@keyframes placeHolderShimmer {
   0% {
     background-position: -100vw 0;
   }
@@ -1539,12 +1539,8 @@ body {
 }
 
 .placeholder {
+  animation: placeHolderShimmer 25s linear infinite forwards;
   background: linear-gradient(to left, rgba(229, 229, 229, 0.6) 20%, #E5E5E5 50%, rgba(229, 229, 229, 0.6) 80%);
-  -webkit-animation-fill-mode: forwards;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-name: placeHolderShimmer;
-  -webkit-animation-timing-function: linear;
-  -webkit-animation-duration: 25s;
   vertical-align: middle;
   height: 0.6rem;
   margin-top: 0;

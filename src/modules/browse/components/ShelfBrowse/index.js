@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ShelfBrowseCarousel from '../ShelfBrowseCarousel';
+import ShelfBrowseLoading from '../ShelfBrowseLoading';
 import { useSelector } from 'react-redux';
 
 const ShelfBrowse = () => {
@@ -45,7 +46,7 @@ const ShelfBrowse = () => {
   }
 
   if (shelfData === 'loading') {
-    return <p>Loading...</p>;
+    return <ShelfBrowseLoading {...{ callNumber }} />;
   }
 
   return <ShelfBrowseCarousel {...{ callNumber, items: shelfData, uid }} />;
