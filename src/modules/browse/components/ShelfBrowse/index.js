@@ -1,9 +1,14 @@
 import './styles.css';
 import { Icon, useWindowWidth } from '../../../reusable';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import BrowseLink from '../BrowseLink';
 import ShelfBrowseCarousel from '../ShelfBrowseCarousel';
 import { useSelector } from 'react-redux';
+
+const ITEMS_PER_PAGE_BREAKPOINTS = [
+  { items: 3, width: 820 },
+  { items: 1, width: 640 }
+];
 
 const ShelfBrowse = () => {
   const [shelfData, setShelfData] = useState();
@@ -13,15 +18,9 @@ const ShelfBrowse = () => {
     previousRecords: true
   });
   const [buttonAction, setButtonAction] = useState({
-    currentRecord () {
-      //
-    },
-    nextRecords () {
-      //
-    },
-    previousRecords () {
-      //
-    }
+    currentRecord: null,
+    nextRecords: null,
+    previousRecords: null
   });
   const { metadata, uid } = useSelector((state) => {
     return state.records.record;
@@ -40,40 +39,41 @@ const ShelfBrowse = () => {
   }
 
   const windowWidth = useWindowWidth();
-  let itemsPerPage = 5;
-  if (windowWidth < 820) {
-    itemsPerPage = 3;
-  }
-  if (windowWidth < 640) {
-    itemsPerPage = 1;
-  }
+  const itemsPerPage = ITEMS_PER_PAGE_BREAKPOINTS.reduce(
+    (acc, breakpoint) => {
+      return (windowWidth < breakpoint.width ? breakpoint.items : acc);
+    },
+    5
+  );
 
   const callNumber = callNumberBrowse.browse.value.trim();
 
-  useEffect(() => {
-    const fetchShelfData = async () => {
-      setShelfData('loading');
-      try {
-        const response = await fetch(`https://search.lib.umich.edu/catalog/browse/carousel?query=${callNumber}`);
-        if (!response.ok) {
-          throw new Error(`HTTP Error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setShelfData(data);
-      } catch {
-        setShelfData();
+  const fetchShelfData = useCallback(async () => {
+    setShelfData('loading');
+    try {
+      const response = await fetch(`https://search.lib.umich.edu/catalog/browse/carousel?query=${callNumber}`);
+      if (!response.ok) {
+        throw new Error(`HTTP Error! status: ${response.status}`);
       }
-    };
-
-    fetchShelfData();
+      const data = await response.json();
+      setShelfData(data);
+    } catch {
+      setShelfData();
+    }
   }, [callNumber]);
+
+  useEffect(() => {
+    fetchShelfData();
+  }, [fetchShelfData]);
 
   if (!shelfData) {
     return null;
   }
 
   const loadingItems = new Array(itemsPerPage).fill(null);
-  const buttonLabel = `${itemsPerPage} record${itemsPerPage === 1 ? '' : 's'}`;
+  const buttonLabel = (previous = true) => {
+    return `${previous ? 'Previous' : 'Next'} ${itemsPerPage} record${itemsPerPage === 1 ? '' : 's'}`;
+  };
 
   return (
     <section className='shelf-browse container__rounded'>
@@ -83,15 +83,15 @@ const ShelfBrowse = () => {
           <Icon icon='list' size='24' className='margin-right__xs' />Browse in call number list
         </BrowseLink>
       </header>
-      <div className='shelf-browse-carousel' aria-label='Shelf browse carousel'>
+      <div className='shelf-browse-carousel'>
         <button
-          aria-label={`Previous ${buttonLabel}`}
-          title={`Previous ${buttonLabel}`}
+          title={buttonLabel()}
           disabled={disableButton.previousRecords}
           onClick={buttonAction.previousRecords}
           className='btn no-background'
         >
           <Icon icon='chevron_left' size='24' />
+          <span className='visually-hidden'>{buttonLabel()}</span>
         </button>
         <ul
           className='list__unstyled shelf-browse-items'
@@ -131,13 +131,13 @@ const ShelfBrowse = () => {
               )}
         </ul>
         <button
-          aria-label={`Next ${buttonLabel}`}
-          title={`Next ${buttonLabel}`}
+          title={buttonLabel(false)}
           disabled={disableButton.nextRecords}
           onClick={buttonAction.nextRecords}
           className='btn no-background'
         >
           <Icon icon='chevron_right' size='24' />
+          <span className='visually-hidden'>{buttonLabel(false)}</span>
         </button>
       </div>
       <button

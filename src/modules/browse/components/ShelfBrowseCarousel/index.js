@@ -94,8 +94,8 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
       return {
         ...prevState,
         currentRecord: currentPage === middlePage,
-        nextRecords: firstPage,
-        previousRecords: lastPage
+        nextRecords: lastPage,
+        previousRecords: firstPage
       };
     });
   }, [currentPage, firstPage, lastPage, setDisableButton]);
