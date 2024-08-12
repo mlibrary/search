@@ -39,6 +39,28 @@
   grid-template-rows: auto;
 }
 
+.shelf-browse-carousel > button svg {
+  color: var(--search-color-blue-500);
+}
+
+.shelf-browse-carousel > button:disabled svg {
+  color: var(--search-color-grey-500);
+}
+
+.shelf-browse-carousel > button:not(:disabled):hover svg {
+  color: var(--ds-color-blue-400);
+}
+
+.shelf-browse-carousel > button:first-of-type {
+  grid-area: prev;
+  text-align: right;
+}
+
+.shelf-browse-carousel > button:last-of-type {
+  grid-area: next;
+  text-align: left;
+}
+
 .shelf-browse-items {
   display: grid;
   column-gap: 1rem;
