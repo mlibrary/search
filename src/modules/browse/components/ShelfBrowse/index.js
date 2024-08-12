@@ -71,20 +71,21 @@ const ShelfBrowse = () => {
   }
 
   const loadingItems = new Array(itemsPerPage).fill(null);
-  const buttonPrevNext = (previous = true) => {
-    const label = `${previous ? 'Previous' : 'Next'} ${itemsPerPage} record${itemsPerPage === 1 ? '' : 's'}`;
+  const buttonPrevNext = (direction = 'Previous') => {
+    const label = `${direction} ${itemsPerPage} record${itemsPerPage === 1 ? '' : 's'}`;
+
     return (
       <button
         title={label}
-        disabled={previous ? disableButton.previousRecords : disableButton.nextRecords}
-        onClick={previous ? buttonAction.previousRecords : buttonAction.nextRecords}
+        disabled={disableButton[`${direction.toLowerCase()}Records`]}
+        onClick={buttonAction[`${direction.toLowerCase()}Records`]}
         className='btn no-background'
       >
-        <Icon icon={`chevron_${previous ? 'left' : 'right'}`} size='24' />
+        <Icon icon={`chevron_${direction === 'Previous' ? 'left' : 'right'}`} size='24' />
         <span className='visually-hidden'>{label}</span>
       </button>
-    )
-  }
+    );
+  };
 
   return (
     <section className='shelf-browse container__rounded'>
@@ -133,7 +134,7 @@ const ShelfBrowse = () => {
                 />
               )}
         </ul>
-        {buttonPrevNext(false)}
+        {buttonPrevNext('Next')}
       </div>
       <button
         className='btn btn--secondary btn--small shelf-browse-carousel-return'
