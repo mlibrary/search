@@ -71,9 +71,20 @@ const ShelfBrowse = () => {
   }
 
   const loadingItems = new Array(itemsPerPage).fill(null);
-  const buttonLabel = (previous = true) => {
-    return `${previous ? 'Previous' : 'Next'} ${itemsPerPage} record${itemsPerPage === 1 ? '' : 's'}`;
-  };
+  const buttonPrevNext = (previous = true) => {
+    const label = `${previous ? 'Previous' : 'Next'} ${itemsPerPage} record${itemsPerPage === 1 ? '' : 's'}`;
+    return (
+      <button
+        title={label}
+        disabled={previous ? disableButton.previousRecords : disableButton.nextRecords}
+        onClick={previous ? buttonAction.previousRecords : buttonAction.nextRecords}
+        className='btn no-background'
+      >
+        <Icon icon={`chevron_${previous ? 'left' : 'right'}`} size='24' />
+        <span className='visually-hidden'>{label}</span>
+      </button>
+    )
+  }
 
   return (
     <section className='shelf-browse container__rounded'>
@@ -84,15 +95,7 @@ const ShelfBrowse = () => {
         </BrowseLink>
       </header>
       <div className='shelf-browse-carousel'>
-        <button
-          title={buttonLabel()}
-          disabled={disableButton.previousRecords}
-          onClick={buttonAction.previousRecords}
-          className='btn no-background'
-        >
-          <Icon icon='chevron_left' size='24' />
-          <span className='visually-hidden'>{buttonLabel()}</span>
-        </button>
+        {buttonPrevNext()}
         <ul
           className='list__unstyled shelf-browse-items'
           style={{
@@ -130,15 +133,7 @@ const ShelfBrowse = () => {
                 />
               )}
         </ul>
-        <button
-          title={buttonLabel(false)}
-          disabled={disableButton.nextRecords}
-          onClick={buttonAction.nextRecords}
-          className='btn no-background'
-        >
-          <Icon icon='chevron_right' size='24' />
-          <span className='visually-hidden'>{buttonLabel(false)}</span>
-        </button>
+        {buttonPrevNext(false)}
       </div>
       <button
         className='btn btn--secondary btn--small shelf-browse-carousel-return'
