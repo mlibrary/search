@@ -117,8 +117,8 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
               {...anchorAttributes}
               className={`focus underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${isCurrentItem ? 'xs' : 's'}`}
             >
+              {isCurrentItem && <p className='margin-top__none this-item'>Current Record</p>}
               <dl className='flex'>
-                {isCurrentItem && <p className='margin__none this-item'>Current Record</p>}
                 {firstOrLastItem && (
                   <>
                     <Icon icon='list' size='24' className='item-term-title' />

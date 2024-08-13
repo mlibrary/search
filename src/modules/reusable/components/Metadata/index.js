@@ -118,23 +118,21 @@ export default function Metadata ({ data, kind }) {
         const { description, term, termPlural } = datum;
         const isExpandable = description.length > 5;
         return (
-          <div className='flex__responsive metadata-list-item' key={datumIndex}>
+          <div className='metadata-list-item' key={datumIndex}>
             <Expandable>
               <dt className={kind === 'condensed' ? 'visually-hidden' : ''}>
                 {term}
               </dt>
-              <div className='metadata-details'>
-                <ExpandableChildren show={isExpandable ? 4 : description.length}>
-                  {description.map((descriptor, index) => {
-                    return (
-                      <dd key={index}>
-                        <Description data={descriptor} />
-                      </dd>
-                    );
-                  })}
-                </ExpandableChildren>
-                {isExpandable && <ExpandableButton name={termPlural || term} count={description.length} />}
-              </div>
+              <ExpandableChildren show={isExpandable ? 4 : description.length}>
+                {description.map((descriptor, index) => {
+                  return (
+                    <dd key={index}>
+                      <Description data={descriptor} />
+                    </dd>
+                  );
+                })}
+              </ExpandableChildren>
+              {isExpandable && <dd className='margin-top__2xs'><ExpandableButton name={termPlural || term} count={description.length} /></dd>}
             </Expandable>
           </div>
         );

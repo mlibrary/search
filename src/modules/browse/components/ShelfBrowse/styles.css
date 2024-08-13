@@ -67,7 +67,7 @@
   font-family: "noto-sans-semicondensed", sans-serif;
   font-size: 0.75rem;
   grid-area: list;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 2.5rem auto;
   position: relative;
 }
 
