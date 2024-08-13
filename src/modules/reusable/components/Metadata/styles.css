@@ -2,22 +2,28 @@
   flex-direction: column;
 }
 
-.metadata-list-item > * {
-  flex-grow: 1;
-}
-
 @media (min-width: 640px) {
+  .metadata-list-item {
+    display: grid;
+    gap: 0 1rem;
+    grid-template-columns: 10rem 1fr;  
+  }
+  
+  .metadata-list-item > dd {
+    grid-column: 2;
+  }
+
   .metadata-list-item > dt {
-    flex-shrink: 0;
-    flex-basis: 10rem;
-    max-width: 10rem;
+    grid-column: 1;
+    grid-row: 1 / -1;
+    text-align: left;
   }
 }
 
-.metadata-details img {
+.metadata-list-item > dd > img {
   max-width: 16rem;
 }
 
-.metadata-details ol.list__unstyled > li {
+.metadata-list-item > dd > ol.list__unstyled > li {
   display: inline-block;
 }
