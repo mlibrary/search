@@ -88,7 +88,7 @@ const advancedFieldedSearchingReducer = (state, action) => {
           }
 
           return {
-            booleanType: booleanType ? booleanType : state[dsUid].fieldedSearches[index].booleanTypes,
+            booleanType: booleanType === undefined ? state[dsUid].fieldedSearches[index].booleanType : booleanType,
             field: selectedFieldUid || state[dsUid].fieldedSearches[index].field,
             query: newQuery
           };

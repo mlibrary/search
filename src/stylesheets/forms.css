@@ -10,7 +10,7 @@ label:has(input[type='radio']):hover {
 input[type='radio'] {
   appearance: none;
   border: 2px solid var(--search-color-grey-600);
-  border-radius: 50%;
+  border-radius: 50%!important;
   height: 1.5rem;
   margin: -4px 0.25rem 0 0;
   position: relative;
