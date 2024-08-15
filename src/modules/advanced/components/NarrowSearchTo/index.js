@@ -20,7 +20,7 @@ const NarrowSearchTo = ({ handleChange, options }) => {
               {label}
             </label>
             <select
-              className='dropdown narrow-search-to-dropdown'
+              className='narrow-search-to-dropdown'
               id={slug}
               onChange={(event) => {
                 return handleChange({ uid: option.uid, value: event.target.value });

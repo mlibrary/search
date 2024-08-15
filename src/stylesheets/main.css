@@ -748,22 +748,6 @@ details[open] > summary svg.expand_more {
   max-width: 1200px;
 }
 
-.dropdown,
-.dropdown-multiple {
-  font-size: 1rem;
-  font-family: "Noto Sans", sans-serif;
-  color: #262626;
-  line-height: 1.5;
-  background: white;
-  box-shadow: none;
-  cursor: pointer;
-  max-width: 100%;
-}
-
-.dropdown-multiple {
-  min-height: 10rem;
-}
-
 .card {
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04);
   border-bottom: solid 2px #E5E5E5;
@@ -2169,34 +2153,10 @@ input.multiselect-search {
   margin-top: 0.125rem;
 }
 
-.institution-select-container {
-  background: #FAFAFA;
-  border-radius: 4px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-}
-
-.institution-select-container .dropdown {
-  width: 100%;
-}
-
-.institution-select-label-text {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
 .institution-select-landing-container p {
-  display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
-}
-
-.institution-select-landing-heading {
-  font-weight: 400;
-  text-align: center;
-  margin-top: 0;
 }
 
 .radio-label {

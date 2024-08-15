@@ -82,7 +82,7 @@ const SearchBox = () => {
      * Get the dropdown's current value because `field` does not change
      * when switching to a different datastore, and the active datastore does not have the queried option
      */
-    const dropdown = document.querySelector('.search-box-dropdown > select.dropdown');
+    const dropdown = document.querySelector('select.search-box-dropdown');
     const dropdownOption = dropdown.value;
 
     // Change `field` to current dropdown value
@@ -132,23 +132,17 @@ const SearchBox = () => {
       }}
     >
       <div className='container container-medium'>
-        <div className='search-box-dropdown'>
-          <select
-            aria-label='Select an option'
-            className='dropdown'
-            value={currentField}
-            onChange={(event) => {
-              return setOption(event);
-            }}
-            autoComplete='off'
-          >
-            <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
-          </select>
-          <Icon
-            icon='expand_more'
-            size={24}
-          />
-        </div>
+        <select
+          aria-label='Select an option'
+          className='search-box-dropdown'
+          value={currentField}
+          onChange={(event) => {
+            return setOption(event);
+          }}
+          autoComplete='off'
+        >
+          <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
+        </select>
         <input
           type='text'
           aria-label={currentField.startsWith('browse_by_') ? 'Browse for' : 'Search for'}

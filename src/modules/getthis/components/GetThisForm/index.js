@@ -18,7 +18,7 @@ const Field = ({ field, loading, setFieldChange }) => {
         {field.label && (
           <label className='form-label' htmlFor={field.name}>{field.label}</label>
         )}
-        <select id={name} name={name} className='dropdown' value={value} onChange={setFieldChange} autoComplete='off'>
+        <select id={name} name={name} value={value} onChange={setFieldChange} autoComplete='off'>
           {options.map((option, key) => {
             return (
               <option
