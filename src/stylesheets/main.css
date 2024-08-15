@@ -748,22 +748,6 @@ details[open] > summary svg.expand_more {
   max-width: 1200px;
 }
 
-.dropdown,
-.dropdown-multiple {
-  font-size: 1rem;
-  font-family: "Noto Sans", sans-serif;
-  color: #262626;
-  line-height: 1.5;
-  background: white;
-  box-shadow: none;
-  cursor: pointer;
-  max-width: 100%;
-}
-
-.dropdown-multiple {
-  min-height: 10rem;
-}
-
 .card {
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.04);
   border-bottom: solid 2px #E5E5E5;
