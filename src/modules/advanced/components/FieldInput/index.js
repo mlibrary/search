@@ -43,7 +43,7 @@ const FieldInput = ({
       <div className='advanced-input-container'>
         <select
           aria-label={`Selected field ${fieldedSearchIndex + 1}`}
-          className='dropdown advanced-field-select'
+          className='advanced-field-select'
           value={fieldedSearch.field}
           onChange={(event) => {
             return changeFieldedSearch({
