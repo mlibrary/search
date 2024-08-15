@@ -64,7 +64,7 @@ const Landing = ({ activeDatastore, institution }) => {
             <h2 className='heading-large'>
               To find materials closest to you, please choose a library
             </h2>
-            <p>
+            <p className='flex flex__responsive'>
               {institution.options.map((library, index) => {
                 return (
                   <Anchor

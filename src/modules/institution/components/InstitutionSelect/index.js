@@ -1,3 +1,4 @@
+import './styles.css';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { stringifySearch } from '../../../search';
@@ -31,16 +32,15 @@ const InstitutionSelect = ({ activeDatastore, institution }) => {
   };
 
   return (
-    <fieldset className='institution-select-container'>
+    <fieldset className='institution-select-container margin-bottom__m padding-y__s padding-x__m'>
       <legend className='visually-hidden'>Institutions</legend>
       <label
-        className='institution-select-label institution-select-label-text'
+        className='institution-select-label-text'
         htmlFor='library-scope'
       >
         Library Scope
       </label>
       <select
-        className='dropdown'
         value={active || defaultInstitution}
         onChange={handleChange}
         id='library-scope'

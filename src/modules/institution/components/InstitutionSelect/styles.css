@@ -1,0 +1,14 @@
+.institution-select-container {
+  background: var(--search-color-grey-100);
+  border-radius: 4px;
+}
+
+.institution-select-container select {
+  width: 100%;
+}
+
+.institution-select-label-text {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
