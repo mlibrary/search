@@ -52,7 +52,7 @@ const Sorts = ({ activeDatastore }) => {
       </label>
       <select
         id='sort-by'
-        className='dropdown sorts-select'
+        className='sorts-select'
         value={sort[activeDatastore] || sorts[0].uid}
         onChange={handleOnChange}
         autoComplete='off'
