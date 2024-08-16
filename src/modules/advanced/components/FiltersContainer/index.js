@@ -91,52 +91,34 @@ const FiltersContainer = ({ datastore }) => {
   const filters = getFilters({ activeFilters, filterGroups });
 
   const changeAdvancedFilter = ({ filterGroupUid, filterType, filterValue }) => {
-    switch (filterType) {
-      case 'scope_down':
-        // Clear active filters
-        if (['institution', 'location'].includes(filterGroupUid) && filterValue) {
-          dispatch(setAdvancedFilter({
-            datastoreUid: datastore.uid,
-            filterGroupUid: 'collection',
-            filterType,
-            onlyOneFilterValue: true
-          }));
-          if (filterGroupUid === 'institution') {
-            dispatch(setAdvancedFilter({
-              datastoreUid: datastore.uid,
-              filterGroupUid: 'location',
-              filterType,
-              onlyOneFilterValue: true
-            }));
-          }
-        }
-        dispatch(setAdvancedFilter({
-          datastoreUid: datastore.uid,
-          filterGroupUid,
-          filterType,
-          filterValue,
-          onlyOneFilterValue: true
-        }));
-        break;
-      case 'checkbox':
-      case 'date_range_input':
-        dispatch(setAdvancedFilter({
-          datastoreUid: datastore.uid,
-          filterGroupUid,
-          filterValue,
-          onlyOneFilterValue: true
-        }));
-        break;
-      case 'multiple_select':
-        dispatch(setAdvancedFilter({
-          datastoreUid: datastore.uid,
-          filterGroupUid,
-          filterValue
-        }));
-        break;
-      default:
-        break;
+    const baseFilter = {
+      datastoreUid: datastore.uid,
+      filterGroupUid,
+      filterType,
+      filterValue,
+      onlyOneFilterValue: true
+    };
+    const actions = [];
+    const createAction = (overrides = {}) => {
+      actions.push(setAdvancedFilter({ ...baseFilter, ...overrides }));
+    };
+
+    if (filterType === 'scope_down' && ['institution', 'location'].includes(filterGroupUid) && filterValue) {
+      createAction({ filterGroupUid: 'collection', filterValue: null });
+      if (filterGroupUid === 'institution') {
+        createAction({ filterGroupUid: 'location', filterValue: null });
+      }
     }
+
+    if (['checkbox', 'date_range_input', 'scope_down'].includes(filterType)) {
+      createAction();
+    }
+
+    if (filterType === 'multiple_select') {
+      createAction({ onlyOneFilterValue: false });
+    }
+
+    actions.forEach(dispatch);
   };
 
   if (filters?.length === 0) {
