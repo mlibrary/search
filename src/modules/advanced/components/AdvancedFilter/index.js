@@ -5,93 +5,48 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const getIsCheckboxFilterChecked = ({ advancedFilter }) => {
-  const hasActiveFilter = advancedFilter.activeFilters?.length > 0;
+  const { activeFilters, conditions } = advancedFilter;
+  const hasActiveFilters = activeFilters?.length > 0;
 
-  if (!hasActiveFilter && advancedFilter.conditions.default === 'checked') {
-    return true;
-  }
-
-  if (hasActiveFilter && advancedFilter.activeFilters[0] === advancedFilter.conditions.checked) {
-    return true;
-  }
-
-  return false;
+  return (!hasActiveFilters && conditions.default === 'checked')
+    || (hasActiveFilters && activeFilters[0] === conditions.checked);
 };
 
 const getDateRangeValue = ({ beginDateQuery, endDateQuery, selectedRange }) => {
-  switch (selectedRange) {
-    case 'Before':
-      if (endDateQuery) {
-        return `before ${endDateQuery}`;
-      }
-      return null;
-    case 'After':
-      if (beginDateQuery) {
-        return `after ${beginDateQuery}`;
-      }
-      return null;
-    case 'Between':
-      if (beginDateQuery && endDateQuery) {
-        return `${beginDateQuery} to ${endDateQuery}`;
-      }
-      return null;
-    case 'In':
-      if (beginDateQuery) {
-        return beginDateQuery;
-      }
-      return null;
-    default:
-      return null;
-  }
+  const dateRanges = {
+    After: beginDateQuery && `after ${beginDateQuery}`,
+    Before: endDateQuery && `before ${endDateQuery}`,
+    Between: (beginDateQuery && endDateQuery) && `${beginDateQuery} to ${endDateQuery}`,
+    In: beginDateQuery
+  };
+
+  return dateRanges[selectedRange] || null;
 };
 
 const getStateDateRangeValues = ({ advancedFilter }) => {
-  if (advancedFilter.activeFilters?.length > 0) {
-    const [filterValue] = advancedFilter.activeFilters;
-
-    // Before
-    if (filterValue.indexOf('before') !== -1) {
-      const values = filterValue.split('before');
-
-      return {
-        stateEndQuery: values[1],
-        stateSelectedRangeOption: 0
-      };
-    }
-
-    // After
-    if (filterValue.indexOf('after') !== -1) {
-      const values = filterValue.split('after');
-
-      return {
-        stateBeginQuery: values[1],
-        stateSelectedRangeOption: 1
-      };
-    }
-
-    // Between
-    if (filterValue.indexOf('to') !== -1) {
-      const values = filterValue.split('to');
-
-      return {
-        stateBeginQuery: values[0],
-        stateEndQuery: values[1],
-        stateSelectedRangeOption: 2
-      };
-    }
-
-    // In or other
-    return {
-      stateBeginQuery: filterValue,
-      stateSelectedRangeOption: 3
-    };
-  }
-
-  return {
-    stateBeginQuery: '',
-    stateEndQuery: '',
+  const rangeValues = {
     stateSelectedRangeOption: 0
   };
+  const dates = [null, null];
+
+  if (advancedFilter?.activeFilters?.length) {
+    const ranges = ['before', 'after', 'to'];
+    rangeValues.stateSelectedRangeOption = ranges.length;
+    const [filterValue] = advancedFilter.activeFilters;
+    dates.unshift(...filterValue.match(/\d+/gu));
+    ranges.forEach((range, index) => {
+      if (filterValue.includes(range)) {
+        rangeValues.stateSelectedRangeOption = index;
+        if (range === ranges[0]) {
+          dates.unshift(null);
+        }
+      }
+    });
+  }
+
+  [rangeValues.stateBeginQuery, rangeValues.stateEndQuery] = dates;
+
+  return rangeValues;
 };
 
 const AdvancedFilter = ({ advancedFilter, changeAdvancedFilter }) => {
