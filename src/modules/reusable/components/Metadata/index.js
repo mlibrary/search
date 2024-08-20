@@ -118,7 +118,7 @@ export default function Metadata ({ data, kind }) {
         const { description, term, termPlural } = datum;
         const isExpandable = description.length > 5;
         return (
-          <div className='metadata-list-item' key={datumIndex}>
+          <div className={kind === 'condensed' ? '' : 'metadata-list-item'} key={datumIndex}>
             <Expandable>
               <dt className={kind === 'condensed' ? 'visually-hidden' : ''}>
                 {term}
