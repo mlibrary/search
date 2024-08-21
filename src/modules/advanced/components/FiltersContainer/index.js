@@ -1,4 +1,5 @@
 import './styles.css';
+import '../../../filters/components/Filters/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import AdvancedFilter from '../AdvancedFilter';
 import getFilters from './getFilters';
@@ -7,77 +8,108 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { setAdvancedFilter } from '../../../advanced';
 
-const ActiveAdvancedFilters = (datastore) => {
-  const currentDatastore = datastore.datastore.uid;
-  const { advanced } = useSelector((state) => {
-    return state;
-  });
-  const activeAdditionalSearchOptions = advanced[currentDatastore].activeFilters;
-  // Check if object exists
-  if (!activeAdditionalSearchOptions) {
-    return null;
-  }
-  // Remove properties that have undefined values
-  Object.keys(activeAdditionalSearchOptions).forEach((option) => {
-    if (!activeAdditionalSearchOptions[option]) {
-      delete activeAdditionalSearchOptions[option];
-    }
+const FilterList = ({ datastoreUid }) => {
+  const dispatch = useDispatch();
+  const { activeFilters = {}, filters: filterGroup } = useSelector((state) => {
+    return state.advanced[datastoreUid] || {};
   });
 
-  const filterGroups = {};
-  advanced[currentDatastore].filters.forEach((filterGroup) => {
-    filterGroups[filterGroup.uid] = { ...filterGroup };
-  });
-
-  const items = Object.keys(activeAdditionalSearchOptions).reduce((acc, group) => {
-    // Just don't show the checkbox filters as active filter items.
-    if (!filterGroups[group] || filterGroups[group].type !== 'checkbox') {
-      const activeFiltersToAdd = activeAdditionalSearchOptions[group].map((value) => {
-        return { group, value };
+  // Create filter list based on active filters
+  const filterList = Object.entries(activeFilters).reduce((acc, [groupUid, filters]) => {
+    if (filters) {
+      const groupName = filterGroup.find((group) => {
+        return group.uid === groupUid;
       });
-      return [...acc, ...activeFiltersToAdd];
+      filters.forEach((value) => {
+        acc.push({
+          groupUid,
+          name: groupName?.groupBy || groupName?.name,
+          value
+        });
+      });
     }
     return acc;
   }, []);
 
-  if (!items.length) {
+  const handleRemoveFilter = ({ groupUid, value }) => {
+    const baseFilter = {
+      datastoreUid,
+      filterGroupUid: groupUid,
+      filterValue: value,
+      onlyOneFilterValue: true
+    };
+    const actions = [];
+    const createAction = (overrides = {}) => {
+      actions.push(setAdvancedFilter({ ...baseFilter, ...overrides }));
+    };
+
+    // Example logic for removing specific filters based on type and group
+    createAction();
+
+    // Dispatch all created actions
+    actions.forEach(dispatch);
+  };
+
+  const handleClearFilters = () => {
+    Object.keys(activeFilters).forEach((groupUid) => {
+      const filters = activeFilters[groupUid];
+      filters.forEach(() => {
+        dispatch(setAdvancedFilter({
+          datastoreUid,
+          filterGroupUid: groupUid,
+          filterValue: null,
+          onlyOneFilterValue: true
+        }));
+      });
+    });
+  };
+
+  if (filterList.length === 0) {
     return null;
   }
 
-  const titleCase = (string) => {
-    return string.toLowerCase().split('_').map((word) => {
-      return word.replace(word[0], word[0].toUpperCase());
-    }).join(' ');
-  };
-
   return (
     <section aria-label='active-filters'>
-      <h2
-        id='active-filters'
-        className='u-margin-top-none margin-bottom__xs h4'
-      >
-        Active filters
-        {' '}
-        <span className='text-grey__light padding-right__xs'>
-          ({items.length})
-        </span>
-      </h2>
-
-      <p className='font-small u-margin-top-none'>
-        Unselect active filters through the options below.
-      </p>
-
-      <ul className='margin-top__none active-filter-list'>
-        {items.map((item, index) => {
+      <div className='flex flex__responsive margin-bottom__m'>
+        <h2 id='active-filters' className='margin__none h4'>
+          Active filters <span className='text-grey__light'>({filterList.length})</span>
+        </h2>
+        {filterList.length > 1 && (
+          <button
+            className='button-link-light'
+            onClick={(event) => {
+              event.preventDefault();
+              handleClearFilters();
+            }}
+          >
+            Clear all active filters
+          </button>
+        )}
+      </div>
+      <ul className='list__unstyled flex flex__responsive active-filter-list'>
+        {filterList.map(({ groupUid, name, value }) => {
           return (
-            <li key={index + item.group + item.value}>
-              <span className='strong'>{filterGroups[item.group]?.name || titleCase(item.group)}:</span> {item.value}
+            <li key={`${groupUid}-${value}`}>
+              <button
+                className='padding-y__xs padding-x__s remove-filter underline__hover'
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleRemoveFilter({ groupUid, value });
+                }}
+              >
+                {name}: {value}
+                <Icon icon='close' />
+              </button>
             </li>
           );
         })}
       </ul>
     </section>
   );
+};
+
+FilterList.propTypes = {
+  datastoreUid: PropTypes.string
 };
 
 const FiltersContainer = ({ datastore }) => {
@@ -129,7 +161,7 @@ const FiltersContainer = ({ datastore }) => {
 
   return (
     <>
-      <ActiveAdvancedFilters datastore={datastore} />
+      <FilterList datastoreUid={datastore.uid} />
       <h2 className='heading-large'>Additional search options</h2>
       <div className='advanced-filters-inner-container'>
         {filterGroupings.map((filterGroup, groupIndex) => {

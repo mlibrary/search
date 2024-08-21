@@ -3,6 +3,15 @@
 }
 
 .active-filter-list {
-  font-size: 0.9rem;
-  margin-left: 2.5rem;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.active-filter-list > li {
+  max-width: calc(33.33% - 0.75rem);
+}
+
+.active-filter-list > li > button {
+  text-align: left;
 }
