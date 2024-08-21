@@ -70,7 +70,7 @@ const FilterList = ({ datastoreUid }) => {
 
   return (
     <section aria-label='active-filters'>
-      <div className='flex flex__responsive margin-bottom__m'>
+      <div className='flex margin-bottom__m active-filters-header'>
         <h2 id='active-filters' className='margin__none h4'>
           Active filters <span className='text-grey__light'>({filterList.length})</span>
         </h2>
@@ -86,7 +86,7 @@ const FilterList = ({ datastoreUid }) => {
           </button>
         )}
       </div>
-      <ul className='list__unstyled flex flex__responsive active-filter-list'>
+      <ul className='list__unstyled active-filter-list'>
         {filterList.map(({ groupUid, name, value }) => {
           return (
             <li key={`${groupUid}-${value}`}>
