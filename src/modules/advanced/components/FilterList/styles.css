@@ -1,10 +1,10 @@
-#active-filters > .text-grey__light {
-  font-weight: 400;
-}
-
 .active-filters-header {
   align-items: flex-start;
   flex-wrap: wrap;
+}
+
+.active-filters-header > .text-grey__light {
+  font-weight: 400;
 }
 
 .active-filter-list {
