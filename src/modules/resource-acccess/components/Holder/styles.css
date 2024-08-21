@@ -10,6 +10,7 @@
 }
 
 .holder-container > table tr > * {
+  overflow-wrap: anywhere;
   padding: 0.5rem 0;
   width: auto;
 }
