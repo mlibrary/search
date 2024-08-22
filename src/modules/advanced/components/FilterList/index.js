@@ -22,6 +22,7 @@ const FilterList = ({ datastoreUid }) => {
         acc.push({
           groupUid,
           name: groupName?.groupBy || groupName?.name,
+          type: groupName?.type,
           value
         });
       });
@@ -29,10 +30,11 @@ const FilterList = ({ datastoreUid }) => {
     return acc;
   }, []);
 
-  const handleRemoveFilter = ({ groupUid, value }) => {
+  const handleRemoveFilter = ({ groupUid, type, value }) => {
     const baseFilter = {
       datastoreUid,
       filterGroupUid: groupUid,
+      filterType: type,
       filterValue: value,
       onlyOneFilterValue: true
     };
@@ -41,10 +43,21 @@ const FilterList = ({ datastoreUid }) => {
       actions.push(setAdvancedFilter({ ...baseFilter, ...overrides }));
     };
 
-    // Example logic for removing specific filters based on type and group
-    createAction();
+    if (type === 'scope_down' && ['institution', 'location'].includes(groupUid) && value) {
+      createAction({ filterGroupUid: 'collection', filterValue: null });
+      if (groupUid === 'institution') {
+        createAction({ filterGroupUid: 'location', filterValue: null });
+      }
+    }
 
-    // Dispatch all created actions
+    if (['checkbox', 'date_range_input', 'scope_down'].includes(type)) {
+      createAction();
+    }
+
+    if (type === 'multiple_select') {
+      createAction({ onlyOneFilterValue: false });
+    }
+
     actions.forEach(dispatch);
   };
 
@@ -85,14 +98,14 @@ const FilterList = ({ datastoreUid }) => {
         )}
       </div>
       <ul className='list__unstyled active-filter-list'>
-        {filterList.map(({ groupUid, name, value }) => {
+        {filterList.map(({ groupUid, name, type, value }) => {
           return (
             <li key={`${groupUid}-${value}`}>
               <button
                 className='padding-y__xs padding-x__s remove-filter underline__hover'
                 onClick={(event) => {
                   event.preventDefault();
-                  handleRemoveFilter({ groupUid, value });
+                  handleRemoveFilter({ groupUid, type, value });
                 }}
               >
                 {name}: {value}
