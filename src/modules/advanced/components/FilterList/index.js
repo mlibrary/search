@@ -18,14 +18,18 @@ const FilterList = ({ datastoreUid }) => {
       const groupName = filterGroup.find((group) => {
         return group.uid === groupUid;
       });
-      filters.forEach((value) => {
-        acc.push({
-          groupUid,
-          name: groupName?.groupBy || groupName?.name,
-          type: groupName?.type,
-          value
+
+      // Only proceed if groupName type is not 'checkbox'
+      if (groupName?.type !== 'checkbox') {
+        filters.forEach((value) => {
+          acc.push({
+            groupUid,
+            name: groupName?.groupBy || groupName?.name,
+            type: groupName?.type,
+            value
+          });
         });
-      });
+      }
     }
     return acc;
   }, []);
@@ -108,7 +112,7 @@ const FilterList = ({ datastoreUid }) => {
                   handleRemoveFilter({ groupUid, type, value });
                 }}
               >
-                {name}: {value}
+                {`${name}: ${value}`}
                 <Icon icon='close' />
               </button>
             </li>
