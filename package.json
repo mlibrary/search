@@ -4,54 +4,56 @@
   "private": true,
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-config-standard-jsx": "^11.0.0",
-    "eslint-config-standard-react": "^13.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.34.0",
-    "react-scripts": "^5.0.1",
-    "url": "^0.11.3"
+    "@eslint/compat": "^1.1.0",
+    "@eslint/js": "^9.6.0",
+    "@stylistic/eslint-plugin": "^2.3.0",
+    "eslint": "^9.6.0",
+    "eslint-plugin-react": "^7.34.3",
+    "globals": "^15.7.0",
+    "react-scripts": "^5.0.1"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
-    "@reduxjs/toolkit": "^2.2.1",
+    "@reduxjs/toolkit": "^2.2.6",
     "citeproc": "^2.4.63",
-    "core-js": "^3.36.0",
-    "jsonschema": "^1.4.1",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
     "pride": "git+https://github.com/mlibrary/pride.git",
     "prop-types": "^15.8.1",
-    "qs": "^6.11.2",
-    "react": "^18.2.0",
-    "react-cookie": "^7.1.0",
-    "react-dom": "^18.2.0",
-    "react-redux": "^9.1.0",
-    "react-router-dom": "^6.22.3",
-    "react-tabs": "^6.0.2",
-    "regenerator-runtime": "^0.14.1",
-    "underscore": "^1.13.6"
+    "qs": "^6.12.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-redux": "^9.1.2",
+    "react-router-dom": "^6.24.0"
   },
   "overrides": {
-    "jsdom": "latest",
-    "rollup-plugin-terser": "npm:@rollup/plugin-terser@latest",
-    "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@latest",
-    "svgo": "latest",
-    "workbox-build": "latest"
+    "@babel/plugin-proposal-private-property-in-object": "npm:@babel/plugin-transform-private-property-in-object",
+    "eslint-plugin-react": {
+      "eslint": "latest"
+    },
+    "react-scripts": {
+      "@svgr/webpack": "latest",
+      "babel-preset-react-app": {
+        "@babel/plugin-proposal-class-properties": "npm:@babel/plugin-transform-class-properties",
+        "@babel/plugin-proposal-nullish-coalescing-operator": "npm:@babel/plugin-transform-nullish-coalescing-operator",
+        "@babel/plugin-proposal-numeric-separator": "npm:@babel/plugin-transform-numeric-separator",
+        "@babel/plugin-proposal-optional-chaining": "npm:@babel/plugin-transform-optional-chaining",
+        "@babel/plugin-proposal-private-methods": "npm:@babel/plugin-transform-private-methods"
+      },
+      "css-minimizer-webpack-plugin": "latest",
+      "jest": "latest",
+      "magic-string": "latest",
+      "resolve-url-loader": "latest",
+      "source-map-loader": "latest",
+      "typescript": "latest",
+      "workbox-webpack-plugin": "latest"
+    }
   },
   "scripts": {
     "build": "react-scripts build",
     "build:dev": "CI=false REACT_APP_LOGIN_BASE_URL=http://localhost:3000 REACT_APP_SPECTRUM_BASE_URL=http://localhost:3000/spectrum npm run build && gtar -C build --transform s/./search/ -czf search.local.tar.gz .",
-    "develop": "npm run start",
-    "eject": "react-scripts eject",
-    "lint": "npx eslint src/**/*.js",
-    "reinstall": "rm -rf node_modules && npm install",
-    "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} REACT_APP_LOGIN_BASE_URL=${REACT_APP_LOGIN_BASE_URL:-https://search-staging.www.lib.umich.edu} react-scripts start",
-    "test": "react-scripts test --env=jsdom"
+    "lint": "npx eslint src $*",
+    "lint:fix": "npm run lint -- --fix",
+    "reinstall": "rm -rf node_modules && rm package-lock.json && npm install",
+    "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} REACT_APP_LOGIN_BASE_URL=${REACT_APP_LOGIN_BASE_URL:-https://search-staging.www.lib.umich.edu} react-scripts start"
   },
   "browserslist": {
     "production": [

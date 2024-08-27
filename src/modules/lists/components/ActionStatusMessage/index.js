@@ -1,12 +1,14 @@
-import React from 'react';
 import { Alert, Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-function ActionStatusMessage ({ action, status }) {
-  if (!status) return null;
+const ActionStatusMessage = ({ action, status }) => {
+  if (!status) {
+    return null;
+  }
 
   let type = 'warning';
-  let message = <>We're sorry. Something went wrong. Please use <Anchor href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</Anchor> for help.</>;
+  let message = <>We&apos;re sorry. Something went wrong. Please use <Anchor href='https://www.lib.umich.edu/ask-librarian'>Ask a Librarian</Anchor> for help.</>;
 
   if (status.status_code?.startsWith('action.response.')) {
     const statusCode = status.status_code;
@@ -30,7 +32,7 @@ function ActionStatusMessage ({ action, status }) {
       {message}
     </Alert>
   );
-}
+};
 
 ActionStatusMessage.propTypes = {
   action: PropTypes.object,

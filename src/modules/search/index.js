@@ -1,19 +1,21 @@
-import SearchBox from './components/SearchBox';
-import SearchResultsMessage from './components/SearchResultsMessage';
-import searchReducer from './reducer';
 import {
   clearSearch,
   resetSort,
   searching,
   setPage,
-  setSearchData,
   setParserMessage,
+  setSearchData,
   setSearchQuery,
   setSearchQueryInput
 } from './actions';
+import { getSearchStateFromURL, stringifySearch } from './utilities';
+import SearchBox from './components/SearchBox';
+import searchReducer from './reducer';
+import SearchResultsMessage from './components/SearchResultsMessage';
 
 export {
   clearSearch,
+  getSearchStateFromURL,
   resetSort,
   searchReducer,
   SearchBox,
@@ -23,5 +25,6 @@ export {
   setSearchData,
   setParserMessage,
   setSearchQuery,
-  setSearchQueryInput
+  setSearchQueryInput,
+  stringifySearch
 };

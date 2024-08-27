@@ -1,5 +1,7 @@
-export const ADD_SPECIALISTS = 'specialists/ADD_SPECIALISTS';
+const ADD_SPECIALISTS = 'specialists/ADD_SPECIALISTS';
 
-export function addSpecialists (payload) {
-  return { type: ADD_SPECIALISTS, payload };
-}
+const addSpecialists = (payload) => {
+  return { payload, type: ADD_SPECIALISTS };
+};
+
+export { ADD_SPECIALISTS, addSpecialists };

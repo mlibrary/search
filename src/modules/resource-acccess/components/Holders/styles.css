@@ -1,0 +1,39 @@
+.holders-details > * {
+  padding: 0.75rem 1rem;
+  padding-left: 3rem;
+}
+
+.holders-details > summary {
+  align-items: center;
+  border-top: solid 1px var(--ds-color-neutral-100);
+  cursor: pointer;
+  display: flex;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.holders-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.holders-details[open] > summary {
+  background: var(--ds-color-blue-100);
+}
+
+.holders-details > summary > * {
+  flex-shrink: 0;
+}
+
+.holders-details > summary > span {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.holders-details > summary:hover .holders-details-summary-title {
+  text-decoration: underline;
+}
+
+.holders-details:not([open]) > summary > .expand-less,
+.holders-details[open] > summary > .expand-more {
+  display: none!important;
+}

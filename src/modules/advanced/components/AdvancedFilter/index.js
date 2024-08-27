@@ -1,19 +1,18 @@
-import React from 'react';
-import { Multiselect, DateRangeInput } from '../../../core';
+import { DateRangeInput, Multiselect } from '../../../core';
 import { Checkbox } from '../../../reusable';
 import NarrowSearchTo from '../NarrowSearchTo';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const getIsCheckboxFilterChecked = ({ advancedFilter }) => {
-  const hasActiveFilter = advancedFilter.activeFilters && advancedFilter.activeFilters.length > 0;
+  const hasActiveFilter = advancedFilter.activeFilters?.length > 0;
 
   if (!hasActiveFilter && advancedFilter.conditions.default === 'checked') {
     return true;
-  } else if (hasActiveFilter) {
-    // Compare active filters to configured checked conditions
-    if (advancedFilter.activeFilters[0] === advancedFilter.conditions.checked) {
-      return true;
-    }
+  }
+
+  if (hasActiveFilter && advancedFilter.activeFilters[0] === advancedFilter.conditions.checked) {
+    return true;
   }
 
   return false;
@@ -22,43 +21,41 @@ const getIsCheckboxFilterChecked = ({ advancedFilter }) => {
 const getDateRangeValue = ({ beginDateQuery, endDateQuery, selectedRange }) => {
   switch (selectedRange) {
     case 'Before':
-      if (!endDateQuery) {
-        return undefined;
+      if (endDateQuery) {
+        return `before ${endDateQuery}`;
       }
-      return `before ${endDateQuery}`;
+      return null;
     case 'After':
-      if (!beginDateQuery) {
-        return undefined;
+      if (beginDateQuery) {
+        return `after ${beginDateQuery}`;
       }
-      return `after ${beginDateQuery}`;
+      return null;
     case 'Between':
-      if (!beginDateQuery || !endDateQuery) {
-        return undefined;
+      if (beginDateQuery && endDateQuery) {
+        return `${beginDateQuery} to ${endDateQuery}`;
       }
-      return `${beginDateQuery} to ${endDateQuery}`;
+      return null;
     case 'In':
-      if (!beginDateQuery) {
-        return undefined;
+      if (beginDateQuery) {
+        return beginDateQuery;
       }
-      return beginDateQuery;
+      return null;
     default:
-      return undefined;
+      return null;
   }
 };
 
 const getStateDateRangeValues = ({ advancedFilter }) => {
-  if (advancedFilter.activeFilters && advancedFilter.activeFilters.length > 0) {
-    const filterValue = advancedFilter.activeFilters[0];
-
-    // For splitting string into before, after, between, and in values
+  if (advancedFilter.activeFilters?.length > 0) {
+    const [filterValue] = advancedFilter.activeFilters;
 
     // Before
     if (filterValue.indexOf('before') !== -1) {
       const values = filterValue.split('before');
 
       return {
-        stateSelectedRangeOption: 0,
-        stateEndQuery: values[1]
+        stateEndQuery: values[1],
+        stateSelectedRangeOption: 0
       };
     }
 
@@ -67,8 +64,8 @@ const getStateDateRangeValues = ({ advancedFilter }) => {
       const values = filterValue.split('after');
 
       return {
-        stateSelectedRangeOption: 1,
-        stateBeginQuery: values[1]
+        stateBeginQuery: values[1],
+        stateSelectedRangeOption: 1
       };
     }
 
@@ -77,37 +74,34 @@ const getStateDateRangeValues = ({ advancedFilter }) => {
       const values = filterValue.split('to');
 
       return {
-        stateSelectedRangeOption: 2,
         stateBeginQuery: values[0],
-        stateEndQuery: values[1]
+        stateEndQuery: values[1],
+        stateSelectedRangeOption: 2
       };
     }
 
     // In or other
     return {
-      stateSelectedRangeOption: 3,
-      stateBeginQuery: filterValue
+      stateBeginQuery: filterValue,
+      stateSelectedRangeOption: 3
     };
   }
 
   return {
-    stateSelectedRangeOption: 0,
     stateBeginQuery: '',
-    stateEndQuery: ''
+    stateEndQuery: '',
+    stateSelectedRangeOption: 0
   };
 };
 
-const AdvancedFilter = ({
-  advancedFilter,
-  changeAdvancedFilter
-}) => {
+const AdvancedFilter = ({ advancedFilter, changeAdvancedFilter }) => {
   if (advancedFilter.type === 'scope_down') {
     return (
       <NarrowSearchTo
         handleChange={(option) => {
           return changeAdvancedFilter({
-            filterType: advancedFilter.type,
             filterGroupUid: option.uid,
+            filterType: advancedFilter.type,
             filterValue: option.value
           });
         }}
@@ -123,8 +117,8 @@ const AdvancedFilter = ({
       <Checkbox
         handleClick={() => {
           return changeAdvancedFilter({
-            filterType: advancedFilter.type,
             filterGroupUid: advancedFilter.uid,
+            filterType: advancedFilter.type,
             filterValue: value
           });
         }}
@@ -137,8 +131,8 @@ const AdvancedFilter = ({
     const options = advancedFilter.filters.map((option) => {
       return {
         checked: option.isActive,
-        value: option.value,
-        name: option.value
+        name: option.value,
+        value: option.value
       };
     });
 
@@ -149,8 +143,8 @@ const AdvancedFilter = ({
         descriptionText={`Select one or more checkboxes to narrow your results to items that match all of your ${advancedFilter.name.toLowerCase()} selections.`}
         handleSelection={(index, option) => {
           return changeAdvancedFilter({
-            filterType: advancedFilter.type,
             filterGroupUid: advancedFilter.uid,
+            filterType: advancedFilter.type,
             filterValue: option.value
           });
         }}
@@ -167,8 +161,8 @@ const AdvancedFilter = ({
         endQuery={stateEndQuery}
         handleSelection={({ beginDateQuery, endDateQuery, selectedRange }) => {
           return changeAdvancedFilter({
-            filterType: advancedFilter.type,
             filterGroupUid: advancedFilter.uid,
+            filterType: advancedFilter.type,
             filterValue: getDateRangeValue({ beginDateQuery, endDateQuery, selectedRange })
           });
         }}

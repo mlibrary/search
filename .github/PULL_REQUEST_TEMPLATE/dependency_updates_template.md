@@ -3,35 +3,23 @@ Monthly dependency update to help maintain Search.
 
 ## NPM
 These dependencies have been updated to their latest versions:
-- `@emotion/react`
-- `@emotion/styled`
+- `@eslint/compat`
+- `@eslint/js`
 - `@reduxjs/toolkit`
+- `@stylistic/eslint-plugin`
 - `citeproc`
-- `core-js`
 - `eslint`
-- `eslint-config-standard`
-- `eslint-config-standard-jsx`
-- `eslint-config-standard-react`
-- `eslint-plugin-import`
-- `eslint-plugin-n`
-- `eslint-plugin-node`
-- `eslint-plugin-promise`
 - `eslint-plugin-react`
-- `jsonschema`
+- `globals`
 - `prejudice`
 - `pride`
 - `prop-types`
 - `qs`
 - `react`
-- `react-cookie`
 - `react-dom`
 - `react-redux`
 - `react-router-dom`
 - `react-scripts`
-- `react-tabs`
-- `regenerator-runtime`
-- `underscore`
-- `url`
 
 ## Workflows
 These actions have been updated to their latest versions:

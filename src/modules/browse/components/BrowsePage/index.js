@@ -1,15 +1,15 @@
+import { Breadcrumb, H1 } from '../../../reusable';
+import { BrowseAtoZ, BrowseByFilters } from '../../../browse';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { BrowseAtoZ, BrowseByFilters } from '../../../browse';
-import { Breadcrumb, H1 } from '../../../reusable';
 
-function BrowsePage () {
+const BrowsePage = () => {
   const activeDatastoreUid = useSelector((state) => {
     return state.datastores.active;
   });
   const datastore = useSelector((state) => {
-    return state.datastores.datastores.find((datastore) => {
-      return datastore.uid === activeDatastoreUid;
+    return state.datastores.datastores.find((ds) => {
+      return ds.uid === activeDatastoreUid;
     });
   }
   );
@@ -26,11 +26,11 @@ function BrowsePage () {
         ]}
       />
       <H1 className='heading-xlarge'>Browse all {datastore.name}</H1>
-      <p className='font-lede'>When you're stuck looking for specific {datastore.name.toLowerCase()} or just want to see what's out there, the browse page makes finding the right {datastore.name.toLowerCase()} easy. Browse all {datastore.name.toLowerCase()} titles alphabetically or by academic discipline.</p>
+      <p className='font-lede'>When you&apos;re stuck looking for specific {datastore.name.toLowerCase()} or just want to see what&apos;s out there, the browse page makes finding the right {datastore.name.toLowerCase()} easy. Browse all {datastore.name.toLowerCase()} titles alphabetically or by academic discipline.</p>
       <BrowseAtoZ />
       <BrowseByFilters filters={browse} />
     </div>
   );
-}
+};
 
 export default BrowsePage;

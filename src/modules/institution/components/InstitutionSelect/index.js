@@ -1,23 +1,18 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { createSelector } from '@reduxjs/toolkit';
-import { stringifySearchQueryForURL } from '../../../pride';
+import './styles.css';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { stringifySearch } from '../../../search';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const InstitutionSelect = ({ activeDatastore, institution }) => {
-  const { uid, slug } = activeDatastore;
-  const { activeFilters, searchQuery } = useSelector(createSelector(
-    (state) => {
-      return state.filters.active[uid];
-    },
-    (state) => {
-      return state.search.query;
-    },
-    (activeFilters, searchQuery) => {
-      return { activeFilters, searchQuery };
-    }
-  ));
+  const { slug, uid } = activeDatastore;
+  const filter = useSelector((state) => {
+    return state.filters.active[uid];
+  });
+  const { query } = useSelector((state) => {
+    return state.search;
+  });
   const navigate = useNavigate();
 
   if (uid !== 'mirlyn') {
@@ -27,26 +22,25 @@ const InstitutionSelect = ({ activeDatastore, institution }) => {
   const { active, defaultInstitution, options } = institution;
 
   const handleChange = (event) => {
-    const queryString = stringifySearchQueryForURL({
-      query: searchQuery,
-      filter: activeFilters,
-      library: event.target.value
+    const queryString = stringifySearch({
+      filter,
+      library: event.target.value,
+      query
     });
 
     navigate(`/${slug}?${queryString}`);
   };
 
   return (
-    <fieldset className='institution-select-container'>
+    <fieldset className='institution-select-container margin-bottom__m padding-y__s padding-x__m'>
       <legend className='visually-hidden'>Institutions</legend>
       <label
-        className='institution-select-label institution-select-label-text'
+        className='institution-select-label-text'
         htmlFor='library-scope'
       >
         Library Scope
       </label>
       <select
-        className='dropdown'
         value={active || defaultInstitution}
         onChange={handleChange}
         id='library-scope'

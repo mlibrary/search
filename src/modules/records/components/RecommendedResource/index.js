@@ -1,20 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-
-const isRecommended = (record) => {
-  return record.fields.filter((item) => {
-    return item.uid === 'highly_recommended';
-  }).length;
-};
+import React from 'react';
 
 const RecommendedResource = ({ record }) => {
-  if (isRecommended(record)) {
-    return (
-      <span className='recommended-resource-tag strong'>Recommended</span>
-    );
-  }
+  const isRecommended = record.fields.some((item) => {
+    return item.uid === 'highly_recommended';
+  });
 
-  return null;
+  return isRecommended ? <span className='recommended-resource-tag strong'>Recommended</span> : null;
 };
 
 RecommendedResource.propTypes = {

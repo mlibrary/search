@@ -1,8 +1,8 @@
+import { Anchor, H1 } from '../../../reusable';
 import React, { useEffect } from 'react';
 import { setDocumentTitle } from '../../../a11y';
-import { Anchor, H1 } from '../../../reusable';
 
-function AccessibilityPage () {
+const AccessibilityPage = () => {
   useEffect(() => {
     setDocumentTitle(['Accessibility']);
   }, []);

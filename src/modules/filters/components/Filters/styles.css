@@ -1,0 +1,45 @@
+.filter-container {
+  background: var(--search-color-grey-100);
+  border-radius: 4px;
+}
+
+.active-filters,
+.filter-details {
+  border-bottom: solid 1px var(--ds-color-neutral-100);
+}
+
+.remove-filter {
+  align-items: center;
+  background: var(--ds-color-green-100);
+  border: solid 1px var(--ds-color-green-200);
+  border-radius: 4px;
+  color: var(--ds-color-green-500);
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.remove-filter:hover {
+  border-color: solid 1px var(--ds-color-green-300);
+}
+
+.remove-filter > svg {
+  flex-shrink: 0;
+}
+
+.filter-list > li + li,
+.filter-list + * {
+  margin-top: 0.5rem;
+}
+
+.filter-option {
+  justify-content: space-between;
+}
+
+.filter-option:hover .filter-name {
+  text-decoration: underline;
+}
+
+.filter-option .filter-count {
+  color: var(--ds-color-neutral-400);
+}

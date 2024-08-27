@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
-import { requestRecord, requestGetThis } from '../../../pride';
-import { GetThisOptions, GetThisRecord } from '../../../getthis';
 import { Alert, Breadcrumb, H1 } from '../../../reusable';
+import { GetThisOptions, GetThisRecord } from '../../../getthis';
+import React, { useEffect } from 'react';
+import { requestGetThis, requestRecord } from '../../../pride';
+import { useLocation, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const GetThisPage = () => {
-  const { recordUid, barcode } = useParams();
+  const { barcode, recordUid } = useParams();
   const location = useLocation();
-  const record = useSelector((state) => {
-    return state.records.record;
+  const { record } = useSelector((state) => {
+    return state.records;
   });
-  const datastoreUid = useSelector((state) => {
-    return state.datastores.active;
+  const { active: datastoreUid } = useSelector((state) => {
+    return state.datastores;
   });
 
   useEffect(() => {
-    requestRecord({ recordUid, datastoreUid });
-    requestGetThis({ datastoreUid, recordUid, barcode });
+    requestRecord({ datastoreUid, recordUid });
+    requestGetThis({ barcode, datastoreUid, recordUid });
   }, [recordUid, datastoreUid, barcode]);
 
   return (
@@ -34,22 +34,22 @@ const GetThisPage = () => {
       <H1 className='heading-xlarge'>Get This</H1>
       {record?.fields?.length === 0 && record?.names?.length === 0
         ? (
-          <section className='container__rounded page'>
-            <Alert type='error'>
-              <span className='strong'>Error:</span> Unable to find this record.
-            </Alert>
-          </section>
+            <section className='container__rounded page'>
+              <Alert type='error'>
+                <span className='strong'>Error:</span> Unable to find this record.
+              </Alert>
+            </section>
           )
         : (
-          <>
-            <GetThisRecord barcode={barcode} />
-            <section className='card get-this-section y-spacing'>
-              <h2 className='fieldset-label margin-top__none'>
-                How would you like to get this item?
-              </h2>
-              <GetThisOptions record={record} />
-            </section>
-          </>
+            <>
+              <GetThisRecord barcode={barcode} />
+              <section className='card get-this-section y-spacing'>
+                <h2 className='fieldset-label margin-top__none'>
+                  How would you like to get this item?
+                </h2>
+                <GetThisOptions record={record} />
+              </section>
+            </>
           )}
     </article>
   );

@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { ExpandableContext } from './Expandable';
 import PropTypes from 'prop-types';
 
-const ExpandableButton = (props) => {
+const ExpandableButton = ({ count, name, ...rest }) => {
   const context = useContext(ExpandableContext);
 
-  if (context.disabled) return null;
+  if (context.disabled) {
+    return null;
+  }
 
   const handleToggleExpanded = () => {
     context.toggleExpanded();
@@ -13,18 +15,18 @@ const ExpandableButton = (props) => {
 
   return (
     <button
-      {...props}
+      {...rest}
       className='btn btn--small btn--secondary'
       onClick={handleToggleExpanded}
     >
-      Show {context.expanded ? 'fewer' : `all ${props.count}`} {props.name}
+      Show {context.expanded ? 'fewer' : `all ${count}`} {name}
     </button>
   );
 };
 
 ExpandableButton.propTypes = {
-  name: PropTypes.string,
-  count: PropTypes.number
+  count: PropTypes.number,
+  name: PropTypes.string
 };
 
 export default ExpandableButton;

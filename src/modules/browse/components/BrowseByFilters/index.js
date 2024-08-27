@@ -1,21 +1,21 @@
-import React from 'react';
 import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { stringifySearch } from '../../../search';
 import { useParams } from 'react-router-dom';
-import qs from 'qs';
 
-function NestedList ({ filter, browserFilterTo }) {
+const NestedList = ({ browserFilterTo, filter }) => {
   return (
     <li>
       {filter.value
         ? (
-          <Anchor to={browserFilterTo(filter.value)} className='browse-filter-link'>
-            <span className='browse-filter-link__text'>{filter.name}</span>
-            <span className='browse-filter-link__count'>({filter.count})</span>
-          </Anchor>
+            <Anchor to={browserFilterTo(filter.value)} className='browse-filter-link'>
+              <span className='browse-filter-link__text'>{filter.name}</span>
+              <span className='browse-filter-link__count'>({filter.count})</span>
+            </Anchor>
           )
         : (
-          <h3 className='heading-medium'>{filter.name}</h3>
+            <h3 className='heading-medium'>{filter.name}</h3>
           )}
       {filter.children && (
         <ul>
@@ -32,31 +32,26 @@ function NestedList ({ filter, browserFilterTo }) {
       )}
     </li>
   );
-}
+};
 
 NestedList.propTypes = {
   browserFilterTo: PropTypes.func.isRequired,
   filter: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    children: PropTypes.array,
     count: PropTypes.number,
-    children: PropTypes.array
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string
   }).isRequired
 };
 
-function BrowseByFilters ({ filters }) {
+const BrowseByFilters = ({ filters }) => {
   const { datastoreSlug } = useParams();
 
   const browserFilterTo = (uid) => {
     return (value) => {
-      const queryString = qs.stringify({
+      const queryString = stringifySearch({
         filter: { [uid]: value },
         sort: 'title_asc'
-      }, {
-        arrayFormat: 'repeat',
-        encodeValuesOnly: true,
-        allowDots: true,
-        format: 'RFC1738'
       });
       return `/${datastoreSlug}?${queryString}`;
     };
@@ -84,12 +79,12 @@ function BrowseByFilters ({ filters }) {
       })}
     </>
   );
-}
+};
 
 BrowseByFilters.propTypes = {
   filters: PropTypes.objectOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    filters: PropTypes.array.isRequired
+    filters: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired
   })).isRequired
 };
 

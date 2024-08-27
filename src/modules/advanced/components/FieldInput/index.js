@@ -1,41 +1,49 @@
-/** @jsxImportSource @emotion/react */
-import React from 'react';
 import Icon from '../../../reusable/components/Icon';
-import { MultipleChoice } from '../../../core';
-import SearchByOptions from '../../../search/components/SearchByOptions';
 import PropTypes from 'prop-types';
+import React from 'react';
+import SearchByOptions from '../../../search/components/SearchByOptions';
 
-function FieldInput ({
-  fieldedSearchIndex,
-  fieldedSearch,
-  fields,
+const FieldInput = ({
+  activeDatastore,
   changeFieldedSearch,
-  handleRemoveFieldedSearch,
-  activeDatastore
-}) {
+  fieldedSearch,
+  fieldedSearchIndex,
+  fields,
+  handleRemoveFieldedSearch
+}) => {
+  const notFirst = fieldedSearchIndex > 0;
+
   return (
     <fieldset className='y-spacing advanced-fieldset'>
-      <legend className='offpage'>Search field {fieldedSearchIndex + 1}</legend>
-      {fieldedSearchIndex === 0
-        ? null
-        : (
-          <MultipleChoice
-            name={`search-field-${fieldedSearchIndex}-booleans`}
-            heading={`Boolean operator for field ${fieldedSearchIndex} and field ${fieldedSearchIndex + 1}`}
-            options={['AND', 'OR', 'NOT']}
-            selectedIndex={fieldedSearch.booleanType}
-            onMultipleChoiceChange={({ index }) => {
-              return changeFieldedSearch({
-                fieldedSearchIndex,
-                booleanType: index
-              });
-            }}
-          />
-          )}
+      <legend className='visually-hidden'>Search field {fieldedSearchIndex + 1}</legend>
+      {notFirst && (
+        <fieldset className='flex__responsive'>
+          <legend className='visually-hidden'>Boolean operator for field {fieldedSearchIndex} and field {fieldedSearchIndex + 1}</legend>
+          {['AND', 'OR', 'NOT'].map((option, index) => {
+            return (
+              <label key={index}>
+                <input
+                  type='radio'
+                  name={`search-field-${fieldedSearchIndex}-booleans`}
+                  value={option}
+                  checked={fieldedSearch.booleanType === index}
+                  onChange={() => {
+                    return changeFieldedSearch({
+                      booleanType: index,
+                      fieldedSearchIndex
+                    });
+                  }}
+                />
+                {option}
+              </label>
+            );
+          })}
+        </fieldset>
+      )}
       <div className='advanced-input-container'>
         <select
           aria-label={`Selected field ${fieldedSearchIndex + 1}`}
-          className='dropdown advanced-field-select'
+          className='advanced-field-select'
           value={fieldedSearch.field}
           onChange={(event) => {
             return changeFieldedSearch({
@@ -48,40 +56,31 @@ function FieldInput ({
           <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
         </select>
         <div className='advanced-input-remove-container'>
-          <div
-            css={{
-              width: '100%',
-              boxSizing: 'border-box'
+          <input
+            type='text'
+            value={fieldedSearch.query}
+            data-hj-allow
+            onChange={(event) => {
+              return changeFieldedSearch({
+                fieldedSearchIndex,
+                query: event.target.value
+              });
             }}
-          >
-            <input
-              type='text'
-              value={fieldedSearch.query}
-              data-hj-allow
-              onChange={(event) => {
-                return changeFieldedSearch({
-                  fieldedSearchIndex,
-                  query: event.target.value
-                });
-              }}
-              autoComplete='on'
-              aria-label={`Search Term ${fieldedSearchIndex + 1}`}
-            />
-          </div>
-          {fieldedSearchIndex > 0
-            ? (
-              <button
-                className='advanced-input-remove-button'
-                type='button'
-                onClick={handleRemoveFieldedSearch}
-              >
-                <Icon icon='close' size={24} />
-                <span className='offpage'>
-                  Remove Field {fieldedSearchIndex + 1}
-                </span>
-              </button>
-              )
-            : null}
+            autoComplete='on'
+            aria-label={`Search Term ${fieldedSearchIndex + 1}`}
+          />
+          {notFirst && (
+            <button
+              className='advanced-input-remove-button'
+              type='button'
+              onClick={handleRemoveFieldedSearch}
+            >
+              <Icon icon='close' size={24} />
+              <span className='offpage'>
+                Remove Field {fieldedSearchIndex + 1}
+              </span>
+            </button>
+          )}
         </div>
       </div>
     </fieldset>
@@ -89,12 +88,12 @@ function FieldInput ({
 };
 
 FieldInput.propTypes = {
-  fieldedSearchIndex: PropTypes.number,
-  fieldedSearch: PropTypes.object,
-  fields: PropTypes.array,
+  activeDatastore: PropTypes.object,
   changeFieldedSearch: PropTypes.func,
-  handleRemoveFieldedSearch: PropTypes.func,
-  activeDatastore: PropTypes.object
+  fieldedSearch: PropTypes.object,
+  fieldedSearchIndex: PropTypes.number,
+  fields: PropTypes.array,
+  handleRemoveFieldedSearch: PropTypes.func
 };
 
 export default FieldInput;

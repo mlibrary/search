@@ -1,30 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
-import { findWhere } from '../../../reusable/underscore';
-import { Anchor, Breadcrumb, H1 } from '../../../reusable';
-import ResourceAccess from '../../../resource-acccess';
-import { TrimString } from '../../../core';
-import { getField, getFieldValue } from '../../utilities';
 import {
-  ViewMARC,
-  RecordFullFormats,
+  ActionsList,
+  AddToListButton,
+  GoToList,
+  isInList,
+  prejudice
+} from '../../../lists';
+import { Anchor, Breadcrumb, H1 } from '../../../reusable';
+import {
   FullRecordPlaceholder,
   RecommendedResource,
   RecordDescription,
-  Zotero,
-  RecordMetadata
+  RecordFullFormats,
+  RecordMetadata,
+  ViewMARC,
+  Zotero
 } from '../../../records';
-import { requestRecord } from '../../../pride';
-import { setDocumentTitle } from '../../../a11y';
-import {
-  ActionsList,
-  prejudice,
-  AddToListButton,
-  isInList,
-  GoToList
-} from '../../../lists';
+import { getField, getFieldValue } from '../../utilities';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { findWhere } from '../../../reusable/underscore';
 import { NoMatch } from '../../../pages';
+import { requestRecord } from '../../../pride';
+import { ResourceAccess } from '../../../resource-acccess';
+import { setDocumentTitle } from '../../../a11y';
+import { ShelfBrowse } from '../../../browse';
+import { TrimString } from '../../../core';
+import { useSelector } from 'react-redux';
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance();
 
 const FullRecord = () => {
@@ -43,32 +44,32 @@ const FullRecord = () => {
     return state.lists[datastores.active];
   });
 
-  const recordUid = params.recordUid;
+  const { recordUid } = params;
   const datastoreUid = datastores.active;
   const datastore = findWhere(datastores.datastores, {
     uid: datastoreUid
   });
 
   useEffect(() => {
-    requestRecord({ recordUid, datastoreUid });
+    requestRecord({ datastoreUid, recordUid });
     prejudiceInstance = prejudice.createVariableStorageDriverInstance();
     prejudiceInstance.clearRecords();
-    prejudiceInstance.addRecord({ recordUid, datastoreUid });
-  }, [recordUid, datastoreUid]);
+    prejudiceInstance.addRecord({ datastoreUid, recordUid });
+  }, [datastoreUid, recordUid]);
 
   useEffect(() => {
     if (record) {
       if (record.uid !== recordUid) {
         if (datastoreUid === 'mirlyn' && recordUid.length === 9) {
-          // treat as an aleph id
+          // Treat as an aleph id
           navigate(`/catalog/record/${record.uid}`);
         } else if (datastoreUid === 'onlinejournals' && recordUid.length === 9) {
-          // treat as an aleph id
+          // Treat as an aleph id
           navigate(`/onlinejournals/record/${record.uid}`);
         } else if (record.alt_ids.includes(recordUid)) {
           navigate(`/${datastore.slug}/record/${record.uid}`);
         } else {
-          requestRecord({ recordUid, datastoreUid });
+          requestRecord({ datastoreUid, recordUid });
         }
       }
 
@@ -105,9 +106,11 @@ const FullRecord = () => {
     return <NoMatch />;
   }
 
-  // Check if the record in state matches the record ID in the URL
-  // If they don't match, then the new record is still being fetched.
-  const recordUidValue = getFieldValue(getField(record.fields, 'id'))[0];
+  /*
+   * Check if the record in state matches the record ID in the URL
+   * If they don't match, then the new record is still being fetched.
+   */
+  const [recordUidValue] = getFieldValue(getField(record.fields, 'id'));
   if (recordUidValue !== recordUid) {
     return (
       <div className='container container-narrow'>
@@ -156,20 +159,21 @@ const FullRecord = () => {
           <Zotero record={record} />
           <h2 className='full-record__record-info'>Record info:</h2>
           <RecordMetadata record={record} />
-          {inDatastore &&
-            <p>The University of Michigan Library aims to describe library materials in a
-              way that respects the people and communities who create, use, and are
-              represented in our collections. Report harmful or offensive language in catalog
-              records, finding aids, or elsewhere in our collections anonymously through
-              our <Anchor href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform'>metadata feedback form</Anchor>.
-              More information at <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-library-metadata'>Remediation of Harmful Language.</Anchor>
-            </p>}
+          {inDatastore && (
+            <p>
+              The University of Michigan Library aims to describe its collections in a way that respects the people and communities who create, use, and are represented in them. We encourage you to
+              {' '}
+              <Anchor href='https://docs.google.com/forms/d/e/1FAIpQLSfSJ7y-zqmbNQ6ssAhSmwB7vF-NyZR9nVwBICFI8dY5aP1-TA/viewform'>contact us</Anchor>
+              {' '}
+              anonymously if you encounter harmful or problematic language in catalog records or finding aids. More information about our policies and practices is available at
+              {' '}
+              <Anchor href='https://www.lib.umich.edu/about-us/policies/remediation-harmful-language-descriptions-collection-material'>Remediation of Harmful Language</Anchor>
+              .
+            </p>
+          )}
         </div>
         <section aria-labelledby='available-at'>
-          <div
-            className='record-container'
-            style={{ paddingBottom: '0.25rem' }}
-          >
+          <div className='record-container padding-bottom__2xs'>
             <h2 className='full-record__record-info' id='available-at'>
               Available at:
             </h2>
@@ -177,9 +181,11 @@ const FullRecord = () => {
           <ResourceAccess record={record} />
         </section>
       </div>
+      {datastoreUid === 'mirlyn' && <ShelfBrowse record={record} />}
       <div className='full-record__actions-container'>
         <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>
-          Actions{' '}
+          Actions
+          {' '}
           <span className='text-small lists-actions__heading-tag'>
             Select what to do with this record.
           </span>
@@ -194,10 +200,12 @@ const FullRecord = () => {
       </div>
       {inDatastore && (() => {
         const indexingDate = findWhere(record.fields, { uid: 'indexing_date' });
-        if (!indexingDate) return null;
+        if (!indexingDate) {
+          return null;
+        }
         return (
-          <p style={{ color: 'var(--search-color-grey-600)', marginTop: 0, order: 3 }}>
-            <span style={{ fontWeight: 600 }}>{indexingDate.name}:</span> {indexingDate.value}
+          <p className='margin-top__none text-grey full-record__date-last-indexed'>
+            <span className='strong'>{indexingDate.name}:</span> {indexingDate.value}
           </p>
         );
       })()}

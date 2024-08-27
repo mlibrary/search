@@ -1,27 +1,26 @@
-import React from 'react';
 import './styles.css';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import {
   Anchor,
-  Icon,
   Expandable,
-  ExpandableProvider,
-  ExpandableChildren,
   ExpandableButton,
+  ExpandableChildren,
+  ExpandableProvider,
+  Icon,
   TruncateText
 } from '../../../reusable';
 import getHoldingByBarcode from '../../getHoldingByBarcode';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const Cell = ({ icon, href, html, text }) => {
+const Cell = ({ href, html, icon, text }) => {
   return (
     <>
       {icon && (
         <Icon
           icon={icon}
           className='margin-right__2xs'
-          style={{ marginTop: '-2px' }}
         />
       )}
       {href && <Anchor href={href}>{text}</Anchor>}
@@ -32,9 +31,9 @@ const Cell = ({ icon, href, html, text }) => {
 };
 
 Cell.propTypes = {
-  icon: PropTypes.string,
   href: PropTypes.string,
   html: PropTypes.string,
+  icon: PropTypes.string,
   text: PropTypes.string
 };
 
@@ -44,20 +43,24 @@ const GetThisFindIt = () => {
     return state.records.record?.resourceAccess;
   });
 
-  if (!resourceAccess) return null;
+  if (!resourceAccess) {
+    return null;
+  }
 
   const holding = getHoldingByBarcode(resourceAccess, barcode);
 
-  if (!holding) return null;
+  if (!holding) {
+    return null;
+  }
 
   const {
     caption,
-    notes,
     captionLink,
     headings,
-    rows,
-    name
-  } = holding[0];
+    name,
+    notes,
+    rows
+  } = [holding];
 
   return (
     <>
@@ -67,10 +70,7 @@ const GetThisFindIt = () => {
           <Expandable>
             {caption && (
               <figcaption>
-                <span
-                  style={{ fontWeight: '600' }}
-                  className='margin-right__m'
-                >
+                <span className='margin-right__m strong'>
                   {caption}
                 </span>
                 {captionLink && (
@@ -83,8 +83,8 @@ const GetThisFindIt = () => {
                 )}
                 {notes && (
                   <ul className='notes-list'>
-                    {notes.map((note, n) => {
-                      return <li key={n}>{note}</li>;
+                    {notes.map((note, index) => {
+                      return <li key={index}>{note}</li>;
                     })}
                   </ul>
                 )}
@@ -93,55 +93,21 @@ const GetThisFindIt = () => {
             <table>
               <thead>
                 <tr>
-                  {headings.map((heading, i) => {
-                    return <th scope='col' key={i}>{heading}</th>;
+                  {headings.map((heading, index) => {
+                    return <th scope='col' key={index}>{heading}</th>;
                   })}
                 </tr>
               </thead>
               <tbody>
                 {rows.length <= 2
                   ? (
-                    <>
-                      {rows.map((row, i) => {
-                        return (
-                          <tr key={i}>
-                            {row.map((cell, t) => {
-                              return (
-                                <td key={t} className={cell.intent && `intent__${[cell.intent]}`}>
-                                  <Cell {...cell} />
-                                </td>
-                              );
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </>
-                    )
-                  : (
-                    <>
-                      <tr>
-                        {rows[0].map((cell, t) => {
+                      <>
+                        {rows.map((row, index) => {
                           return (
-                            <td key={t} className={cell.intent && `intent__${[cell.intent]}`}>
-                              <Cell {...cell} />
-                            </td>
-                          );
-                        })}
-                      </tr>
-                      {rows.length > 6 && (
-                        <tr>
-                          <td colSpan={`${headings.length}`}>
-                            <ExpandableButton count={rows.length} name={name} />
-                          </td>
-                        </tr>
-                      )}
-                      <ExpandableChildren show={0}>
-                        {rows.slice(1).map((row, i) => {
-                          return (
-                            <tr key={i}>
-                              {row.map((cell, t) => {
+                            <tr key={index}>
+                              {row.map((cell, num) => {
                                 return (
-                                  <td key={t} className={cell.intent && `intent__${[cell.intent]}`}>
+                                  <td key={num} className={cell.intent ? `intent__${[cell.intent]}` : ''}>
                                     <Cell {...cell} />
                                   </td>
                                 );
@@ -149,19 +115,53 @@ const GetThisFindIt = () => {
                             </tr>
                           );
                         })}
-                      </ExpandableChildren>
-                      <ExpandableProvider>
-                        {(context) => {
-                          return (context.expanded || rows.length <= 6) && (
-                            <tr>
-                              <td colSpan={headings.length.toString()}>
-                                <ExpandableButton count={rows.length} name={name} />
+                      </>
+                    )
+                  : (
+                      <>
+                        <tr>
+                          {rows[0].map((cell, index) => {
+                            return (
+                              <td key={index} className={cell.intent ? `intent__${[cell.intent]}` : ''}>
+                                <Cell {...cell} />
                               </td>
-                            </tr>
-                          );
-                        }}
-                      </ExpandableProvider>
-                    </>
+                            );
+                          })}
+                        </tr>
+                        {rows.length > 6 && (
+                          <tr>
+                            <td colSpan={`${headings.length}`}>
+                              <ExpandableButton count={rows.length} name={name} />
+                            </td>
+                          </tr>
+                        )}
+                        <ExpandableChildren show={0}>
+                          {rows.slice(1).map((row, index) => {
+                            return (
+                              <tr key={index}>
+                                {row.map((cell, num) => {
+                                  return (
+                                    <td key={num} className={cell.intent ? `intent__${[cell.intent]}` : ''}>
+                                      <Cell {...cell} />
+                                    </td>
+                                  );
+                                })}
+                              </tr>
+                            );
+                          })}
+                        </ExpandableChildren>
+                        <ExpandableProvider>
+                          {(context) => {
+                            return (context.expanded || rows.length <= 6) && (
+                              <tr>
+                                <td colSpan={headings.length.toString()}>
+                                  <ExpandableButton count={rows.length} name={name} />
+                                </td>
+                              </tr>
+                            );
+                          }}
+                        </ExpandableProvider>
+                      </>
                     )}
               </tbody>
             </table>

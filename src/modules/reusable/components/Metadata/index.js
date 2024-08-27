@@ -1,119 +1,140 @@
-/** @jsxImportSource @emotion/react */
-import React from 'react';
-import { createSelector } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import './styles.css';
 import {
   Anchor,
-  Icon,
   Expandable,
+  ExpandableButton,
   ExpandableChildren,
-  ExpandableButton
+  Icon
 } from '../../../reusable';
-import { stringifySearchQueryForURL } from '../../../pride';
+import { BrowseLink } from '../../../browse';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { stringifySearch } from '../../../search';
+import { useSelector } from 'react-redux';
 
-const visuallyHiddenCSS = {
-  border: 0,
-  clip: 'rect(0 0 0 0)',
-  height: '1px',
-  margin: '-1px',
-  overflow: 'hidden',
-  padding: 0,
-  position: 'absolute',
-  width: '1px'
-};
+const DescriptionItem = ({ browse, children, href, search }) => {
+  const { active: activeInstitution, defaultInstitution } = useSelector((state) => {
+    return state.institution;
+  });
+  const { slug, uid } = useSelector((state) => {
+    const { active, datastores } = state.datastores;
+    return datastores.find((datastore) => {
+      return datastore.uid === active;
+    });
+  });
 
-export default function Metadata ({ data, kind }) {
-  const isCondensed = kind === 'condensed';
-  const metadataCSS = !isCondensed
-    ? {
-        '@media only screen and (min-width: 641px)': {
-          display: 'grid',
-          gridTemplateColumns: '10rem 1fr',
-          gridColumnGap: 'var(--search-spacing-s)',
-          'dt:not(:first-of-type) + dd': {
-            paddingTop: 'var(--search-spacing-xs)'
-          }
-        }
-      }
-    : {
-        dt: {
-          ...visuallyHiddenCSS
-        },
-        'dt:not(:first-of-type) + dd': {
-          paddingTop: 'var(--search-spacing-xs)'
-        }
-      };
+  const anchorAttributes = { href };
 
-  // Only show expandable if more than 5.
-  function expandable (desc) {
-    if (desc.length <= 5) {
-      return {
-        show: desc.length,
-        expandable: false
-      };
-    }
-
-    return {
-      show: 4,
-      expandable: true
-    };
+  if (search) {
+    const { scope, type, value } = search;
+    anchorAttributes.to = `/${slug}?${stringifySearch({
+      filter: type === 'filtered' ? { [scope]: value } : {},
+      library: uid === 'mirlyn' ? (activeInstitution || defaultInstitution) : {},
+      query: type === 'fielded' ? `${scope}:${value}` : value
+    })}`;
   }
 
   return (
-    <dl
-      css={{
-        ...metadataCSS,
-        'dt:not(:first-of-type)': {
-          paddingTop: 'var(--search-spacing-xs)'
-        }
-      }}
-    >
-      {data.map((d, i) => {
-        return (
-          <Expandable key={'expandable-metadata-dt-dd-' + i}>
-            <dt
-              css={{
-                gridColumnStart: '1'
-              }}
-            >
-              {d.term}
-            </dt>
-            <ExpandableChildren show={expandable(d.description).show}>
-              {d.description.map((d, i) => {
-                return (
-                  <dd
-                    css={{
-                      gridColumnStart: '2',
-                      display: 'flex',
-                      alignItems: 'top'
-                    }}
-                    key={'metadata-dd-' + i}
-                  >
-                    <Description data={d} />
-                  </dd>
-                );
-              })}
-            </ExpandableChildren>
+    <>
+      {(href || search) ? <Anchor {...anchorAttributes}>{children}</Anchor> : children}
+      {browse && (
+        <>
+          <span className='text-grey font-small margin-x__2xs'>|</span>
+          <BrowseLink
+            className='text-grey font-small underline underline__hover-thick'
+            type={browse.type}
+            value={browse.value}
+          >
+            {browse.text}
+          </BrowseLink>
+        </>
+      )}
+    </>
+  );
+};
 
-            {expandable(d.description).expandable && (
-              <dd
-                css={{
-                  gridColumnStart: '2',
-                  display: 'flex',
-                  alignItems: 'top'
-                }}
-              >
-                <ExpandableButton
-                  name={d.termPlural ? d.termPlural : d.term}
-                  count={d.description.length}
-                  css={{
-                    marginTop: 'var(--search-spacing-xs)'
-                  }}
-                />
-              </dd>
-            )}
-          </Expandable>
+DescriptionItem.propTypes = {
+  browse: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
+  href: PropTypes.string,
+  search: PropTypes.object
+};
+
+const Description = ({ data }) => {
+  if (Array.isArray(data)) {
+    return (
+      <ol className='list__unstyled'>
+        {data.map((datum, index) => {
+          return (
+            <li key={index}>
+              {index > 0 && <Icon icon='navigate_next' className='text-grey__light' />}
+              <Description data={datum} />
+            </li>
+          );
+        })}
+      </ol>
+    );
+  }
+
+  const { icon, image, text } = data;
+
+  return (
+    <DescriptionItem {...data}>
+      <span style={{ display: image ? 'block' : 'initial' }}>
+        {icon && (
+          <Icon
+            icon={icon}
+            size={19}
+            className='margin-right__2xs text-grey__light'
+          />
+        )}
+        {text}
+      </span>
+      {image && (
+        <img
+          src={image}
+          alt=''
+          className='padding-top__xs'
+        />
+      )}
+    </DescriptionItem>
+  );
+};
+
+Description.propTypes = {
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ])
+};
+
+export default function Metadata ({ data, kind }) {
+  return (
+    <dl className='flex__responsive metadata-list'>
+      {data.map((datum, datumIndex) => {
+        const { description, term, termPlural } = datum;
+        const isExpandable = description.length > 5;
+        return (
+          <div className={kind === 'condensed' ? '' : 'metadata-list-item'} key={datumIndex}>
+            <Expandable>
+              <dt className={kind === 'condensed' ? 'visually-hidden' : ''}>
+                {term}
+              </dt>
+              <ExpandableChildren show={isExpandable ? 4 : description.length}>
+                {description.map((descriptor, index) => {
+                  return (
+                    <dd key={index}>
+                      <Description data={descriptor} />
+                    </dd>
+                  );
+                })}
+              </ExpandableChildren>
+              {isExpandable && <dd className='margin-top__2xs'><ExpandableButton name={termPlural || term} count={description.length} /></dd>}
+            </Expandable>
+          </div>
         );
       })}
     </dl>
@@ -124,221 +145,3 @@ Metadata.propTypes = {
   data: PropTypes.array,
   kind: PropTypes.string
 };
-
-function Description ({ data }) {
-  if (Array.isArray(data)) {
-    return (
-      <ol
-        css={{
-          margin: '0',
-          padding: '0'
-        }}
-      >
-        {data.map((d, i) => {
-          return (
-            <li
-              css={{
-                display: 'inline-block'
-              }}
-              key={'description-li-' + i}
-            >
-              {i > 0 && (
-                <span
-                  css={{
-                    color: 'var(--ds-color-neutral-300)'
-                  }}
-                >
-                  <Icon icon='navigate_next' />
-                </span>
-              )}
-              <Description data={d} />
-            </li>
-          );
-        })}
-      </ol>
-    );
-  }
-
-  const { icon, text, image } = data;
-
-  return (
-    <DescriptionItem {...data}>
-      {icon && (
-        <span
-          css={{
-            marginRight: 'var(--search-spacing-2xs)',
-            color: 'var(--ds-color-neutral-300)',
-            display: 'flex',
-            alignItems: 'center'
-          }}
-        >
-          <Icon icon={icon} size={19} />
-        </span>
-      )}
-
-      {image
-        ? (
-          <div>
-            <span
-              css={{
-                display: 'block'
-              }}
-            >
-              {text}
-            </span>
-            <img
-              src={image}
-              alt=''
-              css={{
-                maxWidth: '16rem',
-                width: '100%',
-                paddingTop: 'var(--search-spacing-xs)'
-              }}
-            />
-          </div>
-          )
-        : (
-          <>{text}</>
-          )}
-    </DescriptionItem>
-  );
-}
-
-Description.propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object
-  ])
-};
-
-function DescriptionItem ({ href, search, browse, children }) {
-  if (href || search || browse) {
-    return (
-      <DescriptionItemLink href={href} search={search} browse={browse}>
-        {children}
-      </DescriptionItemLink>
-    );
-  }
-
-  return children;
-}
-
-DescriptionItem.propTypes = {
-  href: PropTypes.string,
-  search: PropTypes.object,
-  browse: PropTypes.object,
-  children: PropTypes.array
-};
-
-function browseLinkByEnvironment (type, value) {
-  let browseLink = 'https://search.lib.umich.edu/catalog/browse';
-  if (process.env.NODE_ENV === 'development') {
-    browseLink = 'https://browse.workshop.search.lib.umich.edu';
-  }
-  return `${browseLink}/${type}?query=${value}`;
-}
-
-function DescriptionItemLink ({ href, search, browse, children }) {
-  if (href) {
-    return (
-      <Anchor href={href}>
-        {children}
-      </Anchor>
-    );
-  }
-
-  if (browse) {
-    return (
-      <span>
-        <SearchLink search={search}>{children}</SearchLink>
-        <Anchor
-          css={{
-            color: 'var(--ds-color-neutral-300)',
-            fontSize: '0.875rem',
-            textDecoration: 'underline',
-            ':hover': {
-              textDecorationThickness: '2px'
-            },
-            ':before': {
-              background: 'var(--ds-color-neutral-400)',
-              content: '""',
-              display: 'inline-block',
-              height: '1em',
-              margin: '0 0.5rem',
-              verticalAlign: 'middle',
-              width: '1px'
-            }
-          }}
-          href={browseLinkByEnvironment(browse.type, browse.value)}
-        >
-          {browse.text}
-        </Anchor>
-      </span>
-    );
-  }
-
-  return <SearchLink search={search}>{children}</SearchLink>;
-}
-
-DescriptionItemLink.propTypes = {
-  href: PropTypes.string,
-  search: PropTypes.object,
-  browse: PropTypes.object,
-  children: PropTypes.array
-};
-
-function SearchLink ({ children, search }) {
-  const { datastores, institution } = useSelector(createSelector(
-    (state) => {
-      return state.datastores;
-    },
-    (state) => {
-      return state.institution;
-    },
-    (datastores, institution) => {
-      return { datastores, institution };
-    }
-  ));
-  const activeDatastore = datastores.datastores.find((ds) => {
-    return ds.uid === datastores.active;
-  });
-  const to = `/${activeDatastore.slug}?${createSearchURL({
-    ...search,
-    institution,
-    datastoreUid: activeDatastore.uid
-  })}`;
-
-  return (
-    <Anchor to={to}>
-      {children}
-    </Anchor>
-  );
-}
-
-SearchLink.propTypes = {
-  children: PropTypes.array,
-  search: PropTypes.object
-};
-
-function createSearchURL ({ type, scope, value, institution, datastoreUid }) {
-  const query =
-    type === 'fielded'
-      ? `${scope}:${value}`
-      : type === 'specified'
-        ? value
-        : {};
-  const filter = type === 'filtered' ? { [scope]: value } : {};
-  let library = {};
-
-  if (datastoreUid === 'mirlyn') {
-    library = institution.active
-      ? institution.active
-      : institution.defaultInstitution;
-  }
-
-  return stringifySearchQueryForURL({
-    query,
-    filter,
-    library
-  });
-}

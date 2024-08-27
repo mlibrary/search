@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-function A11yLiveMessage () {
+const A11yLiveMessage = () => {
   const a11yMessage = useSelector((state) => {
     return state.a11y.message;
   });
@@ -11,6 +11,6 @@ function A11yLiveMessage () {
       <span>{a11yMessage}</span>
     </div>
   );
-}
+};
 
 export default A11yLiveMessage;

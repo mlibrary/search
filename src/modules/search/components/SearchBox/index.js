@@ -1,14 +1,13 @@
-/** @jsxImportSource @emotion/react */
-import { Global } from '@emotion/react';
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import './styles.css';
 import { Anchor, Icon } from '../../../reusable';
-import qs from 'qs';
+import { getSearchStateFromURL, stringifySearch } from '../../utilities';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-function SearchBox () {
+const SearchBox = () => {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
@@ -19,7 +18,7 @@ function SearchBox () {
     return state.advanced[state.datastores.active];
   });
   const isAdvanced = useSelector((state) => {
-    return !!state.advanced[state.datastores.active];
+    return Boolean(state.advanced[state.datastores.active]);
   });
   const activeDatastore = useSelector(
     (state) => {
@@ -30,7 +29,7 @@ function SearchBox () {
   );
   const [inputQuery, setInputQuery] = useState(query);
   const defaultField = fields[0].uid;
-  const [field, setField] = useState(defaultField);
+  const [currentField, setcurrentField] = useState(defaultField);
 
   // Set field and input when `activeDatastore`, `query`, or `fields` changes
   useEffect(() => {
@@ -38,16 +37,16 @@ function SearchBox () {
       return field.uid;
     });
     // Set default value of field
-    let getField = fieldIDs[0];
+    let [getField] = fieldIDs;
     // Set default value of input
     let getInput = query;
     // Check if the query is a single fielded search that exists in the current datastore
     if (
-      query &&
-      ![' AND ', ' OR ', ' NOT '].some((operator) => {
+      query
+      && ![' AND ', ' OR ', ' NOT '].some((operator) => {
         return query.includes(operator);
-      }) &&
-      fieldIDs.some((field) => {
+      })
+      && fieldIDs.some((field) => {
         return query.startsWith(`${field}:`);
       })
     ) {
@@ -63,29 +62,31 @@ function SearchBox () {
       }
     }
     // Set field value
-    setField(getField);
+    setcurrentField(getField);
     // Set input value
     setInputQuery(getInput);
   }, [activeDatastore, query, fields]);
 
-  function setOption (e) {
+  const setOption = (event) => {
     window.dataLayer.push({
       event: 'selectionMade',
-      selectedElement: e.target.options[e.target.selectedIndex]
+      selectedElement: event.target.options[event.target.selectedIndex]
     });
-    return setField(e.target.value);
-  }
+    return setcurrentField(event.target.value);
+  };
 
-  function handleSubmitSearch (e) {
-    e.preventDefault();
+  const handleSubmitSearch = (event) => {
+    event.preventDefault();
 
-    // Get the dropdown's current value because `field` does not change
-    // when switching to a different datastore, and the active datastore does not have the queried option
-    const dropdown = document.querySelector('.search-box-dropdown > select.dropdown');
+    /*
+     * Get the dropdown's current value because `field` does not change
+     * when switching to a different datastore, and the active datastore does not have the queried option
+     */
+    const dropdown = document.querySelector('select.search-box-dropdown');
     const dropdownOption = dropdown.value;
 
     // Change `field` to current dropdown value
-    dropdown.dispatchEvent(new Event('change', setField(dropdownOption)));
+    dropdown.dispatchEvent(new Event('change', setcurrentField(dropdownOption)));
 
     // Check if browse option
     const browseOption = dropdownOption.startsWith('browse_by_');
@@ -94,18 +95,13 @@ function SearchBox () {
     const newQuery = (browseOption || dropdownOption === defaultField) ? inputQuery : `${dropdownOption}:(${inputQuery})`;
 
     // Set new URL
-    const newURL = qs.stringify({
+    const newURL = stringifySearch({
       // Preserve existing URL's tate
-      ...qs.parse(location.search?.substring(1), { allowDots: true }),
+      ...getSearchStateFromURL(location.search),
       // If new search, return the first page
-      page: undefined,
+      page: 1,
       // Add new query
       query: newQuery
-    }, {
-      arrayFormat: 'repeat',
-      encodeValuesOnly: true,
-      allowDots: true,
-      format: 'RFC1738'
     });
 
     // Redirect users if browse option has been submitted
@@ -120,191 +116,66 @@ function SearchBox () {
       window.location.href = `${href}/${dropdownOption.replace('browse_by_', '')}?${newURL}`;
     } else {
       // Do not submit if query remains unchanged
-      if (query === newQuery) return;
+      if (query === newQuery) {
+        return;
+      }
       // Submit new search
       navigate(`/${params.datastoreSlug}?${newURL}`);
     }
-  }
+  };
 
   return (
     <form
-      css={{
-        background: 'var(--search-color-blue-200)',
-        paddingBottom: '0.75rem',
-        borderBottom: 'solid 2px var(--search-color-blue-300)'
-      }}
-      onSubmit={(e) => {
-        return handleSubmitSearch(e);
+      className='search-box-form'
+      onSubmit={(event) => {
+        return handleSubmitSearch(event);
       }}
     >
-      <Global styles={{
-        '*:focus': {
-          outline: 0,
-          boxShadow: 'rgb(255, 203, 5) 0px 0px 0px 2px, rgb(33, 43, 54) 0px 0px 0px 3px !important',
-          zIndex: '10',
-          borderRadius: '2px !important'
-        }
-      }}
-      />
-      <div
-        css={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '0 1rem',
-          '@media only screen and (min-width: 641px)': {
-            padding: '0 2rem'
-          }
-        }}
-      >
-        <div css={{
-          display: 'grid',
-          gridTemplateAreas:
-          `'dropdown dropdown'
-           'input button'
-           'advanced advanced'`,
-          gridTemplateColumns: '1fr auto',
-          gridTemplateRows: 'auto',
-          '@media only screen and (min-width: 641px)': {
-            gridTemplateAreas:
-            `'dropdown input button'
-             'advanced advanced advanced'`,
-            gridTemplateColumns: '290px 1fr auto'
-          },
-          '@media only screen and (min-width: 820px)': {
-            gridTemplateAreas: '\'dropdown input button advanced\'',
-            gridTemplateColumns: '340px 1fr auto auto'
-          }
-        }}
+      <div className='container container-medium'>
+        <select
+          aria-label='Select an option'
+          className='search-box-dropdown'
+          value={currentField}
+          onChange={(event) => {
+            return setOption(event);
+          }}
+          autoComplete='off'
         >
-          <div
-            className='search-box-dropdown'
-            css={{
-              gridArea: 'dropdown',
-              marginTop: '0.75rem',
-              position: 'relative',
-              width: '100%'
-            }}
+          <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
+        </select>
+        <input
+          type='text'
+          aria-label={currentField.startsWith('browse_by_') ? 'Browse for' : 'Search for'}
+          value={inputQuery}
+          onChange={(event) => {
+            return setInputQuery(event.target.value);
+          }}
+          autoComplete='on'
+          name='query'
+        />
+        <button
+          className='btn btn--primary'
+          type='submit'
+        >
+          <Icon icon='search' size={24} />
+          <span className='offpage'>
+            Search
+          </span>
+        </button>
+        {isAdvanced && (
+          <Anchor
+            to={`/${params.datastoreSlug}/advanced${location.search}`}
+            className='strong underline__hover'
           >
-            <select
-              aria-label='Select an option'
-              className='dropdown'
-              value={field}
-              onChange={(e) => {
-                return setOption(e);
-              }}
-              autoComplete='off'
-              css={{
-                all: 'unset',
-                background: 'var(--search-color-grey-100)',
-                border: 'solid 1px var(--search-color-blue-400)',
-                borderRadius: '4px',
-                boxSizing: 'border-box',
-                height: '100%',
-                lineHeight: '1.6 !important',
-                maxWidth: '100%',
-                padding: '0.5rem 0.75rem',
-                paddingRight: '3rem',
-                width: '100%',
-                '@media only screen and (min-width: 641px)': {
-                  borderBottomRightRadius: '0',
-                  borderTopRightRadius: '0'
-                }
-              }}
-            >
-              <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
-            </select>
-            <Icon
-              icon='expand_more'
-              size={24}
-              css={{
-                position: 'absolute',
-                right: '0.5rem',
-                top: '0.6rem',
-                pointerEvents: 'none'
-              }}
-            />
-          </div>
-          <input
-            type='text'
-            aria-label={field.startsWith('browse_by_') ? 'Browse for' : 'Search for'}
-            value={inputQuery}
-            onChange={(e) => {
-              return setInputQuery(e.target.value);
-            }}
-            autoComplete='on'
-            name='query'
-            css={{
-              all: 'unset',
-              background: 'white',
-              boxSizing: 'border-box',
-              borderColor: 'var(--search-color-blue-400) !important',
-              borderRadius: '4px',
-              gridArea: 'input',
-              lineHeight: '1.6 important!',
-              marginTop: '0.75rem!important',
-              maxWidth: '100%',
-              width: 'auto!important',
-              '@media only screen and (min-width: 641px)': {
-                borderLeft: '0 !important',
-                borderBottomLeftRadius: '0 !important',
-                borderTopLeftRadius: '0 !important'
-              }
-            }}
-          />
-          <button
-            className='btn btn--primary'
-            css={{
-              alignItems: 'center',
-              display: 'flex',
-              gridArea: 'button',
-              margin: '0.75rem 0 0 0.75rem',
-              minWidth: '44px',
-              padding: '0.5rem 0.75rem'
-            }}
-            type='submit'
-          >
-            <Icon icon='search' size={24} />
-            <span css={{
-              border: '0px',
-              clip: 'rect(0px, 0px, 0px, 0px)',
-              height: '1px',
-              margin: '-1px',
-              overflow: 'hidden',
-              padding: '0px',
-              position: 'absolute',
-              width: '1px',
-              whiteSpace: 'nowrap',
-              overflowWrap: 'normal'
-            }}
-            >
-              Search
-            </span>
-          </button>
-          {isAdvanced && (
-            <Anchor
-              to={`/${params.datastoreSlug}/advanced${location.search}`}
-              css={{
-                alignSelf: 'center',
-                fontWeight: '600',
-                gridArea: 'advanced',
-                margin: '0.75rem 0.75rem 0 0.75rem',
-                padding: '0.5rem 0',
-                textAlign: 'center',
-                '&:hover': {
-                  textDecoration: 'underline'
-                }
-              }}
-            >
-              <span className='offpage'>{activeDatastore.name}</span>
-              <span>Advanced</span>
-              <span className='offpage'>Search</span>
-            </Anchor>
-          )}
-        </div>
-        <SearchTip activeDatastore={activeDatastore.uid} field={field} />
+            <span className='visually-hidden'>{activeDatastore.name}</span>
+            <span>Advanced</span>
+            <span className='visually-hidden'>Search</span>
+          </Anchor>
+        )}
+        <SearchTip activeDatastore={activeDatastore.uid} field={currentField} />
       </div>
     </form>
   );
-}
+};
 
 export default SearchBox;

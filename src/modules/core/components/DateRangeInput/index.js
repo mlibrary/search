@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { MultipleChoice } from '../../../core';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function YearInput ({ query, setQuery, point = 'start' }) {
+const YearInput = ({ point = 'start', query, setQuery }) => {
   return (
     <div>
-      <label htmlFor='date-range-start-date'>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
+      <label htmlFor={`date-range-${point}-date`}>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
       <input
         className='date-range-input-text'
         id={`date-range-${point}-date`}
@@ -19,12 +18,12 @@ function YearInput ({ query, setQuery, point = 'start' }) {
       <small id={`date-range-${point}-date-description`}>Please enter this format: YYYY</small>
     </div>
   );
-}
+};
 
 YearInput.propTypes = {
+  point: PropTypes.string,
   query: PropTypes.string,
-  setQuery: PropTypes.func,
-  point: PropTypes.string
+  setQuery: PropTypes.func
 };
 
 const dateRangeOptions = ['Before', 'After', 'Between', 'In'];
@@ -36,21 +35,16 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
 
   const handleStateChange = (beginQueryVal, endQueryVal, selectedRange) => {
     handleSelection({
-      selectedRange,
       beginDateQuery: beginQueryVal,
-      endDateQuery: endQueryVal
+      endDateQuery: endQueryVal,
+      selectedRange
     });
   };
 
   useEffect(() => {
     const selectedRange = dateRangeOptions[selectedRangeOptionState];
     handleStateChange(beginQueryState, endQueryState, selectedRange);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [beginQueryState, endQueryState, selectedRangeOptionState]);
-
-  const handleRangeChange = (index) => {
-    setSelectedRangeOption(index);
-  };
 
   const handleBeginQueryChange = (query) => {
     setBeginQuery(query);
@@ -64,34 +58,46 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
 
   return (
     <div className='date-range-input'>
-      <MultipleChoice
-        name='date-range-input'
-        heading='Select the type of date range to search on'
-        options={dateRangeOptions}
-        selectedIndex={selectedRangeOptionState}
-        onMultipleChoiceChange={(e) => {
-          return handleRangeChange(e.index);
-        }}
-      />
+      <fieldset className='flex__responsive'>
+        <legend className='visually-hidden'>Select the type of date range to search on</legend>
+        {dateRangeOptions.map((option, index) => {
+          return (
+            <label key={index}>
+              <input
+                type='radio'
+                name='date-range-input'
+                value={option}
+                checked={selectedRangeOptionState === index}
+                onChange={() => {
+                  return setSelectedRangeOption(index);
+                }}
+              />
+              {option}
+            </label>
+          );
+        })}
+      </fieldset>
       <div className='date-range-container'>
         {
-          rangeOption !== 'Before' &&
+          rangeOption !== 'Before' && (
             <YearInput
               query={beginQueryState}
-              setQuery={(e) => {
-                return handleBeginQueryChange(e.target.value);
+              setQuery={(event) => {
+                return handleBeginQueryChange(event.target.value);
               }}
             />
+          )
         }
         {
-          ['Before', 'Between'].includes(rangeOption) &&
+          ['Before', 'Between'].includes(rangeOption) && (
             <YearInput
               query={endQueryState}
-              setQuery={(e) => {
-                return handleEndQueryChange(e.target.value);
+              setQuery={(event) => {
+                return handleEndQueryChange(event.target.value);
               }}
               point='end'
             />
+          )
         }
       </div>
     </div>
@@ -101,8 +107,8 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
 DateRangeInput.propTypes = {
   beginQuery: PropTypes.string,
   endQuery: PropTypes.string,
-  selectedRangeOption: PropTypes.number,
-  handleSelection: PropTypes.func
+  handleSelection: PropTypes.func,
+  selectedRangeOption: PropTypes.number
 };
 
 export default DateRangeInput;

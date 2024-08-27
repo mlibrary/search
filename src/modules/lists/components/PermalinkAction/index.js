@@ -1,18 +1,18 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-function PermalinkAction (props) {
+const PermalinkAction = ({ setActive, setAlert }) => {
   return (
     <form
       className='lists-action-form'
       onSubmit={(event) => {
         event.preventDefault();
         navigator.clipboard.writeText(event.target.permalink.value);
-        props.setAlert({
+        setAlert({
           intent: 'success',
           text: 'Link copied!'
         });
-        props.setActive('');
+        setActive('');
       }}
     >
       <div className='lists-action-field-container'>
@@ -33,7 +33,7 @@ function PermalinkAction (props) {
       </button>
     </form>
   );
-}
+};
 
 PermalinkAction.propTypes = {
   setActive: PropTypes.func,

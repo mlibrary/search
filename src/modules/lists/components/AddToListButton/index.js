@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { Checkbox } from '../../../reusable';
-import { findWhere } from '../../../reusable/underscore';
 import { isInList } from '../../../lists';
 import prejudice from '../../prejudice';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-function AddToListButton ({ item }) {
+const AddToListButton = ({ item }) => {
   const [waitingToBeAddedToList, setWaitingToBeAddedToList] = useState(false);
-  const datastore = useSelector((state) => {
-    return findWhere(state.datastores.datastores, { uid: state.datastores.active });
-  }
-  );
+  const { active: activeDatastoreUid, datastores } = useSelector((state) => {
+    return state.datastores;
+  });
+  const datastore = datastores.find((ds) => {
+    return ds.uid === activeDatastoreUid;
+  });
   const list = useSelector((state) => {
-    return state.lists[state.datastores.active];
+    return state.lists[activeDatastoreUid];
   });
 
   useEffect(() => {
@@ -22,32 +23,31 @@ function AddToListButton ({ item }) {
     }
   }, [list, item.uid, waitingToBeAddedToList]);
 
-  const handleClick = (inList, item) => {
-    if (!waitingToBeAddedToList) {
-      if (inList) {
-        prejudice.removeRecord(item);
-      } else {
-        setWaitingToBeAddedToList(true);
-        prejudice.addRecord(item);
-      }
-    }
-  };
-
-  const inList = isInList(list, item.uid);
-  const getRecordTitle = item.fields.filter((field) => {
-    return field.uid === 'title';
-  })[0].value;
-
   if (item.loadingHoldings) {
     return null;
   }
 
+  const inList = isInList(list, item.uid);
+  const handleClick = () => {
+    if (waitingToBeAddedToList) {
+      return;
+    }
+
+    if (inList) {
+      prejudice.removeRecord(item);
+    } else {
+      setWaitingToBeAddedToList(true);
+      prejudice.addRecord(item);
+    }
+  };
+  const getRecordTitle = item.fields.find((field) => {
+    return field.uid === 'title';
+  })?.value;
+
   return (
     <div className='add-to-list-checkbox-container'>
       <Checkbox
-        handleClick={() => {
-          return handleClick(inList, item);
-        }}
+        handleClick={handleClick}
         isChecked={inList}
         label={`Add "${getRecordTitle}" to my temporary ${datastore?.name} list`}
         hideLabel
@@ -55,7 +55,7 @@ function AddToListButton ({ item }) {
       />
     </div>
   );
-}
+};
 
 AddToListButton.propTypes = {
   item: PropTypes.object.isRequired

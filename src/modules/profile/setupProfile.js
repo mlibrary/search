@@ -1,7 +1,5 @@
+import { addProfile } from './actions';
 import prejudice from '../lists/prejudice';
-import {
-  addProfile
-} from './actions';
 import store from '../../store';
 
 const setupProfile = () => {

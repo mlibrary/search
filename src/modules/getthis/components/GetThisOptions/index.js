@@ -1,10 +1,10 @@
-import React from 'react';
 import { Alert } from '../../../reusable';
-import GetThisOption from '../GetThisOption';
 import { Authentication } from '../../../profile';
+import GetThisOption from '../GetThisOption';
 import PropTypes from 'prop-types';
+import React from 'react';
 
-function GetThisOptions ({ record }) {
+const GetThisOptions = ({ record }) => {
   if (!record?.getthis) {
     return (
       <Alert>
@@ -13,7 +13,7 @@ function GetThisOptions ({ record }) {
     );
   }
 
-  const { status, options } = record.getthis;
+  const { options, status } = record.getthis;
 
   if (status === 'Not logged in') {
     return (
@@ -26,18 +26,18 @@ function GetThisOptions ({ record }) {
   if (status === 'Success') {
     return options?.length
       ? (
-        <>
-          {options.map((option, index) => {
-            return (
-              <GetThisOption option={option} key={index} />
-            );
-          })}
-        </>
+          <>
+            {options.map((option, index) => {
+              return (
+                <GetThisOption option={option} key={index} />
+              );
+            })}
+          </>
         )
       : (
-        <Alert type='error'>
-          No options available.
-        </Alert>
+          <Alert type='error'>
+            No options available.
+          </Alert>
         );
   }
 
@@ -47,7 +47,7 @@ function GetThisOptions ({ record }) {
       <p><span className='strong'>Status:</span> {status}</p>
     </Alert>
   );
-}
+};
 
 GetThisOptions.propTypes = {
   record: PropTypes.object

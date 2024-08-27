@@ -1,19 +1,21 @@
-import React from 'react';
+import { AddToListButton, isInList } from '../../../lists';
 import { Anchor, Icon } from '../../../reusable';
-import { TrimString } from '../../../core';
+import { getField, getFieldValue } from '../../utilities';
 import { RecommendedResource, RecordMetadata } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
-import { getField, getFieldValue } from '../../utilities';
-import { AddToListButton, isInList } from '../../../lists';
-import Zotero from '../Zotero';
-import ResourceAccess from '../../../resource-acccess';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { ResourceAccess } from '../../../resource-acccess';
+import { TrimString } from '../../../core';
+import { useLocation } from 'react-router-dom';
+import Zotero from '../Zotero';
 
-function Header ({ record, datastoreUid, searchQuery }) {
-  const recordUid = getFieldValue(getField(record.fields, 'id'))[0];
+const Header = ({ datastoreUid, record }) => {
+  const location = useLocation();
+  const [recordUid] = getFieldValue(getField(record.fields, 'id'));
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const pictureField = getField(record.fields, 'picture');
-  let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${searchQuery}`;
+  let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${location.search}`;
   let recordHeaderClassName = 'record-title';
 
   // Special Library Website case
@@ -36,12 +38,7 @@ function Header ({ record, datastoreUid, searchQuery }) {
           className='record-person__profile-picture'
         />
       )}
-      <span
-        style={{
-          marginRight: 'var(--search-spacing-2xs)',
-          color: 'var(--ds-color-neutral-300)'
-        }}
-      >
+      <span className='margin-right__2xs text-grey__light'>
         {record.position + 1}.
       </span>
       {[].concat(record.names).map((title, index) => {
@@ -55,7 +52,7 @@ function Header ({ record, datastoreUid, searchQuery }) {
         return (
           <span key={index}>
             <Anchor
-              to={datastoreUid !== 'website' ? recordTitleLink : ''}
+              to={datastoreUid === 'website' ? '' : recordTitleLink}
               href={datastoreUid === 'website' ? recordTitleLink : ''}
               className='record-title-link'
             >
@@ -65,57 +62,44 @@ function Header ({ record, datastoreUid, searchQuery }) {
           </span>
         );
       })}
-      <RecommendedResource record={record} />
+      <RecommendedResource {...{ record }} />
     </h3>
   );
 };
 
 Header.propTypes = {
-  record: PropTypes.object,
   datastoreUid: PropTypes.string,
-  searchQuery: PropTypes.string
+  record: PropTypes.object
 };
 
-function Record (props) {
-  if (!getField(props.record.fields, 'id')) {
+const Record = ({ datastoreUid, list, record }) => {
+  if (!getField(record.fields, 'id')) {
     return null;
   }
 
-  const { record } = props;
-
   return (
-    <article className={'container__rounded record' + (isInList(props.list, record.uid) ? ' record--highlight' : '')}>
+    <article className={`container__rounded record ${(isInList(list, record.uid) ? ' record--highlight' : '')}`}>
       <div className='record-container record-medium-container'>
-        <div className='record-title-and-actions-container '>
-          <Header
-            record={record}
-            datastoreUid={props.datastoreUid}
-            searchQuery={props.searchQuery}
-          />
+        <div className='record-title-and-actions-container'>
+          <Header {...{ datastoreUid, record }} />
           <AddToListButton item={record} />
         </div>
-        <Zotero record={record} />
-        <RecordMetadata record={record} />
+        <Zotero {...{ record }} />
+        <RecordMetadata {...{ record }} />
       </div>
 
-      <div
-        className='record-holders-container'
-        style={{
-          borderBottom: 'solid 1px var(--ds-color-neutral-100)'
-        }}
-      >
+      <div className='record-holders-container'>
         <h4 className='visually-hidden'>{record.names[0]} is available at:</h4>
-        <ResourceAccess record={record} />
+        <ResourceAccess {...{ record }} />
       </div>
     </article>
   );
-}
+};
 
 Record.propTypes = {
-  record: PropTypes.object,
   datastoreUid: PropTypes.string,
-  searchQuery: PropTypes.string,
-  list: PropTypes.array
+  list: PropTypes.array,
+  record: PropTypes.object
 };
 
 export default Record;

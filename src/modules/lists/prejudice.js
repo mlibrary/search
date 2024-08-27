@@ -1,66 +1,66 @@
+import { addList } from './actions';
+import config from '../../config';
 import Prejudice from 'prejudice';
 import { Pride } from 'pride';
-import config from '../../config';
-import store from './../../store';
-import _ from 'underscore';
-import {
-  addList
-} from './actions';
+import store from '../../store';
 
 const prejudice = new Prejudice({
-  recordEngine: Pride,
+  actionBaseUrl: config.spectrum,
   datastores: config.datastores.list,
-  actionBaseUrl: config.spectrum
+  recordEngine: Pride
 });
 
 const addRecord = (record) => {
   prejudice.addRecord(record);
 };
 
-const removeRecord = (record) => {
-  prejudice.removeRecord(record);
-};
+const addRecordsToList = () => {
+  const records = prejudice.listRecords();
+  const groupedRecords = records.reduce((group, record) => {
+    const { datastore } = record;
+    group[datastore] ||= [];
+    group[datastore].push(record);
+    return group;
+  }, {});
 
-const listRecords = () => {
-  return prejudice.listRecords();
+  store.dispatch(addList(groupedRecords));
 };
 
 const clearRecords = (datastoreUid) => {
   prejudice.clearRecords(datastoreUid);
 };
 
-const addRecordsToList = (records) => {
-  store.dispatch(addList(_.groupBy(listRecords(), 'datastore')));
-};
-
-const observer = (records) => {
-  addRecordsToList(records);
-};
-
-const initialize = () => {
-  addRecordsToList(listRecords());
-  Pride.PreferenceEngine.registerEngine(prejudice);
-};
-
 const createVariableStorageDriverInstance = () => {
   const inst = new Prejudice({
-    recordEngine: Pride,
+    actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development,
     datastores: config.datastores.list,
-    recordStorage: Prejudice.VariableStorageDriver,
-    actionBaseUrl: config.spectrum[process.env.NODE_ENV] || config.spectrum.development
+    recordEngine: Pride,
+    recordStorage: Prejudice.VariableStorageDriver
   });
 
   return inst;
 };
 
+const initialize = () => {
+  addRecordsToList();
+  Pride.PreferenceEngine.registerEngine(prejudice);
+};
+
+const observer = () => {
+  addRecordsToList();
+};
+
+const removeRecord = (record) => {
+  prejudice.removeRecord(record);
+};
+
 prejudice.addObserver(observer);
 
 export default {
-  initialize,
   addRecord,
-  removeRecord,
-  listRecords,
   clearRecords,
   createVariableStorageDriverInstance,
-  instance: prejudice
+  initialize,
+  instance: prejudice,
+  removeRecord
 };

@@ -1,39 +1,34 @@
 import * as actions from '../actions/';
-import _ from 'underscore';
 
 const initialState = {
   booleanTypes: []
 };
 
 /*
-  Example State
-
-  {
-    mirlyn: {
-      fields: [
-        {
-          uid: 'title'
-        },
-        {
-          uid: 'author',
-          name: 'a custom name overriding the given name'
-        }
-        // ...
-      ],
-      filters: [
-        //... to be figured out..
-      ]
-    }
-  }
-*/
+ *Example State
+ *
+ *{
+ *  mirlyn: {
+ *    fields: [
+ *      {
+ *        uid: 'title'
+ *      },
+ *      {
+ *        uid: 'author',
+ *        name: 'a custom name overriding the given name'
+ *      }
+ *      // ...
+ *    ],
+ *    filters: [
+ *      //... to be figured out..
+ *    ]
+ *  }
+ *}
+ */
 
 const advancedFieldReducer = (state, action) => {
   const dsUid = action.payload.datastoreUid;
-  let fields = [];
-
-  if (state[dsUid] && state[dsUid].fields) {
-    fields = state[dsUid].fields;
-  }
+  const fields = state[dsUid]?.fields || [];
 
   switch (action.type) {
     case actions.ADD_ADVANCED_FIELD:
@@ -61,9 +56,9 @@ const advancedFieldedSearchingReducer = (state, action) => {
 
   if (action.type === actions.ADD_FIELDED_SEARCH) {
     const newFieldedSearch = {
+      booleanType: 0,
       field: action.payload.field,
-      query: '',
-      booleanType: 0
+      query: ''
     };
 
     return {
@@ -93,9 +88,9 @@ const advancedFieldedSearchingReducer = (state, action) => {
           }
 
           return {
+            booleanType: typeof booleanType === 'number' && booleanType < state.booleanTypes.length ? booleanType : state[dsUid].fieldedSearches[index].booleanType,
             field: selectedFieldUid || state[dsUid].fieldedSearches[index].field,
-            query: newQuery,
-            booleanType: booleanType === undefined ? state[dsUid].fieldedSearches[index].booleanType : booleanType
+            query: newQuery
           };
         })
       }
@@ -117,35 +112,27 @@ const advancedFieldedSearchingReducer = (state, action) => {
   return state;
 };
 
-const filterGroupReducer = ({ filterGroup, filterGroupUid, onlyOneFilterValue, filterValue }) => {
-  if (filterValue === undefined) {
-    return undefined;
+const filterGroupReducer = ({ filterGroup, filterValue, onlyOneFilterValue }) => {
+  if (!filterValue) {
+    return null;
   }
 
-  // filter group has no active filters, so add it.
+  // Add filter group if no active filters
   if (!filterGroup || onlyOneFilterValue) {
-    return [].concat(filterValue);
+    return [filterValue];
   }
 
-  // filter group exists
-  if (filterGroup) {
+  if (filterGroup.includes(filterValue)) {
     // Remove filter value
-    if (_.contains(filterGroup, filterValue)) {
-      const newFilters = _.filter(filterGroup, (item) => {
-        return item !== filterValue;
-      });
+    const newFilters = filterGroup.filter((item) => {
+      return item !== filterValue;
+    });
 
-      if (newFilters.length === 0) {
-        return undefined;
-      } else {
-        return newFilters;
-      }
-
-    // Add filter value to existing filter group list
-    } else {
-      return filterGroup.concat(filterValue);
-    }
+    return newFilters.length === 0 ? null : newFilters;
   }
+
+  // Add filter value to existing filter group list
+  return [...filterGroup, filterValue];
 };
 
 const advancedFilterReducer = (state, action) => {
@@ -169,10 +156,9 @@ const advancedFilterReducer = (state, action) => {
           activeFilters: {
             ...state[dsUid].activeFilters,
             [filterGroupUid]: filterGroupReducer({
-              filterGroup: state[dsUid].activeFilters ? state[dsUid].activeFilters[filterGroupUid] : undefined,
-              filterGroupUid,
-              onlyOneFilterValue: action.payload.onlyOneFilterValue,
-              filterValue
+              filterGroup: state[dsUid].activeFilters?.[filterGroupUid],
+              filterValue,
+              onlyOneFilterValue: action.payload.onlyOneFilterValue
             })
           }
         }

@@ -1,0 +1,54 @@
+label:has(input[type='radio']),
+input[type='radio'] {
+  cursor: pointer;
+}
+
+label:has(input[type='radio']):hover {
+  text-decoration: underline;
+}
+
+input[type='radio'],
+input[type='radio']:before {
+  border-radius: 50%!important;
+}
+
+input[type='radio'] {
+  appearance: none;
+  border: 2px solid var(--search-color-grey-600);
+  height: 1.5rem;
+  margin: -4px 0.25rem 0 0;
+  position: relative;
+  vertical-align: middle;
+  width: 1.5rem;
+}
+
+input[type='radio']:before {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 0.75rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.75rem;
+}
+
+input[type='radio']:checked:before {
+  background: var(--search-color-blue-400);
+}
+
+select {
+  -webkit-appearance: none;
+  background: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(99, 115, 129)"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>') calc(100% - 0.25rem) 50% no-repeat white;
+  border: solid 1px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: inherit;
+  padding: 0.125rem 0.5rem;
+  padding-right: 2rem;
+  max-width: 100%;
+}

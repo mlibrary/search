@@ -1,12 +1,13 @@
-import React from 'react';
+import './styles.css';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Icon } from '../../../reusable';
-import getFilters from './getFilters';
 import AdvancedFilter from '../AdvancedFilter';
+import getFilters from './getFilters';
+import { Icon } from '../../../reusable';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { setAdvancedFilter } from '../../../advanced';
 
-function ActiveAdvancedFilters (datastore) {
+const ActiveAdvancedFilters = (datastore) => {
   const currentDatastore = datastore.datastore.uid;
   const { advanced } = useSelector((state) => {
     return state;
@@ -34,12 +35,12 @@ function ActiveAdvancedFilters (datastore) {
       const activeFiltersToAdd = activeAdditionalSearchOptions[group].map((value) => {
         return { group, value };
       });
-      acc = acc.concat(activeFiltersToAdd);
+      return [...acc, ...activeFiltersToAdd];
     }
     return acc;
   }, []);
 
-  if (items.length === 0) {
+  if (!items.length) {
     return null;
   }
 
@@ -51,54 +52,35 @@ function ActiveAdvancedFilters (datastore) {
 
   return (
     <section aria-label='active-filters'>
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '0.25em'
-        }}
+      <h2
+        id='active-filters'
+        className='u-margin-top-none margin-bottom__xs h4'
       >
-        <h2
-          id='active-filters'
-          className='u-margin-top-none margin-bottom__xs'
-          style={{ fontSize: '1rem' }}
-        >
-          Active filters
-        </h2>
-        <span
-          style={{
-            color: 'var(--ds-color-neutral-300)',
-            paddingRight: '0.5em'
-          }}
-        >
+        Active filters
+        {' '}
+        <span className='text-grey__light padding-right__xs'>
           ({items.length})
         </span>
-      </div>
+      </h2>
 
       <p className='font-small u-margin-top-none'>
         Unselect active filters through the options below.
       </p>
 
-      <ul
-        style={{
-          fontSize: '0.9rem',
-          marginLeft: '2.5rem',
-          marginTop: '0'
-        }}
-      >
-        {items.map((item, i) => {
+      <ul className='margin-top__none active-filter-list'>
+        {items.map((item, index) => {
           return (
-            <li key={i + item.group + item.value}>
-              <span className='strong'>{typeof filterGroups[item.group] !== 'object' ? titleCase(item.group) : filterGroups[item.group].name}:</span> {item.value}
+            <li key={index + item.group + item.value}>
+              <span className='strong'>{filterGroups[item.group]?.name || titleCase(item.group)}:</span> {item.value}
             </li>
           );
         })}
       </ul>
     </section>
   );
-}
+};
 
-function FiltersContainer ({ datastore }) {
+const FiltersContainer = ({ datastore }) => {
   const dispatch = useDispatch();
   const filterGroups = useSelector((state) => {
     return state.advanced[datastore.uid]?.filters;
@@ -106,34 +88,32 @@ function FiltersContainer ({ datastore }) {
   const activeFilters = useSelector((state) => {
     return state.advanced[datastore.uid]?.activeFilters;
   });
-  const filters = getFilters({ filterGroups, activeFilters });
+  const filters = getFilters({ activeFilters, filterGroups });
 
-  const changeAdvancedFilter = ({ filterType, filterGroupUid, filterValue }) => {
+  const changeAdvancedFilter = ({ filterGroupUid, filterType, filterValue }) => {
     switch (filterType) {
       case 'scope_down':
         // Clear active filters
         if (['institution', 'location'].includes(filterGroupUid) && filterValue) {
           dispatch(setAdvancedFilter({
             datastoreUid: datastore.uid,
-            filterType,
             filterGroupUid: 'collection',
-            filterValue: undefined,
+            filterType,
             onlyOneFilterValue: true
           }));
           if (filterGroupUid === 'institution') {
             dispatch(setAdvancedFilter({
               datastoreUid: datastore.uid,
-              filterType,
               filterGroupUid: 'location',
-              filterValue: undefined,
+              filterType,
               onlyOneFilterValue: true
             }));
           }
         }
         dispatch(setAdvancedFilter({
           datastoreUid: datastore.uid,
-          filterType,
           filterGroupUid,
+          filterType,
           filterValue,
           onlyOneFilterValue: true
         }));
@@ -159,7 +139,9 @@ function FiltersContainer ({ datastore }) {
     }
   };
 
-  if (!filters || filters.length === 0) return null;
+  if (filters?.length === 0) {
+    return null;
+  }
 
   const filterGroupings = Object.keys(filters);
 
@@ -171,22 +153,8 @@ function FiltersContainer ({ datastore }) {
         {filterGroupings.map((filterGroup, groupIndex) => {
           return (
             <React.Fragment key={groupIndex}>
-              {filterGroup !== 'undefined'
+              {filterGroup === 'undefined'
                 ? (
-                  <div className='advanced-filter-container'>
-                    <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
-                    {filters[filterGroup].map((advancedFilter, index) => {
-                      return (
-                        <AdvancedFilter
-                          key={index}
-                          advancedFilter={advancedFilter}
-                          changeAdvancedFilter={changeAdvancedFilter}
-                        />
-                      );
-                    })}
-                  </div>
-                  )
-                : (
                     filters[filterGroup].map((advancedFilter, index) => {
                       return (
                         <div key={index} className='advanced-filter-container'>
@@ -200,21 +168,34 @@ function FiltersContainer ({ datastore }) {
                         </div>
                       );
                     })
+                  )
+                : (
+                    <div className='advanced-filter-container'>
+                      <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
+                      {filters[filterGroup].map((advancedFilter, index) => {
+                        return (
+                          <AdvancedFilter
+                            key={index}
+                            advancedFilter={advancedFilter}
+                            changeAdvancedFilter={changeAdvancedFilter}
+                          />
+                        );
+                      })}
+                    </div>
                   )}
             </React.Fragment>
           );
         })}
       </div>
       <button
-        style={{ marginTop: '1rem' }}
-        className='btn btn--primary'
+        className='btn btn--primary margin-top__m'
         type='submit'
       >
         <Icon icon='search' size={24} /> Advanced Search
       </button>
     </>
   );
-}
+};
 
 FiltersContainer.propTypes = {
   datastore: PropTypes.object

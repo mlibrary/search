@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
 import { Alert, Anchor } from '../../../reusable';
-import { useSelector } from 'react-redux';
 import { getField, getFieldValue } from '../../../records/utilities';
-import { placeHold } from '../../../pride';
+import React, { useState } from 'react';
+import { Pride } from 'pride';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const Field = ({ field, setFieldChange, loading }) => {
-  const { type, name, value, options } = field;
+const Field = ({ field, loading, setFieldChange }) => {
+  const { name, options, type, value } = field;
 
   if (type === 'hidden') {
     return <input id={name} type={type} name={name} value={value} onChange={setFieldChange} />;
@@ -18,7 +18,7 @@ const Field = ({ field, setFieldChange, loading }) => {
         {field.label && (
           <label className='form-label' htmlFor={field.name}>{field.label}</label>
         )}
-        <select id={name} name={name} className='dropdown' value={value} onChange={setFieldChange} autoComplete='off'>
+        <select id={name} name={name} value={value} onChange={setFieldChange} autoComplete='off'>
           {options.map((option, key) => {
             return (
               <option
@@ -59,8 +59,8 @@ const Field = ({ field, setFieldChange, loading }) => {
 
 Field.propTypes = {
   field: PropTypes.object,
-  setFieldChange: PropTypes.func,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  setFieldChange: PropTypes.func
 };
 
 const GetThisForm = ({ form }) => {
@@ -93,24 +93,24 @@ const GetThisForm = ({ form }) => {
           return field.name === name;
         })?.value;
       };
-      const callback = (response) => {
+      const callback = (res) => {
         setLoading(false);
-        setResponse(response);
+        setResponse(res);
       };
 
-      placeHold({
-        datastoreUid,
-        recordId,
-        item: getFieldValueByName('item'),
-        location: getFieldValueByName('pickup_location'),
-        date: getFieldValueByName('not_needed_after')?.replace(/-/g, ''),
+      Pride.requestRecord(datastoreUid, recordId).placeHold(
+        getFieldValueByName('item'),
+        getFieldValueByName('pickup_location'),
+        getFieldValueByName('not_needed_after')?.replace(/-/gu, ''),
         callback
-      });
+      );
     }
   };
 
   const renderResponse = () => {
-    if (!response) return null;
+    if (!response) {
+      return null;
+    }
     const success = response.status === 'Action Succeeded';
 
     return (
@@ -118,19 +118,19 @@ const GetThisForm = ({ form }) => {
         <h4>{success ? 'You have successfully requested this item' : 'The hold/request could not be placed'}</h4>
         {success
           ? (
-            <>
-              <ul className='u-margin-bottom-1 margin-left-2'>
-                <li>We will email you when it is available for pickup.</li>
-                <li>When it is available, we'll hold it for you for 7 days.</li>
-              </ul>
-              <Anchor href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</Anchor>
-            </>
+              <>
+                <ul className='u-margin-bottom-1 margin-left-2'>
+                  <li>We will email you when it is available for pickup.</li>
+                  <li>When it is available, we&apos;ll hold it for you for 7 days.</li>
+                </ul>
+                <Anchor href='https://account.lib.umich.edu/pending-requests/u-m-library'>View all your holds</Anchor>
+              </>
             )
           : (
-            <>
-              <p><span className='strong'>Status:</span> {response.status}</p>
-              <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <Anchor href='mailto:circservices@umich.edu'>circservices@umich.edu</Anchor> or <Anchor href='tel:7347640401'>(734) 764-0401</Anchor> for assistance.</p>
-            </>
+              <>
+                <p><span className='strong'>Status:</span> {response.status}</p>
+                <p className='u-margin-bottom-none'>Please contact the Graduate Library Circulation Desk at <Anchor href='mailto:circservices@umich.edu'>circservices@umich.edu</Anchor> or <Anchor href='tel:7347640401'>(734) 764-0401</Anchor> for assistance.</p>
+              </>
             )}
       </Alert>
     );

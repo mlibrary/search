@@ -1,3 +1,10 @@
+:focus,
+.focus:focus {
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px var(--color-maize-400), 0 0 0 3px var(--color-neutral-400)!important;
+  outline: 0;
+}
+
 .no-background {
   background: transparent;
   background-color: transparent;
@@ -6,5 +13,47 @@
 .container__rounded {
   background-color: white;
   border-radius: 4px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.24);
+  box-shadow:
+    0 2px 2px 0 rgba(0, 0, 0, 0.12),
+    0 2px 4px 0 rgba(0, 0, 0, 0.24);
+}
+
+.flex,
+.flex__responsive {
+  display: flex;
+  gap: 0.5rem 1rem;
+}
+
+.flex {
+  flex-direction: row;
+}
+
+.flex__responsive {
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .flex__responsive {
+    flex-direction: row;
+  }
+}
+
+.list__unstyled {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a[class$="-checkbox"] {
+  color: var(--ds-color-neutral-400);
+  gap: 0.25rem;
+}
+
+a[class$="-checkbox"] > svg {
+  color: var(--ds-color-neutral-300);
+  flex-shrink: 0;
+}
+
+a.active-checkbox > svg {
+  color: var(--search-color-blue-400);
 }

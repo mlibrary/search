@@ -3,7 +3,7 @@ import GetThisFindIt from '../GetThisFindIt';
 import { GetThisForm } from '../../../getthis';
 import PropTypes from 'prop-types';
 
-function GetThisOption ({ option }) {
+const GetThisOption = ({ option }) => {
   const detailsRef = useRef(null);
 
   return (
@@ -19,12 +19,12 @@ function GetThisOption ({ option }) {
         <div className='get-this-option-column'>
           {option.form
             ? (
-              <>
-                {option.orientation && <div dangerouslySetInnerHTML={{ __html: option.orientation }} />}
-                <GetThisForm label={option.label} form={option.form} />
-              </>
+                <>
+                  {option.orientation && <div dangerouslySetInnerHTML={{ __html: option.orientation }} />}
+                  <GetThisForm label={option.label} form={option.form} />
+                </>
               )
-            : option.label === 'Find it in the library' && <GetThisFindIt />}
+            : option.label === 'Get it off the shelves' && <GetThisFindIt />}
         </div>
 
         {option.description && (
@@ -46,7 +46,7 @@ function GetThisOption ({ option }) {
       </div>
     </details>
   );
-}
+};
 
 GetThisOption.propTypes = {
   option: PropTypes.object

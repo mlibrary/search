@@ -1,0 +1,28 @@
+.holder-container {
+  overflow-x: auto;
+}
+
+.holder-container > table {
+  min-width: 24rem;
+  table-layout: fixed;
+  text-align: left;
+  width: 100%;
+}
+
+.holder-container > table tr > * {
+  overflow-wrap: anywhere;
+  padding: 0.5rem 0;
+  width: auto;
+}
+
+.holder-container > table tr > * + * {
+  padding-left: 1.5rem;
+}
+
+.holder-container > table tr > *:nth-of-type(3):last-of-type {
+  width: 50%;
+}
+
+.holder-container > table thead th {
+  border-bottom: solid 2px var(--ds-color-neutral-100);
+}
