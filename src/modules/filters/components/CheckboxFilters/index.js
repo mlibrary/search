@@ -25,13 +25,11 @@ const CheckBoxFilters = () => {
 
   return (
     <ul className='list__unstyled active-filters'>
-      {checkboxes.map((checkbox) => {
-        const { uid } = checkbox;
-        const { metadata, preSelected } = groups[uid];
-        const isActive = activeFilters[activeDatastore]?.[uid]?.[0];
-        const isChecked = isActive ? isActive === 'true' : preSelected;
+      {checkboxes.map(({ uid, metadata, preSelected }, index) => {
+        const [isActive] = activeFilters[activeDatastore]?.[uid] || [];
+        const isChecked = isActive === 'true' || preSelected;
         return (
-          <li key={uid}>
+          <li key={uid} className={`margin-top__${index === 0 ? 'none' : '2xs'}`}>
             <Anchor
               to={
                 preSelected === isChecked
