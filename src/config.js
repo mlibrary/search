@@ -66,7 +66,7 @@ const config = {
         {
           conditions: {
             checked: true,
-            unchecked: undefined
+            unchecked: null
           },
           groupBy: 'Access Options',
           name: 'View HathiTrust search-only materials',
