@@ -10,7 +10,7 @@ const Holders = ({ context, record }) => {
     return state.filters.active;
   });
   /*
-   * - Check if the record is under 'Catalog', and the 'Remove search-only HathiTrust materials' is checked
+   * - Check if the record is under 'Catalog', and the 'View search-only HathiTrust materials' is checked
    * - If true, remove all 'Search only (no full text)' holdings
    */
   if (
@@ -20,14 +20,11 @@ const Holders = ({ context, record }) => {
       || (Object.keys(mirlyn).includes('search_only') && mirlyn.search_only.includes('true'))
     )
   ) {
-    // UNCOMMENT THE BLOCK BELOW WHEN READY TO LAUNCH
-    /*
-     * Record.resourceAccess.forEach((resource) => {
-     *   resource.rows = resource.rows.filter((row) => {
-     *     return row[0].text !== 'Search only (no full text)';
-     *   });
-     * });
-     */
+    record.resourceAccess.forEach((resource) => {
+      resource.rows = resource.rows.filter((row) => {
+        return row[0].text !== 'Search only (no full text)';
+      });
+    });
   }
   return (
     <>
