@@ -10,7 +10,7 @@ const Holders = ({ context, record }) => {
     return state.filters.active;
   });
   /*
-   * - Check if the record is under 'Catalog', and the 'Remove search-only HathiTrust materials' is checked
+   * - Check if the record is under 'Catalog', and the 'View search-only HathiTrust materials' is checked
    * - If true, remove all 'Search only (no full text)' holdings
    */
   if (
