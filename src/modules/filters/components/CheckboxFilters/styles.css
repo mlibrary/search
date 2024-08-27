@@ -1,0 +1,3 @@
+ul.active-filters {
+  padding: var(--search-spacing-s) var(--search-spacing-m);
+}
