@@ -22,6 +22,9 @@ const Holders = ({ context, record }) => {
         return row[0].text !== 'Search only (no full text)';
       });
     });
+    record.resourceAccess = record.resourceAccess.filter((resource) => {
+      return resource.rows.length > 0;
+    });
   }
   return (
     <>
