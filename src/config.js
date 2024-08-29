@@ -65,19 +65,11 @@ const config = {
       filters: [
         {
           conditions: {
-            checked: true
+            checked: true,
+            unchecked: null
           },
           groupBy: 'Access Options',
-          type: 'checkbox',
-          uid: 'available_online'
-        },
-        {
-          conditions: {
-            default: 'checked',
-            unchecked: false
-          },
-          groupBy: 'Access Options',
-          name: 'Remove Search Only HathiTrust Materials',
+          name: 'View HathiTrust search-only materials',
           type: 'checkbox',
           uid: 'search_only'
         },
