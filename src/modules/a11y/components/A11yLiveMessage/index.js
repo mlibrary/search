@@ -2,13 +2,17 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 const A11yLiveMessage = () => {
-  const a11yMessage = useSelector((state) => {
-    return state.a11y.message;
+  const a11y = useSelector((state) => {
+    return state.a11y;
   });
+
+  if (!a11y) {
+    return null;
+  }
 
   return (
     <div role='status' aria-atomic='true' aria-live='polite' className='offpage'>
-      <span>{a11yMessage}</span>
+      {a11y}
     </div>
   );
 };

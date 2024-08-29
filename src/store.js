@@ -23,7 +23,7 @@ const store = configureStore({
     return [...getDefaultMiddleware({ immutableCheck: false })];
   },
   reducer: {
-    a11y: simpleReducer(SET_A11Y_MESSAGE, { message: '' }),
+    a11y: simpleReducer(SET_A11Y_MESSAGE, null),
     advanced: advancedReducer,
     affiliation: affiliationReducer,
     browse: browseReducer,
