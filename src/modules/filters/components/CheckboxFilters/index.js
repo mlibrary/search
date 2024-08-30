@@ -12,34 +12,36 @@ const CheckBoxFilters = () => {
     return state.datastores;
   });
   const checkboxes = order
-    .filter((id) => {
-      return groups[id]?.type === 'checkbox';
+    .filter((group) => {
+      return groups[group]?.type === 'checkbox';
     })
-    .map((id) => {
-      return groups[id];
+    .map((group) => {
+      const { metadata, preSelected, uid } = groups[group];
+      return { metadata, preSelected, uid };
     });
 
   if (!checkboxes.length) {
     return null;
   }
 
+  const activeDatastoreFilters = activeFilters?.[activeDatastore];
+
   return (
     <ul className='list__unstyled active-filters'>
-      {checkboxes.map(({ uid, metadata, preSelected }, index) => {
-        const [isActive] = activeFilters[activeDatastore]?.[uid] || [];
-        const isChecked = isActive === 'true' || preSelected;
+      {checkboxes.map(({ metadata: { name }, preSelected, uid }) => {
+        const isChecked = JSON.parse(activeDatastoreFilters?.[uid]?.[0] ?? String(preSelected));
         return (
-          <li key={uid} className={`margin-top__${index === 0 ? 'none' : '2xs'}`}>
+          <li key={uid}>
             <Anchor
               to={
                 preSelected === isChecked
                   ? `${document.location.pathname}?${newSearch({ filter: { [uid]: String(!isChecked) }, page: 1 })}`
-                  : getURLWithFiltersRemoved({ group: uid, value: isActive })
+                  : getURLWithFiltersRemoved({ group: uid, value: isChecked })
               }
               className={`flex underline__hover ${isChecked ? '' : 'in'}active-checkbox`}
             >
-              <Icon icon={`checkbox_${isChecked ? 'checked' : 'unchecked'}`} size='22' />
-              {metadata.name}
+              <Icon icon={`checkbox_${isChecked ? '' : 'un'}checked`} size='22' />
+              {name}
             </Anchor>
           </li>
         );

@@ -1,3 +1,7 @@
 ul.active-filters {
   padding: var(--search-spacing-s) var(--search-spacing-m);
 }
+
+ul.active-filters > li + li {
+  margin-top: var(--search-spacing-2xs);
+}
