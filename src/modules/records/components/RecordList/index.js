@@ -58,7 +58,7 @@ const RecordList = () => {
                 <h2 className='heading-small margin-top__none'>Other suggestions</h2>
                 <ul className='margin-bottom__none'>
                   <li>Try looking at the other search categories linked below the search box.</li>
-                  <li>Place an <Anchor href='https://ill.lib.umich.edu/?utm_source=library-search-no-items'>Interlibrary Loan request</Anchor> if you need something we don't have. We'll get it from another institution.</li>
+                  <li>Place an <Anchor href='https://ill.lib.umich.edu/' utmSource='library-search-no-items'>Interlibrary Loan request</Anchor> if you need something we don't have. We'll get it from another institution.</li>
                   <li>Check your spelling.</li>
                   <li>Try more general keywords.</li>
                   <li>Try different keywords that mean the same thing.</li>
