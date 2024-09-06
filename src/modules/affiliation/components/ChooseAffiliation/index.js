@@ -43,9 +43,7 @@ const ChooseAffiliation = () => {
       affiliation: alternativeAffiliation
     };
     document.location.href
-      = `${document.location.pathname
-       }?${
-       stringifySearch(withAffiliation)}`;
+      = `${document.location.pathname}?${stringifySearch(withAffiliation)}`;
   };
 
   const [isDialogOpen, setDialogOpen] = useState(false);
