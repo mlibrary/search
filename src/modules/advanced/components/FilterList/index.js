@@ -12,6 +12,8 @@ const FilterList = ({ datastoreUid }) => {
     return state.advanced[datastoreUid] || {};
   });
 
+  console.log(datastoreUid, activeFilters, filterGroup);
+
   // Create filter list based on active filters
   const filterList = Object.entries(activeFilters).reduce((acc, [groupUid, filters]) => {
     if (filters) {
@@ -39,7 +41,7 @@ const FilterList = ({ datastoreUid }) => {
       datastoreUid,
       filterGroupUid: groupUid,
       filterType: type,
-      filterValue: value,
+      filterValue: null,
       onlyOneFilterValue: true
     };
     const actions = [];
@@ -47,10 +49,15 @@ const FilterList = ({ datastoreUid }) => {
       actions.push(setAdvancedFilter({ ...baseFilter, ...overrides }));
     };
 
-    if (type === 'scope_down' && ['institution', 'location'].includes(groupUid) && value) {
-      createAction({ filterGroupUid: 'collection', filterValue: null });
+    console.log(groupUid);
+
+    if (['institution', 'location', 'collection'].includes(groupUid) && value) {
+      createAction({ filterGroupUid: 'collection' });
+      if (!['collection'].includes(groupUid)) {
+        createAction({ filterGroupUid: 'location' });
+      }
       if (groupUid === 'institution') {
-        createAction({ filterGroupUid: 'location', filterValue: null });
+        createAction({ filterGroupUid: 'institution' });
       }
     }
 
@@ -59,7 +66,7 @@ const FilterList = ({ datastoreUid }) => {
     }
 
     if (type === 'multiple_select') {
-      createAction({ onlyOneFilterValue: false });
+      createAction({ filterValue: value, onlyOneFilterValue: false });
     }
 
     actions.forEach(dispatch);
