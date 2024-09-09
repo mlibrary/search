@@ -1,5 +1,6 @@
 import { Anchor, Icon } from '../../../reusable';
 import { getMultiSearchRecords } from '../../../pride';
+import ILLRequestMessage from '../ILLRequestMessage';
 import KeywordSwitch from '../KeywordSwitch';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -33,6 +34,9 @@ const BentoResults = ({ bentobox, search, searchQuery }) => {
           <p className='no-margin'><span className='strong'>No results</span> match your search.</p>
           {['databases', 'onlinejournals'].includes(bentobox.uid) && (
             <p className='u-margin-bottom-none'>Try our <Anchor to={`/${bentobox.slug}/browse`}>Browse {bentobox.name} page</Anchor> to view all titles alphabetically or by academic discipline.</p>
+          )}
+          {bentobox.uid === 'mirlyn' && (
+            <p className='u-margin-bottom-none'><ILLRequestMessage /></p>
           )}
         </div>
       </>
