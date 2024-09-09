@@ -6,18 +6,36 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { setAdvancedFilter } from '../../../advanced';
 
+const narrowSearchTo = [
+  {
+    groupBy: 'Library',
+    type: 'scope_down',
+    uid: 'institution'
+  },
+  {
+    groupBy: 'Location',
+    type: 'scope_down',
+    uid: 'location'
+  },
+  {
+    groupBy: 'Collection',
+    type: 'scope_down',
+    uid: 'collection'
+  }
+];
+
 const FilterList = ({ datastoreUid }) => {
   const dispatch = useDispatch();
   const { activeFilters = {}, filters: filterGroup } = useSelector((state) => {
     return state.advanced[datastoreUid] || {};
   });
 
-  console.log(datastoreUid, activeFilters, filterGroup);
-
   // Create filter list based on active filters
   const filterList = Object.entries(activeFilters).reduce((acc, [groupUid, filters]) => {
     if (filters) {
       const groupName = filterGroup.find((group) => {
+        return group.uid === groupUid;
+      }) || narrowSearchTo.find((group) => {
         return group.uid === groupUid;
       });
 
