@@ -6,48 +6,24 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { setAdvancedFilter } from '../../../advanced';
 
-const narrowSearchTo = [
-  {
-    groupBy: 'Library',
-    type: 'scope_down',
-    uid: 'institution'
-  },
-  {
-    groupBy: 'Location',
-    type: 'scope_down',
-    uid: 'location'
-  },
-  {
-    groupBy: 'Collection',
-    type: 'scope_down',
-    uid: 'collection'
-  }
-];
-
 const FilterList = ({ datastoreUid }) => {
   const dispatch = useDispatch();
   const { activeFilters = {}, filters: filterGroup } = useSelector((state) => {
     return state.advanced[datastoreUid] || {};
   });
 
-  // Create filter list based on active filters
   const filterList = Object.entries(activeFilters).reduce((acc, [groupUid, filters]) => {
     if (filters) {
-      const groupName = filterGroup.find((group) => {
+      const {
+        name = groupUid === 'institution' ? 'Library' : groupUid.charAt(0).toUpperCase() + groupUid.slice(1).replaceAll('_', ' '),
+        type = 'scope_down'
+      } = filterGroup.find((group) => {
         return group.uid === groupUid;
-      }) || narrowSearchTo.find((group) => {
-        return group.uid === groupUid;
-      });
+      }) || {};
 
-      // Only proceed if groupName type is not 'checkbox'
-      if (groupName?.type !== 'checkbox') {
+      if (type !== 'checkbox') {
         filters.forEach((value) => {
-          acc.push({
-            groupUid,
-            name: groupName?.groupBy || groupName?.name,
-            type: groupName?.type,
-            value
-          });
+          acc.push({ groupUid, name, type, value });
         });
       }
     }
@@ -67,19 +43,15 @@ const FilterList = ({ datastoreUid }) => {
       actions.push(setAdvancedFilter({ ...baseFilter, ...overrides }));
     };
 
-    console.log(groupUid);
-
-    if (['institution', 'location', 'collection'].includes(groupUid) && value) {
+    if (['institution', 'location'].includes(groupUid)) {
       createAction({ filterGroupUid: 'collection' });
-      if (!['collection'].includes(groupUid)) {
-        createAction({ filterGroupUid: 'location' });
-      }
-      if (groupUid === 'institution') {
-        createAction({ filterGroupUid: 'institution' });
-      }
     }
 
-    if (['checkbox', 'date_range_input', 'scope_down'].includes(type)) {
+    if (groupUid === 'institution') {
+      createAction({ filterGroupUid: 'location' });
+    }
+
+    if (['date_range_input', 'scope_down'].includes(type)) {
       createAction();
     }
 
