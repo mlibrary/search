@@ -12,23 +12,19 @@ const FilterList = ({ datastoreUid }) => {
     return state.advanced[datastoreUid] || {};
   });
 
-  const filterList = Object.entries(activeFilters).reduce((acc, [groupUid, filters]) => {
-    if (filters) {
-      const {
-        name = groupUid === 'institution' ? 'Library' : groupUid.charAt(0).toUpperCase() + groupUid.slice(1).replaceAll('_', ' '),
-        type = 'scope_down'
-      } = filterGroup.find((group) => {
-        return group.uid === groupUid;
-      }) || {};
-
-      if (type !== 'checkbox') {
-        filters.forEach((value) => {
-          acc.push({ groupUid, name, type, value });
-        });
-      }
-    }
-    return acc;
-  }, []);
+  const filterList = Object.entries(activeFilters).flatMap(([groupUid, filters]) => {
+    const {
+      name = groupUid === 'institution' ? 'Library' : groupUid.charAt(0).toUpperCase() + groupUid.slice(1).replaceAll('_', ' '),
+      type = 'scope_down'
+    } = filterGroup.find((group) => {
+      return group.uid === groupUid;
+    }) || {};
+    return type === 'checkbox'
+      ? []
+      : filters.map((value) => {
+        return { groupUid, name, type, value };
+      });
+  });
 
   const handleRemoveFilter = ({ groupUid, type, value }) => {
     const baseFilter = {
@@ -38,9 +34,8 @@ const FilterList = ({ datastoreUid }) => {
       filterValue: null,
       onlyOneFilterValue: true
     };
-    const actions = [];
     const createAction = (overrides = {}) => {
-      actions.push(setAdvancedFilter({ ...baseFilter, ...overrides }));
+      dispatch(setAdvancedFilter({ ...baseFilter, ...overrides }));
     };
 
     if (['institution', 'location'].includes(groupUid)) {
@@ -58,13 +53,10 @@ const FilterList = ({ datastoreUid }) => {
     if (type === 'multiple_select') {
       createAction({ filterValue: value, onlyOneFilterValue: false });
     }
-
-    actions.forEach(dispatch);
   };
 
   const handleClearFilters = () => {
-    Object.keys(activeFilters).forEach((groupUid) => {
-      const filters = activeFilters[groupUid];
+    Object.entries(activeFilters).forEach(([groupUid, filters]) => {
       filters.forEach(() => {
         dispatch(setAdvancedFilter({
           datastoreUid,
@@ -76,7 +68,7 @@ const FilterList = ({ datastoreUid }) => {
     });
   };
 
-  if (filterList.length === 0) {
+  if (!filterList.length) {
     return null;
   }
 
