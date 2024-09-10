@@ -33,7 +33,7 @@ const FilterList = ({ datastoreUid }) => {
           datastoreUid,
           filterGroupUid: groupUid,
           filterType: type,
-          filterValue:  type === 'multiple_select' ? value : null,
+          filterValue: type === 'multiple_select' ? value : null,
           onlyOneFilterValue: type !== 'multiple_select'
         },
         ...overrides
