@@ -27,15 +27,17 @@ const FilterList = ({ datastoreUid }) => {
   });
 
   const handleRemoveFilter = ({ groupUid, type, value }) => {
-    const baseFilter = {
-      datastoreUid,
-      filterGroupUid: groupUid,
-      filterType: type,
-      filterValue: null,
-      onlyOneFilterValue: true
-    };
     const createAction = (overrides = {}) => {
-      dispatch(setAdvancedFilter({ ...baseFilter, ...overrides }));
+      dispatch(setAdvancedFilter({
+        ...{
+          datastoreUid,
+          filterGroupUid: groupUid,
+          filterType: type,
+          filterValue:  type === 'multiple_select' ? value : null,
+          onlyOneFilterValue: type !== 'multiple_select'
+        },
+        ...overrides
+      }));
     };
 
     if (['institution', 'location'].includes(groupUid)) {
@@ -46,13 +48,7 @@ const FilterList = ({ datastoreUid }) => {
       createAction({ filterGroupUid: 'location' });
     }
 
-    if (['date_range_input', 'scope_down'].includes(type)) {
-      createAction();
-    }
-
-    if (type === 'multiple_select') {
-      createAction({ filterValue: value, onlyOneFilterValue: false });
-    }
+    createAction();
   };
 
   const handleClearFilters = () => {
