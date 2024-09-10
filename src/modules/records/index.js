@@ -12,6 +12,7 @@ import {
 import BentoboxList from './components/BentoboxList';
 import Bookplate from './components/Bookplate';
 import FullRecordPlaceholder from './components/FullRecordPlaceholder';
+import ILLRequestMessage from './components/ILLRequestMessage';
 import KeywordSwitch from './components/KeywordSwitch';
 import MARCTable from './components/MARCTable';
 import Pagination from './components/Pagination';
@@ -35,6 +36,7 @@ export {
   clearRecord,
   clearRecords,
   FullRecordPlaceholder,
+  ILLRequestMessage,
   KeywordSwitch,
   loadingHoldings,
   loadingRecords,
