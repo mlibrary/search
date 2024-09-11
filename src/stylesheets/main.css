@@ -1918,14 +1918,6 @@ body {
   width: 100%;
 }
 
-.narrow-search-to-dropdown-container + .narrow-search-to-dropdown-container {
-  margin-top: 0.5rem;
-}
-
-.narrow-search-to-dropdown {
-  width: 100%;
-}
-
 .advanced-fields-container {
   padding: 1.5rem;
   border-radius: 4px;
