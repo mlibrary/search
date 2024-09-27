@@ -9,7 +9,7 @@ import {
   runSearch,
   switchPrideToDatastore
 } from '../../../pride';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import {
   searching,
   setPage,
@@ -43,7 +43,7 @@ const handleURLState = ({
   }
 
   if (!datastoreUid) {
-    return null;
+    return;
   }
 
   const updateRequired = {
@@ -54,8 +54,8 @@ const handleURLState = ({
     sort: urlState.sort !== sort
   };
 
-  // Run search and apply updates based on changes
-  if (Object.values(updateRequired).some(Boolean)) {
+  // If URL has a state, apply updates based on changes
+  if (Object.keys(urlState).length) {
     if (updateRequired.query) {
       const newQuery = urlState.query || '';
       dispatch(setSearchQuery(newQuery));
@@ -63,11 +63,9 @@ const handleURLState = ({
     }
 
     if (updateRequired.filters) {
-      const actionProps = {
-        datastoreUid,
-        filters: urlState.filter || null
-      };
-      dispatch(urlState.filter ? setActiveFilters(actionProps) : clearActiveFilters(actionProps));
+      dispatch(urlState.filter
+        ? setActiveFilters({ datastoreUid, filters: urlState.filter })
+        : clearActiveFilters({ datastoreUid }));
     }
 
     if (updateRequired.page) {
@@ -88,21 +86,20 @@ const handleURLState = ({
       dispatch(setActiveInstitution(urlState.library));
     }
 
-    dispatch(setA11yMessage('Search modified.'));
-    dispatch(setParserMessage(null));
-    runSearch();
-  }
-
+    // Run search if any updates are true
+    if (Object.values(updateRequired).some(Boolean)) {
+      dispatch(setA11yMessage('Search modified.'));
+      dispatch(setParserMessage(null));
+      runSearch();
+    }
   // If URL does not have a state, reset the filters and the query
-  if (!Object.keys(urlState).length) {
+  } else {
     dispatch(resetFilters());
     dispatch(setSearchQuery(''));
   }
 
   // Decide if the UI should be in a "Searching" state based on URL having query or filter
   dispatch(searching(Boolean(urlState.query || urlState.filter)));
-
-  return null;
 };
 
 const URLSearchQueryWrapper = ({ children }) => {
@@ -118,7 +115,7 @@ const URLSearchQueryWrapper = ({ children }) => {
   const institution = useSelector((state) => {
     return state.institution;
   });
-  const { query, searching: isSearching } = useSelector((state) => {
+  const { query } = useSelector((state) => {
     return state.search;
   });
   const page = useSelector((state) => {
@@ -128,21 +125,23 @@ const URLSearchQueryWrapper = ({ children }) => {
     return state.search.sort[activeDatastore];
   });
 
+  const datastoreUid = useMemo(() => {
+    return getDatastoreUidBySlug(params.datastoreSlug);
+  }, [params.datastoreSlug]);
+
   useEffect(() => {
-    const datastoreUid = getDatastoreUidBySlug(params.datastoreSlug);
     switchPrideToDatastore(datastoreUid);
 
     handleURLState({
       activeFilters,
       datastoreUid,
       institution,
-      isSearching,
       location,
       page,
       query,
       sort
     }, dispatch);
-  }, [params.datastoreSlug, isSearching, query, activeFilters, location, page, sort, institution, dispatch]);
+  }, [params.datastoreSlug, query, activeFilters, location, page, sort, institution, dispatch]);
 
   return children;
 };
