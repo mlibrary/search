@@ -7,14 +7,9 @@ import React from 'react';
 const DatastoreRoute = () => {
   const { datastoreSlug } = useParams();
   const location = useLocation();
-  const { list } = config.datastores;
-  const slugDs = list.find((datastore) => {
-    return datastore.slug === datastoreSlug;
+  const isDatastore = config.datastores.list.some(({ slug, uid }) => {
+    return [slug, uid].includes(datastoreSlug);
   });
-  const uidDs = list.find((datastore) => {
-    return datastore.uid === datastoreSlug;
-  });
-  const isDatastore = Boolean(slugDs || uidDs);
   const urlState = getStateFromURL({ location });
 
   if (isDatastore && urlState) {
