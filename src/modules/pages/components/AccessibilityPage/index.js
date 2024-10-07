@@ -12,7 +12,7 @@ const AccessibilityPage = () => {
       <main className='container__rounded page'>
         <H1 className='u-margin-top-none'>Accessibility</H1>
         <p>We are dedicated to creating inclusive services and products for all users. We are constantly working to make Library Search as accessible and usable as possible.</p>
-        <p>We aim to meet <Anchor href='https://www.w3.org/WAI/WCAG20/quickref/'>WCAG 2.0 AA standards</Anchor></p>
+        <p>We aim to meet <Anchor href='https://www.w3.org/TR/WCAG21/'>WCAG 2.1 AA standards</Anchor></p>
         <h2>Compatibility with tools</h2>
         <p>Library Search should be compatible with recent version of the following screen readers:</p>
         <ul>
