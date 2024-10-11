@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Get the list of staged .js files
+STAGED_JS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '.*\.js$')
+
+# Exit if no .js files are staged
+if [ "$STAGED_JS_FILES" = "" ]; then
+  exit 0
+fi
+
+# Run ESLint on the staged .js files
+echo "Running ESLint..."
+npx eslint $STAGED_JS_FILES
+
+# Capture ESLint exit code
+ESLINT_RESULT=$?
+
+# Exit with ESLint's result code
+if [ $ESLINT_RESULT -ne 0 ]; then
+  echo "ESLint failed. Commit aborted."
+  exit 1
+fi
+
+echo "All checks passed. Proceeding with commit."
+exit 0
