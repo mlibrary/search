@@ -1,0 +1,36 @@
+name: Update dependabot pull request title
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  update-title:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check conditions
+      id: check_conditions
+      run: |
+        if [[ "${{ github.event.pull_request.user.login }}" != "dependabot[bot]" ]]; then
+          echo "Author does not match."
+          exit 0
+        fi
+        labels=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels | jq -r '.[].name')
+        if [[ $labels != *"dependencies"* ]]; then
+          echo "Label does not match."
+          exit 0
+        fi
+        echo "conditions_met=true" >> $GITHUB_ENV
+    - name: Update PR title
+      if: env.conditions_met == 'true'
+      run: |
+        NEW_TITLE="$(date +'%B %Y') dependency updates."
+        curl -X PATCH \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} \
+          -d "{\"title\":\"${NEW_TITLE}\"}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
