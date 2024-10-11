@@ -1,0 +1,41 @@
+version: 2
+updates:
+  # For npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "06:00"
+      day: "monday"
+      timezone: "America/Detroit"
+    commit-message:
+      prefix: "Monthly npm updates: "
+    open-pull-requests-limit: 5
+    reviewers:
+      - "erinesullivan"
+    labels:
+      - "dependencies"
+    groups:
+      group-all-npm-updates:
+        patterns:
+          - "*"
+
+  # For GitHub Actions updates
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "06:00"
+      day: "monday"
+      timezone: "America/Detroit"
+    commit-message:
+      prefix: "Monthly action updates: "
+    open-pull-requests-limit: 5
+    reviewers:
+      - "erinesullivan"
+    labels:
+      - "dependencies"
+    groups:
+      group-all-github-actions-updates:
+        patterns:
+          - "*"
