@@ -13,7 +13,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build container image and push to DockerHub
       id: docker_build
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         push: true
         tags: 'bertrama/search-unstable:${{ github.sha }},bertrama/search-unstable:latest'
