@@ -2,19 +2,10 @@
 This repository contains the front-end code for [search.lib.umich.edu](https://search.lib.umich.edu/) that generates the UI and connects to the middle and backend.
 
 ## Getting Started
-### 1. Clone Search
-```bash
-git clone https://github.com/mlibrary/search.git
-```
+Run the `init.sh` script.
 
-### 2. Install
 ```bash
-npm install
-```
-
-### 3. Run Locally
-```bash
-npm start
+./init.sh
 ```
 
 ## Create React App
