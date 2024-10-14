@@ -7,19 +7,19 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { setAdvancedFilter } from '../../../advanced';
 
-const FiltersContainer = ({ datastore }) => {
+const FiltersContainer = ({ datastoreUid }) => {
   const dispatch = useDispatch();
   const filterGroups = useSelector((state) => {
-    return state.advanced[datastore.uid]?.filters;
+    return state.advanced[datastoreUid]?.filters;
   });
   const activeFilters = useSelector((state) => {
-    return state.advanced[datastore.uid]?.activeFilters;
+    return state.advanced[datastoreUid]?.activeFilters;
   });
   const filters = getFilters({ activeFilters, filterGroups });
 
   const changeAdvancedFilter = ({ filterGroupUid, filterType, filterValue }) => {
     const baseFilter = {
-      datastoreUid: datastore.uid,
+      datastoreUid,
       filterGroupUid,
       filterType,
       filterValue,
@@ -56,7 +56,7 @@ const FiltersContainer = ({ datastore }) => {
 
   return (
     <>
-      <FilterList datastoreUid={datastore.uid} />
+      <FilterList datastoreUid={datastoreUid} />
       <h2 className='heading-large'>Additional search options</h2>
       <div className='advanced-filters-inner-container'>
         {filterGroupings.map((filterGroup, groupIndex) => {
@@ -107,7 +107,7 @@ const FiltersContainer = ({ datastore }) => {
 };
 
 FiltersContainer.propTypes = {
-  datastore: PropTypes.object
+  datastoreUid: PropTypes.string
 };
 
 export default FiltersContainer;
