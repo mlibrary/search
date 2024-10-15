@@ -9,11 +9,8 @@ import { setAdvancedFilter } from '../../../advanced';
 
 const FiltersContainer = ({ datastoreUid }) => {
   const dispatch = useDispatch();
-  const filterGroups = useSelector((state) => {
-    return state.advanced[datastoreUid]?.filters;
-  });
-  const activeFilters = useSelector((state) => {
-    return state.advanced[datastoreUid]?.activeFilters;
+  const { activeFilters, filters: filterGroups } = useSelector((state) => {
+    return state.advanced[datastoreUid] || {};
   });
   const filters = getFilters({ activeFilters, filterGroups });
 
