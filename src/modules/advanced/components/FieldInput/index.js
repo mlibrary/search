@@ -5,6 +5,7 @@ import SearchByOptions from '../../../search/components/SearchByOptions';
 
 const FieldInput = ({
   activeDatastore,
+  booleanTypes,
   changeFieldedSearch,
   fieldedSearch,
   fieldedSearchIndex,
@@ -19,7 +20,7 @@ const FieldInput = ({
       {notFirst && (
         <fieldset className='flex__responsive'>
           <legend className='visually-hidden'>Boolean operator for field {fieldedSearchIndex} and field {fieldedSearchIndex + 1}</legend>
-          {['AND', 'OR', 'NOT'].map((option, index) => {
+          {booleanTypes.map((option, index) => {
             return (
               <label key={index}>
                 <input
@@ -89,6 +90,7 @@ const FieldInput = ({
 
 FieldInput.propTypes = {
   activeDatastore: PropTypes.object,
+  booleanTypes: PropTypes.array,
   changeFieldedSearch: PropTypes.func,
   fieldedSearch: PropTypes.object,
   fieldedSearchIndex: PropTypes.number,
