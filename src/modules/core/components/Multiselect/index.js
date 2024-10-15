@@ -55,11 +55,12 @@ const Multiselect = ({ descriptionText, filterGroupUid, handleSelection, options
             if (!showOnlySelectedOptions || (showOnlySelectedOptions && option.checked)) {
               return (
                 <li className='multiselect-options-list-item' key={index}>
-                  <MultiselectOption
+                  <Checkbox
+                    isChecked={option.checked}
+                    label={option.name}
                     handleClick={() => {
                       return handleOptionSelection(option, index);
                     }}
-                    option={option}
                   />
                 </li>
               );
@@ -95,18 +96,3 @@ Multiselect.propTypes = {
 };
 
 export default Multiselect;
-
-const MultiselectOption = ({ option, handleClick }) => {
-  return (
-    <Checkbox
-      isChecked={option.checked}
-      label={option.name}
-      handleClick={handleClick}
-    />
-  );
-};
-
-MultiselectOption.propTypes = {
-  handleClick: PropTypes.func,
-  option: PropTypes.object
-};

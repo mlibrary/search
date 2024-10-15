@@ -1,0 +1,33 @@
+.active-filters-header {
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.active-filters-header > .text-grey__light {
+  font-weight: 400;
+}
+
+.active-filter-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media screen and (min-width: 640px) {
+  .active-filter-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 820px) {
+  .active-filter-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+.active-filter-list > li > button {
+  height: 100%;
+  text-align: left;
+  width: 100%;
+}

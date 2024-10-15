@@ -18,27 +18,24 @@ const AdvancedSearchForm = ({ datastore }) => {
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
 
-  const fields = useSelector((state) => {
-    return state.advanced[datastore.uid].fields;
+  const { activeFilters: advancedFilters = {}, fieldedSearches, fields } = useSelector((state) => {
+    return state.advanced[datastore.uid] || {};
   });
-  const booleanTypes = useSelector((state) => {
-    return state.advanced.booleanTypes;
-  });
-  const fieldedSearches = useSelector((state) => {
-    return state.advanced[datastore.uid].fieldedSearches;
+  const { booleanTypes } = useSelector((state) => {
+    return state.advanced;
   });
   const institution = useSelector((state) => {
     return state.institution;
   });
-  const activeFilters = useSelector((state) => {
-    const currentFilters = state.advanced[datastore.uid].activeFilters || {};
+  const activeFilters = () => {
+    const currentFilters = advancedFilters;
     Object.keys(currentFilters).forEach((filter) => {
       if (!currentFilters[filter]) {
         delete currentFilters[filter];
       }
     });
     return currentFilters;
-  });
+  };
 
   // Functions wrapped with useCallback to prevent unnecessary re-creation
   const changeFieldedSearch = useCallback(({ booleanType, fieldedSearchIndex, query, selectedFieldUid }) => {
@@ -87,9 +84,9 @@ const AdvancedSearchForm = ({ datastore }) => {
       }, [])
       .join(' ');
 
-    if (query.length > 0 || (Object.keys(activeFilters).length > 0)) {
+    if (query.length > 0 || (Object.keys(activeFilters()).length > 0)) {
       const search = {
-        filter: { ...activeFilters },
+        filter: { ...activeFilters() },
         query
       };
 
@@ -110,7 +107,7 @@ const AdvancedSearchForm = ({ datastore }) => {
       ]);
       window.scrollTo(0, 0);
     }
-  }, [navigate, institution, booleanTypes, fieldedSearches, activeFilters, datastore]);
+  }, [navigate, institution, booleanTypes, fieldedSearches, activeFilters(), datastore]);
 
   return (
     <form className='y-spacing' onSubmit={handleSubmit}>
@@ -132,6 +129,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         return (
           <FieldInput
             key={index}
+            booleanTypes={booleanTypes}
             fieldedSearchIndex={index}
             fieldedSearch={fs}
             fields={fields}
@@ -158,7 +156,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         <Icon icon='search' size={24} /> Advanced Search
       </button>
 
-      <FiltersContainer datastore={datastore} />
+      <FiltersContainer datastoreUid={datastore.uid} />
     </form>
   );
 };
