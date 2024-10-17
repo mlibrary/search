@@ -21,7 +21,7 @@ const AdvancedSearchContainer = () => {
   const activeDatastore = datastores.find((datastore) => {
     return datastore.uid === activeDatastoreUid;
   });
-  const queryString = (datastoreUid = activeDatastoreUid, nav) => {
+  const queryString = ({ datastoreUid, nav }) => {
     const stringSearch = stringifySearch({
       filter: activeFilters[datastoreUid],
       library: datastoreUid === 'mirlyn' ? library : null,
@@ -36,7 +36,7 @@ const AdvancedSearchContainer = () => {
     <div className='container container-narrow margin-top__m'>
       <Breadcrumb
         items={[
-          { text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${queryString()}` },
+          { text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${queryString({ datastoreUid: activeDatastoreUid })}` },
           { text: 'Advanced Search' }
         ]}
       />
