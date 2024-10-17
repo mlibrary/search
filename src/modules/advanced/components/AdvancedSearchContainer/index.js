@@ -1,26 +1,42 @@
 import './styles.css';
-import { Breadcrumb, H1, Tab, TabPanel, Tabs } from '../../../reusable';
+import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import AdvancedSearchForm from '../AdvancedSearchForm';
 import React from 'react';
+import { stringifySearch } from '../../../search';
 import { useSelector } from 'react-redux';
 
 const AdvancedSearchContainer = () => {
-  const datastores = useSelector((state) => {
-    return state.datastores.datastores;
+  const { active: activeDatastoreUid, datastores } = useSelector((state) => {
+    return state.datastores;
   });
-  const activeDatastoreUid = useSelector((state) => {
-    return state.datastores.active;
+  const { page, query, sort } = useSelector((state) => {
+    return state.search;
   });
-  const activeDatastoreIndex = datastores.findIndex((datastore) => {
+  const { active: activeFilters } = useSelector((state) => {
+    return state.filters;
+  });
+  const { active: library } = useSelector((state) => {
+    return state.institution;
+  });
+  const activeDatastore = datastores.find((datastore) => {
     return datastore.uid === activeDatastoreUid;
   });
-  const activeDatastore = datastores[activeDatastoreIndex];
+  const queryString = ({ datastoreUid, nav }) => {
+    const stringSearch = stringifySearch({
+      filter: activeFilters[datastoreUid],
+      library: datastoreUid === 'mirlyn' ? library : null,
+      page: nav || page[datastoreUid] === 1 ? null : page[datastoreUid],
+      query,
+      sort: sort[datastoreUid]
+    });
+    return stringSearch ? `?${stringSearch}` : '';
+  };
 
   return (
     <div className='container container-narrow margin-top__m'>
       <Breadcrumb
         items={[
-          { text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${document.location.search}` },
+          { text: `${activeDatastore.name}`, to: `/${activeDatastore.slug}${queryString({ datastoreUid: activeDatastoreUid })}` },
           { text: 'Advanced Search' }
         ]}
       />
@@ -28,22 +44,25 @@ const AdvancedSearchContainer = () => {
       <H1 className='heading-xlarge'>Advanced Search</H1>
       <p className='font-lede'>Select a search category below for associated advanced search options.</p>
 
-      <Tabs defaultActiveIndex={activeDatastoreIndex}>
-        {datastores.map((ds) => {
-          return (
-            <Tab key={`tab-${ds.uid}`}>
-              {ds.name}
-            </Tab>
-          );
-        })}
-        {datastores.map((ds) => {
-          return (
-            <TabPanel key={`panel-${ds.uid}`} className='tab-panel-container'>
-              <AdvancedSearchForm datastore={ds} />
-            </TabPanel>
-          );
-        })}
-      </Tabs>
+      <nav className='advanced-search-nav' aria-label='Advanced Search Datastores'>
+        <ol className='flex__responsive list__unstyled'>
+          {datastores.map((datastore) => {
+            return (
+              <li key={datastore.uid}>
+                <Anchor
+                  to={`/${datastore.slug}/advanced${queryString({ datastoreUid: datastore.uid, nav: true })}`}
+                  aria-current={activeDatastoreUid === datastore.uid && 'page'}
+                  className='underline__hover'
+                >
+                  {datastore.name}
+                </Anchor>
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+
+      <AdvancedSearchForm datastore={activeDatastore} />
     </div>
   );
 };

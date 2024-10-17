@@ -105,6 +105,11 @@
   margin-left: var(--search-spacing-m);
 }
 
+.margin-x__auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .margin-x__none {
   margin-left: 0;
   margin-right: 0;

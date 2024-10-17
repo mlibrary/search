@@ -1,9 +1,4 @@
-import './styles.css';
-import {
-  addFieldedSearch,
-  removeFieldedSearch,
-  setFieldedSearch
-} from '../../../advanced';
+import { addFieldedSearch, removeFieldedSearch, setFieldedSearch } from '../../../advanced';
 import { Alert, Icon } from '../../../reusable';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,32 +8,31 @@ import PropTypes from 'prop-types';
 import { stringifySearch } from '../../../search';
 import { useNavigate } from 'react-router-dom';
 
+const removeUndefinedFilters = (object) => {
+  const filters = object || {};
+  Object.keys(filters).forEach((filter) => {
+    if (!filters[filter]) {
+      delete filters[filter];
+    }
+  });
+  return filters;
+};
+
 const AdvancedSearchForm = ({ datastore }) => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
 
-  const fields = useSelector((state) => {
-    return state.advanced[datastore.uid].fields;
+  const { activeFilters: currentActiveFilters, fieldedSearches, fields } = useSelector((state) => {
+    return state.advanced[datastore.uid];
   });
-  const booleanTypes = useSelector((state) => {
-    return state.advanced.booleanTypes;
-  });
-  const fieldedSearches = useSelector((state) => {
-    return state.advanced[datastore.uid].fieldedSearches;
+  const { booleanTypes } = useSelector((state) => {
+    return state.advanced;
   });
   const institution = useSelector((state) => {
     return state.institution;
   });
-  const activeFilters = useSelector((state) => {
-    const currentFilters = state.advanced[datastore.uid].activeFilters || {};
-    Object.keys(currentFilters).forEach((filter) => {
-      if (!currentFilters[filter]) {
-        delete currentFilters[filter];
-      }
-    });
-    return currentFilters;
-  });
+  const activeFilters = removeUndefinedFilters(currentActiveFilters);
 
   // Functions wrapped with useCallback to prevent unnecessary re-creation
   const changeFieldedSearch = useCallback(({ booleanType, fieldedSearchIndex, query, selectedFieldUid }) => {
@@ -113,7 +107,7 @@ const AdvancedSearchForm = ({ datastore }) => {
   }, [navigate, institution, booleanTypes, fieldedSearches, activeFilters, datastore]);
 
   return (
-    <form className='y-spacing' onSubmit={handleSubmit}>
+    <form className='y-spacing container__rounded page margin-top__none' onSubmit={handleSubmit}>
       <h2 className='h1'>{datastore.name} Search</h2>
       {errors.map((error, index) => {
         return (
@@ -144,7 +138,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         );
       })}
       <button
-        className='btn btn--small btn--secondary add-another-field'
+        className='btn btn--small btn--secondary margin-x__auto flex'
         onClick={handleAddAnotherFieldedSearch}
         type='button'
       >
@@ -158,7 +152,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         <Icon icon='search' size={24} /> Advanced Search
       </button>
 
-      <FiltersContainer datastore={datastore} />
+      <FiltersContainer datastoreUid={datastore.uid} />
     </form>
   );
 };

@@ -7,32 +7,30 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { setAdvancedFilter } from '../../../advanced';
 
-const ActiveAdvancedFilters = (datastore) => {
-  const currentDatastore = datastore.datastore.uid;
-  const { advanced } = useSelector((state) => {
-    return state;
+const ActiveAdvancedFilters = ({ datastoreUid }) => {
+  const { activeFilters, filters } = useSelector((state) => {
+    return state.advanced[datastoreUid] || {};
   });
-  const activeAdditionalSearchOptions = advanced[currentDatastore].activeFilters;
   // Check if object exists
-  if (!activeAdditionalSearchOptions) {
+  if (!activeFilters) {
     return null;
   }
   // Remove properties that have undefined values
-  Object.keys(activeAdditionalSearchOptions).forEach((option) => {
-    if (!activeAdditionalSearchOptions[option]) {
-      delete activeAdditionalSearchOptions[option];
+  Object.keys(activeFilters).forEach((option) => {
+    if (!activeFilters[option]) {
+      delete activeFilters[option];
     }
   });
 
   const filterGroups = {};
-  advanced[currentDatastore].filters.forEach((filterGroup) => {
+  filters.forEach((filterGroup) => {
     filterGroups[filterGroup.uid] = { ...filterGroup };
   });
 
-  const items = Object.keys(activeAdditionalSearchOptions).reduce((acc, group) => {
+  const items = Object.keys(activeFilters).reduce((acc, group) => {
     // Just don't show the checkbox filters as active filter items.
     if (!filterGroups[group] || filterGroups[group].type !== 'checkbox') {
-      const activeFiltersToAdd = activeAdditionalSearchOptions[group].map((value) => {
+      const activeFiltersToAdd = activeFilters[group].map((value) => {
         return { group, value };
       });
       return [...acc, ...activeFiltersToAdd];
@@ -80,13 +78,14 @@ const ActiveAdvancedFilters = (datastore) => {
   );
 };
 
-const FiltersContainer = ({ datastore }) => {
+ActiveAdvancedFilters.propTypes = {
+  datastoreUid: PropTypes.string
+};
+
+const FiltersContainer = ({ datastoreUid }) => {
   const dispatch = useDispatch();
-  const filterGroups = useSelector((state) => {
-    return state.advanced[datastore.uid]?.filters;
-  });
-  const activeFilters = useSelector((state) => {
-    return state.advanced[datastore.uid]?.activeFilters;
+  const { activeFilters, filters: filterGroups } = useSelector((state) => {
+    return state.advanced[datastoreUid] || {};
   });
   const filters = getFilters({ activeFilters, filterGroups });
 
@@ -96,14 +95,14 @@ const FiltersContainer = ({ datastore }) => {
         // Clear active filters
         if (['institution', 'location'].includes(filterGroupUid) && filterValue) {
           dispatch(setAdvancedFilter({
-            datastoreUid: datastore.uid,
+            datastoreUid,
             filterGroupUid: 'collection',
             filterType,
             onlyOneFilterValue: true
           }));
           if (filterGroupUid === 'institution') {
             dispatch(setAdvancedFilter({
-              datastoreUid: datastore.uid,
+              datastoreUid,
               filterGroupUid: 'location',
               filterType,
               onlyOneFilterValue: true
@@ -111,7 +110,7 @@ const FiltersContainer = ({ datastore }) => {
           }
         }
         dispatch(setAdvancedFilter({
-          datastoreUid: datastore.uid,
+          datastoreUid,
           filterGroupUid,
           filterType,
           filterValue,
@@ -121,7 +120,7 @@ const FiltersContainer = ({ datastore }) => {
       case 'checkbox':
       case 'date_range_input':
         dispatch(setAdvancedFilter({
-          datastoreUid: datastore.uid,
+          datastoreUid,
           filterGroupUid,
           filterValue,
           onlyOneFilterValue: true
@@ -129,7 +128,7 @@ const FiltersContainer = ({ datastore }) => {
         break;
       case 'multiple_select':
         dispatch(setAdvancedFilter({
-          datastoreUid: datastore.uid,
+          datastoreUid,
           filterGroupUid,
           filterValue
         }));
@@ -147,7 +146,7 @@ const FiltersContainer = ({ datastore }) => {
 
   return (
     <>
-      <ActiveAdvancedFilters datastore={datastore} />
+      <ActiveAdvancedFilters datastoreUid={datastoreUid} />
       <h2 className='heading-large'>Additional search options</h2>
       <div className='advanced-filters-inner-container'>
         {filterGroupings.map((filterGroup, groupIndex) => {
@@ -198,7 +197,7 @@ const FiltersContainer = ({ datastore }) => {
 };
 
 FiltersContainer.propTypes = {
-  datastore: PropTypes.object
+  datastoreUid: PropTypes.string
 };
 
 export default FiltersContainer;
