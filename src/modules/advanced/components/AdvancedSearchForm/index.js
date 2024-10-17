@@ -152,7 +152,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         <Icon icon='search' size={24} /> Advanced Search
       </button>
 
-      <FiltersContainer datastore={datastore} />
+      <FiltersContainer datastoreUid={datastore.uid} />
     </form>
   );
 };
