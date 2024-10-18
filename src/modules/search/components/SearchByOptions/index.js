@@ -17,12 +17,12 @@ const listOptions = (options) => {
   });
 };
 
-const SearchByOptions = ({ activeDatastore, fields }) => {
+const SearchByOptions = ({ datastoreUid, fields }) => {
   let setFields = fields;
   // Override fields if custom options exist for current datastore
-  if (searchOptionsDatastores().includes(activeDatastore.uid)) {
+  if (searchOptionsDatastores().includes(datastoreUid)) {
     setFields = searchOptions().filter((searchOption) => {
-      return searchOption.datastore.includes(activeDatastore.uid);
+      return searchOption.datastore.includes(datastoreUid);
     });
   }
   const searchByOptions = filterOptions(setFields);
@@ -44,7 +44,7 @@ const SearchByOptions = ({ activeDatastore, fields }) => {
 };
 
 SearchByOptions.propTypes = {
-  activeDatastore: PropTypes.object,
+  datastoreUid: PropTypes.string,
   fields: PropTypes.array
 };
 

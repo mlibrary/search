@@ -1,17 +1,62 @@
+import React, { memo, useCallback } from 'react';
+import { removeFieldedSearch, setFieldedSearch } from '../../../advanced';
 import Icon from '../../../reusable/components/Icon';
 import PropTypes from 'prop-types';
-import React from 'react';
 import SearchByOptions from '../../../search/components/SearchByOptions';
+import { useDispatch } from 'react-redux';
 
 const FieldInput = ({
-  activeDatastore,
-  changeFieldedSearch,
+  booleanTypes,
+  datastoreUid,
   fieldedSearch,
   fieldedSearchIndex,
-  fields,
-  handleRemoveFieldedSearch
+  fields
 }) => {
+  const dispatch = useDispatch();
+
   const notFirst = fieldedSearchIndex > 0;
+
+  const changeFieldedSearch = useCallback(
+    (update) => {
+      dispatch(setFieldedSearch({
+        ...update,
+        datastoreUid,
+        fieldedSearchIndex
+      }));
+    },
+    [dispatch, datastoreUid, fieldedSearchIndex]
+  );
+
+  const handleBooleanTypeChange = useCallback(
+    (index) => {
+      changeFieldedSearch({ booleanType: index });
+    },
+    [changeFieldedSearch]
+  );
+
+  const handleFieldChange = useCallback(
+    (event) => {
+      changeFieldedSearch({ selectedFieldUid: event.target.value });
+    },
+    [changeFieldedSearch]
+  );
+
+  const handleQueryChange = useCallback(
+    (event) => {
+      changeFieldedSearch({ query: event.target.value });
+    },
+    [changeFieldedSearch]
+  );
+
+  const handleRemoveFieldedSearch = useCallback(
+    () => {
+      dispatch(removeFieldedSearch({
+        datastoreUid,
+        removeIndex: fieldedSearchIndex
+      }));
+    },
+    [dispatch, datastoreUid, fieldedSearchIndex]
+  );
 
   return (
     <fieldset className='y-spacing advanced-fieldset'>
@@ -19,7 +64,7 @@ const FieldInput = ({
       {notFirst && (
         <fieldset className='flex__responsive'>
           <legend className='visually-hidden'>Boolean operator for field {fieldedSearchIndex} and field {fieldedSearchIndex + 1}</legend>
-          {['AND', 'OR', 'NOT'].map((option, index) => {
+          {booleanTypes.map((option, index) => {
             return (
               <label key={index}>
                 <input
@@ -28,10 +73,7 @@ const FieldInput = ({
                   value={option}
                   checked={fieldedSearch.booleanType === index}
                   onChange={() => {
-                    return changeFieldedSearch({
-                      booleanType: index,
-                      fieldedSearchIndex
-                    });
+                    return handleBooleanTypeChange(index);
                   }}
                 />
                 {option}
@@ -45,27 +87,16 @@ const FieldInput = ({
           aria-label={`Selected field ${fieldedSearchIndex + 1}`}
           className='advanced-field-select'
           value={fieldedSearch.field}
-          onChange={(event) => {
-            return changeFieldedSearch({
-              fieldedSearchIndex,
-              selectedFieldUid: event.target.value
-            });
-          }}
+          onChange={handleFieldChange}
           autoComplete='off'
         >
-          <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
+          <SearchByOptions datastoreUid={datastoreUid} fields={fields} />
         </select>
         <div className='advanced-input-remove-container'>
           <input
             type='text'
             value={fieldedSearch.query}
-            data-hj-allow
-            onChange={(event) => {
-              return changeFieldedSearch({
-                fieldedSearchIndex,
-                query: event.target.value
-              });
-            }}
+            onChange={handleQueryChange}
             autoComplete='on'
             aria-label={`Search Term ${fieldedSearchIndex + 1}`}
           />
@@ -88,12 +119,11 @@ const FieldInput = ({
 };
 
 FieldInput.propTypes = {
-  activeDatastore: PropTypes.object,
-  changeFieldedSearch: PropTypes.func,
+  booleanTypes: PropTypes.array,
+  datastoreUid: PropTypes.string,
   fieldedSearch: PropTypes.object,
   fieldedSearchIndex: PropTypes.number,
-  fields: PropTypes.array,
-  handleRemoveFieldedSearch: PropTypes.func
+  fields: PropTypes.array
 };
 
-export default FieldInput;
+export default memo(FieldInput);

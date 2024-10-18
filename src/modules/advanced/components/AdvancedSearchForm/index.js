@@ -1,30 +1,21 @@
-import { addFieldedSearch, removeFieldedSearch, setFieldedSearch } from '../../../advanced';
 import { Alert, Icon } from '../../../reusable';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { addFieldedSearch } from '../../../advanced';
 import FieldInput from '../FieldInput';
 import FiltersContainer from '../FiltersContainer';
 import PropTypes from 'prop-types';
 import { stringifySearch } from '../../../search';
 import { useNavigate } from 'react-router-dom';
 
-const removeUndefinedFilters = (object) => {
-  const filters = object || {};
-  Object.keys(filters).forEach((filter) => {
-    if (!filters[filter]) {
-      delete filters[filter];
-    }
-  });
-  return filters;
-};
-
 const AdvancedSearchForm = ({ datastore }) => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
+  const { name, slug, uid: datastoreUid } = datastore;
 
-  const { activeFilters: currentActiveFilters, fieldedSearches, fields } = useSelector((state) => {
-    return state.advanced[datastore.uid];
+  const { activeFilters: currentActiveFilters = {}, fieldedSearches, fields } = useSelector((state) => {
+    return state.advanced[datastoreUid];
   });
   const { booleanTypes } = useSelector((state) => {
     return state.advanced;
@@ -32,33 +23,20 @@ const AdvancedSearchForm = ({ datastore }) => {
   const institution = useSelector((state) => {
     return state.institution;
   });
-  const activeFilters = removeUndefinedFilters(currentActiveFilters);
-
-  // Functions wrapped with useCallback to prevent unnecessary re-creation
-  const changeFieldedSearch = useCallback(({ booleanType, fieldedSearchIndex, query, selectedFieldUid }) => {
-    dispatch(setFieldedSearch({
-      booleanType,
-      datastoreUid: datastore.uid,
-      fieldedSearchIndex,
-      query,
-      selectedFieldUid
-    }));
-  }, [dispatch, datastore.uid]);
+  const activeFilters = Object.entries(currentActiveFilters).reduce((acc, [key, value]) => {
+    if (value) {
+      acc[key] = value;
+    }
+    return acc;
+  }, {});
 
   const handleAddAnotherFieldedSearch = useCallback((event) => {
     event.preventDefault();
     dispatch(addFieldedSearch({
-      datastoreUid: datastore.uid,
+      datastoreUid,
       field: fields[0].uid
     }));
-  }, [dispatch, datastore.uid, fields]);
-
-  const handleRemoveFieldedSearch = useCallback(({ removeIndex }) => {
-    dispatch(removeFieldedSearch({
-      datastoreUid: datastore.uid,
-      removeIndex
-    }));
-  }, [dispatch, datastore.uid]);
+  }, [dispatch, datastoreUid, fields]);
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
@@ -87,7 +65,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         query
       };
 
-      if (datastore.uid === 'mirlyn') {
+      if (datastoreUid === 'mirlyn') {
         if (search.filter.institution) {
           const { institution: [firstInstitution] } = search.filter;
           search.library = firstInstitution;
@@ -97,7 +75,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         }
       }
 
-      navigate(`/${datastore.slug}?${stringifySearch(search)}`);
+      navigate(`/${slug}?${stringifySearch(search)}`);
     } else {
       setErrors([
         'A search term or option is required to submit an advanced search.'
@@ -108,7 +86,7 @@ const AdvancedSearchForm = ({ datastore }) => {
 
   return (
     <form className='y-spacing container__rounded page margin-top__none' onSubmit={handleSubmit}>
-      <h2 className='h1'>{datastore.name} Search</h2>
+      <h2 className='h1'>{name} Search</h2>
       {errors.map((error, index) => {
         return (
           <Alert type='error' key={index}>
@@ -122,21 +100,10 @@ const AdvancedSearchForm = ({ datastore }) => {
 
       <h3 className='offscreen'>Fielded search options</h3>
 
-      {fieldedSearches.map((fs, index) => {
-        return (
-          <FieldInput
-            key={index}
-            fieldedSearchIndex={index}
-            fieldedSearch={fs}
-            fields={fields}
-            changeFieldedSearch={changeFieldedSearch}
-            handleRemoveFieldedSearch={() => {
-              return handleRemoveFieldedSearch({ removeIndex: index });
-            }}
-            activeDatastore={datastore}
-          />
-        );
+      {fieldedSearches.map((fieldedSearch, index) => {
+        return <FieldInput key={index} {...{ booleanTypes, datastoreUid, fieldedSearch, fieldedSearchIndex: index, fields }} />;
       })}
+
       <button
         className='btn btn--small btn--secondary margin-x__auto flex'
         onClick={handleAddAnotherFieldedSearch}
@@ -152,7 +119,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         <Icon icon='search' size={24} /> Advanced Search
       </button>
 
-      <FiltersContainer datastoreUid={datastore.uid} />
+      <FiltersContainer {...{ datastoreUid }} />
     </form>
   );
 };
