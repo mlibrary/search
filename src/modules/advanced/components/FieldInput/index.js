@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react';
+import { removeFieldedSearch, setFieldedSearch } from '../../../advanced';
 import Icon from '../../../reusable/components/Icon';
 import PropTypes from 'prop-types';
 import SearchByOptions from '../../../search/components/SearchByOptions';
-import { setFieldedSearch } from '../../../advanced';
 import { useDispatch } from 'react-redux';
 
 const FieldInput = ({
@@ -10,37 +10,53 @@ const FieldInput = ({
   booleanTypes,
   fieldedSearch,
   fieldedSearchIndex,
-  fields,
-  handleRemoveFieldedSearch
+  fields
 }) => {
   const dispatch = useDispatch();
 
   const notFirst = fieldedSearchIndex > 0;
 
   const changeFieldedSearch = useCallback(
-    ({ booleanType, query, selectedFieldUid }) => {
+    (update) => {
       dispatch(setFieldedSearch({
-        booleanType,
+        ...update,
         datastoreUid: activeDatastore.uid,
-        fieldedSearchIndex,
-        query,
-        selectedFieldUid
+        fieldedSearchIndex
       }));
     },
     [dispatch, activeDatastore.uid, fieldedSearchIndex]
   );
 
-  const handleBooleanTypeChange = useCallback((index) => {
-    changeFieldedSearch({ booleanType: index });
-  }, [changeFieldedSearch]);
+  const handleBooleanTypeChange = useCallback(
+    (index) => {
+      changeFieldedSearch({ booleanType: index });
+    },
+    [changeFieldedSearch]
+  );
 
-  const handleFieldChange = useCallback((event) => {
-    changeFieldedSearch({ selectedFieldUid: event.target.value });
-  }, [changeFieldedSearch]);
+  const handleFieldChange = useCallback(
+    (event) => {
+      changeFieldedSearch({ selectedFieldUid: event.target.value });
+    },
+    [changeFieldedSearch]
+  );
 
-  const handleQueryChange = useCallback((event) => {
-    changeFieldedSearch({ query: event.target.value });
-  }, [changeFieldedSearch]);
+  const handleQueryChange = useCallback(
+    (event) => {
+      changeFieldedSearch({ query: event.target.value });
+    },
+    [changeFieldedSearch]
+  );
+
+  const handleRemoveFieldedSearch = useCallback(
+    () => {
+      dispatch(removeFieldedSearch({
+        datastoreUid: activeDatastore.uid,
+        removeIndex: fieldedSearchIndex
+      }));
+    },
+    [dispatch, activeDatastore.uid, fieldedSearchIndex]
+  );
 
   return (
     <fieldset className='y-spacing advanced-fieldset'>
@@ -108,8 +124,7 @@ FieldInput.propTypes = {
   booleanTypes: PropTypes.array,
   fieldedSearch: PropTypes.object,
   fieldedSearchIndex: PropTypes.number,
-  fields: PropTypes.array,
-  handleRemoveFieldedSearch: PropTypes.func
+  fields: PropTypes.array
 };
 
 export default memo(FieldInput);

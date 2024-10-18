@@ -1,7 +1,7 @@
-import { addFieldedSearch, removeFieldedSearch } from '../../../advanced';
 import { Alert, Icon } from '../../../reusable';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { addFieldedSearch } from '../../../advanced';
 import FieldInput from '../FieldInput';
 import FiltersContainer from '../FiltersContainer';
 import PropTypes from 'prop-types';
@@ -36,13 +36,6 @@ const AdvancedSearchForm = ({ datastore }) => {
       field: fields[0].uid
     }));
   }, [dispatch, datastore.uid, fields]);
-
-  const handleRemoveFieldedSearch = useCallback(({ removeIndex }) => {
-    dispatch(removeFieldedSearch({
-      datastoreUid: datastore.uid,
-      removeIndex
-    }));
-  }, [dispatch, datastore.uid]);
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
@@ -114,9 +107,6 @@ const AdvancedSearchForm = ({ datastore }) => {
             fieldedSearchIndex={index}
             fieldedSearch={fs}
             fields={fields}
-            handleRemoveFieldedSearch={() => {
-              return handleRemoveFieldedSearch({ removeIndex: index });
-            }}
             activeDatastore={datastore}
           />
         );
