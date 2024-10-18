@@ -6,9 +6,10 @@ const Breadcrumb = ({ items }) => {
   return (
     <ol className='breadcrumb'>
       {items.map((item, index) => {
+        const { href, text, to } = item;
         return (
           <li className='breadcrumb__item' key={index}>
-            {(item.href || item.to) ? <Anchor href={item.href} to={item.to}>{item.text}</Anchor> : item.text}
+            {(href || to) ? <Anchor {...{ href, to }}>{text}</Anchor> : text}
           </li>
         );
       })}

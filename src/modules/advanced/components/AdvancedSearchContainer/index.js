@@ -47,14 +47,15 @@ const AdvancedSearchContainer = () => {
       <nav className='advanced-search-nav' aria-label='Advanced Search Datastores'>
         <ol className='flex__responsive list__unstyled'>
           {datastores.map((datastore) => {
+            const { name, slug, uid: datastoreUid } = datastore;
             return (
-              <li key={datastore.uid}>
+              <li key={datastoreUid}>
                 <Anchor
-                  to={`/${datastore.slug}/advanced${queryString({ datastoreUid: datastore.uid, nav: true })}`}
-                  aria-current={activeDatastoreUid === datastore.uid && 'page'}
+                  to={`/${slug}/advanced${queryString({ datastoreUid, nav: true })}`}
+                  aria-current={activeDatastoreUid === datastoreUid && 'page'}
                   className='underline__hover'
                 >
-                  {datastore.name}
+                  {name}
                 </Anchor>
               </li>
             );
