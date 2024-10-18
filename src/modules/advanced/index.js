@@ -9,6 +9,7 @@ import {
 } from './actions';
 import advancedReducer from './reducer';
 import AdvancedSearch from './components/AdvancedSearchContainer';
+import AdvancedSearchSubmit from './components/AdvancedSearchSubmit';
 
 export {
   addAdvancedBooleanTypes,
@@ -17,6 +18,7 @@ export {
   addFieldedSearch,
   advancedReducer,
   AdvancedSearch,
+  AdvancedSearchSubmit,
   removeFieldedSearch,
   setAdvancedFilter,
   setFieldedSearch

@@ -1,11 +1,10 @@
 import './styles.css';
+import { AdvancedSearchSubmit, setAdvancedFilter } from '../../../advanced';
 import { useDispatch, useSelector } from 'react-redux';
 import AdvancedFilter from '../AdvancedFilter';
 import getFilters from './getFilters';
-import { Icon } from '../../../reusable';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { setAdvancedFilter } from '../../../advanced';
 
 const ActiveAdvancedFilters = ({ datastoreUid }) => {
   const { activeFilters, filters } = useSelector((state) => {
@@ -186,12 +185,7 @@ const FiltersContainer = ({ datastoreUid }) => {
           );
         })}
       </div>
-      <button
-        className='btn btn--primary margin-top__m'
-        type='submit'
-      >
-        <Icon icon='search' size={24} /> Advanced Search
-      </button>
+      <AdvancedSearchSubmit />
     </>
   );
 };
