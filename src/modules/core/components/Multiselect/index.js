@@ -2,9 +2,16 @@ import React, { useState } from 'react';
 import { Checkbox } from '../../../reusable';
 import PropTypes from 'prop-types';
 
-const Multiselect = ({ descriptionText, filterGroupUid, handleSelection, options }) => {
+const Multiselect = ({ advancedFilter, handleSelection }) => {
   const [filterQuery, setFilterQuery] = useState('');
   const [showOnlySelectedOptions, setshowOnlySelectedOptions] = useState(false);
+  const options = advancedFilter.filters.map((option) => {
+    return {
+      checked: option.isActive,
+      name: option.value,
+      value: option.value
+    };
+  });
   const selectedOptions = options.filter((option) => {
     return option.checked;
   });
@@ -31,12 +38,12 @@ const Multiselect = ({ descriptionText, filterGroupUid, handleSelection, options
 
   return (
     <div className='multiselect'>
-      {descriptionText && <p className='font-small'>{descriptionText}</p>}
+      <p className='font-small'>Select one or more checkboxes to narrow your results to items that match all of your {advancedFilter.name.toLowerCase()} selections.</p>
       <input
         type='text'
         className='multiselect-search'
         aria-label='Filter options'
-        aria-describedby={filterGroupUid}
+        aria-describedby={advancedFilter.uid}
         placeholder='Filter'
         value={filterQuery}
         onChange={(event) => {
@@ -44,7 +51,7 @@ const Multiselect = ({ descriptionText, filterGroupUid, handleSelection, options
         }}
         autoComplete='on'
       />
-      <p id={filterGroupUid} className='visually-hidden'>Below this edit box is a list of check boxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
+      <p id={advancedFilter.uid} className='visually-hidden'>Below this edit box is a list of check boxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
       <fieldset className='multiselect-options'>
         <legend className='visually-hidden'>Filter Options</legend>
         <ul className='multiselect-options-list'>
@@ -55,11 +62,12 @@ const Multiselect = ({ descriptionText, filterGroupUid, handleSelection, options
             if (!showOnlySelectedOptions || (showOnlySelectedOptions && option.checked)) {
               return (
                 <li className='multiselect-options-list-item' key={index}>
-                  <MultiselectOption
+                  <Checkbox
+                    isChecked={option.checked}
+                    label={option.name}
                     handleClick={() => {
                       return handleOptionSelection(option, index);
                     }}
-                    option={option}
                   />
                 </li>
               );
@@ -76,7 +84,7 @@ const Multiselect = ({ descriptionText, filterGroupUid, handleSelection, options
             setshowOnlySelectedOptions(!showOnlySelectedOptions);
           }}
         >
-          {showOnlySelectedOptions ? 'Show all options' : `Show only selected options (${selectedOptions.length})`}
+          Show {showOnlySelectedOptions ? 'all options' : `only selected options (${selectedOptions.length})`}
         </button>
       )}
     </div>
@@ -84,29 +92,8 @@ const Multiselect = ({ descriptionText, filterGroupUid, handleSelection, options
 };
 
 Multiselect.propTypes = {
-  descriptionText: PropTypes.string,
-  filterGroupUid: PropTypes.string,
-  handleSelection: PropTypes.func,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    checked: PropTypes.bool,
-    name: PropTypes.string,
-    value: PropTypes.string
-  }))
+  advancedFilter: PropTypes.object,
+  handleSelection: PropTypes.func
 };
 
 export default Multiselect;
-
-const MultiselectOption = ({ option, handleClick }) => {
-  return (
-    <Checkbox
-      isChecked={option.checked}
-      label={option.name}
-      handleClick={handleClick}
-    />
-  );
-};
-
-MultiselectOption.propTypes = {
-  handleClick: PropTypes.func,
-  option: PropTypes.object
-};
