@@ -141,7 +141,7 @@ const SearchBox = () => {
           }}
           autoComplete='off'
         >
-          <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
+          <SearchByOptions datastoreUid={activeDatastore.uid} fields={fields} />
         </select>
         <input
           type='text'

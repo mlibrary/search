@@ -6,8 +6,8 @@ import SearchByOptions from '../../../search/components/SearchByOptions';
 import { useDispatch } from 'react-redux';
 
 const FieldInput = ({
-  activeDatastore,
   booleanTypes,
+  datastoreUid,
   fieldedSearch,
   fieldedSearchIndex,
   fields
@@ -20,11 +20,11 @@ const FieldInput = ({
     (update) => {
       dispatch(setFieldedSearch({
         ...update,
-        datastoreUid: activeDatastore.uid,
+        datastoreUid,
         fieldedSearchIndex
       }));
     },
-    [dispatch, activeDatastore.uid, fieldedSearchIndex]
+    [dispatch, datastoreUid, fieldedSearchIndex]
   );
 
   const handleBooleanTypeChange = useCallback(
@@ -51,11 +51,11 @@ const FieldInput = ({
   const handleRemoveFieldedSearch = useCallback(
     () => {
       dispatch(removeFieldedSearch({
-        datastoreUid: activeDatastore.uid,
+        datastoreUid,
         removeIndex: fieldedSearchIndex
       }));
     },
-    [dispatch, activeDatastore.uid, fieldedSearchIndex]
+    [dispatch, datastoreUid, fieldedSearchIndex]
   );
 
   return (
@@ -90,7 +90,7 @@ const FieldInput = ({
           onChange={handleFieldChange}
           autoComplete='off'
         >
-          <SearchByOptions activeDatastore={activeDatastore} fields={fields} />
+          <SearchByOptions datastoreUid={datastoreUid} fields={fields} />
         </select>
         <div className='advanced-input-remove-container'>
           <input
@@ -120,8 +120,8 @@ const FieldInput = ({
 };
 
 FieldInput.propTypes = {
-  activeDatastore: PropTypes.object,
   booleanTypes: PropTypes.array,
+  datastoreUid: PropTypes.string,
   fieldedSearch: PropTypes.object,
   fieldedSearchIndex: PropTypes.number,
   fields: PropTypes.array

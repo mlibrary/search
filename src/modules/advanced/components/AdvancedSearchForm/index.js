@@ -12,9 +12,10 @@ const AdvancedSearchForm = ({ datastore }) => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
+  const { name, slug, uid: datastoreUid } = datastore;
 
   const { activeFilters: currentActiveFilters = {}, fieldedSearches, fields } = useSelector((state) => {
-    return state.advanced[datastore.uid];
+    return state.advanced[datastoreUid];
   });
   const { booleanTypes } = useSelector((state) => {
     return state.advanced;
@@ -32,10 +33,10 @@ const AdvancedSearchForm = ({ datastore }) => {
   const handleAddAnotherFieldedSearch = useCallback((event) => {
     event.preventDefault();
     dispatch(addFieldedSearch({
-      datastoreUid: datastore.uid,
+      datastoreUid,
       field: fields[0].uid
     }));
-  }, [dispatch, datastore.uid, fields]);
+  }, [dispatch, datastoreUid, fields]);
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
@@ -64,7 +65,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         query
       };
 
-      if (datastore.uid === 'mirlyn') {
+      if (datastoreUid === 'mirlyn') {
         if (search.filter.institution) {
           const { institution: [firstInstitution] } = search.filter;
           search.library = firstInstitution;
@@ -74,7 +75,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         }
       }
 
-      navigate(`/${datastore.slug}?${stringifySearch(search)}`);
+      navigate(`/${slug}?${stringifySearch(search)}`);
     } else {
       setErrors([
         'A search term or option is required to submit an advanced search.'
@@ -85,7 +86,7 @@ const AdvancedSearchForm = ({ datastore }) => {
 
   return (
     <form className='y-spacing container__rounded page margin-top__none' onSubmit={handleSubmit}>
-      <h2 className='h1'>{datastore.name} Search</h2>
+      <h2 className='h1'>{name} Search</h2>
       {errors.map((error, index) => {
         return (
           <Alert type='error' key={index}>
@@ -107,7 +108,7 @@ const AdvancedSearchForm = ({ datastore }) => {
             fieldedSearchIndex={index}
             fieldedSearch={fs}
             fields={fields}
-            activeDatastore={datastore}
+            datastoreUid={datastoreUid}
           />
         );
       })}
@@ -126,7 +127,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         <Icon icon='search' size={24} /> Advanced Search
       </button>
 
-      <FiltersContainer datastoreUid={datastore.uid} />
+      <FiltersContainer datastoreUid={datastoreUid} />
     </form>
   );
 };
