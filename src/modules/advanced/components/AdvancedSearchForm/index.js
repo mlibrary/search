@@ -1,4 +1,4 @@
-import { addFieldedSearch, removeFieldedSearch, setFieldedSearch } from '../../../advanced';
+import { addFieldedSearch, removeFieldedSearch } from '../../../advanced';
 import { Alert, Icon } from '../../../reusable';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,22 +8,12 @@ import PropTypes from 'prop-types';
 import { stringifySearch } from '../../../search';
 import { useNavigate } from 'react-router-dom';
 
-const removeUndefinedFilters = (object) => {
-  const filters = object || {};
-  Object.keys(filters).forEach((filter) => {
-    if (!filters[filter]) {
-      delete filters[filter];
-    }
-  });
-  return filters;
-};
-
 const AdvancedSearchForm = ({ datastore }) => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
 
-  const { activeFilters: currentActiveFilters, fieldedSearches, fields } = useSelector((state) => {
+  const { activeFilters: currentActiveFilters = {}, fieldedSearches, fields } = useSelector((state) => {
     return state.advanced[datastore.uid];
   });
   const { booleanTypes } = useSelector((state) => {
@@ -32,18 +22,12 @@ const AdvancedSearchForm = ({ datastore }) => {
   const institution = useSelector((state) => {
     return state.institution;
   });
-  const activeFilters = removeUndefinedFilters(currentActiveFilters);
-
-  // Functions wrapped with useCallback to prevent unnecessary re-creation
-  const changeFieldedSearch = useCallback(({ booleanType, fieldedSearchIndex, query, selectedFieldUid }) => {
-    dispatch(setFieldedSearch({
-      booleanType,
-      datastoreUid: datastore.uid,
-      fieldedSearchIndex,
-      query,
-      selectedFieldUid
-    }));
-  }, [dispatch, datastore.uid]);
+  const activeFilters = Object.entries(currentActiveFilters).reduce((acc, [key, value]) => {
+    if (value) {
+      acc[key] = value;
+    }
+    return acc;
+  }, {});
 
   const handleAddAnotherFieldedSearch = useCallback((event) => {
     event.preventDefault();
@@ -126,10 +110,10 @@ const AdvancedSearchForm = ({ datastore }) => {
         return (
           <FieldInput
             key={index}
+            booleanTypes={booleanTypes}
             fieldedSearchIndex={index}
             fieldedSearch={fs}
             fields={fields}
-            changeFieldedSearch={changeFieldedSearch}
             handleRemoveFieldedSearch={() => {
               return handleRemoveFieldedSearch({ removeIndex: index });
             }}
