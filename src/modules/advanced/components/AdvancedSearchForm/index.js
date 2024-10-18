@@ -100,18 +100,10 @@ const AdvancedSearchForm = ({ datastore }) => {
 
       <h3 className='offscreen'>Fielded search options</h3>
 
-      {fieldedSearches.map((fs, index) => {
-        return (
-          <FieldInput
-            key={index}
-            booleanTypes={booleanTypes}
-            fieldedSearchIndex={index}
-            fieldedSearch={fs}
-            fields={fields}
-            datastoreUid={datastoreUid}
-          />
-        );
+      {fieldedSearches.map((fieldedSearch, index) => {
+        return <FieldInput key={index} {...{ booleanTypes, datastoreUid, fieldedSearch, fieldedSearchIndex: index, fields }} />;
       })}
+
       <button
         className='btn btn--small btn--secondary margin-x__auto flex'
         onClick={handleAddAnotherFieldedSearch}
@@ -127,7 +119,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         <Icon icon='search' size={24} /> Advanced Search
       </button>
 
-      <FiltersContainer datastoreUid={datastoreUid} />
+      <FiltersContainer {...{ datastoreUid }} />
     </form>
   );
 };

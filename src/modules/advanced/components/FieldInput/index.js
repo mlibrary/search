@@ -96,7 +96,6 @@ const FieldInput = ({
           <input
             type='text'
             value={fieldedSearch.query}
-            data-hj-allow
             onChange={handleQueryChange}
             autoComplete='on'
             aria-label={`Search Term ${fieldedSearchIndex + 1}`}
