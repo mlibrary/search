@@ -1,13 +1,14 @@
+import './styles.css';
 import React, { useState } from 'react';
-import { Checkbox } from '../../../reusable';
 import PropTypes from 'prop-types';
 
-const Multiselect = ({ advancedFilter, handleSelection }) => {
+const Multiselect = ({ advancedFilter, datastoreUid, handleSelection }) => {
   const [filterQuery, setFilterQuery] = useState('');
   const [showOnlySelectedOptions, setshowOnlySelectedOptions] = useState(false);
   const options = advancedFilter.filters.map((option) => {
     return {
       checked: option.isActive,
+      datastore: datastoreUid,
       name: option.value,
       value: option.value
     };
@@ -16,8 +17,8 @@ const Multiselect = ({ advancedFilter, handleSelection }) => {
     return option.checked;
   });
 
-  const handleOptionSelection = (option, index) => {
-    handleSelection(index, option);
+  const handleOptionSelection = ({ option }) => {
+    handleSelection({ option });
     if (showOnlySelectedOptions) {
       if (selectedOptions.length === 1) {
         setshowOnlySelectedOptions(false);
@@ -37,11 +38,11 @@ const Multiselect = ({ advancedFilter, handleSelection }) => {
   }
 
   return (
-    <div className='multiselect'>
+    <div className='multiselect y-spacing'>
       <p className='font-small'>Select one or more checkboxes to narrow your results to items that match all of your {advancedFilter.name.toLowerCase()} selections.</p>
       <input
         type='text'
-        className='multiselect-search'
+        className='font-small'
         aria-label='Filter options'
         aria-describedby={advancedFilter.uid}
         placeholder='Filter'
@@ -52,23 +53,26 @@ const Multiselect = ({ advancedFilter, handleSelection }) => {
         autoComplete='on'
       />
       <p id={advancedFilter.uid} className='visually-hidden'>Below this edit box is a list of check boxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
-      <fieldset className='multiselect-options'>
+      <fieldset className='multiselect-options container__rounded padding__xs padding-top__2xs'>
         <legend className='visually-hidden'>Filter Options</legend>
-        <ul className='multiselect-options-list'>
+        <ul className='list__unstyled'>
           {options.map((option, index) => {
             if (isOptionFiltered(option) && !showOnlySelectedOptions) {
               return null;
             }
             if (!showOnlySelectedOptions || (showOnlySelectedOptions && option.checked)) {
               return (
-                <li className='multiselect-options-list-item' key={index}>
-                  <Checkbox
-                    isChecked={option.checked}
-                    label={option.name}
-                    handleClick={() => {
-                      return handleOptionSelection(option, index);
-                    }}
-                  />
+                <li key={index} className='margin-top__2xs'>
+                  <label className='font-small'>
+                    <input
+                      type='checkbox'
+                      checked={option.checked}
+                      onChange={() => {
+                        return handleOptionSelection({ option });
+                      }}
+                    />
+                    <span>{option.name}</span>
+                  </label>
                 </li>
               );
             }
@@ -79,7 +83,7 @@ const Multiselect = ({ advancedFilter, handleSelection }) => {
       {selectedOptions.length > 0 && (
         <button
           type='button'
-          className='button-link-light multiselect-show-checked-toggle'
+          className='button-link-light font-small margin-top__xs'
           onClick={() => {
             setshowOnlySelectedOptions(!showOnlySelectedOptions);
           }}
@@ -93,6 +97,7 @@ const Multiselect = ({ advancedFilter, handleSelection }) => {
 
 Multiselect.propTypes = {
   advancedFilter: PropTypes.object,
+  datastoreUid: PropTypes.string,
   handleSelection: PropTypes.func
 };
 

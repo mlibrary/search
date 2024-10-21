@@ -1,10 +1,18 @@
 label:has(input[type='radio']),
-input[type='radio'] {
+input[type='radio'],
+label:has(input[type='checkbox']),
+input[type='checkbox'] {
   cursor: pointer;
 }
 
-label:has(input[type='radio']):hover {
+label:has(input[type='radio']):hover,
+label:has(input[type='checkbox']):hover {
   text-decoration: underline;
+}
+
+input[type='radio'],
+input[type='checkbox'] {
+  border: 2px solid var(--search-color-grey-600);
 }
 
 input[type='radio'],
@@ -14,7 +22,6 @@ input[type='radio']:before {
 
 input[type='radio'] {
   appearance: none;
-  border: 2px solid var(--search-color-grey-600);
   height: 1.5rem;
   margin: -4px 0.25rem 0 0;
   position: relative;
@@ -35,6 +42,30 @@ input[type='radio']:before {
 
 input[type='radio']:checked:before {
   background: var(--search-color-blue-400);
+}
+
+label:has(input[type='checkbox']) {
+  align-items: baseline;
+  display: flex;
+  gap: 0.5rem;
+}
+
+input[type='checkbox'] {
+  accent-color: var(--search-color-blue-400);
+  border-radius: 2px;
+  height: 1em;
+  margin: 0;
+  width: 1em;
+}
+
+input[type='checkbox']:not(:checked) {
+  appearance: none;
+}
+
+label:has(input[type='checkbox']) > input[type='checkbox'] {
+  flex-shrink: 0;
+  position: relative;
+  top: 2px;
 }
 
 select {

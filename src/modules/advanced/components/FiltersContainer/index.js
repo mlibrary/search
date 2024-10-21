@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ActiveAdvancedFilters from '../ActiveAdvancedFilters';
 import AdvancedFilter from '../AdvancedFilter';
 import getFilters from './getFilters';
+import { Multiselect } from '../../../core';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -83,10 +84,21 @@ const FiltersContainer = ({ datastoreUid }) => {
                         <div key={index} className='advanced-filter-container'>
                           <h2 className='advanced-filter-label-text'>{advancedFilter.name}</h2>
                           <div className='advanced-filter-inner-container'>
-                            <AdvancedFilter
-                              advancedFilter={advancedFilter}
-                              changeAdvancedFilter={changeAdvancedFilter}
-                            />
+                            {advancedFilter.type === 'multiple_select'
+                              ? (
+                                  <Multiselect
+                                    advancedFilter={advancedFilter}
+                                    datastoreUid={datastoreUid}
+                                    handleSelection={({ option }) => {
+                                      return changeAdvancedFilter({
+                                        filterGroupUid: advancedFilter.uid,
+                                        filterType: advancedFilter.type,
+                                        filterValue: option.value
+                                      });
+                                    }}
+                                  />
+                                )
+                              : <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
                           </div>
                         </div>
                       );
@@ -96,13 +108,7 @@ const FiltersContainer = ({ datastoreUid }) => {
                     <div className='advanced-filter-container'>
                       <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
                       {filters[filterGroup].map((advancedFilter, index) => {
-                        return (
-                          <AdvancedFilter
-                            key={index}
-                            advancedFilter={advancedFilter}
-                            changeAdvancedFilter={changeAdvancedFilter}
-                          />
-                        );
+                        return <AdvancedFilter key={index} {...{ advancedFilter, changeAdvancedFilter }} />;
                       })}
                     </div>
                   )}

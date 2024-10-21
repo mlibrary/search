@@ -1,5 +1,5 @@
-import { DateRangeInput, Multiselect } from '../../../core';
 import { Checkbox } from '../../../reusable';
+import { DateRangeInput } from '../../../core';
 import NarrowSearchTo from '../NarrowSearchTo';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -124,20 +124,6 @@ const AdvancedFilter = ({ advancedFilter, changeAdvancedFilter }) => {
         }}
         isChecked={isChecked}
         label={advancedFilter.name}
-      />
-    );
-  }
-  if (advancedFilter.type === 'multiple_select') {
-    return (
-      <Multiselect
-        advancedFilter={advancedFilter}
-        handleSelection={(index, option) => {
-          return changeAdvancedFilter({
-            filterGroupUid: advancedFilter.uid,
-            filterType: advancedFilter.type,
-            filterValue: option.value
-          });
-        }}
       />
     );
   }
