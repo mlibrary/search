@@ -1,5 +1,5 @@
 import './styles.css';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { setAdvancedFilter } from '../../../advanced';
 import { useDispatch } from 'react-redux';
@@ -7,39 +7,40 @@ import { useDispatch } from 'react-redux';
 const Multiselect = ({ advancedFilter, datastoreUid }) => {
   const dispatch = useDispatch();
   const [filterQuery, setFilterQuery] = useState('');
-  const [showOnlySelectedOptions, setshowOnlySelectedOptions] = useState(false);
-  const options = advancedFilter.filters.map((option) => {
-    return {
-      checked: option.isActive,
-      name: option.value,
-      value: option.value
-    };
-  });
-  const selectedOptions = options.filter((option) => {
-    return option.checked;
-  });
+  const [showOnlySelectedOptions, setShowOnlySelectedOptions] = useState(false);
 
-  const handleOptionSelection = ({ option }) => {
+  const options = useMemo(() => {
+    return advancedFilter.filters.map(({ isActive, value }) => {
+      return {
+        checked: isActive,
+        name: value,
+        value
+      };
+    });
+  }, [advancedFilter.filters]);
+
+  const selectedOptions = useMemo(() => {
+    return options.filter((option) => {
+      return option.checked;
+    });
+  }, [options]);
+
+  const handleOptionSelection = (option) => {
     dispatch(setAdvancedFilter({
       datastoreUid,
       filterGroupUid: advancedFilter.uid,
       filterValue: option.value
     }));
-    if (showOnlySelectedOptions) {
-      if (selectedOptions.length === 1) {
-        setshowOnlySelectedOptions(false);
-      }
+    if (showOnlySelectedOptions && selectedOptions.length === 1) {
+      setShowOnlySelectedOptions(false);
     }
   };
 
-  const isOptionFiltered = (option) => {
-    if (filterQuery.length === 0) {
-      return false;
-    }
-    return !(option.name.toLowerCase().indexOf(filterQuery.toLowerCase()) !== -1);
+  const isOptionFiltered = (name) => {
+    return filterQuery.length > 0 && !name.toLowerCase().includes(filterQuery.toLowerCase());
   };
 
-  if (!options || options.length === 0) {
+  if (!options.length) {
     return null;
   }
 
@@ -54,7 +55,7 @@ const Multiselect = ({ advancedFilter, datastoreUid }) => {
         placeholder='Filter'
         value={filterQuery}
         onChange={(event) => {
-          setFilterQuery(event.target.value);
+          return setFilterQuery(event.target.value);
         }}
         autoComplete='on'
       />
@@ -63,26 +64,24 @@ const Multiselect = ({ advancedFilter, datastoreUid }) => {
         <legend className='visually-hidden'>Filter Options</legend>
         <ul className='list__unstyled'>
           {options.map((option, index) => {
-            if (isOptionFiltered(option) && !showOnlySelectedOptions) {
+            const { checked, name } = option;
+            if ((!showOnlySelectedOptions && isOptionFiltered(name)) || (showOnlySelectedOptions && !checked)) {
               return null;
             }
-            if (!showOnlySelectedOptions || (showOnlySelectedOptions && option.checked)) {
-              return (
-                <li key={index} className='margin-top__2xs'>
-                  <label className='font-small'>
-                    <input
-                      type='checkbox'
-                      checked={option.checked}
-                      onChange={() => {
-                        return handleOptionSelection({ option });
-                      }}
-                    />
-                    <span>{option.name}</span>
-                  </label>
-                </li>
-              );
-            }
-            return null;
+            return (
+              <li key={index} className='margin-top__2xs'>
+                <label className='font-small'>
+                  <input
+                    type='checkbox'
+                    checked={checked}
+                    onChange={() => {
+                      return handleOptionSelection(option);
+                    }}
+                  />
+                  <span>{name}</span>
+                </label>
+              </li>
+            );
           })}
         </ul>
       </fieldset>
@@ -91,7 +90,9 @@ const Multiselect = ({ advancedFilter, datastoreUid }) => {
           type='button'
           className='button-link-light font-small margin-top__xs'
           onClick={() => {
-            setshowOnlySelectedOptions(!showOnlySelectedOptions);
+            return setShowOnlySelectedOptions((prev) => {
+              return !prev;
+            });
           }}
         >
           Show {showOnlySelectedOptions ? 'all options' : `only selected options (${selectedOptions.length})`}
