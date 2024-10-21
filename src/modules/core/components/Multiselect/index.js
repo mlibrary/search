@@ -1,14 +1,16 @@
 import './styles.css';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { setAdvancedFilter } from '../../../advanced';
+import { useDispatch } from 'react-redux';
 
-const Multiselect = ({ advancedFilter, datastoreUid, handleSelection }) => {
+const Multiselect = ({ advancedFilter, datastoreUid }) => {
+  const dispatch = useDispatch();
   const [filterQuery, setFilterQuery] = useState('');
   const [showOnlySelectedOptions, setshowOnlySelectedOptions] = useState(false);
   const options = advancedFilter.filters.map((option) => {
     return {
       checked: option.isActive,
-      datastore: datastoreUid,
       name: option.value,
       value: option.value
     };
@@ -18,7 +20,11 @@ const Multiselect = ({ advancedFilter, datastoreUid, handleSelection }) => {
   });
 
   const handleOptionSelection = ({ option }) => {
-    handleSelection({ option });
+    dispatch(setAdvancedFilter({
+      datastoreUid,
+      filterGroupUid: advancedFilter.uid,
+      filterValue: option.value
+    }));
     if (showOnlySelectedOptions) {
       if (selectedOptions.length === 1) {
         setshowOnlySelectedOptions(false);
@@ -97,8 +103,7 @@ const Multiselect = ({ advancedFilter, datastoreUid, handleSelection }) => {
 
 Multiselect.propTypes = {
   advancedFilter: PropTypes.object,
-  datastoreUid: PropTypes.string,
-  handleSelection: PropTypes.func
+  datastoreUid: PropTypes.string
 };
 
 export default Multiselect;

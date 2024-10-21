@@ -51,13 +51,6 @@ const FiltersContainer = ({ datastoreUid }) => {
           onlyOneFilterValue: true
         }));
         break;
-      case 'multiple_select':
-        dispatch(setAdvancedFilter({
-          datastoreUid,
-          filterGroupUid,
-          filterValue
-        }));
-        break;
       default:
         break;
     }
@@ -85,19 +78,7 @@ const FiltersContainer = ({ datastoreUid }) => {
                           <h2 className='advanced-filter-label-text'>{advancedFilter.name}</h2>
                           <div className='advanced-filter-inner-container'>
                             {advancedFilter.type === 'multiple_select'
-                              ? (
-                                  <Multiselect
-                                    advancedFilter={advancedFilter}
-                                    datastoreUid={datastoreUid}
-                                    handleSelection={({ option }) => {
-                                      return changeAdvancedFilter({
-                                        filterGroupUid: advancedFilter.uid,
-                                        filterType: advancedFilter.type,
-                                        filterValue: option.value
-                                      });
-                                    }}
-                                  />
-                                )
+                              ? <Multiselect {...{ advancedFilter, datastoreUid }} />
                               : <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
                           </div>
                         </div>
