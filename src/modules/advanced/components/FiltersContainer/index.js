@@ -12,7 +12,7 @@ const FiltersContainer = ({ datastoreUid }) => {
   const { activeFilters, filters: filterGroups } = useSelector((state) => {
     return state.advanced[datastoreUid] || {};
   });
-  const filters = getFilters({ activeFilters, filterGroups });
+  const advancedDatastoreFilters = getFilters({ activeFilters, filterGroups });
 
   const changeAdvancedFilter = ({ filterGroupUid, filterType, filterValue }) => {
     switch (filterType) {
@@ -56,11 +56,11 @@ const FiltersContainer = ({ datastoreUid }) => {
     }
   };
 
-  if (filters?.length === 0) {
+  if (advancedDatastoreFilters?.length === 0) {
     return null;
   }
 
-  const filterGroupings = Object.keys(filters);
+  const filterGroupings = Object.keys(advancedDatastoreFilters);
 
   return (
     <>
@@ -72,13 +72,14 @@ const FiltersContainer = ({ datastoreUid }) => {
             <React.Fragment key={groupIndex}>
               {filterGroup === 'undefined'
                 ? (
-                    filters[filterGroup].map((advancedFilter, index) => {
+                    advancedDatastoreFilters[filterGroup].map((advancedFilter, index) => {
+                      const { filters, name, type, uid } = advancedFilter;
                       return (
                         <div key={index} className='advanced-filter-container'>
-                          <h2 className='advanced-filter-label-text'>{advancedFilter.name}</h2>
+                          <h2 className='advanced-filter-label-text'>{name}</h2>
                           <div className='advanced-filter-inner-container'>
-                            {advancedFilter.type === 'multiple_select'
-                              ? <Multiselect {...{ advancedFilter, datastoreUid }} />
+                            {type === 'multiple_select'
+                              ? <Multiselect {...{ datastoreUid, filterGroupUid: uid, filters, name }} />
                               : <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
                           </div>
                         </div>
@@ -88,7 +89,7 @@ const FiltersContainer = ({ datastoreUid }) => {
                 : (
                     <div className='advanced-filter-container'>
                       <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
-                      {filters[filterGroup].map((advancedFilter, index) => {
+                      {advancedDatastoreFilters[filterGroup].map((advancedFilter, index) => {
                         return <AdvancedFilter key={index} {...{ advancedFilter, changeAdvancedFilter }} />;
                       })}
                     </div>
