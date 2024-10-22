@@ -76,7 +76,7 @@ const Multiselect = ({ datastoreUid, filterGroupUid, filters = {}, name }) => {
       <input
         type='text'
         className='font-small'
-        aria-label='Filter options'
+        aria-label={`Filter options for ${name}`}
         aria-describedby={filterGroupUid}
         placeholder='Filter'
         value={filterQuery}
