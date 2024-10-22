@@ -1,7 +1,7 @@
+import { addFieldedSearch, AdvancedSearchSubmit } from '../../../advanced';
 import { Alert, Icon } from '../../../reusable';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFieldedSearch } from '../../../advanced';
 import FieldInput from '../FieldInput';
 import FiltersContainer from '../FiltersContainer';
 import PropTypes from 'prop-types';
@@ -112,12 +112,7 @@ const AdvancedSearchForm = ({ datastore }) => {
         Add another field
       </button>
 
-      <button
-        className='btn btn--primary margin-top__m'
-        type='submit'
-      >
-        <Icon icon='search' size={24} /> Advanced Search
-      </button>
+      <AdvancedSearchSubmit />
 
       <FiltersContainer {...{ datastoreUid }} />
     </form>
