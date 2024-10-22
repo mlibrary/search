@@ -12,8 +12,8 @@ const Multiselect = ({ datastoreUid, filterGroupUid, filters = {}, name }) => {
   const { [filterGroupUid]: urlFilters = [] } = useSelector((state) => {
     return state.filters.active[datastoreUid] || {};
   });
-  const { [filterGroupUid]: advancedFilters = [] } = useSelector((state) => {
-    return state.advanced[datastoreUid].activeFilters || {};
+  const { activeFilters = {} } = useSelector((state) => {
+    return state.advanced[datastoreUid] || {};
   });
 
   const options = useMemo(() => {
@@ -29,6 +29,9 @@ const Multiselect = ({ datastoreUid, filterGroupUid, filters = {}, name }) => {
   if (!options.length) {
     return null;
   }
+  const advancedFilters = useMemo(() => {
+    return activeFilters[filterGroupUid] || [];
+  }, [activeFilters, filterGroupUid]);
 
   useEffect(() => {
     // Make sure the URL filters and the advanced filters match on load
