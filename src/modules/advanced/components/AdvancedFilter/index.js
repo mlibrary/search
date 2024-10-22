@@ -1,5 +1,4 @@
 import { Checkbox } from '../../../reusable';
-import { DateRangeInput } from '../../../core';
 import NarrowSearchTo from '../NarrowSearchTo';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -16,82 +15,6 @@ const getIsCheckboxFilterChecked = ({ advancedFilter }) => {
   }
 
   return false;
-};
-
-const getDateRangeValue = ({ beginDateQuery, endDateQuery, selectedRange }) => {
-  switch (selectedRange) {
-    case 'Before':
-      if (endDateQuery) {
-        return `before ${endDateQuery}`;
-      }
-      return null;
-    case 'After':
-      if (beginDateQuery) {
-        return `after ${beginDateQuery}`;
-      }
-      return null;
-    case 'Between':
-      if (beginDateQuery && endDateQuery) {
-        return `${beginDateQuery} to ${endDateQuery}`;
-      }
-      return null;
-    case 'In':
-      if (beginDateQuery) {
-        return beginDateQuery;
-      }
-      return null;
-    default:
-      return null;
-  }
-};
-
-const getStateDateRangeValues = ({ advancedFilter }) => {
-  if (advancedFilter.activeFilters?.length > 0) {
-    const [filterValue] = advancedFilter.activeFilters;
-
-    // Before
-    if (filterValue.indexOf('before') !== -1) {
-      const values = filterValue.split('before');
-
-      return {
-        stateEndQuery: values[1],
-        stateSelectedRangeOption: 0
-      };
-    }
-
-    // After
-    if (filterValue.indexOf('after') !== -1) {
-      const values = filterValue.split('after');
-
-      return {
-        stateBeginQuery: values[1],
-        stateSelectedRangeOption: 1
-      };
-    }
-
-    // Between
-    if (filterValue.indexOf('to') !== -1) {
-      const values = filterValue.split('to');
-
-      return {
-        stateBeginQuery: values[0],
-        stateEndQuery: values[1],
-        stateSelectedRangeOption: 2
-      };
-    }
-
-    // In or other
-    return {
-      stateBeginQuery: filterValue,
-      stateSelectedRangeOption: 3
-    };
-  }
-
-  return {
-    stateBeginQuery: '',
-    stateEndQuery: '',
-    stateSelectedRangeOption: 0
-  };
 };
 
 const AdvancedFilter = ({ advancedFilter, changeAdvancedFilter }) => {
@@ -124,24 +47,6 @@ const AdvancedFilter = ({ advancedFilter, changeAdvancedFilter }) => {
         }}
         isChecked={isChecked}
         label={advancedFilter.name}
-      />
-    );
-  }
-  if (advancedFilter.type === 'date_range_input') {
-    const { stateSelectedRangeOption, stateBeginQuery, stateEndQuery } = getStateDateRangeValues({ advancedFilter });
-
-    return (
-      <DateRangeInput
-        selectedRangeOption={stateSelectedRangeOption}
-        beginQuery={stateBeginQuery}
-        endQuery={stateEndQuery}
-        handleSelection={({ beginDateQuery, endDateQuery, selectedRange }) => {
-          return changeAdvancedFilter({
-            filterGroupUid: advancedFilter.uid,
-            filterType: advancedFilter.type,
-            filterValue: getDateRangeValue({ beginDateQuery, endDateQuery, selectedRange })
-          });
-        }}
       />
     );
   }

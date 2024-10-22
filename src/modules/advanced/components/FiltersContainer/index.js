@@ -1,9 +1,9 @@
 import { AdvancedSearchSubmit, setAdvancedFilter } from '../../../advanced';
+import { DateRangeInput, Multiselect } from '../../../core';
 import { useDispatch, useSelector } from 'react-redux';
 import ActiveAdvancedFilters from '../ActiveAdvancedFilters';
 import AdvancedFilter from '../AdvancedFilter';
 import getFilters from './getFilters';
-import { Multiselect } from '../../../core';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -43,7 +43,6 @@ const FiltersContainer = ({ datastoreUid }) => {
         }));
         break;
       case 'checkbox':
-      case 'date_range_input':
         dispatch(setAdvancedFilter({
           datastoreUid,
           filterGroupUid,
@@ -78,9 +77,9 @@ const FiltersContainer = ({ datastoreUid }) => {
                         <div key={index} className='advanced-filter-container'>
                           <h2 className='advanced-filter-label-text'>{name}</h2>
                           <div className='advanced-filter-inner-container'>
-                            {type === 'multiple_select'
-                              ? <Multiselect {...{ datastoreUid, filterGroupUid: uid, filters, name }} />
-                              : <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
+                            {type === 'multiple_select' && <Multiselect {...{ datastoreUid, filterGroupUid: uid, filters, name }} />}
+                            {type === 'date_range_input' && <DateRangeInput {...{ datastoreUid, filterGroupUid: uid }} />}
+                            {!['multiple_select', 'date_range_input'].includes(type) && <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
                           </div>
                         </div>
                       );

@@ -1,114 +1,85 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { setAdvancedFilter } from '../../../advanced';
+import { useDispatch } from 'react-redux';
 
-const YearInput = ({ point = 'start', query, setQuery }) => {
-  return (
-    <div>
-      <label htmlFor={`date-range-${point}-date`}>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
-      <input
-        className='date-range-input-text'
-        id={`date-range-${point}-date`}
-        aria-describedby={`date-range-${point}-date-description`}
-        type='text'
-        value={query}
-        onChange={setQuery}
-        autoComplete='on'
-        pattern='[0-9]{4}'
-      />
-      <small id={`date-range-${point}-date-description`}>Please enter this format: YYYY</small>
-    </div>
-  );
-};
+const dateRangeOptions = ['before', 'after', 'between', 'in'];
 
-YearInput.propTypes = {
-  point: PropTypes.string,
-  query: PropTypes.string,
-  setQuery: PropTypes.func
-};
-
-const dateRangeOptions = ['Before', 'After', 'Between', 'In'];
-
-const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelection }) => {
-  const [beginQueryState, setBeginQuery] = useState(beginQuery || '');
-  const [endQueryState, setEndQuery] = useState(endQuery || '');
-  const [selectedRangeOptionState, setSelectedRangeOption] = useState(selectedRangeOption || 0);
-
-  const handleStateChange = (beginQueryVal, endQueryVal, selectedRange) => {
-    handleSelection({
-      beginDateQuery: beginQueryVal,
-      endDateQuery: endQueryVal,
-      selectedRange
-    });
-  };
+const DateRangeInput = ({ datastoreUid, filterGroupUid }) => {
+  const dispatch = useDispatch();
+  const [range, setRange] = useState(dateRangeOptions[0].toLocaleLowerCase());
+  const [firstYear, setFirstYear] = useState('');
+  const [secondYear, setSecondYear] = useState('');
 
   useEffect(() => {
-    const selectedRange = dateRangeOptions[selectedRangeOptionState];
-    handleStateChange(beginQueryState, endQueryState, selectedRange);
-  }, [beginQueryState, endQueryState, selectedRangeOptionState]);
-
-  const handleBeginQueryChange = (query) => {
-    setBeginQuery(query);
-  };
-
-  const handleEndQueryChange = (query) => {
-    setEndQuery(query);
-  };
-
-  const rangeOption = dateRangeOptions[selectedRangeOptionState];
+    if (range && firstYear) {
+      let filterValue = ['before', 'after'].includes(range) ? `${range} ${firstYear}` : firstYear;
+      if (range === 'between' && secondYear) {
+        filterValue += ` to ${secondYear}`;
+      }
+      dispatch(setAdvancedFilter({
+        datastoreUid,
+        filterGroupUid,
+        filterValue,
+        onlyOneFilterValue: true
+      }));
+    }
+  }, [range, firstYear, secondYear]);
 
   return (
     <div className='date-range-input'>
       <fieldset className='flex__responsive'>
         <legend className='visually-hidden'>Select the type of date range to search on</legend>
-        {dateRangeOptions.map((option, index) => {
+        {dateRangeOptions.map((dateRangeOption, index) => {
           return (
             <label key={index}>
               <input
                 type='radio'
                 name='date-range-input'
-                value={option}
-                checked={selectedRangeOptionState === index}
+                value={dateRangeOption}
+                checked={dateRangeOption === range}
                 onChange={() => {
-                  return setSelectedRangeOption(index);
+                  return setRange(dateRangeOption);
                 }}
               />
-              {option}
+              {dateRangeOption.charAt(0).toUpperCase() + dateRangeOption.slice(1)}
             </label>
           );
         })}
       </fieldset>
-      <div className='date-range-container'>
-        {
-          rangeOption !== 'Before' && (
-            <YearInput
-              query={beginQueryState}
-              setQuery={(event) => {
-                return handleBeginQueryChange(event.target.value);
-              }}
-            />
-          )
-        }
-        {
-          ['Before', 'Between'].includes(rangeOption) && (
-            <YearInput
-              query={endQueryState}
-              setQuery={(event) => {
-                return handleEndQueryChange(event.target.value);
-              }}
-              point='end'
-            />
-          )
-        }
+      <div className='flex__responsive margin-top__xs'>
+        {Array.from({ length: range === 'between' ? 2 : 1 }).map((input, index) => {
+          const point = (index === 1 || range === 'before') ? 'end' : 'start';
+          return (
+            <div key={index}>
+              <label htmlFor={`date-range-${point}-date`}>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
+              <input
+                className='date-range-input-text'
+                id={`date-range-${point}-date`}
+                aria-describedby={`date-range-${point}-date-description`}
+                type='text'
+                value={index === 1 ? secondYear : firstYear}
+                onChange={(event) => {
+                  if (range !== 'between') {
+                    setSecondYear('');
+                  }
+                  return index === 1 ? setSecondYear(event.target.value) : setFirstYear(event.target.value);
+                }}
+                autoComplete='on'
+                pattern='[0-9]{4}'
+              />
+              <small id={`date-range-${point}-date-description`}>Please enter this format: YYYY</small>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 };
 
 DateRangeInput.propTypes = {
-  beginQuery: PropTypes.string,
-  endQuery: PropTypes.string,
-  handleSelection: PropTypes.func,
-  selectedRangeOption: PropTypes.number
+  datastoreUid: PropTypes.string,
+  filterGroupUid: PropTypes.string
 };
 
 export default DateRangeInput;
