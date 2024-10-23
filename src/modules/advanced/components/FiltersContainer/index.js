@@ -92,7 +92,7 @@ const FiltersContainer = ({ datastoreUid }) => {
                           <h2 className='advanced-filter-label-text'>{name}</h2>
                           <div className='advanced-filter-inner-container'>
                             {type === 'multiple_select' && <Multiselect {...{ currentFilters, datastoreUid, filterGroupUid: uid, filters, name }} />}
-                            {type === 'date_range_input' && <DateRangeInput {...{ currentFilters, datastoreUid, filterGroupUid: uid }} />}
+                            {type === 'date_range_input' && <DateRangeInput {...{ currentFilter: currentURLFilters[0], datastoreUid, filterGroupUid: uid }} />}
                             {!['multiple_select', 'date_range_input'].includes(type) && <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
                           </div>
                         </div>

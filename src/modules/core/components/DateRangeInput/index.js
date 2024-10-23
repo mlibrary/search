@@ -1,103 +1,100 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { setAdvancedFilter } from '../../../advanced';
 import { useDispatch } from 'react-redux';
 
 const dateRangeOptions = ['before', 'after', 'between', 'in'];
 
-const DateRangeInput = ({ currentFilters, datastoreUid, filterGroupUid }) => {
+const extractYears = (dateString) => {
+  return dateString.match(/\d+/gu) || [''];
+};
+
+const extractRange = (dateString) => {
+  const years = extractYears(dateString);
+  if (!years[0]) {
+    return dateRangeOptions[0];
+  }
+  if (years.length > 1) {
+    return 'between';
+  }
+  return dateString.replace(/[\d\s]+/gu, '') || 'in';
+};
+
+const DateRangeInput = ({ currentFilter = '', datastoreUid, filterGroupUid }) => {
   const dispatch = useDispatch();
-  const [range, setRange] = useState(dateRangeOptions[0]);
-  const [firstYear, setFirstYear] = useState('');
-  const [secondYear, setSecondYear] = useState('');
+  const [range, setRange] = useState(extractRange(currentFilter));
+  const [years, setYears] = useState(extractYears(currentFilter));
+
+  const updateFilter = useCallback((filterValue) => {
+    dispatch(setAdvancedFilter({
+      datastoreUid,
+      filterGroupUid,
+      filterValue,
+      onlyOneFilterValue: true
+    }));
+  }, [dispatch, datastoreUid, filterGroupUid]);
 
   useEffect(() => {
-    currentFilters.forEach((filterValue) => {
-      dispatch(setAdvancedFilter({
-        datastoreUid,
-        filterGroupUid,
-        filterValue,
-        onlyOneFilterValue: true
-      }));
-      const splitFilter = filterValue.split(' ');
-      const rangeValue = splitFilter.find((value) => {
-        return isNaN(value);
-      });
-      const yearValues = splitFilter.filter((value) => {
-        return !isNaN(value);
-      });
-      setRange('in');
-      if (rangeValue) {
-        setRange(rangeValue === 'to' ? 'between' : rangeValue);
-      }
-      yearValues.forEach((year, index) => {
-        if (index === 1) {
-          setSecondYear(year);
-        } else {
-          setFirstYear(year);
-        }
-      });
-    });
-  }, []);
+    updateFilter(currentFilter);
+  }, [currentFilter, updateFilter]);
 
   useEffect(() => {
-    if (range && firstYear) {
-      let filterValue = ['before', 'after'].includes(range) ? `${range} ${firstYear}` : firstYear;
-      if (range === 'between' && secondYear) {
-        filterValue += ` to ${secondYear}`;
+    if (years[0]) {
+      let filterValue = range === 'between' ? years.join(' to ') : `${range} ${years[0]}`;
+      if (range === 'in') {
+        [filterValue] = years;
       }
-      dispatch(setAdvancedFilter({
-        datastoreUid,
-        filterGroupUid,
-        filterValue,
-        onlyOneFilterValue: true
-      }));
+      updateFilter(filterValue);
     }
-  }, [range, firstYear, secondYear, dispatch, datastoreUid, filterGroupUid]);
+  }, [range, years, updateFilter]);
+
+  const handleYearChange = (index, value) => {
+    const newYears = [...years];
+    newYears[index] = value;
+    setYears(range === 'between' ? newYears : [newYears[0]]);
+  };
 
   return (
     <div className='date-range-input'>
       <fieldset className='flex__responsive'>
         <legend className='visually-hidden'>Select the type of date range to search on</legend>
-        {dateRangeOptions.map((dateRangeOption, index) => {
+        {dateRangeOptions.map((option, index) => {
           return (
             <label key={index}>
               <input
                 type='radio'
                 name='date-range-input'
-                value={dateRangeOption}
-                checked={dateRangeOption === range}
+                value={option}
+                checked={option === range}
                 onChange={() => {
-                  setRange(dateRangeOption);
+                  return setRange(option);
                 }}
               />
-              {dateRangeOption.charAt(0).toUpperCase() + dateRangeOption.slice(1)}
+              {option.charAt(0).toUpperCase() + option.slice(1)}
             </label>
           );
         })}
       </fieldset>
       <div className='flex__responsive margin-top__xs'>
-        {Array.from({ length: range === 'between' ? 2 : 1 }).map((input, index) => {
-          const point = (index === 1 || range === 'before') ? 'end' : 'start';
+        {Array(range === 'between' ? 2 : 1).fill('').map((input, index) => {
+          const point = (index === 1 || range === 'before') ? 'End' : 'Start';
+          const id = `date-range-${point.toLowerCase()}-date`;
           return (
             <div key={index}>
-              <label htmlFor={`date-range-${point}-date`}>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
+              <label htmlFor={id}>{point} date</label>
               <input
                 className='date-range-input-text'
-                id={`date-range-${point}-date`}
-                aria-describedby={`date-range-${point}-date-description`}
+                id={id}
+                aria-describedby={`${id}-description`}
                 type='text'
-                value={index === 1 ? secondYear : firstYear}
+                value={years[index] || ''}
                 onChange={(event) => {
-                  if (range !== 'between') {
-                    setSecondYear('');
-                  }
-                  return index === 1 ? setSecondYear(event.target.value) : setFirstYear(event.target.value);
+                  return handleYearChange(index, event.target.value);
                 }}
                 autoComplete='on'
                 pattern='[0-9]{4}'
               />
-              <small id={`date-range-${point}-date-description`}>Please enter this format: YYYY</small>
+              <small id={`${id}-description`}>Please enter this format: YYYY</small>
             </div>
           );
         })}
@@ -107,9 +104,9 @@ const DateRangeInput = ({ currentFilters, datastoreUid, filterGroupUid }) => {
 };
 
 DateRangeInput.propTypes = {
-  currentFilters: PropTypes.array,
-  datastoreUid: PropTypes.string,
-  filterGroupUid: PropTypes.string
+  currentFilter: PropTypes.string,
+  datastoreUid: PropTypes.string.isRequired,
+  filterGroupUid: PropTypes.string.isRequired
 };
 
 export default DateRangeInput;
