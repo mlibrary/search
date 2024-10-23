@@ -1,20 +1,13 @@
 import './styles.css';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setAdvancedFilter } from '../../../advanced';
+import { useDispatch } from 'react-redux';
 
-const Multiselect = ({ datastoreUid, filterGroupUid, filters = {}, name }) => {
+const Multiselect = ({ currentFilters, datastoreUid, filterGroupUid, filters = {}, name }) => {
   const dispatch = useDispatch();
   const [filterQuery, setFilterQuery] = useState('');
   const [showOnlySelectedOptions, setShowOnlySelectedOptions] = useState(false);
-
-  const { [filterGroupUid]: urlFilters = [] } = useSelector((state) => {
-    return state.filters.active[datastoreUid] || {};
-  });
-  const { [filterGroupUid]: advancedFilters = [] } = useSelector((state) => {
-    return state.advanced[datastoreUid].activeFilters || {};
-  });
 
   const options = useMemo(() => {
     return filters.map(({ isActive, value }) => {
@@ -31,15 +24,6 @@ const Multiselect = ({ datastoreUid, filterGroupUid, filters = {}, name }) => {
   }
 
   useEffect(() => {
-    // Make sure the URL filters and the advanced filters match on load
-    const currentFilters = [
-      ...urlFilters.filter((urlFilter) => {
-        return !advancedFilters.includes(urlFilter);
-      }),
-      ...advancedFilters.filter((advancedFilter) => {
-        return !urlFilters.includes(advancedFilter);
-      })
-    ];
     currentFilters.forEach((filterValue) => {
       dispatch(setAdvancedFilter({
         datastoreUid,
@@ -129,6 +113,7 @@ const Multiselect = ({ datastoreUid, filterGroupUid, filters = {}, name }) => {
 };
 
 Multiselect.propTypes = {
+  currentFilters: PropTypes.array,
   datastoreUid: PropTypes.string,
   filterGroupUid: PropTypes.string,
   filters: PropTypes.array,

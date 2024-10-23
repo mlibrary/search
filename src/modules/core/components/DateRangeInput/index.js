@@ -1,60 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { setAdvancedFilter } from '../../../advanced';
+import { useDispatch } from 'react-redux';
 
-const YearInput = ({ point = 'start', query, setQuery }) => {
-  return (
-    <div>
-      <label htmlFor={`date-range-${point}-date`}>{point.charAt(0).toUpperCase() + point.slice(1)} date</label>
-      <input
-        className='date-range-input-text'
-        id={`date-range-${point}-date`}
-        aria-describedby={`date-range-${point}-date-description`}
-        type='text'
-        value={query}
-        onChange={setQuery}
-        autoComplete='on'
-        pattern='[0-9]{4}'
-      />
-      <small id={`date-range-${point}-date-description`}>Please enter this format: YYYY</small>
-    </div>
-  );
+const dateRangeOptions = ['before', 'after', 'between', 'in'];
+
+const extractYears = (dateString) => {
+  return dateString.match(/\d+/gu) || [''];
 };
 
-YearInput.propTypes = {
-  point: PropTypes.string,
-  query: PropTypes.string,
-  setQuery: PropTypes.func
+const extractRange = (dateString) => {
+  const years = extractYears(dateString);
+  if (!years[0]) {
+    return dateRangeOptions[0];
+  }
+  if (years.length > 1) {
+    return 'between';
+  }
+  return dateString.replace(/[\d\s]+/gu, '') || 'in';
 };
 
-const dateRangeOptions = ['Before', 'After', 'Between', 'In'];
+const DateRangeInput = ({ currentFilter = '', datastoreUid, filterGroupUid }) => {
+  const dispatch = useDispatch();
+  const [range, setRange] = useState(extractRange(currentFilter));
+  const [years, setYears] = useState(extractYears(currentFilter));
 
-const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelection }) => {
-  const [beginQueryState, setBeginQuery] = useState(beginQuery || '');
-  const [endQueryState, setEndQuery] = useState(endQuery || '');
-  const [selectedRangeOptionState, setSelectedRangeOption] = useState(selectedRangeOption || 0);
-
-  const handleStateChange = (beginQueryVal, endQueryVal, selectedRange) => {
-    handleSelection({
-      beginDateQuery: beginQueryVal,
-      endDateQuery: endQueryVal,
-      selectedRange
-    });
-  };
+  const updateFilter = useCallback((filterValue) => {
+    dispatch(setAdvancedFilter({
+      datastoreUid,
+      filterGroupUid,
+      filterValue,
+      onlyOneFilterValue: true
+    }));
+  }, [dispatch, datastoreUid, filterGroupUid]);
 
   useEffect(() => {
-    const selectedRange = dateRangeOptions[selectedRangeOptionState];
-    handleStateChange(beginQueryState, endQueryState, selectedRange);
-  }, [beginQueryState, endQueryState, selectedRangeOptionState]);
+    updateFilter(currentFilter);
+  }, [currentFilter, updateFilter]);
 
-  const handleBeginQueryChange = (query) => {
-    setBeginQuery(query);
+  useEffect(() => {
+    if (years[0]) {
+      let filterValue = range === 'between' ? years.join(' to ') : `${range} ${years[0]}`;
+      if (range === 'in') {
+        [filterValue] = years;
+      }
+      updateFilter(filterValue);
+    }
+  }, [range, years, updateFilter]);
+
+  const handleYearChange = (index, value) => {
+    const newYears = [...years];
+    newYears[index] = value;
+    setYears(range === 'between' ? newYears : [newYears[0]]);
   };
-
-  const handleEndQueryChange = (query) => {
-    setEndQuery(query);
-  };
-
-  const rangeOption = dateRangeOptions[selectedRangeOptionState];
 
   return (
     <div className='date-range-input'>
@@ -67,48 +65,48 @@ const DateRangeInput = ({ beginQuery, endQuery, selectedRangeOption, handleSelec
                 type='radio'
                 name='date-range-input'
                 value={option}
-                checked={selectedRangeOptionState === index}
+                checked={option === range}
                 onChange={() => {
-                  return setSelectedRangeOption(index);
+                  return setRange(option);
                 }}
               />
-              {option}
+              {option.charAt(0).toUpperCase() + option.slice(1)}
             </label>
           );
         })}
       </fieldset>
-      <div className='date-range-container'>
-        {
-          rangeOption !== 'Before' && (
-            <YearInput
-              query={beginQueryState}
-              setQuery={(event) => {
-                return handleBeginQueryChange(event.target.value);
-              }}
-            />
-          )
-        }
-        {
-          ['Before', 'Between'].includes(rangeOption) && (
-            <YearInput
-              query={endQueryState}
-              setQuery={(event) => {
-                return handleEndQueryChange(event.target.value);
-              }}
-              point='end'
-            />
-          )
-        }
+      <div className='flex__responsive margin-top__xs'>
+        {Array(range === 'between' ? 2 : 1).fill('').map((input, index) => {
+          const point = (index === 1 || range === 'before') ? 'End' : 'Start';
+          const id = `date-range-${point.toLowerCase()}-date`;
+          return (
+            <div key={index}>
+              <label htmlFor={id}>{point} date</label>
+              <input
+                className='date-range-input-text'
+                id={id}
+                aria-describedby={`${id}-description`}
+                type='text'
+                value={years[index] || ''}
+                onChange={(event) => {
+                  return handleYearChange(index, event.target.value);
+                }}
+                autoComplete='on'
+                pattern='[0-9]{4}'
+              />
+              <small id={`${id}-description`}>Please enter this format: YYYY</small>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 };
 
 DateRangeInput.propTypes = {
-  beginQuery: PropTypes.string,
-  endQuery: PropTypes.string,
-  handleSelection: PropTypes.func,
-  selectedRangeOption: PropTypes.number
+  currentFilter: PropTypes.string,
+  datastoreUid: PropTypes.string.isRequired,
+  filterGroupUid: PropTypes.string.isRequired
 };
 
 export default DateRangeInput;

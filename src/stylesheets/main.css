@@ -1956,16 +1956,6 @@ body {
   padding-right: 0.5rem;
 }
 
-.date-range-input .switch-options {
-  justify-content: flex-start;
-}
-
-.date-range-container {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
 .chat-widget {
   position: fixed;
   right: 1.5%;
