@@ -1,35 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { setAdvancedFilter } from '../../../advanced';
+import { useDispatch } from 'react-redux';
 
 const dateRangeOptions = ['before', 'after', 'between', 'in'];
 
-const DateRangeInput = ({ datastoreUid, filterGroupUid }) => {
+const DateRangeInput = ({ currentFilters, datastoreUid, filterGroupUid }) => {
   const dispatch = useDispatch();
   const [range, setRange] = useState(dateRangeOptions[0]);
   const [firstYear, setFirstYear] = useState('');
   const [secondYear, setSecondYear] = useState('');
-  const { [filterGroupUid]: urlFilters = [] } = useSelector((state) => {
-    return state.filters.active[datastoreUid] || {};
-  });
-  const { activeFilters = {} } = useSelector((state) => {
-    return state.advanced[datastoreUid] || {};
-  });
-  const advancedFilters = useMemo(() => {
-    return activeFilters[filterGroupUid] || [];
-  }, [activeFilters, filterGroupUid]);
 
   useEffect(() => {
-    // Make sure the URL filters and the advanced filters match on load
-    const currentFilters = [
-      ...urlFilters.filter((urlFilter) => {
-        return !advancedFilters.includes(urlFilter);
-      }),
-      ...advancedFilters.filter((advancedFilter) => {
-        return !urlFilters.includes(advancedFilter);
-      })
-    ];
     currentFilters.forEach((filterValue) => {
       dispatch(setAdvancedFilter({
         datastoreUid,
@@ -125,6 +107,7 @@ const DateRangeInput = ({ datastoreUid, filterGroupUid }) => {
 };
 
 DateRangeInput.propTypes = {
+  currentFilters: PropTypes.array,
   datastoreUid: PropTypes.string,
   filterGroupUid: PropTypes.string
 };
