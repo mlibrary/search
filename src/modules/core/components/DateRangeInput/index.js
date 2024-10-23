@@ -1,15 +1,62 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setAdvancedFilter } from '../../../advanced';
-import { useDispatch } from 'react-redux';
 
 const dateRangeOptions = ['before', 'after', 'between', 'in'];
 
 const DateRangeInput = ({ datastoreUid, filterGroupUid }) => {
   const dispatch = useDispatch();
-  const [range, setRange] = useState(dateRangeOptions[0].toLocaleLowerCase());
+  const [range, setRange] = useState(dateRangeOptions[0]);
   const [firstYear, setFirstYear] = useState('');
   const [secondYear, setSecondYear] = useState('');
+  const { [filterGroupUid]: urlFilters = [] } = useSelector((state) => {
+    return state.filters.active[datastoreUid] || {};
+  });
+  const { activeFilters = {} } = useSelector((state) => {
+    return state.advanced[datastoreUid] || {};
+  });
+  const advancedFilters = useMemo(() => {
+    return activeFilters[filterGroupUid] || [];
+  }, [activeFilters, filterGroupUid]);
+
+  useEffect(() => {
+    // Make sure the URL filters and the advanced filters match on load
+    const currentFilters = [
+      ...urlFilters.filter((urlFilter) => {
+        return !advancedFilters.includes(urlFilter);
+      }),
+      ...advancedFilters.filter((advancedFilter) => {
+        return !urlFilters.includes(advancedFilter);
+      })
+    ];
+    currentFilters.forEach((filterValue) => {
+      dispatch(setAdvancedFilter({
+        datastoreUid,
+        filterGroupUid,
+        filterValue,
+        onlyOneFilterValue: true
+      }));
+      const splitFilter = filterValue.split(' ');
+      const rangeValue = splitFilter.find((value) => {
+        return isNaN(value);
+      });
+      const yearValues = splitFilter.filter((value) => {
+        return !isNaN(value);
+      });
+      setRange('in');
+      if (rangeValue) {
+        setRange(rangeValue === 'to' ? 'between' : rangeValue);
+      }
+      yearValues.forEach((year, index) => {
+        if (index === 1) {
+          setSecondYear(year);
+        } else {
+          setFirstYear(year);
+        }
+      });
+    });
+  }, []);
 
   useEffect(() => {
     if (range && firstYear) {
@@ -24,7 +71,7 @@ const DateRangeInput = ({ datastoreUid, filterGroupUid }) => {
         onlyOneFilterValue: true
       }));
     }
-  }, [range, firstYear, secondYear]);
+  }, [range, firstYear, secondYear, dispatch, datastoreUid, filterGroupUid]);
 
   return (
     <div className='date-range-input'>
@@ -39,7 +86,7 @@ const DateRangeInput = ({ datastoreUid, filterGroupUid }) => {
                 value={dateRangeOption}
                 checked={dateRangeOption === range}
                 onChange={() => {
-                  return setRange(dateRangeOption);
+                  setRange(dateRangeOption);
                 }}
               />
               {dateRangeOption.charAt(0).toUpperCase() + dateRangeOption.slice(1)}
