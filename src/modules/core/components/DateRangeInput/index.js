@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { setAdvancedFilter } from '../../../advanced';
 import { useDispatch } from 'react-redux';
 
-const dateRangeOptions = ['before', 'after', 'between', 'in'];
+const options = ['before', 'after', 'between', 'in'];
 
 const extractYears = (dateString) => {
   return dateString.match(/\d+/gu) || [''];
@@ -12,26 +12,30 @@ const extractYears = (dateString) => {
 const extractRange = (dateString) => {
   const years = extractYears(dateString);
   if (!years[0]) {
-    return dateRangeOptions[0];
+    return 'before';
   }
   if (years.length > 1) {
     return 'between';
   }
-  return dateString.replace(/[\d\s]+/gu, '') || 'in';
+  return ['before', 'after'].find((prefix) => {
+    return dateString.startsWith(prefix);
+  }) || 'in';
 };
+
+const minValue = 1000;
+const maxValue = new Date().getFullYear();
+const minValues = [minValue, minValue + 1];
+const maxValues = [maxValue - 1, maxValue];
 
 const DateRangeInput = ({ currentFilter = '', datastoreUid, filterGroupUid }) => {
   const dispatch = useDispatch();
   const [range, setRange] = useState(extractRange(currentFilter));
   const [years, setYears] = useState(extractYears(currentFilter));
+  const [min, setMin] = useState(minValues);
+  const [max, setMax] = useState(maxValues);
 
   const updateFilter = useCallback((filterValue) => {
-    dispatch(setAdvancedFilter({
-      datastoreUid,
-      filterGroupUid,
-      filterValue,
-      onlyOneFilterValue: true
-    }));
+    dispatch(setAdvancedFilter({ datastoreUid, filterGroupUid, filterValue, onlyOneFilterValue: true }));
   }, [dispatch, datastoreUid, filterGroupUid]);
 
   useEffect(() => {
@@ -39,26 +43,40 @@ const DateRangeInput = ({ currentFilter = '', datastoreUid, filterGroupUid }) =>
   }, [currentFilter, updateFilter]);
 
   useEffect(() => {
-    if (years[0]) {
-      let filterValue = range === 'between' ? years.join(' to ') : `${range} ${years[0]}`;
-      if (range === 'in') {
-        [filterValue] = years;
-      }
-      updateFilter(filterValue);
+    let filterValue = '';
+    if (years.some((year) => {
+      return year;
+    })) {
+      filterValue = range === 'between' ? years.filter(Number).join(' to ') : `${range} ${years[0]}`;
     }
+    updateFilter(filterValue);
   }, [range, years, updateFilter]);
 
-  const handleYearChange = (index, value) => {
-    const newYears = [...years];
-    newYears[index] = value;
-    setYears(range === 'between' ? newYears : [newYears[0]]);
-  };
+  const handleYearChange = useCallback((index, value) => {
+    if (range === 'between') {
+      const newYears = [...years];
+      newYears[index] = value;
+      const newMin = [...min];
+      const newMax = [...max];
+      if (index === 0) {
+        newYears[1] = value ? newYears[1] : '';
+        newMin[1] = value && value < maxValues[1] - 1 ? Math.max(minValues[1], Number(value) + 1) : minValues[1];
+      } else {
+        newMax[0] = value && value > minValues[0] + 1 ? Math.min(maxValues[0], Number(value) - 1) : maxValues[0];
+      }
+      setYears(newYears);
+      setMin(newMin);
+      setMax(newMax);
+    } else {
+      setYears([value]);
+    }
+  }, [range, years, min, max]);
 
   return (
     <div className='date-range-input'>
       <fieldset className='flex__responsive'>
         <legend className='visually-hidden'>Select the type of date range to search on</legend>
-        {dateRangeOptions.map((option, index) => {
+        {options.map((option, index) => {
           return (
             <label key={index}>
               <input
@@ -77,22 +95,24 @@ const DateRangeInput = ({ currentFilter = '', datastoreUid, filterGroupUid }) =>
       </fieldset>
       <div className='flex__responsive margin-top__xs'>
         {Array(range === 'between' ? 2 : 1).fill('').map((input, index) => {
-          const point = (index === 1 || range === 'before') ? 'End' : 'Start';
-          const id = `date-range-${point.toLowerCase()}-date`;
+          const label = (index === 1 || range === 'before') ? 'End' : 'Start';
+          const id = `date-range-${label.toLowerCase()}-date`;
           return (
             <div key={index}>
-              <label htmlFor={id}>{point} date</label>
+              <label htmlFor={id}>{label} date</label>
               <input
-                className='date-range-input-text'
+                className='date-range-input-number'
                 id={id}
                 aria-describedby={`${id}-description`}
-                type='text'
+                type='number'
                 value={years[index] || ''}
+                disabled={index > 0 && !years[index - 1]}
+                min={range === 'between' ? min[index] : minValue}
+                max={range === 'between' ? max[index] : maxValue}
                 onChange={(event) => {
                   return handleYearChange(index, event.target.value);
                 }}
                 autoComplete='on'
-                pattern='[0-9]{4}'
               />
               <small id={`${id}-description`}>Please enter this format: YYYY</small>
             </div>
