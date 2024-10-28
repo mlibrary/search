@@ -32,12 +32,9 @@
   justify-self: end;
 }
 .pagination-input {
-  border: solid 1px rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);
   display: flex;
-  margin: 0 0.5rem;
-  padding: 0.15rem;
+  margin: 0 0.5rem!important;
+  padding: 0.15rem!important;
   text-align: center;
-  width: 5rem;
+  width: 5rem!important;
 }
