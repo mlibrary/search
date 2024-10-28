@@ -47,7 +47,11 @@ const DateRangeInput = ({ currentFilter = '', datastoreUid, filterGroupUid }) =>
     if (years.some((year) => {
       return year;
     })) {
-      filterValue = range === 'between' ? years.filter(Number).join(' to ') : `${range} ${years[0]}`;
+      if (range === 'between') {
+        filterValue = years.filter(Number).join(' to ');
+      } else {
+        filterValue = ['before', 'after'].includes(range) ? `${range} ${years[0]}` : years[0];
+      }
     }
     updateFilter(filterValue);
   }, [range, years, updateFilter]);
