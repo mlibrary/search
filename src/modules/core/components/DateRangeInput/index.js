@@ -44,9 +44,7 @@ const DateRangeInput = ({ currentFilter = '', datastoreUid, filterGroupUid }) =>
 
   useEffect(() => {
     let filterValue = '';
-    if (years.some((year) => {
-      return year;
-    })) {
+    if (years.some(Boolean)) {
       if (range === 'between') {
         filterValue = years.filter(Number).join(' to ');
       } else {
