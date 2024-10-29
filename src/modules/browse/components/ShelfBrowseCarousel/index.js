@@ -105,7 +105,7 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
       {currentItems.map((item, index) => {
         const isCurrentItem = currentItem(item);
         const firstOrLastItem = !isCurrentItem && ((firstPage && index === 0) || (lastPage && currentItems.length - 1 === index));
-        const fields = firstOrLastItem ? ['call_number'] : Object.keys(item).slice(0, -1);
+        const fields = firstOrLastItem ? ['call_number'] : ['title', 'author', 'date', 'call_number'];
         const basePath = 'https://search.lib.umich.edu';
         const anchorAttributes = firstOrLastItem
           ? { href: `${basePath}/catalog/browse/callnumber?query=${item.call_number}` }
