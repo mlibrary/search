@@ -1,7 +1,17 @@
 import './styles.css';
-import { Anchor, Icon } from '../../../reusable';
+import { Anchor, Icon, ImagePlaceholder } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
+const bookCover = (item) => {
+  let url = 'https://www.syndetics.com/index.php?client=umichaa&pagename=lc.jpg';
+  ['isbn', 'issn', 'oclc'].forEach((parameter) => {
+    if (item[parameter]) {
+      url += `&${parameter}=${item[parameter]}`;
+    }
+  });
+  return url;
+};
 
 const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction, setDisableButton, uid }) => {
   const currentItem = (item) => {
@@ -123,6 +133,17 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
                   <>
                     <Icon icon='list' size='24' className='item-term-title' />
                     <span className='item-term-title'>Continue browsing in call number list</span>
+                  </>
+                )}
+                {!firstOrLastItem && (
+                  <>
+                    <dt className='visually-hidden'>Book cover</dt>
+                    <dd className='item-term-book_cover'>
+                      <ImagePlaceholder
+                        src={bookCover(item)}
+                        alt={`The cover of ${item.title}`}
+                      />
+                    </dd>
                   </>
                 )}
                 {fields.map((key) => {

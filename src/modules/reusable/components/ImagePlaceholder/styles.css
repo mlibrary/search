@@ -1,0 +1,16 @@
+.image-placeholder {
+  background-color: var(--search-color-grey-200);
+  border-radius: 4px;
+  padding-top: 150%;
+  position: relative;
+  width: 100%;
+}
+
+.image-placeholder .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Any other styling you need */
+}

@@ -78,6 +78,9 @@
   overflow: hidden;
   overflow-wrap: anywhere;
 }
+.shelf-browse-item .item-term-book_cover:not(:has(div)) {
+  align-self: center;
+}
 
 .shelf-browse-item .this-item,
 .shelf-browse-item .item-term-title,
