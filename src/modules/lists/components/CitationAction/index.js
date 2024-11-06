@@ -1,6 +1,6 @@
 import './styles.css';
+import { Anchor, Tab, TabPanel, Tabs } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
-import { Tab, TabPanel, Tabs } from '../../../reusable';
 import { cite } from '../../../citations';
 import PropTypes from 'prop-types';
 
@@ -119,7 +119,18 @@ const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType
                       className='font-small citation-disclaimer'
                       id={`${citationOption.id}-disclaimer`}
                     >
-                      These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.
+                      These citations are generated from a variety of data sources.
+                      Remember to check citation format and content for accuracy before including them in your work.
+                      View the
+                      {' '}
+                      <Anchor
+                        to='https://lib.umich.edu/research-and-scholarship/help-research/citation-management'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        Citation Management guide on U-M Library Website (opens in new tab)
+                      </Anchor>
+                      .
                     </p>
                     <button
                       onClick={() => {
