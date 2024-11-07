@@ -1,5 +1,6 @@
 import { AdvancedSearchSubmit, setAdvancedFilter } from '../../../advanced';
 import { useDispatch, useSelector } from 'react-redux';
+import AccessOptions from '../AccessOptions';
 import ActiveAdvancedFilters from '../ActiveAdvancedFilters';
 import AdvancedFilter from '../AdvancedFilter';
 import DateRangeInput from '../DateRangeInput';
@@ -94,7 +95,7 @@ const FiltersContainer = ({ datastoreUid }) => {
                           <div className='advanced-filter-inner-container'>
                             {type === 'multiple_select' && <Multiselect {...{ currentFilters, datastoreUid, filterGroupUid: uid, filters, name }} />}
                             {type === 'date_range_input' && <DateRangeInput {...{ currentFilter: currentURLFilters[0], datastoreUid, filterGroupUid: uid }} />}
-                            {!['multiple_select', 'date_range_input'].includes(type) && <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
+                            {type === 'scope_down' && <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
                           </div>
                         </div>
                       );
@@ -104,7 +105,7 @@ const FiltersContainer = ({ datastoreUid }) => {
                     <div className='advanced-filter-container'>
                       <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
                       {advancedDatastoreFilters[filterGroup].map((advancedFilter, index) => {
-                        return <AdvancedFilter key={index} {...{ advancedFilter, changeAdvancedFilter }} />;
+                        return <AccessOptions key={index} {...{ advancedFilter, datastoreUid, filterGroupUid: advancedFilter.uid }} />;
                       })}
                     </div>
                   )}
