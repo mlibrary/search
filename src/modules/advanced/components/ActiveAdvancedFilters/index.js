@@ -17,7 +17,7 @@ const ActiveAdvancedFilters = ({ activeFilters, filters }) => {
 
   const items = Object.keys(activeFilters).reduce((acc, group) => {
     // Just don't show the checkbox filters as active filter items.
-    if (!filterGroups[group] || filterGroups[group].type !== 'checkbox') {
+    if (filterGroups[group] && filterGroups[group].type !== 'checkbox') {
       const activeFiltersToAdd = activeFilters[group].map((value) => {
         return { group, value };
       });

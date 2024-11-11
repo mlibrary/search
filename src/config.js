@@ -64,14 +64,10 @@ const config = {
       ],
       filters: [
         {
-          conditions: {
-            checked: true,
-            unchecked: null
-          },
-          groupBy: 'Access Options',
-          name: 'View HathiTrust search-only materials',
+          name: 'Access Options',
           type: 'checkbox',
-          uid: 'search_only'
+          uid: 'access_options',
+          values: ['search_only']
         },
         {
           defaults: [
@@ -161,40 +157,15 @@ const config = {
       ],
       filters: [
         {
-          conditions: {
-            checked: true
-          },
-          groupBy: 'Access Options',
-          name: 'Limit to articles available online',
+          name: 'Access Options',
           type: 'checkbox',
-          uid: 'available_online'
-        },
-        {
-          conditions: {
-            checked: true
-          },
-          groupBy: 'Access Options',
-          name: 'Limit to articles from scholarly journals',
-          type: 'checkbox',
-          uid: 'is_scholarly'
-        },
-        {
-          conditions: {
-            checked: false
-          },
-          groupBy: 'Access Options',
-          name: 'Add results beyond the library\'s holdings',
-          type: 'checkbox',
-          uid: 'holdings_only'
-        },
-        {
-          conditions: {
-            checked: true
-          },
-          groupBy: 'Access Options',
-          name: 'Exclude newspaper holdings',
-          type: 'checkbox',
-          uid: 'exclude_newspapers'
+          uid: 'access_options',
+          values: [
+            'available_online',
+            'is_scholarly',
+            'holdings_only',
+            'exclude_newspapers'
+          ]
         },
         {
           type: 'date_range_input',

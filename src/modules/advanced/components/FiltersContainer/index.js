@@ -20,44 +20,29 @@ const FiltersContainer = ({ datastoreUid }) => {
   const advancedDatastoreFilters = getFilters({ activeFilters, filterGroups });
 
   const changeAdvancedFilter = ({ filterGroupUid, filterType, filterValue }) => {
-    switch (filterType) {
-      case 'scope_down':
-        // Clear active filters
-        if (['institution', 'location'].includes(filterGroupUid) && filterValue) {
-          dispatch(setAdvancedFilter({
-            datastoreUid,
-            filterGroupUid: 'collection',
-            filterType,
-            onlyOneFilterValue: true
-          }));
-          if (filterGroupUid === 'institution') {
-            dispatch(setAdvancedFilter({
-              datastoreUid,
-              filterGroupUid: 'location',
-              filterType,
-              onlyOneFilterValue: true
-            }));
-          }
-        }
+    if (['institution', 'location'].includes(filterGroupUid) && filterValue) {
+      dispatch(setAdvancedFilter({
+        datastoreUid,
+        filterGroupUid: 'collection',
+        filterType,
+        onlyOneFilterValue: true
+      }));
+      if (filterGroupUid === 'institution') {
         dispatch(setAdvancedFilter({
           datastoreUid,
-          filterGroupUid,
+          filterGroupUid: 'location',
           filterType,
-          filterValue,
           onlyOneFilterValue: true
         }));
-        break;
-      case 'checkbox':
-        dispatch(setAdvancedFilter({
-          datastoreUid,
-          filterGroupUid,
-          filterValue,
-          onlyOneFilterValue: true
-        }));
-        break;
-      default:
-        break;
+      }
     }
+    dispatch(setAdvancedFilter({
+      datastoreUid,
+      filterGroupUid,
+      filterType,
+      filterValue,
+      onlyOneFilterValue: true
+    }));
   };
 
   if (advancedDatastoreFilters?.length === 0) {
@@ -74,41 +59,31 @@ const FiltersContainer = ({ datastoreUid }) => {
         {filterGroupings.map((filterGroup, groupIndex) => {
           return (
             <React.Fragment key={groupIndex}>
-              {filterGroup === 'undefined'
-                ? (
-                    advancedDatastoreFilters[filterGroup].map((advancedFilter, index) => {
-                      const { filters, name, type, uid } = advancedFilter;
-                      const currentAdvancedFilters = activeFilters[uid] || [];
-                      const currentURLFilters = urlFilters[uid] || [];
-                      // Make sure the URL filters and the advanced filters match on load
-                      const currentFilters = [
-                        ...currentURLFilters.filter((currentURLFilter) => {
-                          return !currentAdvancedFilters.includes(currentURLFilter);
-                        }),
-                        ...currentAdvancedFilters.filter((currentAdvancedFilter) => {
-                          return !currentURLFilters.includes(currentAdvancedFilter);
-                        })
-                      ];
-                      return (
-                        <div key={index} className='advanced-filter-container'>
-                          <h2 className='advanced-filter-label-text'>{name}</h2>
-                          <div className='advanced-filter-inner-container'>
-                            {type === 'multiple_select' && <Multiselect {...{ currentFilters, datastoreUid, filterGroupUid: uid, filters, name }} />}
-                            {type === 'date_range_input' && <DateRangeInput {...{ currentFilter: currentURLFilters[0], datastoreUid, filterGroupUid: uid }} />}
-                            {type === 'scope_down' && <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
-                          </div>
-                        </div>
-                      );
-                    })
-                  )
-                : (
-                    <div className='advanced-filter-container'>
-                      <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
-                      {advancedDatastoreFilters[filterGroup].map((advancedFilter, index) => {
-                        return <AccessOptions key={index} {...{ advancedFilter, datastoreUid, filterGroupUid: advancedFilter.uid }} />;
-                      })}
+              {advancedDatastoreFilters[filterGroup].map((advancedFilter, index) => {
+                const { filters, name, type, uid } = advancedFilter;
+                const currentAdvancedFilters = activeFilters[uid] || [];
+                const currentURLFilters = urlFilters[uid] || [];
+                // Make sure the URL filters and the advanced filters match on load
+                const currentFilters = [
+                  ...currentURLFilters.filter((currentURLFilter) => {
+                    return !currentAdvancedFilters.includes(currentURLFilter);
+                  }),
+                  ...currentAdvancedFilters.filter((currentAdvancedFilter) => {
+                    return !currentURLFilters.includes(currentAdvancedFilter);
+                  })
+                ];
+                return (
+                  <div key={index} className='advanced-filter-container'>
+                    <h2 className='advanced-filter-label-text'>{name}</h2>
+                    <div className='advanced-filter-inner-container'>
+                      {type === 'multiple_select' && <Multiselect {...{ currentFilters, datastoreUid, filterGroupUid: uid, filters, name }} />}
+                      {type === 'date_range_input' && <DateRangeInput {...{ currentFilter: currentURLFilters[0], datastoreUid, filterGroupUid: uid }} />}
+                      {type === 'scope_down' && <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
+                      {type === 'checkbox' && <AccessOptions key={index} {...{ advancedFilter, datastoreUid, filterGroupUid: advancedFilter.uid }} />}
                     </div>
-                  )}
+                  </div>
+                );
+              })}
             </React.Fragment>
           );
         })}

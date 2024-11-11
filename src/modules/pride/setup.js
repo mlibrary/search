@@ -449,13 +449,11 @@ const setupAdvancedSearch = () => {
           if (foundFilterGroup) {
             return prev.concat({
               activeFilters: [],
-              conditions: filterGroupConfig.conditions,
               filters: foundFilterGroup.values
                 .reduce((filters, filter) => {
                   return filters.concat(filter.value);
                 }, [])
                 .sort(),
-              groupBy: filterGroupConfig.groupBy,
               name: filterGroupConfig.name || foundFilterGroup.metadata.name,
               type: filterGroupConfig.type,
               uid: foundFilterGroup.uid
@@ -467,7 +465,6 @@ const setupAdvancedSearch = () => {
            */
           if (filterGroupConfig.uid === 'narrow_search') {
             const hierarchy = Pride.AllDatastores.get(dsUid).get('hierarchy');
-
             if (hierarchy) {
               return prev.concat({
                 ...filterGroupConfig,
@@ -475,6 +472,26 @@ const setupAdvancedSearch = () => {
                 filters: [].concat(hierarchy)
               });
             }
+          }
+          if (filterGroupConfig.uid === 'access_options') {
+            const filters = [];
+            filterGroupConfig.values.forEach((value) => {
+              const { metadata, preSelected, uid } = findWhere(availableFilterGroups, {
+                uid: value
+              });
+              return filters.push({
+                checked: preSelected,
+                name: metadata.name,
+                uid
+              });
+            });
+            return prev.concat({
+              activeFilters: [],
+              filters,
+              name: filterGroupConfig.name,
+              type: filterGroupConfig.type,
+              uid: filterGroupConfig.uid
+            });
           }
 
           return prev;
