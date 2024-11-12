@@ -120,9 +120,10 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
         const anchorAttributes = firstOrLastItem
           ? { href: `${basePath}/catalog/browse/callnumber?query=${item.call_number}` }
           : { to: item.url.replace(basePath, '') + window.location.search };
+        const trueIndex = (currentPage * currentItems.length) + index;
 
         return (
-          <li key={item.call_number} className={`shelf-browse-item ${(isCurrentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
+          <li key={trueIndex} className={`shelf-browse-item ${(isCurrentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
             <Anchor
               {...anchorAttributes}
               className={`focus underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${isCurrentItem ? 'xs' : 's'}`}
@@ -142,6 +143,7 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
                       <ImagePlaceholder
                         src={bookCover(item)}
                         alt={`The cover of ${item.title}`}
+                        index={trueIndex}
                       />
                     </dd>
                   </>

@@ -2,7 +2,7 @@ import './styles.css';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const ImagePlaceholder = ({ alt, src, ...rest }) => {
+const ImagePlaceholder = ({ alt, index, src, ...rest }) => {
   const [imageState, setImageState] = useState('loading');
   const [imgSrc, setImgSrc] = useState(src);
 
@@ -11,7 +11,8 @@ const ImagePlaceholder = ({ alt, src, ...rest }) => {
   };
 
   const handleImageError = () => {
-    setImgSrc('/favicon-180x180.png');
+    // Choosing between 15 placeholder images based on the index's remainder
+    setImgSrc(`/placeholders/placeholder-${index % 15}.svg`);
     setImageState('settled');
   };
 
@@ -39,6 +40,7 @@ const ImagePlaceholder = ({ alt, src, ...rest }) => {
 
 ImagePlaceholder.propTypes = {
   alt: PropTypes.string,
+  index: PropTypes.number,
   src: PropTypes.string
 };
 
