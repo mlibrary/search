@@ -122,7 +122,7 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
           : { to: item.url.replace(basePath, '') + window.location.search };
 
         return (
-          <li key={index} className={`shelf-browse-item ${(isCurrentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
+          <li key={item.call_number} className={`shelf-browse-item ${(isCurrentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
             <Anchor
               {...anchorAttributes}
               className={`focus underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${isCurrentItem ? 'xs' : 's'}`}
