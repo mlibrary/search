@@ -79,7 +79,7 @@ const FiltersContainer = ({ datastoreUid }) => {
                       {type === 'multiple_select' && <Multiselect {...{ currentFilters, datastoreUid, filterGroupUid: uid, filters, name }} />}
                       {type === 'date_range_input' && <DateRangeInput {...{ currentFilter: currentURLFilters[0], datastoreUid, filterGroupUid: uid }} />}
                       {type === 'scope_down' && <AdvancedFilter {...{ advancedFilter, changeAdvancedFilter }} />}
-                      {type === 'checkbox' && <AccessOptions key={index} {...{ advancedFilter, datastoreUid, filterGroupUid: advancedFilter.uid }} />}
+                      {type === 'checkbox' && <AccessOptions {...{ datastoreUid, filters }} />}
                     </div>
                   </div>
                 );

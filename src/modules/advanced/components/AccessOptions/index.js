@@ -1,27 +1,34 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { setAdvancedFilter } from '../../../advanced';
 import { useDispatch } from 'react-redux';
 
-const AccessOptions = ({ advancedFilter, datastoreUid }) => {
+const AccessOptions = ({ datastoreUid, filters }) => {
   const dispatch = useDispatch();
-  const [filters, setFilters] = useState(advancedFilter.filters);
+  const [options, setOptions] = useState([]);
 
-  const handleCheckboxChange = (filterItem) => {
+  useEffect(() => {
+    setOptions(filters);
+  }, [filters]);
+
+  const handleCheckboxChange = useCallback((filterItem) => {
     const { checked, uid: filterGroupUid } = filterItem.value;
 
-    setFilters(filters.map((filter) => {
-      if (filter.value.uid === filterGroupUid) {
-        return {
-          ...filter,
-          value: {
-            ...filter.value,
-            checked: !filter.value.checked
-          }
-        };
-      }
-      return filter;
-    }));
+    setOptions((prevOptions) => {
+      return prevOptions.map((option) => {
+        if (option.value.uid === filterGroupUid) {
+          return {
+            ...option,
+            value: {
+              ...option.value,
+              checked: !option.value.checked
+            }
+          };
+        }
+        return option;
+      });
+    }
+    );
 
     dispatch(setAdvancedFilter({
       datastoreUid,
@@ -29,21 +36,20 @@ const AccessOptions = ({ advancedFilter, datastoreUid }) => {
       filterValue: !checked,
       onlyOneFilterValue: true
     }));
-  };
-
+  }, [dispatch, datastoreUid]);
   return (
     <>
-      {filters.map((filter, index) => {
+      {options.map((option, index) => {
         return (
-          <label key={filter.value.uid} className={index > 0 ? 'margin-top__xs' : ''}>
+          <label key={option.value.uid} className={index > 0 ? 'margin-top__xs' : ''}>
             <input
               type='checkbox'
-              checked={filter.value.checked}
+              checked={option.value.checked}
               onChange={() => {
-                return handleCheckboxChange(filter);
+                return handleCheckboxChange(option);
               }}
             />
-            {filter.value.name}
+            {option.value.name}
           </label>
         );
       })}
@@ -52,8 +58,8 @@ const AccessOptions = ({ advancedFilter, datastoreUid }) => {
 };
 
 AccessOptions.propTypes = {
-  advancedFilter: PropTypes.object,
-  datastoreUid: PropTypes.string
+  datastoreUid: PropTypes.string,
+  filters: PropTypes.array
 };
 
 export default AccessOptions;
