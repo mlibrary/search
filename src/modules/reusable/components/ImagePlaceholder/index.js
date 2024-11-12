@@ -28,7 +28,7 @@ const ImagePlaceholder = ({ alt, index, src, ...rest }) => {
 
       {imageState === 'loading' && (
         <div
-          className='image-placeholder'
+          className='image-placeholder placeholder margin-bottom__none'
           {...rest}
         >
           <div className='content' />
