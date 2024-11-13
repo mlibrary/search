@@ -2,10 +2,9 @@ import './styles.css';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const ImagePlaceholder = ({ alt = '', altPlaceholder = '', index = 0, src = '', ...rest }) => {
+const ImagePlaceholder = ({ alt = '', index = 0, src = '', ...rest }) => {
   const [imgState, setImgState] = useState('loading');
   const [imgSrc, setImgSrc] = useState(src);
-  const [imgAlt, setImgAlt] = useState(alt);
 
   const handleImageLoad = () => {
     setImgState('settled');
@@ -15,14 +14,13 @@ const ImagePlaceholder = ({ alt = '', altPlaceholder = '', index = 0, src = '', 
     // Choosing between 15 placeholder images based on the index's remainder
     setImgSrc(`/placeholders/placeholder-${index % 15}.svg`);
     setImgState('settled');
-    setImgAlt(altPlaceholder);
   };
 
   return (
     <>
       <img
         src={imgSrc}
-        alt={imgAlt}
+        alt={alt}
         onLoad={handleImageLoad}
         onError={handleImageError}
         style={{ display: imgState === 'settled' ? 'block' : 'none' }}
