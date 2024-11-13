@@ -140,10 +140,12 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
                   <>
                     <dt className='visually-hidden'>Book cover</dt>
                     <dd className='item-term-book_cover'>
-                      <ImagePlaceholder
-                        src={bookCover(item)}
-                        alt={`The cover of ${item.title}`}
-                        index={trueIndex}
+                      <ImagePlaceholder {...{
+                        alt: `The cover of ${item.title}`,
+                        altPlaceholder: `Placeholder image for ${item.title}`,
+                        index: trueIndex,
+                        src: bookCover(item)
+                      }}
                       />
                     </dd>
                   </>
