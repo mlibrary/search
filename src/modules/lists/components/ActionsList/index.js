@@ -50,8 +50,8 @@ const actions = [
 
 const ActionsList = (props) => {
   const [alert, setAlert] = useState(null);
-  const profile = useSelector((state) => {
-    return state.profile;
+  const { email, status, text } = useSelector((state) => {
+    return state.profile || {};
   });
 
   return (
@@ -85,19 +85,19 @@ const ActionsList = (props) => {
             })}
           </ul>
           {props.active?.action === 'email' && (
-            <AuthenticationRequired profile={profile}>
+            <AuthenticationRequired status={status}>
               <EmailAction
                 action={props.active}
-                emailAddress={profile?.email || ''}
+                emailAddress={email || ''}
                 {...props}
               />
             </AuthenticationRequired>
           )}
           {props.active?.action === 'text' && (
-            <AuthenticationRequired profile={profile}>
+            <AuthenticationRequired status={status}>
               <TextAction
                 action={props.active}
-                phoneNumber={profile?.text || ''}
+                phoneNumber={text || ''}
                 {...props}
               />
             </AuthenticationRequired>
