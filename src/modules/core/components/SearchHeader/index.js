@@ -6,15 +6,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 const SearchHeader = () => {
-  const isAuthenticated = useSelector((state) => {
-    return state.profile.status === 'Logged in';
+  const { status } = useSelector((state) => {
+    return state.profile || {};
   });
 
   return (
     <m-website-header name='Search' variant='dark' to='/everything'>
       <nav aria-label='utility'>
         <Anchor href='https://account.lib.umich.edu/'>Account</Anchor>
-        <Authentication logout={isAuthenticated} />
+        {status && <Authentication logout={status === 'Logged in'} />}
         <ChooseAffiliation />
       </nav>
     </m-website-header>
