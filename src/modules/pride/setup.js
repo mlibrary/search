@@ -538,17 +538,16 @@ const initializePride = () => {
   Pride.init({
     failure: () => {
       renderPrideFailedToLoad();
-      // Console.log('Pride failed to load.');
     },
-    success: () => {
-      setupSearches();
-      setupAdvancedSearch();
-      setupDefaultInstitution();
-      setupDefaultAffiliation();
-      setupBrowse();
+    success: async () => {
+      await setupSearches();
+      await setupAdvancedSearch();
+      await setupDefaultInstitution();
+      await setupDefaultAffiliation();
+      await setupBrowse();
+      await prejudice.initialize();
+      await setupProfile();
       renderApp();
-      prejudice.initialize();
-      setupProfile();
     }
   });
 };
