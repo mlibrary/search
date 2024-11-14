@@ -37,8 +37,8 @@ const DatastorePage = () => {
   const institution = useSelector((state) => {
     return state.institution;
   });
-  const profile = useSelector((state) => {
-    return state.profile;
+  const { institutions } = useSelector((state) => {
+    return state.profile || {};
   });
   const search = useSelector((state) => {
     return state.search;
@@ -94,7 +94,7 @@ const DatastorePage = () => {
             <>
               <SearchBox />
               <DatastoreNavigation {...{ activeFilters, datastores, institution, search }} />
-              <FlintAlerts datastore={activeDatastore.uid} profile={profile} />
+              <FlintAlerts datastore={activeDatastore.uid} institutions={institutions} />
               <Routes>
                 <Route
                   path='record/:recordUid/get-this/:barcode'
@@ -106,7 +106,7 @@ const DatastorePage = () => {
                 />
                 <Route
                   path='list'
-                  element={<List {...{ activeDatastore, institution, list, profile }} />}
+                  element={<List {...{ activeDatastore, institution, list }} />}
                 />
                 <Route
                   index
