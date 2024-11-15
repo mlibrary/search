@@ -1,5 +1,5 @@
 import { Anchor, Icon } from '../../../reusable';
-import { getMultiSearchRecords } from '../../../pride';
+import { getMultiSearchRecords } from '../../utilities';
 import ILLRequestMessage from '../ILLRequestMessage';
 import KeywordSwitch from '../KeywordSwitch';
 import PropTypes from 'prop-types';
@@ -10,18 +10,18 @@ import { Specialists } from '../../../specialists';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const BentoResults = ({ bentobox, search, searchQuery }) => {
+const BentoResults = ({ data, datastore, query, searchQuery }) => {
   // No results
-  if (search.data[bentobox.uid]?.totalAvailable === 0) {
+  if (data[datastore.uid]?.totalAvailable === 0) {
     return (
       <>
-        {bentobox.uid === 'primo' && <KeywordSwitch datastore={bentobox} query={search.query} />}
+        {datastore.uid === 'primo' && <KeywordSwitch datastore={datastore} query={query} />}
         <div className='bentobox-no-results'>
           <p className='no-margin'><span className='strong'>No results</span> match your search.</p>
-          {['databases', 'onlinejournals'].includes(bentobox.uid) && (
-            <p className='u-margin-bottom-none'>Try our <Anchor to={`/${bentobox.slug}/browse`}>Browse {bentobox.name} page</Anchor> to view all titles alphabetically or by academic discipline.</p>
+          {['databases', 'onlinejournals'].includes(datastore.uid) && (
+            <p className='u-margin-bottom-none'>Try our <Anchor to={`/${datastore.slug}/browse`}>Browse {datastore.name} page</Anchor> to view all titles alphabetically or by academic discipline.</p>
           )}
-          {bentobox.uid === 'mirlyn' && (
+          {datastore.uid === 'mirlyn' && (
             <p className='u-margin-bottom-none'><ILLRequestMessage /></p>
           )}
         </div>
@@ -30,7 +30,7 @@ const BentoResults = ({ bentobox, search, searchQuery }) => {
   }
 
   // Loading results
-  if (bentobox.records.length === 0) {
+  if (datastore.records.length === 0) {
     return (
       <div className='results-list results-list-border'>
         {[...Array(3)].map((elementInArray, index) => {
@@ -43,14 +43,14 @@ const BentoResults = ({ bentobox, search, searchQuery }) => {
   // Results
   return (
     <div className='results-list results-list-border'>
-      {bentobox.records.map((record, index) => {
+      {datastore.records.map((record, index) => {
         if (index === 0) {
           return (
             <div key={`${index}keyword-switch`}>
-              <KeywordSwitch datastore={bentobox} query={search.query} />
+              <KeywordSwitch {...{ datastore, query }} />
               <RecordPreview
                 key={index}
-                datastoreUid={bentobox.uid}
+                datastoreUid={datastore.uid}
                 record={record}
                 searchQuery={searchQuery}
               />
@@ -60,7 +60,7 @@ const BentoResults = ({ bentobox, search, searchQuery }) => {
         return (
           <RecordPreview
             key={index}
-            datastoreUid={bentobox.uid}
+            datastoreUid={datastore.uid}
             record={record}
             searchQuery={searchQuery}
           />
@@ -71,8 +71,9 @@ const BentoResults = ({ bentobox, search, searchQuery }) => {
 };
 
 BentoResults.propTypes = {
-  bentobox: PropTypes.object,
-  search: PropTypes.object,
+  data: PropTypes.object,
+  datastore: PropTypes.object,
+  query: PropTypes.string,
   searchQuery: PropTypes.string
 };
 
@@ -80,10 +81,10 @@ const BentoboxList = () => {
   const { records } = useSelector((state) => {
     return state.records;
   });
-  const { active: datastoreUid } = useSelector((state) => {
+  const { active } = useSelector((state) => {
     return state.datastores;
   });
-  const search = useSelector((state) => {
+  const { data, query } = useSelector((state) => {
     return state.search;
   });
   const location = useLocation();
@@ -91,32 +92,32 @@ const BentoboxList = () => {
 
   return (
     <article className='bentobox-list' id='search-results'>
-      {getMultiSearchRecords(datastoreUid, records).map((bentobox, index) => {
-        if (!bentobox.records) {
+      {getMultiSearchRecords(active, records).map((datastore, index) => {
+        if (!datastore.records) {
           return null;
         }
 
-        const totalResults = search.data[bentobox.uid]?.totalAvailable;
+        const totalResults = data[datastore.uid]?.totalAvailable;
 
         return (
-          <React.Fragment key={bentobox.uid}>
+          <React.Fragment key={datastore.uid}>
             {index === 2 && <Specialists show={2} />}
-            <section className={`bentobox bentobox-${bentobox.uid}`}>
+            <section className={`bentobox bentobox-${datastore.uid}`}>
               <div className='container__rounded'>
                 <Anchor
                   className='bentobox-heading-container'
-                  to={`/${bentobox.slug}${searchQuery}`}
+                  to={`/${datastore.slug}${searchQuery}`}
                 >
-                  <h2 className='bentobox-heading'>{bentobox.name}</h2>
+                  <h2 className='bentobox-heading'>{datastore.name}</h2>
                   <span className='bentobox-results-info'>{typeof totalResults === 'number' ? `${totalResults.toLocaleString()} Result${totalResults === 1 ? '' : 's'}` : 'Loading...'}</span>
                 </Anchor>
-                <BentoResults {...{ bentobox, datastoreUid, search, searchQuery }} />
-                {(totalResults > 0 || bentobox.records.length > 0) && (
+                <BentoResults {...{ active, data, datastore, query, searchQuery }} />
+                {(totalResults > 0 || datastore.records.length > 0) && (
                   <Anchor
                     className='bentobox-footer-container'
-                    to={`/${bentobox.slug}${searchQuery}`}
+                    to={`/${datastore.slug}${searchQuery}`}
                   >
-                    <span>{`View all ${bentobox.name} results`}</span><Icon icon='arrow_forward' size='1.5rem' />
+                    <span>{`View all ${datastore.name} results`}</span><Icon icon='arrow_forward' size='1.5rem' />
                   </Anchor>
                 )}
               </div>
