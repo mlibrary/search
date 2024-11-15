@@ -10,20 +10,6 @@ import { Specialists } from '../../../specialists';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const BentoboxResultsNum = ({ totalResults }) => {
-  // Results have loaded
-  if (typeof totalResults === 'number') {
-    return <span className='bentobox-results-info'>{totalResults.toLocaleString()} {`Result${totalResults === 1 ? '' : 's'}`}</span>;
-  }
-
-  // Loading results
-  return <span className='bentobox-results-info'>Loading...</span>;
-};
-
-BentoboxResultsNum.propTypes = {
-  totalResults: PropTypes.number
-};
-
 const BentoResults = ({ bentobox, search, searchQuery }) => {
   // No results
   if (search.data[bentobox.uid]?.totalAvailable === 0) {
@@ -90,28 +76,6 @@ BentoResults.propTypes = {
   searchQuery: PropTypes.string
 };
 
-const BentoFooter = ({ bentobox, search, searchQuery }) => {
-  // Loading or no results
-  if (search.data[bentobox.uid]?.totalAvailable === 0 || bentobox.records.length === 0) {
-    return null;
-  }
-
-  return (
-    <Anchor
-      className='bentobox-footer-container'
-      to={`/${bentobox.slug}${searchQuery}`}
-    >
-      <span>{`View all ${bentobox.name} results`}</span><Icon icon='arrow_forward' size='1.5rem' />
-    </Anchor>
-  );
-};
-
-BentoFooter.propTypes = {
-  bentobox: PropTypes.object,
-  search: PropTypes.object,
-  searchQuery: PropTypes.string
-};
-
 const BentoboxList = () => {
   const { records } = useSelector((state) => {
     return state.records;
@@ -132,6 +96,8 @@ const BentoboxList = () => {
           return null;
         }
 
+        const totalResults = search.data[bentobox.uid]?.totalAvailable;
+
         return (
           <React.Fragment key={bentobox.uid}>
             {index === 2 && <Specialists show={2} />}
@@ -142,10 +108,17 @@ const BentoboxList = () => {
                   to={`/${bentobox.slug}${searchQuery}`}
                 >
                   <h2 className='bentobox-heading'>{bentobox.name}</h2>
-                  <BentoboxResultsNum totalResults={search.data[bentobox.uid].totalAvailable} />
+                  <span className='bentobox-results-info'>{typeof totalResults === 'number' ? `${totalResults.toLocaleString()} Result${totalResults === 1 ? '' : 's'}` : 'Loading...'}</span>
                 </Anchor>
                 <BentoResults {...{ bentobox, datastoreUid, search, searchQuery }} />
-                <BentoFooter {...{ bentobox, search, searchQuery }} />
+                {(totalResults > 0 || bentobox.records.length > 0) && (
+                  <Anchor
+                    className='bentobox-footer-container'
+                    to={`/${bentobox.slug}${searchQuery}`}
+                  >
+                    <span>{`View all ${bentobox.name} results`}</span><Icon icon='arrow_forward' size='1.5rem' />
+                  </Anchor>
+                )}
               </div>
             </section>
           </React.Fragment>
