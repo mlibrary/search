@@ -14,33 +14,29 @@ const getFieldValue = (field) => {
 };
 
 const getMultiSearchRecords = (activeDatastore, allRecords) => {
-  const configDs = getDatastoreByUid(activeDatastore);
+  const configDatastore = getDatastoreByUid(activeDatastore);
 
-  if (!configDs) {
+  if (!configDatastore) {
     return null;
   }
 
-  const { datastores } = configDs;
+  const { datastores } = configDatastore;
 
-  // Pick records corresponding to configDs.datastores using Object.keys
-  const multiSearchRecords = datastores.reduce((selectedRecords, datastore) => {
+  const datastoreRecords = datastores.reduce((acc, datastore) => {
     if (allRecords[datastore]) {
-      selectedRecords[datastore] = allRecords[datastore];
+      acc[datastore] = allRecords[datastore];
     }
-    return selectedRecords;
+    return acc;
   }, {});
 
-  const bentoBoxes = datastores.reduce(
-    (memo, datastore) => {
-      const { name, slug, uid } = getDatastoreByUid(datastore);
-      const records = (multiSearchRecords[datastore] && Object.values(multiSearchRecords[datastore]).splice(0, 3)) || [];
-      memo.push({ name, records, slug, uid });
+  const multiSearchRecords = datastores.map((datastore) => {
+    const { name, slug, uid } = getDatastoreByUid(datastore);
+    const records = datastoreRecords[datastore] ? Object.values(datastoreRecords[datastore]).slice(0, 3) : [];
 
-      return memo;
-    }, []
-  );
+    return { name, records, slug, uid };
+  });
 
-  return bentoBoxes;
+  return multiSearchRecords;
 };
 
 export {
