@@ -10,6 +10,14 @@ import { Specialists } from '../../../specialists';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+const descriptions = {
+  databases: 'Online resources of all types — text, images, audio, video, data, etc. — some open access, many restricted to U-M.',
+  mirlyn: 'Everything in our physical collection as well as ebooks, audio, video, and online journals.',
+  onlinejournals: 'Scholarly journals, newspapers, trade and popular magazines, annual publications, and more.',
+  primo: 'Articles from scholarly journals, magazines, and newspapers; ebooks and chapters; proceedings; reports; and more.',
+  website: 'U-M Library created research guides, specialty sites, blogs, and online exhibits.'
+};
+
 const BentoboxList = () => {
   const { records } = useSelector((state) => {
     return state.records;
@@ -47,6 +55,11 @@ const BentoboxList = () => {
                     : 'Loading...'}
                 </small>
               </Anchor>
+              {descriptions[uid] && (
+                <div className='record-preview bentobox-description'>
+                  <span>{descriptions[uid]}</span>
+                </div>
+              )}
               {hasRecords && <KeywordSwitch {...{ datastore, query }} />}
               {totalResults === 0
                 ? (

@@ -32,8 +32,17 @@
   font-weight: 600;
 }
 
+.bentobox-heading:hover *:not(small) {
+  text-decoration: underline;
+}
+
+.bentobox-description {
+  background: var(--search-color-blue-200);
+  border: 0;
+}
+
 .bentobox-footer {
-  background: #FAFAFA;
+  background: var(--search-color-grey-100);
 }
 
 .bentobox-no-results > *:first-child {
