@@ -2,11 +2,11 @@ import React from 'react';
 
 const RecordPreviewPlaceholder = () => {
   return (
-    <li className='record-preview record-preview-placeholder'>
-      <div className='placeholder placeholder-title' />
+    <article className='record-preview'>
+      <div className='placeholder placeholder-title margin-top__xs' />
       <div className='placeholder placeholder-line placeholder-line-alt' />
-      <div className='placeholder placeholder-line record-placeholder-last' />
-    </li>
+      <div className='placeholder placeholder-line margin-bottom__xs' />
+    </article>
   );
 };
 

@@ -1,3 +1,4 @@
+import './styles.css';
 import { Anchor, Icon } from '../../../reusable';
 import { getMultiSearchRecords } from '../../utilities';
 import ILLRequestMessage from '../ILLRequestMessage';
@@ -23,7 +24,7 @@ const BentoboxList = () => {
   const searchQuery = location.search;
 
   return (
-    <article className='bentobox-list' id='search-results'>
+    <article className='bentobox-list'>
       {getMultiSearchRecords(active, records).map((datastore, index) => {
         const { name, records: datastoreRecords, slug, uid } = datastore;
 
@@ -38,28 +39,28 @@ const BentoboxList = () => {
           <React.Fragment key={uid}>
             {index === 2 && <Specialists show={2} />}
             <section className={`container__rounded bentobox bentobox-${uid}`}>
-              <Anchor className='bentobox-heading-container' to={`/${slug}${searchQuery}`}>
-                <h2 className='bentobox-heading'>{name}</h2>
-                <span className='bentobox-results-info'>
+              <Anchor className='flex padding-x__m padding-y__xs bentobox-heading' to={`/${slug}${searchQuery}`}>
+                <h2 className='h4 margin__none'>{name}</h2>
+                <small>
                   {typeof totalResults === 'number'
                     ? `${totalResults.toLocaleString()} Result${totalResults === 1 ? '' : 's'}`
                     : 'Loading...'}
-                </span>
+                </small>
               </Anchor>
               {hasRecords && <KeywordSwitch {...{ datastore, query }} />}
               {totalResults === 0
                 ? (
-                    <div className='bentobox-no-results'>
-                      <p className='no-margin'>
+                    <div className='record-preview bentobox-no-results'>
+                      <p>
                         <span className='strong'>No results</span> match your search.
                       </p>
                       {['databases', 'onlinejournals'].includes(uid) && (
-                        <p className='u-margin-bottom-none'>
+                        <p>
                           Try our <Anchor to={`/${slug}/browse`}>Browse {name} page</Anchor> to view all titles alphabetically or by academic discipline.
                         </p>
                       )}
                       {uid === 'mirlyn' && (
-                        <p className='u-margin-bottom-none'>
+                        <p>
                           <ILLRequestMessage />
                         </p>
                       )}
@@ -67,7 +68,7 @@ const BentoboxList = () => {
                   )
                 : (
                     <>
-                      <div className='results-list results-list-border'>
+                      <div className='results-list'>
                         {hasRecords
                           ? datastoreRecords.map((record, place) => {
                             return (
@@ -79,7 +80,7 @@ const BentoboxList = () => {
                           })}
                       </div>
                       {hasRecords && (
-                        <Anchor className='bentobox-footer-container' to={`/${slug}${searchQuery}`}>
+                        <Anchor className='flex padding-x__m padding-y__s underline__hover bentobox-footer' to={`/${slug}${searchQuery}`}>
                           <span>{`View all ${name} results`}</span>
                           <Icon icon='arrow_forward' size='1.5rem' />
                         </Anchor>

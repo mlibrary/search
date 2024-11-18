@@ -770,11 +770,6 @@ details[open] > summary svg.expand_more {
   width: 100%;
 }
 
-.results-list {
-  margin: 0;
-  list-style: none;
-}
-
 .results-summary-container {
   align-items: baseline;
   box-shadow: none!important;
@@ -1373,107 +1368,6 @@ body {
   color: var(--search-color-blue-500);
 }
 
-.bentobox-list {
-  align-items: flex-start;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  list-style: none;
-  justify-content: center;
-  width: 100%;
-}
-
-@media (min-width: 600px) {
-  .bentobox-list {
-    margin-right: -1.5rem;
-  }
-}
-
-.bentobox,
-.bentobox-list .specialists {
-  width: 100%;
-  padding: 0;
-}
-
-@media (min-width: 600px) {
-  .bentobox,
-  .bentobox-list .specialists {
-    max-width: 20rem;
-  }
-}
-
-.bentobox .results-list {
-  border-radius: 4px;
-}
-
-.bentobox-heading-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 0.5rem 1rem;
-  background: var(--search-color-blue-400);
-  border-radius: 4px 4px 0 0;
-}
-
-.bentobox-heading-container span {
-  line-height: 1.5;
-  color: white;
-}
-
-.bentobox-heading {
-  margin: 0;
-  color: white;
-  font-size: 1rem;
-  font-weight: 600;
-  margin-right: 0.5rem;
-  line-height: 1.5;
-}
-
-.bentobox-results-info {
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.bentobox-footer-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #FAFAFA;
-  padding: 0.75rem 1rem;
-  border-radius: 0 0 4px 4px;
-}
-
-.bentobox-footer-container:hover {
-  text-decoration: underline;
-}
-
-.bentobox-no-results {
-  margin: 0;
-  background: white;
-  padding: 1rem;
-  border-radius: 0 0 4px 4px;
-}
-
-.party-parrot-container {
-  cursor: pointer;
-}
-
-.party-parrot {
-  opacity: 0;
-  vertical-align: top;
-  margin-left: .3rem;
-  width: 1.5rem;
-  transition: opacity .2s ease-in-out;
-}
-
-.party-parrot.party {
-  opacity: 1 !important;
-}
-
-.party-parrot-container:hover .party-parrot {
-  opacity: 0.3;
-}
-
 .resource-access-container {
   padding: 0.75rem 1rem;
   align-items: center;
@@ -1643,14 +1537,6 @@ body {
 .record-preview-description {
   margin: 0;
   color: var(--search-color-grey-600);
-}
-
-.record-preview-placeholder {
-  padding: 1.5rem 1rem;
-}
-
-.record-placeholder-last {
-  margin-bottom: 0;
 }
 
 /*
