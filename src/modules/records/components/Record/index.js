@@ -62,7 +62,7 @@ const Header = ({ datastoreUid, record }) => {
           </span>
         );
       })}
-      <RecommendedResource {...{ record }} />
+      <RecommendedResource {...{ fields: record.fields }} />
     </h3>
   );
 };
@@ -84,8 +84,8 @@ const Record = ({ datastoreUid, list, record }) => {
           <Header {...{ datastoreUid, record }} />
           <AddToListButton item={record} />
         </div>
-        <Zotero {...{ record }} />
-        <RecordMetadata {...{ record }} />
+        <Zotero {...{ fields: record.fields }} />
+        <RecordMetadata {...{ metadata: record.metadata }} />
       </div>
 
       <div className='record-holders-container'>

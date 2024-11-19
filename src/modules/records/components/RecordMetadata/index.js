@@ -2,29 +2,28 @@ import { ContextProvider, Metadata } from '../../../reusable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const RecordMetadata = ({ record }) => {
-  const { metadata } = record;
-
-  if (!metadata) {
-    return null;
-  }
-
+const RecordMetadata = ({ metadata = {} }) => {
   return (
     <ContextProvider
-      render={(context) => {
+      render={({ viewType }) => {
+        if (!metadata || Object.keys(metadata).length === 0) {
+          return null;
+        }
+
         const data = {
           Full: metadata.full,
           Medium: metadata.medium,
           Preview: metadata.preview
         };
-        return <Metadata data={data[context.viewType] || metadata.full} viewType={context.viewType} />;
+
+        return <Metadata {...{ data: data[viewType] || metadata.full, viewType }} />;
       }}
     />
   );
 };
 
 RecordMetadata.propTypes = {
-  record: PropTypes.object
+  metadata: PropTypes.object
 };
 
 export default RecordMetadata;

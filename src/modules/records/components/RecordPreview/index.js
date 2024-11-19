@@ -53,7 +53,7 @@ const Header = ({ datastoreUid, record, searchQuery }) => {
             </Anchor>
           );
         })}
-        <RecommendedResource record={record} />
+        <RecommendedResource fields={record.fields} />
       </h3>
     </>
   );
@@ -109,8 +109,8 @@ const RecordPreview = ({ datastoreUid, record, searchQuery }) => {
   return (
     <article className='record-preview'>
       <Header {...{ datastoreUid, record, searchQuery }} />
-      <RecordMetadata {...{ record }} />
-      <Zotero {...{ record }} />
+      <RecordMetadata {...{ metadata: record.metadata }} />
+      <Zotero {...{ fields: record.fields }} />
       <Footer {...{ record, searchQuery }} />
     </article>
   );
