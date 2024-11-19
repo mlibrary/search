@@ -20,9 +20,9 @@ import PropTypes from 'prop-types';
  *
  * And tell Zotero COinS was created.
  */
-const Zotero = ({ record }) => {
+const Zotero = ({ fields = [] }) => {
   const [z3988, setZ3988] = useState(null);
-  const [value] = getFieldValue(getField(record.fields, 'z3988'));
+  const [value] = getFieldValue(getField(fields, 'z3988'));
 
   useEffect(() => {
     setZ3988(value);
@@ -46,7 +46,7 @@ const Zotero = ({ record }) => {
 };
 
 Zotero.propTypes = {
-  record: PropTypes.object
+  fields: PropTypes.array
 };
 
 export default Zotero;

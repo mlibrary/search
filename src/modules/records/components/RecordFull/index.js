@@ -151,14 +151,14 @@ const FullRecord = () => {
                   <TrimString string={title} expandable key={index} />
                 );
               })}
-              <RecommendedResource record={record} />
+              <RecommendedResource fields={record.fields} />
             </H1>
             <AddToListButton item={record} />
           </div>
           <RecordDescription record={record} />
-          <Zotero record={record} />
+          <Zotero fields={record.fields} />
           <h2 className='full-record__record-info'>Record info:</h2>
-          <RecordMetadata record={record} />
+          <RecordMetadata metadata={record.metadata} />
           {inDatastore && (
             <p>
               The University of Michigan Library aims to describe its collections in a way that respects the people and communities who create, use, and are represented in them. We encourage you to
