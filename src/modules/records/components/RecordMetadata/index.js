@@ -2,7 +2,7 @@ import { ContextProvider, Metadata } from '../../../reusable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const RecordMetadata = ({ kind, record }) => {
+const RecordMetadata = ({ record }) => {
   const { metadata } = record;
 
   if (!metadata) {
@@ -17,14 +17,13 @@ const RecordMetadata = ({ kind, record }) => {
           Medium: metadata.medium,
           Preview: metadata.preview
         };
-        return <Metadata data={data[context.viewType] || metadata.full} kind={kind} />;
+        return <Metadata data={data[context.viewType] || metadata.full} viewType={context.viewType} />;
       }}
     />
   );
 };
 
 RecordMetadata.propTypes = {
-  kind: PropTypes.string,
   record: PropTypes.object
 };
 

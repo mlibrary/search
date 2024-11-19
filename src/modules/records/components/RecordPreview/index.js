@@ -109,7 +109,7 @@ const RecordPreview = ({ datastoreUid, record, searchQuery }) => {
   return (
     <article className='record-preview'>
       <Header {...{ datastoreUid, record, searchQuery }} />
-      <RecordMetadata {...{ record }} kind='condensed' />
+      <RecordMetadata {...{ record }} />
       <Zotero {...{ record }} />
       <Footer {...{ record, searchQuery }} />
     </article>

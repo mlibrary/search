@@ -10,6 +10,7 @@ import { BrowseLink } from '../../../browse';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { stringifySearch } from '../../../search';
+import { TrimString } from '../../../core';
 import { useSelector } from 'react-redux';
 
 const DescriptionItem = ({ browse, children, href, search }) => {
@@ -63,7 +64,7 @@ DescriptionItem.propTypes = {
   search: PropTypes.object
 };
 
-const Description = ({ data }) => {
+const Description = ({ data, viewType }) => {
   if (Array.isArray(data)) {
     return (
       <ol className='list__unstyled'>
@@ -79,7 +80,7 @@ const Description = ({ data }) => {
     );
   }
 
-  const { icon, image, text } = data;
+  const { icon, image, search: { scope } = {}, text } = data;
 
   return (
     <DescriptionItem {...data}>
@@ -91,7 +92,7 @@ const Description = ({ data }) => {
             className='margin-right__2xs text-grey__light'
           />
         )}
-        {text}
+        {scope === 'author' && viewType !== 'Full' ? <TrimString {...{ string: text, trimLength: 64 }} /> : text}
       </span>
       {image && (
         <img
@@ -108,26 +109,27 @@ Description.propTypes = {
   data: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object
-  ])
+  ]),
+  viewType: PropTypes.string
 };
 
-export default function Metadata ({ data, kind }) {
+export default function Metadata ({ data, viewType }) {
   return (
     <dl className='flex__responsive metadata-list'>
       {data.map((datum, datumIndex) => {
         const { description, term, termPlural } = datum;
         const isExpandable = description.length > 5;
         return (
-          <div className={kind === 'condensed' ? '' : 'metadata-list-item'} key={datumIndex}>
+          <div className={viewType === 'Preview' ? '' : 'metadata-list-item'} key={datumIndex}>
             <Expandable>
-              <dt className={kind === 'condensed' ? 'visually-hidden' : ''}>
+              <dt className={viewType === 'Preview' ? 'visually-hidden' : ''}>
                 {term}
               </dt>
               <ExpandableChildren show={isExpandable ? 4 : description.length}>
                 {description.map((descriptor, index) => {
                   return (
                     <dd key={index}>
-                      <Description data={descriptor} />
+                      <Description data={descriptor} viewType={viewType} />
                     </dd>
                   );
                 })}
@@ -143,5 +145,5 @@ export default function Metadata ({ data, kind }) {
 
 Metadata.propTypes = {
   data: PropTypes.array,
-  kind: PropTypes.string
+  viewType: PropTypes.string
 };
