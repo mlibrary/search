@@ -72,7 +72,7 @@ const RecordList = () => {
         : (
             <>
               <GoToList {...{ datastore, list }} />
-              <div className='results-list results-list-border search-results'>
+              <div className='results-list search-results'>
                 {loadingRecords
                   ? [...Array(count)].map((elementInArray, index) => {
                       return (
