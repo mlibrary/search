@@ -1,7 +1,8 @@
 import { Anchor, Icon } from '../../../reusable';
 import { getField, getFieldValue } from '../../utilities';
-import { RecommendedResource, RecordMetadata, Zotero } from '../../../records';
+import { RecommendedResource, Zotero } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
+import { Metadata } from '../../../metadata';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { TrimString } from '../../../core';
@@ -109,7 +110,7 @@ const RecordPreview = ({ datastoreUid, record, searchQuery }) => {
   return (
     <article className='record-preview'>
       <Header {...{ datastoreUid, record, searchQuery }} />
-      <RecordMetadata {...{ metadata: record.metadata }} />
+      <Metadata {...{ metadata: record.metadata }} />
       <Zotero {...{ fields: record.fields }} />
       <Footer {...{ record, searchQuery }} />
     </article>

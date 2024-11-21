@@ -1,10 +1,11 @@
 import { AddToListButton, isInList } from '../../../lists';
 import { Anchor, Icon } from '../../../reusable';
 import { getField, getFieldValue } from '../../utilities';
-import { RecommendedResource, RecordMetadata } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
+import { Metadata } from '../../../metadata';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { RecommendedResource } from '../../../records';
 import { ResourceAccess } from '../../../resource-acccess';
 import { TrimString } from '../../../core';
 import { useLocation } from 'react-router-dom';
@@ -85,7 +86,7 @@ const Record = ({ datastoreUid, list, record }) => {
           <AddToListButton item={record} />
         </div>
         <Zotero {...{ fields: record.fields }} />
-        <RecordMetadata {...{ metadata: record.metadata }} />
+        <Metadata {...{ metadata: record.metadata }} />
       </div>
 
       <div className='record-holders-container'>

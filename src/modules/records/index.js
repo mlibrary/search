@@ -22,7 +22,6 @@ import RecordDescription from './components/RecordDescription';
 import RecordFull from './components/RecordFull';
 import RecordFullFormats from './components/RecordFullFormats';
 import RecordList from './components/RecordList';
-import RecordMetadata from './components/RecordMetadata';
 import recordsReducer from './reducer';
 import Results from './components/Results';
 import ViewMARC from './components/ViewMARC';
@@ -48,7 +47,6 @@ export {
   RecordFull,
   RecordFullFormats,
   RecordList,
-  RecordMetadata,
   recordsReducer,
   Results,
   setRecord,

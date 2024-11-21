@@ -11,7 +11,6 @@ import {
   RecommendedResource,
   RecordDescription,
   RecordFullFormats,
-  RecordMetadata,
   ViewMARC,
   Zotero
 } from '../../../records';
@@ -19,6 +18,7 @@ import { getField, getFieldValue } from '../../utilities';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
+import { Metadata } from '../../../metadata';
 import { NoMatch } from '../../../pages';
 import { requestRecord } from '../../../pride';
 import { ResourceAccess } from '../../../resource-acccess';
@@ -158,7 +158,7 @@ const FullRecord = () => {
           <RecordDescription record={record} />
           <Zotero fields={record.fields} />
           <h2 className='full-record__record-info'>Record info:</h2>
-          <RecordMetadata metadata={record.metadata} />
+          <Metadata metadata={record.metadata} />
           {inDatastore && (
             <p>
               The University of Michigan Library aims to describe its collections in a way that respects the people and communities who create, use, and are represented in them. We encourage you to
