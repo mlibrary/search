@@ -1,4 +1,5 @@
-import { ContextProvider, Metadata } from '../../../reusable';
+import { ContextProvider } from '../../../reusable';
+import { Metadata } from '../../../metadata';
 import PropTypes from 'prop-types';
 import React from 'react';
 

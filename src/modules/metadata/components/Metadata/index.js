@@ -20,13 +20,13 @@ const DescriptionItem = ({ browse, children, href, search }) => {
   const { active: activeDatastore, datastores } = useSelector((state) => {
     return state.datastores;
   });
-  const { slug, uid } = datastores.find((datastore) => {
-    return datastore.uid === activeDatastore;
-  });
 
   const anchorAttributes = { href };
 
   if (search) {
+    const { slug, uid } = datastores.find((datastore) => {
+      return datastore.uid === activeDatastore;
+    });
     const { scope, type, value } = search;
     anchorAttributes.to = `/${slug}?${stringifySearch({
       filter: type === 'filtered' ? { [scope]: value } : {},
@@ -103,7 +103,7 @@ Description.propTypes = {
   viewType: PropTypes.string
 };
 
-export default function Metadata ({ data, viewType }) {
+const Metadata = ({ data, viewType }) => {
   return (
     <dl className='flex__responsive metadata-list'>
       {data.map((datum, datumIndex) => {
@@ -136,3 +136,5 @@ Metadata.propTypes = {
   data: PropTypes.array,
   viewType: PropTypes.string
 };
+
+export default Metadata;
