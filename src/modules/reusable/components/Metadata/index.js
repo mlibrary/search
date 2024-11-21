@@ -92,7 +92,7 @@ const Description = ({ data, viewType }) => {
             className='margin-right__2xs text-grey__light'
           />
         )}
-        {scope === 'author' && viewType !== 'Full' ? <TrimString {...{ string: text, trimLength: 64 }} /> : text}
+        { viewType !== 'Full' && !data.search ? <TrimString {...{ string: text, trimLength: scope === 'author' ? 64 : 240 }} /> : text }
       </span>
       {image && (
         <img
@@ -118,14 +118,13 @@ export default function Metadata ({ data, viewType }) {
     <dl className='flex__responsive metadata-list'>
       {data.map((datum, datumIndex) => {
         const { description, term, termPlural } = datum;
-        const isExpandable = description.length > 5;
         return (
           <div className={viewType === 'Preview' ? '' : 'metadata-list-item'} key={datumIndex}>
             <Expandable>
               <dt className={viewType === 'Preview' ? 'visually-hidden' : ''}>
                 {term}
               </dt>
-              <ExpandableChildren show={isExpandable ? 4 : description.length}>
+              <ExpandableChildren>
                 {description.map((descriptor, index) => {
                   return (
                     <dd key={index}>
@@ -134,7 +133,7 @@ export default function Metadata ({ data, viewType }) {
                   );
                 })}
               </ExpandableChildren>
-              {isExpandable && <dd className='margin-top__2xs'><ExpandableButton name={termPlural || term} count={description.length} /></dd>}
+              {description.length > 3 && <dd className='margin-top__2xs'><ExpandableButton name={termPlural || term} count={description.length} /></dd>}
             </Expandable>
           </div>
         );
