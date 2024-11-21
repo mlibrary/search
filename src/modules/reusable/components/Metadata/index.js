@@ -17,11 +17,11 @@ const DescriptionItem = ({ browse, children, href, search }) => {
   const { active: activeInstitution, defaultInstitution } = useSelector((state) => {
     return state.institution;
   });
-  const { slug, uid } = useSelector((state) => {
-    const { active, datastores } = state.datastores;
-    return datastores.find((datastore) => {
-      return datastore.uid === active;
-    });
+  const { active: activeDatastore, datastores } = useSelector((state) => {
+    return state.datastores;
+  });
+  const { slug, uid } = datastores.find((datastore) => {
+    return datastore.uid === activeDatastore;
   });
 
   const anchorAttributes = { href };
@@ -35,18 +35,20 @@ const DescriptionItem = ({ browse, children, href, search }) => {
     })}`;
   }
 
+  const { text, type, value } = browse || {};
+
   return (
     <>
       {(href || search) ? <Anchor {...anchorAttributes}>{children}</Anchor> : children}
-      {browse && (
+      {browse?.text && (
         <>
           <span className='text-grey font-small margin-x__2xs'>|</span>
           <BrowseLink
             className='text-grey font-small underline underline__hover-thick'
-            type={browse.type}
-            value={browse.value}
+            type={type}
+            value={value}
           >
-            {browse.text}
+            {text}
           </BrowseLink>
         </>
       )}
@@ -85,22 +87,10 @@ const Description = ({ data, viewType }) => {
   return (
     <DescriptionItem {...data}>
       <span style={{ display: image ? 'block' : 'initial' }}>
-        {icon && (
-          <Icon
-            icon={icon}
-            size={19}
-            className='margin-right__2xs text-grey__light'
-          />
-        )}
+        {icon && <Icon icon={icon} size={19} className='margin-right__2xs text-grey__light' />}
         { viewType !== 'Full' && !data.search ? <TrimString {...{ string: text, trimLength: scope === 'author' ? 64 : 240 }} /> : text }
       </span>
-      {image && (
-        <img
-          src={image}
-          alt=''
-          className='padding-top__xs'
-        />
-      )}
+      {image && <img src={image} alt='' className='padding-top__xs' />}
     </DescriptionItem>
   );
 };
