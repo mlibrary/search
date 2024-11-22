@@ -8,10 +8,10 @@ import {
 import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import {
   FullRecordPlaceholder,
+  Metadata,
   RecommendedResource,
   RecordDescription,
   RecordFullFormats,
-  RecordMetadata,
   ViewMARC,
   Zotero
 } from '../../../records';
@@ -158,7 +158,7 @@ const FullRecord = () => {
           <RecordDescription record={record} />
           <Zotero fields={record.fields} />
           <h2 className='full-record__record-info'>Record info:</h2>
-          <RecordMetadata metadata={record.metadata} />
+          <Metadata metadata={record.metadata} />
           {inDatastore && (
             <p>
               The University of Michigan Library aims to describe its collections in a way that respects the people and communities who create, use, and are represented in them. We encourage you to
