@@ -8,6 +8,7 @@ import {
 import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import {
   FullRecordPlaceholder,
+  Metadata,
   RecommendedResource,
   RecordDescription,
   RecordFullFormats,
@@ -18,7 +19,6 @@ import { getField, getFieldValue } from '../../utilities';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { findWhere } from '../../../reusable/underscore';
-import { Metadata } from '../../../metadata';
 import { NoMatch } from '../../../pages';
 import { requestRecord } from '../../../pride';
 import { ResourceAccess } from '../../../resource-acccess';

@@ -1,11 +1,10 @@
 import { AddToListButton, isInList } from '../../../lists';
 import { Anchor, Icon } from '../../../reusable';
 import { getField, getFieldValue } from '../../utilities';
+import { Metadata, RecommendedResource } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
-import { Metadata } from '../../../metadata';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { RecommendedResource } from '../../../records';
 import { ResourceAccess } from '../../../resource-acccess';
 import { TrimString } from '../../../core';
 import { useLocation } from 'react-router-dom';

@@ -1,8 +1,7 @@
 import { Anchor, Icon } from '../../../reusable';
 import { getField, getFieldValue } from '../../utilities';
-import { RecommendedResource, Zotero } from '../../../records';
+import { Metadata, RecommendedResource, Zotero } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
-import { Metadata } from '../../../metadata';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { TrimString } from '../../../core';
