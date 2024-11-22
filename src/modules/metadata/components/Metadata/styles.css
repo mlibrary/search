@@ -20,10 +20,6 @@
   }
 }
 
-.metadata-list-item > dd > img {
-  max-width: 16rem;
-}
-
 .metadata-list-item > dd > ol.list__unstyled > li {
   display: inline-block;
 }

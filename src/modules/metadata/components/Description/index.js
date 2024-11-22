@@ -13,7 +13,7 @@ const Description = ({ activeDatastore, data, datastores, institution, viewType 
           return (
             <li key={index}>
               {index > 0 && <Icon icon='navigate_next' className='text-grey__light' />}
-              <Description activeDatastore={activeDatastore} data={datum} datastores={datastores} institution={institution} viewType={viewType} />
+              <Description {...{ activeDatastore, data: datum, datastores, institution, viewType }} />
             </li>
           );
         })}
@@ -23,27 +23,30 @@ const Description = ({ activeDatastore, data, datastores, institution, viewType 
 
   const { browse, href, icon, search, text } = data;
   const searchScope = search?.scope || {};
-
-  const anchorAttributes = { href };
-
-  if (search) {
-    const { slug, uid } = datastores.find((datastore) => {
-      return datastore.uid === activeDatastore;
-    });
-    const { scope, type, value } = search;
-    anchorAttributes.to = `/${slug}?${stringifySearch({
-      filter: type === 'filtered' ? { [scope]: value } : {},
-      library: uid === 'mirlyn' ? institution : '',
-      query: type === 'fielded' ? `${scope}:${value}` : value
-    })}`;
-  }
+  const anchorAttributes = search
+    ? (
+        () => {
+          const { slug, uid } = datastores.find((datastore) => {
+            return datastore.uid === activeDatastore;
+          });
+          const { scope, type, value } = search;
+          return {
+            to: `/${slug}?${stringifySearch({
+              filter: type === 'filtered' ? { [scope]: value } : {},
+              library: uid === 'mirlyn' ? institution : '',
+              query: type === 'fielded' ? `${scope}:${value}` : value
+            })}`
+          };
+        }
+      )()
+    : { href };
 
   const { text: browseText, type, value } = browse || {};
 
   const child = (
     <>
       {icon && <Icon icon={icon} size={19} className='margin-right__2xs text-grey__light' />}
-      { viewType !== 'Full' && !data.search ? <TrimString {...{ string: text, trimLength: searchScope === 'author' ? 64 : 240 }} /> : text }
+      { ['Preview', 'Medium'].includes(viewType) ? <TrimString {...{ string: text, trimLength: searchScope === 'author' ? 64 : 240 }} /> : text }
     </>
   );
 
@@ -55,8 +58,7 @@ const Description = ({ activeDatastore, data, datastores, institution, viewType 
           <span className='text-grey font-small margin-x__2xs'>|</span>
           <BrowseLink
             className='text-grey font-small underline underline__hover-thick'
-            type={type}
-            value={value}
+            {...{ type, value }}
           >
             {browseText}
           </BrowseLink>

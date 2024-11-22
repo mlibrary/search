@@ -18,38 +18,39 @@ const Metadata = ({ metadata = {} }) => {
     return state.datastores;
   });
 
+  if (!metadata || Object.keys(metadata).length === 0) {
+    return null;
+  }
+
   const institution = activeInstitution || defaultInstitution;
+
+  const metadataView = {
+    Full: metadata.full,
+    Medium: metadata.medium,
+    Preview: metadata.preview
+  };
 
   return (
     <ContextProvider
       render={({ viewType }) => {
-        if (!metadata || Object.keys(metadata).length === 0) {
-          return null;
-        }
-
-        const metadataView = {
-          Full: metadata.full,
-          Medium: metadata.medium,
-          Preview: metadata.preview
-        };
-
-        const data = metadataView[viewType] || metadata.full;
-
         return (
           <dl className='flex__responsive metadata-list'>
-            {data.map((datum, datumIndex) => {
-              const { description, term, termPlural } = datum;
+            {(metadataView[viewType] || metadata.full).map(({ description, term, termPlural }, index) => {
+              if (!description) {
+                return null;
+              }
+
               return (
-                <div className={viewType === 'Preview' ? '' : 'metadata-list-item'} key={datumIndex}>
+                <div className={viewType === 'Preview' ? '' : 'metadata-list-item'} key={index}>
                   <Expandable>
                     <dt className={viewType === 'Preview' ? 'visually-hidden' : ''}>
                       {term}
                     </dt>
                     <ExpandableChildren>
-                      {description.map((descriptor, index) => {
+                      {description.map((data, dataIndex) => {
                         return (
-                          <dd key={index}>
-                            <Description activeDatastore={activeDatastore} data={descriptor} datastores={datastores} institution={institution} viewType={viewType} />
+                          <dd key={dataIndex}>
+                            <Description {...{ activeDatastore, data, datastores, institution, viewType }} />
                           </dd>
                         );
                       })}
