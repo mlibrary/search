@@ -3,14 +3,23 @@ import {
   ContextProvider,
   Expandable,
   ExpandableButton,
-  ExpandableChildren,
-  Icon
+  ExpandableChildren
 } from '../../../reusable';
 import Description from '../Description';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Metadata = ({ metadata = {} }) => {
+  const { active: activeInstitution, defaultInstitution } = useSelector((state) => {
+    return state.institution;
+  });
+  const { active: activeDatastore, datastores } = useSelector((state) => {
+    return state.datastores;
+  });
+
+  const institution = activeInstitution || defaultInstitution;
+
   return (
     <ContextProvider
       render={({ viewType }) => {
@@ -40,20 +49,7 @@ const Metadata = ({ metadata = {} }) => {
                       {description.map((descriptor, index) => {
                         return (
                           <dd key={index}>
-                            {Array.isArray(descriptor)
-                              ? (
-                                  <ol className='list__unstyled'>
-                                    {descriptor.map((descript, number) => {
-                                      return (
-                                        <li key={number}>
-                                          {number > 0 && <Icon icon='navigate_next' className='text-grey__light' />}
-                                          <Description data={descript} />
-                                        </li>
-                                      );
-                                    })}
-                                  </ol>
-                                )
-                              : <Description data={descriptor} viewType={viewType} />}
+                            <Description activeDatastore={activeDatastore} data={descriptor} datastores={datastores} institution={institution} viewType={viewType} />
                           </dd>
                         );
                       })}

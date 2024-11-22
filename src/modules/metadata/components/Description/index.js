@@ -4,15 +4,22 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { stringifySearch } from '../../../search';
 import { TrimString } from '../../../core';
-import { useSelector } from 'react-redux';
 
-const Description = ({ data, viewType }) => {
-  const { active: activeInstitution, defaultInstitution } = useSelector((state) => {
-    return state.institution;
-  });
-  const { active: activeDatastore, datastores } = useSelector((state) => {
-    return state.datastores;
-  });
+const Description = ({ activeDatastore, data, datastores, institution, viewType }) => {
+  if (Array.isArray(data)) {
+    return (
+      <ol className='list__unstyled'>
+        {data.map((datum, index) => {
+          return (
+            <li key={index}>
+              {index > 0 && <Icon icon='navigate_next' className='text-grey__light' />}
+              <Description activeDatastore={activeDatastore} data={datum} datastores={datastores} institution={institution} viewType={viewType} />
+            </li>
+          );
+        })}
+      </ol>
+    );
+  }
 
   const { browse, href, icon, search, text } = data;
   const searchScope = search?.scope || {};
@@ -26,7 +33,7 @@ const Description = ({ data, viewType }) => {
     const { scope, type, value } = search;
     anchorAttributes.to = `/${slug}?${stringifySearch({
       filter: type === 'filtered' ? { [scope]: value } : {},
-      library: uid === 'mirlyn' ? (activeInstitution || defaultInstitution) : {},
+      library: uid === 'mirlyn' ? institution : '',
       query: type === 'fielded' ? `${scope}:${value}` : value
     })}`;
   }
@@ -60,7 +67,13 @@ const Description = ({ data, viewType }) => {
 };
 
 Description.propTypes = {
-  data: PropTypes.object,
+  activeDatastore: PropTypes.string,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
+  datastores: PropTypes.array,
+  institution: PropTypes.string,
   viewType: PropTypes.string
 };
 
