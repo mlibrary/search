@@ -3,7 +3,8 @@ import {
   ContextProvider,
   Expandable,
   ExpandableButton,
-  ExpandableChildren
+  ExpandableChildren,
+  Icon
 } from '../../../reusable';
 import Description from '../Description';
 import PropTypes from 'prop-types';
@@ -39,7 +40,20 @@ const Metadata = ({ metadata = {} }) => {
                       {description.map((descriptor, index) => {
                         return (
                           <dd key={index}>
-                            <Description data={descriptor} viewType={viewType} />
+                            {Array.isArray(descriptor)
+                              ? (
+                                  <ol className='list__unstyled'>
+                                    {descriptor.map((descript, number) => {
+                                      return (
+                                        <li key={number}>
+                                          {number > 0 && <Icon icon='navigate_next' className='text-grey__light' />}
+                                          <Description data={descript} />
+                                        </li>
+                                      );
+                                    })}
+                                  </ol>
+                                )
+                              : <Description data={descriptor} viewType={viewType} />}
                           </dd>
                         );
                       })}

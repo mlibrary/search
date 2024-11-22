@@ -5,21 +5,6 @@ import React from 'react';
 import { TrimString } from '../../../core';
 
 const Description = ({ data, viewType }) => {
-  if (Array.isArray(data)) {
-    return (
-      <ol className='list__unstyled'>
-        {data.map((datum, index) => {
-          return (
-            <li key={index}>
-              {index > 0 && <Icon icon='navigate_next' className='text-grey__light' />}
-              <Description data={datum} />
-            </li>
-          );
-        })}
-      </ol>
-    );
-  }
-
   const { icon, image, search: { scope } = {}, text } = data;
 
   return (
@@ -34,10 +19,7 @@ const Description = ({ data, viewType }) => {
 };
 
 Description.propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object
-  ]),
+  data: PropTypes.object,
   viewType: PropTypes.string
 };
 
