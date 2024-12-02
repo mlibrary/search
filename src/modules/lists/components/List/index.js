@@ -15,7 +15,7 @@ const List = (props) => {
   const setA11yMessage = (message) => {
     return dispatch(setA11yMessageAction(message));
   };
-  const { activeDatastore, institution, list } = props;
+  const { activeDatastore, list } = props;
   const { name, slug, uid } = activeDatastore;
   const tempList = list || [];
   const listLength = tempList.length;
@@ -63,7 +63,6 @@ const List = (props) => {
                     record={record}
                     datastoreUid={uid}
                     key={index}
-                    institution={institution}
                     searchQuery={location.search}
                     type='medium'
                     list={tempList}
@@ -84,7 +83,6 @@ const List = (props) => {
 
 List.propTypes = {
   activeDatastore: PropTypes.object,
-  institution: PropTypes.object,
   list: PropTypes.array,
   setA11yMessage: PropTypes.func
 };

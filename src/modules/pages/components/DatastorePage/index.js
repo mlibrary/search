@@ -20,18 +20,17 @@ import { setDocumentTitle } from '../../../a11y';
 import { switchPrideToDatastore } from '../../../pride';
 
 const DatastorePage = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const params = useParams();
   const dispatch = useDispatch();
 
   const { active: activeFilters } = useSelector((state) => {
     return state.filters;
   });
-  const datastores = useSelector((state) => {
+  const { active: currentDatastore, datastores } = useSelector((state) => {
     return state.datastores;
   });
-  const { active: currentDatastore } = datastores;
-  const activeDatastore = findWhere(datastores.datastores, {
+  const activeDatastore = findWhere(datastores, {
     uid: currentDatastore
   });
   const institution = useSelector((state) => {
@@ -40,10 +39,9 @@ const DatastorePage = () => {
   const { institutions } = useSelector((state) => {
     return state.profile || {};
   });
-  const search = useSelector((state) => {
+  const { page, query, searching, sort } = useSelector((state) => {
     return state.search;
   });
-  const { query, searching } = search;
   const currentFilters = activeFilters[currentDatastore];
   const activeFilterCount = currentFilters ? Object.keys(currentFilters).length : 0;
   const isAdvanced = useSelector((state) => {
@@ -65,13 +63,13 @@ const DatastorePage = () => {
 
       if (query) {
         titleSegments.unshift(query);
-      } else if (location.pathname.endsWith('/browse')) {
+      } else if (pathname.endsWith('/browse')) {
         titleSegments.unshift('Browse');
       }
 
       setDocumentTitle(titleSegments);
     }
-  }, [activeDatastore, query, location.pathname]);
+  }, [activeDatastore, query, pathname]);
 
   if (!activeDatastore) {
     return null;
@@ -86,15 +84,15 @@ const DatastorePage = () => {
         />
         <Route
           path='advanced'
-          element={isAdvanced ? <AdvancedSearch searchQueryFromURL={location.search} /> : <NoMatch />}
+          element={isAdvanced ? <AdvancedSearch /> : <NoMatch />}
         />
         <Route
           path='/*'
           element={(
             <>
               <SearchBox />
-              <DatastoreNavigation {...{ activeFilters, datastores, institution, search }} />
-              <FlintAlerts datastore={activeDatastore.uid} institutions={institutions} />
+              <DatastoreNavigation {...{ activeFilters, activeInstitution: institution.active, currentDatastore, datastores, institution, page, query, sort }} />
+              <FlintAlerts {...{ datastore: activeDatastore.uid, institutions }} />
               <Routes>
                 <Route
                   path='record/:recordUid/get-this/:barcode'
@@ -106,7 +104,7 @@ const DatastorePage = () => {
                 />
                 <Route
                   path='list'
-                  element={<List {...{ activeDatastore, institution, list }} />}
+                  element={<List {...{ activeDatastore, list }} />}
                 />
                 <Route
                   index
@@ -115,16 +113,12 @@ const DatastorePage = () => {
                       ? (
                           <>
                             <H1 className='visually-hidden'>{activeDatastore.name}</H1>
-                            <DatastoreInfoContainer activeDatastore={activeDatastore} />
-                            <Results
-                              activeDatastore={activeDatastore}
-                              activeFilterCount={activeFilterCount}
-                              institution={institution}
-                            />
+                            <DatastoreInfoContainer {...{ name: activeDatastore.name, uid: activeDatastore.uid }} />
+                            <Results {...{ activeDatastore, activeFilterCount, institution }} />
                           </>
                         )
                       : (
-                          <Landing activeDatastore={activeDatastore} institution={institution} />
+                          <Landing {...{ activeDatastore, institution }} />
                         )
                   }
                 />
