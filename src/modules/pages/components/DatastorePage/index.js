@@ -1,9 +1,4 @@
-import {
-  DatastoreInfoContainer,
-  DatastoreNavigation,
-  FlintAlerts,
-  Landing
-} from '../../../datastores';
+import { DatastoreNavigation, FlintAlerts, Landing } from '../../../datastores';
 import React, { useEffect } from 'react';
 import { RecordFull, Results } from '../../../records';
 import { Route, Routes, useLocation, useParams } from 'react-router-dom';
@@ -12,7 +7,6 @@ import { AdvancedSearch } from '../../../advanced';
 import { BrowsePage } from '../../../browse';
 import { findWhere } from '../../../reusable/underscore';
 import { GetThisPage } from '../../../getthis';
-import { H1 } from '../../../reusable';
 import { List } from '../../../lists';
 import { NoMatch } from '../../../pages';
 import { SearchBox } from '../../../search';
@@ -108,19 +102,7 @@ const DatastorePage = () => {
                 />
                 <Route
                   index
-                  element={
-                    searching
-                      ? (
-                          <>
-                            <H1 className='visually-hidden'>{activeDatastore.name}</H1>
-                            <DatastoreInfoContainer {...{ name: activeDatastore.name, uid: activeDatastore.uid }} />
-                            <Results {...{ activeDatastore, activeFilterCount, institution }} />
-                          </>
-                        )
-                      : (
-                          <Landing {...{ activeDatastore, institution }} />
-                        )
-                  }
+                  element={searching ? <Results {...{ activeDatastore, activeFilterCount }} /> : <Landing {...{ activeDatastore, institution }} />}
                 />
               </Routes>
             </>
