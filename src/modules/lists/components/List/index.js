@@ -1,21 +1,24 @@
 import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ActionsList from '../ActionsList';
 import prejudice from '../../prejudice';
 import PropTypes from 'prop-types';
 import { Record } from '../../../records';
 import { setA11yMessage as setA11yMessageAction } from '../../../a11y';
-import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 const List = (props) => {
+  const list = useSelector((state) => {
+    return state.lists[props.currentDatastore];
+  });
   const [active, setActive] = useState('');
   const dispatch = useDispatch();
   const { search } = useLocation();
   const setA11yMessage = (message) => {
     return dispatch(setA11yMessageAction(message));
   };
-  const { activeDatastore, list } = props;
+  const { activeDatastore } = props;
   const { name, slug, uid } = activeDatastore;
   const tempList = list || [];
   const listLength = tempList.length;
@@ -83,7 +86,7 @@ const List = (props) => {
 
 List.propTypes = {
   activeDatastore: PropTypes.object,
-  list: PropTypes.array,
+  currentDatastore: PropTypes.string,
   setA11yMessage: PropTypes.func
 };
 

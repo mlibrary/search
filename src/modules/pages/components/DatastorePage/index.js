@@ -1,55 +1,37 @@
-import { DatastoreNavigation, FlintAlerts, Landing } from '../../../datastores';
 import React, { useEffect } from 'react';
-import { RecordFull, Results } from '../../../records';
 import { Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AdvancedSearch } from '../../../advanced';
 import { BrowsePage } from '../../../browse';
+import { DatastoreMain } from '../../../datastores';
 import { findWhere } from '../../../reusable/underscore';
-import { GetThisPage } from '../../../getthis';
-import { List } from '../../../lists';
 import { NoMatch } from '../../../pages';
-import { SearchBox } from '../../../search';
 import { setDocumentTitle } from '../../../a11y';
 import { switchPrideToDatastore } from '../../../pride';
 
 const DatastorePage = () => {
   const { pathname } = useLocation();
-  const params = useParams();
+  const { datastoreSlug } = useParams();
   const dispatch = useDispatch();
 
-  const { active: activeFilters } = useSelector((state) => {
-    return state.filters;
-  });
   const { active: currentDatastore, datastores } = useSelector((state) => {
     return state.datastores;
   });
   const activeDatastore = findWhere(datastores, {
     uid: currentDatastore
   });
-  const institution = useSelector((state) => {
-    return state.institution;
-  });
-  const { institutions } = useSelector((state) => {
-    return state.profile || {};
-  });
-  const { page, query, searching, sort } = useSelector((state) => {
+  const { query } = useSelector((state) => {
     return state.search;
   });
-  const currentFilters = activeFilters[currentDatastore];
-  const activeFilterCount = currentFilters ? Object.keys(currentFilters).length : 0;
   const isAdvanced = useSelector((state) => {
     return Boolean(state.advanced[currentDatastore]);
   });
-  const list = useSelector((state) => {
-    return state.lists[currentDatastore];
-  });
 
   useEffect(() => {
-    if (params.datastoreSlug) {
-      switchPrideToDatastore(params.datastoreSlug);
+    if (datastoreSlug) {
+      switchPrideToDatastore(datastoreSlug);
     }
-  }, [params.datastoreSlug, dispatch]);
+  }, [datastoreSlug, dispatch]);
 
   useEffect(() => {
     if (activeDatastore) {
@@ -82,31 +64,7 @@ const DatastorePage = () => {
         />
         <Route
           path='/*'
-          element={(
-            <>
-              <SearchBox {...{ activeDatastore, query }} />
-              <DatastoreNavigation {...{ activeFilters, activeInstitution: institution.active, currentDatastore, datastores, institution, page, query, sort }} />
-              <FlintAlerts {...{ datastore: activeDatastore.uid, institutions }} />
-              <Routes>
-                <Route
-                  path='record/:recordUid/get-this/:barcode'
-                  element={<GetThisPage />}
-                />
-                <Route
-                  path='record/:recordUid'
-                  element={<RecordFull />}
-                />
-                <Route
-                  path='list'
-                  element={<List {...{ activeDatastore, list }} />}
-                />
-                <Route
-                  index
-                  element={searching ? <Results {...{ activeDatastore, activeFilterCount }} /> : <Landing {...{ activeDatastore, institution }} />}
-                />
-              </Routes>
-            </>
-          )}
+          element={<DatastoreMain {...{ activeDatastore, currentDatastore, datastores, query }} />}
         />
       </Routes>
     </main>
