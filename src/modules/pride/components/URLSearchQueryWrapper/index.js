@@ -105,29 +105,25 @@ const handleURLState = ({
 const URLSearchQueryWrapper = ({ children }) => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const params = useParams();
+  const { datastoreSlug } = useParams();
   const { active: activeDatastore } = useSelector((state) => {
     return state.datastores;
   });
-  const activeFilters = useSelector((state) => {
-    return state.filters.active[activeDatastore];
+  const { [activeDatastore]: activeFilters } = useSelector((state) => {
+    return state.filters.active;
   });
   const institution = useSelector((state) => {
     return state.institution;
   });
-  const { query } = useSelector((state) => {
+  const { query, page: currentPage, sort: currentSort } = useSelector((state) => {
     return state.search;
   });
-  const page = useSelector((state) => {
-    return state.search.page[activeDatastore];
-  });
-  const sort = useSelector((state) => {
-    return state.search.sort[activeDatastore];
-  });
+  const page = currentPage[activeDatastore];
+  const sort = currentSort[activeDatastore];
 
   const datastoreUid = useMemo(() => {
-    return getDatastoreUidBySlug(params.datastoreSlug);
-  }, [params.datastoreSlug]);
+    return getDatastoreUidBySlug(datastoreSlug);
+  }, [datastoreSlug]);
 
   useEffect(() => {
     switchPrideToDatastore(datastoreUid);
@@ -141,7 +137,7 @@ const URLSearchQueryWrapper = ({ children }) => {
       query,
       sort
     }, dispatch);
-  }, [params.datastoreSlug, query, activeFilters, location, page, sort, institution, dispatch]);
+  }, [datastoreSlug, query, activeFilters, location, page, sort, institution, dispatch]);
 
   return children;
 };

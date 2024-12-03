@@ -15,7 +15,7 @@ const DatastoreRoute = () => {
   if (isDatastore && urlState) {
     return (
       <URLSearchQueryWrapper>
-        <DatastorePage datastoreSlug={datastoreSlug} />
+        <DatastorePage />
       </URLSearchQueryWrapper>
     );
   }
