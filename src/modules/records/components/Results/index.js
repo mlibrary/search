@@ -31,7 +31,7 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
               <BentoboxList />
             )
           : (
-              <div className='container container-medium flex-container margin-top__s'>
+              <>
                 <div className='side-container'>
                   <h2 className='visually-hidden'>{name} Filter Options</h2>
                   {windowWidth < 980 && (
@@ -62,7 +62,7 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
                   <RecordList />
                   <Pagination />
                 </div>
-              </div>
+              </>
             )}
       </div>
     </>

@@ -84,7 +84,7 @@ const DatastorePage = () => {
           path='/*'
           element={(
             <>
-              <SearchBox />
+              <SearchBox {...{ activeDatastore, query }} />
               <DatastoreNavigation {...{ activeFilters, activeInstitution: institution.active, currentDatastore, datastores, institution, page, query, sort }} />
               <FlintAlerts {...{ datastore: activeDatastore.uid, institutions }} />
               <Routes>

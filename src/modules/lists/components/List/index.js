@@ -11,7 +11,7 @@ import { useLocation } from 'react-router-dom';
 const List = (props) => {
   const [active, setActive] = useState('');
   const dispatch = useDispatch();
-  const location = useLocation();
+  const { search } = useLocation();
   const setA11yMessage = (message) => {
     return dispatch(setA11yMessageAction(message));
   };
@@ -19,7 +19,7 @@ const List = (props) => {
   const { name, slug, uid } = activeDatastore;
   const tempList = list || [];
   const listLength = tempList.length;
-  const to = `/${slug}${location.search}`;
+  const to = `/${slug}${search}`;
 
   return (
     <article className='container container-narrow u-margin-top-1'>
@@ -63,7 +63,7 @@ const List = (props) => {
                     record={record}
                     datastoreUid={uid}
                     key={index}
-                    searchQuery={location.search}
+                    searchQuery={search}
                     type='medium'
                     list={tempList}
                   />
