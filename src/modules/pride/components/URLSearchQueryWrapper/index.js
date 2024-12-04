@@ -42,8 +42,9 @@ const handleURLState = ({
     query: stateQuery,
     sort: stateSort
   } = urlState;
-  dispatch(setActiveAffiliation(stateAffiliation));
+
   if (stateAffiliation) {
+    dispatch(setActiveAffiliation(stateAffiliation));
     localStorage.setItem('affiliation', stateAffiliation);
   }
 
