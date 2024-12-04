@@ -9,7 +9,7 @@ import {
   runSearch,
   switchPrideToDatastore
 } from '../../../pride';
-import { memo, useEffect, useMemo } from 'react';
+import { memo, React, useEffect, useMemo } from 'react';
 import {
   searching,
   setPage,
@@ -21,7 +21,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import config from '../../../../config';
-import PropTypes from 'prop-types';
+import { DatastorePage } from '../../../pages';
 import { setA11yMessage } from '../../../a11y';
 import { setActiveAffiliation } from '../../../affiliation';
 import { setActiveInstitution } from '../../../institution';
@@ -102,7 +102,7 @@ const handleURLState = ({
   dispatch(searching(Boolean(urlState.query || urlState.filter)));
 };
 
-const URLSearchQueryWrapper = ({ children }) => {
+const URLSearchQueryWrapper = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { datastoreSlug } = useParams();
@@ -139,14 +139,7 @@ const URLSearchQueryWrapper = ({ children }) => {
     }, dispatch);
   }, [datastoreSlug, query, activeFilters, location, page, sort, institution, dispatch]);
 
-  return children;
-};
-
-URLSearchQueryWrapper.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
+  return <DatastorePage />;
 };
 
 export default memo(URLSearchQueryWrapper);

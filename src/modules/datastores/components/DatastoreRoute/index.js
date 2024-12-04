@@ -1,7 +1,7 @@
-import { DatastorePage, NoMatch } from '../../../pages';
 import { getStateFromURL, URLSearchQueryWrapper } from '../../../pride';
 import { useLocation, useParams } from 'react-router-dom';
 import config from '../../../../config';
+import { NoMatch } from '../../../pages';
 import React from 'react';
 
 const DatastoreRoute = () => {
@@ -12,15 +12,7 @@ const DatastoreRoute = () => {
   });
   const urlState = getStateFromURL({ location });
 
-  if (isDatastore && urlState) {
-    return (
-      <URLSearchQueryWrapper>
-        <DatastorePage />
-      </URLSearchQueryWrapper>
-    );
-  }
-
-  return <NoMatch />;
+  return isDatastore && urlState ? <URLSearchQueryWrapper /> : <NoMatch />;
 };
 
 export default DatastoreRoute;
