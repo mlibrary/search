@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Anchor } from '../../../reusable';
 import PropTypes from 'prop-types';
 
-const DatastoreInfoContainer = ({ activeDatastore }) => {
+const DatastoreInfoContainer = ({ name, uid }) => {
   const [hide, setHide] = useState([]);
-  const { uid } = activeDatastore;
   const handleHideClick = () => {
     setHide((previousHide) => {
       return [...previousHide, uid];
@@ -29,7 +28,7 @@ const DatastoreInfoContainer = ({ activeDatastore }) => {
       <div className='datastore-info-container' aria-live='polite'>
         <div className='datastore-info'>
           <p>
-            <span className='strong'>{activeDatastore.name}</span>: {information[uid]}
+            <span className='strong'>{name}</span>: {information[uid]}
           </p>
         </div>
         <button className='datastore-info-hide' onClick={handleHideClick}>
@@ -41,7 +40,8 @@ const DatastoreInfoContainer = ({ activeDatastore }) => {
 };
 
 DatastoreInfoContainer.propTypes = {
-  activeDatastore: PropTypes.object
+  name: PropTypes.string,
+  uid: PropTypes.string
 };
 
 export default DatastoreInfoContainer;
