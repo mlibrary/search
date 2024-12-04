@@ -8,9 +8,9 @@ import { Record } from '../../../records';
 import { setA11yMessage as setA11yMessageAction } from '../../../a11y';
 import { useLocation } from 'react-router-dom';
 
-const List = (props) => {
-  const list = useSelector((state) => {
-    return state.lists[props.currentDatastore];
+const List = ({ activeDatastore, currentDatastore }) => {
+  const { [currentDatastore]: list = [] } = useSelector((state) => {
+    return state.lists || {};
   });
   const [active, setActive] = useState('');
   const dispatch = useDispatch();
@@ -18,10 +18,8 @@ const List = (props) => {
   const setA11yMessage = (message) => {
     return dispatch(setA11yMessageAction(message));
   };
-  const { activeDatastore } = props;
   const { name, slug, uid } = activeDatastore;
-  const tempList = list || [];
-  const listLength = tempList.length;
+  const listLength = list.length;
   const to = `/${slug}${search}`;
 
   return (
@@ -58,19 +56,10 @@ const List = (props) => {
               <section className='lists-section'>
                 <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>Actions</h2>
                 <span className='text-small'>Select what to do with this list.</span>
-                <ActionsList {...props} setActive={setActive} active={active} prejudice={prejudice.instance} datastore={activeDatastore} />
+                <ActionsList {...{ active, datastore: activeDatastore, prejudice: prejudice.instance, setActive }} />
               </section>
-              {tempList.map((record, index) => {
-                return (
-                  <Record
-                    record={record}
-                    datastoreUid={uid}
-                    key={index}
-                    searchQuery={search}
-                    type='medium'
-                    list={tempList}
-                  />
-                );
+              {list.map((record, index) => {
+                return <Record key={index} {...{ datastoreUid: uid, list, record }} />;
               }
               )}
             </>
@@ -86,8 +75,7 @@ const List = (props) => {
 
 List.propTypes = {
   activeDatastore: PropTypes.object,
-  currentDatastore: PropTypes.string,
-  setA11yMessage: PropTypes.func
+  currentDatastore: PropTypes.string
 };
 
 export default List;
