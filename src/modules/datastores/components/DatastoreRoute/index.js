@@ -12,7 +12,7 @@ const DatastoreRoute = () => {
   });
   const urlState = getStateFromURL({ location });
 
-  return isDatastore && urlState ? <URLSearchQueryWrapper /> : <NoMatch />;
+  return isDatastore && urlState ? <URLSearchQueryWrapper {...{ datastoreSlug, urlState }} /> : <NoMatch />;
 };
 
 export default DatastoreRoute;

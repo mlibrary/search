@@ -1,27 +1,24 @@
 import React, { useEffect } from 'react';
-import { Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AdvancedSearch } from '../../../advanced';
 import { BrowsePage } from '../../../browse';
 import { DatastoreMain } from '../../../datastores';
 import { findWhere } from '../../../reusable/underscore';
 import { NoMatch } from '../../../pages';
+import PropTypes from 'prop-types';
 import { setDocumentTitle } from '../../../a11y';
 import { switchPrideToDatastore } from '../../../pride';
 
-const DatastorePage = () => {
+const DatastorePage = ({ currentDatastore, datastoreSlug, query }) => {
   const { pathname } = useLocation();
-  const { datastoreSlug } = useParams();
   const dispatch = useDispatch();
 
-  const { active: currentDatastore, datastores } = useSelector((state) => {
+  const { datastores } = useSelector((state) => {
     return state.datastores;
   });
   const activeDatastore = findWhere(datastores, {
     uid: currentDatastore
-  });
-  const { query } = useSelector((state) => {
-    return state.search;
   });
   const isAdvanced = useSelector((state) => {
     return Boolean(state.advanced[currentDatastore]);
@@ -69,6 +66,12 @@ const DatastorePage = () => {
       </Routes>
     </main>
   );
+};
+
+DatastorePage.propTypes = {
+  currentDatastore: PropTypes.string,
+  datastoreSlug: PropTypes.string,
+  query: PropTypes.string
 };
 
 export default DatastorePage;
