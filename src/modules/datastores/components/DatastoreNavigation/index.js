@@ -4,26 +4,27 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { stringifySearch } from '../../../search';
 
-const DatastoreNavigation = ({ activeFilters, datastores, institution, search }) => {
+const DatastoreNavigation = ({ activeFilters, activeInstitution, currentDatastore, datastores, page, query, sort }) => {
   return (
     <nav className='datastore-nav' aria-label='Datastores'>
       <ol>
-        {datastores.datastores.map((datastore) => {
+        {datastores.map((datastore) => {
+          const { isMultisearch, name, slug, uid } = datastore;
           const queryString = stringifySearch({
-            filter: activeFilters[datastore.uid],
-            library: datastore.uid === 'mirlyn' ? institution.active : null,
-            page: search.page[datastore.uid] === 1 ? null : search.page[datastore.uid],
-            query: search.query,
-            sort: search.sort[datastore.uid]
+            filter: activeFilters[uid],
+            library: uid === 'mirlyn' ? activeInstitution : null,
+            page: page[uid] === 1 ? null : page[uid],
+            query,
+            sort: sort[uid]
           });
           return (
-            <li key={datastore.uid}>
+            <li key={uid}>
               <Anchor
-                to={`/${datastore.slug}${queryString ? `?${queryString}` : ''}`}
-                aria-current={datastores.active === datastore.uid && 'page'}
+                to={`/${slug}${queryString ? `?${queryString}` : ''}`}
+                aria-current={currentDatastore === uid && 'page'}
               >
-                {datastore.isMultisearch && <Icon icon='multi_result' size='1.5em' />}
-                {datastore.name}
+                {isMultisearch && <Icon icon='multi_result' size='1.5em' />}
+                {name}
               </Anchor>
             </li>
           );
@@ -35,9 +36,12 @@ const DatastoreNavigation = ({ activeFilters, datastores, institution, search })
 
 DatastoreNavigation.propTypes = {
   activeFilters: PropTypes.object,
-  datastores: PropTypes.object,
-  institution: PropTypes.object,
-  search: PropTypes.object
+  activeInstitution: PropTypes.string,
+  currentDatastore: PropTypes.string,
+  datastores: PropTypes.array,
+  page: PropTypes.object,
+  query: PropTypes.string,
+  sort: PropTypes.object
 };
 
 export default DatastoreNavigation;
