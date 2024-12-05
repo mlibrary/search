@@ -114,7 +114,6 @@ const ActionsList = (props) => {
               {...data}
               action={props.active}
               setAlert={setAlert}
-              datastoreUid={props.datastore.uid}
               {...props}
             />
           )}
@@ -139,7 +138,6 @@ ActionsList.propTypes = {
     PropTypes.string,
     PropTypes.object
   ]),
-  datastore: PropTypes.object,
   setActive: PropTypes.func
 };
 

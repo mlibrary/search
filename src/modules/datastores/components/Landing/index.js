@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-const Landing = ({ activeDatastore, defaultInstitution, options }) => {
+const Landing = ({ activeDatastore, institution }) => {
   const [searchParams] = useSearchParams();
   const { uid, name } = activeDatastore;
   const landingContent = {
@@ -65,12 +65,12 @@ const Landing = ({ activeDatastore, defaultInstitution, options }) => {
               To find materials closest to you, please choose a library
             </h2>
             <p className='flex flex__responsive'>
-              {options.map((library, index) => {
+              {institution.options.map((library, index) => {
                 return (
                   <Anchor
                     key={index}
                     to={`?library=${library.replaceAll(' ', '+')}`}
-                    className={`btn btn--secondary ${library === (searchParams.get('library') || defaultInstitution) ? 'btn--secondary--active' : ''}`}
+                    className={`btn btn--secondary ${library === (searchParams.get('library') || institution.defaultInstitution) ? 'btn--secondary--active' : ''}`}
                   >
                     {library}
                   </Anchor>
@@ -89,8 +89,7 @@ const Landing = ({ activeDatastore, defaultInstitution, options }) => {
 
 Landing.propTypes = {
   activeDatastore: PropTypes.object,
-  defaultInstitution: PropTypes.string,
-  options: PropTypes.array
+  institution: PropTypes.object
 };
 
 export default Landing;

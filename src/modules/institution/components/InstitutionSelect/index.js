@@ -5,13 +5,10 @@ import { stringifySearch } from '../../../search';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const InstitutionSelect = ({ activeDatastore }) => {
+const InstitutionSelect = ({ activeDatastore, institution }) => {
   const { slug, uid } = activeDatastore;
   const filter = useSelector((state) => {
     return state.filters.active[uid];
-  });
-  const { active, defaultInstitution, options } = useSelector((state) => {
-    return state.institution;
   });
   const { query } = useSelector((state) => {
     return state.search;
@@ -21,6 +18,8 @@ const InstitutionSelect = ({ activeDatastore }) => {
   if (uid !== 'mirlyn') {
     return null;
   }
+
+  const { active, defaultInstitution, options } = institution;
 
   const handleChange = (event) => {
     const queryString = stringifySearch({
@@ -60,7 +59,8 @@ const InstitutionSelect = ({ activeDatastore }) => {
 };
 
 InstitutionSelect.propTypes = {
-  activeDatastore: PropTypes.object
+  activeDatastore: PropTypes.object,
+  institution: PropTypes.object
 };
 
 export default InstitutionSelect;

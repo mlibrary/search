@@ -1,26 +1,25 @@
 import { Anchor, Breadcrumb, H1 } from '../../../reusable';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import ActionsList from '../ActionsList';
 import prejudice from '../../prejudice';
 import PropTypes from 'prop-types';
 import { Record } from '../../../records';
 import { setA11yMessage as setA11yMessageAction } from '../../../a11y';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-const List = ({ activeDatastore, currentDatastore }) => {
-  const { [currentDatastore]: list = [] } = useSelector((state) => {
-    return state.lists || {};
-  });
+const List = (props) => {
   const [active, setActive] = useState('');
   const dispatch = useDispatch();
-  const { search } = useLocation();
+  const location = useLocation();
   const setA11yMessage = (message) => {
     return dispatch(setA11yMessageAction(message));
   };
+  const { activeDatastore, institution, list } = props;
   const { name, slug, uid } = activeDatastore;
-  const listLength = list.length;
-  const to = `/${slug}${search}`;
+  const tempList = list || [];
+  const listLength = tempList.length;
+  const to = `/${slug}${location.search}`;
 
   return (
     <article className='container container-narrow u-margin-top-1'>
@@ -56,10 +55,20 @@ const List = ({ activeDatastore, currentDatastore }) => {
               <section className='lists-section'>
                 <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>Actions</h2>
                 <span className='text-small'>Select what to do with this list.</span>
-                <ActionsList {...{ active, datastore: activeDatastore, prejudice: prejudice.instance, setActive }} />
+                <ActionsList {...props} setActive={setActive} active={active} prejudice={prejudice.instance} datastore={activeDatastore} />
               </section>
-              {list.map((record, index) => {
-                return <Record key={index} {...{ datastoreUid: uid, list, record }} />;
+              {tempList.map((record, index) => {
+                return (
+                  <Record
+                    record={record}
+                    datastoreUid={uid}
+                    key={index}
+                    institution={institution}
+                    searchQuery={location.search}
+                    type='medium'
+                    list={tempList}
+                  />
+                );
               }
               )}
             </>
@@ -75,7 +84,9 @@ const List = ({ activeDatastore, currentDatastore }) => {
 
 List.propTypes = {
   activeDatastore: PropTypes.object,
-  currentDatastore: PropTypes.string
+  institution: PropTypes.object,
+  list: PropTypes.array,
+  setA11yMessage: PropTypes.func
 };
 
 export default List;

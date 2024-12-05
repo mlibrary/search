@@ -3,7 +3,6 @@ import { Anchor, Tab, TabPanel, Tabs } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
 import { cite } from '../../../citations';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 
 const citationOptions = [
   {
@@ -32,10 +31,7 @@ const citationOptions = [
   }
 ];
 
-const CitationAction = ({ datastoreUid, record, setActive, setAlert, viewType }) => {
-  const { [datastoreUid]: list = [] } = useSelector((state) => {
-    return state.lists || {};
-  });
+const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType }) => {
   const [citations, setCitations] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -46,11 +42,11 @@ const CitationAction = ({ datastoreUid, record, setActive, setAlert, viewType })
       let records = [];
 
       if (viewType === 'Full') {
-        records = [{ datastoreUid, recordUid: record.uid }];
+        records = [{ datastoreUid: datastore.uid, recordUid: record.uid }];
       }
       if (viewType === 'List' && list.length > 0) {
         records = list.map((item) => {
-          return { datastoreUid, recordUid: item.uid };
+          return { datastoreUid: datastore.uid, recordUid: item.uid };
         });
       }
 
@@ -73,7 +69,7 @@ const CitationAction = ({ datastoreUid, record, setActive, setAlert, viewType })
       setLoading(false);
     };
     fetchCitations();
-  }, [viewType, record, datastoreUid, list]);
+  }, [viewType, record, datastore, list]);
 
   const handleCopy = (citationId) => {
     navigator.clipboard.writeText(document.getElementById(`citation-text-${citationId}`).innerText);
@@ -97,32 +93,31 @@ const CitationAction = ({ datastoreUid, record, setActive, setAlert, viewType })
       })}
 
       {citationOptions.map((citationOption) => {
-        const { id, name } = citationOption;
-        const citation = citations[id];
+        const citation = citations[citationOption.id];
         return (
-          <TabPanel key={`${name}-panel`}>
+          <TabPanel key={`${citationOption.name}-panel`}>
             {citation
               ? (
                   <>
                     <label
-                      htmlFor={`${name}-label`}
+                      htmlFor={`${citationOption.name}-label`}
                       className='margin-top__s'
-                      id={`${name}-label`}
+                      id={`${citationOption.name}-label`}
                     >
-                      {name} citation
+                      {citationOption.name} citation
                     </label>
                     <div
-                      id={`citation-text-${id}`}
+                      id={`citation-text-${citationOption.id}`}
                       className='y-spacing copy-citation padding-y__xs padding-x__s container__rounded'
                       contentEditable
-                      aria-describedby={`${id}-disclaimer`}
-                      aria-labelledby={`${name}-label`}
+                      aria-describedby={`${citationOption.id}-disclaimer`}
+                      aria-labelledby={`${citationOption.name}-label`}
                       role='textbox'
                       dangerouslySetInnerHTML={{ __html: citation }}
                     />
                     <p
                       className='font-small citation-disclaimer'
-                      id={`${id}-disclaimer`}
+                      id={`${citationOption.id}-disclaimer`}
                     >
                       These citations are generated from a variety of data sources.
                       Remember to check citation format and content for accuracy before including them in your work.
@@ -139,7 +134,7 @@ const CitationAction = ({ datastoreUid, record, setActive, setAlert, viewType })
                     </p>
                     <button
                       onClick={() => {
-                        return handleCopy(id);
+                        return handleCopy(citationOption.id);
                       }}
                       className='btn btn--primary'
                     >
@@ -158,7 +153,12 @@ const CitationAction = ({ datastoreUid, record, setActive, setAlert, viewType })
 };
 
 CitationAction.propTypes = {
-  datastoreUid: PropTypes.string,
+  datastore: PropTypes.shape({
+    uid: PropTypes.string.isRequired
+  }).isRequired,
+  list: PropTypes.arrayOf(PropTypes.shape({
+    uid: PropTypes.string.isRequired
+  })),
   record: PropTypes.shape({
     uid: PropTypes.string.isRequired
   }),

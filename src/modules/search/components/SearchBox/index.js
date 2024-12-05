@@ -3,21 +3,30 @@ import { Anchor, Icon } from '../../../reusable';
 import { getSearchStateFromURL, stringifySearch } from '../../utilities';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
 import { useSelector } from 'react-redux';
 
-const SearchBox = ({ activeDatastore, query }) => {
+const SearchBox = () => {
   const navigate = useNavigate();
-  const { datastoreSlug } = useParams();
-  const { search } = useLocation();
+  const params = useParams();
+  const location = useLocation();
+  const { query } = useSelector((state) => {
+    return state.search;
+  });
   const { fields } = useSelector((state) => {
     return state.advanced[state.datastores.active];
   });
   const isAdvanced = useSelector((state) => {
     return Boolean(state.advanced[state.datastores.active]);
   });
+  const activeDatastore = useSelector(
+    (state) => {
+      return state.datastores.datastores.find((ds) => {
+        return ds.uid === state.datastores.active;
+      });
+    }
+  );
   const [inputQuery, setInputQuery] = useState(query);
   const defaultField = fields[0].uid;
   const [currentField, setcurrentField] = useState(defaultField);
@@ -88,7 +97,7 @@ const SearchBox = ({ activeDatastore, query }) => {
     // Set new URL
     const newURL = stringifySearch({
       // Preserve existing URL's tate
-      ...getSearchStateFromURL(search),
+      ...getSearchStateFromURL(location.search),
       // If new search, return the first page
       page: 1,
       // Add new query
@@ -99,7 +108,7 @@ const SearchBox = ({ activeDatastore, query }) => {
     if (browseOption) {
       let href = 'https://browse.workshop.search.lib.umich.edu';
       if (window.location.hostname === 'search.lib.umich.edu') {
-        href = `/${datastoreSlug}/browse`;
+        href = `/${params.datastoreSlug}/browse`;
       }
       if (window.location.hostname === 'localhost') {
         href = 'http://localhost:4567';
@@ -111,7 +120,7 @@ const SearchBox = ({ activeDatastore, query }) => {
         return;
       }
       // Submit new search
-      navigate(`/${datastoreSlug}?${newURL}`);
+      navigate(`/${params.datastoreSlug}?${newURL}`);
     }
   };
 
@@ -155,7 +164,7 @@ const SearchBox = ({ activeDatastore, query }) => {
         </button>
         {isAdvanced && (
           <Anchor
-            to={`/${datastoreSlug}/advanced${search}`}
+            to={`/${params.datastoreSlug}/advanced${location.search}`}
             className='strong underline__hover'
           >
             <span className='visually-hidden'>{activeDatastore.name}</span>
@@ -167,11 +176,6 @@ const SearchBox = ({ activeDatastore, query }) => {
       </div>
     </form>
   );
-};
-
-SearchBox.propTypes = {
-  activeDatastore: PropTypes.object,
-  query: PropTypes.string
 };
 
 export default SearchBox;
