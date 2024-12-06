@@ -1,8 +1,9 @@
 import './styles.css';
+import { Anchor, Tab, TabPanel, Tabs } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
-import { Tab, TabPanel, Tabs } from '../../../reusable';
 import { cite } from '../../../citations';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const citationOptions = [
   {
@@ -31,7 +32,10 @@ const citationOptions = [
   }
 ];
 
-const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType }) => {
+const CitationAction = ({ datastoreUid, record, setActive, setAlert, viewType }) => {
+  const { [datastoreUid]: list = [] } = useSelector((state) => {
+    return state.lists || {};
+  });
   const [citations, setCitations] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -42,11 +46,11 @@ const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType
       let records = [];
 
       if (viewType === 'Full') {
-        records = [{ datastoreUid: datastore.uid, recordUid: record.uid }];
+        records = [{ datastoreUid, recordUid: record.uid }];
       }
       if (viewType === 'List' && list.length > 0) {
         records = list.map((item) => {
-          return { datastoreUid: datastore.uid, recordUid: item.uid };
+          return { datastoreUid, recordUid: item.uid };
         });
       }
 
@@ -69,7 +73,7 @@ const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType
       setLoading(false);
     };
     fetchCitations();
-  }, [viewType, record, datastore, list]);
+  }, [viewType, record, datastoreUid, list]);
 
   const handleCopy = (citationId) => {
     navigator.clipboard.writeText(document.getElementById(`citation-text-${citationId}`).innerText);
@@ -93,37 +97,49 @@ const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType
       })}
 
       {citationOptions.map((citationOption) => {
-        const citation = citations[citationOption.id];
+        const { id, name } = citationOption;
+        const citation = citations[id];
         return (
-          <TabPanel key={`${citationOption.name}-panel`}>
+          <TabPanel key={`${name}-panel`}>
             {citation
               ? (
                   <>
                     <label
-                      htmlFor={`${citationOption.name}-label`}
+                      htmlFor={`${name}-label`}
                       className='margin-top__s'
-                      id={`${citationOption.name}-label`}
+                      id={`${name}-label`}
                     >
-                      {citationOption.name} citation
+                      {name} citation
                     </label>
                     <div
-                      id={`citation-text-${citationOption.id}`}
+                      id={`citation-text-${id}`}
                       className='y-spacing copy-citation padding-y__xs padding-x__s container__rounded'
                       contentEditable
-                      aria-describedby={`${citationOption.id}-disclaimer`}
-                      aria-labelledby={`${citationOption.name}-label`}
+                      aria-describedby={`${id}-disclaimer`}
+                      aria-labelledby={`${name}-label`}
                       role='textbox'
                       dangerouslySetInnerHTML={{ __html: citation }}
                     />
                     <p
                       className='font-small citation-disclaimer'
-                      id={`${citationOption.id}-disclaimer`}
+                      id={`${id}-disclaimer`}
                     >
-                      These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work.
+                      These citations are generated from a variety of data sources.
+                      Remember to check citation format and content for accuracy before including them in your work.
+                      View the
+                      {' '}
+                      <Anchor
+                        to='https://lib.umich.edu/research-and-scholarship/help-research/citation-management'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        Citation Management guide on U-M Library Website (opens in new tab)
+                      </Anchor>
+                      .
                     </p>
                     <button
                       onClick={() => {
-                        return handleCopy(citationOption.id);
+                        return handleCopy(id);
                       }}
                       className='btn btn--primary'
                     >
@@ -142,12 +158,7 @@ const CitationAction = ({ datastore, list, record, setActive, setAlert, viewType
 };
 
 CitationAction.propTypes = {
-  datastore: PropTypes.shape({
-    uid: PropTypes.string.isRequired
-  }).isRequired,
-  list: PropTypes.arrayOf(PropTypes.shape({
-    uid: PropTypes.string.isRequired
-  })),
+  datastoreUid: PropTypes.string,
   record: PropTypes.shape({
     uid: PropTypes.string.isRequired
   }),

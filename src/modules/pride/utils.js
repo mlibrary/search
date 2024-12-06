@@ -22,36 +22,6 @@ const getDatastoreUidBySlug = (slugParam) => {
   return uidDs?.uid;
 };
 
-const getMultiSearchRecords = (activeDatastore, allRecords) => {
-  const configDs = getDatastoreByUid(activeDatastore);
-
-  if (!configDs) {
-    return null;
-  }
-
-  const { datastores } = configDs;
-
-  // Pick records corresponding to configDs.datastores using Object.keys
-  const multiSearchRecords = datastores.reduce((selectedRecords, datastore) => {
-    if (allRecords[datastore]) {
-      selectedRecords[datastore] = allRecords[datastore];
-    }
-    return selectedRecords;
-  }, {});
-
-  const bentoBoxes = datastores.reduce(
-    (memo, datastore) => {
-      const { name, slug, uid } = getDatastoreByUid(datastore);
-      const records = (multiSearchRecords[datastore] && Object.values(multiSearchRecords[datastore]).splice(0, 3)) || [];
-      memo.push({ name, records, slug, uid });
-
-      return memo;
-    }, []
-  );
-
-  return bentoBoxes;
-};
-
 const getDatastoreSlugByUid = (uid) => {
   const datastore = getDatastoreByUid(uid);
 
@@ -195,7 +165,6 @@ export {
   getDatastoreByUid,
   getDatastoreSlugByUid,
   getDatastoreUidBySlug,
-  getMultiSearchRecords,
   getStateFromURL,
   isValidURLSearchQuery,
   prideParseField,

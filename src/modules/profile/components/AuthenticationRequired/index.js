@@ -2,12 +2,12 @@ import Authentication from '../Authentication';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const AuthenticationRequired = ({ children, profile }) => {
+const AuthenticationRequired = ({ children, status }) => {
   if (!children) {
     return null;
   }
 
-  if (profile?.status === 'Logged in') {
+  if (status === 'Logged in') {
     return children;
   }
 
@@ -23,7 +23,7 @@ AuthenticationRequired.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]),
-  profile: PropTypes.object
+  status: PropTypes.string
 };
 
 export default AuthenticationRequired;

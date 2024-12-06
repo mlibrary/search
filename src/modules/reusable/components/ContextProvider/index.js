@@ -4,30 +4,24 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const ContextProvider = ({ render }) => {
-  const location = useLocation();
-  const params = useParams();
+  const { pathname } = useLocation();
+  const { recordUid } = useParams();
+  const { active: activeDatastoreUid, datastores } = useSelector((state) => {
+    return state.datastores;
+  });
+  const datastore = findWhere(datastores, { uid: activeDatastoreUid });
 
   let viewType = 'Medium';
 
-  if (location.pathname.endsWith('/everything')) {
+  if (pathname.endsWith('/everything')) {
     viewType = 'Preview';
   }
-  if (params.recordUid) {
+  if (recordUid) {
     viewType = 'Full';
   }
-  if (location.pathname.endsWith('/list')) {
+  if (pathname.endsWith('/list')) {
     viewType = 'List';
   }
-
-  const activeDatastoreUid = useSelector((state) => {
-    return state.datastores.active;
-  });
-  const datastore = findWhere(
-    useSelector((state) => {
-      return state.datastores.datastores;
-    }),
-    { uid: activeDatastoreUid }
-  );
 
   return render({ datastore, viewType });
 };

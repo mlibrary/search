@@ -1,12 +1,16 @@
 import { Alert, Anchor } from '../../../reusable';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const FlintAlerts = ({ datastore, profile }) => {
+const FlintAlerts = ({ currentDatastore }) => {
+  const { institutions = [] } = useSelector((state) => {
+    return state.profile || {};
+  });
   const [dismiss, setDismiss] = useState([]);
   const handleDismissClick = () => {
     setDismiss((previousDismiss) => {
-      return [...previousDismiss, datastore];
+      return [...previousDismiss, currentDatastore];
     });
   };
   const messages = {
@@ -16,14 +20,14 @@ const FlintAlerts = ({ datastore, profile }) => {
     website: (<>We noticed you are affiliated with U-M Flint. For the best results use the <Anchor href='https://libguides.umflint.edu/library'>Thompson Library website</Anchor>.</>)
   };
 
-  if (!Object.keys(messages).includes(datastore) || !profile.institutions?.includes('Flint') || dismiss.includes(datastore)) {
+  if (!Object.keys(messages).includes(currentDatastore) || !institutions.includes('Flint') || dismiss.includes(currentDatastore)) {
     return null;
   }
 
   return (
     <Alert type='warning'>
       <div className='flex alert--flint'>
-        <span>{messages[datastore]}</span>
+        <span>{messages[currentDatastore]}</span>
         <button
           className='btn btn--small btn--secondary no-background'
           onClick={handleDismissClick}
@@ -36,8 +40,7 @@ const FlintAlerts = ({ datastore, profile }) => {
 };
 
 FlintAlerts.propTypes = {
-  datastore: PropTypes.string,
-  profile: PropTypes.object
+  currentDatastore: PropTypes.string
 };
 
 export default FlintAlerts;

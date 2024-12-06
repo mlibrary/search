@@ -1,6 +1,6 @@
 import { Anchor, Icon } from '../../../reusable';
 import { getField, getFieldValue } from '../../utilities';
-import { RecommendedResource, RecordMetadata, Zotero } from '../../../records';
+import { Metadata, RecommendedResource, Zotero } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -53,7 +53,7 @@ const Header = ({ datastoreUid, record, searchQuery }) => {
             </Anchor>
           );
         })}
-        <RecommendedResource record={record} />
+        <RecommendedResource fields={record.fields} />
       </h3>
     </>
   );
@@ -109,8 +109,8 @@ const RecordPreview = ({ datastoreUid, record, searchQuery }) => {
   return (
     <article className='record-preview'>
       <Header {...{ datastoreUid, record, searchQuery }} />
-      <RecordMetadata {...{ record }} kind='condensed' />
-      <Zotero {...{ record }} />
+      <Metadata {...{ metadata: record.metadata }} />
+      <Zotero {...{ fields: record.fields }} />
       <Footer {...{ record, searchQuery }} />
     </article>
   );

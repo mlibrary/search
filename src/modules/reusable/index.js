@@ -8,7 +8,6 @@ import Dialog from './components/Dialog';
 import H1 from './components/H1';
 import Icon from './components/Icon';
 import ImagePlaceholder from './components/ImagePlaceholder';
-import Metadata from './components/Metadata';
 import Tab from './components/Tab';
 import TabPanel from './components/TabPanel';
 import Tabs from './components/Tabs';
@@ -29,7 +28,6 @@ export {
   H1,
   Icon,
   ImagePlaceholder,
-  Metadata,
   Tab,
   Tabs,
   TabPanel,

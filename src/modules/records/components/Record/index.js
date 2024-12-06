@@ -1,7 +1,7 @@
 import { AddToListButton, isInList } from '../../../lists';
 import { Anchor, Icon } from '../../../reusable';
 import { getField, getFieldValue } from '../../utilities';
-import { RecommendedResource, RecordMetadata } from '../../../records';
+import { Metadata, RecommendedResource } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -62,7 +62,7 @@ const Header = ({ datastoreUid, record }) => {
           </span>
         );
       })}
-      <RecommendedResource {...{ record }} />
+      <RecommendedResource {...{ fields: record.fields }} />
     </h3>
   );
 };
@@ -84,8 +84,8 @@ const Record = ({ datastoreUid, list, record }) => {
           <Header {...{ datastoreUid, record }} />
           <AddToListButton item={record} />
         </div>
-        <Zotero {...{ record }} />
-        <RecordMetadata {...{ record }} />
+        <Zotero {...{ fields: record.fields }} />
+        <Metadata {...{ metadata: record.metadata }} />
       </div>
 
       <div className='record-holders-container'>
