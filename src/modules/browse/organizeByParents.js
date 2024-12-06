@@ -16,8 +16,8 @@ const organizeByParents = (array) => {
 
   return array
     .filter((item) => {
-      return !item.parents.length || item.parents.some((parent) => {
-        return !parentMap.has(parent);
+      return !item.parents.length || !item.parents.some((parent) => {
+        return parentMap.has(parent);
       });
     })
     .map((item) => {
