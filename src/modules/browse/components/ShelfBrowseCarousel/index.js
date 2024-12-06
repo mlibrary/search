@@ -1,7 +1,17 @@
 import './styles.css';
-import { Anchor, Icon } from '../../../reusable';
+import { Anchor, Icon, ImagePlaceholder } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
+const bookCover = (item) => {
+  let url = 'https://www.syndetics.com/index.php?client=umichaa&pagename=lc.jpg';
+  ['isbn', 'issn', 'oclc'].forEach((parameter) => {
+    if (item[parameter]) {
+      url += `&${parameter}=${item[parameter]}`;
+    }
+  });
+  return url;
+};
 
 const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction, setDisableButton, uid }) => {
   const currentItem = (item) => {
@@ -105,14 +115,15 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
       {currentItems.map((item, index) => {
         const isCurrentItem = currentItem(item);
         const firstOrLastItem = !isCurrentItem && ((firstPage && index === 0) || (lastPage && currentItems.length - 1 === index));
-        const fields = firstOrLastItem ? ['call_number'] : Object.keys(item).slice(0, -1);
+        const fields = firstOrLastItem ? ['call_number'] : ['title', 'author', 'date', 'call_number'];
         const basePath = 'https://search.lib.umich.edu';
         const anchorAttributes = firstOrLastItem
           ? { href: `${basePath}/catalog/browse/callnumber?query=${item.call_number}` }
           : { to: item.url.replace(basePath, '') + window.location.search };
+        const trueIndex = (currentPage * currentItems.length) + index;
 
         return (
-          <li key={index} className={`shelf-browse-item ${(isCurrentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
+          <li key={trueIndex} className={`shelf-browse-item ${(isCurrentItem || firstOrLastItem) ? 'shelf-browse-item-current' : ''} ${animationClass}`}>
             <Anchor
               {...anchorAttributes}
               className={`focus underline__none container__rounded padding-x__s padding-bottom__xs padding-top__${isCurrentItem ? 'xs' : 's'}`}
@@ -123,6 +134,18 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
                   <>
                     <Icon icon='list' size='24' className='item-term-title' />
                     <span className='item-term-title'>Continue browsing in call number list</span>
+                  </>
+                )}
+                {!firstOrLastItem && (
+                  <>
+                    <dt className='visually-hidden'>Book cover</dt>
+                    <dd className='item-term-book_cover'>
+                      <ImagePlaceholder {...{
+                        index: trueIndex,
+                        src: bookCover(item)
+                      }}
+                      />
+                    </dd>
                   </>
                 )}
                 {fields.map((key) => {
