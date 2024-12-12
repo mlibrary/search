@@ -10,7 +10,6 @@ import {
   setRecordHoldings
 } from './actions';
 import BentoboxList from './components/BentoboxList';
-import Bookplate from './components/Bookplate';
 import FullRecordPlaceholder from './components/FullRecordPlaceholder';
 import ILLRequestMessage from './components/ILLRequestMessage';
 import KeywordSwitch from './components/KeywordSwitch';
@@ -32,7 +31,6 @@ export {
   addHoldings,
   addRecords,
   BentoboxList,
-  Bookplate,
   clearRecord,
   clearRecords,
   FullRecordPlaceholder,

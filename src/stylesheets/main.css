@@ -1928,16 +1928,6 @@ body {
   order: 3;
 }
 
-.bookplate-image {
-  width: 100%;
-  max-width: 14rem;
-}
-
-.bookplate-description {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
 .site-footer {
   /* keep it to the bottom */
   background: white;
