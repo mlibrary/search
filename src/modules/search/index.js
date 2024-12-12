@@ -11,7 +11,6 @@ import {
 import { getSearchStateFromURL, stringifySearch } from './utilities';
 import SearchBox from './components/SearchBox';
 import searchReducer from './reducer';
-import SearchResultsMessage from './components/SearchResultsMessage';
 
 export {
   clearSearch,
@@ -19,7 +18,6 @@ export {
   resetSort,
   searchReducer,
   SearchBox,
-  SearchResultsMessage,
   searching,
   setPage,
   setSearchData,
