@@ -18,7 +18,6 @@ import Metadata from './components/Metadata';
 import Pagination from './components/Pagination';
 import RecommendedResource from './components/RecommendedResource';
 import Record from './components/Record';
-import RecordDescription from './components/RecordDescription';
 import RecordFull from './components/RecordFull';
 import RecordFullFormats from './components/RecordFullFormats';
 import RecordList from './components/RecordList';
@@ -43,7 +42,6 @@ export {
   Pagination,
   RecommendedResource,
   Record,
-  RecordDescription,
   RecordFull,
   RecordFullFormats,
   RecordList,

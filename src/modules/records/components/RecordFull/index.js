@@ -10,7 +10,6 @@ import {
   FullRecordPlaceholder,
   Metadata,
   RecommendedResource,
-  RecordDescription,
   RecordFullFormats,
   ViewMARC,
   Zotero
@@ -31,22 +30,20 @@ let prejudiceInstance = prejudice.createVariableStorageDriverInstance();
 const FullRecord = () => {
   const [activeAction, setActiveAction] = useState('');
 
-  const params = useParams();
+  const { recordUid } = useParams();
   const navigate = useNavigate();
 
-  const record = useSelector((state) => {
-    return state.records.record;
+  const { record } = useSelector((state) => {
+    return state.records;
   });
-  const datastores = useSelector((state) => {
+  const { active: datastoreUid, datastores } = useSelector((state) => {
     return state.datastores;
   });
-  const list = useSelector((state) => {
-    return state.lists[datastores.active];
+  const { [datastoreUid]: list } = useSelector((state) => {
+    return state.lists;
   });
 
-  const { recordUid } = params;
-  const datastoreUid = datastores.active;
-  const datastore = findWhere(datastores.datastores, {
+  const datastore = findWhere(datastores, {
     uid: datastoreUid
   });
 
@@ -73,8 +70,8 @@ const FullRecord = () => {
         }
       }
 
-      const activeDatastore = findWhere(datastores.datastores, {
-        uid: datastores.active
+      const activeDatastore = findWhere(datastores, {
+        uid: datastoreUid
       });
 
       setDocumentTitle([
@@ -83,7 +80,7 @@ const FullRecord = () => {
         activeDatastore.name
       ]);
     }
-  }, [record, recordUid, datastores, navigate, datastore.slug, datastoreUid]);
+  }, [record, recordUid, datastores, navigate, datastore.slug]);
 
   if (!record) {
     return (
@@ -120,6 +117,8 @@ const FullRecord = () => {
     );
   }
 
+  const [description] = getFieldValue(getField(record.fields, 'abstract') || getField(record.fields, 'description'));
+
   const inDatastore = ['catalog', 'onlinejournals'].includes(datastore.slug);
 
   return (
@@ -155,7 +154,7 @@ const FullRecord = () => {
             </H1>
             <AddToListButton item={record} />
           </div>
-          <RecordDescription record={record} />
+          {description && <p className='full-record__description' dangerouslySetInnerHTML={{ __html: description }} />}
           <Zotero fields={record.fields} />
           <h2 className='full-record__record-info'>Record info:</h2>
           <Metadata metadata={record.metadata} />
