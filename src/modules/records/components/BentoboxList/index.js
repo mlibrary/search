@@ -5,7 +5,6 @@ import ILLRequestMessage from '../ILLRequestMessage';
 import KeywordSwitch from '../KeywordSwitch';
 import React from 'react';
 import RecordPreview from '../RecordPreview';
-import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
 import { Specialists } from '../../../specialists';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -89,7 +88,13 @@ const BentoboxList = () => {
                             );
                           })
                           : Array.from({ length: 3 }).map((elementInArray, place) => {
-                            return <RecordPreviewPlaceholder key={place} />;
+                            return (
+                              <article className='record-preview' key={place}>
+                                <div className='placeholder placeholder-title margin-top__xs' />
+                                <div className='placeholder placeholder-line placeholder-line-alt' />
+                                <div className='placeholder placeholder-line margin-bottom__xs' />
+                              </article>
+                            );
                           })}
                       </div>
                       {hasRecords && (
