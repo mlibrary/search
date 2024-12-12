@@ -47,6 +47,8 @@ const FullRecord = () => {
     uid: datastoreUid
   });
 
+  const { name: datastoreName, slug: datastoreSlug } = datastore;
+
   useEffect(() => {
     requestRecord({ datastoreUid, recordUid });
     prejudiceInstance = prejudice.createVariableStorageDriverInstance();
@@ -64,23 +66,23 @@ const FullRecord = () => {
           // Treat as an aleph id
           navigate(`/onlinejournals/record/${record.uid}`);
         } else if (record.alt_ids.includes(recordUid)) {
-          navigate(`/${datastore.slug}/record/${record.uid}`);
+          navigate(`/${datastoreSlug}/record/${record.uid}`);
         } else {
           requestRecord({ datastoreUid, recordUid });
         }
       }
 
-      const activeDatastore = findWhere(datastores, {
+      const { name: activeDatastore } = findWhere(datastores, {
         uid: datastoreUid
       });
 
       setDocumentTitle([
         [].concat(record.names).join().slice(0, 120),
         'Record',
-        activeDatastore.name
+        activeDatastore
       ]);
     }
-  }, [record, recordUid, datastores, navigate, datastore.slug]);
+  }, [record, recordUid, datastores, navigate, datastoreSlug]);
 
   if (!record) {
     return (
@@ -88,8 +90,8 @@ const FullRecord = () => {
         <Breadcrumb
           items={[
             {
-              text: `${datastore.name}`,
-              to: `/${datastore.slug}${document.location.search}`
+              text: `${datastoreName}`,
+              to: `/${datastoreSlug}${document.location.search}`
             },
             { text: 'Record' }
           ]}
@@ -111,7 +113,7 @@ const FullRecord = () => {
   if (recordUidValue !== recordUid) {
     return (
       <div className='container container-narrow'>
-        <GoToList list={list} datastore={datastore} />
+        <GoToList {...{ datastore, list }} />
         <FullRecordPlaceholder />
       </div>
     );
@@ -119,22 +121,22 @@ const FullRecord = () => {
 
   const [description] = getFieldValue(getField(record.fields, 'abstract') || getField(record.fields, 'description'));
 
-  const inDatastore = ['catalog', 'onlinejournals'].includes(datastore.slug);
+  const inDatastore = ['catalog', 'onlinejournals'].includes(datastoreSlug);
 
   return (
     <div className='container container-narrow full-record-page-container y-spacing'>
       <Breadcrumb
         items={[
           {
-            text: `${datastore.name}`,
-            to: `/${datastore.slug}${document.location.search}`
+            text: `${datastoreName}`,
+            to: `/${datastoreSlug}${document.location.search}`
           },
           { text: 'Record' }
         ]}
       />
-      <GoToList list={list} datastore={datastore} />
+      <GoToList {...{ datastore, list }} />
       <div className={`container__rounded full-record-container ${isInList(list, record.uid) ? 'record--highlight' : ''}`}>
-        <RecordFullFormats formats={record.formats} />
+        <RecordFullFormats {...{ formats: record.formats }} />
         <div className='record-container'>
           <div className='full-record-title-and-actions-container'>
             <H1 className='full-record-title'>
@@ -147,17 +149,17 @@ const FullRecord = () => {
                   );
                 }
                 return (
-                  <TrimString string={title} expandable key={index} />
+                  <TrimString key={index} string={title} expandable />
                 );
               })}
-              <RecommendedResource fields={record.fields} />
+              <RecommendedResource {...{ fields: record.fields }} />
             </H1>
-            <AddToListButton item={record} />
+            <AddToListButton {...{ item: record }} />
           </div>
           {description && <p className='full-record__description' dangerouslySetInnerHTML={{ __html: description }} />}
-          <Zotero fields={record.fields} />
+          <Zotero {...{ fields: record.fields }} />
           <h2 className='full-record__record-info'>Record info:</h2>
-          <Metadata metadata={record.metadata} />
+          <Metadata {...{ metadata: record.metadata }} />
           {inDatastore && (
             <p>
               The University of Michigan Library aims to describe its collections in a way that respects the people and communities who create, use, and are represented in them. We encourage you to
@@ -177,10 +179,10 @@ const FullRecord = () => {
               Available at:
             </h2>
           </div>
-          <ResourceAccess record={record} />
+          <ResourceAccess {...{ record }} />
         </section>
       </div>
-      {datastoreUid === 'mirlyn' && <ShelfBrowse record={record} />}
+      {datastoreUid === 'mirlyn' && <ShelfBrowse {...{ record }} />}
       <div className='full-record__actions-container'>
         <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>
           Actions
@@ -189,26 +191,27 @@ const FullRecord = () => {
             Select what to do with this record.
           </span>
         </h2>
-        <ActionsList
-          setActive={setActiveAction}
-          active={activeAction}
-          prejudice={prejudiceInstance}
-          datastore={datastore}
-          record={record}
+        <ActionsList {...{
+          active: activeAction,
+          datastore,
+          prejudice: prejudiceInstance,
+          record,
+          setActive: setActiveAction
+        }}
         />
       </div>
       {inDatastore && (() => {
-        const indexingDate = findWhere(record.fields, { uid: 'indexing_date' });
-        if (!indexingDate) {
+        const { name: indexingName, value: indexingValue } = findWhere(record.fields, { uid: 'indexing_date' });
+        if (!indexingValue) {
           return null;
         }
         return (
           <p className='margin-top__none text-grey full-record__date-last-indexed'>
-            <span className='strong'>{indexingDate.name}:</span> {indexingDate.value}
+            <span className='strong'>{indexingName || 'Date Last Indexed'}:</span> {indexingValue}
           </p>
         );
       })()}
-      {datastoreUid === 'mirlyn' && <ViewMARC record={record} />}
+      {datastoreUid === 'mirlyn' && <ViewMARC {...{ fields: record.fields }} />}
     </div>
   );
 };
