@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 const TrimString = ({ expandable, string, trimLength = 240 }) => {
   const [show, setShow] = useState(false);
@@ -24,12 +23,6 @@ const TrimString = ({ expandable, string, trimLength = 240 }) => {
       )}
     </>
   );
-};
-
-TrimString.propTypes = {
-  expandable: PropTypes.bool,
-  string: PropTypes.string,
-  trimLength: PropTypes.number
 };
 
 export default TrimString;

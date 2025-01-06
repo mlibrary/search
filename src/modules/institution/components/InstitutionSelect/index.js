@@ -1,5 +1,4 @@
 import './styles.css';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { stringifySearch } from '../../../search';
 import { useNavigate } from 'react-router-dom';
@@ -57,10 +56,6 @@ const InstitutionSelect = ({ activeDatastore }) => {
       </select>
     </fieldset>
   );
-};
-
-InstitutionSelect.propTypes = {
-  activeDatastore: PropTypes.object
 };
 
 export default InstitutionSelect;

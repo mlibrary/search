@@ -1,6 +1,5 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { findWhere } from '../../underscore';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const ContextProvider = ({ render }) => {
@@ -24,10 +23,6 @@ const ContextProvider = ({ render }) => {
   }
 
   return render({ datastore, viewType });
-};
-
-ContextProvider.propTypes = {
-  render: PropTypes.func.isRequired
 };
 
 export default ContextProvider;

@@ -1,7 +1,6 @@
 import { getField, getFieldValue } from '../../utilities';
 import React, { useState } from 'react';
 import MARCTable from '../MARCTable';
-import PropTypes from 'prop-types';
 
 const ViewMARC = ({ fields }) => {
   const [view, setView] = useState(false);
@@ -27,10 +26,6 @@ const ViewMARC = ({ fields }) => {
   }
 
   return null;
-};
-
-ViewMARC.propTypes = {
-  fields: PropTypes.array.isRequired
 };
 
 export default ViewMARC;

@@ -2,7 +2,6 @@ import { Alert, Anchor } from '../../../reusable';
 import { getField, getFieldValue } from '../../../records/utilities';
 import React, { useState } from 'react';
 import { Pride } from 'pride';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const Field = ({ field, loading, setFieldChange }) => {
@@ -55,12 +54,6 @@ const Field = ({ field, loading, setFieldChange }) => {
       <input className='form-control' id={name} type={type} name={name} value={value} onChange={setFieldChange} />
     </div>
   );
-};
-
-Field.propTypes = {
-  field: PropTypes.object,
-  loading: PropTypes.bool,
-  setFieldChange: PropTypes.func
 };
 
 const GetThisForm = ({ form }) => {
@@ -160,10 +153,6 @@ const GetThisForm = ({ form }) => {
       )}
     </>
   );
-};
-
-GetThisForm.propTypes = {
-  form: PropTypes.object
 };
 
 export default GetThisForm;

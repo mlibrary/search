@@ -3,7 +3,6 @@ import { Anchor, Icon } from '../../../reusable';
 import { getSearchStateFromURL, stringifySearch } from '../../utilities';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import SearchByOptions from '../SearchByOptions';
 import SearchTip from '../SearchTip';
 import { useSelector } from 'react-redux';
@@ -167,11 +166,6 @@ const SearchBox = ({ activeDatastore, query }) => {
       </div>
     </form>
   );
-};
-
-SearchBox.propTypes = {
-  activeDatastore: PropTypes.object,
-  query: PropTypes.string
 };
 
 export default SearchBox;

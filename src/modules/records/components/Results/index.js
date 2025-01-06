@@ -6,7 +6,6 @@ import { BrowseInfo } from '../../../browse';
 import { DatastoreInfoContainer } from '../../../datastores';
 import { Filters } from '../../../filters';
 import { InstitutionSelect } from '../../../institution';
-import PropTypes from 'prop-types';
 
 const Results = ({ activeDatastore, activeFilterCount }) => {
   const [isVisible, setIsDivVisible] = useState(true);
@@ -67,11 +66,6 @@ const Results = ({ activeDatastore, activeFilterCount }) => {
       </div>
     </>
   );
-};
-
-Results.propTypes = {
-  activeDatastore: PropTypes.object,
-  activeFilterCount: PropTypes.number
 };
 
 export default Results;

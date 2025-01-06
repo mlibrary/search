@@ -4,7 +4,6 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FieldInput from '../FieldInput';
 import FiltersContainer from '../FiltersContainer';
-import PropTypes from 'prop-types';
 import { stringifySearch } from '../../../search';
 import { useNavigate } from 'react-router-dom';
 
@@ -117,10 +116,6 @@ const AdvancedSearchForm = ({ datastore }) => {
       <FiltersContainer {...{ datastoreUid }} />
     </form>
   );
-};
-
-AdvancedSearchForm.propTypes = {
-  datastore: PropTypes.object.isRequired
 };
 
 export default AdvancedSearchForm;

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { setAdvancedFilter } from '../../../advanced';
 import { useDispatch } from 'react-redux';
 
@@ -123,12 +122,6 @@ const DateRangeInput = ({ currentFilter = '', datastoreUid, filterGroupUid }) =>
       </div>
     </div>
   );
-};
-
-DateRangeInput.propTypes = {
-  currentFilter: PropTypes.string,
-  datastoreUid: PropTypes.string.isRequired,
-  filterGroupUid: PropTypes.string.isRequired
 };
 
 export default DateRangeInput;

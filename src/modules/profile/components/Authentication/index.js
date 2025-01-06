@@ -1,5 +1,4 @@
 import { Anchor } from '../../../reusable';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const Authentication = ({ button, children, logout }) => {
@@ -12,15 +11,6 @@ const Authentication = ({ button, children, logout }) => {
       {children || `Log ${logout ? 'out' : 'in'}`}
     </Anchor>
   );
-};
-
-Authentication.propTypes = {
-  button: PropTypes.bool,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
-  logout: PropTypes.bool
 };
 
 export default Authentication;

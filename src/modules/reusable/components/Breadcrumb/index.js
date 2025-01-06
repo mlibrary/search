@@ -1,5 +1,4 @@
 import Anchor from '../Anchor';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const Breadcrumb = ({ items }) => {
@@ -15,10 +14,6 @@ const Breadcrumb = ({ items }) => {
       })}
     </ol>
   );
-};
-
-Breadcrumb.propTypes = {
-  items: PropTypes.array
 };
 
 export default Breadcrumb;

@@ -1,7 +1,6 @@
 import './styles.css';
 import { Anchor, Icon } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 
 const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction, setDisableButton, uid }) => {
   const currentItem = (item) => {
@@ -140,15 +139,6 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
       })}
     </>
   );
-};
-
-ShelfBrowseCarousel.propTypes = {
-  callNumber: PropTypes.string,
-  items: PropTypes.array,
-  itemsPerPage: PropTypes.number,
-  setButtonAction: PropTypes.func,
-  setDisableButton: PropTypes.func,
-  uid: PropTypes.string
 };
 
 export default ShelfBrowseCarousel;

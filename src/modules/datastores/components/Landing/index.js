@@ -1,6 +1,5 @@
 import { Anchor, H1 } from '../../../reusable';
 import { BrowseInfo } from '../../../browse';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -85,12 +84,6 @@ const Landing = ({ activeDatastore, defaultInstitution, options }) => {
       )}
     </div>
   );
-};
-
-Landing.propTypes = {
-  activeDatastore: PropTypes.object,
-  defaultInstitution: PropTypes.string,
-  options: PropTypes.array
 };
 
 export default Landing;

@@ -6,7 +6,6 @@ import {
   ExpandableChildren
 } from '../../../reusable';
 import Holding from '../Holding';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const notesList = (notes) => {
@@ -91,14 +90,6 @@ const Holder = ({ captionLink, headings, notes, preExpanded, rows, ...rest }) =>
       )}
     </div>
   );
-};
-
-Holder.propTypes = {
-  captionLink: PropTypes.object,
-  headings: PropTypes.array,
-  notes: PropTypes.array,
-  preExpanded: PropTypes.bool,
-  rows: PropTypes.array
 };
 
 export default Holder;

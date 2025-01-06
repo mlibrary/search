@@ -1,5 +1,4 @@
 import './styles.css';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const ActiveAdvancedFilters = ({ activeFilters, filters }) => {
@@ -64,11 +63,6 @@ const ActiveAdvancedFilters = ({ activeFilters, filters }) => {
       </ul>
     </section>
   );
-};
-
-ActiveAdvancedFilters.propTypes = {
-  activeFilters: PropTypes.object,
-  filters: PropTypes.array
 };
 
 export default ActiveAdvancedFilters;

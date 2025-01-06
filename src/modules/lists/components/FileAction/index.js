@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const FileAction = ({ datastore, prejudice }) => {
@@ -19,11 +18,6 @@ const FileAction = ({ datastore, prejudice }) => {
       </form>
     </section>
   );
-};
-
-FileAction.propTypes = {
-  datastore: PropTypes.object,
-  prejudice: PropTypes.object
 };
 
 export default FileAction;

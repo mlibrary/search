@@ -8,7 +8,6 @@ import {
 } from '../../../reusable';
 import { getURLWithFiltersRemoved, newSearch } from '../../utilities';
 import CheckboxFilters from '../CheckboxFilters';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -167,10 +166,6 @@ const FilterGroupContainer = ({ uid }) => {
       </div>
     </details>
   );
-};
-
-FilterGroupContainer.propTypes = {
-  uid: PropTypes.string
 };
 
 const Filters = () => {

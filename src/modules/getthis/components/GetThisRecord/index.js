@@ -1,7 +1,6 @@
 import './styles.css';
 import { FullRecordPlaceholder, RecordFullFormats } from '../../../records';
 import getHoldingByBarcode from '../../getHoldingByBarcode';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { ResourceAccess } from '../../../resource-acccess';
 import { TrimString } from '../../../core';
@@ -64,10 +63,6 @@ const GetThisRecord = ({ barcode }) => {
       )}
     </div>
   );
-};
-
-GetThisRecord.propTypes = {
-  barcode: PropTypes.string
 };
 
 export default GetThisRecord;

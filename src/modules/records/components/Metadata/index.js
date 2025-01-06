@@ -6,7 +6,6 @@ import {
   ExpandableChildren
 } from '../../../reusable';
 import Description from '../Description';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -65,10 +64,6 @@ const Metadata = ({ metadata = {} }) => {
       }}
     />
   );
-};
-
-Metadata.propTypes = {
-  metadata: PropTypes.object
 };
 
 export default Metadata;

@@ -1,5 +1,4 @@
 import React, { createContext, useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
 
 export const ExpandableContext = createContext();
 
@@ -22,13 +21,6 @@ const Expandable = ({ children }) => {
       {children}
     </ExpandableContext.Provider>
   );
-};
-
-Expandable.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired
 };
 
 export default Expandable;

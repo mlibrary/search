@@ -1,5 +1,4 @@
 import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
 
 const Tab = forwardRef(({ ariaControls, children, id, isActive, onClick, ...rest }, ref) => {
   return (
@@ -20,16 +19,5 @@ const Tab = forwardRef(({ ariaControls, children, id, isActive, onClick, ...rest
 });
 
 Tab.displayName = 'Tab';
-
-Tab.propTypes = {
-  ariaControls: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-  id: PropTypes.string,
-  isActive: PropTypes.bool,
-  onClick: PropTypes.func
-};
 
 export default Tab;

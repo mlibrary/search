@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const FieldValue = ({ field }) => {
@@ -22,10 +21,6 @@ const FieldValue = ({ field }) => {
       })}
     </>
   );
-};
-
-FieldValue.propTypes = {
-  field: PropTypes.object.isRequired
 };
 
 const MARCTable = ({ marc }) => {
@@ -64,10 +59,6 @@ const MARCTable = ({ marc }) => {
       </table>
     </div>
   );
-};
-
-MARCTable.propTypes = {
-  marc: PropTypes.object
 };
 
 export default MARCTable;

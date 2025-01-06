@@ -1,5 +1,4 @@
 import { filterOptions, searchOptions, searchOptionsDatastores } from '../../utilities';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const listOptions = (options) => {
@@ -41,11 +40,6 @@ const SearchByOptions = ({ datastoreUid, fields }) => {
       </optgroup>
     </>
   );
-};
-
-SearchByOptions.propTypes = {
-  datastoreUid: PropTypes.string,
-  fields: PropTypes.array
 };
 
 export default SearchByOptions;

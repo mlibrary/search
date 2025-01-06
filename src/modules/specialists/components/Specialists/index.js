@@ -2,7 +2,6 @@ import './styles.css';
 import { Anchor, Icon } from '../../../reusable';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { setA11yMessage } from '../../../a11y';
 
 const Specialists = ({ show = 3 }) => {
@@ -69,10 +68,6 @@ const Specialists = ({ show = 3 }) => {
       )}
     </section>
   );
-};
-
-Specialists.propTypes = {
-  show: PropTypes.number
 };
 
 export default Specialists;

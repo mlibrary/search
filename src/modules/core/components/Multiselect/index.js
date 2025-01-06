@@ -1,6 +1,5 @@
 import './styles.css';
 import React, { useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
 import { setAdvancedFilter } from '../../../advanced';
 import { useDispatch } from 'react-redux';
 
@@ -110,14 +109,6 @@ const Multiselect = ({ currentFilters, datastoreUid, filterGroupUid, filters = {
       )}
     </div>
   );
-};
-
-Multiselect.propTypes = {
-  currentFilters: PropTypes.array,
-  datastoreUid: PropTypes.string,
-  filterGroupUid: PropTypes.string,
-  filters: PropTypes.array,
-  name: PropTypes.string
 };
 
 export default Multiselect;

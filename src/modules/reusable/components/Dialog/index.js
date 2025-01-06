@@ -1,6 +1,5 @@
 import './styles.css';
 import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 
 const Dialog = ({ children, isOpen, onClose }) => {
   const dialogRef = useRef(null);
@@ -56,12 +55,3 @@ const Dialog = ({ children, isOpen, onClose }) => {
 };
 
 export default Dialog;
-
-Dialog.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
-  isOpen: PropTypes.bool,
-  onClose: PropTypes.func
-};
