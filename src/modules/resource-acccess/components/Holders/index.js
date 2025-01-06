@@ -1,7 +1,6 @@
 import './styles.css';
 import Holder from '../Holder';
 import { Icon } from '../../../reusable';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -63,11 +62,6 @@ const Holders = ({ context, record }) => {
       })}
     </>
   );
-};
-
-Holders.propTypes = {
-  context: PropTypes.object,
-  record: PropTypes.object
 };
 
 export default Holders;

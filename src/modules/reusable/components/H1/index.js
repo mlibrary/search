@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const H1 = ({ children, className }) => {
@@ -11,14 +10,6 @@ const H1 = ({ children, className }) => {
       {children}
     </h1>
   );
-};
-
-H1.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
-  className: PropTypes.string
 };
 
 export default H1;

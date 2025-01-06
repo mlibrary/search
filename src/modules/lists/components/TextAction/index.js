@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
-import PropTypes from 'prop-types';
 
 const TextAction = ({ action, datastore, phoneNumber, prejudice, setActive }) => {
   const [text, setText] = useState(phoneNumber);
@@ -52,14 +51,6 @@ const TextAction = ({ action, datastore, phoneNumber, prejudice, setActive }) =>
       )}
     </section>
   );
-};
-
-TextAction.propTypes = {
-  action: PropTypes.object,
-  datastore: PropTypes.object,
-  phoneNumber: PropTypes.string,
-  prejudice: PropTypes.object,
-  setActive: PropTypes.func
 };
 
 export default TextAction;

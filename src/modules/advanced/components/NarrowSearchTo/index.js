@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const NarrowSearchTo = ({ handleChange, options }) => {
@@ -41,11 +40,6 @@ const NarrowSearchTo = ({ handleChange, options }) => {
       })}
     </>
   );
-};
-
-NarrowSearchTo.propTypes = {
-  handleChange: PropTypes.func,
-  options: PropTypes.array
 };
 
 export default NarrowSearchTo;

@@ -1,7 +1,6 @@
 import './styles.css';
 import { Anchor, Icon } from '../../../reusable';
 import { searchOptions, searchOptionsDatastores } from '../../utilities';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const SearchTip = ({ activeDatastore, field }) => {
@@ -93,11 +92,6 @@ const SearchTip = ({ activeDatastore, field }) => {
       </p>
     </div>
   );
-};
-
-SearchTip.propTypes = {
-  activeDatastore: PropTypes.string,
-  field: PropTypes.string
 };
 
 export default SearchTip;

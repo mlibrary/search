@@ -9,7 +9,6 @@ import {
   TruncateText
 } from '../../../reusable';
 import getHoldingByBarcode from '../../getHoldingByBarcode';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -28,13 +27,6 @@ const Cell = ({ href, html, icon, text }) => {
       {!href && !html && <TruncateText text={text} />}
     </>
   );
-};
-
-Cell.propTypes = {
-  href: PropTypes.string,
-  html: PropTypes.string,
-  icon: PropTypes.string,
-  text: PropTypes.string
 };
 
 const GetThisFindIt = () => {

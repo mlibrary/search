@@ -1,6 +1,5 @@
 import { Anchor, Icon } from '../../../reusable';
 import { BrowseLink } from '../../../browse';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { stringifySearch } from '../../../search';
 import { TrimString } from '../../../core';
@@ -66,17 +65,6 @@ const Description = ({ activeDatastore, data, datastores, institution, viewType 
       )}
     </>
   );
-};
-
-Description.propTypes = {
-  activeDatastore: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object
-  ]),
-  datastores: PropTypes.array,
-  institution: PropTypes.string,
-  viewType: PropTypes.string
 };
 
 export default Description;

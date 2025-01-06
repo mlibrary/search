@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import ActiveAdvancedFilters from '../ActiveAdvancedFilters';
 import AdvancedFilter from '../AdvancedFilter';
 import getFilters from './getFilters';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const FiltersContainer = ({ datastoreUid }) => {
@@ -114,10 +113,6 @@ const FiltersContainer = ({ datastoreUid }) => {
       <AdvancedSearchSubmit />
     </>
   );
-};
-
-FiltersContainer.propTypes = {
-  datastoreUid: PropTypes.string
 };
 
 export default FiltersContainer;

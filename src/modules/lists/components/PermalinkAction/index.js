@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const PermalinkAction = ({ setActive, setAlert }) => {
@@ -33,11 +32,6 @@ const PermalinkAction = ({ setActive, setAlert }) => {
       </button>
     </form>
   );
-};
-
-PermalinkAction.propTypes = {
-  setActive: PropTypes.func,
-  setAlert: PropTypes.func
 };
 
 export default PermalinkAction;

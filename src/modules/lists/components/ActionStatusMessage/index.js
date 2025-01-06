@@ -1,5 +1,4 @@
 import { Alert, Anchor } from '../../../reusable';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const ActionStatusMessage = ({ action, status }) => {
@@ -32,11 +31,6 @@ const ActionStatusMessage = ({ action, status }) => {
       {message}
     </Alert>
   );
-};
-
-ActionStatusMessage.propTypes = {
-  action: PropTypes.object,
-  status: PropTypes.object
 };
 
 export default ActionStatusMessage;

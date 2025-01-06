@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Anchor } from '../../../reusable';
-import PropTypes from 'prop-types';
 
 const DatastoreInfoContainer = ({ name, uid }) => {
   const [hide, setHide] = useState([]);
@@ -37,11 +36,6 @@ const DatastoreInfoContainer = ({ name, uid }) => {
       </div>
     </div>
   );
-};
-
-DatastoreInfoContainer.propTypes = {
-  name: PropTypes.string,
-  uid: PropTypes.string
 };
 
 export default DatastoreInfoContainer;

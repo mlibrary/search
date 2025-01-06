@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Checkbox } from '../../../reusable';
 import { isInList } from '../../../lists';
 import prejudice from '../../prejudice';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const AddToListButton = ({ item }) => {
@@ -55,10 +54,6 @@ const AddToListButton = ({ item }) => {
       />
     </div>
   );
-};
-
-AddToListButton.propTypes = {
-  item: PropTypes.object.isRequired
 };
 
 export default AddToListButton;

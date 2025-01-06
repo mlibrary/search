@@ -1,7 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import { removeFieldedSearch, setFieldedSearch } from '../../../advanced';
 import Icon from '../../../reusable/components/Icon';
-import PropTypes from 'prop-types';
 import SearchByOptions from '../../../search/components/SearchByOptions';
 import { useDispatch } from 'react-redux';
 
@@ -116,14 +115,6 @@ const FieldInput = ({
       </div>
     </fieldset>
   );
-};
-
-FieldInput.propTypes = {
-  booleanTypes: PropTypes.array,
-  datastoreUid: PropTypes.string,
-  fieldedSearch: PropTypes.object,
-  fieldedSearchIndex: PropTypes.number,
-  fields: PropTypes.array
 };
 
 export default memo(FieldInput);

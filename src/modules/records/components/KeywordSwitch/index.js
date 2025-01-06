@@ -1,6 +1,5 @@
 import './styles.css';
 import { Anchor, Icon } from '../../../reusable';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const KeywordSwitch = ({ datastore, query }) => {
@@ -40,11 +39,6 @@ const KeywordSwitch = ({ datastore, query }) => {
       </div>
     </div>
   );
-};
-
-KeywordSwitch.propTypes = {
-  datastore: PropTypes.object,
-  query: PropTypes.string
 };
 
 export default KeywordSwitch;

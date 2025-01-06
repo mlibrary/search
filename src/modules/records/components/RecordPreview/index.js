@@ -2,7 +2,6 @@ import { Anchor, Icon } from '../../../reusable';
 import { getField, getFieldValue } from '../../utilities';
 import { Metadata, RecommendedResource, Zotero } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { TrimString } from '../../../core';
 
@@ -59,12 +58,6 @@ const Header = ({ datastoreUid, record, searchQuery }) => {
   );
 };
 
-Header.propTypes = {
-  datastoreUid: PropTypes.string,
-  record: PropTypes.object,
-  searchQuery: PropTypes.string
-};
-
 const Footer = ({ datastoreUid, record }) => {
   // No access/holding options or are Catalog or Guides and More datastores.
   if (['mirlyn', 'website'].includes(datastoreUid) || !(record.resourceAccess?.[0])) {
@@ -100,11 +93,6 @@ const Footer = ({ datastoreUid, record }) => {
   );
 };
 
-Footer.propTypes = {
-  datastoreUid: PropTypes.string,
-  record: PropTypes.object
-};
-
 const RecordPreview = ({ datastoreUid, record, searchQuery }) => {
   return (
     <article className='record-preview'>
@@ -114,12 +102,6 @@ const RecordPreview = ({ datastoreUid, record, searchQuery }) => {
       <Footer {...{ record, searchQuery }} />
     </article>
   );
-};
-
-RecordPreview.propTypes = {
-  datastoreUid: PropTypes.string,
-  record: PropTypes.object,
-  searchQuery: PropTypes.string
 };
 
 export default RecordPreview;

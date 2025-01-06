@@ -1,6 +1,5 @@
 import { Checkbox } from '../../../reusable';
 import NarrowSearchTo from '../NarrowSearchTo';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const getIsCheckboxFilterChecked = ({ advancedFilter }) => {
@@ -51,11 +50,6 @@ const AdvancedFilter = ({ advancedFilter, changeAdvancedFilter }) => {
     );
   }
   return null;
-};
-
-AdvancedFilter.propTypes = {
-  advancedFilter: PropTypes.object,
-  changeAdvancedFilter: PropTypes.func
 };
 
 export default AdvancedFilter;

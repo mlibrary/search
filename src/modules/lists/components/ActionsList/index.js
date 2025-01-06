@@ -5,7 +5,6 @@ import CitationAction from '../CitationAction';
 import EmailAction from '../EmailAction';
 import FileAction from '../FileAction';
 import PermalinkAction from '../PermalinkAction';
-import PropTypes from 'prop-types';
 import TextAction from '../TextAction';
 import { useSelector } from 'react-redux';
 
@@ -132,15 +131,6 @@ const ActionsList = (props) => {
     }}
     />
   );
-};
-
-ActionsList.propTypes = {
-  active: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ]),
-  datastore: PropTypes.object,
-  setActive: PropTypes.func
 };
 
 export default ActionsList;

@@ -3,7 +3,6 @@ import { Anchor, Icon } from '../../../reusable';
 import { getField, getFieldValue } from '../../utilities';
 import { Metadata, RecommendedResource } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { ResourceAccess } from '../../../resource-acccess';
 import { TrimString } from '../../../core';
@@ -67,11 +66,6 @@ const Header = ({ datastoreUid, record }) => {
   );
 };
 
-Header.propTypes = {
-  datastoreUid: PropTypes.string,
-  record: PropTypes.object
-};
-
 const Record = ({ datastoreUid, list, record }) => {
   if (!getField(record.fields, 'id')) {
     return null;
@@ -94,12 +88,6 @@ const Record = ({ datastoreUid, list, record }) => {
       </div>
     </article>
   );
-};
-
-Record.propTypes = {
-  datastoreUid: PropTypes.string,
-  list: PropTypes.array,
-  record: PropTypes.object
 };
 
 export default Record;

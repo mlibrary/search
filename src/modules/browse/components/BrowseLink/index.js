@@ -1,5 +1,4 @@
 import { Anchor } from '../../../reusable';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const BrowseLink = ({ type = 'callnumber', value, children, ...rest }) => {
@@ -16,15 +15,6 @@ const BrowseLink = ({ type = 'callnumber', value, children, ...rest }) => {
       {children}
     </Anchor>
   );
-};
-
-BrowseLink.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
-  type: PropTypes.string,
-  value: PropTypes.string
 };
 
 export default BrowseLink;

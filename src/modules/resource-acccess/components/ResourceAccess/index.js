@@ -1,6 +1,5 @@
 import { ContextProvider } from '../../../reusable';
 import Holders from '../Holders';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const ResourceAccess = ({ record }) => {
@@ -27,10 +26,6 @@ const ResourceAccess = ({ record }) => {
     }}
     />
   );
-};
-
-ResourceAccess.propTypes = {
-  record: PropTypes.object
 };
 
 export default ResourceAccess;

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const TabPanel = ({ children, id, isActive, ...rest }) => {
@@ -17,14 +16,5 @@ const TabPanel = ({ children, id, isActive, ...rest }) => {
 };
 
 TabPanel.displayName = 'TabPanel';
-
-TabPanel.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-  id: PropTypes.string,
-  isActive: PropTypes.bool
-};
 
 export default TabPanel;

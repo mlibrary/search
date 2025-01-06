@@ -20,7 +20,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import config from '../../../../config';
 import { DatastorePage } from '../../../pages';
-import PropTypes from 'prop-types';
 import { setA11yMessage } from '../../../a11y';
 import { setActiveAffiliation } from '../../../affiliation';
 import { setActiveInstitution } from '../../../institution';
@@ -144,11 +143,6 @@ const URLSearchQueryWrapper = ({ datastoreSlug, urlState }) => {
   }, [datastoreUid, activeFilters, institution, page, query, sort, urlState, dispatch]);
 
   return <DatastorePage {...{ currentDatastore, datastoreSlug, query }} />;
-};
-
-URLSearchQueryWrapper.propTypes = {
-  datastoreSlug: PropTypes.string,
-  urlState: PropTypes.object
 };
 
 export default memo(URLSearchQueryWrapper);
