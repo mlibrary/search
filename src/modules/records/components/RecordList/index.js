@@ -116,14 +116,14 @@ const RecordList = () => {
                       );
                     })
                   : activeRecords.map((record, index) => {
-                    return (
-                      <React.Fragment key={record.uid}>
-                        {(page === 1 && index === Math.min(activeRecords.length - 1, 2)) && <KeywordSwitch {...{ datastore, query }} />}
-                        {(page === 1 && index === 3) && <Specialists />}
-                        <Record {...{ datastoreUid: activeDatastore, list, record }} />
-                      </React.Fragment>
-                    );
-                  })}
+                      return (
+                        <React.Fragment key={record.uid}>
+                          {(page === 1 && index === Math.min(activeRecords.length - 1, 2)) && <KeywordSwitch {...{ datastore, query }} />}
+                          {(page === 1 && index === 3) && <Specialists />}
+                          <Record {...{ datastoreUid: activeDatastore, list, record }} />
+                        </React.Fragment>
+                      );
+                    })}
               </div>
             </>
           )}

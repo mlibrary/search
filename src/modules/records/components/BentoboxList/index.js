@@ -83,19 +83,19 @@ const BentoboxList = () => {
                       <div className='results-list'>
                         {hasRecords
                           ? datastoreRecords.map((record, place) => {
-                            return (
-                              <RecordPreview key={`${uid}-${place}`} {...{ datastoreUid: uid, record, searchQuery }} />
-                            );
-                          })
+                              return (
+                                <RecordPreview key={`${uid}-${place}`} {...{ datastoreUid: uid, record, searchQuery }} />
+                              );
+                            })
                           : Array.from({ length: 3 }).map((elementInArray, place) => {
-                            return (
-                              <article className='record-preview' key={place}>
-                                <div className='placeholder placeholder-title margin-top__xs' />
-                                <div className='placeholder placeholder-line placeholder-line-alt' />
-                                <div className='placeholder placeholder-line margin-bottom__xs' />
-                              </article>
-                            );
-                          })}
+                              return (
+                                <article className='record-preview' key={place}>
+                                  <div className='placeholder placeholder-title margin-top__xs' />
+                                  <div className='placeholder placeholder-line placeholder-line-alt' />
+                                  <div className='placeholder placeholder-line margin-bottom__xs' />
+                                </article>
+                              );
+                            })}
                       </div>
                       {hasRecords && (
                         <Anchor className='flex padding-x__m padding-y__s underline__hover bentobox-footer' to={`/${slug}${searchQuery}`}>
