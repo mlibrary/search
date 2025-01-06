@@ -50,7 +50,9 @@ export default [
       'no-ternary': 'off',
       'no-magic-numbers': 'off',
       'one-var': ['error', { initialized: 'never' }],
-      'sort-imports': ['error', { 'ignoreCase': true }], 
+      'sort-imports': ['error', { 'ignoreCase': true }],
+
+      'react/prop-types': 'off',
 
       '@stylistic/brace-style': ['error', '1tbs'],
       '@stylistic/comma-dangle': ['error', 'never'],
