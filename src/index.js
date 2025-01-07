@@ -19,10 +19,10 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <A11yLiveMessage />
+        <ScrollToTop />
+        <SearchHeader />
         <div className='site-wrapper'>
-          <A11yLiveMessage />
-          <ScrollToTop />
-          <SearchHeader />
           <Routes>
             <Route
               path='/'
@@ -47,8 +47,8 @@ const App = () => {
             <Route path=':datastoreSlug/*' element={<DatastoreRoute />} />
             <Route path='*' element={<NoMatch />} />
           </Routes>
-          <Footer />
         </div>
+        <Footer />
       </BrowserRouter>
     </Provider>
   );
