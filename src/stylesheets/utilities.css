@@ -18,6 +18,14 @@
     0 2px 4px 0 var(--search-color-grey-400);
 }
 
+.container__rounded > *:first-child {
+  margin-top: 0;
+}
+
+.container__rounded > *:last-child {
+  margin-bottom: 0;
+}
+
 .flex,
 .flex__responsive {
   display: flex;
