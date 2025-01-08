@@ -66,7 +66,7 @@ const FiltersContainer = ({ datastoreUid }) => {
   return (
     <>
       {activeFilters && <ActiveAdvancedFilters {...{ activeFilters, filters: filterGroups }} />}
-      <h2 className='heading-large'>Additional search options</h2>
+      <h3>Additional search options</h3>
       <div className='advanced-filters-inner-container'>
         {filterGroupings.map((filterGroup, groupIndex) => {
           return (
@@ -88,7 +88,7 @@ const FiltersContainer = ({ datastoreUid }) => {
                       ];
                       return (
                         <div key={index} className='advanced-filter-container'>
-                          <h2 className='advanced-filter-label-text'>{name}</h2>
+                          <h4 className='advanced-filter-label-text'>{name}</h4>
                           <div className='advanced-filter-inner-container'>
                             {type === 'multiple_select' && <Multiselect {...{ currentFilters, datastoreUid, filterGroupUid: uid, filters, name }} />}
                             {type === 'date_range_input' && <DateRangeInput {...{ currentFilter: currentURLFilters[0], datastoreUid, filterGroupUid: uid }} />}
@@ -100,7 +100,7 @@ const FiltersContainer = ({ datastoreUid }) => {
                   )
                 : (
                     <div className='advanced-filter-container'>
-                      <h2 className='advanced-filter-label-text'>{filterGroup}</h2>
+                      <h4 className='advanced-filter-label-text'>{filterGroup}</h4>
                       {advancedDatastoreFilters[filterGroup].map((advancedFilter, index) => {
                         return <AdvancedFilter key={index} {...{ advancedFilter, changeAdvancedFilter }} />;
                       })}

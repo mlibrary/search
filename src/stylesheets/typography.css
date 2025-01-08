@@ -1,0 +1,60 @@
+/*
+  Headings
+*/
+h1,
+.h1 {
+  font-family: inherit;
+  font-size: 2.4rem;
+}
+
+h2 {
+  font-size: 1.87rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4,
+.h4 {
+  font-size: 1.2rem;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
+h6 {
+  font-size: 0.875rem;
+}
+
+.heading-xlarge,
+.heading-large,
+.heading-medium,
+.heading-small,
+.heading-xsmall {
+  display: block;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 0.25em;
+  margin-top: 1.5em;
+  font-size: 1rem;
+}
+
+.heading-xlarge {
+  margin-bottom: 0.625em;
+  margin-top: 1.25em;
+  font-size: 2.4rem;
+}
+
+.heading-large {
+  margin-bottom: 0.555em;
+  margin-top: 1.25em;
+  font-size: 1.5rem;
+}
+
+.heading-medium {
+  margin-bottom: 0.83333em;
+  margin-top: 1.875em;
+  font-size: 1.2rem;
+}
