@@ -78,8 +78,8 @@ const RecordList = () => {
         ? (
             <>
               <KeywordSwitch {...{ datastore, query }} />
-              <div className='no-results-suggestions'>
-                <h2 className='heading-small margin-top__none'>Other suggestions</h2>
+              <div className='container__rounded no-shadow padding__m margin-top__m'>
+                <h3 className='margin-y__none'>Other suggestions</h3>
                 <ul className='margin-bottom__none'>
                   <li>Try looking at the other search categories linked below the search box.</li>
                   <li><ILLRequestMessage /></li>

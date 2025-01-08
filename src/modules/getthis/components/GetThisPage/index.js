@@ -31,7 +31,7 @@ const GetThisPage = () => {
           ]}
         />
       </div>
-      <H1 className='heading-xlarge'>Get This</H1>
+      <H1>Get This</H1>
       {record?.fields?.length === 0 && record?.names?.length === 0
         ? (
             <section className='container__rounded page'>

@@ -26,6 +26,10 @@
   margin-bottom: 0;
 }
 
+.no-shadow {
+  box-shadow: none;
+}
+
 .flex,
 .flex__responsive {
   display: flex;

@@ -65,6 +65,10 @@ dt {
   font-weight: 600;
 }
 
+dd {
+  margin: 0;
+}
+
 .table-compact table {
   border: none;
 }
@@ -582,17 +586,6 @@ details[open] > summary svg.expand_more {
   text-decoration: underline;
 }
 
-.no-results-suggestions {
-  background: #FAFAFA;
-  border-radius: 4px;
-  padding: 1rem;
-}
-
-.no-results-suggestions li {
-  margin: 0;
-  margin-bottom: 0.25rem;
-}
-
 .pagination-container {
   padding: 0.75rem 1rem;
   background: white;
@@ -825,11 +818,6 @@ details[open] > summary svg.expand_more {
   }
 }
 
-.page-not-found-container {
-  margin-top: 6rem;
-  margin-bottom: 8rem;
-}
-
 /*
   Record
 */
@@ -852,10 +840,6 @@ details[open] > summary svg.expand_more {
 .record-title {
   font-weight: 600;
   font-size: 1.2rem;
-  text-decoration: none;
-  margin: 0;
-  margin-right: 1rem;
-  margin-bottom: 0.75rem;
 }
 
 .record-title .icon {

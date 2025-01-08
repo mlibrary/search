@@ -16,7 +16,7 @@ const BrowseAtoZ = () => {
 
   return (
     <section className='browse'>
-      <h2 className='heading-large margin-top__none'>Titles A-Z</h2>
+      <h2 className='margin-y__none'>Titles A-Z</h2>
       <ul className='browse-list'>
         {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0-9', 'Other'].map((character, key) => {
           return (

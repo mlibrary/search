@@ -18,14 +18,14 @@ const BrowsePage = () => {
   });
 
   return (
-    <div className='container container-narrow u-margin-top-1'>
+    <div className='container container-narrow margin-top__m'>
       <Breadcrumb
         items={[
           { text: `${datastore.name}`, to: `/${datastore.slug}${document.location.search}` },
           { text: 'Browse' }
         ]}
       />
-      <H1 className='heading-xlarge'>Browse all {datastore.name}</H1>
+      <H1>Browse all {datastore.name}</H1>
       <p className='font-lede'>When you&apos;re stuck looking for specific {datastore.name.toLowerCase()} or just want to see what&apos;s out there, the browse page makes finding the right {datastore.name.toLowerCase()} easy. Browse all {datastore.name.toLowerCase()} titles alphabetically or by academic discipline.</p>
       <BrowseAtoZ />
       <BrowseByFilters filters={browse} />
