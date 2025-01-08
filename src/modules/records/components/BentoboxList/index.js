@@ -84,13 +84,13 @@ const BentoboxList = () => {
                       <div className='results-list'>
                         {hasRecords
                           ? datastoreRecords.map((record, place) => {
-                            return (
-                              <RecordPreview key={`${uid}-${place}`} {...{ datastoreUid: uid, record, searchQuery }} />
-                            );
-                          })
+                              return (
+                                <RecordPreview key={`${uid}-${place}`} {...{ datastoreUid: uid, record, searchQuery }} />
+                              );
+                            })
                           : Array.from({ length: 3 }).map((elementInArray, place) => {
-                            return <RecordPreviewPlaceholder key={place} />;
-                          })}
+                              return <RecordPreviewPlaceholder key={place} />;
+                            })}
                       </div>
                       {hasRecords && (
                         <Anchor className='flex padding-x__m padding-y__s underline__hover bentobox-footer' to={`/${slug}${searchQuery}`}>

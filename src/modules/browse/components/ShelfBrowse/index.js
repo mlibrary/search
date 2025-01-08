@@ -51,8 +51,8 @@ const ShelfBrowse = () => {
   const fetchShelfData = useCallback(async () => {
     setShelfData('loading');
     try {
-      // `https://search.lib.umich.edu/catalog/browse/carousel?query=${callNumber}`
-      const response = await fetch(`https://browse.workshop.search.lib.umich.edu/carousel?query=${callNumber}`);
+      // `https://browse.workshop.search.lib.umich.edu/carousel?query=${callNumber}`
+      const response = await fetch(`https://search.lib.umich.edu/catalog/browse/carousel?query=${callNumber}`);
       if (!response.ok) {
         throw new Error(`HTTP Error! status: ${response.status}`);
       }
@@ -106,23 +106,23 @@ const ShelfBrowse = () => {
         >
           {shelfData === 'loading'
             ? loadingItems.map((element, index) => {
-              return (
-                <li key={index} className='shelf-browse-item'>
-                  <div className='container__rounded padding-x__s padding-bottom__xs padding-top__s'>
-                    <div className='placeholder-item-title'>
-                      <div className='placeholder placeholder-title margin-bottom__none' />
-                      <div className='placeholder placeholder-title margin-bottom__none margin-top__2xs' />
-                      <div className='placeholder placeholder-title margin-bottom__none margin-top__2xs' />
+                return (
+                  <li key={index} className='shelf-browse-item'>
+                    <div className='container__rounded padding-x__s padding-bottom__xs padding-top__s'>
+                      <div className='placeholder-item-title'>
+                        <div className='placeholder placeholder-title margin-bottom__none' />
+                        <div className='placeholder placeholder-title margin-bottom__none margin-top__2xs' />
+                        <div className='placeholder placeholder-title margin-bottom__none margin-top__2xs' />
+                      </div>
+                      <div className='placeholder-item-line'>
+                        <div className='placeholder placeholder-line margin-bottom__none margin-top__s' />
+                        <div className='placeholder placeholder-line margin-bottom__none margin-top__s' />
+                        <div className='placeholder placeholder-line placeholder-line-alt margin-top__s' />
+                      </div>
                     </div>
-                    <div className='placeholder-item-line'>
-                      <div className='placeholder placeholder-line margin-bottom__none margin-top__s' />
-                      <div className='placeholder placeholder-line margin-bottom__none margin-top__s' />
-                      <div className='placeholder placeholder-line placeholder-line-alt margin-top__s' />
-                    </div>
-                  </div>
-                </li>
-              );
-            })
+                  </li>
+                );
+              })
             : (
                 <ShelfBrowseCarousel {...{
                   callNumber,
