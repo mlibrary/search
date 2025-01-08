@@ -60,7 +60,7 @@ const Landing = ({ activeDatastore, defaultInstitution, options }) => {
       {uid === 'mirlyn' && (
         <div className='container container-narrow'>
           <div className='institution-select-landing-container center-text'>
-            <h2 className='heading-large'>
+            <h2>
               To find materials closest to you, please choose a library
             </h2>
             <p className='flex flex__responsive'>

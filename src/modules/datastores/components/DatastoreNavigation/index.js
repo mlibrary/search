@@ -6,7 +6,7 @@ import { stringifySearch } from '../../../search';
 const DatastoreNavigation = ({ activeFilters, activeInstitution, currentDatastore, datastores, page, query, sort }) => {
   return (
     <nav className='datastore-nav' aria-label='Datastores'>
-      <ol>
+      <ol className='list__unstyled'>
         {datastores.map((datastore) => {
           const { isMultisearch, name, slug, uid } = datastore;
           const queryString = stringifySearch({

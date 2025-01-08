@@ -15,7 +15,7 @@ const Header = ({ datastoreUid, record }) => {
   const datastoreSlug = getDatastoreSlugByUid(datastoreUid);
   const pictureField = getField(record.fields, 'picture');
   let recordTitleLink = `/${datastoreSlug}/record/${recordUid}${location.search}`;
-  let recordHeaderClassName = 'record-title';
+  let recordHeaderClassName = 'record-title margin__none';
 
   // Special Library Website case
   if (datastoreUid === 'website') {

@@ -31,7 +31,7 @@ const List = ({ activeDatastore, currentDatastore }) => {
       />
 
       <div className='lists-header'>
-        <H1 className='heading-xlarge'>My Temporary {name} List</H1>
+        <H1>My Temporary {name} List</H1>
         <div className='lists-header-info'>
           {Boolean(listLength) && (
             <button

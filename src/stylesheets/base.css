@@ -1,0 +1,41 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body,
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background: var(--search-color-grey-200);
+  color: var(--search-color-grey-700);
+  font: 0.875rem/1.4 "Noto Sans", sans-serif;
+}
+
+@media (min-width: 820px) {
+  body {
+    font-size: 1rem;
+  }
+}
+
+#root,
+.site-wrapper {
+  flex-grow: 1;
+}

@@ -14,7 +14,7 @@ const NestedList = ({ browserFilterTo, filter }) => {
             </Anchor>
           )
         : (
-            <h3 className='heading-medium'>{filter.name}</h3>
+            <h3>{filter.name}</h3>
           )}
       {filter.children && (
         <ul>
@@ -50,8 +50,8 @@ const BrowseByFilters = ({ filters }) => {
     <>
       {Object.keys(filters).map((uid) => {
         return (
-          <section key={uid} className='browse u-margin-top-1'>
-            <h2 className='heading-large u-margin-top-none'>{filters[uid].name}</h2>
+          <section key={uid} className='browse margin-top__m'>
+            <h2 className='margin-y__none'>{filters[uid].name}</h2>
             <ul className='nested-list'>
               {filters[uid].filters.map((filter) => {
                 return (

@@ -20,6 +20,11 @@
   }
 }
 
+.record-preview .metadata-list {
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
 .metadata-list-item > dd > ol.list__unstyled > li {
   display: inline-block;
 }

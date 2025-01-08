@@ -41,7 +41,7 @@ const AdvancedSearchContainer = () => {
         ]}
       />
 
-      <H1 className='heading-xlarge'>Advanced Search</H1>
+      <H1>Advanced Search</H1>
       <p className='font-lede'>Select a search category below for associated advanced search options.</p>
 
       <nav className='advanced-search-nav' aria-label='Advanced Search Datastores'>
