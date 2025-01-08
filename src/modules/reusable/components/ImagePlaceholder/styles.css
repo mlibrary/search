@@ -1,0 +1,15 @@
+.image-placeholder {
+  background-color: var(--search-color-grey-200);
+  border-radius: 4px;
+  padding-top: 150%;
+  position: relative;
+  width: 100%;
+}
+
+.image-placeholder .content {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}

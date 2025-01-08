@@ -7,6 +7,7 @@ import ContextProvider from './components/ContextProvider';
 import Dialog from './components/Dialog';
 import H1 from './components/H1';
 import Icon from './components/Icon';
+import ImagePlaceholder from './components/ImagePlaceholder';
 import Tab from './components/Tab';
 import TabPanel from './components/TabPanel';
 import Tabs from './components/Tabs';
@@ -26,6 +27,7 @@ export {
   ExpandableProvider,
   H1,
   Icon,
+  ImagePlaceholder,
   Tab,
   Tabs,
   TabPanel,
