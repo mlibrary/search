@@ -47,7 +47,7 @@ const BentoboxList = () => {
             {index === 2 && <Specialists show={2} />}
             <section className={`container__rounded bentobox bentobox-${uid}`}>
               <Anchor className='flex padding-x__m padding-y__xs bentobox-heading' to={`/${slug}${searchQuery}`}>
-                <h2 className='h4 margin__none'>{name}</h2>
+                <h2 className='size__inherit strong margin__none'>{name}</h2>
                 <small>
                   {typeof totalResults === 'number'
                     ? `${totalResults.toLocaleString()} Result${totalResults === 1 ? '' : 's'}`

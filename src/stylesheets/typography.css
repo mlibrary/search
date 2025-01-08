@@ -28,11 +28,11 @@ h6 {
   font-size: 0.875rem;
 }
 
-.heading-small {
-  display: block;
-  font-weight: 700;
-  line-height: 1.25;
-  margin-bottom: 0.25em;
-  margin-top: 1.5em;
-  font-size: 1rem;
+b,
+.strong {
+  font-weight: 600;
+}
+
+.size__inherit {
+  font-size: inherit;
 }

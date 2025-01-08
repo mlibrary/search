@@ -21,7 +21,7 @@ const Header = ({ datastoreUid, record, searchQuery }) => {
 
   return (
     <>
-      <h3 className='record-preview-heading'>
+      <h3 className='size__inherit strong margin__none'>
         {[].concat(record.names).map((title, index) => {
           if (index > 0) {
             return (
@@ -48,7 +48,7 @@ const Header = ({ datastoreUid, record, searchQuery }) => {
               key={index}
             >
               <TrimString string={title} />
-              <Icon icon='open_in_new' className='icon' size='1.125rem' />
+              <Icon icon='open_in_new' className='icon margin-left__2xs text-grey' size='1.125rem' />
             </Anchor>
           );
         })}

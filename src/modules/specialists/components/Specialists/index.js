@@ -27,7 +27,7 @@ const Specialists = ({ show = 3 }) => {
   return (
     <section className='container__rounded specialists'>
       <div className='flex flex__responsive padding__m padding-y__s specialists-heading'>
-        <h2 className='h4 margin__none'>Talk to a Library Specialist</h2>
+        <h2 className='size__inherit strong margin__none'>Talk to a Library Specialist</h2>
         <Anchor href='https://www.lib.umich.edu/research-and-scholarship/help-research/find-specialist'>
           Find more specialists
           <Icon icon='open_in_new' size='18' className='icon' />
@@ -41,7 +41,7 @@ const Specialists = ({ show = 3 }) => {
               <li className='padding__m specialist' key={`specialist-${index}`}>
                 <img src={picture} alt='' className='specialist__picture' />
                 <section>
-                  <h3 className='h4 margin__none'>
+                  <h3 className='size__inherit strong margin__none'>
                     <Anchor href={url}>
                       {name}
                       <Icon icon='open_in_new' size='18' className='icon' />
