@@ -493,37 +493,6 @@ textarea {
   height: 26px !important;
 }
 
-.site-footer {
-  background: #00274C;
-  padding: 1.5rem 0;
-  color: white;
-  text-align: center;
-}
-
-.site-footer a {
-  color: white;
-  text-decoration: underline;
-}
-
-.site-footer-nav-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.site-footer-nav-list li {
-  padding: 0;
-  margin: 0;
-  margin-bottom: 1rem;
-}
-
-@media (min-width: 980px) {
-  .site-footer-nav-list li {
-    display: inline-block;
-    margin-right: 1.5rem;
-  }
-}
-
 .no-margin {
   margin: 0;
 }
@@ -1782,22 +1751,6 @@ details[open] > summary svg.expand_more {
   margin-top: 1rem;
   margin-bottom: 2rem;
   order: 3;
-}
-
-.site-footer {
-  /* keep it to the bottom */
-  background: white;
-  border-top: solid 2px #E5E5E5;
-  color: var(--search-color-grey-600);
-  padding-bottom: 5rem;
-}
-
-.site-footer p {
-  margin: 0;
-}
-
-.site-footer a {
-  color: var(--search-color-grey-600);
 }
 
 .checkbox-label {
