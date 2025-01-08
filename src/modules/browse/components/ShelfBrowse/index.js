@@ -90,7 +90,7 @@ const ShelfBrowse = () => {
   return (
     <section className='shelf-browse container__rounded'>
       <header className='flex__responsive'>
-        <h2 className='margin-y__none'>Shelf browse</h2>
+        <h2 className='margin-y__none h4'>Shelf browse</h2>
         <BrowseLink value={callNumber}>
           <Icon icon='list' size='24' className='margin-right__xs' />Browse in call number list
         </BrowseLink>
