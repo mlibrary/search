@@ -1,10 +1,9 @@
-import { Anchor } from '../../../reusable';
+import { Anchor, Icon } from '../../../reusable';
 import { GoToList } from '../../../lists';
 import ILLRequestMessage from '../ILLRequestMessage';
 import KeywordSwitch from '../KeywordSwitch';
 import React from 'react';
 import Record from '../Record';
-import { SearchResultsMessage } from '../../../search';
 import Sorts from '../Sorts';
 import { Specialists } from '../../../specialists';
 import { useSelector } from 'react-redux';
@@ -16,10 +15,10 @@ const RecordList = () => {
   const { loading, records } = useSelector((state) => {
     return state.records;
   });
-  const list = useSelector((state) => {
-    return state.lists[activeDatastore];
+  const { [activeDatastore]: list } = useSelector((state) => {
+    return state.lists;
   });
-  const { data, query } = useSelector((state) => {
+  const { data, parserMessage, query } = useSelector((state) => {
     return state.search;
   });
 
@@ -49,14 +48,38 @@ const RecordList = () => {
           {message()}
         </h2>
         {!noResults && <Sorts {...{ activeDatastore }} />}
-        {!loadingRecords && <SearchResultsMessage />}
+        {!loadingRecords && (
+          parserMessage
+            ? (
+                <section>
+                  <p className='margin__none' aria-live='polite'>
+                    Showing results for: <span className='strong'>{parserMessage.actual}</span>
+                  </p>
+                  <p className='font-small margin__none'>
+                    You searched for: <span className='strong'>{parserMessage.original}</span>
+                  </p>
+                  <span className='flex parser-message font-small intent__warning'>
+                    <div><Icon icon='warning' size={15} /></div>
+                    <p
+                      className='details-message'
+                      dangerouslySetInnerHTML={{ __html: parserMessage.details }}
+                    />
+                  </span>
+                </section>
+              )
+            : (
+                <p className='margin__none' aria-live='polite'>
+                  Showing results for: <span className='strong'>{query}</span>
+                </p>
+              )
+        )}
       </div>
       {noResults && !loadingRecords
         ? (
             <>
               <KeywordSwitch {...{ datastore, query }} />
-              <div className='no-results-suggestions'>
-                <h2 className='heading-small margin-top__none'>Other suggestions</h2>
+              <div className='container__rounded no-shadow padding__m margin-top__m'>
+                <h3 className='margin-y__none'>Other suggestions</h3>
                 <ul className='margin-bottom__none'>
                   <li>Try looking at the other search categories linked below the search box.</li>
                   <li><ILLRequestMessage /></li>

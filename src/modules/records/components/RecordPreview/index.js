@@ -2,7 +2,6 @@ import { Anchor, Icon } from '../../../reusable';
 import { getField, getFieldValue } from '../../utilities';
 import { Metadata, RecommendedResource, Zotero } from '../../../records';
 import { getDatastoreSlugByUid } from '../../../pride';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { TrimString } from '../../../core';
 
@@ -22,7 +21,7 @@ const Header = ({ datastoreUid, record, searchQuery }) => {
 
   return (
     <>
-      <h3 className='record-preview-heading'>
+      <h3 className='size__inherit strong margin__none'>
         {[].concat(record.names).map((title, index) => {
           if (index > 0) {
             return (
@@ -49,7 +48,7 @@ const Header = ({ datastoreUid, record, searchQuery }) => {
               key={index}
             >
               <TrimString string={title} />
-              <Icon icon='open_in_new' className='icon' size='1.125rem' />
+              <Icon icon='open_in_new' className='icon margin-left__2xs text-grey' size='1.125rem' />
             </Anchor>
           );
         })}
@@ -57,12 +56,6 @@ const Header = ({ datastoreUid, record, searchQuery }) => {
       </h3>
     </>
   );
-};
-
-Header.propTypes = {
-  datastoreUid: PropTypes.string,
-  record: PropTypes.object,
-  searchQuery: PropTypes.string
 };
 
 const Footer = ({ datastoreUid, record }) => {
@@ -100,11 +93,6 @@ const Footer = ({ datastoreUid, record }) => {
   );
 };
 
-Footer.propTypes = {
-  datastoreUid: PropTypes.string,
-  record: PropTypes.object
-};
-
 const RecordPreview = ({ datastoreUid, record, searchQuery }) => {
   return (
     <article className='record-preview'>
@@ -114,12 +102,6 @@ const RecordPreview = ({ datastoreUid, record, searchQuery }) => {
       <Footer {...{ record, searchQuery }} />
     </article>
   );
-};
-
-RecordPreview.propTypes = {
-  datastoreUid: PropTypes.string,
-  record: PropTypes.object,
-  searchQuery: PropTypes.string
 };
 
 export default RecordPreview;

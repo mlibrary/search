@@ -1,3 +1,4 @@
+import './styles.css';
 import { Anchor, Icon } from '../../../reusable';
 import React from 'react';
 
@@ -23,7 +24,7 @@ const Footer = () => {
         role='contentinfo'
       >
         <div className='container container-medium'>
-          <ul className='site-footer-nav-list'>
+          <ul className='site-footer-nav-list list__unstyled'>
             <li>
               <Anchor to='/everything'>
                 Home

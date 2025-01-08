@@ -1,3 +1,9 @@
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
 label:has(input[type='radio']),
 input[type='radio'],
 label:has(input[type='checkbox']),

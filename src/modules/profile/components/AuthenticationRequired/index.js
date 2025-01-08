@@ -1,5 +1,4 @@
 import Authentication from '../Authentication';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const AuthenticationRequired = ({ children, status }) => {
@@ -16,14 +15,6 @@ const AuthenticationRequired = ({ children, status }) => {
       <span className='strong'>Log in</span> to continue
     </Authentication>
   );
-};
-
-AuthenticationRequired.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
-  status: PropTypes.string
 };
 
 export default AuthenticationRequired;

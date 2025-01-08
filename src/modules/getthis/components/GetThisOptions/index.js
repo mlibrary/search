@@ -1,7 +1,6 @@
 import { Alert } from '../../../reusable';
 import { Authentication } from '../../../profile';
 import GetThisOption from '../GetThisOption';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const GetThisOptions = ({ record }) => {
@@ -47,10 +46,6 @@ const GetThisOptions = ({ record }) => {
       <p><span className='strong'>Status:</span> {status}</p>
     </Alert>
   );
-};
-
-GetThisOptions.propTypes = {
-  record: PropTypes.object
 };
 
 export default GetThisOptions;

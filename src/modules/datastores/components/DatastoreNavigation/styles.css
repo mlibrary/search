@@ -7,8 +7,6 @@
 .datastore-nav ol {
   display: flex;
   flex-direction: column;
-  list-style: none;
-  margin: 0;
   justify-content: center;
 }
 
@@ -32,6 +30,7 @@
   align-items: center;
   border-color: transparent;
   border-style: solid;
+  border-width: 0;
   border-left-width: 3px;
   display: flex;
   height: 100%;

@@ -1,5 +1,4 @@
 /* eslint 'camelcase': 'off', 'id-length': 'off' */
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const icons = {
@@ -67,17 +66,6 @@ const Icon = ({ d, icon, size = 16, style, title, ...rest }) => {
       <path d={d || icons[icon]} />
     </svg>
   );
-};
-
-Icon.propTypes = {
-  d: PropTypes.string,
-  icon: PropTypes.string,
-  size: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
-  style: PropTypes.object,
-  title: PropTypes.string
 };
 
 export default Icon;

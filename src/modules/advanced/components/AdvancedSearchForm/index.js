@@ -4,7 +4,6 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FieldInput from '../FieldInput';
 import FiltersContainer from '../FiltersContainer';
-import PropTypes from 'prop-types';
 import { stringifySearch } from '../../../search';
 import { useNavigate } from 'react-router-dom';
 
@@ -86,7 +85,7 @@ const AdvancedSearchForm = ({ datastore }) => {
 
   return (
     <form className='y-spacing container__rounded page margin-top__none' onSubmit={handleSubmit}>
-      <h2 className='h1'>{name} Search</h2>
+      <h2>{name} Search</h2>
       {errors.map((error, index) => {
         return (
           <Alert type='error' key={index}>
@@ -117,10 +116,6 @@ const AdvancedSearchForm = ({ datastore }) => {
       <FiltersContainer {...{ datastoreUid }} />
     </form>
   );
-};
-
-AdvancedSearchForm.propTypes = {
-  datastore: PropTypes.object.isRequired
 };
 
 export default AdvancedSearchForm;

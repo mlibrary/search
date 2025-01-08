@@ -2,7 +2,6 @@ import './styles.css';
 /* Import { Anchor, Icon, ImagePlaceholder } from '../../../reusable'; */
 import { Anchor, Icon } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 
 /*
 Const bookCover = (item) => {
@@ -166,15 +165,6 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
       })}
     </>
   );
-};
-
-ShelfBrowseCarousel.propTypes = {
-  callNumber: PropTypes.string,
-  items: PropTypes.array,
-  itemsPerPage: PropTypes.number,
-  setButtonAction: PropTypes.func,
-  setDisableButton: PropTypes.func,
-  uid: PropTypes.string
 };
 
 export default ShelfBrowseCarousel;

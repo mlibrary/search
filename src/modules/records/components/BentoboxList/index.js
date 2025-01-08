@@ -5,7 +5,6 @@ import ILLRequestMessage from '../ILLRequestMessage';
 import KeywordSwitch from '../KeywordSwitch';
 import React from 'react';
 import RecordPreview from '../RecordPreview';
-import RecordPreviewPlaceholder from '../RecordPreviewPlaceholder';
 import { Specialists } from '../../../specialists';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -48,7 +47,7 @@ const BentoboxList = () => {
             {index === 2 && <Specialists show={2} />}
             <section className={`container__rounded bentobox bentobox-${uid}`}>
               <Anchor className='flex padding-x__m padding-y__xs bentobox-heading' to={`/${slug}${searchQuery}`}>
-                <h2 className='h4 margin__none'>{name}</h2>
+                <h2 className='size__inherit strong margin__none'>{name}</h2>
                 <small>
                   {typeof totalResults === 'number'
                     ? `${totalResults.toLocaleString()} Result${totalResults === 1 ? '' : 's'}`
@@ -89,7 +88,13 @@ const BentoboxList = () => {
                               );
                             })
                           : Array.from({ length: 3 }).map((elementInArray, place) => {
-                              return <RecordPreviewPlaceholder key={place} />;
+                              return (
+                                <article className='record-preview' key={place}>
+                                  <div className='placeholder placeholder-title margin-top__xs' />
+                                  <div className='placeholder placeholder-line placeholder-line-alt' />
+                                  <div className='placeholder placeholder-line margin-bottom__xs' />
+                                </article>
+                              );
                             })}
                       </div>
                       {hasRecords && (

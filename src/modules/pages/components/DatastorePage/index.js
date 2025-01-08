@@ -6,7 +6,6 @@ import { BrowsePage } from '../../../browse';
 import { DatastoreMain } from '../../../datastores';
 import { findWhere } from '../../../reusable/underscore';
 import { NoMatch } from '../../../pages';
-import PropTypes from 'prop-types';
 import { setDocumentTitle } from '../../../a11y';
 import { switchPrideToDatastore } from '../../../pride';
 
@@ -66,12 +65,6 @@ const DatastorePage = ({ currentDatastore, datastoreSlug, query }) => {
       </Routes>
     </main>
   );
-};
-
-DatastorePage.propTypes = {
-  currentDatastore: PropTypes.string,
-  datastoreSlug: PropTypes.string,
-  query: PropTypes.string
 };
 
 export default DatastorePage;

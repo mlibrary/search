@@ -1,5 +1,4 @@
 import { Anchor } from '../../../reusable';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { stringifySearch } from '../../../search';
 import { useParams } from 'react-router-dom';
@@ -15,7 +14,7 @@ const NestedList = ({ browserFilterTo, filter }) => {
             </Anchor>
           )
         : (
-            <h3 className='heading-medium'>{filter.name}</h3>
+            <h3>{filter.name}</h3>
           )}
       {filter.children && (
         <ul>
@@ -32,16 +31,6 @@ const NestedList = ({ browserFilterTo, filter }) => {
       )}
     </li>
   );
-};
-
-NestedList.propTypes = {
-  browserFilterTo: PropTypes.func.isRequired,
-  filter: PropTypes.shape({
-    children: PropTypes.array,
-    count: PropTypes.number,
-    name: PropTypes.string.isRequired,
-    value: PropTypes.string
-  }).isRequired
 };
 
 const BrowseByFilters = ({ filters }) => {
@@ -61,8 +50,8 @@ const BrowseByFilters = ({ filters }) => {
     <>
       {Object.keys(filters).map((uid) => {
         return (
-          <section key={uid} className='browse u-margin-top-1'>
-            <h2 className='heading-large u-margin-top-none'>{filters[uid].name}</h2>
+          <section key={uid} className='browse margin-top__m'>
+            <h2 className='margin-y__none'>{filters[uid].name}</h2>
             <ul className='nested-list'>
               {filters[uid].filters.map((filter) => {
                 return (
@@ -79,13 +68,6 @@ const BrowseByFilters = ({ filters }) => {
       })}
     </>
   );
-};
-
-BrowseByFilters.propTypes = {
-  filters: PropTypes.objectOf(PropTypes.shape({
-    filters: PropTypes.array.isRequired,
-    name: PropTypes.string.isRequired
-  })).isRequired
 };
 
 export default BrowseByFilters;

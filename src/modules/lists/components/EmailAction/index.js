@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
-import PropTypes from 'prop-types';
 
 const EmailAction = ({ action, datastore, emailAddress, prejudice, setActive }) => {
   const [email, setEmail] = useState(emailAddress);
@@ -49,14 +48,6 @@ const EmailAction = ({ action, datastore, emailAddress, prejudice, setActive }) 
       )}
     </section>
   );
-};
-
-EmailAction.propTypes = {
-  action: PropTypes.object,
-  datastore: PropTypes.object,
-  emailAddress: PropTypes.string,
-  prejudice: PropTypes.object,
-  setActive: PropTypes.func
 };
 
 export default EmailAction;

@@ -10,7 +10,7 @@ const AccessibilityPage = () => {
   return (
     <div className='container container-narrow'>
       <main className='container__rounded page'>
-        <H1 className='u-margin-top-none'>Accessibility</H1>
+        <H1>Accessibility</H1>
         <p>We are dedicated to creating inclusive services and products for all users. We are constantly working to make Library Search as accessible and usable as possible.</p>
         <p>We aim to meet <Anchor href='https://www.w3.org/TR/WCAG21/'>WCAG 2.1 AA standards</Anchor></p>
         <h2>Compatibility with tools</h2>

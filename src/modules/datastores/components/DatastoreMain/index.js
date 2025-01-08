@@ -3,7 +3,6 @@ import { RecordFull, Results } from '../../../records';
 import { Route, Routes } from 'react-router-dom';
 import { GetThisPage } from '../../../getthis';
 import { List } from '../../../lists';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { SearchBox } from '../../../search';
 import { useSelector } from 'react-redux';
@@ -46,13 +45,6 @@ const DatastoreMain = ({ activeDatastore, currentDatastore, datastores, query })
       </Routes>
     </>
   );
-};
-
-DatastoreMain.propTypes = {
-  activeDatastore: PropTypes.object,
-  currentDatastore: PropTypes.string,
-  datastores: PropTypes.array,
-  query: PropTypes.string
 };
 
 export default DatastoreMain;

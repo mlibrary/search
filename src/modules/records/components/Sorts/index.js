@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import config from '../../../../config';
 import { findWhere } from '../../../reusable/underscore';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { stringifySearch } from '../../../search';
 import { useSelector } from 'react-redux';
@@ -67,10 +66,6 @@ const Sorts = ({ activeDatastore }) => {
       </select>
     </div>
   );
-};
-
-Sorts.propTypes = {
-  activeDatastore: PropTypes.string
 };
 
 export default Sorts;

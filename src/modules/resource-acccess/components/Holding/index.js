@@ -1,5 +1,4 @@
 import { Anchor, Icon, TruncateText } from '../../../reusable';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const Cell = ({ cell }) => {
@@ -36,10 +35,6 @@ const Cell = ({ cell }) => {
   );
 };
 
-Cell.propTypes = {
-  cell: PropTypes.object
-};
-
 export default function Holding ({ holding }) {
   return (
     <tr>
@@ -56,7 +51,3 @@ export default function Holding ({ holding }) {
     </tr>
   );
 }
-
-Holding.propTypes = {
-  holding: PropTypes.array
-};

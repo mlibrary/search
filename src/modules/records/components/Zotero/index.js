@@ -1,6 +1,5 @@
 import { getField, getFieldValue } from '../../utilities';
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 
 /*
  * Background
@@ -43,10 +42,6 @@ const Zotero = ({ fields = [] }) => {
   return (
     <span title={z3988} className='Z3988' tabIndex='-1' />
   );
-};
-
-Zotero.propTypes = {
-  fields: PropTypes.array
 };
 
 export default Zotero;

@@ -1,11 +1,10 @@
 import { getField, getFieldValue } from '../../utilities';
 import React, { useState } from 'react';
 import MARCTable from '../MARCTable';
-import PropTypes from 'prop-types';
 
-const ViewMARC = ({ record }) => {
+const ViewMARC = ({ fields }) => {
   const [view, setView] = useState(false);
-  const [marc] = getFieldValue(getField(record.fields, 'marc_record'));
+  const [marc] = getFieldValue(getField(fields, 'marc_record'));
 
   if (marc) {
     if (view) {
@@ -27,10 +26,6 @@ const ViewMARC = ({ record }) => {
   }
 
   return null;
-};
-
-ViewMARC.propTypes = {
-  record: PropTypes.object.isRequired
 };
 
 export default ViewMARC;

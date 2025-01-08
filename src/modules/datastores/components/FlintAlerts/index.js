@@ -1,6 +1,5 @@
 import { Alert, Anchor } from '../../../reusable';
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const FlintAlerts = ({ currentDatastore }) => {
@@ -37,10 +36,6 @@ const FlintAlerts = ({ currentDatastore }) => {
       </div>
     </Alert>
   );
-};
-
-FlintAlerts.propTypes = {
-  currentDatastore: PropTypes.string
 };
 
 export default FlintAlerts;

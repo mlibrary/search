@@ -1,6 +1,5 @@
 import { Anchor, H1 } from '../../../reusable';
 import { BrowseInfo } from '../../../browse';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -61,7 +60,7 @@ const Landing = ({ activeDatastore, defaultInstitution, options }) => {
       {uid === 'mirlyn' && (
         <div className='container container-narrow'>
           <div className='institution-select-landing-container center-text'>
-            <h2 className='heading-large'>
+            <h2>
               To find materials closest to you, please choose a library
             </h2>
             <p className='flex flex__responsive'>
@@ -85,12 +84,6 @@ const Landing = ({ activeDatastore, defaultInstitution, options }) => {
       )}
     </div>
   );
-};
-
-Landing.propTypes = {
-  activeDatastore: PropTypes.object,
-  defaultInstitution: PropTypes.string,
-  options: PropTypes.array
 };
 
 export default Landing;

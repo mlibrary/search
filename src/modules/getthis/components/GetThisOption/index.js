@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import GetThisFindIt from '../GetThisFindIt';
 import { GetThisForm } from '../../../getthis';
-import PropTypes from 'prop-types';
 
 const GetThisOption = ({ option }) => {
   const detailsRef = useRef(null);
@@ -46,10 +45,6 @@ const GetThisOption = ({ option }) => {
       </div>
     </details>
   );
-};
-
-GetThisOption.propTypes = {
-  option: PropTypes.object
 };
 
 export default GetThisOption;

@@ -1,5 +1,4 @@
 import { Icon } from '../../../reusable';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const Checkbox = ({ handleClick, hideLabel, isChecked, label, uid }) => {
@@ -30,14 +29,6 @@ const Checkbox = ({ handleClick, hideLabel, isChecked, label, uid }) => {
       )}
     </div>
   );
-};
-
-Checkbox.propTypes = {
-  handleClick: PropTypes.func,
-  hideLabel: PropTypes.bool,
-  isChecked: PropTypes.bool,
-  label: PropTypes.string,
-  uid: PropTypes.string
 };
 
 export default Checkbox;

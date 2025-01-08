@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ActionsList from '../ActionsList';
 import prejudice from '../../prejudice';
-import PropTypes from 'prop-types';
 import { Record } from '../../../records';
 import { setA11yMessage as setA11yMessageAction } from '../../../a11y';
 import { useLocation } from 'react-router-dom';
@@ -32,7 +31,7 @@ const List = ({ activeDatastore, currentDatastore }) => {
       />
 
       <div className='lists-header'>
-        <H1 className='heading-xlarge'>My Temporary {name} List</H1>
+        <H1>My Temporary {name} List</H1>
         <div className='lists-header-info'>
           {Boolean(listLength) && (
             <button
@@ -71,11 +70,6 @@ const List = ({ activeDatastore, currentDatastore }) => {
           )}
     </article>
   );
-};
-
-List.propTypes = {
-  activeDatastore: PropTypes.object,
-  currentDatastore: PropTypes.string
 };
 
 export default List;

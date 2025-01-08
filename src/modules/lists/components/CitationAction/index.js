@@ -2,7 +2,6 @@ import './styles.css';
 import { Anchor, Tab, TabPanel, Tabs } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
 import { cite } from '../../../citations';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 const citationOptions = [
@@ -155,16 +154,6 @@ const CitationAction = ({ datastoreUid, record, setActive, setAlert, viewType })
       })}
     </Tabs>
   );
-};
-
-CitationAction.propTypes = {
-  datastoreUid: PropTypes.string,
-  record: PropTypes.shape({
-    uid: PropTypes.string.isRequired
-  }),
-  setActive: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired,
-  viewType: PropTypes.oneOf(['Full', 'List']).isRequired
 };
 
 export default CitationAction;

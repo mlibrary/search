@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 const TruncateText = ({ text }) => {
   const trimTextAt = 120;
@@ -25,10 +24,6 @@ const TruncateText = ({ text }) => {
       </button>
     </>
   );
-};
-
-TruncateText.propTypes = {
-  text: PropTypes.string
 };
 
 export default TruncateText;

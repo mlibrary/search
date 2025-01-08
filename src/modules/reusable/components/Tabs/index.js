@@ -1,6 +1,5 @@
 import './styles.css';
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 
 const Tabs = ({ children, defaultActiveIndex = 0, ...rest }) => {
   const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
@@ -64,14 +63,6 @@ const Tabs = ({ children, defaultActiveIndex = 0, ...rest }) => {
       })}
     </>
   );
-};
-
-Tabs.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-  defaultActiveIndex: PropTypes.number
 };
 
 export default Tabs;
