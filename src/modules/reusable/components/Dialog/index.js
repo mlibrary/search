@@ -42,14 +42,12 @@ const Dialog = ({ children, isOpen, onClose }) => {
 
   return (
     <dialog ref={dialogRef}>
-      <div className='dialog-container'>
-        <section>
-          {children}
-        </section>
-        <button onClick={handleCloseClick} className='btn btn--small btn--secondary'>
-          Dismiss
-        </button>
-      </div>
+      <section>
+        {children}
+      </section>
+      <button onClick={handleCloseClick} className='btn btn--small btn--secondary'>
+        Dismiss
+      </button>
     </dialog>
   );
 };
