@@ -1,52 +1,29 @@
 dialog {
-  border: 0;
-  height: 100%;
-  max-height: 100%;
-  max-width: 100%;
-  padding: 0;
-  width: 100%;
+  align-items: start;
+  border: none;
+  display: flex;
+  gap: 0.5rem 1rem;
+  max-width: 40rem;
+  padding: 1rem;
 }
 
 @media only screen and (min-width: 640px) {
   dialog {
-    border-radius: 4px;
-    box-shadow:
-      0 0 0 1px rgba(16, 22, 26, 0.1),
-      0 4px 8px rgba(16, 22, 26, 0.2),
-      0 18px 46px 6px rgba(16, 22, 26, 0.2);
-    height: max-content;
-    margin-top: 200px;
-    max-height: calc(100vh - 400px);
-    max-width: 42.5rem;
-  }
-}
-
-::backdrop {
-  background: rgba(16, 22, 26, 0.7);
-}
-
-dialog > .dialog-container {
-  align-items: flex-start;
-  display: flex;
-  height: 100%;
-  gap: 1rem;
-  padding: 1rem;
-  width: 100%;
-}
-
-@media only screen and (min-width: 640px) {
-  dialog > .dialog-container {
-    height: auto;
     padding: 2rem;
   }
 }
 
-dialog > .dialog-container > section {
+::backdrop {
+  background: var(--search-color-grey-700);
+  opacity: 0.75;
+}
+
+dialog > section {
   flex-grow: 1;
 }
 
-dialog > .dialog-container > button {
-  border: none;
+dialog > button {
+  border: none!important;
   flex-shrink: 0;
   text-decoration: underline;
 }
