@@ -1,6 +1,7 @@
 dialog {
   align-items: start;
   border: none;
+  color: var(--search-color-grey-700);
   display: flex;
   gap: 0.5rem 1rem;
   max-width: 40rem;

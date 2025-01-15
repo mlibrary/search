@@ -293,7 +293,7 @@ textarea {
   background: var(--search-color-blue-400);
   color: white;
   border: 0;
-  border-bottom: #1060aa;
+  border-bottom: var(--search-color-blue-500);
   border-bottom-width: 3px;
   border-bottom-style: solid;
 }
@@ -304,8 +304,8 @@ textarea {
 
 .btn--primary:hover {
   cursor: pointer;
-  background: #1060aa;
-  border-color: #0e5392;
+  background: var(--search-color-blue-500);
+  border-color: var(--color-blue-400);
   color: white;
 }
 
