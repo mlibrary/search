@@ -14,6 +14,10 @@ dialog {
   }
 }
 
+dialog:not([open]) {
+  display: none;
+}
+
 ::backdrop {
   background: var(--search-color-grey-700);
   opacity: 0.75;
