@@ -30,7 +30,7 @@ const citationOptions = [
   }
 ];
 
-const CitationAction = ({ datastoreUid, list = [], record, setActive, setAlert, viewType }) => {
+const CitationAction = ({ datastoreUid, list = [], record = {}, setActive, setAlert, viewType }) => {
   const [citations, setCitations] = useState({});
   const [loading, setLoading] = useState(true);
 
