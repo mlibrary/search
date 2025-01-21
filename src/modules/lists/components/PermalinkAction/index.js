@@ -1,6 +1,9 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 const PermalinkAction = ({ setActive, setAlert }) => {
+  const { pathname } = useLocation();
+
   return (
     <form
       className='lists-action-form'
@@ -23,7 +26,7 @@ const PermalinkAction = ({ setActive, setAlert }) => {
           name='permalink'
           type='url'
           readOnly
-          value={document.location.origin + document.location.pathname}
+          value={window.location.origin + pathname}
           autoComplete='off'
         />
       </div>

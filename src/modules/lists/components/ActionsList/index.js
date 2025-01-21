@@ -1,22 +1,19 @@
 import { Alert, ContextProvider, Icon } from '../../../reusable';
 import React, { useState } from 'react';
-import { AuthenticationRequired } from '../../../profile';
 import CitationAction from '../CitationAction';
-import EmailAction from '../EmailAction';
 import FileAction from '../FileAction';
 import PermalinkAction from '../PermalinkAction';
-import TextAction from '../TextAction';
-import { useSelector } from 'react-redux';
+import ShareAction from '../ShareAction';
 
 const actions = [
   {
-    action: 'email',
+    action: 'share',
     icon: 'email',
     name: 'Email',
     uid: 'email'
   },
   {
-    action: 'text',
+    action: 'share',
     icon: 'chat',
     name: 'Text',
     uid: 'text'
@@ -49,9 +46,6 @@ const actions = [
 
 const ActionsList = ({ active, datastore, prejudice, setActive, ...props }) => {
   const [alert, setAlert] = useState(null);
-  const { email, status, text } = useSelector((state) => {
-    return state.profile || {};
-  });
 
   return (
     <ContextProvider render={(data) => {
@@ -83,27 +77,13 @@ const ActionsList = ({ active, datastore, prejudice, setActive, ...props }) => {
               );
             })}
           </ul>
-          {active?.action === 'email' && (
-            <AuthenticationRequired {...{ status }}>
-              <EmailAction {...{
-                action: active,
-                datastoreUid: datastore.uid,
-                email,
-                prejudice
-              }}
-              />
-            </AuthenticationRequired>
-          )}
-          {active?.action === 'text' && (
-            <AuthenticationRequired {...{ status }}>
-              <TextAction {...{
-                action: active,
-                datastoreUid: datastore.uid,
-                prejudice,
-                text
-              }}
-              />
-            </AuthenticationRequired>
+          {active?.action === 'share' && (
+            <ShareAction {...{
+              action: active,
+              datastoreUid: datastore.uid,
+              prejudice
+            }}
+            />
           )}
           {active?.action === 'permalink' && <PermalinkAction {...{ setActive, setAlert }} />}
           {active?.action === 'citation' && (
