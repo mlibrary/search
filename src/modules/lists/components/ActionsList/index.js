@@ -44,11 +44,12 @@ const actions = [
   }
 ];
 
-const ActionsList = ({ active, datastoreUid, prejudice, setActive, ...props }) => {
+const ActionsList = ({ active, prejudice, setActive, ...props }) => {
   const [alert, setAlert] = useState(null);
 
   return (
     <ContextProvider render={(data) => {
+      const { datastore: { uid: datastoreUid }, viewType } = data;
       return (
         <div className='y-spacing'>
           <ul className='lists-actions-list'>
@@ -84,6 +85,7 @@ const ActionsList = ({ active, datastoreUid, prejudice, setActive, ...props }) =
               action={active}
               setAlert={setAlert}
               datastoreUid={datastoreUid}
+              viewType={viewType}
               {...props}
             />
           )}

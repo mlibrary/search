@@ -193,7 +193,6 @@ const FullRecord = () => {
         </h2>
         <ActionsList {...{
           active,
-          datastoreUid,
           list,
           prejudice: prejudiceInstance,
           record,
