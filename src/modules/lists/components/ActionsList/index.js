@@ -77,15 +77,7 @@ const ActionsList = ({ active, datastoreUid, prejudice, setActive, ...props }) =
               );
             })}
           </ul>
-          {active?.action === 'share' && (
-            <ShareAction {...{
-              action: active,
-              datastoreUid,
-              prejudice
-            }}
-            />
-          )}
-          {active?.action === 'permalink' && <PermalinkAction {...{ setActive, setAlert }} />}
+          {active?.action === 'share' && <ShareAction {...{ action: active, datastoreUid, prejudice }} />}
           {active?.action === 'citation' && (
             <CitationAction
               {...data}
@@ -96,6 +88,7 @@ const ActionsList = ({ active, datastoreUid, prejudice, setActive, ...props }) =
             />
           )}
           {active?.action === 'file' && <FileAction {...{ datastoreUid, prejudice }} />}
+          {active?.action === 'permalink' && <PermalinkAction {...{ setActive, setAlert }} />}
           {alert && <Alert {...{ type: alert.intent }}>{alert.text}</Alert>}
         </div>
       );
