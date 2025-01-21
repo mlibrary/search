@@ -47,7 +47,7 @@ const actions = [
   }
 ];
 
-const ActionsList = (props) => {
+const ActionsList = ({ active, datastore, prejudice, setActive, ...props }) => {
   const [alert, setAlert] = useState(null);
   const { email, status, text } = useSelector((state) => {
     return state.profile || {};
@@ -63,7 +63,7 @@ const ActionsList = (props) => {
                 return null;
               }
 
-              const isActive = action.uid === props.active?.uid;
+              const isActive = action.uid === active?.uid;
               const activeClassName = isActive ? 'lists-action-button--active' : '';
 
               return (
@@ -71,7 +71,7 @@ const ActionsList = (props) => {
                   <button
                     className={`button-link lists-action-button ${activeClassName}`}
                     onClick={() => {
-                      props.setActive(isActive ? null : action);
+                      setActive(isActive ? null : action);
                       setAlert(null);
                     }}
                     aria-pressed={Boolean(isActive)}
@@ -83,49 +83,40 @@ const ActionsList = (props) => {
               );
             })}
           </ul>
-          {props.active?.action === 'email' && (
-            <AuthenticationRequired status={status}>
-              <EmailAction
-                action={props.active}
-                emailAddress={email || ''}
-                {...props}
+          {active?.action === 'email' && (
+            <AuthenticationRequired {...{ status }}>
+              <EmailAction {...{
+                action: active,
+                datastoreUid: datastore.uid,
+                email,
+                prejudice
+              }}
               />
             </AuthenticationRequired>
           )}
-          {props.active?.action === 'text' && (
-            <AuthenticationRequired status={status}>
-              <TextAction
-                action={props.active}
-                phoneNumber={text || ''}
-                {...props}
+          {active?.action === 'text' && (
+            <AuthenticationRequired {...{ status }}>
+              <TextAction {...{
+                action: active,
+                datastoreUid: datastore.uid,
+                prejudice,
+                text
+              }}
               />
             </AuthenticationRequired>
           )}
-          {props.active?.action === 'permalink' && (
-            <PermalinkAction
-              action={props.active}
-              setAlert={setAlert}
-              {...props}
-            />
-          )}
-          {props.active?.action === 'citation' && (
+          {active?.action === 'permalink' && <PermalinkAction {...{ setActive, setAlert }} />}
+          {active?.action === 'citation' && (
             <CitationAction
               {...data}
-              action={props.active}
+              action={active}
               setAlert={setAlert}
-              datastoreUid={props.datastore.uid}
+              datastoreUid={datastore.uid}
               {...props}
             />
           )}
-          {props.active?.action === 'file' && (
-            <FileAction
-              action={props.active}
-              {...props}
-            />
-          )}
-          {alert && (
-            <Alert type={alert.intent}>{alert.text}</Alert>
-          )}
+          {active?.action === 'file' && <FileAction {...{ datastoreUid: datastore.uid, prejudice }} />}
+          {alert && <Alert {...{ type: alert.intent }}>{alert.text}</Alert>}
         </div>
       );
     }}

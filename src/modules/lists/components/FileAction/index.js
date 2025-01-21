@@ -1,13 +1,13 @@
 import React from 'react';
 
-const FileAction = ({ datastore, prejudice }) => {
+const FileAction = ({ datastoreUid, prejudice }) => {
   return (
     <section className='lists-action'>
       <form
         className='lists-action-form'
         onSubmit={(event) => {
           event.preventDefault();
-          prejudice.act('file', datastore.uid, 'export-ris', () => {
+          prejudice.act('file', datastoreUid, 'export-ris', () => {
             /** Callback must be a function */
           });
         }}

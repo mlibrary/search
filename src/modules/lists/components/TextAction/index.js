@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import ActionStatusMessage from '../ActionStatusMessage';
 
-const TextAction = ({ action, datastore, phoneNumber, prejudice, setActive }) => {
-  const [text, setText] = useState(phoneNumber);
+const TextAction = ({ action, datastoreUid, prejudice, text }) => {
+  const [phoneNumber, setPhoneNumber] = useState(text || '');
   const [status, setStatus] = useState();
-
-  const setCloseStatus = () => {
-    setActive('');
-    setStatus(null);
-  };
 
   const handleSubmitCallback = (data) => {
     setStatus(data);
@@ -16,13 +11,13 @@ const TextAction = ({ action, datastore, phoneNumber, prejudice, setActive }) =>
 
   return (
     <section className='lists-action'>
-      <ActionStatusMessage status={status} action={action} setCloseStatus={setCloseStatus} />
+      <ActionStatusMessage {...{ action, status }} />
       {(!status || status.status_code !== 'action.response.success') && (
         <form
           className='lists-action-form'
           onSubmit={(event) => {
             event.preventDefault();
-            prejudice.act('text', datastore.uid, text, handleSubmitCallback);
+            prejudice.act('text', datastoreUid, phoneNumber, handleSubmitCallback);
           }}
         >
           <div className='lists-action-field-container'>
@@ -32,9 +27,9 @@ const TextAction = ({ action, datastore, phoneNumber, prejudice, setActive }) =>
               type='tel'
               pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
               required
-              value={text}
+              value={phoneNumber}
               onChange={(event) => {
-                setText(event.target.value);
+                setPhoneNumber(event.target.value);
               }}
               aria-describedby='phone-number-description'
               autoComplete='on'

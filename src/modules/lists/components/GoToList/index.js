@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 const GoToList = ({ datastore, list }) => {
   const location = useLocation();
 
-  if (!list) {
+  if (!list || !list.length) {
     return null;
   }
 

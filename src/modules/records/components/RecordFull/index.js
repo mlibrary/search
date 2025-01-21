@@ -28,7 +28,7 @@ import { useSelector } from 'react-redux';
 let prejudiceInstance = prejudice.createVariableStorageDriverInstance();
 
 const FullRecord = () => {
-  const [activeAction, setActiveAction] = useState('');
+  const [active, setActive] = useState('');
 
   const { recordUid } = useParams();
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const FullRecord = () => {
   const { active: datastoreUid, datastores } = useSelector((state) => {
     return state.datastores;
   });
-  const { [datastoreUid]: list } = useSelector((state) => {
+  const { [datastoreUid]: list = [] } = useSelector((state) => {
     return state.lists;
   });
 
@@ -192,11 +192,12 @@ const FullRecord = () => {
           </span>
         </h2>
         <ActionsList {...{
-          active: activeAction,
+          active,
           datastore,
+          list,
           prejudice: prejudiceInstance,
           record,
-          setActive: setActiveAction
+          setActive
         }}
         />
       </div>

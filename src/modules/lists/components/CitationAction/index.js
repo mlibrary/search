@@ -2,7 +2,6 @@ import './styles.css';
 import { Anchor, Tab, TabPanel, Tabs } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
 import { cite } from '../../../citations';
-import { useSelector } from 'react-redux';
 
 const citationOptions = [
   {
@@ -31,10 +30,7 @@ const citationOptions = [
   }
 ];
 
-const CitationAction = ({ datastoreUid, record, setActive, setAlert, viewType }) => {
-  const { [datastoreUid]: list = [] } = useSelector((state) => {
-    return state.lists || {};
-  });
+const CitationAction = ({ datastoreUid, list = [], record, setActive, setAlert, viewType }) => {
   const [citations, setCitations] = useState({});
   const [loading, setLoading] = useState(true);
 
