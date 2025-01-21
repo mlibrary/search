@@ -44,9 +44,8 @@ const actions = [
   }
 ];
 
-const ActionsList = ({ active, prejudice, setActive, ...props }) => {
+const ActionsList = ({ active, list, prejudice, record, setActive }) => {
   const [alert, setAlert] = useState(null);
-
   return (
     <ContextProvider render={(data) => {
       const { datastore: { uid: datastoreUid }, viewType } = data;
@@ -54,7 +53,7 @@ const ActionsList = ({ active, prejudice, setActive, ...props }) => {
         <div className='y-spacing'>
           <ul className='lists-actions-list'>
             {actions.map((action) => {
-              if (action.uid === 'permalink' && data.viewType !== 'Full') {
+              if (action.uid === 'permalink' && viewType !== 'Full') {
                 return null;
               }
 
@@ -79,16 +78,7 @@ const ActionsList = ({ active, prejudice, setActive, ...props }) => {
             })}
           </ul>
           {active?.action === 'share' && <ShareAction {...{ action: active, datastoreUid, prejudice }} />}
-          {active?.action === 'citation' && (
-            <CitationAction
-              {...data}
-              action={active}
-              setAlert={setAlert}
-              datastoreUid={datastoreUid}
-              viewType={viewType}
-              {...props}
-            />
-          )}
+          {active?.action === 'citation' && <CitationAction {...{ datastoreUid, list, record, setAlert, viewType }} />}
           {active?.action === 'file' && <FileAction {...{ datastoreUid, prejudice }} />}
           {active?.action === 'permalink' && <PermalinkAction {...{ setActive, setAlert }} />}
           {alert && <Alert {...{ type: alert.intent }}>{alert.text}</Alert>}
