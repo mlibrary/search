@@ -44,7 +44,7 @@ const actions = [
   }
 ];
 
-const ActionsList = ({ active, datastore, prejudice, setActive, ...props }) => {
+const ActionsList = ({ active, datastoreUid, prejudice, setActive, ...props }) => {
   const [alert, setAlert] = useState(null);
 
   return (
@@ -80,7 +80,7 @@ const ActionsList = ({ active, datastore, prejudice, setActive, ...props }) => {
           {active?.action === 'share' && (
             <ShareAction {...{
               action: active,
-              datastoreUid: datastore.uid,
+              datastoreUid,
               prejudice
             }}
             />
@@ -91,11 +91,11 @@ const ActionsList = ({ active, datastore, prejudice, setActive, ...props }) => {
               {...data}
               action={active}
               setAlert={setAlert}
-              datastoreUid={datastore.uid}
+              datastoreUid={datastoreUid}
               {...props}
             />
           )}
-          {active?.action === 'file' && <FileAction {...{ datastoreUid: datastore.uid, prejudice }} />}
+          {active?.action === 'file' && <FileAction {...{ datastoreUid, prejudice }} />}
           {alert && <Alert {...{ type: alert.intent }}>{alert.text}</Alert>}
         </div>
       );

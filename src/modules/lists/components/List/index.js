@@ -55,7 +55,7 @@ const List = ({ activeDatastore, currentDatastore }) => {
               <section className='lists-section'>
                 <h2 className='lists-actions-heading u-display-inline-block u-margin-right-1 u-margin-bottom-none'>Actions</h2>
                 <span className='text-small'>Select what to do with this list.</span>
-                <ActionsList {...{ active, datastore: activeDatastore, list, prejudice: prejudice.instance, setActive }} />
+                <ActionsList {...{ active, datastoreUid: uid, list, prejudice: prejudice.instance, setActive }} />
               </section>
               {list.map((record, index) => {
                 return <Record key={index} {...{ datastoreUid: uid, list, record }} />;
