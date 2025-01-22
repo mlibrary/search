@@ -134,14 +134,14 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
               </label>
               <div
                 id={`citation-text-${citationStyle}`}
-                className='margin-bottom__m y-spacing'
+                className='y-spacing'
                 contentEditable
                 role='textbox'
                 dangerouslySetInnerHTML={{ __html: citation }}
                 aria-labelledby={`${citationStyle}-label`}
                 aria-describedby={`${citationStyle}-disclaimer`}
               />
-              <small id={`${citationStyle}-disclaimer`}>
+              <p className='font-small' id={`${citationStyle}-disclaimer`}>
                 These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work. View the
                 {' '}
                 <Anchor
@@ -152,10 +152,10 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
                   Citation Management guide on U-M Library Website (opens in new tab)
                 </Anchor>
                 .
-              </small>
+              </p>
               <button
                 onClick={handleCopy}
-                className='btn btn--primary margin-top__m'
+                className='btn btn--primary'
               >
                 Copy citation
               </button>
