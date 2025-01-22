@@ -132,7 +132,8 @@ input[type="search"],
 input[type="email"],
 input[type="tel"],
 input[type="date"],
-input[type="number"] {
+input[type="number"],
+[role="textbox"] {
   background: white;
   border: solid 1px var(--search-color-grey-400);
   border-radius: 4px;
@@ -441,10 +442,6 @@ textarea {
 
 .center-text {
   text-align: center;
-}
-
-.focus-outline-white {
-  outline-color: white;
 }
 
 .offscreen {
@@ -1683,46 +1680,6 @@ details[open] > summary svg.expand_more {
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
-}
-
-.radio-label {
-  background: white;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
-  cursor: pointer;
-  border: solid 1px #CCC;
-  border-radius: 4px;
-  display: inline-block;
-  margin-right: 1rem;
-}
-
-.radio-label:hover {
-  border-color: var(--search-color-grey-600);
-  box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--search-color-grey-600);
-}
-
-.radio-label.radio-selected {
-  background: var(--search-color-blue-200);
-  border-color: var(--search-color-blue-400);
-  color: var(--search-color-blue-500);
-}
-
-.radio-label.radio-selected:hover {
-  box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--search-color-blue-400);
-}
-
-.radio-input {
-  position: absolute;
-  padding: 0;
-  margin: 0;
-  margin-right: 0.5rem;
-  opacity: 0;
-}
-
-.radio-input:focus+.radio-label {
-  outline: 3px solid rgba(255, 203, 5, 0.9);
-  outline-offset: 0;
-  transition: outline 0.05s ease-out;
 }
 
 .marc__heading {

@@ -57,8 +57,8 @@ const ActionsList = ({ active, list, prejudice, record, setActive }) => {
     <ContextProvider render={(data) => {
       const { datastore: { uid: datastoreUid }, viewType } = data;
       return (
-        <div className='y-spacing'>
-          <ul className='lists-actions-list'>
+        <>
+          <ul className='lists-actions-list margin-bottom__m'>
             {actions.map((action) => {
               if (action.uid === 'permalink' && viewType !== 'Full') {
                 return null;
@@ -85,12 +85,12 @@ const ActionsList = ({ active, list, prejudice, record, setActive }) => {
             })}
           </ul>
           {active?.action === 'share' && <ShareAction {...{ action: active, datastoreUid, prejudice }} />}
-          {active?.action === 'test' && <TestAction {...{ datastoreUid, list, record, setAlert, viewType }} />}
+          {active?.action === 'test' && <TestAction {...{ datastoreUid, list, record, setActive, setAlert, viewType }} />}
           {active?.action === 'citation' && <CitationAction {...{ datastoreUid, list, record, setAlert, viewType }} />}
           {active?.action === 'file' && <FileAction {...{ datastoreUid, prejudice }} />}
           {active?.action === 'permalink' && <PermalinkAction {...{ setActive, setAlert }} />}
           {alert && <Alert {...{ type: alert.intent }}>{alert.text}</Alert>}
-        </div>
+        </>
       );
     }}
     />
