@@ -61,21 +61,11 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
       return;
     }
     try {
-      const records = [];
-
-      if (viewType === 'Full') {
-        records.push(cslField(record));
-      }
-
-      if (viewType === 'List') {
-        list.forEach((item) => {
-          records.push(cslField(item));
-        });
-      }
+      const items = viewType === 'Full' ? [cslField(record)] : list.map(cslField);
 
       const sys = {
         retrieveItem: (id) => {
-          return records.find((item) => {
+          return items.find((item) => {
             return item.id === id;
           });
         },
@@ -85,17 +75,16 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
       };
 
       const processor = new CSL.Engine(sys, cslData);
-      const recordIds = records.map((item) => {
+      processor.updateItems(items.map((item) => {
         return item.id;
-      });
-      processor.updateItems(recordIds);
+      }));
       const result = processor.makeBibliography();
 
       setCitation(result[1].join('\n'));
     } catch (err) {
       setError(err.message);
     }
-  }, [list, locale, record, cslData]);
+  }, [cslData, list, locale, record, viewType]);
 
   const handleChange = (event) => {
     setCitationStyle(event.target.value);
