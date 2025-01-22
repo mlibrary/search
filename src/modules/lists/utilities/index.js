@@ -1,3 +1,4 @@
+import { citations, locale } from './citations';
 import CSL from 'citeproc';
 import { Pride } from 'pride';
 
@@ -9,7 +10,7 @@ const isInList = (list, uid) => {
 
 const getStyle = (chosenStyleID) => {
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', require(`./csls/${chosenStyleID}.csl`), false);
+  xhr.open('GET', require(`./citations/${chosenStyleID}.csl`), false);
   xhr.send(null);
 
   return xhr.responseText;
@@ -17,7 +18,7 @@ const getStyle = (chosenStyleID) => {
 
 const retrieveLocale = () => {
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', require('./locales-en-US.xml'), false);
+  xhr.open('GET', require('./citations/locale/locales-en-US.xml'), false);
   xhr.send(null);
 
   return xhr.responseText;
@@ -49,4 +50,9 @@ const cite = (records, chosenStyleID, cb) => {
   });
 };
 
-export { cite, isInList };
+export {
+  citations,
+  cite,
+  isInList,
+  locale
+};
