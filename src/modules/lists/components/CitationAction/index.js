@@ -1,5 +1,4 @@
 import './styles.css';
-import { citations, locale } from '../../utilities';
 import React, { useEffect, useState } from 'react';
 import { Anchor } from '../../../reusable';
 import CSL from 'citeproc';
@@ -9,12 +8,56 @@ const cslField = (record) => {
   return getField(record.fields, 'csl').value;
 };
 
+/* eslint-disable sort-keys */
+const citations = {
+  MLA: 'modern-language-association.csl',
+  APA: 'apa-5th-edition.csl',
+  Chicago: 'chicago-note-bibliography-16th-edition.csl',
+  IEEE: 'ieee.csl',
+  NLM: 'national-library-of-medicine-grant-proposals.csl',
+  BibTex: 'bibtex.csl'
+};
+/* eslint-enable sort-keys */
+
 const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType }) => {
   const [selectedOption, setSelectedOption] = useState('MLA');
   const [citation, setCitation] = useState(null);
+  const [locale, setLocale] = useState(null);
+  const [xmlContent, setXmlContent] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const fetchLocale = async () => {
+      try {
+        const response = await fetch('/citations/locales-en-US.xml');
+        const data = await response.text();
+        setLocale(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchLocale();
+  }, []);
+
+  useEffect(() => {
+    const fetchXmlContent = async (file) => {
+      try {
+        const response = await fetch(`/citations/${file}`);
+        const data = await response.text();
+        setXmlContent(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchXmlContent(citations[selectedOption]);
+  }, [citations, selectedOption]);
+
+  useEffect(() => {
+    if (!locale || !xmlContent) {
+      return;
+    }
     try {
       const records = [];
 
@@ -39,7 +82,7 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
         }
       };
 
-      const processor = new CSL.Engine(sys, citations[selectedOption]);
+      const processor = new CSL.Engine(sys, xmlContent);
       const recordIds = records.map((item) => {
         return item.id;
       });
@@ -50,7 +93,7 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
     } catch (err) {
       setError(err.message);
     }
-  }, [list, record, selectedOption]);
+  }, [list, locale, record, xmlContent]);
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
