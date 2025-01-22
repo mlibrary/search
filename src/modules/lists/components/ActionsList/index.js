@@ -1,22 +1,19 @@
 import { Alert, ContextProvider, Icon } from '../../../reusable';
 import React, { useState } from 'react';
-import { AuthenticationRequired } from '../../../profile';
 import CitationAction from '../CitationAction';
-import EmailAction from '../EmailAction';
 import FileAction from '../FileAction';
 import PermalinkAction from '../PermalinkAction';
-import TextAction from '../TextAction';
-import { useSelector } from 'react-redux';
+import ShareAction from '../ShareAction';
 
 const actions = [
   {
-    action: 'email',
+    action: 'share',
     icon: 'email',
     name: 'Email',
     uid: 'email'
   },
   {
-    action: 'text',
+    action: 'share',
     icon: 'chat',
     name: 'Text',
     uid: 'text'
@@ -47,23 +44,20 @@ const actions = [
   }
 ];
 
-const ActionsList = (props) => {
+const ActionsList = ({ active, list, prejudice, record, setActive }) => {
   const [alert, setAlert] = useState(null);
-  const { email, status, text } = useSelector((state) => {
-    return state.profile || {};
-  });
-
   return (
     <ContextProvider render={(data) => {
+      const { datastore: { uid: datastoreUid }, viewType } = data;
       return (
-        <div className='y-spacing'>
-          <ul className='lists-actions-list'>
+        <>
+          <ul className='lists-actions-list margin-bottom__m'>
             {actions.map((action) => {
-              if (action.uid === 'permalink' && data.viewType !== 'Full') {
+              if (action.uid === 'permalink' && viewType !== 'Full') {
                 return null;
               }
 
-              const isActive = action.uid === props.active?.uid;
+              const isActive = action.uid === active?.uid;
               const activeClassName = isActive ? 'lists-action-button--active' : '';
 
               return (
@@ -71,7 +65,7 @@ const ActionsList = (props) => {
                   <button
                     className={`button-link lists-action-button ${activeClassName}`}
                     onClick={() => {
-                      props.setActive(isActive ? null : action);
+                      setActive(isActive ? null : action);
                       setAlert(null);
                     }}
                     aria-pressed={Boolean(isActive)}
@@ -83,50 +77,12 @@ const ActionsList = (props) => {
               );
             })}
           </ul>
-          {props.active?.action === 'email' && (
-            <AuthenticationRequired status={status}>
-              <EmailAction
-                action={props.active}
-                emailAddress={email || ''}
-                {...props}
-              />
-            </AuthenticationRequired>
-          )}
-          {props.active?.action === 'text' && (
-            <AuthenticationRequired status={status}>
-              <TextAction
-                action={props.active}
-                phoneNumber={text || ''}
-                {...props}
-              />
-            </AuthenticationRequired>
-          )}
-          {props.active?.action === 'permalink' && (
-            <PermalinkAction
-              action={props.active}
-              setAlert={setAlert}
-              {...props}
-            />
-          )}
-          {props.active?.action === 'citation' && (
-            <CitationAction
-              {...data}
-              action={props.active}
-              setAlert={setAlert}
-              datastoreUid={props.datastore.uid}
-              {...props}
-            />
-          )}
-          {props.active?.action === 'file' && (
-            <FileAction
-              action={props.active}
-              {...props}
-            />
-          )}
-          {alert && (
-            <Alert type={alert.intent}>{alert.text}</Alert>
-          )}
-        </div>
+          {active?.action === 'share' && <ShareAction {...{ action: active, datastoreUid, prejudice }} />}
+          {active?.action === 'citation' && <CitationAction {...{ list, record, setActive, setAlert, viewType }} />}
+          {active?.action === 'file' && <FileAction {...{ datastoreUid, prejudice }} />}
+          {active?.action === 'permalink' && <PermalinkAction {...{ setActive, setAlert }} />}
+          {alert && <Alert {...{ type: alert.intent }}>{alert.text}</Alert>}
+        </>
       );
     }}
     />

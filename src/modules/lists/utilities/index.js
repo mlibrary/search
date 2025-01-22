@@ -4,4 +4,4 @@ const isInList = (list, uid) => {
   });
 };
 
-export default isInList;
+export { isInList };
