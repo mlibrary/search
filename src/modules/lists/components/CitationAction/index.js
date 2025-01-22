@@ -10,21 +10,23 @@ const cslField = (record) => {
 
 /* eslint-disable sort-keys */
 const citations = {
-  MLA: 'modern-language-association.csl',
-  APA: 'apa-5th-edition.csl',
-  Chicago: 'chicago-note-bibliography-16th-edition.csl',
-  IEEE: 'ieee.csl',
-  NLM: 'national-library-of-medicine-grant-proposals.csl',
-  BibTex: 'bibtex.csl'
+  MLA: 'modern-language-association',
+  APA: 'apa-5th-edition',
+  Chicago: 'chicago-note-bibliography-16th-edition',
+  IEEE: 'ieee',
+  NLM: 'national-library-of-medicine-grant-proposals',
+  BibTex: 'bibtex'
 };
 /* eslint-enable sort-keys */
 
+const citationStyles = Object.keys(citations);
+
 const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType }) => {
-  const [selectedOption, setSelectedOption] = useState('MLA');
-  const [citation, setCitation] = useState(null);
   const [locale, setLocale] = useState(null);
-  const [xmlContent, setXmlContent] = useState(null);
   const [error, setError] = useState(null);
+  const [citationStyle, setCitationStyle] = useState(citationStyles[0]);
+  const [cslData, setCSLData] = useState(null);
+  const [citation, setCitation] = useState(null);
 
   useEffect(() => {
     const fetchLocale = async () => {
@@ -41,21 +43,21 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
   }, []);
 
   useEffect(() => {
-    const fetchXmlContent = async (file) => {
+    const fetchCitationStyle = async (file) => {
       try {
-        const response = await fetch(`/citations/${file}`);
+        const response = await fetch(`/citations/${file}.csl`);
         const data = await response.text();
-        setXmlContent(data);
+        setCSLData(data);
       } catch (err) {
         setError(err.message);
       }
     };
 
-    fetchXmlContent(citations[selectedOption]);
-  }, [citations, selectedOption]);
+    fetchCitationStyle(citations[citationStyle]);
+  }, [citations, citationStyle]);
 
   useEffect(() => {
-    if (!locale || !xmlContent) {
+    if (!locale || !cslData) {
       return;
     }
     try {
@@ -82,7 +84,7 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
         }
       };
 
-      const processor = new CSL.Engine(sys, xmlContent);
+      const processor = new CSL.Engine(sys, cslData);
       const recordIds = records.map((item) => {
         return item.id;
       });
@@ -93,14 +95,14 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
     } catch (err) {
       setError(err.message);
     }
-  }, [list, locale, record, xmlContent]);
+  }, [list, locale, record, cslData]);
 
   const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+    setCitationStyle(event.target.value);
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(document.getElementById(`citation-text-${selectedOption}`).innerText);
+    navigator.clipboard.writeText(document.getElementById(`citation-text-${citationStyle}`).innerText);
     setAlert({
       intent: 'success',
       text: 'Citation copied to clipboard!'
@@ -115,18 +117,18 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
   return (
     <>
       <fieldset className='tabs margin-bottom__m'>
-        {Object.keys(citations).map((option) => {
+        {citationStyles.map((style) => {
           return (
-            <label key={option}>
+            <label key={style}>
               <input
                 type='radio'
-                value={option}
-                checked={selectedOption === option}
+                value={style}
+                checked={citationStyle === style}
                 onChange={handleChange}
                 className='visually-hidden focus-sibling'
               />
-              <div className={`tabs__tab ${selectedOption === option ? 'tabs__tab--active' : ''}`}>
-                {option}
+              <div className={`tabs__tab ${citationStyle === style ? 'tabs__tab--active' : ''}`}>
+                {style}
               </div>
             </label>
           );
@@ -136,21 +138,21 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
         ? (
             <>
               <label
-                htmlFor={`${selectedOption}-label`}
-                id={`${selectedOption}-label`}
+                htmlFor={`${citationStyle}-label`}
+                id={`${citationStyle}-label`}
               >
-                {selectedOption} citation
+                {citationStyle} citation
               </label>
               <div
-                id={`citation-text-${selectedOption}`}
+                id={`citation-text-${citationStyle}`}
                 className='margin-bottom__m y-spacing'
                 contentEditable
                 role='textbox'
                 dangerouslySetInnerHTML={{ __html: citation }}
-                aria-labelledby={`${selectedOption}-label`}
-                aria-describedby={`${selectedOption}-disclaimer`}
+                aria-labelledby={`${citationStyle}-label`}
+                aria-describedby={`${citationStyle}-disclaimer`}
               />
-              <small id={`${selectedOption}-disclaimer`}>
+              <small id={`${citationStyle}-disclaimer`}>
                 These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work. View the
                 {' '}
                 <Anchor
