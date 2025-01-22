@@ -4,7 +4,6 @@ import CitationAction from '../CitationAction';
 import FileAction from '../FileAction';
 import PermalinkAction from '../PermalinkAction';
 import ShareAction from '../ShareAction';
-import TestAction from '../TestAction';
 
 const actions = [
   {
@@ -18,12 +17,6 @@ const actions = [
     icon: 'chat',
     name: 'Text',
     uid: 'text'
-  },
-  {
-    action: 'test',
-    icon: 'code',
-    name: 'Test',
-    uid: 'test'
   },
   {
     action: 'citation',
@@ -85,8 +78,7 @@ const ActionsList = ({ active, list, prejudice, record, setActive }) => {
             })}
           </ul>
           {active?.action === 'share' && <ShareAction {...{ action: active, datastoreUid, prejudice }} />}
-          {active?.action === 'test' && <TestAction {...{ datastoreUid, list, record, setActive, setAlert, viewType }} />}
-          {active?.action === 'citation' && <CitationAction {...{ datastoreUid, list, record, setAlert, viewType }} />}
+          {active?.action === 'citation' && <CitationAction {...{ list, record, setActive, setAlert, viewType }} />}
           {active?.action === 'file' && <FileAction {...{ datastoreUid, prejudice }} />}
           {active?.action === 'permalink' && <PermalinkAction {...{ setActive, setAlert }} />}
           {alert && <Alert {...{ type: alert.intent }}>{alert.text}</Alert>}

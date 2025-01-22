@@ -1,77 +1,63 @@
 import './styles.css';
-import { Anchor, Tab, TabPanel, Tabs } from '../../../reusable';
+import { citations, locale } from '../../utilities';
 import React, { useEffect, useState } from 'react';
-import { cite } from '../../../citations';
+import { Anchor } from '../../../reusable';
+import CSL from 'citeproc';
+import { getField } from '../../../records/utilities';
 
-const citationOptions = [
-  {
-    id: 'modern-language-association',
-    name: 'MLA'
-  },
-  {
-    id: 'apa-5th-edition',
-    name: 'APA'
-  },
-  {
-    id: 'chicago-note-bibliography-16th-edition',
-    name: 'Chicago'
-  },
-  {
-    id: 'ieee',
-    name: 'IEEE'
-  },
-  {
-    id: 'national-library-of-medicine-grant-proposals',
-    name: 'NLM'
-  },
-  {
-    id: 'bibtex',
-    name: 'BibTex'
-  }
-];
+const cslField = (record) => {
+  return getField(record.fields, 'csl').value;
+};
 
-const CitationAction = ({ datastoreUid, list = [], record = {}, setActive, setAlert, viewType }) => {
-  const [citations, setCitations] = useState({});
-  const [loading, setLoading] = useState(true);
+const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType }) => {
+  const [selectedOption, setSelectedOption] = useState('MLA');
+  const [citation, setCitation] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCitations = () => {
-      setLoading(true);
-
-      let records = [];
+    try {
+      const records = [];
 
       if (viewType === 'Full') {
-        records = [{ datastoreUid, recordUid: record.uid }];
+        records.push(cslField(record));
       }
-      if (viewType === 'List' && list.length > 0) {
-        records = list.map((item) => {
-          return { datastoreUid, recordUid: item.uid };
+
+      if (viewType === 'List') {
+        list.forEach((item) => {
+          records.push(cslField(item));
         });
       }
 
-      if (records.length === 0) {
-        setLoading(false);
-        return;
-      }
+      const sys = {
+        retrieveItem: (id) => {
+          return records.find((item) => {
+            return item.id === id;
+          });
+        },
+        retrieveLocale: () => {
+          return locale;
+        }
+      };
 
-      for (const option of citationOptions) {
-        cite(
-          records,
-          option.id,
-          (chosenStyleID, data) => {
-            setCitations((prevCitations) => {
-              return { ...prevCitations, [chosenStyleID]: data };
-            });
-          }
-        );
-      }
-      setLoading(false);
-    };
-    fetchCitations();
-  }, [viewType, record, datastoreUid, list]);
+      const processor = new CSL.Engine(sys, citations[selectedOption]);
+      const recordIds = records.map((item) => {
+        return item.id;
+      });
+      processor.updateItems(recordIds);
+      const result = processor.makeBibliography();
 
-  const handleCopy = (citationId) => {
-    navigator.clipboard.writeText(document.getElementById(`citation-text-${citationId}`).innerText);
+      setCitation(result[1].join('\n'));
+    } catch (err) {
+      setError(err.message);
+    }
+  }, [list, record, selectedOption]);
+
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(document.getElementById(`citation-text-${selectedOption}`).innerText);
     setAlert({
       intent: 'success',
       text: 'Citation copied to clipboard!'
@@ -79,76 +65,72 @@ const CitationAction = ({ datastoreUid, list = [], record = {}, setActive, setAl
     setActive('');
   };
 
-  if (loading) {
-    return <p>Loading...</p>;
+  if (error) {
+    return <p><span className='strong'>Error:</span> {error}</p>;
   }
 
   return (
-    <Tabs>
-      {citationOptions.map((citationOption) => {
-        return (
-          <Tab key={citationOption.name}>{citationOption.name}</Tab>
-        );
-      })}
-
-      {citationOptions.map((citationOption) => {
-        const { id, name } = citationOption;
-        const citation = citations[id];
-        return (
-          <TabPanel key={`${name}-panel`}>
-            {citation
-              ? (
-                  <>
-                    <label
-                      htmlFor={`${name}-label`}
-                      className='margin-top__s'
-                      id={`${name}-label`}
-                    >
-                      {name} citation
-                    </label>
-                    <div
-                      id={`citation-text-${id}`}
-                      className='y-spacing copy-citation padding-y__xs padding-x__s container__rounded'
-                      contentEditable
-                      aria-describedby={`${id}-disclaimer`}
-                      aria-labelledby={`${name}-label`}
-                      role='textbox'
-                      dangerouslySetInnerHTML={{ __html: citation }}
-                    />
-                    <p
-                      className='font-small citation-disclaimer'
-                      id={`${id}-disclaimer`}
-                    >
-                      These citations are generated from a variety of data sources.
-                      Remember to check citation format and content for accuracy before including them in your work.
-                      View the
-                      {' '}
-                      <Anchor
-                        to='https://lib.umich.edu/research-and-scholarship/help-research/citation-management'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        Citation Management guide on U-M Library Website (opens in new tab)
-                      </Anchor>
-                      .
-                    </p>
-                    <button
-                      onClick={() => {
-                        return handleCopy(id);
-                      }}
-                      className='btn btn--primary'
-                    >
-                      Copy citation
-                    </button>
-                  </>
-                )
-              : (
-                  <p>Loading citation...</p>
-                )}
-          </TabPanel>
-        );
-      })}
-    </Tabs>
+    <>
+      <fieldset className='tabs margin-bottom__m'>
+        {Object.keys(citations).map((option) => {
+          return (
+            <label key={option}>
+              <input
+                type='radio'
+                value={option}
+                checked={selectedOption === option}
+                onChange={handleChange}
+                className='visually-hidden focus-sibling'
+              />
+              <div className={`tabs__tab ${selectedOption === option ? 'tabs__tab--active' : ''}`}>
+                {option}
+              </div>
+            </label>
+          );
+        })}
+      </fieldset>
+      {citation
+        ? (
+            <>
+              <label
+                htmlFor={`${selectedOption}-label`}
+                id={`${selectedOption}-label`}
+              >
+                {selectedOption} citation
+              </label>
+              <div
+                id={`citation-text-${selectedOption}`}
+                className='margin-bottom__m y-spacing'
+                contentEditable
+                role='textbox'
+                dangerouslySetInnerHTML={{ __html: citation }}
+                aria-labelledby={`${selectedOption}-label`}
+                aria-describedby={`${selectedOption}-disclaimer`}
+              />
+              <small id={`${selectedOption}-disclaimer`}>
+                These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work. View the
+                {' '}
+                <Anchor
+                  to='https://lib.umich.edu/research-and-scholarship/help-research/citation-management'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  Citation Management guide on U-M Library Website (opens in new tab)
+                </Anchor>
+                .
+              </small>
+              <button
+                onClick={handleCopy}
+                className='btn btn--primary margin-top__m'
+              >
+                Copy citation
+              </button>
+            </>
+          )
+        : (
+            <p>Loading citation...</p>
+          )}
+    </>
   );
 };
 
