@@ -52,7 +52,7 @@
     "lint": "npx eslint src $*",
     "lint:fix": "npm run lint -- --fix",
     "reinstall": "rm -rf node_modules && rm package-lock.json && npm install",
-    "update:csl": "(cd public/citations && for i in *.csl ; do wget -O \"$i\" https://raw.githubusercontent.com/citation-style-language/styles/refs/heads/master/\"$i\" ; done)",
+    "update:csl": "(cd public/citations && for i in *.csl ; do wget -O \"$i\" https://raw.githubusercontent.com/citation-style-language/styles/refs/heads/master/\"$i\" ; done && wget -O locales-en-US.xml https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-en-US.xml)",
     "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} REACT_APP_LOGIN_BASE_URL=${REACT_APP_LOGIN_BASE_URL:-https://search-staging.www.lib.umich.edu} react-scripts start"
   },
   "browserslist": {
