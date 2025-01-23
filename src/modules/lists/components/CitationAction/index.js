@@ -11,8 +11,8 @@ const cslField = (record) => {
 /* eslint-disable sort-keys */
 const citations = {
   MLA: 'modern-language-association',
-  APA: 'apa-5th-edition',
-  Chicago: 'chicago-note-bibliography-16th-edition',
+  APA: 'apa',
+  Chicago: 'chicago-note-bibliography',
   IEEE: 'ieee',
   NLM: 'national-library-of-medicine-grant-proposals',
   BibTex: 'bibtex'
