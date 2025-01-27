@@ -45,7 +45,7 @@ const Metadata = ({ metadata = {} }) => {
                     <dt className={viewType === 'Preview' ? 'visually-hidden' : ''}>
                       {term}
                     </dt>
-                    <ExpandableChildren>
+                    <ExpandableChildren show={term === 'Summary' && viewType !== 'Full' ? 1 : 3}>
                       {description.map((data, dataIndex) => {
                         return (
                           <dd key={dataIndex}>
@@ -54,7 +54,7 @@ const Metadata = ({ metadata = {} }) => {
                         );
                       })}
                     </ExpandableChildren>
-                    {description.length > 3 && <dd className='margin-top__2xs'><ExpandableButton name={termPlural || term} count={description.length} /></dd>}
+                    {(term !== 'Summary' && description.length > 3) && <dd className='margin-top__2xs'><ExpandableButton name={termPlural || term} count={description.length} /></dd>}
                   </Expandable>
                 </div>
               );
