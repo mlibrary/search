@@ -54,7 +54,7 @@ const Metadata = ({ metadata = {} }) => {
                         );
                       })}
                     </ExpandableChildren>
-                    {(term !== 'Summary' && description.length > 3) && <dd className='margin-top__2xs'><ExpandableButton name={termPlural || term} count={description.length} /></dd>}
+                    {description.length > 3 && <dd className='margin-top__2xs'><ExpandableButton name={termPlural || term} count={description.length} /></dd>}
                   </Expandable>
                 </div>
               );
