@@ -123,6 +123,8 @@ const FullRecord = () => {
 
   const inDatastore = ['catalog', 'onlinejournals'].includes(datastoreSlug);
 
+  const { name: indexingName, value: indexingValue } = findWhere(record.fields, { uid: 'indexing_date' }) || {};
+
   return (
     <div className='container container-narrow full-record-page-container y-spacing'>
       <Breadcrumb
@@ -200,17 +202,11 @@ const FullRecord = () => {
         }}
         />
       </div>
-      {inDatastore && (() => {
-        const { name: indexingName, value: indexingValue } = findWhere(record.fields, { uid: 'indexing_date' });
-        if (!indexingValue) {
-          return null;
-        }
-        return (
-          <p className='margin-top__none text-grey full-record__date-last-indexed'>
-            <span className='strong'>{indexingName || 'Date Last Indexed'}:</span> {indexingValue}
-          </p>
-        );
-      })()}
+      {indexingValue && (
+        <p className='margin-top__none text-grey full-record__date-last-indexed'>
+          <span className='strong'>{indexingName || 'Date Last Indexed'}:</span> {indexingValue}
+        </p>
+      )}
       {datastoreUid === 'mirlyn' && <ViewMARC {...{ fields: record.fields }} />}
     </div>
   );
