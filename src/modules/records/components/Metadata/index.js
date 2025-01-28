@@ -45,7 +45,7 @@ const Metadata = ({ metadata = {} }) => {
                     <dt className={viewType === 'Preview' ? 'visually-hidden' : ''}>
                       {term}
                     </dt>
-                    <ExpandableChildren>
+                    <ExpandableChildren show={term === 'Summary' && viewType !== 'Full' ? 1 : 3}>
                       {description.map((data, dataIndex) => {
                         return (
                           <dd key={dataIndex}>
