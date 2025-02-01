@@ -10,7 +10,7 @@ jobs:
       - name: Construct the target branch name
         id: date
         run: echo "::set-output name=branch::$(date +'%Y-%m-%d-update-csl-files')"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - run: "npm run update:csl"
       - uses: gr2m/create-or-update-pull-request-action@v1
         env:
