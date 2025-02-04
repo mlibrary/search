@@ -42,7 +42,7 @@ const Holders = ({ context, record }) => {
           >
             <summary>
               <Icon
-                icon={type === 'electronic' ? 'link' : 'insert_drive_file'}
+                icon={type === 'electronic' ? 'devices' : 'location_on'}
                 size={19}
               />
               <span>
