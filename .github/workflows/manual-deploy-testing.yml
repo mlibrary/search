@@ -1,0 +1,27 @@
+name: Manual deploy workshop
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: tag
+        required: true
+
+jobs:
+  build-unstable:
+    name: Build unstable ${{ github.event.inputs.tag }}
+    uses: mlibrary/platform-engineering-workflows/.github/workflows/build-unstable.yml@v1
+    with:
+      image_name: ${{ vars.IMAGE_NAME }}
+      tag: ${{ github.event.inputs.tag }}
+      dockerfile: Dockerfile
+    secrets: inherit
+
+  deploy:
+    needs: build-unstable
+    name: Deploy to ${{ github.event.inputs.tanka_env }}
+    uses: mlibrary/platform-engineering-workflows/.github/workflows/deploy.yml@v1
+    with:
+      image: ${{ needs.build-unstable.outputs.image }}
+      file: ${{ vars.CONFIG_REPO_TESTING_IMAGE_FILE }}
+    secrets: inherit

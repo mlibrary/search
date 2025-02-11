@@ -1,0 +1,25 @@
+name: Build and Deploy Production
+
+on:
+  release:
+    types: [ released ]
+
+jobs:
+  build-production:
+    name: Build production ${{ github.event.release.tag_name }}
+    uses: mlibrary/platform-engineering-workflows/.github/workflows/build-production.yml@v1
+    with:
+      image_name: ${{ vars.IMAGE_NAME }}
+      tag: ${{ github.event.release.tag_name }}
+      dockerfile: Dockerfile
+    secrets: inherit
+
+
+  deploy-production:
+    needs: build-production
+    name: Deploy to production
+    uses: mlibrary/platform-engineering-workflows/.github/workflows/deploy.yml@v1
+    with:
+      image: ghcr.io/mlibrary/${{ vars.IMAGE_NAME }}:${{ github.event.release.tag_name }}
+      file: ${{ vars.CONFIG_REPO_PRODUCTION_IMAGE_FILE }}
+    secrets: inherit
