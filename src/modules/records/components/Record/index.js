@@ -70,6 +70,7 @@ const Record = ({ datastoreUid, list, record }) => {
   if (!getField(record.fields, 'id')) {
     return null;
   }
+  const [description] = getFieldValue(getField(record.fields, 'abstract'));
 
   return (
     <article className={`container__rounded record ${(isInList(list, record.uid) ? ' record--highlight' : '')}`}>
@@ -78,6 +79,7 @@ const Record = ({ datastoreUid, list, record }) => {
           <Header {...{ datastoreUid, record }} />
           <AddToListButton item={record} />
         </div>
+        {description && <p className='margin-top__2xs'><TrimString string={description} /></p>}
         <Zotero {...{ fields: record.fields }} />
         <Metadata {...{ metadata: record.metadata }} />
       </div>
