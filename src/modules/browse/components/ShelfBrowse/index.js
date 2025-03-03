@@ -51,7 +51,6 @@ const ShelfBrowse = () => {
   const fetchShelfData = useCallback(async () => {
     setShelfData('loading');
     try {
-      // `https://browse.workshop.search.lib.umich.edu/carousel?query=${callNumber}`
       const response = await fetch(`https://search.lib.umich.edu/catalog/browse/carousel?query=${callNumber}`);
       if (!response.ok) {
         throw new Error(`HTTP Error! status: ${response.status}`);
