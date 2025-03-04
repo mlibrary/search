@@ -1,10 +1,8 @@
 import './styles.css';
-/* Import { Anchor, Icon, ImagePlaceholder } from '../../../reusable'; */
-import { Anchor, Icon } from '../../../reusable';
+import { Anchor, Icon, ImagePlaceholder } from '../../../reusable';
 import React, { useEffect, useState } from 'react';
 
-/*
-Const bookCover = (item) => {
+const bookCover = (item) => {
   let url = 'https://www.syndetics.com/index.php?client=umichaa&pagename=lc.jpg';
   ['isbn', 'issn', 'oclc'].forEach((parameter) => {
     if (item[parameter]) {
@@ -13,7 +11,6 @@ Const bookCover = (item) => {
   });
   return url;
 };
-*/
 
 const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction, setDisableButton, uid }) => {
   const currentItem = (item) => {
@@ -138,7 +135,7 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
                     <span className='item-term-title'>Continue browsing in call number list</span>
                   </>
                 )}
-                {/* {!firstOrLastItem && (
+                {!firstOrLastItem && (
                   <>
                     <dt className='visually-hidden'>Book cover</dt>
                     <dd className='item-term-book_cover'>
@@ -149,7 +146,7 @@ const ShelfBrowseCarousel = ({ callNumber, items, itemsPerPage, setButtonAction,
                       />
                     </dd>
                   </>
-                )} */}
+                )}
                 {fields.map((key) => {
                   return item[key] && (
                     <React.Fragment key={key}>
