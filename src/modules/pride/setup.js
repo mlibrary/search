@@ -240,7 +240,7 @@ const createSearchSwitcher = (initialSearch, cachedSearches) => {
       return api;
     },
     run (cacheSize) {
-      currentSearch.run(cacheSize);
+      currentSearch.run(0);
       searchCache.run(0);
       return api;
     },

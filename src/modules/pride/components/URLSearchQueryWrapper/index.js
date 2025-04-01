@@ -54,7 +54,7 @@ const handleURLState = ({
   const updateRequired = {
     filters: JSON.stringify(stateFilter) !== JSON.stringify(activeFilters),
     institution: stateLibrary && stateLibrary !== institution.active,
-    page: parseInt(statePage, 10) !== (page || 1),
+    page: (statePage ? parseInt(statePage, 10) : 1) !== (page || 1),
     query: stateQuery && stateQuery !== query,
     sort: stateSort !== sort
   };
