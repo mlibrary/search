@@ -48,7 +48,7 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "build:dev": "CI=false REACT_APP_LOGIN_BASE_URL=http://localhost:3000 REACT_APP_SPECTRUM_BASE_URL=http://localhost:3000/spectrum npm run build && gtar -C build --transform s/./search/ -czf search.local.tar.gz .",
+    "build:dev": "CI=false REACT_APP_LOGIN_BASE_URL=http://localhost:3000 REACT_APP_SPECTRUM_BASE_URL=http://localhost:3000/spectrum npm run build && (which gtar > /dev/null && gtar -C build --transform s/./search/ -czf search.local.tar.gz .) || (which tar > /dev/null && tar -C build --transform s/./search/ -czf search.local.tar.gz .)",
     "lint": "npx eslint src $*",
     "lint:fix": "npm run lint -- --fix",
     "reinstall": "rm -rf node_modules && rm package-lock.json && npm install",
