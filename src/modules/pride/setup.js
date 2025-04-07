@@ -239,7 +239,7 @@ const createSearchSwitcher = (initialSearch, cachedSearches) => {
       currentSearch.prevPage();
       return api;
     },
-    run (cacheSize) {
+    run () {
       currentSearch.run(0);
       searchCache.run(0);
       return api;
