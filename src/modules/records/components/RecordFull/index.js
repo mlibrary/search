@@ -207,7 +207,7 @@ const FullRecord = () => {
           <span className='strong'>{indexingName || 'Date Last Indexed'}:</span> {indexingValue}
         </p>
       )}
-      {datastoreUid === 'mirlyn' && <ViewMARC {...{ fields: record.fields }} />}
+      <ViewMARC {...{ fields: record.fields }} />
     </div>
   );
 };
