@@ -145,7 +145,7 @@ const CitationAction = ({ list = [], record = {}, setActive, setAlert, viewType 
                 These citations are generated from a variety of data sources. Remember to check citation format and content for accuracy before including them in your work. View the
                 {' '}
                 <Anchor
-                  to='https://lib.umich.edu/research-and-scholarship/help-research/citation-management'
+                  to='https://guides.lib.umich.edu/citationhelp'
                   target='_blank'
                   rel='noopener noreferrer'
                 >
