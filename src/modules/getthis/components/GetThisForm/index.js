@@ -5,7 +5,7 @@ import { Pride } from 'pride';
 import { useSelector } from 'react-redux';
 
 const Field = ({ field, loading, setFieldChange }) => {
-  const { name, options, type, value } = field;
+  const { name, options = [], type, value } = field;
 
   if (type === 'hidden') {
     return <input id={name} type={type} name={name} value={value} onChange={setFieldChange} />;
@@ -48,10 +48,28 @@ const Field = ({ field, loading, setFieldChange }) => {
     );
   }
 
+  const attributes = {
+    className: 'form-controls',
+    id: name,
+    name,
+    onChange: setFieldChange,
+    type,
+    value
+  };
+
+  if (type === 'date') {
+    const date = new Date();
+    // Set date two weeks from today
+    date.setDate(date.getDate() + 14);
+    // Get date string `YYYY-MM-DD`
+    const [formattedDate] = date.toISOString().split('T');
+    attributes.min = formattedDate;
+  }
+
   return (
     <div className='form-group'>
       {field.label && <label className='form-label' htmlFor={field.name}>{field.label}</label>}
-      <input className='form-control' id={name} type={type} name={name} value={value} onChange={setFieldChange} />
+      <input {...attributes} />
     </div>
   );
 };
@@ -129,8 +147,6 @@ const GetThisForm = ({ form }) => {
     );
   };
 
-  const showForm = !response || response.status !== 'Action Succeeded';
-
   if (!form) {
     return (
       <Alert type='warning'>
@@ -142,7 +158,7 @@ const GetThisForm = ({ form }) => {
   return (
     <>
       {renderResponse()}
-      {showForm && (
+      {(!response || response.status !== 'Action Succeeded') && (
         <form action={form.action} method={form.method} onSubmit={handleSubmit}>
           {fields.map((field, index) => {
             return (
