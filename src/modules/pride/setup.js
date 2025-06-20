@@ -51,10 +51,9 @@ const handleSearchData = (data, datastoreUid) => {
     total_available: totalAvailable,
     total_pages: totalPages
   } = data;
-  const { datastores, records } = store.getState();
-  const { active: activeDatastore } = datastores;
+  const { records } = store.getState();
 
-  if (['everything', activeDatastore].includes(datastoreUid) && specialists) {
+  if (data.specialists) {
     store.dispatch(addSpecialists(specialists));
   }
 
