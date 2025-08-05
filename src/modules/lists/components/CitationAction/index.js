@@ -12,7 +12,7 @@ const cslField = (record) => {
 const citations = {
   MLA: 'modern-language-association',
   APA: 'apa',
-  Chicago: 'chicago-note-bibliography',
+  Chicago: 'chicago-notes-bibliography',
   IEEE: 'ieee',
   NLM: 'national-library-of-medicine-grant-proposals',
   BibTex: 'bibtex'
