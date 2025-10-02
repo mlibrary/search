@@ -1,38 +1,23 @@
-name: Update dependabot pull request title
+name: Dependabot pull requests
 
 on:
   pull_request:
-    types: [opened]
 
 jobs:
-  update-title:
+  dependabot:
+    name: Auto-merge Dependabot PRs
     runs-on: ubuntu-latest
+    if: ${{github.event.pull_request.user.login == 'dependabot[bot]'}}
     permissions:
       pull-requests: write
+      contents: write
+    env:
+      GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      PR_URL: ${{github.event.pull_request.html_url}}
     steps:
-    - uses: actions/checkout@v5
-    - name: Check conditions
-      id: check_conditions
-      run: |
-        if [[ "${{ github.event.pull_request.user.login }}" != "dependabot[bot]" ]]; then
-          echo "Author does not match."
-          exit 0
-        fi
-        labels=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels | jq -r '.[].name')
-        if [[ $labels != *"dependencies"* ]]; then
-          echo "Label does not match."
-          exit 0
-        fi
-        echo "conditions_met=true" >> $GITHUB_ENV
-    - name: Update PR title
-      if: env.conditions_met == 'true'
-      run: |
-        NEW_TITLE="$(date +'%B %Y') dependency updates."
-        curl -X PATCH \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} \
-          -d "{\"title\":\"${NEW_TITLE}\"}"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Fetch Dependabot Metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Merge the PR
+        run: gh pr merge --squash --auto "$PR_URL"
