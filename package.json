@@ -13,7 +13,7 @@
     "react-scripts": "^5.0.1"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.9.1",
+    "@reduxjs/toolkit": "^2.9.2",
     "citeproc": "^2.4.63",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
     "pride": "git+https://github.com/mlibrary/pride.git",
