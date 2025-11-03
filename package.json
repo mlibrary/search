@@ -4,12 +4,12 @@
   "private": true,
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
-    "@eslint/compat": "^1.4.0",
-    "@eslint/js": "^9.38.0",
+    "@eslint/compat": "^1.4.1",
+    "@eslint/js": "^9.39.0",
     "@stylistic/eslint-plugin": "^5.5.0",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.0",
     "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.4.0",
+    "globals": "^16.5.0",
     "react-scripts": "^5.0.1"
   },
   "dependencies": {
@@ -21,7 +21,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.9.4"
+    "react-router-dom": "^7.9.5"
   },
   "overrides": {
     "@babel/plugin-proposal-private-property-in-object": "npm:@babel/plugin-transform-private-property-in-object",
