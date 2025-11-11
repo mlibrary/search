@@ -10,24 +10,14 @@ const AccessibilityPage = () => {
   return (
     <div className='container container-narrow'>
       <main className='container__rounded page'>
-        <H1>Accessibility</H1>
-        <p>We are dedicated to creating inclusive services and products for all users. We are constantly working to make Library Search as accessible and usable as possible.</p>
-        <p>We aim to meet <Anchor href='https://www.w3.org/TR/WCAG21/'>WCAG 2.1 AA standards</Anchor></p>
-        <h2>Compatibility with tools</h2>
-        <p>Library Search should be compatible with recent version of the following screen readers:</p>
-        <ul>
-          <li>JAWS</li>
-          <li>NVDA</li>
-          <li>VoiceOver</li>
-        </ul>
-        <p>The site should also be compatible with:</p>
-        <ul>
-          <li>basic operating system screen magnifiers, such as ZoomText magnifier</li>
-          <li>speech recognition software</li>
-          <li>operating system speech package</li>
-        </ul>
-        <h2>Provide feedback</h2>
-        <p>Are you having trouble using Library Search? <Anchor href='https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf'>Please let us know</Anchor> so that we can make improvements to improve your experience.</p>
+        <H1>Library Search Accessibility Statement</H1>
+        <p>The University of Michigan Library is dedicated to creating inclusive services and products for all users. See more about our approach to <Anchor href='https://www.lib.umich.edu/about-us/about-library/accessibility/digital-product-accessibility'>digital product accessibility</Anchor>, as well as our overall <Anchor href='https://lib.umich.edu/about-us/about-library/accessibility'>accessibility services and practices</Anchor> at the U-M Library.</p>
+        <h2>Standards and compliance</h2>
+        <p>Our baseline accessibility target is to meet <Anchor href='https://www.w3.org/TR/WCAG21/'>WCAG 2.1 AA standards</Anchor>. The last accessibility evaluation for Library Search was in March 2023.</p>
+        <p>The next scheduled accessibility evaluation for this product is in 2026.</p>
+        <h2>Feedback and support</h2>
+        <p>We welcome your feedback and will do our best to resolve any issues promptly.</p>
+        <p>If you encounter any accessibility issues while using this product or have questions, please contact us <Anchor href='https://umich.qualtrics.com/jfe/form/SV_bCwYIKueEXs8wBf'>via our feedback form</Anchor>.</p>
       </main>
     </div>
   );
