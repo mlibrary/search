@@ -4,24 +4,24 @@
   "private": true,
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
-    "@eslint/compat": "^1.4.1",
+    "@eslint/compat": "^2.0.0",
     "@eslint/js": "^9.39.1",
-    "@stylistic/eslint-plugin": "^5.5.0",
+    "@stylistic/eslint-plugin": "^5.6.1",
     "eslint": "^9.39.1",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
     "react-scripts": "^5.0.1"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.10.1",
+    "@reduxjs/toolkit": "^2.11.0",
     "citeproc": "^2.4.63",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
     "pride": "git+https://github.com/mlibrary/pride.git",
     "qs": "^6.14.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.9.5"
+    "react-router-dom": "^7.10.1"
   },
   "overrides": {
     "@babel/plugin-proposal-private-property-in-object": "npm:@babel/plugin-transform-private-property-in-object",
@@ -53,7 +53,7 @@
     "lint:fix": "npm run lint -- --fix",
     "reinstall": "rm -rf node_modules && rm package-lock.json && npm install",
     "update:csl": "(cd public/citations && for i in *.csl ; do wget -O \"$i\" https://raw.githubusercontent.com/citation-style-language/styles/refs/heads/master/\"$i\" ; done && wget -O locales-en-US.xml https://raw.githubusercontent.com/citation-style-language/locales/refs/heads/master/locales-en-US.xml)",
-    "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://search-staging.www.lib.umich.edu/spectrum} REACT_APP_LOGIN_BASE_URL=${REACT_APP_LOGIN_BASE_URL:-https://search-staging.www.lib.umich.edu} react-scripts start"
+    "start": "REACT_APP_SPECTRUM_BASE_URL=${REACT_APP_SPECTRUM_BASE_URL:-https://legacy-search.workshop.search.lib.umich.edu/spectrum} REACT_APP_LOGIN_BASE_URL=${REACT_APP_LOGIN_BASE_URL:-https://search-staging.www.lib.umich.edu} react-scripts start"
   },
   "browserslist": {
     "production": [
