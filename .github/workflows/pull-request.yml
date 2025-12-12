@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: lts/*
           check-latest: true
-      - name: Clean install
-        run: npm ci
+      - name: Install NPM
+        run: npm install
       - name: Run ESLint
         run: npm run lint

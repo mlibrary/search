@@ -8,10 +8,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
-      - name: Use Node.js 20.5.1
+      - name: Install latest LTS version of Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 20.5.1
+          node-version: lts/*
       - name: Install dependencies
         run: npm install
 
@@ -21,8 +21,8 @@ jobs:
         run: npm run build
         env:
           CI: false
-          REACT_APP_LOGIN_BASE_URL: https://search-staging.www.lib.umich.edu
-          REACT_APP_SPECTRUM_BASE_URL: https://search-staging.www.lib.umich.edu/spectrum
+          REACT_APP_LOGIN_BASE_URL: https://legacy-search.workshop.search.lib.umich.edu/
+          REACT_APP_SPECTRUM_BASE_URL: https://legacy-search.workshop.search.lib.umich.edu//spectrum
       - name: "Package: Staging"
         run: tar -C build --transform s/./search/ -czf search-staging.tar.gz .
       - name: "Upload Release Asset: Staging"
