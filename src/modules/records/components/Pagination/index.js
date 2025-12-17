@@ -81,6 +81,8 @@ const Pagination = () => {
         <input
           className='pagination-input'
           value={currentPage}
+          min='1'
+          max={totalPages}
           type='number'
           aria-label={`Page ${currentPage} of ${totalConverted} pages`}
           onBlur={() => {
