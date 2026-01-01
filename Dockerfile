@@ -1,4 +1,4 @@
-FROM node:25.1.0
+FROM node:25.2.1
 RUN mkdir -p /app/build
 WORKDIR /app
 COPY ./package.json ./package-lock.json /app/
