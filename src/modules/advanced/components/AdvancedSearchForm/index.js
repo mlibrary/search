@@ -42,15 +42,19 @@ const AdvancedSearchForm = ({ datastore }) => {
 
     /*
      * Build the query
-     * example: 'title:parrots AND author:charles'
+     * example: '(evolution) AND title:(parrots) AND author:(charles)'
      */
     const query = fieldedSearches
       .reduce((memo, fieldedSearch) => {
-        if (fieldedSearch.query.length) {
+        const { field, query: queryValue } = fieldedSearch;
+        if (queryValue.length) {
           if (memo.length > 0) {
             memo.push(booleanTypes[fieldedSearch.booleanType]);
           }
-          const input = fieldedSearch.field === 'keyword' ? fieldedSearch.query : `${fieldedSearch.field}:(${fieldedSearch.query})`;
+          let input = `(${queryValue})`;
+          if (field !== 'keyword') {
+            input = `${field}:${input}`;
+          }
           memo.push(input);
         }
 
