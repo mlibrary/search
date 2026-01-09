@@ -1701,6 +1701,7 @@ details[open] > summary svg.expand_more {
 
 .marc__table td {
   vertical-align: top;
+  white-space: pre-wrap;
 }
 
 .marc__table td:not(:first-child):not(:last-child) {
