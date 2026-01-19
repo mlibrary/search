@@ -32,7 +32,7 @@ const Footer = () => {
             </li>
             <li>
               <Anchor to='/accessibility'>
-                Accessibility
+                Library Search Accessibility
               </Anchor>
             </li>
             <li>
