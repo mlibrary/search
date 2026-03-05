@@ -1,3 +1,12 @@
+.holder-content > * + * {
+  margin-top: 1rem;
+}
+
+.holder-content > ul + .btn {
+  margin-left: 2.5rem;
+  margin-top: 0;
+}
+
 .holder-container {
   overflow-x: auto;
 }
