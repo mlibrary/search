@@ -22,26 +22,37 @@ const notesList = (notes) => {
   }
 
   return (
-    <ul>
-      {notes.map((note, index) => {
-        return (
-          <li
-            key={note + index}
-            className='text-grey__light padding-bottom__xs'
-          >
-            {note}
-          </li>
-        );
-      })}
-    </ul>
+    <Expandable>
+      <ul className='margin-bottom__none'>
+        <ExpandableChildren show={2}>
+          {notes.map((note, index) => {
+            return (
+              <li
+                key={note + index}
+                className='text-grey__light padding-bottom__xs'
+              >
+                {note}
+              </li>
+            );
+          })}
+        </ExpandableChildren>
+      </ul>
+
+      {notes.length > 2 && (
+        <ExpandableButton
+          name='holdings notes'
+          count={notes.length}
+        />
+      )}
+    </Expandable>
   );
 };
 
 const Holder = ({ captionLink, headings, notes, preExpanded, rows, ...rest }) => {
   const isExpandable = rows.length > 10;
   return (
-    <div {...rest}>
-      {captionLink && (
+    <div className='holder-content' {...rest}>
+      {captionLink?.href && (
         <p className='margin__none'>
           <Anchor href={captionLink.href} className='btn--tertiary'>
             {captionLink.text}
