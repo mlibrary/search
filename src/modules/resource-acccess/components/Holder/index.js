@@ -15,33 +15,52 @@ const notesList = (notes) => {
 
   if (notes.length === 1) {
     return (
-      <p className='text-grey__light'>
-        {notes[0]}
-      </p>
+      <Expandable>
+        <ExpandableChildren show={0}>
+          <p className='text-grey__light margin-bottom__none'>
+            {notes[0]}
+          </p>
+        </ExpandableChildren>
+        <ExpandableButton
+          name='holdings note'
+          count={notes.length}
+        />
+      </Expandable>
     );
   }
 
   return (
-    <ul>
-      {notes.map((note, index) => {
-        return (
-          <li
-            key={note + index}
-            className='text-grey__light padding-bottom__xs'
-          >
-            {note}
-          </li>
-        );
-      })}
-    </ul>
+    <Expandable>
+      <ul className='margin-bottom__none'>
+        <ExpandableChildren show={0}>
+          {notes.map((note, index) => {
+            return (
+              <li
+                key={note + index}
+                className='text-grey__light padding-bottom__xs'
+              >
+                {note}
+              </li>
+            );
+          })}
+        </ExpandableChildren>
+      </ul>
+
+      {notes.length > 0 && (
+        <ExpandableButton
+          name='holdings notes'
+          count={notes.length}
+        />
+      )}
+    </Expandable>
   );
 };
 
 const Holder = ({ captionLink, headings, notes, preExpanded, rows, ...rest }) => {
   const isExpandable = rows.length > 10;
   return (
-    <div {...rest}>
-      {captionLink && (
+    <div className='holder-content' {...rest}>
+      {captionLink?.href && (
         <p className='margin__none'>
           <Anchor href={captionLink.href} className='btn--tertiary'>
             {captionLink.text}
