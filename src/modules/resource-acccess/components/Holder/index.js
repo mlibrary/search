@@ -15,16 +15,24 @@ const notesList = (notes) => {
 
   if (notes.length === 1) {
     return (
-      <p className='text-grey__light'>
-        {notes[0]}
-      </p>
+      <Expandable>
+        <ExpandableChildren show={0}>
+          <p className='text-grey__light margin-bottom__none'>
+            {notes[0]}
+          </p>
+        </ExpandableChildren>
+        <ExpandableButton
+          name='holdings note'
+          count={notes.length}
+        />
+      </Expandable>
     );
   }
 
   return (
     <Expandable>
       <ul className='margin-bottom__none'>
-        <ExpandableChildren show={2}>
+        <ExpandableChildren show={0}>
           {notes.map((note, index) => {
             return (
               <li
@@ -38,7 +46,7 @@ const notesList = (notes) => {
         </ExpandableChildren>
       </ul>
 
-      {notes.length > 2 && (
+      {notes.length > 0 && (
         <ExpandableButton
           name='holdings notes'
           count={notes.length}
