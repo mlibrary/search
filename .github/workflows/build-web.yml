@@ -8,7 +8,7 @@ on:
 jobs:
   build-unstable:
     name: Build unstable ${{ github.sha }}
-    uses: mlibrary/platform-engineering-workflows/.github/workflows/build-unstable.yml@v1
+    uses: mlibrary/platform-engineering-workflows/.github/workflows/build-unstable.yml@2012bb6a322ad02c45c01372de2f5e2e3d7329ac # v1.6.7
     with:
       image_name: ${{ vars.IMAGE_NAME }}
       tag: ${{ github.sha }}
@@ -18,7 +18,7 @@ jobs:
   deploy-testing:
     needs: build-unstable
     name: Deploy to testing
-    uses: mlibrary/platform-engineering-workflows/.github/workflows/deploy.yml@v1
+    uses: mlibrary/platform-engineering-workflows/.github/workflows/deploy.yml@2012bb6a322ad02c45c01372de2f5e2e3d7329ac # v1.6.7
     with:
       image: ${{ needs.build-unstable.outputs.image }}
       file: ${{ vars.CONFIG_REPO_TESTING_IMAGE_FILE }}
