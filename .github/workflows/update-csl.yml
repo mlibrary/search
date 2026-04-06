@@ -10,9 +10,9 @@ jobs:
       - name: Construct the target branch name
         id: date
         run: echo "::set-output name=branch::$(date +'%Y-%m-%d-update-csl-files')"
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - run: "npm run update:csl"
-      - uses: gr2m/create-or-update-pull-request-action@v1
+      - uses: gr2m/create-or-update-pull-request-action@b65137ca591da0b9f43bad7b24df13050ea45d1b # v1.10.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
