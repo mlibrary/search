@@ -4,12 +4,12 @@
   "private": true,
   "homepage": "https://search.lib.umich.edu",
   "devDependencies": {
-    "@eslint/compat": "^2.0.3",
+    "@eslint/compat": "^2.0.5",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "eslint": "^10.1.0",
+    "eslint": "^10.2.1",
     "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.4.0",
+    "globals": "^17.5.0",
     "react-scripts": "^5.0.1"
   },
   "dependencies": {
@@ -17,11 +17,11 @@
     "citeproc": "^2.4.63",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
     "pride": "git+https://github.com/mlibrary/pride.git",
-    "qs": "^6.15.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "qs": "^6.15.1",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.13.2"
+    "react-router-dom": "^7.14.2"
   },
   "overrides": {
     "@babel/plugin-proposal-private-property-in-object": "npm:@babel/plugin-transform-private-property-in-object",
