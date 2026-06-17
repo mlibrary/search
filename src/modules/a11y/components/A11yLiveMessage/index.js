@@ -11,8 +11,10 @@ const A11yLiveMessage = () => {
   }
 
   return (
-    <div role='status' aria-atomic='true' aria-live='polite' className='offpage'>
-      {a11y}
+    <div role='status' aria-atomic='true' aria-live='polite' className='zoffpage'>
+      <div className='region' aria-label='Accessibility Live Message'>
+        {a11y}
+      </div>
     </div>
   );
 };
