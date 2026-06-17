@@ -12,7 +12,9 @@ const A11yLiveMessage = () => {
 
   return (
     <div role='status' aria-atomic='true' aria-live='polite' className='offpage'>
-      {a11y}
+      <section className='region' aria-label='Accessibility Live Message'>
+        {a11y}
+      </section>
     </div>
   );
 };
