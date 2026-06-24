@@ -3,7 +3,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { setAdvancedFilter } from '../../../advanced';
 import { useDispatch } from 'react-redux';
 
-const Multiselect = ({ currentFilters, datastoreUid, filterGroupUid, filters = {}, name }) => {
+const Multiselect = ({
+  currentFilters = [],
+  datastoreUid,
+  filterGroupUid,
+  filters = [],
+  name
+}) => {
   const dispatch = useDispatch();
   const [filterQuery, setFilterQuery] = useState('');
   const [showOnlySelectedOptions, setShowOnlySelectedOptions] = useState(false);
@@ -17,10 +23,6 @@ const Multiselect = ({ currentFilters, datastoreUid, filterGroupUid, filters = {
       };
     });
   }, [filters]);
-
-  if (!options.length) {
-    return null;
-  }
 
   useEffect(() => {
     currentFilters.forEach((filterValue) => {
@@ -38,6 +40,10 @@ const Multiselect = ({ currentFilters, datastoreUid, filterGroupUid, filters = {
     });
   }, [options]);
 
+  if (!options.length) {
+    return null;
+  }
+
   const handleOptionSelection = ({ filterValue }) => {
     dispatch(setAdvancedFilter({
       datastoreUid,
@@ -50,12 +56,15 @@ const Multiselect = ({ currentFilters, datastoreUid, filterGroupUid, filters = {
   };
 
   const isOptionFiltered = ({ optionName }) => {
-    return filterQuery.length > 0 && !optionName.toLowerCase().includes(filterQuery.toLowerCase());
+    return filterQuery.length > 0
+      && !optionName.toLowerCase().includes(filterQuery.toLowerCase());
   };
 
   return (
     <div className='multiselect y-spacing'>
-      <p className='font-small'>Select one or more checkboxes to narrow your results to items that match all of your {name.toLowerCase()} selections.</p>
+      <p className='font-small'>
+        Select one or more checkboxes to narrow your results to items that match all of your {name.toLowerCase()} selections.
+      </p>
       <input
         type='text'
         className='font-small'
@@ -68,17 +77,24 @@ const Multiselect = ({ currentFilters, datastoreUid, filterGroupUid, filters = {
         }}
         autoComplete='on'
       />
-      <p id={filterGroupUid} className='visually-hidden'>Below this edit box is a list of check boxes that allow you to filter down your options. As you type in this edit box, the list of check boxes is updated to reflect only those that match the query typed in this box.</p>
+      <p id={filterGroupUid} className='visually-hidden'>
+        Below this edit box is a list of check boxes that allow you to filter down your options.
+        As you type in this edit box, the list of check boxes is updated to reflect only those
+        that match the query typed in this box.
+      </p>
       <fieldset className='multiselect-options container__rounded padding__xs padding-top__2xs'>
         <legend className='visually-hidden'>Filter Options</legend>
         <ul className='list__unstyled'>
-          {options.map((option, index) => {
+          {options.map((option) => {
             const { checked, name: optionName, value: filterValue } = option;
-            if ((!showOnlySelectedOptions && isOptionFiltered({ optionName })) || (showOnlySelectedOptions && !checked)) {
+            if (
+              (!showOnlySelectedOptions && isOptionFiltered({ optionName }))
+              || (showOnlySelectedOptions && !checked)
+            ) {
               return null;
             }
             return (
-              <li key={index} className='margin-top__2xs'>
+              <li key={filterValue} className='margin-top__2xs'>
                 <label className='font-small'>
                   <input
                     type='checkbox'
