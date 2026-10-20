@@ -14,7 +14,7 @@ const citations = {
   APA: 'apa',
   Chicago: 'chicago-notes-bibliography',
   IEEE: 'ieee',
-  NLM: 'national-library-of-medicine-grant-proposals',
+  NLM: 'nlm-citation-sequence-superscript',
   BibTex: 'bibtex'
 };
 /* eslint-enable sort-keys */
