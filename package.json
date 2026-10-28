@@ -17,7 +17,7 @@
     "citeproc": "^2.4.63",
     "prejudice": "git+https://github.com/mlibrary/prejudice.git",
     "pride": "git+https://github.com/mlibrary/pride.git",
-    "qs": "^6.16.0",
+    "qs": "^6.17.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-redux": "^9.3.0",
