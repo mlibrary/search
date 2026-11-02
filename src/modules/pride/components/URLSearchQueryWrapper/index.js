@@ -8,7 +8,7 @@ import {
   runSearch,
   switchPrideToDatastore
 } from '../../../pride';
-import { memo, React, useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import {
   searching,
   setPage,
